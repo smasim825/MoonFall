@@ -73,3 +73,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Uncompressed WebGL files generated for local static hosting
+ExportFiles/Build/*.wasm
+ExportFiles/Build/*.data
+ExportFiles/Build/*.framework.js
+ExportFiles/index-uncompressed.html
