@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/MainBase.unity
     guid: 7fec2760a71cafc45a27d2dbd2bb56c2
   - enabled: 1
-    path: Assets/Scenes/FoodMission.unity
+    path: Assets/Scenes/FoodAndProduction.unity
     guid: abbd228dc5e491246b8f5adcf4e63903
   - enabled: 1
     path: Assets/Scenes/DailyTakingMeal.unity
     guid: 835c4f6ba12db9c4081483cfb04da83d
   - enabled: 1
-    path: Assets/Scenes/Power.unity
+    path: Assets/Scenes/PowerAndEnergy.unity
     guid: c55a7f6eb083ef74e9961b1cf01450d5
   - enabled: 1
     path: Assets/Scenes/RadiationShelter.unity
