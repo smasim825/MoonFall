@@ -243,7 +243,7 @@
       radiationCard: false,
       earthCard: false,
       shelterScene: true,
-      shelterBg: 'after game.png',
+      shelterBg: 'assets/after game.png',
       hideCharacters: false
     },
     {
@@ -256,7 +256,7 @@
       radiationCard: false,
       earthCard: false,
       shelterScene: true,
-      shelterBg: 'Main Base-2 1.png',
+      shelterBg: 'assets/Main Base-2 1.png',
       hasRedLayer: true,
       hideCharacters: false
     },
@@ -398,7 +398,7 @@
       if (scene.shelterBg) {
         layerShelter.style.backgroundImage = `url('${scene.shelterBg}')`;
       } else {
-        layerShelter.style.backgroundImage = "url('scene 8/image 128.png')";
+        layerShelter.style.backgroundImage = "url('assets/scene 8/image 128.png')";
       }
       if (scene.dimShelter) {
         layerShelter.style.filter = 'brightness(0.65)';
@@ -422,7 +422,7 @@
       layerBackground.style.opacity = '1';
       layerRover.style.opacity      = '1';
       layerShelter.classList.add('hidden');
-      layerShelter.style.backgroundImage = "url('scene 8/image 128.png')";
+      layerShelter.style.backgroundImage = "url('assets/scene 8/image 128.png')";
       layerShelter.style.filter = 'none';
       if (layerBaseRed) layerBaseRed.classList.add('hidden');
       shelterCharacters.classList.add('hidden');

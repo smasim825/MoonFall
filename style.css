@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Jersey 10';
-  src: url('Jersey10.ttf') format('truetype');
+  src: url('assets/fonts/Jersey10.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
@@ -294,7 +294,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('scene 3/Red_Layer.png');
+  background-image: url('assets/scene 3/Red_Layer.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   pointer-events: none;

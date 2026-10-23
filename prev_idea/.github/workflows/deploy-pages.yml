@@ -1,0 +1,64 @@
+name: Deploy MoonFall to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Prepare build files for GitHub Pages
+        run: |
+          node -e '
+            const fs = require("fs");
+            const path = require("path");
+            const zlib = require("zlib");
+            const buildDir = path.join("ExportFiles", "Build");
+            ["ExportFiles.data", "ExportFiles.framework.js", "ExportFiles.wasm"].forEach(file => {
+              const br = path.join(buildDir, file + ".br");
+              const out = path.join(buildDir, file);
+              if (fs.existsSync(br)) {
+                fs.writeFileSync(out, zlib.brotliDecompressSync(fs.readFileSync(br)));
+              }
+            });
+            const idx = path.join("ExportFiles", "index.html");
+            let html = fs.readFileSync(idx, "utf8");
+            html = html.replace(/ExportFiles\.data\.br/g, "ExportFiles.data");
+            html = html.replace(/ExportFiles\.framework\.js\.br/g, "ExportFiles.framework.js");
+            html = html.replace(/ExportFiles\.wasm\.br/g, "ExportFiles.wasm");
+            fs.writeFileSync(idx, html);
+          '
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'ExportFiles'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

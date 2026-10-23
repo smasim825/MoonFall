@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1715874f786640641bb6d0cfa076cc38, type: 3}
+  m_Name: Mission_Food
+  m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  id: food_production
+  title: 'Mission 2: Food and Production'
+  icon: {fileID: -7379864541854893131, guid: a791fd4c7304b18428ff4bafaad64a59, type: 3}
+  sceneName: FoodAndProduction
+  subLevels:
+  - title: Plan Daily Meal
+    description: Choose and prepare astronaut meals while managing water, energy,
+      and food waste.
+  - title: Hydroponics
+    description: "Grow crops in a lunar greenhouse and report your plants\u2019 growth
+      and health to Earth scientists."
+  totalSteps: 0

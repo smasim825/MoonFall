@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1715874f786640641bb6d0cfa076cc38, type: 3}
+  m_Name: Mission_Power
+  m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  id: power_energy
+  title: 'Mission 1: Power and Energy'
+  icon: {fileID: 228663082792738388, guid: 035912f96e799c947954d84f10ae9559, type: 3}
+  sceneName: PowerAndEnergy
+  subLevels:
+  - title: ' Power System'
+    description: Learn about the components that keep our lunar base powered up.
+  - title: Balance the Grid
+    description: Distribute power wisely to keep every essential base facility running.
+  - title: Restore Solar Array
+    description: Clean lunar dust off the solar panels to increase their power generation.
+  totalSteps: 0
