@@ -40,7 +40,7 @@
     return ctx;
   }
 
-  // ---------- Radiation mission (1.1_power.html + game.js) ----------
+  // ---------- Radiation mission (5.1_Radiation_mission.html + game.js) ----------
   // Scene number -> knowledge-base step of the solar_storm mission card
   const SCENE_STEP = [
     [[1, 2, 3], "solar_storm.storm_alert.1"],
@@ -65,6 +65,19 @@
     return ctx;
   }
 
+  // ---------- Power mission (1.1_power_mission.html) ----------
+  // No debrief here: the power debrief scores load-shedding choices, which this page does not have yet.
+  function powerContext() {
+    const ctx = { missionId: "power", subLevel: "Power System" };
+    const card = $("cardOverlay");
+    const badge = shown(card) && $("cardBadge") ? $("cardBadge").textContent : "";
+    if (shown($("calibrationOverlay")) || shown($("missionCompleteModal"))) ctx.step = "power.power_system.3";
+    else if (/FISSION/i.test(badge)) ctx.step = "power.balance_the_grid.2";
+    else if (badge) ctx.step = "power.power_system.2";
+    else ctx.step = "power.power_system.1";
+    return ctx;
+  }
+
   let debriefed = false;
   function checkComplete() {
     const done = shown($("missionCompleteOverlay"));
@@ -84,6 +97,9 @@
     if ($("baseViewport")) {
       update = () => send(baseContext());
       watch = $("baseViewport");
+    } else if ($("powerStage")) {
+      update = () => send(powerContext());
+      watch = $("powerStage");
     } else if ($("gameViewport") && $("dialogueBoxScene1")) {
       update = () => {
         send(missionContext());
