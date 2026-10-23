@@ -1528,7 +1528,7 @@
         showScene4: false,
         showDiningIntake: false,
         isAstroBee: false,
-        text: "Welcome to the food storage room, rookie! Today we'll plan your daily nutrition and meal prep to keep our lunar crew energized."
+        text: "Welcome to food storage, Cadet! Today we plan daily nutrition for our crew."
       },
       {
         sceneId: 2,
@@ -1542,7 +1542,7 @@
         showScene4: false,
         showDiningIntake: false,
         isAstroBee: false,
-        text: "Every meal is individually sealed in multilayer PET, aluminum, and PE packaging to protect it from oxygen and moisture."
+        text: "Meals are sealed in multilayer PET, aluminum, and PE film to block oxygen and moisture."
       },
       {
         sceneId: 3,
@@ -1556,7 +1556,7 @@
         showScene4: false,
         showDiningIntake: false,
         isAstroBee: false,
-        text: "Nitrogen flushing reduces residual oxygen to below 0.5%, helping preserve food quality. We also control temperature and humidity, and secure every package so it doesn't shift around."
+        text: "Nitrogen flushing keeps oxygen below 0.5% while climate control protects food quality."
       },
       {
         sceneId: 4,
@@ -1570,7 +1570,7 @@
         showScene4: true,
         showDiningIntake: false,
         isAstroBee: false,
-        text: "Now you have learnt how they are packed, let's choose your meal for today. You have three options"
+        text: "Choose your meal for today. Pick one of the three options below!"
       },
       {
         sceneId: 5,
@@ -1584,7 +1584,7 @@
         showScene4: false,
         showDiningIntake: false,
         isAstroBee: false,
-        text: "Great. Let's get that meal prepared."
+        text: "Great! Let's get your meal prepared."
       },
       {
         sceneId: 6,
@@ -1598,7 +1598,7 @@
         showScene4: false,
         showDiningIntake: false,
         isAstroBee: false,
-        text: "See, space foods come in three main types: Ready-to-Eat, Rehydratable, and Food Warmerable"
+        text: "Space foods come in three types: Ready-to-Eat, Rehydratable, and Food Warmerable."
       },
       {
         sceneId: 7,
@@ -1612,7 +1612,7 @@
         showScene4: false,
         showDiningIntake: false,
         isAstroBee: false,
-        text: "If the meal is ready-to-eat, simply tear open the package and enjoy."
+        text: "For ready-to-eat meals, simply tear the pouch open and enjoy!"
       },
       {
         sceneId: 8,
@@ -1626,7 +1626,7 @@
         showScene4: false,
         showDiningIntake: false,
         isAstroBee: false,
-        text: "Rehydratable meals need water, so connect the package to the potable water dispenser and add the exact amount required."
+        text: "For rehydratables, connect the pouch to the dispenser and inject potable water."
       },
       {
         sceneId: 9,
@@ -1640,7 +1640,7 @@
         showScene4: false,
         showDiningIntake: false,
         isAstroBee: false,
-        text: "If your meal needs heating, place the sealed package in the electric food warmer."
+        text: "For hot meals, place the sealed pouch in the electric food warmer."
       },
       {
         sceneId: 10,
@@ -1654,7 +1654,7 @@
         showScene4: false,
         showDiningIntake: false,
         isAstroBee: false,
-        text: "Now that your food is ready let's eat together"
+        text: "Your meal is ready! Let's eat together, Cadet."
       },
       {
         sceneId: 11,
@@ -1668,7 +1668,7 @@
         showScene4: false,
         showDiningIntake: true,
         isAstroBee: false,
-        text: "Daily intake logged! Energy reserves are balanced for lunar operations."
+        text: "Daily intake logged! Energy reserves balanced for lunar duty."
       },
       {
         sceneId: 12,
@@ -1682,7 +1682,7 @@
         showScene4: false,
         showDiningIntake: false,
         isAstroBee: true,
-        text: "Based on what you learned, let's do a quick system verification before we move forward."
+        text: "Let's do a quick verification of what you've learned, Cadet!"
       }
     ];
 
@@ -1926,7 +1926,7 @@
       updateReserveBars(null);
 
       const meal = MEAL_DATA[mealId];
-      const proceedText = `${meal.title} selected! Reserves: -${meal.waterBarsToDeduct} Water, -${meal.powerBarsToDeduct} Power. Click SKIP to proceed!`;
+      const proceedText = `${meal.title} chosen! -${meal.waterBarsToDeduct} Water, -${meal.powerBarsToDeduct} Power. Click SKIP to proceed!`;
       startTypewriter(proceedText);
     }
 
@@ -2031,7 +2031,7 @@
       let dialogueMsg = s.text;
       if (s.sceneId === 11) {
         const chosenKcal = selectedMealId ? MEAL_DATA[selectedMealId].kcal : 850;
-        dialogueMsg = `${chosenKcal} kcal consumed for this meal! Daily intake logged. Click SKIP to continue to verification!`;
+        dialogueMsg = `${chosenKcal} kcal logged! Energy balanced. Click SKIP for verification!`;
       }
       startTypewriter(dialogueMsg);
     }
@@ -2256,7 +2256,7 @@
       dialogueBoxAstroBee.classList.remove('hidden');
       activeDialogueTextEl = dialogueTextAstroBee;
 
-      const completeMsg = "Mission accomplished! Outstanding work, Cadet! Our crew and lunar habitat are well nourished and ready for operations.";
+      const completeMsg = "Mission accomplished! Our lunar crew is well nourished and ready for duty!";
       startTypewriter(completeMsg);
     }
 
