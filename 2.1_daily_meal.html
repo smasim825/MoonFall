@@ -683,12 +683,10 @@
     /* Scene 1-11 Sunita Box (using 2.1_Daily_Meal/Dialogue_Box.webp) */
     .dialogue-box.scene-1-box {
       position: relative;
-      width: 87.7%;
-      max-width: 1400px;
+      width: 90%;
+      max-width: 1450px;
       aspect-ratio: 2824 / 441;
       display: flex;
-      align-items: center;
-      padding: 1.5% 4.5% 0 4.5%;
       box-sizing: border-box;
     }
 
@@ -707,8 +705,8 @@
       position: absolute;
       top: 15.9%;
       transform: translateY(-50%);
-      right: 3.2%;
-      width: 13.4%;
+      right: 2.5%;
+      width: 12.2%;
       aspect-ratio: 376 / 127;
       display: block;
       background: transparent;
@@ -751,23 +749,25 @@
       pointer-events: none;
     }
 
+    /* Dialogue Content: strictly below top blue line/tab, expanded left & right for maximum line length */
     .scene-1-box .dialogue-content {
-      position: relative;
-      z-index: 2;
-      width: 90%;
-      padding-left: 17.5%;
-      padding-right: 4%;
+      position: absolute;
+      top: 19%;
+      bottom: 6%;
+      left: 11.5%;
+      right: 15%;
       display: flex;
       align-items: center;
       overflow: hidden;
       box-sizing: border-box;
+      z-index: 2;
     }
 
     .scene-1-box .dialogue-text {
       font-family: var(--font-pixel);
-      font-size: clamp(1.25rem, 2.35vw, 2.5rem);
+      font-size: clamp(1.15rem, 2.05vw, 2.25rem);
       font-weight: 400;
-      line-height: 1.12;
+      line-height: 1.15;
       color: #000000;
       white-space: normal;
       word-break: normal;
@@ -777,6 +777,7 @@
       -moz-osx-font-smoothing: grayscale;
       image-rendering: pixelated;
       margin: 0;
+      width: 100%;
     }
 
     /* Astro Bee Dialogue Box (Frame 6.png - for MCQ & Mission Complete) */
