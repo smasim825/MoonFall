@@ -264,19 +264,21 @@
     }
 
     /* ==========================================================================
-       HOVER EFFECT: Energetic Color Hover Glow, Lift & Bounce
+       HOVER EFFECT: Desktop-Only Glow (prevents sticky square box on touchscreens)
        ========================================================================== */
-    .building-layer.hovered,
-    .building-layer:hover {
-      filter: brightness(1.4) contrast(1.18) drop-shadow(0 0 32px var(--glow-color)) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.85)) !important;
-      transform: translateY(-6px) scale(1.03) !important;
-    }
+    @media (hover: hover) and (pointer: fine) {
+      .building-layer.hovered,
+      .building-layer:hover {
+        filter: brightness(1.18) drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75)) !important;
+        transform: translateY(-5px) scale(1.025) !important;
+      }
 
-    .badge-layer.hovered,
-    .badge-layer:hover {
-      animation-play-state: paused;
-      transform: translateY(-9px) scale(1.12) !important;
-      filter: brightness(1.35) drop-shadow(0 0 24px var(--badge-glow, #ffffff)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.95)) !important;
+      .badge-layer.hovered,
+      .badge-layer:hover {
+        animation-play-state: paused;
+        transform: translateY(-8px) scale(1.08) !important;
+        filter: brightness(1.2) drop-shadow(0 0 10px var(--badge-glow, #ffffff)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85)) !important;
+      }
     }
 
     /* ==========================================================================
@@ -1730,6 +1732,7 @@
 
       const setHover = (active) => {
         if (currentZoomedBldId) return; // don't override zoom styling on hover
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
         if (active) {
           bld.classList.add('hovered');
           badge.classList.add('hovered');
@@ -1746,6 +1749,7 @@
         el.addEventListener('mouseleave', () => setHover(false));
         el.addEventListener('click', (e) => {
           e.stopPropagation();
+          document.querySelectorAll('.building-layer, .badge-layer').forEach(item => item.classList.remove('hovered'));
           zoomBuilding(bldId, badgeId);
         });
       });

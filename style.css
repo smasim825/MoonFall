@@ -944,7 +944,19 @@ body {
   justify-content: center;
   cursor: grab;
   user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
   transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.touch-drag-ghost {
+  position: fixed !important;
+  pointer-events: none !important;
+  z-index: 999999 !important;
+  opacity: 0.95 !important;
+  transform: translate(-50%, -50%) scale(1.25) !important;
+  filter: drop-shadow(0 8px 24px rgba(0, 217, 255, 0.95)) drop-shadow(0 2px 6px #000) !important;
 }
 
 .draggable-item:hover {

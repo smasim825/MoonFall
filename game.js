@@ -567,13 +567,16 @@
     if (miniGameInitialized) return;
     miniGameInitialized = true;
 
-    // --- Drag and Drop Logic ---
+    // --- Drag and Drop Logic (Desktop HTML5 Drag + Mobile Touch Drag & Tap-to-Place) ---
     let draggedData = null;
+    let touchGhost = null;
+    let activeTouchData = null;
 
     traySlots.forEach(slot => {
       const item = slot.querySelector('.draggable-item');
       if (!item) return;
 
+      // 1. Desktop HTML5 Drag Start
       item.addEventListener('dragstart', (e) => {
         if (item.classList.contains('used')) {
           e.preventDefault();
@@ -595,7 +598,87 @@
         item.classList.remove('dragging');
       });
 
-      // Click to select (convenient for click-to-place)
+      // 2. Mobile Touch Drag and Tap-to-Select
+      item.addEventListener('touchstart', (e) => {
+        if (item.classList.contains('used')) return;
+        const touch = e.touches[0];
+        const imgEl = item.querySelector('img');
+        const itemSrc = (imgEl && imgEl.getAttribute('src')) || item.dataset.src;
+
+        activeTouchData = {
+          slotIndex: slot.dataset.slot,
+          type: item.dataset.type,
+          src: itemSrc,
+          startX: touch.clientX,
+          startY: touch.clientY,
+          hasMoved: false
+        };
+
+        if (touchGhost) { touchGhost.remove(); touchGhost = null; }
+        touchGhost = item.cloneNode(true);
+        touchGhost.classList.add('touch-drag-ghost');
+        touchGhost.style.width = (item.offsetWidth || 50) + 'px';
+        touchGhost.style.height = (item.offsetHeight || 50) + 'px';
+        touchGhost.style.left = touch.clientX + 'px';
+        touchGhost.style.top = touch.clientY + 'px';
+        document.body.appendChild(touchGhost);
+      }, { passive: true });
+
+      item.addEventListener('touchmove', (e) => {
+        if (!activeTouchData || !touchGhost) return;
+        const touch = e.touches[0];
+        const dx = touch.clientX - activeTouchData.startX;
+        const dy = touch.clientY - activeTouchData.startY;
+        if (Math.hypot(dx, dy) > 8) {
+          activeTouchData.hasMoved = true;
+        }
+
+        touchGhost.style.left = touch.clientX + 'px';
+        touchGhost.style.top = touch.clientY + 'px';
+
+        const elUnder = document.elementFromPoint(touch.clientX, touch.clientY);
+        const cellUnder = elUnder ? elUnder.closest('.grid-cell') : null;
+        gridCells.forEach(c => c.classList.remove('drag-over'));
+        if (cellUnder && !cellUnder.classList.contains('filled')) {
+          cellUnder.classList.add('drag-over');
+        }
+      }, { passive: true });
+
+      item.addEventListener('touchend', (e) => {
+        if (!activeTouchData) return;
+        const touch = e.changedTouches[0];
+
+        if (touchGhost) {
+          touchGhost.remove();
+          touchGhost = null;
+        }
+        gridCells.forEach(c => c.classList.remove('drag-over'));
+
+        if (!activeTouchData.hasMoved) {
+          // Fast tap -> toggle selection for tap-to-place
+          if (selectedTraySlot === slot.dataset.slot) {
+            item.classList.remove('selected');
+            selectedTraySlot = null;
+          } else {
+            document.querySelectorAll('.draggable-item').forEach(el => el.classList.remove('selected'));
+            item.classList.add('selected');
+            selectedTraySlot = slot.dataset.slot;
+            sound.playSkipBlip();
+          }
+          activeTouchData = null;
+          return;
+        }
+
+        // Drag ended -> check cell beneath finger
+        const elUnder = document.elementFromPoint(touch.clientX, touch.clientY);
+        const cellUnder = elUnder ? elUnder.closest('.grid-cell') : null;
+        if (cellUnder && !cellUnder.classList.contains('filled')) {
+          placeItemInCell(cellUnder, activeTouchData.slotIndex, activeTouchData.type, activeTouchData.src);
+        }
+        activeTouchData = null;
+      });
+
+      // 3. Desktop Click-to-Select
       item.addEventListener('click', (e) => {
         e.stopPropagation();
         if (item.classList.contains('used')) return;
@@ -641,8 +724,8 @@
         }
       });
 
-      // Click grid cell: either place selected item or remove existing item
-      cell.addEventListener('click', (e) => {
+      // Tap / Click cell to place selected item or remove filled item
+      const handleCellInteract = (e) => {
         e.stopPropagation();
         if (cell.classList.contains('filled')) {
           removeItemFromCell(cell);
@@ -659,6 +742,12 @@
             }
           }
         }
+      };
+
+      cell.addEventListener('click', handleCellInteract);
+      cell.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        handleCellInteract(e);
       });
     });
 
