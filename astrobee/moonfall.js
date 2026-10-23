@@ -67,13 +67,13 @@
 
   // ---------- Power mission (1.1_power_mission.html) ----------
   // No debrief here: the power debrief scores load-shedding choices, which this page does not have yet.
+  // The diagram on screen says what is being taught: solar array, battery, day/night, fission, PDU.
   function powerContext() {
     const ctx = { missionId: "power", subLevel: "Power System" };
-    const card = $("cardOverlay");
-    const badge = shown(card) && $("cardBadge") ? $("cardBadge").textContent : "";
-    if (shown($("calibrationOverlay")) || shown($("missionCompleteModal"))) ctx.step = "power.power_system.3";
-    else if (/FISSION/i.test(badge)) ctx.step = "power.balance_the_grid.2";
-    else if (badge) ctx.step = "power.power_system.2";
+    if (shown($("missionEndModal"))) return ctx;
+    const card = shown($("diagramCardContainer")) && $("diagramCardImg") ? $("diagramCardImg").getAttribute("src") || "" : "";
+    if (/fission|nuclear/i.test(card)) ctx.step = "power.balance_the_grid.2";
+    else if (card) ctx.step = "power.power_system.2";
     else ctx.step = "power.power_system.1";
     return ctx;
   }
