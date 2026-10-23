@@ -548,37 +548,85 @@
       filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.85));
     }
 
-    /* Verification Score Percentage Badge */
-    .verification-score-badge {
-      background: rgba(2, 28, 62, 0.92);
-      border: 2px solid #00e5ff;
-      border-radius: 8px;
-      padding: 6px 24px;
-      color: #ffffff;
-      font-size: clamp(1.2rem, 2.3vw, 2.2rem);
-      letter-spacing: 0.05em;
-      box-shadow: 0 0 20px rgba(0, 229, 255, 0.45);
+    /* Circular Verification Score Box (Circle Box) */
+    .circle-score-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin: 4px 0 2px 0;
+    }
+
+    .circle-score-box {
+      position: relative;
+      width: clamp(92px, 10vw, 122px);
+      height: clamp(92px, 10vw, 122px);
       display: flex;
       align-items: center;
-      gap: 16px;
+      justify-content: center;
     }
 
-    .score-meter-wrap {
-      width: 160px;
-      height: 14px;
-      background: #0f172a;
-      border: 1px solid #38bdf8;
-      border-radius: 7px;
-      overflow: hidden;
-      display: inline-block;
-    }
-
-    .score-meter-bar {
-      width: 0%;
+    .score-circular-svg {
+      width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, #ef4444, #fdcb0e, #22c55e);
-      transition: width 0.6s ease;
-      box-shadow: 0 0 10px #22c55e;
+      transform: rotate(-90deg);
+      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.7));
+    }
+
+    .score-circle-bg {
+      fill: rgba(2, 24, 55, 0.9);
+      stroke: rgba(0, 153, 255, 0.22);
+      stroke-width: 9;
+    }
+
+    .score-circle-progress {
+      fill: none;
+      stroke: #00e5ff;
+      stroke-width: 9;
+      stroke-linecap: round;
+      stroke-dasharray: 314.16;
+      stroke-dashoffset: 314.16;
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
+      filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.75));
+    }
+
+    .circle-score-content {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .circle-score-num {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.7rem, 3vw, 3rem);
+      font-weight: 400;
+      color: #00e5ff;
+      line-height: 1;
+      text-shadow: 0 0 12px rgba(0, 229, 255, 0.85);
+    }
+
+    .circle-score-sub {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.7rem, 1.1vw, 1rem);
+      color: #94a3b8;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      margin-top: 1px;
+    }
+
+    .circle-score-pill {
+      background: rgba(2, 28, 62, 0.92);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 3px 18px;
+      color: #ffffff;
+      font-family: var(--font-pixel);
+      font-size: clamp(1rem, 1.8vw, 1.6rem);
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 15px rgba(0, 153, 255, 0.4);
     }
 
     .mission-complete-buttons {
@@ -706,13 +754,21 @@
         <div class="mission-complete-container">
           <img src="assets/Mission Complete.png" alt="Mission Complete" class="mission-complete-title">
 
-          <!-- Verification Score Badge -->
-          <div class="verification-score-badge">
-            <span>VERIFICATION:</span>
-            <div class="score-meter-wrap">
-              <div class="score-meter-bar" id="scoreMeterBar"></div>
+          <!-- Circular Verification Score Box (Circle Box) -->
+          <div class="circle-score-wrapper">
+            <div class="circle-score-box">
+              <svg class="score-circular-svg" viewBox="0 0 120 120">
+                <!-- Background track -->
+                <circle class="score-circle-bg" cx="60" cy="60" r="50"></circle>
+                <!-- Animated progress stroke -->
+                <circle class="score-circle-progress" id="scoreCircleProgress" cx="60" cy="60" r="50"></circle>
+              </svg>
+              <div class="circle-score-content">
+                <span class="circle-score-num" id="circleScoreNum">100%</span>
+                <span class="circle-score-sub">SCORE</span>
+              </div>
             </div>
-            <span id="scoreTextPercentage" style="color:#00e5ff; font-weight:bold;">100%</span>
+            <div class="circle-score-pill" id="circleScorePill">VERIFICATION: 5 / 5 CORRECT</div>
           </div>
 
           <!-- Action Buttons -->
@@ -1278,8 +1334,32 @@
 
       // Calculate Percentage (20% per correct answer)
       const percentage = Math.round((correctAnswersCount / 5) * 100);
-      scoreMeterBar.style.width = percentage + '%';
-      scoreTextPercentage.textContent = percentage + '%';
+
+      // Animate Circular Progress (Circumference = 2 * PI * 50 ≈ 314.16)
+      const circleProgress = document.getElementById('scoreCircleProgress');
+      const circleNum = document.getElementById('circleScoreNum');
+      const circlePill = document.getElementById('circleScorePill');
+
+      const offset = 314.16 * (1 - (percentage / 100));
+      circleProgress.style.strokeDashoffset = offset;
+      circleNum.textContent = percentage + '%';
+
+      // Dynamically color ring and text based on score
+      if (percentage >= 80) {
+        circleProgress.style.stroke = '#22c55e';
+        circleNum.style.color = '#22c55e';
+        circleNum.style.textShadow = '0 0 12px rgba(34, 197, 94, 0.85)';
+      } else if (percentage >= 40) {
+        circleProgress.style.stroke = '#fdcb0e';
+        circleNum.style.color = '#fdcb0e';
+        circleNum.style.textShadow = '0 0 12px rgba(253, 203, 14, 0.85)';
+      } else {
+        circleProgress.style.stroke = '#ef4444';
+        circleNum.style.color = '#ef4444';
+        circleNum.style.textShadow = '0 0 12px rgba(239, 68, 68, 0.85)';
+      }
+
+      circlePill.textContent = `VERIFICATION: ${correctAnswersCount} / 5 CORRECT (${percentage}%)`;
 
       // Show Mission Complete Overlay
       missionCompleteOverlay.classList.remove('hidden');
@@ -1342,19 +1422,8 @@
         finishTypewriter();
         return;
       }
-
-      // If at Scene 12 (Continue), advance to MCQ (Scene 13)
-      if (currentSceneIdx === 11) {
-        renderScene(12);
-        return;
-      }
-
-      // If before Scene 12, SKIP button jumps straight to Scene 12 (verification)
-      if (currentSceneIdx < 11) {
-        renderScene(11); // Scene 12 (0-indexed 11)
-      } else {
-        nextScene();
-      }
+      // Step to next scene sequentially
+      nextScene();
     }
 
     function nextScene() {
