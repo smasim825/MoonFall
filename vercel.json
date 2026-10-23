@@ -2,8 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/mainbase.html" },
-    { "source": "/game", "destination": "/index.html" },
-    { "source": "/base", "destination": "/mainbase.html" }
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/game", "destination": "/1.1_power.html" },
+    { "source": "/power", "destination": "/1.1_power.html" },
+    { "source": "/base", "destination": "/index.html" },
+    { "source": "/mainbase", "destination": "/index.html" }
   ]
 }

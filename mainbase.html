@@ -1307,7 +1307,7 @@
             icon: '⚡',
             title: 'Mission 1: Power and Energy',
             subtasks: [
-              { id: 'power_sys', label: 'Power System', active: true, locked: false, dialogue: 'Learn about the components that keep our lunar base powered up.' },
+              { id: 'power_sys', label: 'Power System', active: true, locked: false, dialogue: 'Learn about the components that keep our lunar base powered up.', url: '1.1_power.html' },
               { id: 'balance_grid', label: 'Balance the Grid', active: false, locked: true, requiredTask: 'Power System', dialogue: 'Balance thermal cooling turbines and battery arrays to handle energy spikes.' },
               { id: 'restore_array', label: 'Restore Solar Array', active: false, locked: true, requiredTask: 'Balance the Grid', dialogue: 'Realign high-efficiency solar photovoltaic panels to capture peak lunar sunlight.' }
             ]
@@ -1539,7 +1539,9 @@
 
     function launchGame() {
       sound.clickSound();
-      window.location.href = 'index.html';
+      const activeSub = currentZoomedBldId ? getActiveSubtask(currentZoomedBldId) : null;
+      const targetUrl = (activeSub && activeSub.url) ? activeSub.url : '1.1_power.html';
+      window.location.href = targetUrl;
     }
 
     const modules = [

@@ -764,7 +764,7 @@
         e.preventDefault();
         e.stopPropagation();
         sound.playBeep();
-        window.location.href = 'mainbase.html';
+        window.location.href = 'index.html';
       });
     }
     if (btnNext) {
