@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>MoonFall - Mission 2.1: Plan Daily Meal</title>
   <meta name="description"
-    content="Mission 2.1: Food and Production - Plan daily meals while managing water and power reserves aboard the Lunar Base.">
+    content="Mission 2.1: Food and Production - Plan daily meals while managing water, power, and nutritional reserves aboard the Lunar Base.">
 
   <!-- Google Fonts: VT323 for authentic retro pixel aesthetic -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,12 +15,17 @@
 
   <!-- Asset Preloads -->
   <link rel="preload" href="2.1_Daily_Meal/Group 1.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/image 118.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png" as="image">
   <link rel="preload" href="assets/power/Astronaut_ThumbsUp.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/Frame 3_multilayer.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/Frame 3.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/Frame 8.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Frame 8-1.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Frame 8-2.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Frame 8-3.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Frame 8-4.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/image 7.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/image 8.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/image 9.png" as="image">
@@ -28,6 +33,8 @@
   <link rel="preload" href="2.1_Daily_Meal/Group 4.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/Bar01.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/Yellow_bar04.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/image 42.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/image 43.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/Dialogue_Box.png" as="image">
 
   <style>
@@ -39,6 +46,7 @@
       --pixel-blue-border: #0099ff;
       --pixel-cyan: #00e5ff;
       --pixel-yellow: #fdcb0e;
+      --pixel-green: #22c55e;
       --pixel-bg-dark: #000814;
       --pixel-overlay-bg: rgba(2, 24, 55, 0.94);
     }
@@ -94,7 +102,20 @@
       background-position: center;
       image-rendering: pixelated;
       image-rendering: -webkit-optimize-contrast;
+      transition: background-image 0.4s ease, filter 0.4s ease;
       z-index: 1;
+    }
+
+    /* Dark Overlay for Scene 11 */
+    .dark-backdrop-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.68);
+      z-index: 20;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
     }
 
     /* Character: Sunita Williams (Left Side - In Front of Dialogue Bar) */
@@ -148,7 +169,7 @@
       image-rendering: pixelated;
     }
 
-    /* Educational / Diagram Card (Scenes 2, 3, 5) */
+    /* Educational / Diagram Card (Scenes 2, 3, 5, 6, 7, 8, 9) */
     .diagram-card-container {
       position: absolute;
       top: 6%;
@@ -162,13 +183,19 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease, width 0.3s ease;
     }
 
-    .diagram-card-container.scene5-pos {
+    .diagram-card-container.card-wide {
       left: 54%;
-      width: 32%;
-      height: 56%;
+      width: 52%;
+      max-width: 780px;
+    }
+
+    .diagram-card-container.card-compact {
+      left: 54%;
+      width: 27%;
+      max-width: 390px;
     }
 
     .diagram-card-img {
@@ -374,6 +401,116 @@
       to {
         transform: scale(1.05);
         opacity: 0.95;
+      }
+    }
+
+    /* ==========================================================================
+       Scene 11: Daily Meal Intake Popup Modal (Matching Image 4 of New Turn)
+       ========================================================================== */
+    .daily-intake-popup {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44%;
+      max-width: 620px;
+      aspect-ratio: 1182 / 589;
+      z-index: 35;
+      filter: drop-shadow(0 14px 40px rgba(0, 0, 0, 0.95));
+      animation: popup-scale 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes popup-scale {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    .daily-intake-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .daily-intake-text-wrap {
+      position: absolute;
+      top: 17%;
+      left: 38%;
+      right: 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .daily-intake-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.4rem, 2.7vw, 3rem);
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+    }
+
+    .daily-intake-sub {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.15rem, 2.15vw, 2.35rem);
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+    }
+
+    /* Green Capsule Bar in Slot 1 */
+    .daily-intake-slot1 {
+      position: absolute;
+      left: 5.4%;
+      top: 64.5%;
+      width: 28.9%;
+      height: 21.6%;
+      z-index: 3;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .daily-intake-slot1 img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      image-rendering: pixelated;
+      transform-origin: left center;
+      animation: intake-fill-up 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.85));
+    }
+
+    @keyframes intake-fill-up {
+      0% {
+        transform: scaleX(0);
+        opacity: 0;
+      }
+
+      30% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: scaleX(1);
+        opacity: 1;
       }
     }
 
@@ -718,6 +855,9 @@
       <!-- Background Layer -->
       <div class="meal-bg-layer" id="bgLayer" aria-hidden="true"></div>
 
+      <!-- Dark Backdrop Overlay (Scene 11) -->
+      <div class="dark-backdrop-overlay hidden" id="darkBackdropOverlay" aria-hidden="true"></div>
+
       <!-- Top HUD -->
       <header class="top-hud">
         <div class="hud-title-badge" id="hudMissionTitle">MISSION 2.1: PLAN DAILY MEAL</div>
@@ -736,7 +876,7 @@
         <img src="assets/power/Astronaut_ThumbsUp.png" alt="Astronaut" id="astronautImg">
       </div>
 
-      <!-- Diagram / Card Container (Scenes 2, 3, 5) -->
+      <!-- Diagram / Card Container (Scenes 2, 3, 5, 6, 7, 8, 9) -->
       <section class="diagram-card-container hidden" id="diagramCardContainer" aria-label="Educational Diagram">
         <img src="2.1_Daily_Meal/Frame 3_multilayer.png" alt="Diagram Card" id="diagramCardImg"
           class="diagram-card-img">
@@ -781,6 +921,19 @@
               <!-- 10 Yellow Bars -->
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- Scene 11: Daily Meal Intake Popup Modal -->
+      <section class="daily-intake-popup hidden" id="dailyIntakePopup" aria-label="Daily Intake Status">
+        <img src="2.1_Daily_Meal/image 42.png" alt="Daily Intake Box" class="daily-intake-bg">
+        <div class="daily-intake-text-wrap">
+          <div class="daily-intake-title">DAILY INTAKE</div>
+          <div class="daily-intake-sub" id="dailyIntakeKcal">850 KCAL/ 3035KCAL</div>
+        </div>
+        <!-- First Green Capsule Bar Animated in Slot 1 -->
+        <div class="daily-intake-slot1" id="dailyIntakeSlot1">
+          <img src="2.1_Daily_Meal/image 43.png" alt="Intake Portion Filled">
         </div>
       </section>
 
@@ -931,6 +1084,26 @@
         } catch (e) { }
       }
 
+      playIntakeFill() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [440, 554.37, 659.25, 880, 1108.7].forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+            gain.gain.setValueAtTime(0.06, now + idx * 0.07);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.07 + 0.25);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + idx * 0.07);
+            osc.stop(now + idx * 0.07 + 0.25);
+          });
+        } catch (e) { }
+      }
+
       playSuccessFanfare() {
         try {
           this.init();
@@ -956,7 +1129,7 @@
     const sound = new SoundEngine();
 
     // =========================================================================
-    // Mission Data & Script Configuration (Scenes 1 - 5)
+    // Mission Data & Script Configuration (Scenes 1 - 11)
     // =========================================================================
     const SCENES = [
       {
@@ -965,7 +1138,11 @@
         pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.png',
         astronaut: true,
         diagramCard: null,
+        cardType: null,
+        bg: '2.1_Daily_Meal/Group 1.png',
+        isDark: false,
         showScene4: false,
+        showDiningIntake: false,
         text: "Welcome to the food storage room, rookie!"
       },
       {
@@ -974,7 +1151,11 @@
         pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
         astronaut: false,
         diagramCard: '2.1_Daily_Meal/Frame 3_multilayer.png',
+        cardType: 'wide',
+        bg: '2.1_Daily_Meal/Group 1.png',
+        isDark: false,
         showScene4: false,
+        showDiningIntake: false,
         text: "Every meal is individually sealed in multilayer PET, aluminum, and PE packaging to protect it from oxygen and moisture."
       },
       {
@@ -983,7 +1164,11 @@
         pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
         astronaut: false,
         diagramCard: '2.1_Daily_Meal/Frame 3.png',
+        cardType: 'wide',
+        bg: '2.1_Daily_Meal/Group 1.png',
+        isDark: false,
         showScene4: false,
+        showDiningIntake: false,
         text: "Nitrogen flushing reduces residual oxygen to below 0.5%, helping preserve food quality. We also control temperature and humidity, and secure every package so it doesn't shift around."
       },
       {
@@ -992,7 +1177,11 @@
         pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
         astronaut: false,
         diagramCard: null,
+        cardType: null,
+        bg: '2.1_Daily_Meal/Group 1.png',
+        isDark: false,
         showScene4: true,
+        showDiningIntake: false,
         text: "Now you have learnt how they are packed, let's choose your meal for today. You have three options"
       },
       {
@@ -1001,8 +1190,90 @@
         pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
         astronaut: false,
         diagramCard: '2.1_Daily_Meal/Frame 8.png',
+        cardType: 'compact',
+        bg: '2.1_Daily_Meal/Group 1.png',
+        isDark: false,
         showScene4: false,
+        showDiningIntake: false,
         text: "Great. Let's get that meal prepared."
+      },
+      {
+        sceneId: 6,
+        character: 'Sunita Williams',
+        pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
+        astronaut: false,
+        diagramCard: '2.1_Daily_Meal/Frame 8-1.png',
+        cardType: 'wide',
+        bg: '2.1_Daily_Meal/Group 1.png',
+        isDark: false,
+        showScene4: false,
+        showDiningIntake: false,
+        text: "See, space foods come in three main types: Ready-to-Eat, Rehydratable, and Food Warmerable"
+      },
+      {
+        sceneId: 7,
+        character: 'Sunita Williams',
+        pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
+        astronaut: false,
+        diagramCard: '2.1_Daily_Meal/Frame 8-2.png',
+        cardType: 'compact',
+        bg: '2.1_Daily_Meal/Group 1.png',
+        isDark: false,
+        showScene4: false,
+        showDiningIntake: false,
+        text: "If the meal is ready-to-eat, simply tear open the package and enjoy."
+      },
+      {
+        sceneId: 8,
+        character: 'Sunita Williams',
+        pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
+        astronaut: false,
+        diagramCard: '2.1_Daily_Meal/Frame 8-3.png',
+        cardType: 'compact',
+        bg: '2.1_Daily_Meal/Group 1.png',
+        isDark: false,
+        showScene4: false,
+        showDiningIntake: false,
+        text: "Rehydratable meals need water, so connect the package to the potable water dispenser and add the exact amount required."
+      },
+      {
+        sceneId: 9,
+        character: 'Sunita Williams',
+        pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
+        astronaut: false,
+        diagramCard: '2.1_Daily_Meal/Frame 8-4.png',
+        cardType: 'compact',
+        bg: '2.1_Daily_Meal/Group 1.png',
+        isDark: false,
+        showScene4: false,
+        showDiningIntake: false,
+        text: "If your meal needs heating, place the sealed package in the electric food warmer."
+      },
+      {
+        sceneId: 10,
+        character: 'Sunita Williams',
+        pose: null, // character sprite hidden in dining hall scene
+        astronaut: false,
+        diagramCard: null,
+        cardType: null,
+        bg: '2.1_Daily_Meal/image 118.png',
+        isDark: false,
+        showScene4: false,
+        showDiningIntake: false,
+        text: "Now that your food is ready let's eat together"
+      },
+      {
+        sceneId: 11,
+        character: 'Sunita Williams',
+        pose: null,
+        astronaut: false,
+        diagramCard: null,
+        cardType: null,
+        bg: '2.1_Daily_Meal/image 118.png',
+        isDark: true,
+        showScene4: false,
+        showDiningIntake: true,
+        text: "Daily intake logged! Energy reserves are balanced for lunar operations."
       }
     ];
 
@@ -1013,6 +1284,7 @@
       1: {
         id: 1,
         title: "Meal 1 — Balanced",
+        kcal: 850,
         waterReq: "150ml",
         powerReq: "25W",
         waterBarsToDeduct: 3, // 150ml / 50ml = 3 capsules
@@ -1021,6 +1293,7 @@
       2: {
         id: 2,
         title: "Meal 2 — Low Water",
+        kcal: 900,
         waterReq: "50ml",
         powerReq: "10W",
         waterBarsToDeduct: 1, // 50ml / 50ml = 1 capsule
@@ -1029,6 +1302,7 @@
       3: {
         id: 3,
         title: "Meal 3 — High Energy",
+        kcal: 1100,
         waterReq: "300ml",
         powerReq: "35W",
         waterBarsToDeduct: 6, // 300ml / 50ml = 6 capsules
@@ -1038,13 +1312,15 @@
 
     // State Variables
     let currentSceneIndex = 0;
-    let selectedMealId = null;
+    let selectedMealId = 1; // Default to Meal 1
     let hoveredMealId = null;
     let isTyping = false;
     let typeTimer = null;
     let currentFullText = '';
 
     // DOM Elements
+    const bgLayer = document.getElementById('bgLayer');
+    const darkBackdropOverlay = document.getElementById('darkBackdropOverlay');
     const sunitaStage = document.getElementById('sunitaStage');
     const sunitaImg = document.getElementById('sunitaImg');
     const astronautStage = document.getElementById('astronautStage');
@@ -1054,6 +1330,9 @@
     const scene4Container = document.getElementById('scene4Container');
     const waterReserveTrack = document.getElementById('waterReserveTrack');
     const powerReserveTrack = document.getElementById('powerReserveTrack');
+    const dailyIntakePopup = document.getElementById('dailyIntakePopup');
+    const dailyIntakeKcal = document.getElementById('dailyIntakeKcal');
+    const dailyIntakeSlot1 = document.getElementById('dailyIntakeSlot1');
     const dialogueWrapper = document.getElementById('dialogueWrapper');
     const dialogueTextSunita = document.getElementById('dialogueTextSunita');
     const missionCompleteOverlay = document.getElementById('missionCompleteOverlay');
@@ -1187,9 +1466,25 @@
 
       const s = SCENES[idx];
 
+      // Update Background
+      if (s.bg) {
+        bgLayer.style.backgroundImage = `url('${s.bg}')`;
+      }
+
+      // Dark Overlay
+      if (s.isDark) {
+        darkBackdropOverlay.classList.remove('hidden');
+      } else {
+        darkBackdropOverlay.classList.add('hidden');
+      }
+
       // Update Character Poses
-      sunitaImg.src = s.pose;
-      sunitaStage.classList.remove('hidden');
+      if (s.pose) {
+        sunitaImg.src = s.pose;
+        sunitaStage.classList.remove('hidden');
+      } else {
+        sunitaStage.classList.add('hidden');
+      }
 
       // Astronaut thumbs up (Scene 1 only)
       if (s.astronaut) {
@@ -1198,18 +1493,23 @@
         astronautStage.classList.add('hidden');
       }
 
-      // Diagram / Card in Scenes 2, 3, 5
+      // Educational / Diagram Cards
       if (s.diagramCard) {
         diagramCardContainer.classList.remove('hidden');
         diagramCardImg.src = s.diagramCard;
 
+        diagramCardContainer.classList.remove('card-wide', 'card-compact');
+        if (s.cardType === 'wide') {
+          diagramCardContainer.classList.add('card-wide');
+        } else if (s.cardType === 'compact') {
+          diagramCardContainer.classList.add('card-compact');
+        }
+
         if (s.sceneId === 5) {
-          diagramCardContainer.classList.add('scene5-pos');
           cardPrepInfo.classList.remove('hidden');
           const chosen = selectedMealId ? MEAL_DATA[selectedMealId].title : "Meal 1 — Balanced";
           cardPrepInfo.textContent = `${chosen} Sealed & Ready`;
         } else {
-          diagramCardContainer.classList.remove('scene5-pos');
           cardPrepInfo.classList.add('hidden');
         }
       } else {
@@ -1224,12 +1524,30 @@
         scene4Container.classList.add('hidden');
       }
 
+      // Scene 11: Daily Intake Popup Modal
+      if (s.showDiningIntake) {
+        dailyIntakePopup.classList.remove('hidden');
+        const chosenKcal = selectedMealId ? MEAL_DATA[selectedMealId].kcal : 850;
+        dailyIntakeKcal.textContent = `${chosenKcal} KCAL/ 3035KCAL`;
+
+        // Re-trigger CSS fill animation on green capsule
+        dailyIntakeSlot1.innerHTML = '<img src="2.1_Daily_Meal/image 43.png" alt="Intake Portion Filled">';
+        sound.playIntakeFill();
+      } else {
+        dailyIntakePopup.classList.add('hidden');
+      }
+
       // Mission Complete Overlay is hidden during scenes
       missionCompleteOverlay.classList.add('hidden');
       dialogueWrapper.classList.remove('hidden');
 
       // Typewriter Dialogue
-      startTypewriter(s.text);
+      let dialogueMsg = s.text;
+      if (s.sceneId === 11) {
+        const chosenKcal = selectedMealId ? MEAL_DATA[selectedMealId].kcal : 850;
+        dialogueMsg = `${chosenKcal} kcal consumed for this meal! Daily intake logged. Click SKIP to complete the mission!`;
+      }
+      startTypewriter(dialogueMsg);
     }
 
     function advanceScene() {
@@ -1308,22 +1626,28 @@
       astronautStage.classList.add('hidden');
       diagramCardContainer.classList.add('hidden');
       scene4Container.classList.add('hidden');
+      dailyIntakePopup.classList.add('hidden');
+      darkBackdropOverlay.classList.add('hidden');
 
       // Show Mission Complete Overlay
       missionCompleteOverlay.classList.remove('hidden');
 
       // Dialogue summary
       const chosenName = selectedMealId ? MEAL_DATA[selectedMealId].title : "Balanced Meal";
-      const completeMsg = `Mission accomplished! Outstanding work, Cadet! ${chosenName} successfully planned and prepared.`;
+      const chosenKcal = selectedMealId ? MEAL_DATA[selectedMealId].kcal : 850;
+      const completeMsg = `Mission accomplished! Outstanding work, Cadet! ${chosenName} (${chosenKcal} kcal) successfully prepared and consumed.`;
       startTypewriter(completeMsg);
     }
 
     function restartMission() {
-      selectedMealId = null;
+      selectedMealId = 1;
       hoveredMealId = null;
       [1, 2, 3].forEach(id => {
         const card = document.getElementById(`mealCard${id}`);
-        if (card) card.classList.remove('selected');
+        if (card) {
+          if (id === 1) card.classList.add('selected');
+          else card.classList.remove('selected');
+        }
       });
       initReserveTracks();
       currentSceneIndex = 0;
