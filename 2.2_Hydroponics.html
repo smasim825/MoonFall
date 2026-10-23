@@ -314,18 +314,22 @@
     }
 
     /* ==========================================================================
-       Scene 10: Interactive Red START Button
+       Scene 10: Interactive Red START Button with Dark Focus Backdrop
        ========================================================================== */
     .start-button-container {
       position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 25;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.88) 45%, rgba(0, 0, 0, 0.96) 100%);
+      z-index: 28;
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: start-pulse 1.8s infinite ease-in-out;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      cursor: pointer;
     }
 
     .retro-start-btn {
@@ -333,7 +337,7 @@
       border: 3.5px solid #222b35;
       outline: 3px solid #ff4d5a;
       border-radius: 8px;
-      padding: 12px 34px;
+      padding: 14px 44px;
       color: #ffffff;
       font-family: var(--font-pixel);
       font-size: clamp(2.2rem, 4.2vw, 4.2rem);
@@ -342,8 +346,8 @@
       text-transform: uppercase;
       cursor: pointer;
       box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.8),
-        0 0 20px rgba(255, 45, 60, 0.8),
+        0 10px 30px rgba(0, 0, 0, 0.85),
+        0 0 32px rgba(255, 45, 60, 0.9),
         inset 0 3px 6px rgba(255, 255, 255, 0.4),
         inset 0 -4px 8px rgba(0, 0, 0, 0.6);
       text-shadow: 2px 2px 0 #500000;
@@ -351,6 +355,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      animation: start-pulse 1.8s infinite ease-in-out;
     }
 
     .retro-start-btn:hover {
@@ -358,7 +363,7 @@
       filter: brightness(1.15);
       box-shadow:
         0 14px 35px rgba(0, 0, 0, 0.9),
-        0 0 32px rgba(255, 45, 60, 1),
+        0 0 38px rgba(255, 45, 60, 1),
         inset 0 3px 8px rgba(255, 255, 255, 0.6);
     }
 
@@ -369,10 +374,10 @@
 
     @keyframes start-pulse {
       0%, 100% {
-        transform: translate(-50%, -50%) scale(1);
+        transform: scale(1);
       }
       50% {
-        transform: translate(-50%, -50%) scale(1.04);
+        transform: scale(1.05);
       }
     }
 
@@ -442,9 +447,9 @@
        ========================================================================== */
     .hud-days-badge {
       position: absolute;
-      top: 5.5%;
-      right: 4.5%;
-      background: rgba(18, 25, 34, 0.92);
+      top: 3.2%;
+      right: clamp(75px, 8.5vw, 105px);
+      background: rgba(18, 25, 34, 0.94);
       border: 2px solid #5a6e82;
       border-radius: 6px;
       padding: 4px 16px;
@@ -452,7 +457,7 @@
       font-family: var(--font-pixel);
       font-size: clamp(1.1rem, 2vw, 1.8rem);
       letter-spacing: 0.05em;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.75);
       z-index: 15;
       pointer-events: none;
       display: flex;
@@ -532,27 +537,24 @@
        ========================================================================== */
     .mcq-stage-box {
       position: absolute;
-      top: 18%;
+      top: 22%;
       left: 50%;
       transform: translateX(-50%);
-      width: 76%;
-      max-width: 1100px;
-      min-height: 190px;
-      background: rgba(2, 28, 62, 0.94);
+      width: 78%;
+      max-width: 1200px;
+      min-height: 32%;
+      background: rgba(2, 28, 62, 0.88);
       border: 3.5px solid var(--pixel-blue-border);
       border-radius: 14px;
       box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.85),
+        0 8px 30px rgba(0, 0, 0, 0.8),
         inset 0 0 16px rgba(0, 153, 255, 0.3),
-        0 0 24px rgba(0, 153, 255, 0.45);
-      padding: 20px 24px 20px 185px;
+        0 0 20px rgba(0, 153, 255, 0.4);
+      padding: 16px 24px;
       box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       z-index: 30;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       animation: mcq-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       cursor: default;
     }
@@ -568,20 +570,15 @@
       }
     }
 
-    /* Robot on the left inside MCQ Box */
+    /* Robot Floating at Top Left of MCQ Box */
     .mcq-robot-avatar {
       position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 140px;
-      height: 145px;
+      top: -24px;
+      left: -20px;
+      width: 78px;
+      height: 80px;
       z-index: 35;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       pointer-events: none;
-      animation: robot-hover 3s ease-in-out infinite alternate;
     }
 
     .mcq-robot-avatar img {
@@ -591,42 +588,42 @@
       filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7));
     }
 
-    /* Speaker Pill resting on top border next to robot */
+    /* Speaker Pill attached next to robot */
     .mcq-speaker-pill {
       position: absolute;
-      top: -20px;
-      left: 170px;
+      top: -18px;
+      left: 64px;
       background: #ffffff;
       border: 2.5px solid var(--pixel-blue-border);
       border-radius: 6px;
-      padding: 1px 18px;
+      padding: 1px 16px;
       color: #0284c7;
       font-family: var(--font-pixel);
-      font-size: clamp(1.2rem, 2.1vw, 2rem);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      z-index: 36;
-      line-height: 1.15;
+      font-size: clamp(1.1rem, 2vw, 1.85rem);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      z-index: 30;
+      line-height: 1.1;
       white-space: nowrap;
     }
 
-    /* MCQ Question Header */
+    /* MCQ Question Header - Bright Cyan */
     .mcq-question-title {
+      color: #00e5ff;
       font-family: var(--font-pixel);
-      font-size: clamp(1.3rem, 2.35vw, 2.3rem);
-      font-weight: 400;
-      color: #fdcb0e;
+      font-size: clamp(1.2rem, 2.35vw, 2.3rem);
+      line-height: 1.25;
       letter-spacing: 0.02em;
-      margin: 0 0 12px 0;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.9);
-      line-height: 1.2;
+      margin: 0 0 14px 62px;
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
     }
 
     /* Options List */
     .mcq-options-list {
       display: flex;
       flex-direction: column;
-      gap: 9px;
-      width: 100%;
+      gap: 10px;
+      margin-left: 62px;
+      width: calc(100% - 62px);
     }
 
     .mcq-option-item {
@@ -634,34 +631,30 @@
       align-items: center;
       gap: 12px;
       cursor: pointer;
-      background: rgba(4, 49, 80, 0.85);
-      border: 1px solid rgba(0, 153, 255, 0.35);
+      padding: 4px 10px;
       border-radius: 6px;
-      padding: 5px 16px;
+      background: transparent;
+      border: 1px solid transparent;
       width: fit-content;
-      min-width: 220px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-      transition: all 0.15s ease;
+      transition: background 0.15s ease, transform 0.15s ease;
     }
 
     .mcq-option-item:hover:not(.locked) {
-      background: rgba(0, 153, 255, 0.3);
-      border-color: rgba(0, 229, 255, 0.7);
+      background: rgba(0, 153, 255, 0.2);
       transform: translateX(4px);
-      box-shadow: 0 4px 12px rgba(0, 153, 255, 0.25);
     }
 
     .mcq-checkbox {
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       border: 2px solid #ffffff;
-      border-radius: 3px;
+      border-radius: 4px;
       background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: all 0.18s;
+      transition: all 0.2s;
     }
 
     .mcq-checkbox.checked {
@@ -673,7 +666,7 @@
     .mcq-checkbox.checked::after {
       content: '✓';
       color: #ffffff;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: bold;
       line-height: 1;
     }
@@ -681,8 +674,7 @@
     .mcq-option-text {
       color: #ffffff;
       font-family: var(--font-pixel);
-      font-size: clamp(1.15rem, 2vw, 1.85rem);
-      font-weight: 400;
+      font-size: clamp(1.15rem, 2.2vw, 2.15rem);
       line-height: 1.2;
       letter-spacing: 0.015em;
       transition: color 0.2s;
@@ -690,34 +682,32 @@
 
     /* Feedback Colors */
     .mcq-option-item.state-correct {
-      background: rgba(34, 197, 94, 0.25) !important;
-      border-color: #22c55e !important;
-      box-shadow: 0 0 16px rgba(34, 197, 94, 0.7);
+      background: rgba(0, 230, 118, 0.2) !important;
+      border-color: rgba(0, 230, 118, 0.5) !important;
     }
 
     .mcq-option-item.state-correct .mcq-option-text {
-      color: #22c55e !important;
+      color: #00e676 !important;
       font-weight: bold;
-      text-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
+      text-shadow: 0 0 12px rgba(0, 230, 118, 0.6);
     }
 
     .mcq-option-item.state-correct .mcq-checkbox {
-      background: #22c55e;
-      border-color: #22c55e;
-      box-shadow: 0 0 10px #22c55e;
+      background: #00e676;
+      border-color: #00e676;
+      box-shadow: 0 0 10px #00e676;
     }
 
     .mcq-option-item.state-wrong {
-      background: rgba(255, 51, 68, 0.25) !important;
-      border-color: #ff3344 !important;
-      box-shadow: 0 0 16px rgba(255, 51, 68, 0.7);
+      background: rgba(255, 51, 68, 0.2) !important;
+      border-color: rgba(255, 51, 68, 0.5) !important;
       animation: option-shake 0.4s ease;
     }
 
     .mcq-option-item.state-wrong .mcq-option-text {
       color: #ff3344 !important;
       font-weight: bold;
-      text-shadow: 0 0 12px rgba(255, 51, 68, 0.8);
+      text-shadow: 0 0 12px rgba(255, 51, 68, 0.6);
     }
 
     @keyframes option-shake {
@@ -1662,7 +1652,7 @@
         hudDays: '5 Days Passed',
         hudEarth: true,
         question: {
-          prompt: "Observe the plants and select their size:",
+          prompt: "Q1. Observe the plants and select their size:",
           options: ["Normal", "Small", "Large"],
           correctIndex: 1
         }
@@ -1687,7 +1677,7 @@
         hudDays: '15 Days Passed',
         hudEarth: true,
         question: {
-          prompt: "Select the leaf color:",
+          prompt: "Q2. Select the leaf color:",
           options: ["Green", "Slightly Red", "Gray"],
           correctIndex: 1
         }
@@ -1712,7 +1702,7 @@
         hudDays: '23 Days Passed',
         hudEarth: true,
         question: {
-          prompt: "How stressed do the plants look?",
+          prompt: "Q3. How stressed do the plants look?",
           options: ["Low", "Moderate", "High"],
           correctIndex: 2
         }
@@ -1744,7 +1734,7 @@
         type: 'question',
         bg: '2.2_Hydroponics/Final Analysis_ Healthy Plant Lab Report.webp',
         question: {
-          prompt: "How was the growth rate?",
+          prompt: "Q4. How was the growth rate?",
           options: ["Slow", "Moderate", "Fast"],
           correctIndex: 0
         }
@@ -1765,6 +1755,7 @@
     let currentSceneIndex = 0;
     let isTypewriterActive = false;
     let typewriterTimer = null;
+    let visualSceneTimer = null;
     let fullCurrentText = "";
     let activeDialogueTextEl = null;
 
@@ -1928,8 +1919,18 @@
 
       if (scene.type === 'question') {
         renderQuestion(scene.question);
+      } else if (scene.type === 'start_button') {
+        // Scene 10: Pure start button view - hide dialogue bar and skip button completely
+        dialogueWrapper.classList.add('hidden');
+        dialogueBoxSunita.classList.add('hidden');
+        dialogueBoxAstroBee.classList.add('hidden');
       } else if (scene.type === 'visual') {
-        // Scene 6 visual display - user clicks screen to advance
+        // Scene 6 visual display - auto-fades up to next scene without waiting for click
+        dialogueWrapper.classList.add('hidden');
+        if (visualSceneTimer) clearTimeout(visualSceneTimer);
+        visualSceneTimer = setTimeout(() => {
+          advanceNextScene();
+        }, 2600);
       } else {
         // Standard Dialogue Scene
         dialogueWrapper.classList.remove('hidden');
@@ -1953,11 +1954,12 @@
       questionOptionsGroup.innerHTML = "";
 
       q.options.forEach((optText, optIdx) => {
+        const letter = String.fromCharCode(65 + optIdx);
         const row = document.createElement('div');
         row.className = 'mcq-option-item';
         row.innerHTML = `
           <div class="mcq-checkbox" id="check_${optIdx}"></div>
-          <span class="mcq-option-text">${optText}</span>
+          <span class="mcq-option-text">${letter}. ${optText}</span>
         `;
         row.onclick = () => handleOptionSelected(optIdx, q.correctIndex, row);
         questionOptionsGroup.appendChild(row);
@@ -1978,8 +1980,8 @@
         audio.playCorrect();
         correctAnswersCount++;
         setTimeout(() => {
-          advanceNextScene();
-        }, 1200);
+          proceedAfterQuestion();
+        }, 1100);
       } else {
         rowEl.classList.add('state-wrong');
         audio.playWrong();
@@ -1992,23 +1994,41 @@
             if (cbox) cbox.classList.add('checked');
           }
           setTimeout(() => {
-            advanceNextScene();
-          }, 1500);
+            proceedAfterQuestion();
+          }, 1400);
         }, 600);
       }
     }
 
+    function proceedAfterQuestion() {
+      questionWrapper.classList.add('hidden');
+      const scene = scenes[currentSceneIndex];
+      if (scene && scene.id === 13) {
+        // Day 5 question completed -> Day 15 Timelapse
+        runTimelapse(5, 15, () => {
+          advanceNextScene(); // Lands on Scene 14 (Day 15)
+        });
+      } else if (scene && scene.id === 15) {
+        // Day 15 question completed -> Day 23 Timelapse
+        runTimelapse(15, 23, () => {
+          advanceNextScene(); // Lands on Scene 16 (Day 23)
+        });
+      } else {
+        advanceNextScene();
+      }
+    }
+
     /* ==========================================================================
-       Scene 10 & 11: Animated Timelapse
+       Scenes 10, 11, 14, 16: Animated Timelapse UI
        ========================================================================== */
-    function initiateTimelapse() {
-      startButtonContainer.classList.add('hidden');
+    function runTimelapse(fromDay, toDay, callback) {
       timelapseOverlay.classList.add('active');
       audio.playDialogueAdvance();
 
-      let currentDay = 0;
-      const targetDay = 5;
-      const totalSteps = 25;
+      timelapseCounter.textContent = `DAY ${fromDay}`;
+      timelapseFill.style.width = '0%';
+
+      const totalSteps = 24;
       let step = 0;
 
       const timelapseInterval = setInterval(() => {
@@ -2016,18 +2036,26 @@
         const pct = Math.min(100, Math.round((step / totalSteps) * 100));
         timelapseFill.style.width = `${pct}%`;
 
-        const dayVal = Math.floor((step / totalSteps) * targetDay);
+        const dayVal = Math.floor(fromDay + (step / totalSteps) * (toDay - fromDay));
         timelapseCounter.textContent = `DAY ${dayVal}`;
         audio.playTimelapseTick();
 
         if (step >= totalSteps) {
           clearInterval(timelapseInterval);
+          timelapseCounter.textContent = `DAY ${toDay}`;
           setTimeout(() => {
             timelapseOverlay.classList.remove('active');
-            advanceNextScene(); // Lands on Scene 12 (Day 5)
-          }, 600);
+            if (callback) callback();
+          }, 450);
         }
-      }, 70);
+      }, 55);
+    }
+
+    function initiateTimelapse() {
+      startButtonContainer.classList.add('hidden');
+      runTimelapse(0, 5, () => {
+        advanceNextScene(); // Lands on Scene 12 (Day 5)
+      });
     }
 
     /* ==========================================================================
@@ -2050,6 +2078,10 @@
     }
 
     function advanceNextScene() {
+      if (visualSceneTimer) {
+        clearTimeout(visualSceneTimer);
+        visualSceneTimer = null;
+      }
       audio.playDialogueAdvance();
       currentSceneIndex++;
       renderScene(currentSceneIndex);
