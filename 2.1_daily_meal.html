@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MoonFall - Mission 2.1: Plan Daily Meal</title>
+  <meta name="description"
+    content="Mission 2.1: Food and Production - Plan daily meals while managing water and power reserves aboard the Lunar Base.">
+
+  <!-- Google Fonts: VT323 for authentic retro pixel aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+  <!-- Asset Preloads -->
+  <link rel="preload" href="2.1_Daily_Meal/Group 1.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png" as="image">
+  <link rel="preload" href="assets/power/Astronaut_ThumbsUp.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Frame 3_multilayer.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Frame 3.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Frame 8.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/image 7.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/image 8.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/image 9.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Water_Reserve.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Group 4.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Bar01.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Yellow_bar04.png" as="image">
+  <link rel="preload" href="2.1_Daily_Meal/Dialogue_Box.png" as="image">
+
+  <style>
+    /* ==========================================================================
+       CSS Variables & Reset
+       ========================================================================== */
+    :root {
+      --font-pixel: 'VT323', monospace;
+      --pixel-blue-border: #0099ff;
+      --pixel-cyan: #00e5ff;
+      --pixel-yellow: #fdcb0e;
+      --pixel-bg-dark: #000814;
+      --pixel-overlay-bg: rgba(2, 24, 55, 0.94);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      overflow: hidden;
+      font-family: var(--font-pixel);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .meal-game-viewport {
+      position: relative;
+      width: 100vw;
+      height: 56.25vw;
+      /* Strict 16:9 Aspect Ratio */
+      max-height: 100vh;
+      max-width: 177.78vh;
+      background: #000000;
+      overflow: hidden;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Scene Stage */
+    .meal-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Background Layer */
+    .meal-bg-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('2.1_Daily_Meal/Group 1.png');
+      background-size: cover;
+      background-position: center;
+      image-rendering: pixelated;
+      image-rendering: -webkit-optimize-contrast;
+      z-index: 1;
+    }
+
+    /* Character: Sunita Williams (Left Side - In Front of Dialogue Bar) */
+    .character-sunita {
+      position: absolute;
+      bottom: -1%;
+      left: 1.5%;
+      height: 53%;
+      width: auto;
+      pointer-events: none;
+      z-index: 30;
+      display: flex;
+      align-items: flex-end;
+      transition: opacity 0.3s ease;
+    }
+
+    .character-sunita img {
+      height: 100%;
+      width: auto;
+      max-height: 100%;
+      max-width: none;
+      object-fit: contain;
+      object-position: bottom left;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.8));
+      image-rendering: pixelated;
+    }
+
+    /* Character: White Astronaut (Right Side - Under Dialogue Bar, Scene 1 Only) */
+    .character-astronaut {
+      position: absolute;
+      bottom: -2%;
+      right: 3.5%;
+      height: 53%;
+      width: auto;
+      pointer-events: none;
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .character-astronaut img {
+      height: 100%;
+      width: auto;
+      max-height: 100%;
+      max-width: none;
+      object-fit: contain;
+      object-position: bottom right;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.8));
+      image-rendering: pixelated;
+    }
+
+    /* Educational / Diagram Card (Scenes 2, 3, 5) */
+    .diagram-card-container {
+      position: absolute;
+      top: 6%;
+      left: 54%;
+      transform: translateX(-50%);
+      width: 46%;
+      height: 57%;
+      z-index: 15;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .diagram-card-container.scene5-pos {
+      left: 54%;
+      width: 32%;
+      height: 56%;
+    }
+
+    .diagram-card-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.85));
+    }
+
+    .card-prep-info {
+      margin-top: 6px;
+      background: rgba(2, 28, 62, 0.92);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 3px 16px;
+      color: #00e5ff;
+      font-size: clamp(0.95rem, 1.5vw, 1.35rem);
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 14px rgba(0, 153, 255, 0.5);
+      animation: pop-in 0.3s ease;
+    }
+
+    /* ==========================================================================
+       Scene 4: Meal Selection & Reserve HUD Widgets (Matching Image 4)
+       ========================================================================== */
+    .scene4-container {
+      position: absolute;
+      top: 6%;
+      left: 28%;
+      right: 3%;
+      height: 58%;
+      z-index: 18;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2%;
+      pointer-events: auto;
+    }
+
+    /* Meal Options Stack (Left side of Scene 4) */
+    .meal-options-list {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+      width: 58%;
+      height: 100%;
+    }
+
+    .meal-option-card {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      border: 2px solid rgba(0, 153, 255, 0.35);
+      border-radius: 8px;
+      background: rgba(2, 24, 55, 0.85);
+      cursor: pointer;
+      overflow: hidden;
+      padding: 3px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .meal-option-card:hover {
+      border-color: #00e5ff;
+      background: rgba(4, 45, 95, 0.95);
+      box-shadow: 0 0 18px rgba(0, 229, 255, 0.7);
+      transform: translateX(4px) scale(1.015);
+    }
+
+    .meal-option-card.selected {
+      border-color: #fdcb0e;
+      background: rgba(8, 55, 115, 0.98);
+      box-shadow: 0 0 24px rgba(253, 203, 14, 0.85), inset 0 0 12px rgba(253, 203, 14, 0.3);
+      transform: translateX(6px) scale(1.02);
+    }
+
+    .meal-option-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      image-rendering: pixelated;
+      pointer-events: none;
+    }
+
+    .selected-tag {
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      background: #fdcb0e;
+      color: #000000;
+      font-size: clamp(0.75rem, 1.1vw, 1rem);
+      font-weight: bold;
+      padding: 1px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      box-shadow: 0 0 10px rgba(253, 203, 14, 0.8);
+      display: none;
+    }
+
+    .meal-option-card.selected .selected-tag {
+      display: block;
+    }
+
+    /* Reserve HUD Widgets (Right side of Scene 4) */
+    .reserve-hud-stack {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      width: 38%;
+      height: 100%;
+    }
+
+    .reserve-box {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.7));
+    }
+
+    .reserve-box-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Slot Track for the 10 Capsules / Bars */
+    .reserve-track {
+      position: absolute;
+      left: 5%;
+      top: 55%;
+      width: 90%;
+      height: 33%;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2px;
+      padding: 0 1.5%;
+      box-sizing: border-box;
+    }
+
+    .reserve-slot {
+      flex: 1;
+      height: 88%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .reserve-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      image-rendering: pixelated;
+      transition: opacity 0.25s ease, filter 0.25s ease, transform 0.2s ease;
+    }
+
+    /* Active State */
+    .reserve-slot.active img {
+      opacity: 1;
+      filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.6));
+    }
+
+    .power-box .reserve-slot.active img {
+      filter: drop-shadow(0 0 4px rgba(253, 203, 14, 0.6));
+    }
+
+    /* Inactive / Deducted State */
+    .reserve-slot.empty img {
+      opacity: 0.12;
+      filter: grayscale(100%) brightness(0.4);
+    }
+
+    /* Hover Preview Deduction State (Pulsing Red Warning) */
+    .reserve-slot.preview-deduct img {
+      opacity: 0.75;
+      filter: drop-shadow(0 0 6px rgba(255, 51, 68, 0.9)) sepia(1) saturate(5) hue-rotate(-50deg);
+      animation: slot-pulse 0.6s infinite alternate ease-in-out;
+    }
+
+    @keyframes slot-pulse {
+      from {
+        transform: scale(0.95);
+        opacity: 0.45;
+      }
+
+      to {
+        transform: scale(1.05);
+        opacity: 0.95;
+      }
+    }
+
+    /* ==========================================================================
+       Dialogue Dock Footer
+       ========================================================================== */
+    .dialogue-wrapper {
+      position: absolute;
+      bottom: 4.5%;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 25;
+      padding: 0 3%;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .dialogue-box {
+      position: relative;
+      width: 87.7%;
+      max-width: 1400px;
+      aspect-ratio: 2824 / 441;
+      display: flex;
+      align-items: center;
+      padding: 0 4.5%;
+      box-sizing: border-box;
+    }
+
+    .dialogue-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.55));
+    }
+
+    /* Speaker Badge (Sunita Williams - Exact Match to Reference Images) */
+    .speaker-badge-sunita {
+      position: absolute;
+      top: -19%;
+      left: 17%;
+      background: #ffffff;
+      border: 3px solid #0099ff;
+      border-radius: 8px;
+      padding: 1px 22px;
+      color: #0284c7;
+      font-family: var(--font-pixel);
+      font-size: clamp(1.2rem, 2.2vw, 2.2rem);
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+      z-index: 35;
+      line-height: 1.1;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    /* Skip Button */
+    .skip-btn {
+      position: absolute;
+      top: -17%;
+      right: 3.2%;
+      width: 13.4%;
+      aspect-ratio: 376 / 127;
+      display: block;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 50;
+      pointer-events: auto;
+      padding: 0;
+      outline: none;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .skip-btn:hover {
+      transform: scale(1.04);
+      filter: brightness(1.08);
+    }
+
+    .skip-btn:active {
+      transform: scale(0.97);
+    }
+
+    .skip-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      image-rendering: pixelated;
+    }
+
+    .skip-icon {
+      position: absolute;
+      left: 12.8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 26.3%;
+      height: auto;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .dialogue-content {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      padding-left: 17.5%;
+      padding-right: 4%;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .dialogue-text {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.2rem, 2.2vw, 2.45rem);
+      font-weight: 400;
+      line-height: 1.12;
+      color: #000000;
+      white-space: normal;
+      word-break: normal;
+      letter-spacing: 0.02em;
+      text-shadow: none;
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: grayscale;
+      image-rendering: pixelated;
+      margin: 0;
+    }
+
+    /* Top HUD */
+    .top-hud {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      right: 14px;
+      z-index: 40;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .hud-title-badge {
+      background: rgba(0, 10, 30, 0.75);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 3px 14px;
+      color: #ffffff;
+      font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+      letter-spacing: 0.05em;
+      pointer-events: auto;
+    }
+
+    .hud-btn {
+      background: rgba(0, 10, 30, 0.75);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 4px 14px;
+      color: #7dd3fc;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+      cursor: pointer;
+      pointer-events: auto;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .hud-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    /* ==========================================================================
+       Mission Complete Overlay
+       ========================================================================== */
+    .mission-complete-overlay {
+      position: absolute;
+      top: 13%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 82%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 45;
+      pointer-events: auto;
+      animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes pop-in {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -20px) scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+      }
+    }
+
+    .mission-complete-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2vw;
+    }
+
+    .mission-complete-title {
+      width: 76%;
+      max-width: 820px;
+      height: auto;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.85));
+    }
+
+    .circle-score-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 8px 0 6px 0;
+    }
+
+    .circle-score-box {
+      position: relative;
+      width: clamp(150px, 16.5vw, 215px);
+      height: clamp(150px, 16.5vw, 215px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-circular-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+      filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.75));
+    }
+
+    .score-circle-bg {
+      fill: rgba(2, 24, 55, 0.92);
+      stroke: rgba(0, 153, 255, 0.22);
+      stroke-width: 9.5;
+    }
+
+    .score-circle-progress {
+      fill: none;
+      stroke: #22c55e;
+      stroke-width: 9.5;
+      stroke-linecap: round;
+      stroke-dasharray: 314.16;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: drop-shadow(0 0 14px rgba(34, 197, 94, 0.85));
+    }
+
+    .circle-score-content {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .circle-score-num {
+      font-family: var(--font-pixel);
+      font-size: clamp(2.5rem, 4.6vw, 4.8rem);
+      font-weight: 400;
+      color: #22c55e;
+      line-height: 1;
+      text-shadow: 0 0 14px rgba(34, 197, 94, 0.85);
+    }
+
+    .circle-score-sub {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.95rem, 1.45vw, 1.45rem);
+      color: #94a3b8;
+      letter-spacing: 0.12em;
+      line-height: 1;
+      margin-top: 4px;
+    }
+
+    .mission-complete-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5vw;
+      width: 88%;
+      margin-top: 4px;
+    }
+
+    .mission-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mission-btn:hover {
+      transform: scale(1.05);
+      filter: brightness(1.12);
+    }
+
+    .mission-btn:active {
+      transform: scale(0.96);
+    }
+
+    .mission-btn img {
+      width: auto;
+      height: clamp(38px, 4.4vw, 54px);
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="meal-game-viewport" id="gameViewport" role="main" aria-label="MoonFall Mission 2.1: Plan Daily Meal">
+    <div class="meal-stage" id="mealStage">
+
+      <!-- Background Layer -->
+      <div class="meal-bg-layer" id="bgLayer" aria-hidden="true"></div>
+
+      <!-- Top HUD -->
+      <header class="top-hud">
+        <div class="hud-title-badge" id="hudMissionTitle">MISSION 2.1: PLAN DAILY MEAL</div>
+        <button class="hud-btn" onclick="returnToBase()" title="Return to Main Base" aria-label="Return to Main Base">
+          BASE
+        </button>
+      </header>
+
+      <!-- Character Stage: Sunita Williams -->
+      <div class="character-sunita" id="sunitaStage">
+        <img src="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.png" alt="Sunita Williams" id="sunitaImg">
+      </div>
+
+      <!-- Character Stage: White Astronaut (Scene 1 only) -->
+      <div class="character-astronaut" id="astronautStage">
+        <img src="assets/power/Astronaut_ThumbsUp.png" alt="Astronaut" id="astronautImg">
+      </div>
+
+      <!-- Diagram / Card Container (Scenes 2, 3, 5) -->
+      <section class="diagram-card-container hidden" id="diagramCardContainer" aria-label="Educational Diagram">
+        <img src="2.1_Daily_Meal/Frame 3_multilayer.png" alt="Diagram Card" id="diagramCardImg"
+          class="diagram-card-img">
+        <div class="card-prep-info hidden" id="cardPrepInfo">Meal Sealed & Ready</div>
+      </section>
+
+      <!-- Scene 4 Container: 3 Meal Options + Reserve HUD Stack -->
+      <section class="scene4-container hidden" id="scene4Container" aria-label="Meal Selection and Reserves">
+        <!-- 3 Meal Options -->
+        <div class="meal-options-list" id="mealOptionsList">
+          <div class="meal-option-card" id="mealCard1" onclick="selectMeal(1)" onmouseenter="previewMeal(1)"
+            onmouseleave="unpreviewMeal(1)">
+            <img src="2.1_Daily_Meal/image 7.png" alt="Meal 1 - Balanced">
+            <span class="selected-tag">SELECTED</span>
+          </div>
+          <div class="meal-option-card" id="mealCard2" onclick="selectMeal(2)" onmouseenter="previewMeal(2)"
+            onmouseleave="unpreviewMeal(2)">
+            <img src="2.1_Daily_Meal/image 8.png" alt="Meal 2 - Low Water">
+            <span class="selected-tag">SELECTED</span>
+          </div>
+          <div class="meal-option-card" id="mealCard3" onclick="selectMeal(3)" onmouseenter="previewMeal(3)"
+            onmouseleave="unpreviewMeal(3)">
+            <img src="2.1_Daily_Meal/image 9.png" alt="Meal 3 - High Energy">
+            <span class="selected-tag">SELECTED</span>
+          </div>
+        </div>
+
+        <!-- Right Side: Water & Power Reserve HUD Stack -->
+        <div class="reserve-hud-stack" id="reserveHudStack">
+          <!-- Water Reserve Box -->
+          <div class="reserve-box water-box" id="waterReserveBox">
+            <img src="2.1_Daily_Meal/Water_Reserve.png" alt="Water Reserve" class="reserve-box-bg">
+            <div class="reserve-track" id="waterReserveTrack">
+              <!-- 10 Blue Capsules -->
+            </div>
+          </div>
+
+          <!-- Power Reserve Box -->
+          <div class="reserve-box power-box" id="powerReserveBox">
+            <img src="2.1_Daily_Meal/Group 4.png" alt="Power Reserve" class="reserve-box-bg">
+            <div class="reserve-track" id="powerReserveTrack">
+              <!-- 10 Yellow Bars -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mission Complete Overlay -->
+      <div class="mission-complete-overlay hidden" id="missionCompleteOverlay">
+        <div class="mission-complete-container">
+          <img src="assets/Mission Complete.png" alt="Mission Complete" class="mission-complete-title">
+
+          <!-- Circular Verification Score Box (Circle Box) -->
+          <div class="circle-score-wrapper">
+            <div class="circle-score-box">
+              <svg class="score-circular-svg" viewBox="0 0 120 120">
+                <circle class="score-circle-bg" cx="60" cy="60" r="50"></circle>
+                <circle class="score-circle-progress" id="scoreCircleProgress" cx="60" cy="60" r="50"></circle>
+              </svg>
+              <div class="circle-score-content">
+                <span class="circle-score-num" id="circleScoreNum">100%</span>
+                <span class="circle-score-sub">SCORE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mission-complete-buttons">
+            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again"
+              aria-label="Try Again">
+              <img src="assets/Frame 25.png" alt="Try Again">
+            </button>
+            <button class="mission-btn btn-home" onclick="returnToBase()" title="Home" aria-label="Home">
+              <img src="assets/Frame 26.png" alt="Home">
+            </button>
+            <button class="mission-btn btn-next" onclick="goToNextMission()" title="Next" aria-label="Next">
+              <img src="assets/Frame 27.png" alt="Next">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dialogue Dock Footer (Sunita Williams) -->
+      <footer class="dialogue-wrapper" id="dialogueWrapper">
+        <div class="dialogue-box" id="dialogueBoxSunita" onclick="handleDialogueClick()">
+          <div class="speaker-badge-sunita" id="speakerBadgeSunita">
+            Sunita Williams
+          </div>
+          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene"
+            aria-label="Skip to Next Scene">
+            <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="2.1_Daily_Meal/Dialogue_Box.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content" id="dialogueContentSunita">
+            <p class="dialogue-text" id="dialogueTextSunita"></p>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script>
+    // =========================================================================
+    // Web Audio Synthesizer
+    // =========================================================================
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) this.ctx = new AudioContextClass();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      playTypewriter() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(540 + Math.random() * 80, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.04);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.04);
+        } catch (e) { }
+      }
+
+      playDialogueAdvance() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(420, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(640, this.ctx.currentTime + 0.09);
+          gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.09);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.09);
+        } catch (e) { }
+      }
+
+      playHoverTick() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(700, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.02, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.035);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.035);
+        } catch (e) { }
+      }
+
+      playMealSelected() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.06);
+            gain.gain.setValueAtTime(0.08, now + idx * 0.06);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.06 + 0.22);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + idx * 0.06);
+            osc.stop(now + idx * 0.06 + 0.22);
+          });
+        } catch (e) { }
+      }
+
+      playSuccessFanfare() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const chord = [440, 554.37, 659.25, 880];
+          chord.forEach((freq, i) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(freq, now + i * 0.08);
+            gain.gain.setValueAtTime(0.05, now + i * 0.08);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.45);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + i * 0.08);
+            osc.stop(now + i * 0.08 + 0.45);
+          });
+        } catch (e) { }
+      }
+    }
+
+    const sound = new SoundEngine();
+
+    // =========================================================================
+    // Mission Data & Script Configuration (Scenes 1 - 5)
+    // =========================================================================
+    const SCENES = [
+      {
+        sceneId: 1,
+        character: 'Sunita Williams',
+        pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.png',
+        astronaut: true,
+        diagramCard: null,
+        showScene4: false,
+        text: "Welcome to the food storage room, rookie!"
+      },
+      {
+        sceneId: 2,
+        character: 'Sunita Williams',
+        pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
+        astronaut: false,
+        diagramCard: '2.1_Daily_Meal/Frame 3_multilayer.png',
+        showScene4: false,
+        text: "Every meal is individually sealed in multilayer PET, aluminum, and PE packaging to protect it from oxygen and moisture."
+      },
+      {
+        sceneId: 3,
+        character: 'Sunita Williams',
+        pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
+        astronaut: false,
+        diagramCard: '2.1_Daily_Meal/Frame 3.png',
+        showScene4: false,
+        text: "Nitrogen flushing reduces residual oxygen to below 0.5%, helping preserve food quality. We also control temperature and humidity, and secure every package so it doesn't shift around."
+      },
+      {
+        sceneId: 4,
+        character: 'Sunita Williams',
+        pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
+        astronaut: false,
+        diagramCard: null,
+        showScene4: true,
+        text: "Now you have learnt how they are packed, let's choose your meal for today. You have three options"
+      },
+      {
+        sceneId: 5,
+        character: 'Sunita Williams',
+        pose: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png',
+        astronaut: false,
+        diagramCard: '2.1_Daily_Meal/Frame 8.png',
+        showScene4: false,
+        text: "Great. Let's get that meal prepared."
+      }
+    ];
+
+    // Meal Specifications according to User Prompt:
+    // Water: per 50ml water reduce 1 capsule from Water Reserve (10 capsules total)
+    // Power: per 10w decrease 1 bar; for 25w decrease 2 bars; for 35w decrease 3 bars (10 bars total)
+    const MEAL_DATA = {
+      1: {
+        id: 1,
+        title: "Meal 1 — Balanced",
+        waterReq: "150ml",
+        powerReq: "25W",
+        waterBarsToDeduct: 3, // 150ml / 50ml = 3 capsules
+        powerBarsToDeduct: 2  // 25W = 2 bars as specified by user
+      },
+      2: {
+        id: 2,
+        title: "Meal 2 — Low Water",
+        waterReq: "50ml",
+        powerReq: "10W",
+        waterBarsToDeduct: 1, // 50ml / 50ml = 1 capsule
+        powerBarsToDeduct: 1  // 10W = 1 bar as specified by user
+      },
+      3: {
+        id: 3,
+        title: "Meal 3 — High Energy",
+        waterReq: "300ml",
+        powerReq: "35W",
+        waterBarsToDeduct: 6, // 300ml / 50ml = 6 capsules
+        powerBarsToDeduct: 3  // 35W = 3 bars as specified by user
+      }
+    };
+
+    // State Variables
+    let currentSceneIndex = 0;
+    let selectedMealId = null;
+    let hoveredMealId = null;
+    let isTyping = false;
+    let typeTimer = null;
+    let currentFullText = '';
+
+    // DOM Elements
+    const sunitaStage = document.getElementById('sunitaStage');
+    const sunitaImg = document.getElementById('sunitaImg');
+    const astronautStage = document.getElementById('astronautStage');
+    const diagramCardContainer = document.getElementById('diagramCardContainer');
+    const diagramCardImg = document.getElementById('diagramCardImg');
+    const cardPrepInfo = document.getElementById('cardPrepInfo');
+    const scene4Container = document.getElementById('scene4Container');
+    const waterReserveTrack = document.getElementById('waterReserveTrack');
+    const powerReserveTrack = document.getElementById('powerReserveTrack');
+    const dialogueWrapper = document.getElementById('dialogueWrapper');
+    const dialogueTextSunita = document.getElementById('dialogueTextSunita');
+    const missionCompleteOverlay = document.getElementById('missionCompleteOverlay');
+
+    // =========================================================================
+    // Initialize Reserves HUD (10 Water Capsules & 10 Power Bars)
+    // =========================================================================
+    function initReserveTracks() {
+      waterReserveTrack.innerHTML = '';
+      powerReserveTrack.innerHTML = '';
+
+      for (let i = 0; i < 10; i++) {
+        // Water Slot
+        const wSlot = document.createElement('div');
+        wSlot.className = 'reserve-slot active';
+        wSlot.id = `waterSlot_${i}`;
+        const wImg = document.createElement('img');
+        wImg.src = '2.1_Daily_Meal/Bar01.png';
+        wImg.alt = 'Water Capsule';
+        wSlot.appendChild(wImg);
+        waterReserveTrack.appendChild(wSlot);
+
+        // Power Slot
+        const pSlot = document.createElement('div');
+        pSlot.className = 'reserve-slot active';
+        pSlot.id = `powerSlot_${i}`;
+        const pImg = document.createElement('img');
+        pImg.src = '2.1_Daily_Meal/Yellow_bar04.png';
+        pImg.alt = 'Power Bar';
+        pSlot.appendChild(pImg);
+        powerReserveTrack.appendChild(pSlot);
+      }
+    }
+
+    // Update Reserve Bars display based on current active / preview state
+    function updateReserveBars(previewMealId = null) {
+      const activeMeal = previewMealId ? MEAL_DATA[previewMealId] : (selectedMealId ? MEAL_DATA[selectedMealId] : null);
+
+      const waterDeduct = activeMeal ? activeMeal.waterBarsToDeduct : 0;
+      const powerDeduct = activeMeal ? activeMeal.powerBarsToDeduct : 0;
+
+      const isPreview = previewMealId !== null && previewMealId !== selectedMealId;
+
+      // Update Water Slots (10 slots total, deduct from right to left)
+      const waterRemaining = 10 - waterDeduct;
+      for (let i = 0; i < 10; i++) {
+        const slot = document.getElementById(`waterSlot_${i}`);
+        if (!slot) continue;
+        slot.className = 'reserve-slot';
+
+        if (i < waterRemaining) {
+          slot.classList.add('active');
+        } else {
+          if (isPreview) {
+            slot.classList.add('preview-deduct');
+          } else {
+            slot.classList.add('empty');
+          }
+        }
+      }
+
+      // Update Power Slots (10 slots total, deduct from right to left)
+      const powerRemaining = 10 - powerDeduct;
+      for (let i = 0; i < 10; i++) {
+        const slot = document.getElementById(`powerSlot_${i}`);
+        if (!slot) continue;
+        slot.className = 'reserve-slot';
+
+        if (i < powerRemaining) {
+          slot.classList.add('active');
+        } else {
+          if (isPreview) {
+            slot.classList.add('preview-deduct');
+          } else {
+            slot.classList.add('empty');
+          }
+        }
+      }
+    }
+
+    // =========================================================================
+    // Meal Selection & Hover Handlers
+    // =========================================================================
+    function previewMeal(mealId) {
+      if (currentSceneIndex !== 3) return; // Only in Scene 4
+      hoveredMealId = mealId;
+      sound.playHoverTick();
+      updateReserveBars(mealId);
+    }
+
+    function unpreviewMeal(mealId) {
+      if (currentSceneIndex !== 3) return;
+      hoveredMealId = null;
+      updateReserveBars(null);
+    }
+
+    function selectMeal(mealId) {
+      if (currentSceneIndex !== 3) return;
+      selectedMealId = mealId;
+      sound.playMealSelected();
+
+      // Highlight selected card
+      [1, 2, 3].forEach(id => {
+        const card = document.getElementById(`mealCard${id}`);
+        if (card) {
+          if (id === mealId) {
+            card.classList.add('selected');
+          } else {
+            card.classList.remove('selected');
+          }
+        }
+      });
+
+      // Commit Deduction
+      updateReserveBars(null);
+
+      // Prompt to proceed
+      const meal = MEAL_DATA[mealId];
+      const proceedText = `${meal.title} selected! Reserves updated: -${meal.waterReq} Water, -${meal.powerReq} Power. Click SKIP to proceed!`;
+      startTypewriter(proceedText);
+    }
+
+    // =========================================================================
+    // Scene Progression Engine
+    // =========================================================================
+    function renderScene(idx) {
+      if (idx >= SCENES.length) {
+        showMissionComplete();
+        return;
+      }
+
+      const s = SCENES[idx];
+
+      // Update Character Poses
+      sunitaImg.src = s.pose;
+      sunitaStage.classList.remove('hidden');
+
+      // Astronaut thumbs up (Scene 1 only)
+      if (s.astronaut) {
+        astronautStage.classList.remove('hidden');
+      } else {
+        astronautStage.classList.add('hidden');
+      }
+
+      // Diagram / Card in Scenes 2, 3, 5
+      if (s.diagramCard) {
+        diagramCardContainer.classList.remove('hidden');
+        diagramCardImg.src = s.diagramCard;
+
+        if (s.sceneId === 5) {
+          diagramCardContainer.classList.add('scene5-pos');
+          cardPrepInfo.classList.remove('hidden');
+          const chosen = selectedMealId ? MEAL_DATA[selectedMealId].title : "Meal 1 — Balanced";
+          cardPrepInfo.textContent = `${chosen} Sealed & Ready`;
+        } else {
+          diagramCardContainer.classList.remove('scene5-pos');
+          cardPrepInfo.classList.add('hidden');
+        }
+      } else {
+        diagramCardContainer.classList.add('hidden');
+      }
+
+      // Scene 4 Interactive Meal Selection
+      if (s.showScene4) {
+        scene4Container.classList.remove('hidden');
+        updateReserveBars(null);
+      } else {
+        scene4Container.classList.add('hidden');
+      }
+
+      // Mission Complete Overlay is hidden during scenes
+      missionCompleteOverlay.classList.add('hidden');
+      dialogueWrapper.classList.remove('hidden');
+
+      // Typewriter Dialogue
+      startTypewriter(s.text);
+    }
+
+    function advanceScene() {
+      sound.playDialogueAdvance();
+
+      // If on Scene 4 and no meal chosen, default choose Meal 1 so player can proceed
+      if (currentSceneIndex === 3 && !selectedMealId) {
+        selectMeal(1);
+        setTimeout(() => {
+          currentSceneIndex++;
+          renderScene(currentSceneIndex);
+        }, 300);
+        return;
+      }
+
+      currentSceneIndex++;
+      renderScene(currentSceneIndex);
+    }
+
+    function handleDialogueClick() {
+      if (isTyping) {
+        completeTypewriter();
+      } else {
+        advanceScene();
+      }
+    }
+
+    function handleActionBtnClick() {
+      if (isTyping) {
+        completeTypewriter();
+      } else {
+        advanceScene();
+      }
+    }
+
+    // =========================================================================
+    // Typewriter Engine
+    // =========================================================================
+    function startTypewriter(str) {
+      currentFullText = str;
+      if (typeTimer) clearTimeout(typeTimer);
+      isTyping = true;
+      dialogueTextSunita.textContent = '';
+      let charIndex = 0;
+
+      function typeChar() {
+        if (!isTyping) return;
+        if (charIndex < str.length) {
+          dialogueTextSunita.textContent += str.charAt(charIndex);
+          if (charIndex % 3 === 0) sound.playTypewriter();
+          charIndex++;
+          typeTimer = setTimeout(typeChar, 18);
+        } else {
+          isTyping = false;
+        }
+      }
+
+      typeChar();
+    }
+
+    function completeTypewriter() {
+      if (!isTyping) return;
+      if (typeTimer) clearTimeout(typeTimer);
+      isTyping = false;
+      dialogueTextSunita.textContent = currentFullText;
+    }
+
+    // =========================================================================
+    // Mission Complete Final Screen
+    // =========================================================================
+    function showMissionComplete() {
+      sound.playSuccessFanfare();
+
+      // Hide active scene stages
+      sunitaStage.classList.add('hidden');
+      astronautStage.classList.add('hidden');
+      diagramCardContainer.classList.add('hidden');
+      scene4Container.classList.add('hidden');
+
+      // Show Mission Complete Overlay
+      missionCompleteOverlay.classList.remove('hidden');
+
+      // Dialogue summary
+      const chosenName = selectedMealId ? MEAL_DATA[selectedMealId].title : "Balanced Meal";
+      const completeMsg = `Mission accomplished! Outstanding work, Cadet! ${chosenName} successfully planned and prepared.`;
+      startTypewriter(completeMsg);
+    }
+
+    function restartMission() {
+      selectedMealId = null;
+      hoveredMealId = null;
+      [1, 2, 3].forEach(id => {
+        const card = document.getElementById(`mealCard${id}`);
+        if (card) card.classList.remove('selected');
+      });
+      initReserveTracks();
+      currentSceneIndex = 0;
+      renderScene(0);
+    }
+
+    function returnToBase() {
+      window.location.href = 'index.html';
+    }
+
+    function goToNextMission() {
+      window.location.href = '5.1_Radiation_mission.html';
+    }
+
+    // Keyboard Shortcuts (Space / Enter to Advance)
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.code === 'Enter') {
+        e.preventDefault();
+        handleDialogueClick();
+      }
+    });
+
+    // Initialize on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      initReserveTracks();
+      renderScene(0);
+    });
+  </script>
+</body>
+
+</html>

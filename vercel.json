@@ -7,6 +7,8 @@
     { "source": "/power", "destination": "/1.1_power_mission.html" },
     { "source": "/radiation", "destination": "/5.1_Radiation_mission.html" },
     { "source": "/1.1_power.html", "destination": "/5.1_Radiation_mission.html" },
+    { "source": "/meal", "destination": "/2.1_daily_meal.html" },
+    { "source": "/food", "destination": "/2.1_daily_meal.html" },
     { "source": "/base", "destination": "/index.html" },
     { "source": "/mainbase", "destination": "/index.html" }
   ]
