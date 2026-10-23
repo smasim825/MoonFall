@@ -248,6 +248,22 @@
       gap: 8px;
       width: 58%;
       height: 100%;
+      transition: outline 0.2s ease;
+    }
+
+    @keyframes prompt-shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    .meal-options-list.shake-prompt {
+      animation: prompt-shake 0.5s ease-in-out !important;
+    }
+
+    .meal-options-list.shake-prompt .meal-option-card {
+      border-color: #fdcb0e !important;
+      box-shadow: 0 0 16px rgba(253, 203, 14, 0.8) !important;
     }
 
     .meal-option-card {
@@ -1716,40 +1732,44 @@
       }
     ];
 
+    // Base Reserve HUD levels (7 Water Bars & 8 Power Bars as specified by user)
+    const BASE_WATER_BARS = 7;
+    const BASE_POWER_BARS = 8;
+
     // Meal Specifications according to User Prompt:
     const MEAL_DATA = {
       1: {
         id: 1,
         title: "Meal 1 — Balanced",
         kcal: 850,
-        waterReq: "150ml",
-        powerReq: "25W",
-        waterBarsToDeduct: 3, // 150ml / 50ml = 3 capsules
-        powerBarsToDeduct: 2  // 25W = 2 bars as specified by user
+        waterReq: "150ml (4 bars)",
+        powerReq: "25W (2 bars)",
+        waterBarsToDeduct: 4, // 4 water bars reduce
+        powerBarsToDeduct: 2  // 2 power bars reduce
       },
       2: {
         id: 2,
         title: "Meal 2 — Low Water",
         kcal: 900,
-        waterReq: "50ml",
-        powerReq: "10W",
-        waterBarsToDeduct: 1, // 50ml / 50ml = 1 capsule
-        powerBarsToDeduct: 1  // 10W = 1 bar as specified by user
+        waterReq: "50ml (1 bar)",
+        powerReq: "10W (1 bar)",
+        waterBarsToDeduct: 1, // 1 water bar reduce
+        powerBarsToDeduct: 1  // 1 power bar reduce
       },
       3: {
         id: 3,
         title: "Meal 3 — High Energy",
-        kcal: 1100,
-        waterReq: "300ml",
-        powerReq: "35W",
-        waterBarsToDeduct: 6, // 300ml / 50ml = 6 capsules
-        powerBarsToDeduct: 3  // 35W = 3 bars as specified by user
+        kcal: 1200,
+        waterReq: "200ml (4 bars)",
+        powerReq: "35W (3 bars)",
+        waterBarsToDeduct: 4, // 4 water bars reduce
+        powerBarsToDeduct: 3  // 3 power bars reduce
       }
     };
 
     // State Variables
     let currentSceneIndex = 0;
-    let selectedMealId = 1;
+    let selectedMealId = null; // MUST choose at least one
     let hoveredMealId = null;
     let isTyping = false;
     let typeTimer = null;
@@ -1792,7 +1812,7 @@
 
       for (let i = 0; i < 10; i++) {
         const wSlot = document.createElement('div');
-        wSlot.className = 'reserve-slot active';
+        wSlot.className = i < BASE_WATER_BARS ? 'reserve-slot active' : 'reserve-slot empty';
         wSlot.id = `waterSlot_${i}`;
         const wImg = document.createElement('img');
         wImg.src = '2.1_Daily_Meal/Bar01.webp';
@@ -1801,7 +1821,7 @@
         waterReserveTrack.appendChild(wSlot);
 
         const pSlot = document.createElement('div');
-        pSlot.className = 'reserve-slot active';
+        pSlot.className = i < BASE_POWER_BARS ? 'reserve-slot active' : 'reserve-slot empty';
         pSlot.id = `powerSlot_${i}`;
         const pImg = document.createElement('img');
         pImg.src = '2.1_Daily_Meal/Yellow_bar04.webp';
@@ -1812,14 +1832,15 @@
     }
 
     function updateReserveBars(previewMealId = null) {
-      const activeMeal = previewMealId ? MEAL_DATA[previewMealId] : (selectedMealId ? MEAL_DATA[selectedMealId] : null);
+      const activeMealId = previewMealId !== null ? previewMealId : selectedMealId;
+      const meal = activeMealId ? MEAL_DATA[activeMealId] : null;
 
-      const waterDeduct = activeMeal ? activeMeal.waterBarsToDeduct : 0;
-      const powerDeduct = activeMeal ? activeMeal.powerBarsToDeduct : 0;
+      const waterDeduct = meal ? meal.waterBarsToDeduct : 0;
+      const powerDeduct = meal ? meal.powerBarsToDeduct : 0;
 
       const isPreview = previewMealId !== null && previewMealId !== selectedMealId;
 
-      const waterRemaining = 10 - waterDeduct;
+      const waterRemaining = Math.max(0, BASE_WATER_BARS - waterDeduct);
       for (let i = 0; i < 10; i++) {
         const slot = document.getElementById(`waterSlot_${i}`);
         if (!slot) continue;
@@ -1827,16 +1848,20 @@
 
         if (i < waterRemaining) {
           slot.classList.add('active');
-        } else {
+        } else if (i < BASE_WATER_BARS) {
           if (isPreview) {
             slot.classList.add('preview-deduct');
-          } else {
+          } else if (waterDeduct > 0) {
             slot.classList.add('empty');
+          } else {
+            slot.classList.add('active');
           }
+        } else {
+          slot.classList.add('empty');
         }
       }
 
-      const powerRemaining = 10 - powerDeduct;
+      const powerRemaining = Math.max(0, BASE_POWER_BARS - powerDeduct);
       for (let i = 0; i < 10; i++) {
         const slot = document.getElementById(`powerSlot_${i}`);
         if (!slot) continue;
@@ -1844,12 +1869,16 @@
 
         if (i < powerRemaining) {
           slot.classList.add('active');
-        } else {
+        } else if (i < BASE_POWER_BARS) {
           if (isPreview) {
             slot.classList.add('preview-deduct');
-          } else {
+          } else if (powerDeduct > 0) {
             slot.classList.add('empty');
+          } else {
+            slot.classList.add('active');
           }
+        } else {
+          slot.classList.add('empty');
         }
       }
     }
@@ -1889,7 +1918,7 @@
       updateReserveBars(null);
 
       const meal = MEAL_DATA[mealId];
-      const proceedText = `${meal.title} selected! Reserves updated: -${meal.waterReq} Water, -${meal.powerReq} Power. Click SKIP to proceed!`;
+      const proceedText = `${meal.title} selected! Reserves: -${meal.waterBarsToDeduct} Water, -${meal.powerBarsToDeduct} Power. Click SKIP to proceed!`;
       startTypewriter(proceedText);
     }
 
@@ -2000,21 +2029,22 @@
     }
 
     function advanceScene() {
-      sound.playDialogueAdvance();
-
       // If in MCQ mode, handle by option clicks
       if (currentMcqIndex >= 0) return;
 
-      // If on Scene 4 and no meal chosen, default choose Meal 1
+      // If on Scene 4 (Meal Selection) and player has not chosen a meal yet, require choosing one:
       if (currentSceneIndex === 3 && !selectedMealId) {
-        selectMeal(1);
-        setTimeout(() => {
-          currentSceneIndex++;
-          renderScene(currentSceneIndex);
-        }, 300);
+        sound.playOptionSelect(false);
+        const optionsList = document.getElementById('mealOptionsList');
+        if (optionsList) {
+          optionsList.classList.add('shake-prompt');
+          setTimeout(() => optionsList.classList.remove('shake-prompt'), 600);
+        }
+        startTypewriter("Please choose one of the three meals before proceeding, rookie!");
         return;
       }
 
+      sound.playDialogueAdvance();
       currentSceneIndex++;
       renderScene(currentSceneIndex);
     }
@@ -2223,15 +2253,14 @@
     }
 
     function restartMission() {
-      selectedMealId = 1;
+      selectedMealId = null;
       hoveredMealId = null;
       currentMcqIndex = -1;
       correctAnswersCount = 0;
       [1, 2, 3].forEach(id => {
         const card = document.getElementById(`mealCard${id}`);
         if (card) {
-          if (id === 1) card.classList.add('selected');
-          else card.classList.remove('selected');
+          card.classList.remove('selected');
         }
       });
       initReserveTracks();
