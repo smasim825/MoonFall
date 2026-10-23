@@ -85,15 +85,15 @@
       z-index: 1;
     }
 
-    /* Character: Dr. Chiaki Mukai (Left Side) */
+    /* Character: Dr. Chiaki Mukai (Left Side - In Front of Dialogue Bar) */
     .character-chiaki {
       position: absolute;
-      bottom: 0;
-      left: 3.5%;
-      width: 26%;
-      height: 78%;
+      bottom: -2%;
+      left: 2%;
+      width: 22%;
+      height: 60%;
       pointer-events: none;
-      z-index: 10;
+      z-index: 30;
       display: flex;
       align-items: flex-end;
       transition: opacity 0.35s ease;
@@ -108,7 +108,7 @@
       image-rendering: pixelated;
     }
 
-    /* Character: White Astronaut (Right Side) */
+    /* Character: White Astronaut (Right Side - Under Dialogue Bar) */
     .character-astronaut {
       position: absolute;
       bottom: -2%;
@@ -132,13 +132,14 @@
       image-rendering: pixelated;
     }
 
-    /* Floating Educational Diagram Card (Right Upper Quadrant) */
+    /* Floating Educational Diagram Card (Centered in Middle) */
     .diagram-card-container {
       position: absolute;
-      top: 6.5%;
-      right: 5%;
-      width: 48%;
-      height: 59%;
+      top: 6%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 60%;
       z-index: 15;
       display: flex;
       align-items: center;
@@ -150,11 +151,12 @@
     @keyframes card-appear {
       from {
         opacity: 0;
-        transform: translateY(-10px) scale(0.97);
+        transform: translate(-50%, -10px) scale(0.97);
       }
+
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translate(-50%, 0) scale(1);
       }
     }
 
@@ -201,12 +203,12 @@
       filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
     }
 
-    /* Speaker Badge (Top-left overlapping) */
+    /* Speaker Badge (Shifted right so Chiaki Mukai in front doesn't overlap it) */
     .speaker-badge {
       position: absolute;
       top: -16.5%;
-      left: 3.2%;
-      width: 18.5%;
+      left: 17.5%;
+      width: 17.5%;
       aspect-ratio: 479 / 127;
       display: flex;
       align-items: center;
@@ -216,7 +218,7 @@
     }
 
     .speaker-badge.astro-bee-badge {
-      left: 13.5%;
+      left: 14%;
       width: 17.2%;
       aspect-ratio: 449 / 134;
       top: -16.5%;
@@ -311,9 +313,11 @@
       0% {
         transform: translateY(-50%) rotate(0deg);
       }
+
       50% {
         transform: translateY(calc(-50% - 5px)) rotate(-0.5deg);
       }
+
       100% {
         transform: translateY(calc(-50% + 4px)) rotate(0.5deg);
       }
@@ -324,8 +328,8 @@
       position: relative;
       z-index: 2;
       width: 90%;
-      padding-left: 0.8%;
-      padding-right: 3%;
+      padding-left: 17.5%;
+      padding-right: 4%;
       display: flex;
       align-items: center;
       overflow: hidden;
@@ -333,7 +337,7 @@
     }
 
     .dialogue-content.content-scene2 {
-      padding-left: 14.5%;
+      padding-left: 15%;
       padding-right: 15%;
     }
 
@@ -389,6 +393,7 @@
         opacity: 0;
         transform: translate(-50%, -15px) scale(0.96);
       }
+
       to {
         opacity: 1;
         transform: translate(-50%, 0) scale(1);
@@ -577,6 +582,7 @@
         opacity: 0;
         transform: translate(-50%, -20px) scale(0.96);
       }
+
       to {
         opacity: 1;
         transform: translate(-50%, 0) scale(1);
@@ -747,7 +753,8 @@
   </aside>
 
   <!-- Quick Floating Rotate Button on Mobile -->
-  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="toggleForceHorizontal()" title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
+  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="toggleForceHorizontal()"
+    title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
     🔄 Screen
   </button>
 
@@ -793,7 +800,8 @@
         <div class="mcq-speaker-pill">Astro Bee</div>
 
         <!-- Question Title -->
-        <h3 class="mcq-question-title" id="mcqQuestionTitle">Q1. Which component generates electricity from sunlight?</h3>
+        <h3 class="mcq-question-title" id="mcqQuestionTitle">Q1. Which component generates electricity from sunlight?
+        </h3>
 
         <!-- Options List -->
         <div class="mcq-options-list" id="mcqOptionsList">
@@ -825,7 +833,8 @@
 
           <!-- Action Buttons -->
           <div class="mission-complete-buttons">
-            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again" aria-label="Try Again">
+            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again"
+              aria-label="Try Again">
               <img src="assets/Frame 25.png" alt="Try Again">
             </button>
             <button class="mission-btn btn-home" onclick="returnToBase()" title="Home" aria-label="Home">
@@ -843,16 +852,19 @@
         <div class="dialogue-box scene-1-box" id="dialogueBox">
           <!-- Floating Astro Bee Robot (for Scene 12 & Complete) -->
           <div class="robot-avatar-container hidden" id="dialogueRobotAvatar">
-            <img src="1.1_power_mission_assest/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee" class="robot-avatar-img">
+            <img src="1.1_power_mission_assest/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee"
+              class="robot-avatar-img">
           </div>
 
           <!-- Speaker Badge (Chiaki Mukai or Astro Bee) -->
           <div class="speaker-badge" id="speakerBadge">
-            <img src="1.1_power_mission_assest/Caption Text.webp" alt="Speaker" class="speaker-badge-img" id="speakerBadgeImg">
+            <img src="1.1_power_mission_assest/Caption Text.webp" alt="Speaker" class="speaker-badge-img"
+              id="speakerBadgeImg">
           </div>
 
           <!-- Skip / Next Button (Matching 5.1 Radiation Mission) -->
-          <button class="skip-btn" id="actionBtn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene" aria-label="Skip to Next Scene">
+          <button class="skip-btn" id="actionBtn" onclick="event.stopPropagation(); handleActionBtnClick()"
+            title="Next Scene" aria-label="Skip to Next Scene">
             <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
             <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
           </button>
@@ -1546,7 +1558,9 @@
     });
   </script>
   <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
-  <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev" data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.png" data-badge="assets/scene 3/Frame 7.png" defer></script>
+  <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev"
+    data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.png"
+    data-badge="assets/scene 3/Frame 7.png" defer></script>
   <script src="astrobee/moonfall.js" defer></script>
 </body>
 
