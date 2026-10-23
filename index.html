@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Lunar Mission: Hydroponics & Space Radiation</title>
+  <meta name="description" content="Lunar base rover scene with Rakesh Sharma and space radiation warning.">
+
+  <!-- Jersey 10 Retro Pixel Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+  <link rel="preload" href="Jersey10.ttf" as="font" type="font/ttf" crossorigin>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Responsive 16:9 Game Viewport Wrapper -->
+  <main class="game-viewport" id="gameViewport" role="application" aria-label="Lunar Mission Scene">
+
+    <!-- Scene Stage -->
+    <div class="scene-stage" id="sceneStage">
+
+      <!-- Layer 1: Background Scenery (Moonbase, Greenhouse, Earth, Stars) -->
+      <div class="layer layer-background" id="layerBackground" style="background-image: url('image 127.png');">
+        <!-- Ambient Star Twinkle -->
+        <div class="ambient-stars" aria-hidden="true"></div>
+      </div>
+
+      <!-- Layer 2: Foreground Rover Cockpit & Astronauts -->
+      <div class="layer layer-rover" id="layerRover" style="background-image: url('image 126.png');">
+        <!-- Blinking Robot Camera Sensor LED -->
+        <div class="rover-sensor-led" aria-hidden="true"></div>
+      </div>
+
+      <!-- Emergency Red Alarm Blinking Overlay (from scene 3/Red_Layer.png) -->
+      <div class="red-alarm-layer hidden" id="redAlarmLayer" aria-hidden="true"></div>
+
+      <!-- SCENE 4-6: Space Radiation Card Panel (over lunar background) -->
+      <div class="radiation-card-overlay hidden" id="radiationCardOverlay">
+        <div class="radiation-card-frame">
+          <img src="scene 4/space_radiation.png" alt="Space Radiation Diagram" class="radiation-card-img">
+        </div>
+      </div>
+
+      <!-- SCENE 7: Earth Protection Card Panel -->
+      <div class="radiation-card-overlay hidden" id="earthCardOverlay">
+        <div class="radiation-card-frame">
+          <img src="Earth_protection.png" alt="Earth Protection Diagram" class="radiation-card-img">
+        </div>
+      </div>
+
+      <!-- SCENE 14-15: Regolith Cover Cross Section Card -->
+      <div class="regolith-card-overlay hidden" id="regolithCardOverlay">
+        <img src="crossSec.png" alt="Regolith Cover Cross Section" class="regolith-card-img">
+      </div>
+
+      <!-- SCENE 16: Mission Complete Overlay with Action Buttons -->
+      <div class="mission-complete-overlay hidden" id="missionCompleteOverlay">
+        <div class="mission-complete-container">
+          <img src="Mission Complete.png" alt="Mission Complete" class="mission-complete-title">
+          <div class="mission-complete-buttons">
+            <button class="mission-btn btn-try-again" id="btnTryAgain" title="Try Again" aria-label="Try Again">
+              <img src="Frame 25.png" alt="Try Again">
+            </button>
+            <button class="mission-btn btn-home" id="btnHome" title="Home" aria-label="Home">
+              <img src="Frame 26.png" alt="Home">
+            </button>
+            <button class="mission-btn btn-next" id="btnNext" title="Next" aria-label="Next">
+              <img src="Frame 27.png" alt="Next">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 8: Radiation Shelter Interior Background -->
+      <div class="layer layer-shelter hidden" id="layerShelter" style="background-image: url('scene 8/image 128.png');">
+      </div>
+
+      <!-- SCENE 13: Red Layer Overlay over Main Base -->
+      <div class="layer layer-base-red hidden" id="layerBaseRed" style="background-image: url('Red_Layer.png');" aria-hidden="true"></div>
+
+      <!-- SCENE 11: Mini Game Popup Board -->
+      <div class="mini-game-overlay hidden" id="miniGameOverlay">
+        <div class="mini-game-board" id="miniGameBoard">
+          <img src="MINI GAME/Game Box.png" alt="Mini Game Board" class="mini-game-bg">
+
+          <!-- 3x3 Grid Drop Targets (Empty Space) -->
+          <div class="minigame-grid" id="minigameGrid">
+            <div class="grid-cell" data-index="0"></div>
+            <div class="grid-cell" data-index="1"></div>
+            <div class="grid-cell" data-index="2"></div>
+            <div class="grid-cell" data-index="3"></div>
+            <div class="grid-cell" data-index="4"></div>
+            <div class="grid-cell" data-index="5"></div>
+            <div class="grid-cell" data-index="6"></div>
+            <div class="grid-cell" data-index="7"></div>
+            <div class="grid-cell" data-index="8"></div>
+          </div>
+
+          <!-- Vertical Meter Frame & 12 Color Bars -->
+          <div class="minigame-meter" id="minigameMeter">
+            <img src="MINI GAME/increaseSlot.png" alt="Meter Frame" class="meter-frame-img">
+            <div class="meter-bars" id="meterBars">
+              <img src="MINI GAME/COLOR BARS/1.png" alt="Bar 1" class="color-bar active" data-bar="1">
+              <img src="MINI GAME/COLOR BARS/2.png" alt="Bar 2" class="color-bar active" data-bar="2">
+              <img src="MINI GAME/COLOR BARS/3.png" alt="Bar 3" class="color-bar active" data-bar="3">
+              <img src="MINI GAME/COLOR BARS/4.png" alt="Bar 4" class="color-bar" data-bar="4">
+              <img src="MINI GAME/COLOR BARS/5.png" alt="Bar 5" class="color-bar" data-bar="5">
+              <img src="MINI GAME/COLOR BARS/6.png" alt="Bar 6" class="color-bar" data-bar="6">
+              <img src="MINI GAME/COLOR BARS/7.png" alt="Bar 7" class="color-bar" data-bar="7">
+              <img src="MINI GAME/COLOR BARS/8.png" alt="Bar 8" class="color-bar" data-bar="8">
+              <img src="MINI GAME/COLOR BARS/9.png" alt="Bar 9" class="color-bar" data-bar="9">
+              <img src="MINI GAME/COLOR BARS/10.png" alt="Bar 10" class="color-bar" data-bar="10">
+              <img src="MINI GAME/COLOR BARS/11.png" alt="Bar 11" class="color-bar" data-bar="11">
+              <img src="MINI GAME/COLOR BARS/12.png" alt="Bar 12" class="color-bar" data-bar="12">
+            </div>
+          </div>
+
+          <!-- Bottom Inventory Tray (9 draggable items) -->
+          <div class="minigame-tray" id="minigameTray">
+            <div class="tray-slot" data-slot="0">
+              <div class="draggable-item" draggable="true" data-type="container" data-src="MINI GAME/stufs/Container.png">
+                <img src="MINI GAME/stufs/Container.png" alt="Food Container">
+              </div>
+            </div>
+            <div class="tray-slot" data-slot="1">
+              <div class="draggable-item" draggable="true" data-type="barrel" data-src="MINI GAME/stufs/Barrel.png">
+                <img src="MINI GAME/stufs/Barrel.png" alt="Water Barrel">
+              </div>
+            </div>
+            <div class="tray-slot" data-slot="2">
+              <div class="draggable-item" draggable="true" data-type="water" data-src="MINI GAME/stufs/Water Icon.png">
+                <img src="MINI GAME/stufs/Water Icon.png" alt="Water Container">
+              </div>
+            </div>
+            <div class="tray-slot" data-slot="3">
+              <div class="draggable-item" draggable="true" data-type="container"
+                data-src="MINI GAME/stufs/Container.png">
+                <img src="MINI GAME/stufs/Container.png" alt="Food Container">
+              </div>
+            </div>
+            <div class="tray-slot" data-slot="4">
+              <div class="draggable-item" draggable="true" data-type="barrel" data-src="MINI GAME/stufs/Barrel.png">
+                <img src="MINI GAME/stufs/Barrel.png" alt="Water Barrel">
+              </div>
+            </div>
+            <div class="tray-slot" data-slot="5">
+              <div class="draggable-item" draggable="true" data-type="water" data-src="MINI GAME/stufs/Water Icon.png">
+                <img src="MINI GAME/stufs/Water Icon.png" alt="Water Container">
+              </div>
+            </div>
+            <div class="tray-slot" data-slot="6">
+              <div class="draggable-item" draggable="true" data-type="container"
+                data-src="MINI GAME/stufs/Container.png">
+                <img src="MINI GAME/stufs/Container.png" alt="Food Container">
+              </div>
+            </div>
+            <div class="tray-slot" data-slot="7">
+              <div class="draggable-item" draggable="true" data-type="barrel" data-src="MINI GAME/stufs/Barrel.png">
+                <img src="MINI GAME/stufs/Barrel.png" alt="Water Barrel">
+              </div>
+            </div>
+            <div class="tray-slot" data-slot="8">
+              <div class="draggable-item" draggable="true" data-type="water" data-src="MINI GAME/stufs/Water Icon.png">
+                <img src="MINI GAME/stufs/Water Icon.png" alt="Water Container">
+              </div>
+            </div>
+          </div>
+
+          <!-- Shelter Ready Popup Button -->
+          <button class="shelter-ready-btn hidden" id="shelterReadyBtn" title="Shelter Ready">
+            <span class="ready-check">✔</span>
+            <span class="ready-text">Shelter Ready</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SCENE 8: Characters -->
+      <div class="shelter-characters hidden" id="shelterCharacters">
+        <img src="scene 8/Rakesh_Sharma_Idle.png" alt="Rakesh Sharma" class="shelter-char char-left">
+        <img src="scene 8/Neil_Armstrong_Idle.png" alt="Neil Armstrong" class="shelter-char char-right">
+      </div>
+
+      <!-- Layer 3: Dialogue Box Wrapper -->
+      <footer class="dialogue-wrapper" id="dialogueWrapper">
+
+        <!-- SCENE 1 DIALOGUE BOX (Rakesh Sharma - Briefing) -->
+        <div class="dialogue-box scene-1-box" id="dialogueBoxScene1">
+          <!-- Speaker Badge (Caption Text.png contains "Rakesh Sharma") -->
+          <div class="speaker-badge" id="speakerBadge">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+
+          <!-- Skip Button (Caption Text-1.png contains "SKIP", Vector 6.png is ">>") -->
+          <button class="skip-btn" id="skipBtn" title="Next Scene" aria-label="Skip to Next Scene">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+
+          <!-- Dialogue Background Frame (Rectangle 3.png) -->
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+
+          <!-- Typewriter Animated Dialogue Text Content -->
+          <div class="dialogue-content">
+            <p class="dialogue-text text-scene1" id="dialogueTextScene1">
+              Let's check the greenhouse power before heading back.
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 2 DIALOGUE BOX (Astro Bee - Solar Radiation Emergency Warning) -->
+        <div class="dialogue-box scene-2-box hidden" id="dialogueBoxScene2">
+          <!-- Floating Astro Bee Robot (scene 3/Pragyan_ShivShakti_Neutral.png) -->
+          <div class="robot-avatar-container" id="robotAvatar">
+            <img src="scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
+          </div>
+
+          <!-- Speaker Badge (scene 3/Frame 7.png contains "Astro Bee") -->
+          <div class="speaker-badge astro-bee-badge" id="astroBeeBadge">
+            <img src="scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
+          </div>
+
+          <!-- Skip Button (Caption Text-1.png contains "SKIP", Vector 6.png is ">>") -->
+          <button class="skip-btn skip-btn-scene2" id="skipBtnScene2" title="Next" aria-label="Next">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+
+          <!-- Dialogue Background Frame (scene 3/Frame 6.png) -->
+          <img src="scene 3/Frame 6.png" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
+
+          <!-- Warning Dialogue Text in Bright Yellow -->
+          <div class="dialogue-content content-scene2">
+            <p class="dialogue-text text-warning-yellow" id="dialogueTextScene2">
+              WARNING! Solar radiation level is rising!
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 3 DIALOGUE BOX (Rakesh Sharma - Solar Storm Radiation Shelter Alert) -->
+        <div class="dialogue-box scene-3-box hidden" id="dialogueBoxScene3">
+          <!-- Speaker Badge (Caption Text.png contains "Rakesh Sharma") -->
+          <div class="speaker-badge" id="speakerBadgeScene3">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+
+          <!-- Skip Button (Caption Text-1.png contains "SKIP", Vector 6.png is ">>") -->
+          <button class="skip-btn" id="skipBtnScene3" title="Next" aria-label="Next">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+
+          <!-- Dialogue Background Frame (Rectangle 3.png) -->
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+
+          <!-- Multi-line Typewriter Animated Dialogue Text Content matching user image -->
+          <div class="dialogue-content content-scene3">
+            <p class="dialogue-text text-scene3" id="dialogueTextScene3">
+              A solar storm is approaching! Unlike Earth, the Moon has no natural protection against radiation. Quick,
+              let's get inside the radiation shelter!
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 4 DIALOGUE BOX (Space Radiation Telemetry Data) -->
+        <div class="dialogue-box scene-4-box hidden" id="dialogueBoxScene4">
+          <!-- Speaker Badge -->
+          <div class="speaker-badge" id="speakerBadgeScene4">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+
+          <!-- Restart / Skip Button -->
+          <button class="skip-btn" id="skipBtnScene4" title="Restart" aria-label="Restart from beginning">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+
+          <!-- Dialogue Background Frame -->
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+
+          <!-- Scene 4 Dialogue Text -->
+          <div class="dialogue-content content-scene4">
+            <p class="dialogue-text text-scene4" id="dialogueTextScene4">
+              GCRs come from beyond our Solar System. They're always present and difficult to block, even when the Sun
+              is calm.
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 5 DIALOGUE BOX (SPEs Explanation) -->
+        <div class="dialogue-box scene-4-box hidden" id="dialogueBoxScene5">
+          <div class="speaker-badge" id="speakerBadgeScene5">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+          <button class="skip-btn" id="skipBtnScene5" title="Next" aria-label="Next">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content content-scene4">
+            <p class="dialogue-text text-scene4" id="dialogueTextScene5">
+              SPEs come from the Sun and can cause sudden radiation spikes during solar storms. That's why we must act
+              quickly when a warning appears.
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 6 DIALOGUE BOX (GCRs Explanation) -->
+        <div class="dialogue-box scene-4-box hidden" id="dialogueBoxScene6">
+          <div class="speaker-badge" id="speakerBadgeScene6">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+          <button class="skip-btn" id="skipBtnScene6" title="Restart" aria-label="Restart from beginning">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content content-scene4">
+            <p class="dialogue-text text-scene4" id="dialogueTextScene6">
+              GCRs come from beyond our Solar System. They're always present and difficult to block, even when the Sun
+              is calm.
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 7 DIALOGUE BOX (Earth Protection) -->
+        <div class="dialogue-box scene-4-box hidden" id="dialogueBoxScene7">
+          <div class="speaker-badge" id="speakerBadgeScene7">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+          <button class="skip-btn" id="skipBtnScene7" title="Restart" aria-label="Restart from beginning">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content content-scene4">
+            <p class="dialogue-text text-scene4" id="dialogueTextScene7">
+              Earth's magnetic field deflects many charged particles, and the atmosphere absorbs and deflects those
+              particles. But the Moon lacks these natural shields, so we must build our own protection.
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 8 DIALOGUE BOX (Shelter Interior - Rakesh Sharma) -->
+        <div class="dialogue-box scene-1-box scene-8-dialogue hidden" id="dialogueBoxScene8">
+          <div class="speaker-badge" id="speakerBadgeScene8">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+          <button class="skip-btn" id="skipBtnScene8" title="Next" aria-label="Next">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content">
+            <p class="dialogue-text text-scene8" id="dialogueTextScene8">
+              Now that we're safe inside the shelter, let's protect our shelter from radiation! Placing materials
+              between the radiation and the crew reduces exposure.
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 9 DIALOGUE BOX (Shelter Interior - Supplies) -->
+        <div class="dialogue-box scene-1-box scene-8-dialogue hidden" id="dialogueBoxScene9">
+          <div class="speaker-badge" id="speakerBadgeScene9">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+          <button class="skip-btn" id="skipBtnScene9" title="Next" aria-label="Next">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content">
+            <p class="dialogue-text text-scene8" id="dialogueTextScene9">
+              We already have water containers, food, and other supplies. Let’s arrange them around the crew to
+              strengthen our shield!
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 12 DIALOGUE BOX (After Mini Game - Rakesh Sharma) -->
+        <div class="dialogue-box scene-1-box scene-8-dialogue hidden" id="dialogueBoxScene12">
+          <div class="speaker-badge" id="speakerBadgeScene12">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+          <button class="skip-btn" id="skipBtnScene12" title="Next" aria-label="Next">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content">
+            <p class="dialogue-text text-scene8" id="dialogueTextScene12">
+              Excellent work, Cadet! You’ve arranged our supplies to improve the shelter’s radiation shielding. But we
+              can do even more.
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 13 DIALOGUE BOX (Main Base - Rakesh Sharma) -->
+        <div class="dialogue-box scene-1-box scene-8-dialogue hidden" id="dialogueBoxScene13">
+          <div class="speaker-badge" id="speakerBadgeScene13">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+          <button class="skip-btn" id="skipBtnScene13" title="Next" aria-label="Next">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content">
+            <p class="dialogue-text text-scene8" id="dialogueTextScene13">
+              Look outside—there’s a resource all around us that could help protect our permanent habitat. Our crew isn’t the only thing we need to protect.
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 14 DIALOGUE BOX (Regolith Shielding - Rakesh Sharma) -->
+        <div class="dialogue-box scene-1-box scene-8-dialogue hidden" id="dialogueBoxScene14">
+          <div class="speaker-badge" id="speakerBadgeScene14">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+          <button class="skip-btn" id="skipBtnScene14" title="Next" aria-label="Next">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content">
+            <p class="dialogue-text text-scene8" id="dialogueTextScene14">
+              The Moon is covered in a loose material called lunar regolith, which we can use to provide additional radiation shielding around and over parts of our habitat.
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 15 DIALOGUE BOX (Smart Engineering with Regolith - Rakesh Sharma) -->
+        <div class="dialogue-box scene-1-box scene-8-dialogue hidden" id="dialogueBoxScene15">
+          <div class="speaker-badge" id="speakerBadgeScene15">
+            <img src="Caption Text.png" alt="Rakesh Sharma" class="speaker-badge-img">
+          </div>
+          <button class="skip-btn" id="skipBtnScene15" title="Next" aria-label="Next">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content">
+            <p class="dialogue-text text-scene8 text-scene15" id="dialogueTextScene15">
+              Using regolith means we won’t have to transport every kilogram of shielding material from Earth. Remember, smart engineering is about the best use of the resources available to us!
+            </p>
+          </div>
+        </div>
+
+        <!-- SCENE 16 DIALOGUE BOX (Astro Bee / Pragyan - Mission Complete) -->
+        <div class="dialogue-box scene-2-box scene-16-dialogue hidden" id="dialogueBoxScene16">
+          <div class="robot-avatar-container" id="robotAvatarScene16">
+            <img src="scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
+          </div>
+          <div class="speaker-badge astro-bee-badge" id="astroBeeBadgeScene16">
+            <img src="scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
+          </div>
+          <button class="skip-btn skip-btn-scene2" id="skipBtnScene16" title="Restart" aria-label="Restart from beginning">
+            <img src="Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="scene 3/Frame 6.png" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
+          <div class="dialogue-content content-scene2 content-scene16">
+            <p class="dialogue-text text-warning-yellow text-scene16" id="dialogueTextScene16">
+              Mission accomplished! Outstanding work, Cadet! Our crew and lunar habitat are safe from space radiation.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1052 @@
+@font-face {
+  font-family: 'Jersey 10';
+  src: url('Jersey10.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --bg-color: #000000;
+  --accent-blue: #038ff3;
+  --accent-yellow: #fdcb0e;
+  --font-pixel: 'Jersey 10', monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pixel);
+}
+
+/* ==========================================================================
+   16:9 Viewport Canvas Container
+   ========================================================================== */
+.game-viewport {
+  position: relative;
+  width: 100vw;
+  height: 56.25vw;
+  /* Strict 16:9 Aspect Ratio */
+  max-height: 100vh;
+  max-width: 177.78vh;
+  /* 16:9 Limit based on viewport height */
+  background: #000000;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+}
+
+.scene-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Scene Layers
+   ========================================================================== */
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Layer 1: Moon Base, Sky, Earth */
+.layer-background {
+  z-index: 1;
+}
+
+.ambient-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: radial-gradient(1px 1px at 25% 15%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 62% 9%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 83% 20%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(2px 2px at 45% 26%, rgba(147, 197, 253, 0.9), transparent);
+  animation: star-shimmer 4s infinite alternate;
+}
+
+@keyframes star-shimmer {
+  0% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Layer 2: Rover Foreground & Astronauts */
+.layer-rover {
+  z-index: 2;
+  background-position: center bottom;
+  background-size: 100% auto;
+}
+
+/* Central camera/sensor blinking LED */
+.rover-sensor-led {
+  position: absolute;
+  top: 61.5%;
+  left: 49.85%;
+  width: 5px;
+  height: 5px;
+  background: #00f0ff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00f0ff;
+  animation: led-blink 1.2s infinite;
+}
+
+@keyframes led-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* ==========================================================================
+   Layer 3: Dialogue Box (Exact Reproduction of the Screenshot)
+   ========================================================================== */
+.dialogue-wrapper {
+  position: absolute;
+  bottom: 4.8%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 20;
+  padding: 0 3%;
+  pointer-events: auto;
+}
+
+.dialogue-box {
+  position: relative;
+  /* Width corresponds to 2813 / 3207 = ~87.7% */
+  width: 87.7%;
+  max-width: 1400px;
+  /* Aspect ratio matches Rectangle 3.png (2813 / 378 ≈ 7.44) */
+  aspect-ratio: 2813 / 378;
+  display: flex;
+  align-items: center;
+  padding: 0 4.5%;
+}
+
+/* Background image of the dialogue container (Rectangle 3.png) */
+.dialogue-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
+}
+
+/* Speaker Badge (top-left edge overlapping) - Caption Text.png (597 x 127) */
+.speaker-badge {
+  position: absolute;
+  top: -16.5%;
+  left: 3.2%;
+  /* 597 / 2813 ≈ 21.2% */
+  width: 21.2%;
+  aspect-ratio: 597 / 127;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.speaker-badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+/* Skip Button (top-right edge overlapping) - Caption Text-1.png (376 x 127) */
+.skip-btn {
+  position: absolute;
+  top: -16.5%;
+  right: 3.2%;
+  /* 376 / 2813 ≈ 13.4% */
+  width: 13.4%;
+  aspect-ratio: 376 / 127;
+  display: block;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 50;
+  pointer-events: auto;
+  padding: 0;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.skip-btn * {
+  pointer-events: none;
+}
+
+.skip-btn:hover {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+}
+
+.skip-btn:active {
+  transform: scale(0.97);
+}
+
+.skip-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+/* Double arrow icon inside Caption Text-1.png */
+.skip-icon {
+  position: absolute;
+  /* Placed in the white gap on the left of "SKIP" */
+  left: 12.8%;
+  top: 50%;
+  transform: translateY(-50%);
+  /* 99 / 376 ≈ 26.3% */
+  width: 26.3%;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Dialogue Text (Bold, big, single-line matching the reference image) */
+.dialogue-content {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  padding-left: 0.8%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.content-scene2 {
+  padding-left: 14.5%;
+  padding-right: 15%;
+}
+
+.dialogue-text {
+  font-family: 'Jersey 10', monospace;
+  font-size: clamp(1.25rem, 2.7vw, 3rem);
+  font-weight: 400;
+  line-height: 1;
+  color: #000000;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  text-shadow: none;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  image-rendering: pixelated;
+}
+
+/* Scene 2 Yellow Warning Text */
+.text-warning-yellow {
+  color: #fdcb0e;
+  font-size: clamp(1.2rem, 2.5vw, 2.85rem);
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   Scene 2: Emergency Red Alarm Blinking Layer & Astro Bee Dialogue Box
+   ========================================================================== */
+.red-alarm-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('scene 3/Red_Layer.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 10;
+  image-rendering: pixelated;
+  animation: red-alarm-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes red-alarm-blink {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Scene 2 Dialogue Box (Frame 6.png is 2610 x 248) */
+.scene-2-box {
+  width: 81.4%;
+  aspect-ratio: 2610 / 248;
+}
+
+/* Floating Astro Bee Robot (Pragyan_ShivShakti_Neutral.png) */
+.robot-avatar-container {
+  position: absolute;
+  left: 0.5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14.5%;
+  aspect-ratio: 374 / 386;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: robot-hover 3s ease-in-out infinite alternate;
+}
+
+.robot-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
+}
+
+@keyframes robot-hover {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(calc(-50% - 5px)) rotate(-0.5deg);
+  }
+
+  100% {
+    transform: translateY(calc(-50% + 4px)) rotate(0.5deg);
+  }
+}
+
+/* Astro Bee Badge (Frame 7.png is 449 x 134) */
+.astro-bee-badge {
+  position: absolute;
+  top: -46%;
+  left: 13.5%;
+  width: 17.2%;
+  aspect-ratio: 449 / 134;
+  z-index: 5;
+}
+
+.astro-badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+/* Scene 2 Skip Button */
+.scene-2-box .skip-btn {
+  top: -26%;
+  right: 2.8%;
+  width: 14.4%;
+  aspect-ratio: 376 / 127;
+  z-index: 50;
+  pointer-events: auto;
+}
+
+/* Common hidden utility */
+.hidden {
+  display: none !important;
+}
+
+/* Scene 16: Astro Bee Dialogue Box positioned higher up with multi-line wrapping */
+.scene-16-dialogue {
+  transform: translateY(-26px);
+  margin-bottom: 2.5%;
+  z-index: 25;
+}
+
+.content-scene16 {
+  width: 96%;
+  padding-left: 14%;
+  padding-right: 14.5%;
+  display: flex;
+  align-items: center;
+}
+
+.text-scene16 {
+  white-space: normal !important;
+  word-break: normal !important;
+  font-size: clamp(1.2rem, 2.32vw, 2.45rem) !important;
+  line-height: 1.05;
+  color: #fdcb0e;
+  text-align: left;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Scene 3: Rakesh Sharma Multi-line Radiation Shelter Warning & Modal
+   ========================================================================== */
+.scene-3-box {
+  width: 87.7%;
+  aspect-ratio: 2813 / 378;
+}
+
+.content-scene3 {
+  width: 95%;
+  padding-left: 0.8%;
+  padding-right: 5%;
+  display: flex;
+  align-items: center;
+}
+
+.text-scene3 {
+  font-family: 'Jersey 10', monospace;
+  font-size: clamp(1.4rem, 2.75vw, 2.7rem);
+  font-weight: 400;
+  line-height: 0.88;
+  color: #000000;
+  white-space: normal;
+  word-break: normal;
+  letter-spacing: 0.02em;
+  text-shadow: none;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  image-rendering: pixelated;
+}
+
+/* ==========================================================================
+   Scene 4: Space Radiation Card Panel (floats over lunar background)
+   ========================================================================== */
+.radiation-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* Leave bottom ~28% free for dialogue box */
+  height: 72%;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 8%;
+  pointer-events: none;
+  animation: card-slide-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes card-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* "Space Radiation" heading — matches screenshot: white bold, pixel font, large */
+.radiation-card-title {
+  font-family: 'Jersey 10', monospace;
+  font-size: clamp(1.8rem, 5vw, 5rem);
+  font-weight: 400;
+  color: #ffffff;
+  text-align: center;
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 0 18px rgba(0, 180, 255, 0.9),
+    2px 2px 0 #000;
+  margin-bottom: 1.2%;
+  line-height: 1;
+  -webkit-font-smoothing: none;
+}
+
+/* Bordered card frame — blue glowing border matching the screenshot */
+.radiation-card-frame {
+  width: 50%;
+  max-height: 100%;
+  border: 3px solid #038ff3;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(0, 160, 255, 0.3),
+    0 0 20px rgba(3, 143, 243, 0.6),
+    inset 0 0 10px rgba(0, 0, 0, 0.4);
+  background: rgba(0, 10, 30, 0.55);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radiation-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  image-rendering: auto;
+}
+
+/* Scene 4 uses same dialogue box as Scene 3 */
+.scene-4-box {
+  width: 87.7%;
+  aspect-ratio: 2813 / 378;
+}
+
+.content-scene4 {
+  width: 95%;
+  padding-left: 0.8%;
+  padding-right: 5%;
+  display: flex;
+  align-items: center;
+}
+
+.text-scene4 {
+  font-family: 'Jersey 10', monospace;
+  font-size: clamp(1.4rem, 2.75vw, 2.7rem);
+  font-weight: 400;
+  line-height: 0.95;
+  color: #000000;
+  white-space: normal;
+  word-break: normal;
+  letter-spacing: 0.02em;
+  text-shadow: none;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Scene 14 & 15: Regolith Cover Cross Section Card Overlay
+   ========================================================================== */
+.regolith-card-overlay {
+  position: absolute;
+  top: 6.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48.5%;
+  aspect-ratio: 1556 / 1032;
+  z-index: 12;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: card-slide-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.regolith-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.85));
+}
+
+/* ==========================================================================
+   Scene 16: Mission Complete Overlay & Navigation Buttons
+   ========================================================================== */
+.mission-complete-overlay {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 76%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+  pointer-events: auto;
+  animation: mission-pop-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes mission-pop-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+.mission-complete-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4vw;
+}
+
+.mission-complete-title {
+  width: 82%;
+  max-width: 880px;
+  height: auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.8));
+}
+
+.mission-complete-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5vw;
+  width: 88%;
+}
+
+.mission-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  outline: none;
+}
+
+.mission-btn img {
+  height: clamp(36px, 5.2vw, 66px);
+  width: auto;
+  object-fit: contain;
+  display: block;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6));
+}
+
+.mission-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  filter: brightness(1.15) drop-shadow(0 0 14px rgba(3, 143, 243, 0.7));
+}
+
+.mission-btn:active {
+  transform: translateY(1px) scale(0.97);
+  filter: brightness(0.95);
+}
+
+/* ==========================================================================
+   Responsive Scaling
+   ========================================================================== */
+@media (max-width: 600px) {
+  .game-viewport {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+  }
+
+  .dialogue-box {
+    width: 94%;
+  }
+}
+
+/* ==========================================================================
+   Scene 8: Radiation Shelter Interior
+   ========================================================================== */
+.layer-shelter {
+  z-index: 5;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  animation: shelter-fade-in 0.5s ease;
+}
+
+.layer-base-red {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  image-rendering: pixelated;
+  animation: shelter-fade-in 0.4s ease;
+}
+
+@keyframes shelter-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.shelter-characters {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: auto;
+}
+
+.shelter-char {
+  position: absolute;
+  bottom: 0;
+  height: 57%;
+  width: auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(4px 8px 16px rgba(0, 0, 0, 0.7));
+  pointer-events: none;
+  transform-origin: bottom center;
+}
+
+/* Rakesh (left, blue suit) — standing in front of dialogue box (z-index: 25 vs 20) */
+.char-left {
+  left: 2%;
+  bottom: 0;
+  z-index: 25;
+  animation: char-breathe 3.5s ease-in-out infinite alternate;
+}
+
+/* Neil Armstrong (right, astronaut) — standing behind dialogue box (z-index: 10 vs 20) */
+.char-right {
+  right: 5.5%;
+  bottom: 0;
+  z-index: 10;
+  animation: char-breathe 4s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes char-breathe {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.012, 1.018);
+  }
+}
+
+/* Scene 8 dialogue box — badge shifted right so Rakesh does not hide his name, and text padded cleanly */
+.scene-8-dialogue .speaker-badge {
+  left: 17%;
+}
+
+.scene-8-dialogue .dialogue-content {
+  width: 100%;
+  padding-left: 17.5%;
+  padding-right: 6%;
+  display: flex;
+  align-items: center;
+}
+
+.scene-8-dialogue .dialogue-text,
+.text-scene8 {
+  white-space: normal;
+  word-break: normal;
+  font-size: clamp(1.4rem, 2.75vw, 2.7rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+/* Scene 15: tuned font-size so the 180-char speech fits cleanly into exactly 3 lines */
+.text-scene15 {
+  font-size: clamp(1.15rem, 2.22vw, 2.18rem) !important;
+  line-height: 1.08;
+}
+
+/* ==========================================================================
+   Scene 11: Mini Game Popup Board
+   ========================================================================== */
+.mini-game-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.45);
+  animation: shelter-fade-in 0.35s ease;
+  pointer-events: auto;
+}
+
+.mini-game-board {
+  position: relative;
+  height: 86%;
+  aspect-ratio: 1 / 1;
+  max-width: 90vw;
+  filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.8));
+  user-select: none;
+}
+
+.mini-game-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+/* 3x3 Grid Drop Area */
+.minigame-grid {
+  position: absolute;
+  left: 26.54%;
+  top: 29.37%;
+  width: 32.91%;
+  height: 32.91%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.5%;
+  padding: 1%;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.grid-cell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.15s ease, transform 0.15s ease;
+  cursor: pointer;
+}
+
+.grid-cell.drag-over {
+  background: rgba(3, 143, 243, 0.35);
+  box-shadow: inset 0 0 8px rgba(3, 143, 243, 0.8);
+}
+
+.grid-cell .placed-item {
+  width: 92%;
+  height: 92%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  animation: pop-in 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Vertical Meter */
+.minigame-meter {
+  position: absolute;
+  left: 72%;
+  top: 21.6%;
+  width: 28.8%;
+  height: 44.6%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.meter-frame-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  image-rendering: pixelated;
+}
+
+.meter-bars {
+  position: absolute;
+  top: 4.6%;
+  bottom: 4.6%;
+  left: 31.2%;
+  width: 37.6%;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.color-bar {
+  width: 82%;
+  height: auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.color-bar.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Bottom Inventory Tray */
+.minigame-tray {
+  position: absolute;
+  left: 3.4%;
+  top: 73.25%;
+  width: 93%;
+  height: 10.3%;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0.8%;
+  padding: 0.4% 0.6%;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.tray-slot {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.draggable-item {
+  width: 88%;
+  height: 88%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.draggable-item:hover {
+  transform: scale(1.08);
+  filter: brightness(1.15);
+}
+
+.draggable-item.selected {
+  outline: 2px solid #038ff3;
+  outline-offset: 2px;
+  border-radius: 4px;
+  animation: pulse-select 1s infinite alternate;
+}
+
+@keyframes pulse-select {
+  from {
+    filter: drop-shadow(0 0 4px #038ff3);
+  }
+
+  to {
+    filter: drop-shadow(0 0 10px #038ff3);
+  }
+}
+
+.draggable-item.dragging {
+  opacity: 0.4;
+  transform: scale(0.92);
+}
+
+.draggable-item.used {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.draggable-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+/* Shelter Ready Button */
+.shelter-ready-btn {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  background: linear-gradient(180deg, #4ed339 0%, #30aa1f 100%);
+  border: 3px solid #1c6812;
+  box-shadow: 0 6px 0 #185210, 0 10px 25px rgba(0, 0, 0, 0.75);
+  border-radius: 12px;
+  color: #ffffff;
+  font-family: 'Jersey 10', monospace;
+  font-size: clamp(1.4rem, 2.4vw, 2.6rem);
+  letter-spacing: 0.03em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 30px 12px 30px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  animation: pop-in 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.shelter-ready-btn:hover {
+  transform: translate(-50%, -52%) scale(1.04);
+  filter: brightness(1.1);
+}
+
+.shelter-ready-btn:active {
+  transform: translate(-50%, -48%) scale(0.98);
+  box-shadow: 0 2px 0 #185210, 0 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+.ready-check {
+  font-size: 1.6em;
+  line-height: 1;
+  color: #ffffff;
+  -webkit-text-stroke: 2px #185210;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.ready-text {
+  margin-top: 2px;
+  white-space: nowrap;
+  -webkit-text-stroke: 1px #185210;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes pop-in {
+  from {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}

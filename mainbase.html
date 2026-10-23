@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MoonFall - Lunar Base Command</title>
+  <style>
+    @font-face {
+      font-family: 'Jersey 10';
+      src: url('Jersey10.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Pixel Operator';
+      src: url('PixelOperator-Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background-color: #000000;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+    }
+
+    /* 16:9 Viewport Stage matching the game canvas (3207 x 1804) */
+    .base-viewport {
+      position: relative;
+      width: 100vw;
+      height: 56.25vw;
+      max-width: 177.78vh;
+      max-height: 100vh;
+      aspect-ratio: 16 / 9;
+      background-color: #000;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
+      overflow: hidden;
+    }
+
+    /* Lunar Surface Base Background */
+    .base-background {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('mainbase_bg.png');
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      image-rendering: pixelated;
+      z-index: 1;
+    }
+
+    /* ==========================================================================
+       Buildings & Name Badges (Positioned cleanly relative to 16:9 viewport)
+       ========================================================================== */
+    .building-layer {
+      position: absolute;
+      object-fit: contain;
+      image-rendering: pixelated;
+      display: block;
+      z-index: 5;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: filter 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
+    }
+
+    .badge-layer {
+      position: absolute;
+      object-fit: contain;
+      image-rendering: pixelated;
+      display: block;
+      z-index: 25;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.22s ease;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85));
+    }
+
+    /* 1. Power Station (Yellow Theme) - Back Layer */
+    .badge-power {
+      --badge-glow: rgba(255, 220, 0, 0.95);
+      left: 26.05%;
+      top: 29.11%;
+      width: 11.35%;
+      z-index: 25;
+      animation: power-bounce 2.2s infinite ease-in-out;
+    }
+
+    .building-power {
+      --glow-color: rgba(255, 220, 0, 0.95);
+      left: 15%;
+      top: 30%;
+      width: 35.67%;
+      z-index: 4;
+      /* Below Main Base */
+    }
+
+    /* 2. ISRU Processing Facility (Cyan Theme) - Back Layer */
+    .badge-isru {
+      --badge-glow: rgba(0, 230, 255, 0.95);
+      left: 64.76%;
+      top: 19.85%;
+      width: 14.62%;
+      z-index: 25;
+      animation: isru-bounce 2.3s infinite ease-in-out 0.45s;
+    }
+
+    .building-isru {
+      --glow-color: rgba(0, 230, 255, 0.95);
+      left: 59%;
+      top: 24%;
+      width: 23.45%;
+      z-index: 4;
+      /* Below Main Base */
+    }
+
+    /* 3. Main Base (Red Theme) - Middle Layer (Upper of Power Station & ISRU) */
+    .badge-main {
+      --badge-glow: rgba(255, 60, 60, 0.95);
+      left: 51.74%;
+      top: 38.8%;
+      width: 7.30%;
+      z-index: 25;
+      animation: main-bounce 2.1s infinite ease-in-out 0.9s;
+    }
+
+    .building-main {
+      --glow-color: rgba(255, 60, 60, 0.95);
+      left: 41.90%;
+      top: 42.31%;
+      width: 26.85%;
+      z-index: 6;
+      /* Upper of Power Station & ISRU Processing */
+    }
+
+    /* 4. Plant Growth Lab (Green Theme) - Front Layer (Upper of Main Base) */
+    .badge-plant {
+      --badge-glow: rgba(70, 255, 90, 0.95);
+      left: 22.95%;
+      top: 58.5%;
+      width: 12.41%;
+      z-index: 25;
+      animation: plant-bounce 2.4s infinite ease-in-out 1.35s;
+    }
+
+    .building-plant {
+      --glow-color: rgba(70, 255, 90, 0.95);
+      left: 25%;
+      top: 64%;
+      width: 28.69%;
+      z-index: 8;
+      /* Upper layer of Main Base */
+    }
+
+    /* 5. Radiation Shelter (Purple Theme) - Front Layer (Upper of Main Base) */
+    .badge-shelter {
+      --badge-glow: rgba(190, 80, 255, 0.95);
+      left: 66.25%;
+      top: 53.5%;
+      width: 11.63%;
+      z-index: 25;
+      animation: shelter-bounce 2.2s infinite ease-in-out 1.8s;
+    }
+
+    .building-shelter {
+      --glow-color: rgba(190, 80, 255, 1);
+      left: 56.76%;
+      top: 59.15%;
+      width: 29.90%;
+      z-index: 8;
+      /* Upper layer of Main Base */
+    }
+
+    /* Idle Bouncing & Themed Floating Keyframes for All Badges */
+    @keyframes power-bounce {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75));
+      }
+
+      50% {
+        transform: translateY(-5px) scale(1.05);
+        filter: drop-shadow(0 0 16px rgba(255, 220, 0, 0.95)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.85));
+      }
+    }
+
+    @keyframes isru-bounce {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75));
+      }
+
+      50% {
+        transform: translateY(-5px) scale(1.05);
+        filter: drop-shadow(0 0 16px rgba(0, 230, 255, 0.95)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.85));
+      }
+    }
+
+    @keyframes main-bounce {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75));
+      }
+
+      50% {
+        transform: translateY(-5px) scale(1.06);
+        filter: drop-shadow(0 0 16px rgba(255, 60, 60, 0.95)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.85));
+      }
+    }
+
+    @keyframes plant-bounce {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75));
+      }
+
+      50% {
+        transform: translateY(-5px) scale(1.05);
+        filter: drop-shadow(0 0 16px rgba(70, 255, 90, 0.95)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.85));
+      }
+    }
+
+    @keyframes shelter-bounce {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75));
+      }
+
+      50% {
+        transform: translateY(-5px) scale(1.05);
+        filter: drop-shadow(0 0 16px rgba(190, 80, 255, 0.95)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.85));
+      }
+    }
+
+    /* ==========================================================================
+       HOVER EFFECT: Energetic Color Hover Glow, Lift & Bounce
+       ========================================================================== */
+    .building-layer.hovered,
+    .building-layer:hover {
+      filter: brightness(1.4) contrast(1.18) drop-shadow(0 0 32px var(--glow-color)) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.85)) !important;
+      transform: translateY(-6px) scale(1.03) !important;
+    }
+
+    .badge-layer.hovered,
+    .badge-layer:hover {
+      animation-play-state: paused;
+      transform: translateY(-9px) scale(1.12) !important;
+      filter: brightness(1.35) drop-shadow(0 0 24px var(--badge-glow, #ffffff)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.95)) !important;
+    }
+
+    /* ==========================================================================
+       BUILDING ZOOM & DARK SURROUNDING OVERLAY
+       ========================================================================== */
+    .zoom-backdrop {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 40;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      cursor: pointer;
+    }
+
+    .base-viewport.zoomed-mode .zoom-backdrop {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Zoomed Building & Badge (Elevated above dark backdrop with subtle, clean accent) */
+    .building-layer.is-zoomed,
+    .building-layer.is-zoomed:hover {
+      z-index: 60 !important;
+      transform: scale(1.18) translateY(-10px) !important;
+      filter: brightness(1.1) drop-shadow(0 0 8px var(--glow-color)) drop-shadow(0 16px 35px rgba(0, 0, 0, 0.95)) !important;
+      pointer-events: auto !important;
+    }
+
+    .badge-layer.is-zoomed,
+    .badge-layer.is-zoomed:hover {
+      z-index: 65 !important;
+      transform: scale(1.16) translateY(-16px) !important;
+      filter: brightness(1.12) drop-shadow(0 0 8px var(--badge-glow)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.85)) !important;
+      animation-play-state: paused !important;
+      pointer-events: auto !important;
+    }
+
+    /* Mission Selection & Astro Bee Dialogue Container */
+    .building-detail-panel {
+      position: absolute;
+      inset: 0;
+      z-index: 70;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3.5vh 3.5vw 3vh 3.5vw;
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .building-detail-panel.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    /* Left Side: Missions Container (Side-by-side with buttons on the right side) */
+    .missions-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 14px;
+      z-index: 75;
+      pointer-events: auto;
+    }
+
+    .missions-content-box {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4vh;
+      width: clamp(285px, 23vw, 355px); /* NOT wide, compact width! */
+    }
+
+    .mission-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1vh;
+    }
+
+    .mission-header-card {
+      background: #00163b;
+      border: 3px solid #0050b3;
+      border-radius: 12px;
+      padding: 1.4vh 1.4vw; /* Increased length/height */
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 56px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .mission-header-icon {
+      font-size: clamp(1.8rem, 2.4vw, 2.8rem);
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 2px 8px rgba(0, 200, 255, 0.5));
+    }
+
+    .mission-header-title {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1.35rem, 1.8vw, 2.3rem);
+      color: #ffcc00;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      text-shadow: 2px 2px 0 #000, 0 0 12px rgba(255, 204, 0, 0.45);
+    }
+
+    .mission-subtasks-box {
+      background: rgba(0, 28, 70, 0.65);
+      border: 2.5px solid rgba(0, 90, 195, 0.65);
+      border-radius: 12px;
+      padding: 1.4vh 1.1vw; /* Increased length/height */
+      display: flex;
+      flex-direction: column;
+      gap: 1.2vh; /* Increased vertical spacing */
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+    }
+
+    .subtask-btn {
+      font-family: 'Pixel Operator', monospace;
+      font-size: clamp(1.05rem, 1.3vw, 1.55rem);
+      font-weight: bold;
+      padding: 1.3vh 1.4vw; /* Increased length/height */
+      border-radius: 9px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 56px; /* Taller button length */
+      transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+      position: relative;
+    }
+
+    /* Unlocked Default Subtask: Blue base with striking Yellow Hover */
+    .subtask-btn.default-task {
+      background: #00224d;
+      border: 2.5px solid #005ec4;
+      color: #ffffff;
+      box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.15), 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .subtask-btn.default-task:hover {
+      background: #ffcc00 !important;
+      border-color: #d4a000 !important;
+      color: #000000 !important;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.85), inset 0 2px 2px rgba(255, 255, 255, 0.7) !important;
+      transform: translateX(5px) scale(1.015);
+    }
+
+    /* Selected / Active Subtask: Bright Yellow with black text */
+    .subtask-btn.active-task {
+      background: linear-gradient(180deg, #ffcc00 0%, #e6b800 100%);
+      border: 2.5px solid #d4a000;
+      color: #000000;
+      box-shadow: 0 0 22px rgba(255, 204, 0, 0.85), inset 0 2px 2px rgba(255, 255, 255, 0.8);
+      animation: task-glow 2.2s infinite ease-in-out;
+    }
+
+    .subtask-btn.active-task:hover {
+      background: linear-gradient(180deg, #ffd633 0%, #f0c200 100%);
+      border-color: #ffaa00;
+      color: #000000;
+      transform: translateX(5px) scale(1.02);
+      box-shadow: 0 0 28px rgba(255, 204, 0, 1);
+    }
+
+    /* Locked Subtask: Darker styling with lock emoji symbol */
+    .subtask-btn.locked-task {
+      background: #000c1d;
+      border: 2px solid #001f42;
+      color: #48688a;
+      cursor: not-allowed;
+      opacity: 0.82;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .subtask-btn.locked-task:hover {
+      background: #00142e;
+      border-color: #ff3366;
+      color: #ff8099;
+      box-shadow: 0 0 16px rgba(255, 51, 102, 0.45);
+      transform: none;
+    }
+
+    .subtask-btn.shake-anim {
+      animation: lock-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes lock-shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+
+    .subtask-lock-icon {
+      font-size: 1.1em;
+      line-height: 1;
+      display: inline-block;
+    }
+
+    .subtask-label {
+      flex: 1;
+    }
+
+    /* Mission Side Action Buttons (PlayButton & CloseButton on the RIGHT SIDE beside the section) */
+    .mission-side-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 2px;
+      z-index: 80;
+    }
+
+    .mission-btn-play,
+    .mission-btn-close {
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: clamp(120px, 9.5vw, 150px);
+      aspect-ratio: 309 / 127;
+      transition: transform 0.18s ease, filter 0.18s ease;
+      filter: drop-shadow(0 5px 14px rgba(0, 0, 0, 0.75));
+    }
+
+    .mission-btn-play:hover,
+    .mission-btn-close:hover {
+      transform: scale(1.06);
+      filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.9)) brightness(1.1);
+    }
+
+    .mission-btn-play:active,
+    .mission-btn-close:active {
+      transform: scale(0.96);
+    }
+
+    .mission-btn-play img,
+    .mission-btn-close img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+    }
+
+    @keyframes task-glow {
+      0%, 100% {
+        box-shadow: 0 0 12px rgba(255, 204, 0, 0.55);
+      }
+      50% {
+        box-shadow: 0 0 22px rgba(255, 204, 0, 0.9);
+      }
+    }
+
+    /* ==========================================================================
+       Scene 2 / Front End Dialogue Bar (Dead Center horizontally at bottom)
+       Frame 6.png (2610 x 248), Badge Frame 7.png (449 x 134), Skip Caption Text-1.png
+       ========================================================================== */
+    .dialogue-box.scene-2-box {
+      position: absolute;
+      bottom: 2.2vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 82%;
+      max-width: 1360px;
+      aspect-ratio: 2610 / 248;
+      display: flex;
+      align-items: center;
+      padding: 0 4.5%;
+      z-index: 85;
+      pointer-events: auto;
+    }
+
+    /* Dialogue Background Frame (scene 3/Frame 6.png) */
+    .dialogue-bg-img.frame6-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.85));
+    }
+
+    /* Floating Astro Bee Robot (Pragyan_ShivShakti_Neutral.png) */
+    .robot-avatar-container {
+      position: absolute;
+      left: 0.5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14.5%;
+      aspect-ratio: 374 / 386;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      animation: robot-hover 3s ease-in-out infinite alternate;
+    }
+
+    .robot-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75));
+    }
+
+    @keyframes robot-hover {
+      0% {
+        transform: translateY(-50%) rotate(0deg);
+      }
+      50% {
+        transform: translateY(calc(-50% - 5px)) rotate(-0.5deg);
+      }
+      100% {
+        transform: translateY(calc(-50% + 4px)) rotate(0.5deg);
+      }
+    }
+
+    /* Astro Bee Badge (scene 3/Frame 7.png) */
+    .astro-bee-badge {
+      position: absolute;
+      top: -46%;
+      left: 13.5%;
+      width: 17.2%;
+      aspect-ratio: 449 / 134;
+      z-index: 5;
+    }
+
+    .astro-badge-img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+    }
+
+    /* Skip / Action Button */
+    .skip-btn.skip-btn-scene2 {
+      position: absolute;
+      top: -26%;
+      right: 2.8%;
+      width: 14.4%;
+      aspect-ratio: 376 / 127;
+      display: block;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 50;
+      pointer-events: auto;
+      padding: 0;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .skip-btn.skip-btn-scene2:hover {
+      transform: scale(1.05);
+      filter: brightness(1.15);
+    }
+
+    .skip-btn.skip-btn-scene2:active {
+      transform: scale(0.96);
+    }
+
+    .skip-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+    }
+
+    .skip-icon {
+      position: absolute;
+      left: 12.8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 26.3%;
+      height: auto;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    /* Dialogue Content & Text */
+    .dialogue-content.content-scene2 {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding-left: 14.5%;
+      padding-right: 15%;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .dialogue-text.text-warning-yellow {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1.15rem, 2.1vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: #fdcb0e;
+      letter-spacing: 0.02em;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: grayscale;
+      image-rendering: pixelated;
+      white-space: normal;
+    }
+
+    /* ==========================================================================
+       INTRO SPLASH SCREEN (COC Style White Loading Screen, Dead Center, Pure Black)
+       ========================================================================== */
+    .intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      cursor: default;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+    }
+
+    .intro-overlay.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Falling Stars Canvas (covers 100% of the screen) */
+    .starfall-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Dead Center Content Container */
+    .intro-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+      animation: intro-appear 1.1s ease-out;
+    }
+
+    @keyframes intro-appear {
+      from {
+        opacity: 0;
+        transform: scale(0.92) translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* ==========================================================================
+       SIMPLE ELEGANT GLOWING WHITE MOON
+       ========================================================================== */
+    .intro-moon-wrapper {
+      position: relative;
+      width: clamp(140px, 17vw, 255px);
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2vh auto;
+      animation: moon-drift 4.2s ease-in-out infinite alternate;
+    }
+
+    /* Soft Pure White Atmospheric Glow */
+    .moon-white-glow {
+      position: absolute;
+      inset: -22%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.18) 50%, transparent 72%);
+      pointer-events: none;
+      z-index: 1;
+      filter: blur(14px);
+      animation: moon-glow-breathe 3.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes moon-glow-breathe {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: scale(1.05);
+        opacity: 0.95;
+      }
+    }
+
+    /* Lighter, brighter white Moon PNG with pure white glow */
+    .intro-moon-img {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      image-rendering: auto;
+      filter:
+        brightness(1.3)
+        contrast(1.08)
+        drop-shadow(0 0 25px rgba(255, 255, 255, 0.95))
+        drop-shadow(0 0 55px rgba(255, 255, 255, 0.65))
+        drop-shadow(0 0 90px rgba(255, 255, 255, 0.35));
+    }
+
+    @keyframes moon-drift {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        transform: translateY(-8px) scale(1.02);
+      }
+    }
+
+    /* MoonFall Game Title */
+    .intro-title {
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(3.6rem, 7vw, 8rem);
+      font-weight: 400;
+      color: #ffffff;
+      letter-spacing: 0.08em;
+      line-height: 0.95;
+      text-align: center;
+      text-shadow:
+        0 0 20px rgba(0, 240, 255, 0.9),
+        0 0 45px rgba(0, 160, 255, 0.6),
+        3px 3px 0 #000;
+      margin-bottom: 0.6vh;
+    }
+
+    .intro-subtitle {
+      font-family: 'Pixel Operator', monospace;
+      font-size: clamp(0.85rem, 1.25vw, 1.5rem);
+      color: #00f0ff;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      text-align: center;
+      text-shadow: 0 0 10px #00f0ff;
+      margin-bottom: 3.5vh;
+    }
+
+    /* ==========================================================================
+       AUTHENTIC CLASH OF CLANS (COC) THICK LOADING BAR
+       ========================================================================== */
+    .coc-loading-container {
+      position: relative;
+      width: clamp(300px, 42vw, 560px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    /* "Loading" Title - overlaps the top edge of the bar just like the COC reference */
+    .coc-loading-title {
+      font-family: 'Pixel Operator', 'Jersey 10', sans-serif;
+      font-size: clamp(1.45rem, 2.1vw, 2.3rem);
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+      text-transform: capitalize;
+      margin-bottom: -11px;
+      /* Overlaps top border of the bar */
+      z-index: 10;
+      pointer-events: none;
+      text-shadow:
+        -2.5px -2.5px 0 #000000,
+        2.5px -2.5px 0 #000000,
+        -2.5px 2.5px 0 #000000,
+        2.5px 2.5px 0 #000000,
+        -3px 0 0 #000000,
+        3px 0 0 #000000,
+        0 -3px 0 #000000,
+        0 3px 0 #000000,
+        0 5px 8px rgba(0, 0, 0, 0.95);
+    }
+
+    /* Thick Rounded-Rectangle Bar Frame matching COC reference */
+    .coc-bar-frame {
+      position: relative;
+      width: 100%;
+      height: clamp(28px, 3.5vw, 44px);
+      background: #181926;
+      border: 3.5px solid #000000;
+      border-radius: 8px;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.35),
+        0 8px 24px rgba(0, 0, 0, 0.95),
+        inset 0 3px 6px rgba(0, 0, 0, 0.9);
+      padding: 2.5px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .coc-bar-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #12131d;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    /* Crisp Glowing White COC Style Fill */
+    .coc-bar-fill {
+      position: relative;
+      width: 0%;
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 35%, #e2e8f0 70%, #cbd5e1 100%);
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.95), 0 0 28px rgba(255, 255, 255, 0.55);
+      transition: width 0.08s linear;
+      overflow: hidden;
+    }
+
+    /* Top Gloss Highlight Line across the fill */
+    .coc-bar-gloss {
+      position: absolute;
+      top: 1px;
+      left: 2px;
+      right: 2px;
+      height: 42%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.3) 100%);
+      border-radius: 3px;
+      pointer-events: none;
+    }
+
+    .coc-tip-text {
+      font-family: 'Pixel Operator', monospace;
+      font-size: clamp(0.72rem, 0.95vw, 1.05rem);
+      color: #8faec5;
+      margin-top: 1.4vh;
+      letter-spacing: 0.04em;
+      text-align: center;
+      opacity: 0.85;
+      text-shadow: 0 1px 3px #000;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Intro Splash Screen: Pure Black Screen, Moon, MoonFall Title, Falling Stars, COC Loading Bar -->
+  <div class="intro-overlay" id="introOverlay">
+    <canvas class="starfall-canvas" id="starfallCanvas"></canvas>
+    <div class="intro-content">
+      <!-- Simple Elegant Glowing White Moon -->
+      <div class="intro-moon-wrapper">
+        <div class="moon-white-glow"></div>
+        <img src="moon.png" alt="Moon" class="intro-moon-img">
+      </div>
+
+      <h1 class="intro-title">MoonFall</h1>
+      <p class="intro-subtitle">Lunar Surface Mission</p>
+
+      <!-- Authentic Clash of Clans (COC) Style Thick Loading Bar -->
+      <div class="coc-loading-container">
+        <!-- Floating "Loading" Title Overlapping Top of Bar -->
+        <div class="coc-loading-title">Loading</div>
+
+        <div class="coc-bar-frame">
+          <div class="coc-bar-track">
+            <div class="coc-bar-fill" id="cocFill" style="width: 0%;">
+              <div class="coc-bar-gloss"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="coc-tip-text">Smart engineering is about the best use of lunar resources</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="base-viewport" id="baseViewport">
+    <!-- Lunar Surface Base Background -->
+    <div class="base-background"></div>
+
+    <!-- 1. Power Station Badge & Building (Back Layer) -->
+    <img src="base_assets/badge_power.png" alt="Power Station" class="badge-layer badge-power" id="badgePower"
+      title="Power Station">
+    <img src="base_assets/building_power.png" alt="Power Station" class="building-layer building-power" id="bldPower"
+      title="Power Station">
+
+    <!-- 2. ISRU Processing Facility Badge & Building (Back Layer) -->
+    <img src="base_assets/badge_isru.png" alt="ISRU Processing Facility" class="badge-layer badge-isru" id="badgeIsru"
+      title="ISRU Processing Facility">
+    <img src="base_assets/building_isru.png" alt="ISRU Processing Facility" class="building-layer building-isru"
+      id="bldIsru" title="ISRU Processing Facility">
+
+    <!-- 3. Main Base Badge & Building (Middle Layer: Upper of Power Station & ISRU) -->
+    <img src="base_assets/badge_main.png" alt="Main Base" class="badge-layer badge-main" id="badgeMain"
+      title="Main Base Central Dome">
+    <img src="base_assets/building_main.png" alt="Main Base Central Dome" class="building-layer building-main"
+      id="bldMain" title="Main Base Central Dome">
+
+    <!-- 4. Plant Growth Lab Badge & Building (Front Layer: Upper of Main Base) -->
+    <img src="base_assets/badge_plant.png" alt="Plant Growth Lab" class="badge-layer badge-plant" id="badgePlant"
+      title="Plant Growth Lab">
+    <img src="base_assets/building_plant.png" alt="Plant Growth Lab" class="building-layer building-plant" id="bldPlant"
+      title="Plant Growth Lab">
+
+    <!-- 5. Radiation Shelter Badge & Building (Front Layer: Upper of Main Base) -->
+    <img src="base_assets/badge_shelter.png" alt="Radiation Shelter" class="badge-layer badge-shelter" id="badgeShelter"
+      title="Radiation Shelter">
+    <img src="base_assets/building_shelter.png" alt="Radiation Shelter" class="building-layer building-shelter"
+      id="bldShelter" title="Radiation Shelter">
+
+    <!-- Zoom Backdrop (Darkens surrounding when building is clicked) -->
+    <div class="zoom-backdrop" id="zoomBackdrop" title="Click anywhere to return"></div>
+
+    <!-- Building Detail & Mission Panel (Shown on zoom) -->
+    <div class="building-detail-panel" id="buildingDetailPanel">
+      <!-- Missions & Action Buttons (Side by Side on Top Left) -->
+      <div class="missions-wrapper" id="missionsWrapper"></div>
+
+      <!-- Dialogue Box (Astro Bee Front End Bar from Power Mission Scene 2) -->
+      <div class="dialogue-box scene-2-box" id="mainbaseDialogueBox">
+        <!-- Floating Astro Bee Robot (scene 3/Pragyan_ShivShakti_Neutral.png) -->
+        <div class="robot-avatar-container" id="robotAvatar">
+          <img src="scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
+        </div>
+
+        <!-- Speaker Badge (scene 3/Frame 7.png contains "Astro Bee") -->
+        <div class="speaker-badge astro-bee-badge" id="astroBeeBadge">
+          <img src="scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
+        </div>
+
+        <!-- Action / Start Mission Button -->
+        <button class="skip-btn skip-btn-scene2" onclick="launchGame()" title="Start Mission" aria-label="Start Mission">
+          <img src="Caption Text-1.png" alt="START" class="skip-bg">
+          <img src="Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+        </button>
+
+        <!-- Dialogue Background Frame (scene 3/Frame 6.png) -->
+        <img src="scene 3/Frame 6.png" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
+
+        <!-- Dialogue Text in Bright Yellow -->
+        <div class="dialogue-content content-scene2">
+          <p class="dialogue-text text-warning-yellow" id="astrobeeText">
+            Extract water from icy lunar soil and purify it for use at the base.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // Falling White Stars Animation (Pure Canvas for high performance)
+    // =========================================================================
+    const canvas = document.getElementById('starfallCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const NUM_STARS = 90;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    class Star {
+      constructor() {
+        this.reset(true);
+      }
+      reset(initial = false) {
+        this.x = Math.random() * canvas.width;
+        this.y = initial ? Math.random() * canvas.height : -10;
+        this.size = Math.random() * 2.2 + 0.8;
+        this.speed = Math.random() * 1.8 + 0.8;
+        this.drift = (Math.random() - 0.45) * 0.5; // slight diagonal drift
+        this.opacity = Math.random() * 0.75 + 0.25;
+        this.length = Math.random() * 12 + 4; // subtle shooting tail
+      }
+      update() {
+        this.y += this.speed;
+        this.x += this.drift;
+        if (this.y > canvas.height + 20 || this.x < -20 || this.x > canvas.width + 20) {
+          this.reset(false);
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.beginPath();
+        // Draw trailing white streak
+        const gradient = ctx.createLinearGradient(this.x, this.y - this.length, this.x, this.y);
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
+        gradient.addColorStop(1, `rgba(255, 255, 255, ${this.opacity})`);
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = this.size;
+        ctx.lineCap = 'round';
+        ctx.moveTo(this.x - this.drift * 2, this.y - this.length);
+        ctx.lineTo(this.x, this.y);
+        ctx.stroke();
+
+        // Bright star head point
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
+        ctx.restore();
+      }
+    }
+
+    function initStars() {
+      resizeCanvas();
+      stars = [];
+      for (let i = 0; i < NUM_STARS; i++) {
+        stars.push(new Star());
+      }
+    }
+
+    let animId = null;
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        s.update();
+        s.draw();
+      });
+      animId = requestAnimationFrame(animateStars);
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+    });
+
+    initStars();
+    animateStars();
+
+    // =========================================================================
+    // Web Audio Synthesizer (Space Whoosh, Hover & Click SFX)
+    // =========================================================================
+    class SoundFX {
+      constructor() {
+        this.ctx = null;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume().catch(() => { });
+        }
+      }
+      warpSound() {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(180, now);
+          osc.frequency.exponentialRampToValueAtTime(720, now + 0.4);
+          osc.frequency.exponentialRampToValueAtTime(240, now + 0.85);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.85);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.85);
+        } catch (e) { }
+      }
+      hoverSound(freq = 520) {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.35, this.ctx.currentTime + 0.08);
+          gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.1);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.1);
+        } catch (e) { }
+      }
+      clickSound() {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(620, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(320, this.ctx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.12);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.12);
+        } catch (e) { }
+      }
+      lockSound() {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(175, this.ctx.currentTime);
+          osc.frequency.setValueAtTime(135, this.ctx.currentTime + 0.08);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.18);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.18);
+        } catch (e) { }
+      }
+    }
+
+    const sound = new SoundFX();
+
+    // =========================================================================
+    // COC-Style Loading Bar & Auto Transition
+    // =========================================================================
+    const introOverlay = document.getElementById('introOverlay');
+    const cocFill = document.getElementById('cocFill');
+    let introDismissed = false;
+
+    function dismissIntro() {
+      if (introDismissed) return;
+      introDismissed = true;
+      sound.warpSound();
+      introOverlay.classList.add('fade-out');
+      setTimeout(() => {
+        if (animId) cancelAnimationFrame(animId);
+      }, 900);
+    }
+
+    // Auto-advance loading bar like Clash of Clans
+    let currentPct = 0;
+    const loadStart = performance.now();
+    const loadDuration = 2600; // 2.6s loading progress
+
+    function stepLoading(now) {
+      if (introDismissed) return;
+      const elapsed = now - loadStart;
+      const t = Math.min(elapsed / loadDuration, 1);
+
+      // Supercell / COC easing curve: fast start, brief suspense around 75%, quick finish
+      let progress;
+      if (t < 0.45) {
+        progress = (t / 0.45) * 58;
+      } else if (t < 0.72) {
+        progress = 58 + ((t - 0.45) / 0.27) * 22;
+      } else {
+        progress = 80 + ((t - 0.72) / 0.28) * 20;
+      }
+
+      currentPct = Math.min(Math.round(progress), 100);
+
+      if (cocFill) cocFill.style.width = currentPct + '%';
+
+      if (currentPct < 100) {
+        requestAnimationFrame(stepLoading);
+      } else {
+        // Reached 100% -> Brief pause then auto fade out into Main Base
+        setTimeout(() => {
+          dismissIntro();
+        }, 380);
+      }
+    }
+
+    requestAnimationFrame(stepLoading);
+
+    // Optional: click to speed up or skip if user clicks
+    introOverlay.addEventListener('click', () => {
+      if (!introDismissed && currentPct > 30) {
+        dismissIntro();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if ([' ', 'Enter'].includes(e.key) && !introDismissed) {
+        e.preventDefault();
+        dismissIntro();
+      }
+    });
+
+    // =========================================================================
+    // Building Missions Data (Matches authentic Lunar Base Missions from Images)
+    // =========================================================================
+    const buildingMissions = {
+      bldPower: {
+        missions: [
+          {
+            icon: '⚡',
+            title: 'Mission 1: Power and Energy',
+            subtasks: [
+              { id: 'power_sys', label: 'Power System', active: true, locked: false, dialogue: 'Learn about the components that keep our lunar base powered up.' },
+              { id: 'balance_grid', label: 'Balance the Grid', active: false, locked: true, requiredTask: 'Power System', dialogue: 'Balance thermal cooling turbines and battery arrays to handle energy spikes.' },
+              { id: 'restore_array', label: 'Restore Solar Array', active: false, locked: true, requiredTask: 'Balance the Grid', dialogue: 'Realign high-efficiency solar photovoltaic panels to capture peak lunar sunlight.' }
+            ]
+          }
+        ],
+        dialogue: 'Learn about the components that keep our lunar base powered up.'
+      },
+      bldPlant: {
+        missions: [
+          {
+            icon: '🍃',
+            title: 'Mission 2: Food and Production',
+            subtasks: [
+              { id: 'plan_meal', label: 'Plan Daily Meal', active: true, locked: false, dialogue: 'Choose and prepare astronaut meals while managing water, energy, and food waste.' },
+              { id: 'hydroponics', label: 'Hydroponics', active: false, locked: true, requiredTask: 'Plan Daily Meal', dialogue: 'Manage automated hydroponic growth trays and LED spectra for optimal harvest.' }
+            ]
+          }
+        ],
+        dialogue: 'Choose and prepare astronaut meals while managing water, energy, and food waste.'
+      },
+      bldIsru: {
+        missions: [
+          {
+            icon: '💧',
+            title: 'Mission 3: Water Production',
+            subtasks: [
+              { id: 'locate_drill', label: 'Locate and Drill', active: true, locked: false, dialogue: 'Explore the lunar South Pole, locate underground ice, and collect icy regolith.' },
+              { id: 'melt_purify', label: 'Melt and Purify', active: false, locked: true, requiredTask: 'Locate and Drill', dialogue: 'Extract water from icy lunar soil and purify it for use at the base.' }
+            ]
+          },
+          {
+            icon: '<span style="color:#ff3b69;font-weight:900;">O</span><sub style="color:#ff3b69;font-size:0.7em;font-weight:bold;bottom:-0.15em;">2</sub>',
+            title: 'Mission 4: Oxygen Production',
+            subtasks: [
+              { id: 'water_electrolysis', label: 'Water Electrolysis', active: false, locked: false, dialogue: 'Electrolyze purified water to split H2O into fresh breathable oxygen.' }
+            ]
+          }
+        ],
+        dialogue: 'Explore the lunar South Pole, locate underground ice, and collect icy regolith.'
+      },
+      bldShelter: {
+        missions: [
+          {
+            icon: '🛡️',
+            title: 'Mission 5: Radiation Protection',
+            subtasks: [
+              { id: 'prepare_shelter', label: 'Prepare the Shelter', active: true, locked: false, dialogue: 'Protect the crew from a solar storm by preparing a radiation-safe shelter.' }
+            ]
+          }
+        ],
+        dialogue: 'Protect the crew from a solar storm by preparing a radiation-safe shelter.'
+      },
+      bldMain: {
+        missions: [
+          {
+            icon: '🏠',
+            title: 'Mission 0: Habitat Operations',
+            subtasks: [
+              { id: 'habitat_command', label: 'Habitat Command', active: true, locked: false, dialogue: 'The central hub of our lunar expedition. Monitor base integrity and astronaut health.' },
+              { id: 'env_controls', label: 'Environmental Controls', active: false, locked: true, requiredTask: 'Habitat Command', dialogue: 'Calibrate atmospheric air pressure and temperature inside the habitat module.' }
+            ]
+          }
+        ],
+        dialogue: 'The central hub of our lunar expedition. Monitor base integrity and astronaut health.'
+      }
+    };
+
+    // =========================================================================
+    // Base Modules Hover, Click Zoom & Mission Selection
+    // =========================================================================
+    const baseViewport = document.getElementById('baseViewport');
+    const zoomBackdrop = document.getElementById('zoomBackdrop');
+    const buildingDetailPanel = document.getElementById('buildingDetailPanel');
+    const zoomCloseBtn = document.getElementById('zoomCloseBtn');
+    const missionsWrapper = document.getElementById('missionsWrapper');
+    const astrobeeText = document.getElementById('astrobeeText');
+
+    let currentZoomedBldId = null;
+    let dialogueResetTimer = null;
+
+    function getActiveSubtask(bldId) {
+      const data = buildingMissions[bldId];
+      if (!data) return null;
+      for (const m of data.missions) {
+        for (const s of m.subtasks) {
+          if (s.active) return s;
+        }
+      }
+      return null;
+    }
+
+    function renderMissions(bldId) {
+      const data = buildingMissions[bldId];
+      if (!data) return;
+
+      missionsWrapper.innerHTML = `
+        <div class="missions-content-box">
+          ${data.missions.map(m => `
+            <div class="mission-group">
+              <div class="mission-header-card">
+                <div class="mission-header-icon">${m.icon}</div>
+                <div class="mission-header-title">${m.title}</div>
+              </div>
+              <div class="mission-subtasks-box">
+                ${m.subtasks.map(s => `
+                  <button class="subtask-btn ${s.locked ? 'locked-task' : (s.active ? 'active-task' : 'default-task')}"
+                          id="subtaskBtn_${s.id}"
+                          onclick="handleSubtaskClick('${bldId}', '${s.id}')"
+                          title="${s.locked ? 'Locked: Complete ' + s.requiredTask + ' first' : s.label}">
+                    ${s.locked ? '<span class="subtask-lock-icon">🔒</span>' : ''}
+                    <span class="subtask-label">${s.label}</span>
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="mission-side-actions">
+          <button class="mission-btn-play" onclick="launchGame()" title="Play Mission" aria-label="Play Mission">
+            <img src="PlayButton.png" alt="Play">
+          </button>
+          <button class="mission-btn-close" id="zoomCloseBtn" onclick="unzoomBuilding()" title="Close" aria-label="Close">
+            <img src="CloseButton.png" alt="Close">
+          </button>
+        </div>
+      `;
+
+      const activeSub = getActiveSubtask(bldId);
+      astrobeeText.textContent = activeSub ? activeSub.dialogue : data.dialogue;
+    }
+
+    function handleSubtaskClick(bldId, subtaskId) {
+      const data = buildingMissions[bldId];
+      if (!data) return;
+
+      let targetSubtask = null;
+      for (const m of data.missions) {
+        for (const s of m.subtasks) {
+          if (s.id === subtaskId) {
+            targetSubtask = s;
+            break;
+          }
+        }
+      }
+
+      if (!targetSubtask) return;
+
+      if (targetSubtask.locked) {
+        sound.lockSound();
+        const btn = document.getElementById(`subtaskBtn_${subtaskId}`);
+        if (btn) {
+          btn.classList.remove('shake-anim');
+          void btn.offsetWidth; // trigger reflow
+          btn.classList.add('shake-anim');
+        }
+
+        if (dialogueResetTimer) clearTimeout(dialogueResetTimer);
+        astrobeeText.textContent = `🔒 Mission Locked! You must complete "${targetSubtask.requiredTask}" first!`;
+
+        dialogueResetTimer = setTimeout(() => {
+          const currentActive = getActiveSubtask(bldId);
+          astrobeeText.textContent = currentActive ? currentActive.dialogue : data.dialogue;
+        }, 3200);
+
+        return;
+      }
+
+      sound.clickSound();
+
+      // If already active, clicking launches mission
+      if (targetSubtask.active) {
+        launchGame();
+        return;
+      }
+
+      // Make clicked subtask active across this building
+      for (const m of data.missions) {
+        for (const s of m.subtasks) {
+          s.active = (s.id === subtaskId);
+        }
+      }
+
+      if (dialogueResetTimer) clearTimeout(dialogueResetTimer);
+      renderMissions(bldId);
+    }
+
+    function zoomBuilding(bldId, badgeId) {
+      if (currentZoomedBldId === bldId) return;
+      unzoomBuilding();
+
+      currentZoomedBldId = bldId;
+      const bld = document.getElementById(bldId);
+      const badge = document.getElementById(badgeId);
+
+      sound.clickSound();
+      baseViewport.classList.add('zoomed-mode');
+      if (bld) bld.classList.add('is-zoomed');
+      if (badge) badge.classList.add('is-zoomed');
+
+      renderMissions(bldId);
+
+      buildingDetailPanel.classList.add('active');
+    }
+
+    function unzoomBuilding() {
+      if (!currentZoomedBldId) return;
+      const bld = document.getElementById(currentZoomedBldId);
+      const mod = modules.find(m => m.bldId === currentZoomedBldId);
+      const badge = mod ? document.getElementById(mod.badgeId) : null;
+
+      if (bld) bld.classList.remove('is-zoomed');
+      if (badge) badge.classList.remove('is-zoomed');
+
+      currentZoomedBldId = null;
+      baseViewport.classList.remove('zoomed-mode');
+      buildingDetailPanel.classList.remove('active');
+    }
+
+    zoomBackdrop.addEventListener('click', unzoomBuilding);
+    if (zoomCloseBtn) {
+      zoomCloseBtn.addEventListener('click', unzoomBuilding);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && currentZoomedBldId) {
+        unzoomBuilding();
+      }
+    });
+
+    function launchGame() {
+      sound.clickSound();
+      window.location.href = 'index.html';
+    }
+
+    const modules = [
+      { badgeId: 'badgePower', bldId: 'bldPower', freq: 440 },
+      { badgeId: 'badgePlant', bldId: 'bldPlant', freq: 520 },
+      { badgeId: 'badgeMain', bldId: 'bldMain', freq: 600 },
+      { badgeId: 'badgeIsru', bldId: 'bldIsru', freq: 680 },
+      { badgeId: 'badgeShelter', bldId: 'bldShelter', freq: 760 }
+    ];
+
+    modules.forEach(({ badgeId, bldId, freq }) => {
+      const badge = document.getElementById(badgeId);
+      const bld = document.getElementById(bldId);
+
+      const setHover = (active) => {
+        if (currentZoomedBldId) return; // don't override zoom styling on hover
+        if (active) {
+          bld.classList.add('hovered');
+          badge.classList.add('hovered');
+          sound.hoverSound(freq);
+        } else {
+          bld.classList.remove('hovered');
+          badge.classList.remove('hovered');
+        }
+      };
+
+      [badge, bld].forEach(el => {
+        if (!el) return;
+        el.addEventListener('mouseenter', () => setHover(true));
+        el.addEventListener('mouseleave', () => setHover(false));
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          zoomBuilding(bldId, badgeId);
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
