@@ -12,11 +12,36 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
   <link rel="preload" href="assets/fonts/Jersey10.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/image 127.webp" as="image">
+  <link rel="preload" href="assets/image 126.webp" as="image">
+  <link rel="preload" href="assets/scene 8/image 128.webp" as="image">
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <!-- Mobile Landscape Orientation Banner -->
+  <aside class="orientation-banner" id="orientationBanner" role="dialog" aria-modal="true" aria-label="Rotate Device">
+    <div class="orientation-card">
+      <div class="phone-rotate-icon">📱 ➔ 🔄</div>
+      <div class="orientation-title">Landscape View</div>
+      <p class="orientation-desc">For the best mission experience, rotate your phone horizontally.</p>
+      <div class="orientation-buttons">
+        <button class="orientation-btn btn-rotate-now" onclick="toggleForceHorizontal()">
+          ⤾ Rotate to Horizontal
+        </button>
+        <button class="orientation-btn btn-dismiss-rotate" onclick="dismissOrientationBanner()">
+          Continue Vertical
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Quick Floating Rotate Button on Mobile -->
+  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="toggleForceHorizontal()" title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
+    🔄 Screen
+  </button>
+
   <!-- Responsive 16:9 Game Viewport Wrapper -->
   <main class="game-viewport" id="gameViewport" role="application" aria-label="Lunar Mission Scene">
 
@@ -24,13 +49,13 @@
     <div class="scene-stage" id="sceneStage">
 
       <!-- Layer 1: Background Scenery (Moonbase, Greenhouse, Earth, Stars) -->
-      <div class="layer layer-background" id="layerBackground" style="background-image: url('assets/image 127.png');">
+      <div class="layer layer-background" id="layerBackground" style="background-image: url('assets/image 127.webp');">
         <!-- Ambient Star Twinkle -->
         <div class="ambient-stars" aria-hidden="true"></div>
       </div>
 
       <!-- Layer 2: Foreground Rover Cockpit & Astronauts -->
-      <div class="layer layer-rover" id="layerRover" style="background-image: url('assets/image 126.png');">
+      <div class="layer layer-rover" id="layerRover" style="background-image: url('assets/image 126.webp');">
         <!-- Blinking Robot Camera Sensor LED -->
         <div class="rover-sensor-led" aria-hidden="true"></div>
       </div>
@@ -41,20 +66,20 @@
       <!-- SCENE 4-6: Space Radiation Card Panel (over lunar background) -->
       <div class="radiation-card-overlay hidden" id="radiationCardOverlay">
         <div class="radiation-card-frame">
-          <img src="assets/scene 4/space_radiation.png" alt="Space Radiation Diagram" class="radiation-card-img">
+          <img src="assets/scene 4/space_radiation.webp" alt="Space Radiation Diagram" class="radiation-card-img">
         </div>
       </div>
 
       <!-- SCENE 7: Earth Protection Card Panel -->
       <div class="radiation-card-overlay hidden" id="earthCardOverlay">
         <div class="radiation-card-frame">
-          <img src="assets/Earth_protection.png" alt="Earth Protection Diagram" class="radiation-card-img">
+          <img src="assets/Earth_protection.webp" alt="Earth Protection Diagram" class="radiation-card-img">
         </div>
       </div>
 
       <!-- SCENE 14-15: Regolith Cover Cross Section Card -->
       <div class="regolith-card-overlay hidden" id="regolithCardOverlay">
-        <img src="assets/crossSec.png" alt="Regolith Cover Cross Section" class="regolith-card-img">
+        <img src="assets/crossSec.webp" alt="Regolith Cover Cross Section" class="regolith-card-img">
       </div>
 
       <!-- SCENE 16: Mission Complete Overlay with Action Buttons -->

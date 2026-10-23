@@ -1050,3 +1050,148 @@ body {
     opacity: 1;
   }
 }
+
+/* =========================================================================
+   Mobile Orientation Banner & Force Horizontal Screen
+   ========================================================================= */
+.orientation-banner {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+@media screen and (orientation: portrait) and (max-width: 900px) {
+  body:not(.force-horizontal):not(.dismiss-orient) .orientation-banner {
+    display: flex;
+  }
+}
+
+.orientation-card {
+  background: linear-gradient(180deg, #162438 0%, #0a101d 100%);
+  border: 2px solid #038ff3;
+  box-shadow: 0 0 35px rgba(3, 143, 243, 0.45), inset 0 0 15px rgba(0, 217, 255, 0.15);
+  border-radius: 12px;
+  padding: 24px 20px;
+  max-width: 320px;
+  text-align: center;
+  color: #fff;
+  font-family: 'Jersey 10', monospace;
+  animation: pop-in 0.3s ease-out;
+}
+
+.phone-rotate-icon {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  animation: rotate-wiggle 2s ease-in-out infinite;
+}
+
+@keyframes rotate-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-90deg); }
+}
+
+.orientation-title {
+  font-size: 1.5rem;
+  color: #00d9ff;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
+}
+
+.orientation-desc {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: #a0c4e2;
+  margin-bottom: 18px;
+}
+
+.orientation-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.orientation-btn {
+  font-family: 'Jersey 10', monospace;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-rotate-now {
+  background: linear-gradient(180deg, #038ff3 0%, #0056b3 100%);
+  color: #ffffff;
+  border: 1px solid #00d9ff;
+  box-shadow: 0 4px 15px rgba(3, 143, 243, 0.4);
+}
+
+.btn-rotate-now:active {
+  transform: scale(0.96);
+}
+
+.btn-dismiss-rotate {
+  background: transparent;
+  color: #728fa8;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.95rem;
+}
+
+/* Floating Quick Rotate Button */
+.quick-rotate-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  background: rgba(10, 20, 35, 0.85);
+  border: 1px solid #038ff3;
+  color: #00d9ff;
+  font-family: 'Jersey 10', monospace;
+  font-size: 0.95rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+}
+
+.quick-rotate-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Force Horizontal Screen in Portrait */
+body.force-horizontal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body.force-horizontal .game-viewport {
+  position: fixed !important;
+  width: 100vh !important;
+  height: 100vw !important;
+  max-width: none !important;
+  max-height: none !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) rotate(90deg) !important;
+  transform-origin: center center !important;
+  overflow: hidden !important;
+}

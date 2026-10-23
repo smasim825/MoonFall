@@ -6,6 +6,22 @@
 (function () {
   'use strict';
 
+  // Instant Background Asset Preloader (eliminates pop-in / render delays)
+  const PRELOAD_ASSETS = [
+    'assets/scene 8/image 128.webp',
+    'assets/after game.webp',
+    'assets/Main Base-2 1.webp',
+    'assets/scene 4/space_radiation.webp',
+    'assets/Earth_protection.webp',
+    'assets/crossSec.webp',
+    'assets/scene 8/Rakesh_Sharma_Idle.png',
+    'assets/scene 8/Neil_Armstrong_Idle.png'
+  ];
+  PRELOAD_ASSETS.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+
   // =========================================================================
   // Web Audio Synthesizer
   // =========================================================================
@@ -243,7 +259,7 @@
       radiationCard: false,
       earthCard: false,
       shelterScene: true,
-      shelterBg: 'assets/after game.png',
+      shelterBg: 'assets/after game.webp',
       hideCharacters: false
     },
     {
@@ -256,7 +272,7 @@
       radiationCard: false,
       earthCard: false,
       shelterScene: true,
-      shelterBg: 'assets/Main Base-2 1.png',
+      shelterBg: 'assets/Main Base-2 1.webp',
       hasRedLayer: true,
       hideCharacters: false
     },
@@ -398,7 +414,7 @@
       if (scene.shelterBg) {
         layerShelter.style.backgroundImage = `url('${scene.shelterBg}')`;
       } else {
-        layerShelter.style.backgroundImage = "url('assets/scene 8/image 128.png')";
+        layerShelter.style.backgroundImage = "url('assets/scene 8/image 128.webp')";
       }
       if (scene.dimShelter) {
         layerShelter.style.filter = 'brightness(0.65)';
@@ -422,7 +438,7 @@
       layerBackground.style.opacity = '1';
       layerRover.style.opacity      = '1';
       layerShelter.classList.add('hidden');
-      layerShelter.style.backgroundImage = "url('assets/scene 8/image 128.png')";
+      layerShelter.style.backgroundImage = "url('assets/scene 8/image 128.webp')";
       layerShelter.style.filter = 'none';
       if (layerBaseRed) layerBaseRed.classList.add('hidden');
       shelterCharacters.classList.add('hidden');
@@ -815,5 +831,29 @@
   } else {
     init();
   }
+
+  // =========================================================================
+  // Mobile Orientation & Force Horizontal Handlers
+  // =========================================================================
+  window.toggleForceHorizontal = function () {
+    document.body.classList.toggle('force-horizontal');
+    document.body.classList.add('dismiss-orient');
+    const banner = document.getElementById('orientationBanner');
+    if (banner) banner.style.display = 'none';
+  };
+
+  window.dismissOrientationBanner = function () {
+    document.body.classList.add('dismiss-orient');
+    const banner = document.getElementById('orientationBanner');
+    if (banner) banner.style.display = 'none';
+  };
+
+  window.addEventListener('orientationchange', () => {
+    if (window.orientation === 90 || window.orientation === -90) {
+      document.body.classList.remove('force-horizontal');
+      const banner = document.getElementById('orientationBanner');
+      if (banner) banner.style.display = 'none';
+    }
+  });
 
 })();
