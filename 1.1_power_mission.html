@@ -290,20 +290,21 @@
     }
 
     .scene-1-box .dialogue-content {
-      position: relative;
-      z-index: 2;
-      width: 90%;
-      padding-left: 17.5%;
-      padding-right: 4%;
+      position: absolute;
+      top: 14%;
+      bottom: 6%;
+      left: 17.5%;
+      right: 14%;
       display: flex;
       align-items: center;
       overflow: hidden;
       box-sizing: border-box;
+      z-index: 2;
     }
 
     .scene-1-box .dialogue-text {
       font-family: var(--font-pixel);
-      font-size: clamp(1.3rem, 2.45vw, 2.65rem);
+      font-size: clamp(1.2rem, 2.2vw, 2.4rem);
       font-weight: 400;
       line-height: 1.1;
       color: #000000;
@@ -1129,7 +1130,7 @@
         cardImg: '1.1_power_mission_assest/Objects/solarArray.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "NASA is developing tall, deployable solar arrays for the Moon’s south pole, where raising panels above the ground can help them receive sunlight over"
+        text: "NASA is developing deployable solar arrays for the south pole, raised high to capture continuous sunlight."
       },
       // Scene 5: batteryStorage img
       {
@@ -1162,7 +1163,7 @@
         cardImg: '1.1_power_mission_assest/Objects/LunarDaynightCycle-2.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "solar panels cannot generate electricity without sunlight and batteries have limited capacity, so we must manage our stored energy carefully"
+        text: "Solar panels need sunlight, and batteries have limited capacity, so we must manage stored energy carefully."
       },
       // Scene 8: fission img
       {
@@ -1184,7 +1185,7 @@
         cardImg: '1.1_power_mission_assest/Objects/NuclearF.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "They would help power essential systems across the lunar outpost during long periods of darkness. However, no such reactor is currently operating on the Moon."
+        text: "They power systems across the outpost during long lunar darkness. No reactor is currently operating on the Moon."
       },
       // Scene 10: PDU img
       {
@@ -1195,7 +1196,7 @@
         cardImg: '1.1_power_mission_assest/Objects/PDU.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "Finally, This is our Power Distribution Unit. It directs electricity from available power sources to systems such as life support and scientific equipment."
+        text: "This is our Power Distribution Unit. It directs electricity to critical life support and science systems."
       },
       // Scene 11: 5th image given by user - Chiaki Mukai waving + Astronaut, concluding text
       {
