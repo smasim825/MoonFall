@@ -30,6 +30,14 @@
     /* ==========================================================================
        MoonFall Mission 1.1: Power Station Engine Styles
        ========================================================================== */
+    @font-face {
+      font-family: 'Jersey 10';
+      src: url('assets/fonts/Jersey10.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
       --pixel-blue-border: #0099ff;
       --pixel-yellow-btn: #fdcb0e;
@@ -295,18 +303,19 @@
 
     .scene-1-box .dialogue-text {
       font-family: var(--font-pixel);
-      font-size: clamp(1.2rem, 2.25vw, 2.45rem);
+      font-size: clamp(1.3rem, 2.45vw, 2.65rem);
       font-weight: 400;
-      line-height: 1.12;
+      line-height: 1.1;
       color: #000000;
       white-space: normal;
       word-break: normal;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.015em;
       text-shadow: none;
       -webkit-font-smoothing: none;
       -moz-osx-font-smoothing: grayscale;
       image-rendering: pixelated;
       margin: 0;
+      width: 100%;
     }
 
     /* Astro Bee Dialogue Box (scene-2-box: Frame 6.png - Exact match to User Image & 5.1 Radiation Mission) */
@@ -410,8 +419,8 @@
       z-index: 2;
       width: 100%;
       height: 100%;
-      padding-left: 14%;
-      padding-right: 15%;
+      padding-left: 18.5%;
+      padding-right: 14%;
       display: flex;
       align-items: center;
       overflow: hidden;
@@ -420,7 +429,7 @@
 
     .scene-2-box .dialogue-text {
       font-family: var(--font-pixel);
-      font-size: clamp(1.1rem, 2.1vw, 2.35rem);
+      font-size: clamp(1.2rem, 2.25vw, 2.45rem);
       font-weight: 400;
       line-height: 1.1;
       color: #fdcb0e !important;

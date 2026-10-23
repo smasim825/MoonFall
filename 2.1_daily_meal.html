@@ -48,6 +48,14 @@
     /* ==========================================================================
        CSS Variables & Reset (Exact match to 1.1 Power & 5.1 Radiation missions)
        ========================================================================== */
+    @font-face {
+      font-family: 'Jersey 10';
+      src: url('assets/fonts/Jersey10.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
       --pixel-blue-border: #0099ff;
       --pixel-cyan: #00e5ff;
@@ -781,13 +789,13 @@
 
     .scene-1-box .dialogue-text {
       font-family: var(--font-pixel);
-      font-size: clamp(1.2rem, 2.1vw, 2.35rem);
+      font-size: clamp(1.3rem, 2.45vw, 2.65rem);
       font-weight: 400;
-      line-height: 1.15;
+      line-height: 1.1;
       color: #000000;
       white-space: normal;
       word-break: normal;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.015em;
       text-shadow: none;
       -webkit-font-smoothing: none;
       -moz-osx-font-smoothing: grayscale;
@@ -799,18 +807,18 @@
 
     /* Dynamic Auto-Fit Font Scaling */
     .scene-1-box .dialogue-text.text-short {
-      font-size: clamp(1.35rem, 2.45vw, 2.7rem);
-      line-height: 1.18;
+      font-size: clamp(1.4rem, 2.65vw, 2.85rem);
+      line-height: 1.12;
     }
 
     .scene-1-box .dialogue-text.text-medium {
-      font-size: clamp(1.2rem, 2.1vw, 2.35rem);
-      line-height: 1.15;
+      font-size: clamp(1.3rem, 2.45vw, 2.65rem);
+      line-height: 1.1;
     }
 
     .scene-1-box .dialogue-text.text-long {
-      font-size: clamp(1.08rem, 1.88vw, 2.05rem);
-      line-height: 1.12;
+      font-size: clamp(1.2rem, 2.22vw, 2.4rem);
+      line-height: 1.08;
     }
 
     /* Astro Bee Dialogue Box (Frame 6.png - for MCQ & Mission Complete) */
@@ -934,9 +942,9 @@
 
     .scene-2-box .dialogue-text {
       font-family: var(--font-pixel);
-      font-size: clamp(1.2rem, 2.15vw, 2.35rem);
+      font-size: clamp(1.2rem, 2.25vw, 2.45rem);
       font-weight: 400;
-      line-height: 1.12;
+      line-height: 1.1;
       color: #fdcb0e !important;
       letter-spacing: 0.02em;
       white-space: normal;
@@ -951,18 +959,18 @@
     }
 
     .scene-2-box .dialogue-text.text-short {
-      font-size: clamp(1.35rem, 2.45vw, 2.7rem);
-      line-height: 1.15;
-    }
-
-    .scene-2-box .dialogue-text.text-medium {
-      font-size: clamp(1.2rem, 2.15vw, 2.35rem);
+      font-size: clamp(1.35rem, 2.5vw, 2.7rem);
       line-height: 1.12;
     }
 
-    .scene-2-box .dialogue-text.text-long {
-      font-size: clamp(1.08rem, 1.9vw, 2.1rem);
+    .scene-2-box .dialogue-text.text-medium {
+      font-size: clamp(1.2rem, 2.25vw, 2.45rem);
       line-height: 1.1;
+    }
+
+    .scene-2-box .dialogue-text.text-long {
+      font-size: clamp(1.15rem, 2.1vw, 2.28rem);
+      line-height: 1.08;
     }
 
     /* Top HUD */
