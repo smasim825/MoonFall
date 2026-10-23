@@ -171,7 +171,7 @@
       filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.8));
     }
 
-    /* Dialogue Dock Footer (Matching 5.1 Radiation Mission) */
+    /* Dialogue Dock Footer */
     .dialogue-wrapper {
       position: absolute;
       bottom: 4.8%;
@@ -186,7 +186,8 @@
       cursor: pointer;
     }
 
-    .dialogue-box {
+    /* Chiaki Mukai Dialogue Box (scene-1-box: Rectangle 3.png) */
+    .dialogue-box.scene-1-box {
       position: relative;
       width: 87.7%;
       max-width: 1400px;
@@ -197,7 +198,7 @@
       box-sizing: border-box;
     }
 
-    .dialogue-bg-img {
+    .scene-1-box .dialogue-bg-img {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -207,8 +208,7 @@
       filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
     }
 
-    /* Speaker Badge (Shifted right so Chiaki Mukai in front doesn't overlap it) */
-    .speaker-badge {
+    .scene-1-box .speaker-badge {
       position: absolute;
       top: -16.5%;
       left: 17.5%;
@@ -221,13 +221,6 @@
       pointer-events: none;
     }
 
-    .speaker-badge.astro-bee-badge {
-      left: 14%;
-      width: 17.2%;
-      aspect-ratio: 449 / 134;
-      top: -16.5%;
-    }
-
     .speaker-badge-img {
       width: 100%;
       height: 100%;
@@ -236,8 +229,7 @@
       image-rendering: pixelated;
     }
 
-    /* Skip Button (Top-right overlapping - matching 5.1 Radiation Mission) */
-    .skip-btn {
+    .scene-1-box .skip-btn {
       position: absolute;
       top: -16.5%;
       right: 3.2%;
@@ -289,7 +281,55 @@
       image-rendering: pixelated;
     }
 
-    /* Floating Astro Bee Robot (for Scene 12 & Complete) */
+    .scene-1-box .dialogue-content {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      padding-left: 17.5%;
+      padding-right: 4%;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .scene-1-box .dialogue-text {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.2rem, 2.25vw, 2.45rem);
+      font-weight: 400;
+      line-height: 1.12;
+      color: #000000;
+      white-space: normal;
+      word-break: normal;
+      letter-spacing: 0.02em;
+      text-shadow: none;
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: grayscale;
+      image-rendering: pixelated;
+      margin: 0;
+    }
+
+    /* Astro Bee Dialogue Box (scene-2-box: Frame 6.png - Exact match to User Image & 5.1 Radiation Mission) */
+    .dialogue-box.scene-2-box {
+      position: relative;
+      width: 81.4%;
+      max-width: 1300px;
+      aspect-ratio: 2610 / 248;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .scene-2-box .dialogue-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.65));
+    }
+
     .robot-avatar-container {
       position: absolute;
       left: 0.5%;
@@ -327,43 +367,71 @@
       }
     }
 
-    /* Dialogue Text */
-    .dialogue-content {
+    .scene-2-box .astro-bee-badge {
+      position: absolute;
+      top: -46%;
+      left: 13.5%;
+      width: 17.2%;
+      aspect-ratio: 449 / 134;
+      z-index: 35;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .astro-badge-img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      image-rendering: pixelated;
+    }
+
+    .scene-2-box .skip-btn {
+      position: absolute;
+      top: -26%;
+      right: 2.8%;
+      width: 14.4%;
+      aspect-ratio: 376 / 127;
+      display: block;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 50;
+      pointer-events: auto;
+      padding: 0;
+      outline: none;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .scene-2-box .dialogue-content {
       position: relative;
       z-index: 2;
-      width: 90%;
-      padding-left: 17.5%;
-      padding-right: 4%;
+      width: 100%;
+      height: 100%;
+      padding-left: 14.5%;
+      padding-right: 15%;
       display: flex;
       align-items: center;
       overflow: hidden;
       box-sizing: border-box;
     }
 
-    .dialogue-content.content-scene2 {
-      padding-left: 15%;
-      padding-right: 15%;
-    }
-
-    .dialogue-text {
+    .scene-2-box .dialogue-text {
       font-family: var(--font-pixel);
-      font-size: clamp(1.2rem, 2.25vw, 2.45rem);
+      font-size: clamp(1.15rem, 2.25vw, 2.55rem);
       font-weight: 400;
-      line-height: 1.12;
-      color: #000000;
+      line-height: 1.08;
+      color: #fdcb0e !important;
+      letter-spacing: 0.02em;
       white-space: normal;
       word-break: normal;
-      letter-spacing: 0.02em;
-      text-shadow: none;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.9);
       -webkit-font-smoothing: none;
       -moz-osx-font-smoothing: grayscale;
       image-rendering: pixelated;
       margin: 0;
-    }
-
-    .text-warning-yellow {
-      color: #fdcb0e !important;
-      text-shadow: 1px 1px 0 #000;
     }
 
     /* ==========================================================================
@@ -851,34 +919,43 @@
         </div>
       </div>
 
-      <!-- Dialogue Dock Footer (Matching 5.1 Radiation Mission) -->
-      <footer class="dialogue-wrapper hidden" id="dialogueWrapper" onclick="handleDialogueClick()">
-        <div class="dialogue-box scene-1-box" id="dialogueBox">
-          <!-- Floating Astro Bee Robot (for Scene 12 & Complete) -->
-          <div class="robot-avatar-container hidden" id="dialogueRobotAvatar">
-            <img src="1.1_power_mission_assest/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee"
-              class="robot-avatar-img">
+      <!-- Dialogue Dock Footer (Chiaki Mukai & Astro Bee) -->
+      <footer class="dialogue-wrapper hidden" id="dialogueWrapper">
+        <!-- Chiaki Mukai Dialogue Box (Scenes 2-11) -->
+        <div class="dialogue-box scene-1-box" id="dialogueBoxChiaki" onclick="handleDialogueClick()">
+          <div class="speaker-badge" id="speakerBadgeChiaki">
+            <img src="1.1_power_mission_assest/Caption Text.webp" alt="Chiaki Mukai" class="speaker-badge-img">
           </div>
-
-          <!-- Speaker Badge (Chiaki Mukai or Astro Bee) -->
-          <div class="speaker-badge" id="speakerBadge">
-            <img src="1.1_power_mission_assest/Caption Text.webp" alt="Speaker" class="speaker-badge-img"
-              id="speakerBadgeImg">
-          </div>
-
-          <!-- Skip / Next Button (Matching 5.1 Radiation Mission) -->
-          <button class="skip-btn" id="actionBtn" onclick="event.stopPropagation(); handleActionBtnClick()"
-            title="Next Scene" aria-label="Skip to Next Scene">
+          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene" aria-label="Skip to Next Scene">
             <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
             <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
           </button>
-
-          <!-- Dialogue Background Frame (Rectangle 3.png) -->
           <img src="assets/Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content" id="dialogueContentChiaki">
+            <p class="dialogue-text" id="dialogueTextChiaki"></p>
+          </div>
+        </div>
 
-          <!-- Dialogue Text Content -->
-          <div class="dialogue-content" id="dialogueContent">
-            <p class="dialogue-text" id="dialogueText"></p>
+        <!-- Astro Bee Dialogue Box (Scene 12 & Mission Complete - Exact match to Radiation Mission & User Image) -->
+        <div class="dialogue-box scene-2-box hidden" id="dialogueBoxAstroBee" onclick="handleDialogueClick()">
+          <!-- Floating Astro Bee Robot (Pragyan_ShivShakti_Neutral.png) -->
+          <div class="robot-avatar-container" id="robotAvatar">
+            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
+          </div>
+          <!-- Speaker Badge (Frame 7.png contains "Astro Bee") -->
+          <div class="speaker-badge astro-bee-badge" id="astroBeeBadge">
+            <img src="assets/scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
+          </div>
+          <!-- Skip Button (Caption Text-1.png contains "SKIP", Vector 6.png is ">>") -->
+          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next" aria-label="Next">
+            <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <!-- Dialogue Background Frame (Frame 6.png) -->
+          <img src="assets/scene 3/Frame 6.png" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
+          <!-- Warning Dialogue Text in Bright Yellow -->
+          <div class="dialogue-content content-scene2" id="dialogueContentAstroBee">
+            <p class="dialogue-text text-warning-yellow" id="dialogueTextAstroBee"></p>
           </div>
         </div>
       </footer>
@@ -1230,13 +1307,11 @@
     const diagramCardContainer = document.getElementById('diagramCardContainer');
     const diagramCardImg = document.getElementById('diagramCardImg');
     const dialogueWrapper = document.getElementById('dialogueWrapper');
-    const dialogueBox = document.getElementById('dialogueBox');
-    const dialogueRobotAvatar = document.getElementById('dialogueRobotAvatar');
-    const speakerBadge = document.getElementById('speakerBadge');
-    const speakerBadgeImg = document.getElementById('speakerBadgeImg');
-    const actionBtn = document.getElementById('actionBtn');
-    const dialogueContent = document.getElementById('dialogueContent');
-    const dialogueText = document.getElementById('dialogueText');
+    const dialogueBoxChiaki = document.getElementById('dialogueBoxChiaki');
+    const dialogueBoxAstroBee = document.getElementById('dialogueBoxAstroBee');
+    const dialogueTextChiaki = document.getElementById('dialogueTextChiaki');
+    const dialogueTextAstroBee = document.getElementById('dialogueTextAstroBee');
+    let activeDialogueTextEl = dialogueTextChiaki;
     const mcqBox = document.getElementById('mcqBox');
     const mcqQuestionTitle = document.getElementById('mcqQuestionTitle');
     const mcqOptionsList = document.getElementById('mcqOptionsList');
@@ -1302,25 +1377,19 @@
         diagramCardContainer.classList.add('hidden');
       }
 
-      // 5. Dialogue Box (Authentic Radiation Mission Dialogue Box)
+      // 5. Dialogue Box
       if (s.text && s.text.length > 0) {
         dialogueWrapper.classList.remove('hidden');
 
-        // Robot Avatar & Speaker Badge
+        // Astro Bee (Scene 12) vs Chiaki Mukai (Scenes 2-11)
         if (s.speaker === 'Astro Bee' || s.robotAvatar) {
-          dialogueRobotAvatar.classList.remove('hidden');
-          speakerBadge.className = 'speaker-badge astro-bee-badge';
-          speakerBadgeImg.src = 'assets/scene 3/Frame 7.png';
-          speakerBadgeImg.alt = 'Astro Bee';
-          dialogueContent.classList.add('content-scene2');
-          dialogueText.className = 'dialogue-text text-warning-yellow';
+          dialogueBoxChiaki.classList.add('hidden');
+          dialogueBoxAstroBee.classList.remove('hidden');
+          activeDialogueTextEl = dialogueTextAstroBee;
         } else {
-          dialogueRobotAvatar.classList.add('hidden');
-          speakerBadge.className = 'speaker-badge';
-          speakerBadgeImg.src = '1.1_power_mission_assest/Caption Text.webp';
-          speakerBadgeImg.alt = 'Chiaki Mukai';
-          dialogueContent.classList.remove('content-scene2');
-          dialogueText.className = 'dialogue-text';
+          dialogueBoxChiaki.classList.remove('hidden');
+          dialogueBoxAstroBee.classList.add('hidden');
+          activeDialogueTextEl = dialogueTextChiaki;
         }
 
         startTypewriter(s.text);
@@ -1443,14 +1512,11 @@
       // Show Mission Complete Overlay
       missionCompleteOverlay.classList.remove('hidden');
 
-      // Show bottom dialogue box with Astro Bee
+      // Show bottom dialogue box with Astro Bee (scene-2-box matching reference image)
       dialogueWrapper.classList.remove('hidden');
-      dialogueRobotAvatar.classList.remove('hidden');
-      speakerBadge.className = 'speaker-badge astro-bee-badge';
-      speakerBadgeImg.src = 'assets/scene 3/Frame 7.png';
-      speakerBadgeImg.alt = 'Astro Bee';
-      dialogueContent.classList.add('content-scene2');
-      dialogueText.className = 'dialogue-text text-warning-yellow';
+      dialogueBoxChiaki.classList.add('hidden');
+      dialogueBoxAstroBee.classList.remove('hidden');
+      activeDialogueTextEl = dialogueTextAstroBee;
 
       const completeMsg = `Mission accomplished! Outstanding work, Cadet! System verification score: ${percentage}% (${correctAnswersCount}/5 correct). Our power grid and lunar habitat are safe!`;
       startTypewriter(completeMsg);
@@ -1465,13 +1531,13 @@
       currentFullText = str;
       if (typeTimer) clearTimeout(typeTimer);
       isTyping = true;
-      dialogueText.textContent = '';
+      if (activeDialogueTextEl) activeDialogueTextEl.textContent = '';
       let charIndex = 0;
 
       function typeChar() {
         if (!isTyping) return;
         if (charIndex < str.length) {
-          dialogueText.textContent += str.charAt(charIndex);
+          if (activeDialogueTextEl) activeDialogueTextEl.textContent += str.charAt(charIndex);
           if (charIndex % 3 === 0) sound.playTypewriter();
           charIndex++;
           typeTimer = setTimeout(typeChar, 18);
@@ -1486,7 +1552,7 @@
       if (!isTyping) return;
       isTyping = false;
       if (typeTimer) clearTimeout(typeTimer);
-      dialogueText.textContent = currentFullText;
+      if (activeDialogueTextEl) activeDialogueTextEl.textContent = currentFullText;
     }
 
     function handleDialogueClick() {
