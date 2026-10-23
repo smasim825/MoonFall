@@ -8,10 +8,14 @@
   <meta name="description"
     content="Mission 2.1: Food and Production - Plan daily meals while managing water, power, and nutritional reserves aboard the Lunar Base.">
 
-  <!-- Google Fonts: VT323 for authentic retro pixel aesthetic -->
+  <!-- Retro Pixel Font matching Power (1.1) and Radiation (5.1) Missions -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/Jersey10.ttf" as="font" type="font/ttf" crossorigin>
+
+  <!-- Astro Bee LLM Chatbot Stylesheet -->
+  <link rel="stylesheet" href="astrobee/astrobee.css">
 
   <!-- Asset Preloads -->
   <link rel="preload" href="2.1_Daily_Meal/Group 1.png" as="image">
@@ -19,6 +23,10 @@
   <link rel="preload" href="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.png" as="image">
   <link rel="preload" href="assets/power/Astronaut_ThumbsUp.png" as="image">
+  <link rel="preload" href="assets/Rectangle 3.png" as="image">
+  <link rel="preload" href="assets/scene 3/Frame 6.png" as="image">
+  <link rel="preload" href="assets/scene 3/Frame 7.png" as="image">
+  <link rel="preload" href="assets/scene 3/Pragyan_ShivShakti_Neutral.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/Frame 3_multilayer.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/Frame 3.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/Frame 8.png" as="image">
@@ -35,20 +43,17 @@
   <link rel="preload" href="2.1_Daily_Meal/Yellow_bar04.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/image 42.png" as="image">
   <link rel="preload" href="2.1_Daily_Meal/image 43.png" as="image">
-  <link rel="preload" href="2.1_Daily_Meal/Dialogue_Box.png" as="image">
 
   <style>
     /* ==========================================================================
-       CSS Variables & Reset
+       CSS Variables & Reset (Exact match to 1.1 Power & 5.1 Radiation missions)
        ========================================================================== */
     :root {
-      --font-pixel: 'VT323', monospace;
       --pixel-blue-border: #0099ff;
       --pixel-cyan: #00e5ff;
       --pixel-yellow: #fdcb0e;
       --pixel-green: #22c55e;
-      --pixel-bg-dark: #000814;
-      --pixel-overlay-bg: rgba(2, 24, 55, 0.94);
+      --font-pixel: 'Jersey 10', monospace;
     }
 
     * {
@@ -169,14 +174,14 @@
       image-rendering: pixelated;
     }
 
-    /* Educational / Diagram Card (Scenes 2, 3, 5, 6, 7, 8, 9) */
+    /* Educational / Diagram Card (Centered in Middle like Image 4 requirement) */
     .diagram-card-container {
       position: absolute;
-      top: 6%;
-      left: 54%;
+      top: 5.5%;
+      left: 50%;
       transform: translateX(-50%);
-      width: 46%;
-      height: 57%;
+      width: 50%;
+      height: 58%;
       z-index: 15;
       display: flex;
       flex-direction: column;
@@ -187,15 +192,13 @@
     }
 
     .diagram-card-container.card-wide {
-      left: 54%;
-      width: 52%;
-      max-width: 780px;
+      width: 54%;
+      max-width: 800px;
     }
 
     .diagram-card-container.card-compact {
-      left: 54%;
-      width: 27%;
-      max-width: 390px;
+      width: 29%;
+      max-width: 400px;
     }
 
     .diagram-card-img {
@@ -215,14 +218,14 @@
       border-radius: 6px;
       padding: 3px 16px;
       color: #00e5ff;
-      font-size: clamp(0.95rem, 1.5vw, 1.35rem);
+      font-size: clamp(1.1rem, 1.8vw, 1.6rem);
       letter-spacing: 0.04em;
       box-shadow: 0 0 14px rgba(0, 153, 255, 0.5);
       animation: pop-in 0.3s ease;
     }
 
     /* ==========================================================================
-       Scene 4: Meal Selection & Reserve HUD Widgets (Matching Image 4)
+       Scene 4: Meal Selection & Reserve HUD Widgets
        ========================================================================== */
     .scene4-container {
       position: absolute;
@@ -238,7 +241,6 @@
       pointer-events: auto;
     }
 
-    /* Meal Options Stack (Left side of Scene 4) */
     .meal-options-list {
       display: flex;
       flex-direction: column;
@@ -292,7 +294,7 @@
       right: 6px;
       background: #fdcb0e;
       color: #000000;
-      font-size: clamp(0.75rem, 1.1vw, 1rem);
+      font-size: clamp(0.9rem, 1.3vw, 1.25rem);
       font-weight: bold;
       padding: 1px 8px;
       border-radius: 4px;
@@ -305,7 +307,7 @@
       display: block;
     }
 
-    /* Reserve HUD Widgets (Right side of Scene 4) */
+    /* Reserve HUD Widgets */
     .reserve-hud-stack {
       display: flex;
       flex-direction: column;
@@ -336,7 +338,6 @@
       z-index: 1;
     }
 
-    /* Slot Track for the 10 Capsules / Bars */
     .reserve-track {
       position: absolute;
       left: 5%;
@@ -369,7 +370,6 @@
       transition: opacity 0.25s ease, filter 0.25s ease, transform 0.2s ease;
     }
 
-    /* Active State */
     .reserve-slot.active img {
       opacity: 1;
       filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.6));
@@ -379,13 +379,11 @@
       filter: drop-shadow(0 0 4px rgba(253, 203, 14, 0.6));
     }
 
-    /* Inactive / Deducted State */
     .reserve-slot.empty img {
       opacity: 0.12;
       filter: grayscale(100%) brightness(0.4);
     }
 
-    /* Hover Preview Deduction State (Pulsing Red Warning) */
     .reserve-slot.preview-deduct img {
       opacity: 0.75;
       filter: drop-shadow(0 0 6px rgba(255, 51, 68, 0.9)) sepia(1) saturate(5) hue-rotate(-50deg);
@@ -405,7 +403,7 @@
     }
 
     /* ==========================================================================
-       Scene 11: Daily Meal Intake Popup Modal (Matching Image 4 of New Turn)
+       Scene 11: Daily Meal Intake Popup Modal
        ========================================================================== */
     .daily-intake-popup {
       position: absolute;
@@ -456,7 +454,7 @@
 
     .daily-intake-title {
       font-family: var(--font-pixel);
-      font-size: clamp(1.4rem, 2.7vw, 3rem);
+      font-size: clamp(1.6rem, 3.1vw, 3.4rem);
       font-weight: 400;
       color: #ffffff;
       line-height: 1;
@@ -467,7 +465,7 @@
 
     .daily-intake-sub {
       font-family: var(--font-pixel);
-      font-size: clamp(1.15rem, 2.15vw, 2.35rem);
+      font-size: clamp(1.3rem, 2.5vw, 2.7rem);
       font-weight: 400;
       color: #ffffff;
       line-height: 1.1;
@@ -476,7 +474,6 @@
       text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
     }
 
-    /* Green Capsule Bar in Slot 1 */
     .daily-intake-slot1 {
       position: absolute;
       left: 5.4%;
@@ -515,11 +512,163 @@
     }
 
     /* ==========================================================================
-       Dialogue Dock Footer
+       MCQ Stage Box (Exact match to 1.1 Power & 5.1 Radiation missions)
+       ========================================================================== */
+    .mcq-stage-box {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 74%;
+      min-height: 35%;
+      background: rgba(2, 28, 62, 0.88);
+      border: 3.5px solid var(--pixel-blue-border);
+      border-radius: 14px;
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.8),
+        inset 0 0 16px rgba(0, 153, 255, 0.3),
+        0 0 20px rgba(0, 153, 255, 0.4);
+      padding: 18px 26px;
+      box-sizing: border-box;
+      z-index: 25;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      animation: mcq-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes mcq-pop {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -15px) scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+      }
+    }
+
+    .mcq-robot-avatar {
+      position: absolute;
+      top: -24px;
+      left: -20px;
+      width: 78px;
+      height: 80px;
+      z-index: 35;
+      pointer-events: none;
+    }
+
+    .mcq-robot-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7));
+    }
+
+    .mcq-speaker-pill {
+      position: absolute;
+      top: -18px;
+      left: 64px;
+      background: #ffffff;
+      border: 2.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 1px 16px;
+      color: #0284c7;
+      font-family: var(--font-pixel);
+      font-size: clamp(1.2rem, 2.1vw, 2rem);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      z-index: 30;
+      line-height: 1.1;
+    }
+
+    .mcq-question-title {
+      color: #00e5ff;
+      font-family: var(--font-pixel);
+      font-size: clamp(1.35rem, 2.55vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+      margin: 0 0 14px 62px;
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    }
+
+    .mcq-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-left: 62px;
+    }
+
+    .mcq-option-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .mcq-option-item:hover:not(.locked) {
+      background: rgba(0, 153, 255, 0.2);
+      transform: translateX(4px);
+    }
+
+    .mcq-checkbox {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #ffffff;
+      border-radius: 4px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .mcq-checkbox.checked {
+      background: #0099ff;
+      border-color: #0099ff;
+      box-shadow: 0 0 10px #0099ff;
+    }
+
+    .mcq-checkbox.checked::after {
+      content: '✓';
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    .mcq-option-text {
+      color: #ffffff;
+      font-family: var(--font-pixel);
+      font-size: clamp(1.3rem, 2.4vw, 2.35rem);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0.015em;
+      transition: color 0.2s;
+    }
+
+    .mcq-option-item.state-correct .mcq-option-text {
+      color: #00e676 !important;
+      font-weight: bold;
+      text-shadow: 0 0 12px rgba(0, 230, 118, 0.6);
+    }
+
+    .mcq-option-item.state-wrong .mcq-option-text {
+      color: #ff3344 !important;
+      font-weight: bold;
+      text-shadow: 0 0 12px rgba(255, 51, 68, 0.6);
+    }
+
+    /* ==========================================================================
+       Dialogue Dock Footer (Exact match to 1.1 Power Image 3 & 5.1 Radiation)
        ========================================================================== */
     .dialogue-wrapper {
       position: absolute;
-      bottom: 4.5%;
+      bottom: 4.8%;
       left: 0;
       right: 0;
       display: flex;
@@ -531,52 +680,52 @@
       cursor: pointer;
     }
 
-    .dialogue-box {
+    /* Scene 1-11 Sunita Box (using Rectangle 3.png - exactly like 1.1 Power image 3) */
+    .dialogue-box.scene-1-box {
       position: relative;
       width: 87.7%;
       max-width: 1400px;
-      aspect-ratio: 2824 / 441;
+      aspect-ratio: 2813 / 378;
       display: flex;
       align-items: center;
       padding: 0 4.5%;
       box-sizing: border-box;
     }
 
-    .dialogue-bg-img {
+    .scene-1-box .dialogue-bg-img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: fill;
       pointer-events: none;
-      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.55));
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
     }
 
-    /* Speaker Badge (Sunita Williams - Exact Match to Reference Images) */
-    .speaker-badge-sunita {
+    /* Single clean Speaker Badge on top-left of Rectangle 3.png */
+    .scene-1-box .speaker-badge {
       position: absolute;
-      top: -19%;
-      left: 17%;
+      top: -16.5%;
+      left: 17.5%;
       background: #ffffff;
-      border: 3px solid #0099ff;
+      border: 3.5px solid #0099ff;
       border-radius: 8px;
-      padding: 1px 22px;
+      padding: 2px 20px;
       color: #0284c7;
       font-family: var(--font-pixel);
-      font-size: clamp(1.2rem, 2.2vw, 2.2rem);
-      font-weight: bold;
+      font-size: clamp(1.25rem, 2.3vw, 2.35rem);
+      font-weight: 400;
       letter-spacing: 0.04em;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
       z-index: 35;
       line-height: 1.1;
       white-space: nowrap;
       pointer-events: none;
     }
 
-    /* Skip Button */
-    .skip-btn {
+    .scene-1-box .skip-btn {
       position: absolute;
-      top: -17%;
+      top: -16.5%;
       right: 3.2%;
       width: 13.4%;
       aspect-ratio: 376 / 127;
@@ -621,7 +770,7 @@
       pointer-events: none;
     }
 
-    .dialogue-content {
+    .scene-1-box .dialogue-content {
       position: relative;
       z-index: 2;
       width: 90%;
@@ -633,9 +782,9 @@
       box-sizing: border-box;
     }
 
-    .dialogue-text {
+    .scene-1-box .dialogue-text {
       font-family: var(--font-pixel);
-      font-size: clamp(1.2rem, 2.2vw, 2.45rem);
+      font-size: clamp(1.25rem, 2.35vw, 2.5rem);
       font-weight: 400;
       line-height: 1.12;
       color: #000000;
@@ -647,6 +796,132 @@
       -moz-osx-font-smoothing: grayscale;
       image-rendering: pixelated;
       margin: 0;
+    }
+
+    /* Astro Bee Dialogue Box (Frame 6.png - for MCQ & Mission Complete) */
+    .dialogue-box.scene-2-box {
+      position: relative;
+      width: 81.4%;
+      max-width: 1300px;
+      aspect-ratio: 2610 / 248;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .scene-2-box .dialogue-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.65));
+    }
+
+    .robot-avatar-container {
+      position: absolute;
+      left: 0.5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14.5%;
+      aspect-ratio: 374 / 386;
+      z-index: 36;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      animation: robot-hover 3s ease-in-out infinite alternate;
+    }
+
+    .robot-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
+    }
+
+    @keyframes robot-hover {
+      0% {
+        transform: translateY(-50%) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(calc(-50% - 5px)) rotate(-0.5deg);
+      }
+
+      100% {
+        transform: translateY(calc(-50% + 4px)) rotate(0.5deg);
+      }
+    }
+
+    .scene-2-box .astro-bee-badge {
+      position: absolute;
+      top: -46%;
+      left: 13.5%;
+      width: 17.2%;
+      aspect-ratio: 449 / 134;
+      z-index: 35;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .astro-badge-img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      image-rendering: pixelated;
+    }
+
+    .scene-2-box .skip-btn {
+      position: absolute;
+      top: -26%;
+      right: 2.8%;
+      width: 14.4%;
+      aspect-ratio: 376 / 127;
+      display: block;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 50;
+      pointer-events: auto;
+      padding: 0;
+      outline: none;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .scene-2-box .dialogue-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      padding-left: 14%;
+      padding-right: 15%;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .scene-2-box .dialogue-text {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.2rem, 2.25vw, 2.45rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: #fdcb0e !important;
+      letter-spacing: 0.02em;
+      white-space: normal;
+      word-break: normal;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.9);
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: grayscale;
+      image-rendering: pixelated;
+      margin: 0;
+      width: 100%;
     }
 
     /* Top HUD */
@@ -668,7 +943,7 @@
       border-radius: 6px;
       padding: 3px 14px;
       color: #ffffff;
-      font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+      font-size: clamp(1.05rem, 1.8vw, 1.5rem);
       letter-spacing: 0.05em;
       pointer-events: auto;
     }
@@ -680,7 +955,7 @@
       padding: 4px 14px;
       color: #7dd3fc;
       font-family: var(--font-pixel);
-      font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+      font-size: clamp(1.05rem, 1.8vw, 1.5rem);
       cursor: pointer;
       pointer-events: auto;
       transition: background 0.2s, color 0.2s;
@@ -876,7 +1151,7 @@
         <img src="assets/power/Astronaut_ThumbsUp.png" alt="Astronaut" id="astronautImg">
       </div>
 
-      <!-- Diagram / Card Container (Scenes 2, 3, 5, 6, 7, 8, 9) -->
+      <!-- Educational Diagram Card (Centered in Middle) -->
       <section class="diagram-card-container hidden" id="diagramCardContainer" aria-label="Educational Diagram">
         <img src="2.1_Daily_Meal/Frame 3_multilayer.png" alt="Diagram Card" id="diagramCardImg"
           class="diagram-card-img">
@@ -937,6 +1212,18 @@
         </div>
       </section>
 
+      <!-- MCQ Stage Box (Verification Quiz) -->
+      <section class="mcq-stage-box hidden" id="mcqBox" aria-label="Verification Question Box">
+        <div class="mcq-robot-avatar">
+          <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee">
+        </div>
+        <div class="mcq-speaker-pill" id="mcqSpeakerPill">Astro Bee</div>
+        <h2 class="mcq-question-title" id="mcqQuestionTitle">Question Title</h2>
+        <div class="mcq-options-list" id="mcqOptionsList">
+          <!-- Options populated dynamically -->
+        </div>
+      </section>
+
       <!-- Mission Complete Overlay -->
       <div class="mission-complete-overlay hidden" id="missionCompleteOverlay">
         <div class="mission-complete-container">
@@ -972,10 +1259,11 @@
         </div>
       </div>
 
-      <!-- Dialogue Dock Footer (Sunita Williams) -->
+      <!-- Dialogue Dock Footer -->
       <footer class="dialogue-wrapper" id="dialogueWrapper">
-        <div class="dialogue-box" id="dialogueBoxSunita" onclick="handleDialogueClick()">
-          <div class="speaker-badge-sunita" id="speakerBadgeSunita">
+        <!-- Sunita Williams Dialogue Box (Rectangle 3.png - Exact match to Power Mission Image 3) -->
+        <div class="dialogue-box scene-1-box" id="dialogueBoxSunita" onclick="handleDialogueClick()">
+          <div class="speaker-badge" id="speakerBadgeSunita">
             Sunita Williams
           </div>
           <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene"
@@ -983,9 +1271,28 @@
             <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
             <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
           </button>
-          <img src="2.1_Daily_Meal/Dialogue_Box.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <img src="assets/Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
           <div class="dialogue-content" id="dialogueContentSunita">
             <p class="dialogue-text" id="dialogueTextSunita"></p>
+          </div>
+        </div>
+
+        <!-- Astro Bee Dialogue Box (Frame 6.png - for Verification & Mission Complete) -->
+        <div class="dialogue-box scene-2-box hidden" id="dialogueBoxAstroBee" onclick="handleDialogueClick()">
+          <div class="robot-avatar-container" id="robotAvatar">
+            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
+          </div>
+          <div class="speaker-badge astro-bee-badge" id="astroBeeBadge">
+            <img src="assets/scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
+          </div>
+          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next"
+            aria-label="Next">
+            <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="assets/scene 3/Frame 6.png" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
+          <div class="dialogue-content" id="dialogueContentAstroBee">
+            <p class="dialogue-text text-warning-yellow" id="dialogueTextAstroBee"></p>
           </div>
         </div>
       </footer>
@@ -1104,6 +1411,37 @@
         } catch (e) { }
       }
 
+      playOptionSelect(isCorrect) {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          if (isCorrect) {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(523.25, now);
+            osc.frequency.setValueAtTime(783.99, now + 0.1);
+            gain.gain.setValueAtTime(0.08, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.28);
+          } else {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(180, now);
+            osc.frequency.setValueAtTime(130, now + 0.1);
+            gain.gain.setValueAtTime(0.08, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.3);
+          }
+        } catch (e) { }
+      }
+
       playSuccessFanfare() {
         try {
           this.init();
@@ -1129,7 +1467,7 @@
     const sound = new SoundEngine();
 
     // =========================================================================
-    // Mission Data & Script Configuration (Scenes 1 - 11)
+    // Mission Data & Script Configuration (Scenes 1 - 12)
     // =========================================================================
     const SCENES = [
       {
@@ -1143,6 +1481,7 @@
         isDark: false,
         showScene4: false,
         showDiningIntake: false,
+        isAstroBee: false,
         text: "Welcome to the food storage room, rookie!"
       },
       {
@@ -1156,6 +1495,7 @@
         isDark: false,
         showScene4: false,
         showDiningIntake: false,
+        isAstroBee: false,
         text: "Every meal is individually sealed in multilayer PET, aluminum, and PE packaging to protect it from oxygen and moisture."
       },
       {
@@ -1169,6 +1509,7 @@
         isDark: false,
         showScene4: false,
         showDiningIntake: false,
+        isAstroBee: false,
         text: "Nitrogen flushing reduces residual oxygen to below 0.5%, helping preserve food quality. We also control temperature and humidity, and secure every package so it doesn't shift around."
       },
       {
@@ -1182,6 +1523,7 @@
         isDark: false,
         showScene4: true,
         showDiningIntake: false,
+        isAstroBee: false,
         text: "Now you have learnt how they are packed, let's choose your meal for today. You have three options"
       },
       {
@@ -1195,6 +1537,7 @@
         isDark: false,
         showScene4: false,
         showDiningIntake: false,
+        isAstroBee: false,
         text: "Great. Let's get that meal prepared."
       },
       {
@@ -1208,6 +1551,7 @@
         isDark: false,
         showScene4: false,
         showDiningIntake: false,
+        isAstroBee: false,
         text: "See, space foods come in three main types: Ready-to-Eat, Rehydratable, and Food Warmerable"
       },
       {
@@ -1221,6 +1565,7 @@
         isDark: false,
         showScene4: false,
         showDiningIntake: false,
+        isAstroBee: false,
         text: "If the meal is ready-to-eat, simply tear open the package and enjoy."
       },
       {
@@ -1234,6 +1579,7 @@
         isDark: false,
         showScene4: false,
         showDiningIntake: false,
+        isAstroBee: false,
         text: "Rehydratable meals need water, so connect the package to the potable water dispenser and add the exact amount required."
       },
       {
@@ -1247,6 +1593,7 @@
         isDark: false,
         showScene4: false,
         showDiningIntake: false,
+        isAstroBee: false,
         text: "If your meal needs heating, place the sealed package in the electric food warmer."
       },
       {
@@ -1260,6 +1607,7 @@
         isDark: false,
         showScene4: false,
         showDiningIntake: false,
+        isAstroBee: false,
         text: "Now that your food is ready let's eat together"
       },
       {
@@ -1273,13 +1621,80 @@
         isDark: true,
         showScene4: false,
         showDiningIntake: true,
+        isAstroBee: false,
         text: "Daily intake logged! Energy reserves are balanced for lunar operations."
+      },
+      {
+        sceneId: 12,
+        character: 'Astro Bee',
+        pose: null,
+        astronaut: false,
+        diagramCard: null,
+        cardType: null,
+        bg: '2.1_Daily_Meal/Group 1.png',
+        isDark: false,
+        showScene4: false,
+        showDiningIntake: false,
+        isAstroBee: true,
+        text: "Based on what you learned, let's do a quick system verification before we move forward."
+      }
+    ];
+
+    // 5 MCQ Questions as specified by User:
+    const MCQ_QUESTIONS = [
+      {
+        qNum: 1,
+        question: "Q1. What is the average daily calorie requirement for an astronaut?",
+        options: [
+          { key: "A", text: "2,500 kcal" },
+          { key: "B", text: "3,035 kcal" },
+          { key: "C", text: "3,500 kcal" }
+        ],
+        correct: "B"
+      },
+      {
+        qNum: 2,
+        question: "Q2. Why is nitrogen flushing used in space food packaging?",
+        options: [
+          { key: "A", text: "To reduce oxygen and preserve food quality" },
+          { key: "B", text: "To increase food temperature" },
+          { key: "C", text: "To add moisture to food" }
+        ],
+        correct: "A"
+      },
+      {
+        qNum: 3,
+        question: "Q3. How do astronauts prepare rehydratable food?",
+        options: [
+          { key: "A", text: "Eat it directly" },
+          { key: "B", text: "Place it in a food warmer" },
+          { key: "C", text: "Add the required amount of potable water" }
+        ],
+        correct: "C"
+      },
+      {
+        qNum: 4,
+        question: "Q4. How should astronauts warm food that requires heating?",
+        options: [
+          { key: "A", text: "Place the sealed package in an electric food warmer" },
+          { key: "B", text: "Add extra water" },
+          { key: "C", text: "Leave it at room temperature" }
+        ],
+        correct: "A"
+      },
+      {
+        qNum: 5,
+        question: "Q5. What resources are consumed after selecting a meal in the game?",
+        options: [
+          { key: "A", text: "100 mL water and 15 Wh power" },
+          { key: "B", text: "150 mL water and 25 Wh power" },
+          { key: "C", text: "200 mL water and 30 Wh power" }
+        ],
+        correct: "B"
       }
     ];
 
     // Meal Specifications according to User Prompt:
-    // Water: per 50ml water reduce 1 capsule from Water Reserve (10 capsules total)
-    // Power: per 10w decrease 1 bar; for 25w decrease 2 bars; for 35w decrease 3 bars (10 bars total)
     const MEAL_DATA = {
       1: {
         id: 1,
@@ -1312,11 +1727,14 @@
 
     // State Variables
     let currentSceneIndex = 0;
-    let selectedMealId = 1; // Default to Meal 1
+    let selectedMealId = 1;
     let hoveredMealId = null;
     let isTyping = false;
     let typeTimer = null;
     let currentFullText = '';
+    let currentMcqIndex = -1; // -1 means in story mode
+    let correctAnswersCount = 0;
+    let activeDialogueTextEl = null;
 
     // DOM Elements
     const bgLayer = document.getElementById('bgLayer');
@@ -1333,8 +1751,14 @@
     const dailyIntakePopup = document.getElementById('dailyIntakePopup');
     const dailyIntakeKcal = document.getElementById('dailyIntakeKcal');
     const dailyIntakeSlot1 = document.getElementById('dailyIntakeSlot1');
+    const mcqBox = document.getElementById('mcqBox');
+    const mcqQuestionTitle = document.getElementById('mcqQuestionTitle');
+    const mcqOptionsList = document.getElementById('mcqOptionsList');
     const dialogueWrapper = document.getElementById('dialogueWrapper');
+    const dialogueBoxSunita = document.getElementById('dialogueBoxSunita');
     const dialogueTextSunita = document.getElementById('dialogueTextSunita');
+    const dialogueBoxAstroBee = document.getElementById('dialogueBoxAstroBee');
+    const dialogueTextAstroBee = document.getElementById('dialogueTextAstroBee');
     const missionCompleteOverlay = document.getElementById('missionCompleteOverlay');
 
     // =========================================================================
@@ -1345,7 +1769,6 @@
       powerReserveTrack.innerHTML = '';
 
       for (let i = 0; i < 10; i++) {
-        // Water Slot
         const wSlot = document.createElement('div');
         wSlot.className = 'reserve-slot active';
         wSlot.id = `waterSlot_${i}`;
@@ -1355,7 +1778,6 @@
         wSlot.appendChild(wImg);
         waterReserveTrack.appendChild(wSlot);
 
-        // Power Slot
         const pSlot = document.createElement('div');
         pSlot.className = 'reserve-slot active';
         pSlot.id = `powerSlot_${i}`;
@@ -1367,7 +1789,6 @@
       }
     }
 
-    // Update Reserve Bars display based on current active / preview state
     function updateReserveBars(previewMealId = null) {
       const activeMeal = previewMealId ? MEAL_DATA[previewMealId] : (selectedMealId ? MEAL_DATA[selectedMealId] : null);
 
@@ -1376,7 +1797,6 @@
 
       const isPreview = previewMealId !== null && previewMealId !== selectedMealId;
 
-      // Update Water Slots (10 slots total, deduct from right to left)
       const waterRemaining = 10 - waterDeduct;
       for (let i = 0; i < 10; i++) {
         const slot = document.getElementById(`waterSlot_${i}`);
@@ -1394,7 +1814,6 @@
         }
       }
 
-      // Update Power Slots (10 slots total, deduct from right to left)
       const powerRemaining = 10 - powerDeduct;
       for (let i = 0; i < 10; i++) {
         const slot = document.getElementById(`powerSlot_${i}`);
@@ -1417,7 +1836,7 @@
     // Meal Selection & Hover Handlers
     // =========================================================================
     function previewMeal(mealId) {
-      if (currentSceneIndex !== 3) return; // Only in Scene 4
+      if (currentSceneIndex !== 3) return;
       hoveredMealId = mealId;
       sound.playHoverTick();
       updateReserveBars(mealId);
@@ -1434,7 +1853,6 @@
       selectedMealId = mealId;
       sound.playMealSelected();
 
-      // Highlight selected card
       [1, 2, 3].forEach(id => {
         const card = document.getElementById(`mealCard${id}`);
         if (card) {
@@ -1446,10 +1864,8 @@
         }
       });
 
-      // Commit Deduction
       updateReserveBars(null);
 
-      // Prompt to proceed
       const meal = MEAL_DATA[mealId];
       const proceedText = `${meal.title} selected! Reserves updated: -${meal.waterReq} Water, -${meal.powerReq} Power. Click SKIP to proceed!`;
       startTypewriter(proceedText);
@@ -1460,7 +1876,7 @@
     // =========================================================================
     function renderScene(idx) {
       if (idx >= SCENES.length) {
-        showMissionComplete();
+        startMcqFlow();
         return;
       }
 
@@ -1493,7 +1909,7 @@
         astronautStage.classList.add('hidden');
       }
 
-      // Educational / Diagram Cards
+      // Educational / Diagram Cards (Centered)
       if (s.diagramCard) {
         diagramCardContainer.classList.remove('hidden');
         diagramCardImg.src = s.diagramCard;
@@ -1530,22 +1946,33 @@
         const chosenKcal = selectedMealId ? MEAL_DATA[selectedMealId].kcal : 850;
         dailyIntakeKcal.textContent = `${chosenKcal} KCAL/ 3035KCAL`;
 
-        // Re-trigger CSS fill animation on green capsule
         dailyIntakeSlot1.innerHTML = '<img src="2.1_Daily_Meal/image 43.png" alt="Intake Portion Filled">';
         sound.playIntakeFill();
       } else {
         dailyIntakePopup.classList.add('hidden');
       }
 
-      // Mission Complete Overlay is hidden during scenes
+      // Hide MCQ Box & Mission Complete during story
+      mcqBox.classList.add('hidden');
       missionCompleteOverlay.classList.add('hidden');
       dialogueWrapper.classList.remove('hidden');
+
+      // Switch Dialogue Box Style (Sunita vs Astro Bee)
+      if (s.isAstroBee) {
+        dialogueBoxSunita.classList.add('hidden');
+        dialogueBoxAstroBee.classList.remove('hidden');
+        activeDialogueTextEl = dialogueTextAstroBee;
+      } else {
+        dialogueBoxSunita.classList.remove('hidden');
+        dialogueBoxAstroBee.classList.add('hidden');
+        activeDialogueTextEl = dialogueTextSunita;
+      }
 
       // Typewriter Dialogue
       let dialogueMsg = s.text;
       if (s.sceneId === 11) {
         const chosenKcal = selectedMealId ? MEAL_DATA[selectedMealId].kcal : 850;
-        dialogueMsg = `${chosenKcal} kcal consumed for this meal! Daily intake logged. Click SKIP to complete the mission!`;
+        dialogueMsg = `${chosenKcal} kcal consumed for this meal! Daily intake logged. Click SKIP to continue to verification!`;
       }
       startTypewriter(dialogueMsg);
     }
@@ -1553,7 +1980,10 @@
     function advanceScene() {
       sound.playDialogueAdvance();
 
-      // If on Scene 4 and no meal chosen, default choose Meal 1 so player can proceed
+      // If in MCQ mode, handle by option clicks
+      if (currentMcqIndex >= 0) return;
+
+      // If on Scene 4 and no meal chosen, default choose Meal 1
       if (currentSceneIndex === 3 && !selectedMealId) {
         selectMeal(1);
         setTimeout(() => {
@@ -1571,7 +2001,9 @@
       if (isTyping) {
         completeTypewriter();
       } else {
-        advanceScene();
+        if (currentMcqIndex === -1) {
+          advanceScene();
+        }
       }
     }
 
@@ -1579,8 +2011,99 @@
       if (isTyping) {
         completeTypewriter();
       } else {
-        advanceScene();
+        if (currentMcqIndex === -1) {
+          advanceScene();
+        }
       }
+    }
+
+    // =========================================================================
+    // MCQ Verification Flow (5 Questions)
+    // =========================================================================
+    function startMcqFlow() {
+      currentMcqIndex = 0;
+      correctAnswersCount = 0;
+
+      // Hide story stages
+      sunitaStage.classList.add('hidden');
+      astronautStage.classList.add('hidden');
+      diagramCardContainer.classList.add('hidden');
+      scene4Container.classList.add('hidden');
+      dailyIntakePopup.classList.add('hidden');
+      darkBackdropOverlay.classList.add('hidden');
+      dialogueWrapper.classList.add('hidden');
+
+      // Reset background to base food room
+      bgLayer.style.backgroundImage = "url('2.1_Daily_Meal/Group 1.png')";
+
+      renderMcqQuestion();
+    }
+
+    function renderMcqQuestion() {
+      if (currentMcqIndex >= MCQ_QUESTIONS.length) {
+        showMissionComplete();
+        return;
+      }
+
+      const q = MCQ_QUESTIONS[currentMcqIndex];
+
+      mcqQuestionTitle.textContent = q.question;
+      mcqOptionsList.innerHTML = '';
+      mcqBox.classList.remove('hidden');
+
+      q.options.forEach((opt) => {
+        const item = document.createElement('div');
+        item.className = 'mcq-option-item';
+        item.setAttribute('data-key', opt.key);
+
+        const checkbox = document.createElement('div');
+        checkbox.className = 'mcq-checkbox';
+
+        const text = document.createElement('span');
+        text.className = 'mcq-option-text';
+        text.textContent = `${opt.key}) ${opt.text}`;
+
+        item.appendChild(checkbox);
+        item.appendChild(text);
+
+        item.onclick = () => handleOptionClick(opt.key, item);
+        mcqOptionsList.appendChild(item);
+      });
+    }
+
+    function handleOptionClick(selectedKey, selectedItemEl) {
+      const q = MCQ_QUESTIONS[currentMcqIndex];
+      const isCorrect = selectedKey === q.correct;
+
+      // Lock options
+      const allItems = mcqOptionsList.querySelectorAll('.mcq-option-item');
+      allItems.forEach(el => el.classList.add('locked'));
+
+      // Checkbox checked
+      const cb = selectedItemEl.querySelector('.mcq-checkbox');
+      if (cb) cb.classList.add('checked');
+
+      if (isCorrect) {
+        selectedItemEl.classList.add('state-correct');
+        sound.playOptionSelect(true);
+        correctAnswersCount++;
+      } else {
+        selectedItemEl.classList.add('state-wrong');
+        sound.playOptionSelect(false);
+
+        // Highlight correct option
+        allItems.forEach(el => {
+          if (el.getAttribute('data-key') === q.correct) {
+            el.classList.add('state-correct');
+          }
+        });
+      }
+
+      // Next question delay
+      setTimeout(() => {
+        currentMcqIndex++;
+        renderMcqQuestion();
+      }, 950);
     }
 
     // =========================================================================
@@ -1590,13 +2113,13 @@
       currentFullText = str;
       if (typeTimer) clearTimeout(typeTimer);
       isTyping = true;
-      dialogueTextSunita.textContent = '';
+      if (activeDialogueTextEl) activeDialogueTextEl.textContent = '';
       let charIndex = 0;
 
       function typeChar() {
         if (!isTyping) return;
         if (charIndex < str.length) {
-          dialogueTextSunita.textContent += str.charAt(charIndex);
+          if (activeDialogueTextEl) activeDialogueTextEl.textContent += str.charAt(charIndex);
           if (charIndex % 3 === 0) sound.playTypewriter();
           charIndex++;
           typeTimer = setTimeout(typeChar, 18);
@@ -1612,36 +2135,66 @@
       if (!isTyping) return;
       if (typeTimer) clearTimeout(typeTimer);
       isTyping = false;
-      dialogueTextSunita.textContent = currentFullText;
+      if (activeDialogueTextEl) activeDialogueTextEl.textContent = currentFullText;
     }
 
     // =========================================================================
-    // Mission Complete Final Screen
+    // Mission Complete Final Screen (Score calculated from 5 MCQs)
     // =========================================================================
     function showMissionComplete() {
       sound.playSuccessFanfare();
 
-      // Hide active scene stages
+      // Hide all game elements
       sunitaStage.classList.add('hidden');
       astronautStage.classList.add('hidden');
       diagramCardContainer.classList.add('hidden');
       scene4Container.classList.add('hidden');
       dailyIntakePopup.classList.add('hidden');
       darkBackdropOverlay.classList.add('hidden');
+      mcqBox.classList.add('hidden');
+
+      // Calculate percentage score based on 5 MCQs (20% per correct answer)
+      const percentage = Math.round((correctAnswersCount / 5) * 100);
+
+      const circleProgress = document.getElementById('scoreCircleProgress');
+      const circleNum = document.getElementById('circleScoreNum');
+
+      const offset = 314.16 * (1 - (percentage / 100));
+      circleProgress.style.strokeDashoffset = offset;
+      circleNum.textContent = percentage + '%';
+
+      if (percentage >= 80) {
+        circleProgress.style.stroke = '#22c55e';
+        circleNum.style.color = '#22c55e';
+        circleNum.style.textShadow = '0 0 14px rgba(34, 197, 94, 0.85)';
+      } else if (percentage >= 40) {
+        circleProgress.style.stroke = '#fdcb0e';
+        circleNum.style.color = '#fdcb0e';
+        circleNum.style.textShadow = '0 0 14px rgba(253, 203, 14, 0.85)';
+      } else {
+        circleProgress.style.stroke = '#ef4444';
+        circleNum.style.color = '#ef4444';
+        circleNum.style.textShadow = '0 0 14px rgba(239, 68, 68, 0.85)';
+      }
 
       // Show Mission Complete Overlay
       missionCompleteOverlay.classList.remove('hidden');
 
-      // Dialogue summary
-      const chosenName = selectedMealId ? MEAL_DATA[selectedMealId].title : "Balanced Meal";
-      const chosenKcal = selectedMealId ? MEAL_DATA[selectedMealId].kcal : 850;
-      const completeMsg = `Mission accomplished! Outstanding work, Cadet! ${chosenName} (${chosenKcal} kcal) successfully prepared and consumed.`;
+      // Bottom dialogue with Astro Bee (scene-2-box matching reference image)
+      dialogueWrapper.classList.remove('hidden');
+      dialogueBoxSunita.classList.add('hidden');
+      dialogueBoxAstroBee.classList.remove('hidden');
+      activeDialogueTextEl = dialogueTextAstroBee;
+
+      const completeMsg = "Mission accomplished! Outstanding work, Cadet! Our crew and lunar habitat are well nourished and ready for operations.";
       startTypewriter(completeMsg);
     }
 
     function restartMission() {
       selectedMealId = 1;
       hoveredMealId = null;
+      currentMcqIndex = -1;
+      correctAnswersCount = 0;
       [1, 2, 3].forEach(id => {
         const card = document.getElementById(`mealCard${id}`);
         if (card) {
@@ -1676,6 +2229,12 @@
       renderScene(0);
     });
   </script>
+
+  <!-- Astro Bee Interactive LLM Chatbot Widget -->
+  <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev"
+    data-mount="#gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.png"
+    data-badge="assets/scene 3/Frame 7.png" defer></script>
+  <script src="astrobee/moonfall.js" defer></script>
 </body>
 
 </html>
