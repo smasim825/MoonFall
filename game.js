@@ -305,7 +305,7 @@
     {
       id: 16,
       name: "Mission Complete",
-      text: "Mission accomplished! Outstanding work, Cadet! Our crew and lunar habitat are safe from space radiation.",
+      text: "Thank you for your reports!! Your observations will help the humanities to learn more about lunar conditions.",
       boxId: "dialogueBoxScene16",
       textId: "dialogueTextScene16",
       redAlarm: false,
