@@ -81,6 +81,8 @@
       z-index: 5;
       cursor: pointer;
       pointer-events: auto;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
       transition: filter 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
     }
@@ -90,9 +92,11 @@
       object-fit: contain;
       image-rendering: pixelated;
       display: block;
-      z-index: 25;
+      z-index: 30;
       cursor: pointer;
       pointer-events: auto;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
       transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.22s ease;
       filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85));
     }
@@ -131,8 +135,8 @@
       left: 59%;
       top: 24%;
       width: 23.45%;
-      z-index: 4;
-      /* Below Main Base */
+      z-index: 9;
+      /* Elevated so transparent bounds of adjacent buildings don't steal clicks */
     }
 
     /* 3. Main Base (Red Theme) - Middle Layer (Upper of Power Station & ISRU) */
@@ -1481,7 +1485,7 @@
             icon: '⚡',
             title: 'Mission 1: Power and Energy',
             subtasks: [
-              { id: 'power_sys', label: 'Power System', active: true, locked: false, dialogue: 'Learn about the components that keep our lunar base powered up.', url: '1.1_power.html' },
+              { id: 'power_sys', label: 'Power System', active: true, locked: false, dialogue: 'Learn about the components that keep our lunar base powered up.', url: '1.1_power_mission.html' },
               { id: 'balance_grid', label: 'Balance the Grid', active: false, locked: true, requiredTask: 'Power System', dialogue: 'Balance thermal cooling turbines and battery arrays to handle energy spikes.' },
               { id: 'restore_array', label: 'Restore Solar Array', active: false, locked: true, requiredTask: 'Balance the Grid', dialogue: 'Realign high-efficiency solar photovoltaic panels to capture peak lunar sunlight.' }
             ]
@@ -1528,7 +1532,7 @@
             icon: '🛡️',
             title: 'Mission 5: Radiation Protection',
             subtasks: [
-              { id: 'prepare_shelter', label: 'Prepare the Shelter', active: true, locked: false, dialogue: 'Protect the crew from a solar storm by preparing a radiation-safe shelter.' }
+              { id: 'prepare_shelter', label: 'Prepare the Shelter', active: true, locked: false, dialogue: 'Protect the crew from a solar storm by preparing a radiation-safe shelter.', url: '5.1_Radiation_mission.html' }
             ]
           }
         ],
@@ -1714,7 +1718,7 @@
     function launchGame() {
       sound.clickSound();
       const activeSub = currentZoomedBldId ? getActiveSubtask(currentZoomedBldId) : null;
-      const targetUrl = (activeSub && activeSub.url) ? activeSub.url : '1.1_power.html';
+      const targetUrl = (activeSub && activeSub.url) ? activeSub.url : '1.1_power_mission.html';
       window.location.href = targetUrl;
     }
 

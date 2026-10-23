@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MoonFall - Mission 1.1: Power and Energy</title>
+  <meta name="description" content="Lunar base power system inspection and grid management mission with Dr. Chiaki Mukai and Astro Bee.">
+
+  <!-- Retro Pixel Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/Jersey10.ttf" as="font" type="font/ttf" crossorigin>
+
+  <!-- Preload Core Mission Assets -->
+  <link rel="preload" href="assets/power/Power.webp" as="image">
+  <link rel="preload" href="assets/power/Chiaki_Mukai_Wave.webp" as="image">
+  <link rel="preload" href="assets/power/Chiaki_Mukai_Present.webp" as="image">
+  <link rel="preload" href="assets/power/Frame 2.webp" as="image">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Custom Power Mission Overrides & Polish */
+    .power-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #030712;
+      overflow: hidden;
+      font-family: 'Jersey 10', monospace;
+    }
+
+    .power-blueprint-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('assets/power/Power.webp');
+      background-size: cover;
+      background-position: center;
+      transition: filter 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      image-rendering: pixelated;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    .power-grid-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(3, 143, 243, 0.08) 0%, transparent 70%);
+      animation: pulse-grid 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse-grid {
+      0% { opacity: 0.4; }
+      100% { opacity: 0.9; }
+    }
+
+    /* Astronaut Speaker Stage */
+    .character-stage {
+      position: absolute;
+      bottom: 0;
+      left: 3%;
+      width: 25%;
+      height: 80%;
+      pointer-events: none;
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+
+    .character-stage img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: bottom left;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.8));
+      image-rendering: pixelated;
+    }
+
+    .character-stage.right-side {
+      left: auto;
+      right: 3%;
+      justify-content: flex-end;
+    }
+
+    .character-stage.right-side img {
+      object-position: bottom right;
+    }
+
+    /* Diagram Card Overlay */
+    .power-card-overlay {
+      position: absolute;
+      top: 4%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 52%;
+      max-height: 66%;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: auto;
+      animation: card-appear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes card-appear {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+      }
+    }
+
+    .power-card-frame {
+      width: 100%;
+      border: 3px solid #038ff3;
+      border-radius: 12px;
+      background: rgba(5, 15, 35, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 0 25px rgba(3, 143, 243, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px;
+    }
+
+    .power-card-img {
+      max-width: 100%;
+      max-height: 48vh;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .power-card-badge {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 12px;
+      background: rgba(3, 143, 243, 0.25);
+      border: 1px solid #038ff3;
+      border-radius: 4px;
+      color: #7dd3fc;
+      font-size: clamp(0.9rem, 1.6vw, 1.3rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Interactive Calibration Grid Overlay */
+    .calibration-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 2%;
+      background: rgba(2, 6, 23, 0.5);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+
+    .calibration-title-bar {
+      background: rgba(15, 23, 42, 0.9);
+      border: 2px solid #38bdf8;
+      border-radius: 8px;
+      padding: 6px 20px;
+      color: #ffffff;
+      font-size: clamp(1.1rem, 2.2vw, 2rem);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+      margin-bottom: 2%;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .telemetry-progress-wrap {
+      width: 220px;
+      height: 14px;
+      background: #0f172a;
+      border: 1px solid #38bdf8;
+      border-radius: 7px;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .telemetry-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #0284c7, #38bdf8, #4ade80);
+      transition: width 0.4s ease;
+      box-shadow: 0 0 10px #38bdf8;
+    }
+
+    .hotspot-container {
+      position: relative;
+      width: 78%;
+      height: 60%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      padding: 10px;
+    }
+
+    .power-node-btn {
+      background: rgba(15, 23, 42, 0.85);
+      border: 2px solid #0284c7;
+      border-radius: 10px;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 12px 18px;
+      gap: 14px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+      text-align: left;
+    }
+
+    .power-node-btn:hover:not(.activated) {
+      transform: translateY(-3px) scale(1.02);
+      border-color: #38bdf8;
+      background: rgba(2, 132, 199, 0.25);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+    }
+
+    .power-node-btn.activated {
+      border-color: #4ade80;
+      background: rgba(34, 197, 94, 0.2);
+      box-shadow: 0 0 22px rgba(74, 222, 128, 0.5);
+    }
+
+    .power-node-icon {
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      width: 50px;
+      text-align: center;
+    }
+
+    .power-node-info h4 {
+      font-size: clamp(1.1rem, 2vw, 1.8rem);
+      color: #38bdf8;
+      margin-bottom: 2px;
+    }
+
+    .power-node-btn.activated .power-node-info h4 {
+      color: #4ade80;
+    }
+
+    .power-node-info p {
+      font-size: clamp(0.85rem, 1.4vw, 1.2rem);
+      color: #94a3b8;
+    }
+
+    .power-node-status {
+      margin-left: auto;
+      font-size: clamp(0.9rem, 1.5vw, 1.3rem);
+      font-weight: bold;
+      color: #facc15;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .power-node-btn.activated .power-node-status {
+      color: #4ade80;
+    }
+
+    /* Dialogue Dock Footer */
+    .power-dialogue-footer {
+      position: absolute;
+      bottom: 2%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 94%;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+    }
+
+    .power-dialogue-box {
+      position: relative;
+      width: 90%;
+      min-height: 90px;
+      background: rgba(10, 18, 38, 0.94);
+      border: 3px solid #038ff3;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(3, 143, 243, 0.35);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .speaker-tag {
+      position: absolute;
+      top: -18px;
+      left: 20px;
+      background: #0284c7;
+      border: 2px solid #38bdf8;
+      border-radius: 6px;
+      padding: 2px 14px;
+      color: #ffffff;
+      font-size: clamp(1rem, 1.8vw, 1.5rem);
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .power-dialogue-text {
+      color: #ffffff;
+      font-size: clamp(1.15rem, 2.3vw, 2.1rem);
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+      margin: 0;
+      width: 82%;
+    }
+
+    .power-dialogue-text span.highlight {
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    .power-dialogue-text span.yellow {
+      color: #facc15;
+      font-weight: bold;
+    }
+
+    /* Skip / Next Actions */
+    .dialogue-action-btn {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #0284c7;
+      border: 2px solid #38bdf8;
+      color: #ffffff;
+      padding: 8px 22px;
+      border-radius: 8px;
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1.1rem, 2vw, 1.8rem);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+    }
+
+    .dialogue-action-btn:hover {
+      background: #0369a1;
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.7);
+    }
+
+    .dialogue-action-btn:active {
+      transform: translateY(-50%) scale(0.97);
+    }
+
+    /* Top Navigation HUD */
+    .mission-hud-top {
+      position: absolute;
+      top: 2%;
+      left: 2%;
+      right: 2%;
+      z-index: 40;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .mission-badge-pill {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid #38bdf8;
+      border-radius: 6px;
+      padding: 4px 14px;
+      color: #38bdf8;
+      font-size: clamp(0.9rem, 1.6vw, 1.3rem);
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hud-btn {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid #38bdf8;
+      color: #e2e8f0;
+      border-radius: 6px;
+      padding: 5px 14px;
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(0.9rem, 1.6vw, 1.3rem);
+      cursor: pointer;
+      pointer-events: auto;
+      transition: all 0.2s;
+    }
+
+    .hud-btn:hover {
+      background: #0284c7;
+      color: #fff;
+    }
+
+    /* Mission Complete Modal */
+    .mission-complete-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.88);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: modal-fade 0.4s ease;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    @keyframes modal-fade {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-box {
+      width: 58%;
+      background: rgba(15, 23, 42, 0.95);
+      border: 3px solid #4ade80;
+      border-radius: 16px;
+      box-shadow: 0 0 35px rgba(74, 222, 128, 0.4), 0 20px 40px rgba(0, 0, 0, 0.9);
+      padding: 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .modal-title {
+      font-size: clamp(2rem, 4.5vw, 4rem);
+      color: #4ade80;
+      text-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+      margin: 0;
+    }
+
+    .modal-desc {
+      font-size: clamp(1.1rem, 2.2vw, 2rem);
+      color: #e2e8f0;
+      line-height: 1.3;
+      margin: 0;
+      max-width: 90%;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .modal-btn {
+      padding: 10px 26px;
+      border-radius: 8px;
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1.1rem, 2vw, 1.8rem);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .modal-btn-primary {
+      background: #22c55e;
+      color: #052e16;
+      border-color: #4ade80;
+      font-weight: bold;
+    }
+
+    .modal-btn-primary:hover {
+      background: #16a34a;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+    }
+
+    .modal-btn-secondary {
+      background: #0f172a;
+      color: #94a3b8;
+      border-color: #475569;
+    }
+
+    .modal-btn-secondary:hover {
+      background: #1e293b;
+      color: #fff;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Mobile Landscape Orientation Banner -->
+  <aside class="orientation-banner" id="orientationBanner" role="dialog" aria-modal="true" aria-label="Rotate Device">
+    <div class="orientation-card">
+      <div class="phone-rotate-icon">📱 ➔ 🔄</div>
+      <div class="orientation-title">Landscape View</div>
+      <p class="orientation-desc">For the best mission experience, rotate your phone horizontally.</p>
+      <div class="orientation-buttons">
+        <button class="orientation-btn btn-rotate-now" onclick="toggleForceHorizontal()">
+          ⤾ Rotate to Horizontal
+        </button>
+        <button class="orientation-btn btn-dismiss-rotate" onclick="dismissOrientationBanner()">
+          Continue Vertical
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Quick Floating Rotate Button on Mobile -->
+  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="toggleForceHorizontal()" title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
+    🔄 Screen
+  </button>
+
+  <!-- Responsive 16:9 Game Viewport Wrapper -->
+  <main class="game-viewport" id="gameViewport" role="application" aria-label="Lunar Power Mission Viewport">
+
+    <!-- Power Mission Scene Stage -->
+    <div class="power-stage" id="powerStage">
+
+      <!-- Top HUD -->
+      <header class="mission-hud-top">
+        <div class="mission-badge-pill">
+          <span>⚡ MISSION 1.1</span>
+          <span>•</span>
+          <span id="subtaskLabel">POWER SYSTEM</span>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="hud-btn" id="soundToggleBtn" onclick="toggleMute()" title="Mute/Unmute Audio">🔊 SOUND</button>
+          <button class="hud-btn" onclick="returnToBase()" title="Return to Main Lunar Base">🏠 MAIN BASE</button>
+        </div>
+      </header>
+
+      <!-- Background: Lunar Power Blueprint Architecture -->
+      <div class="power-blueprint-layer" id="powerBlueprintLayer"></div>
+      <div class="power-grid-glow" aria-hidden="true"></div>
+
+      <!-- Character Stage (Astronaut / Specialist) -->
+      <div class="character-stage" id="characterStage">
+        <img src="assets/power/Chiaki_Mukai_Wave.webp" alt="Dr. Chiaki Mukai" id="characterImg">
+      </div>
+
+      <!-- Educational Diagram Card Overlay -->
+      <section class="power-card-overlay hidden" id="cardOverlay" aria-live="polite">
+        <div class="power-card-frame">
+          <img src="assets/power/Frame 2.webp" alt="Power System Diagram" class="power-card-img" id="cardImg">
+          <span class="power-card-badge" id="cardBadge">SUBSYSTEM SCHEMATIC</span>
+        </div>
+      </section>
+
+      <!-- Interactive Calibration Grid Challenge Overlay -->
+      <section class="calibration-overlay hidden" id="calibrationOverlay" aria-label="Power Grid Calibration">
+        <div class="calibration-title-bar">
+          <span>⚡ CALIBRATE BASE POWER GRID</span>
+          <div class="telemetry-progress-wrap">
+            <div class="telemetry-progress-bar" id="telemetryProgressBar"></div>
+          </div>
+          <span id="telemetryPercentage" style="font-size:1.1em; color:#38bdf8;">0%</span>
+        </div>
+
+        <div class="hotspot-container">
+          <!-- Node 1: Solar Array -->
+          <button class="power-node-btn" id="nodeSolar" onclick="activateNode('solar')">
+            <div class="power-node-icon">☀️</div>
+            <div class="power-node-info">
+              <h4>SOLAR ARRAYS</h4>
+              <p>Daylight Photovoltaic Energy (+40%)</p>
+            </div>
+            <div class="power-node-status" id="statusSolar">OFFLINE</div>
+          </button>
+
+          <!-- Node 2: Battery Storage -->
+          <button class="power-node-btn" id="nodeBattery" onclick="activateNode('battery')">
+            <div class="power-node-icon">🔋</div>
+            <div class="power-node-info">
+              <h4>BATTERY STORAGE</h4>
+              <p>14-Day Lunar Night Reserves (+25%)</p>
+            </div>
+            <div class="power-node-status" id="statusBattery">STANDBY</div>
+          </button>
+
+          <!-- Node 3: Nuclear Reactor -->
+          <button class="power-node-btn" id="nodeNuclear" onclick="activateNode('nuclear')">
+            <div class="power-node-icon">⚛️</div>
+            <div class="power-node-info">
+              <h4>NUCLEAR FISSION</h4>
+              <p>Continuous Baseload Supply (+25%)</p>
+            </div>
+            <div class="power-node-status" id="statusNuclear">COLD</div>
+          </button>
+
+          <!-- Node 4: Power Distribution Unit -->
+          <button class="power-node-btn" id="nodePdu" onclick="activateNode('pdu')">
+            <div class="power-node-icon">🎛️</div>
+            <div class="power-node-info">
+              <h4>POWER DISTRIBUTION (PDU)</h4>
+              <p>Route to Habitat, Comms, Lab, Life Support (+10%)</p>
+            </div>
+            <div class="power-node-status" id="statusPdu">UNROUTED</div>
+          </button>
+        </div>
+      </section>
+
+      <!-- Mission Complete Modal -->
+      <div class="mission-complete-modal hidden" id="missionCompleteModal">
+        <div class="modal-box">
+          <div style="font-size: 3rem;">🎉⚡🏆</div>
+          <h2 class="modal-title">MISSION 1.1 ACCOMPLISHED!</h2>
+          <p class="modal-desc">
+            Outstanding engineering, Cadet! The Lunar Base Power Grid is 100% calibrated, balanced, and energized for sustainable life and operations on the Moon.
+          </p>
+          <div class="modal-buttons">
+            <button class="modal-btn modal-btn-secondary" onclick="restartMission()">🔄 Replay</button>
+            <button class="modal-btn modal-btn-primary" onclick="returnToBase()">🏠 Return to Base</button>
+            <button class="modal-btn modal-btn-primary" onclick="goToRadiationMission()">🛡️ Mission 5.1 Radiation</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dialogue Footer -->
+      <footer class="power-dialogue-footer">
+        <div class="power-dialogue-box" id="dialogueBox" onclick="handleDialogueClick()">
+          <div class="speaker-tag" id="speakerTag">Dr. Chiaki Mukai</div>
+          <p class="power-dialogue-text" id="dialogueText">
+            Initializing lunar power grid telemetry...
+          </p>
+          <button class="dialogue-action-btn" id="dialogueActionBtn" onclick="event.stopPropagation(); nextStep()">
+            NEXT ▶
+          </button>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script>
+    // =========================================================================
+    // Web Audio Synthesizer (Zero external dependencies)
+    // =========================================================================
+    class SoundFX {
+      constructor() {
+        this.ctx = null;
+        this.muted = false;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      }
+
+      playTypewriter() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(700 + Math.random() * 150, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.035, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.03);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.03);
+        } catch (e) { }
+      }
+
+      playClick() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.08);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.08);
+        } catch (e) { }
+      }
+
+      playPowerHum(freq = 240) {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.5, this.ctx.currentTime + 0.3);
+          gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.35);
+        } catch (e) { }
+      }
+
+      playFanfare() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+          notes.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            const startTime = this.ctx.currentTime + idx * 0.09;
+            osc.frequency.setValueAtTime(freq, startTime);
+            gain.gain.setValueAtTime(0.15, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.35);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(startTime);
+            osc.stop(startTime + 0.35);
+          });
+        } catch (e) { }
+      }
+    }
+
+    const sound = new SoundFX();
+
+    function toggleMute() {
+      sound.muted = !sound.muted;
+      document.getElementById('soundToggleBtn').textContent = sound.muted ? '🔇 MUTED' : '🔊 SOUND';
+    }
+
+    // =========================================================================
+    // Mission Step Definitions
+    // =========================================================================
+    const STEPS = [
+      {
+        speaker: 'Dr. Chiaki Mukai',
+        characterImg: 'assets/power/Chiaki_Mukai_Wave.webp',
+        card: null,
+        text: "Welcome to the Moon Base Power Grid, Cadet! I'm Dr. Chiaki Mukai. Let's inspect the critical infrastructure that keeps our entire lunar base powered up and operational."
+      },
+      {
+        speaker: 'Astro Bee',
+        characterImg: 'assets/power/Frame 8.webp',
+        card: {
+          src: 'assets/power/Frame 2 (2).webp',
+          badge: 'ENVIRONMENTAL TELEMETRY: LUNAR DAY & NIGHT'
+        },
+        text: "The Moon rotates slowly: 14 Earth days of intense daylight followed by 14 Earth days of freezing darkness! During darkness, solar panels cannot produce any electricity at all."
+      },
+      {
+        speaker: 'Dr. Chiaki Mukai',
+        characterImg: 'assets/power/Chiaki_Mukai_Present.webp',
+        card: {
+          src: 'assets/power/Frame 2.webp',
+          badge: 'DAYLIGHT HARVESTING: SOLAR PHOTOVOLTAIC ARRAY'
+        },
+        text: "During the 14 days of sunlight, high-efficiency Solar Arrays on the crater rims convert abundant sunlight into clean electrical power, running the base and charging our reserves."
+      },
+      {
+        speaker: 'Dr. Chiaki Mukai',
+        characterImg: 'assets/power/Chiaki_Mukai_PointUp.webp',
+        card: {
+          src: 'assets/power/Frame 2 (1).webp',
+          badge: 'ENERGY STORAGE: HIGH-CAPACITY BATTERY BANK'
+        },
+        text: "When the long 14-day night arrives, our Battery Storage Units discharge stored chemical energy to maintain heat, air circulation, and life support across every module."
+      },
+      {
+        speaker: 'Dr. Chiaki Mukai',
+        characterImg: 'assets/power/Chiaki_Mukai_Present.webp',
+        card: {
+          src: 'assets/power/Frame 2 (4).webp',
+          badge: 'BASELOAD GENERATION: COMPACT NUCLEAR FISSION'
+        },
+        text: "For uninterrupted 24/7 baseload power, we also rely on a compact Lunar Surface Nuclear Fission Reactor. It provides continuous kilowatts unaffected by dust or night!"
+      },
+      {
+        speaker: 'Astro Bee',
+        characterImg: 'assets/power/Frame 8.webp',
+        card: {
+          src: 'assets/power/Frame 2 (5).webp',
+          badge: 'GRID CONTROL: POWER DISTRIBUTION UNIT (PDU)'
+        },
+        text: "The PDU (Power Distribution Unit) acts as the electrical brain! It intelligently balances and delivers voltage to the Habitat, Laboratory, Greenhouse, Communications, and Life Support."
+      },
+      {
+        speaker: 'Dr. Chiaki Mukai',
+        characterImg: 'assets/power/Chiaki_Mukai_ThumbsUp.webp',
+        calibration: true,
+        text: "Now it's your turn, Cadet! Calibrate and energize all 4 key power subsystems below to achieve 100% lunar grid stability."
+      }
+    ];
+
+    let currentStep = 0;
+    let isTypewriting = false;
+    let typewriteTimeout = null;
+    let gridActivated = { solar: false, battery: false, nuclear: false, pdu: false };
+
+    // Elements
+    const dialogueBox = document.getElementById('dialogueBox');
+    const speakerTag = document.getElementById('speakerTag');
+    const dialogueText = document.getElementById('dialogueText');
+    const dialogueActionBtn = document.getElementById('dialogueActionBtn');
+    const characterStage = document.getElementById('characterStage');
+    const characterImg = document.getElementById('characterImg');
+    const cardOverlay = document.getElementById('cardOverlay');
+    const cardImg = document.getElementById('cardImg');
+    const cardBadge = document.getElementById('cardBadge');
+    const calibrationOverlay = document.getElementById('calibrationOverlay');
+    const telemetryProgressBar = document.getElementById('telemetryProgressBar');
+    const telemetryPercentage = document.getElementById('telemetryPercentage');
+    const missionCompleteModal = document.getElementById('missionCompleteModal');
+
+    function renderStep(index) {
+      if (index >= STEPS.length) return;
+      const step = STEPS[index];
+
+      // Update speaker and character
+      speakerTag.textContent = step.speaker;
+      if (step.characterImg) {
+        characterImg.src = step.characterImg;
+        characterStage.classList.remove('hidden');
+      }
+
+      // Update card overlay
+      if (step.card) {
+        cardImg.src = step.card.src;
+        cardBadge.textContent = step.card.badge;
+        cardOverlay.classList.remove('hidden');
+      } else {
+        cardOverlay.classList.add('hidden');
+      }
+
+      // Check for calibration challenge
+      if (step.calibration) {
+        calibrationOverlay.classList.remove('hidden');
+        dialogueActionBtn.classList.add('hidden');
+      } else {
+        calibrationOverlay.classList.add('hidden');
+        dialogueActionBtn.classList.remove('hidden');
+      }
+
+      // Start typewriter text
+      startTypewriter(step.text);
+    }
+
+    function startTypewriter(fullText) {
+      if (typewriteTimeout) clearTimeout(typewriteTimeout);
+      isTypewriting = true;
+      dialogueText.textContent = '';
+      let charIdx = 0;
+
+      function typeNextChar() {
+        if (!isTypewriting) return;
+        if (charIdx < fullText.length) {
+          dialogueText.textContent += fullText.charAt(charIdx);
+          if (charIdx % 3 === 0) sound.playTypewriter();
+          charIdx++;
+          typewriteTimeout = setTimeout(typeNextChar, 18);
+        } else {
+          isTypewriting = false;
+        }
+      }
+      typeNextChar();
+    }
+
+    function finishTypewriter() {
+      if (!isTypewriting) return;
+      isTypewriting = false;
+      if (typewriteTimeout) clearTimeout(typewriteTimeout);
+      dialogueText.textContent = STEPS[currentStep].text;
+    }
+
+    function handleDialogueClick() {
+      if (isTypewriting) {
+        finishTypewriter();
+      } else if (!STEPS[currentStep].calibration) {
+        nextStep();
+      }
+    }
+
+    function nextStep() {
+      sound.playClick();
+      if (isTypewriting) {
+        finishTypewriter();
+        return;
+      }
+      if (currentStep < STEPS.length - 1) {
+        currentStep++;
+        renderStep(currentStep);
+      }
+    }
+
+    // Interactive Calibration Node Activation
+    function activateNode(nodeType) {
+      if (gridActivated[nodeType]) return;
+      gridActivated[nodeType] = true;
+
+      const btn = document.getElementById('node' + nodeType.charAt(0).toUpperCase() + nodeType.slice(1));
+      const status = document.getElementById('status' + nodeType.charAt(0).toUpperCase() + nodeType.slice(1));
+      btn.classList.add('activated');
+      status.textContent = 'ONLINE 🟢';
+
+      sound.playPowerHum(nodeType === 'solar' ? 320 : nodeType === 'battery' ? 420 : nodeType === 'nuclear' ? 520 : 640);
+
+      // Calculate total telemetry percentage
+      let total = 0;
+      if (gridActivated.solar) total += 40;
+      if (gridActivated.battery) total += 25;
+      if (gridActivated.nuclear) total += 25;
+      if (gridActivated.pdu) total += 10;
+
+      telemetryProgressBar.style.width = total + '%';
+      telemetryPercentage.textContent = total + '%';
+
+      if (total >= 100) {
+        setTimeout(handleMissionComplete, 600);
+      }
+    }
+
+    function handleMissionComplete() {
+      sound.playFanfare();
+      characterImg.src = 'assets/power/Neil_Armstrong_Tranquility_Idle.webp';
+      speakerTag.textContent = 'Commander Neil Armstrong';
+      dialogueText.innerHTML = '<span class="yellow">Mission accomplished!</span> All systems are online at 100% capacity.';
+      missionCompleteModal.classList.remove('hidden');
+    }
+
+    function returnToBase() {
+      sound.playClick();
+      window.location.href = 'index.html';
+    }
+
+    function goToRadiationMission() {
+      sound.playClick();
+      window.location.href = '5.1_Radiation_mission.html';
+    }
+
+    function restartMission() {
+      sound.playClick();
+      currentStep = 0;
+      gridActivated = { solar: false, battery: false, nuclear: false, pdu: false };
+      ['Solar', 'Battery', 'Nuclear', 'Pdu'].forEach(name => {
+        const btn = document.getElementById('node' + name);
+        const status = document.getElementById('status' + name);
+        btn.classList.remove('activated');
+        status.textContent = name === 'Solar' ? 'OFFLINE' : name === 'Battery' ? 'STANDBY' : name === 'Nuclear' ? 'COLD' : 'UNROUTED';
+      });
+      telemetryProgressBar.style.width = '0%';
+      telemetryPercentage.textContent = '0%';
+      missionCompleteModal.classList.add('hidden');
+      renderStep(currentStep);
+    }
+
+    // Keyboard support (Space / Enter / ArrowRight)
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.code === 'Enter' || e.code === 'ArrowRight') {
+        e.preventDefault();
+        handleDialogueClick();
+      }
+    });
+
+    // Orientation Support
+    function dismissOrientationBanner() {
+      const banner = document.getElementById('orientationBanner');
+      if (banner) banner.classList.add('hidden');
+    }
+
+    function toggleForceHorizontal() {
+      const viewport = document.getElementById('gameViewport');
+      viewport.classList.toggle('force-horizontal');
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderStep(0);
+    });
+  </script>
+</body>
+
+</html>
