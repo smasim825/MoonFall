@@ -1,0 +1,172 @@
+{
+ "missions": {
+  "_base": [
+   "What is my job?",
+   "Who are you?",
+   "Who is Neil Armstrong?"
+  ],
+  "crop": [
+   "What is the crop experiment about?",
+   "Why is regolith dangerous?",
+   "Does chromium in Moon dust irritate skin?"
+  ],
+  "ice": [
+   "What is the ice mission about?",
+   "Why is there ice in craters?",
+   "How does a rover find ice?"
+  ],
+  "power": [
+   "Why is power important?",
+   "How do solar panels work on the Moon?",
+   "Why do we need batteries?"
+  ],
+  "food": [
+   "Why does my meal use water and power?",
+   "How many calories does an astronaut need?",
+   "What is Food Warmerable?"
+  ],
+  "solar_storm": [
+   "What is a solar storm?",
+   "What are galactic cosmic rays?",
+   "What is the difference between SPE and GCR?"
+  ],
+  "waste": [
+   "What is the waste mission?"
+  ]
+ },
+ "steps": {
+  "crop.setup.2": [
+   "How do I set up the experiment?",
+   "Why can't we just plant seeds in Moon dirt?"
+  ],
+  "crop.report.1": [
+   "What happens after I send the data?",
+   "Are my answers the same as the real study?"
+  ],
+  "food.crew_meal.1": [
+   "What do I do in the food storage room?",
+   "Why is space food packed in layers?",
+   "Why is nitrogen put in food packages?"
+  ],
+  "food.crew_meal.4": [
+   "What does 1/3 meals mean?"
+  ],
+  "ice.report.2": [
+   "The signal was interrupted, what do I do?",
+   "How does data get from the Moon to Earth?"
+  ],
+  "power.power_system.1": [
+   "What do I do in the power station?",
+   "Why is power important?"
+  ],
+  "power.power_system.2": [
+   "How do I do the power flow screen?"
+  ],
+  "power.restore_solar_array.2": [
+   "How do I clean the solar panel?"
+  ],
+  "solar_storm.storm_alert.1": [
+   "A solar storm started, what do I do?"
+  ],
+  "solar_storm.build_shield.1": [
+   "How do I build the radiation shield?",
+   "Why use food and water as a shield?",
+   "Does more material always mean more protection?"
+  ],
+  "crop.observe.size": [
+   "How big are the plants?",
+   "What is a control plant?"
+  ],
+  "crop.observe.color": [
+   "What color are the plants?"
+  ],
+  "crop.observe.shape": [
+   "Do the plants look normal?"
+  ],
+  "crop.observe.stress": [
+   "How stressed are the plants?"
+  ],
+  "crop.observe.growth": [
+   "How was the growth rate?"
+  ],
+  "food.crew_meal.2": [
+   "Which meal should I choose?",
+   "Why does my meal use water and power?",
+   "What is in each meal?"
+  ],
+  "food.crew_meal.3": [
+   "How do I prepare my food?",
+   "What is Food Warmerable?"
+  ],
+  "ice.find_ice.1": [
+   "Which site should I scan?",
+   "How does a rover find ice?"
+  ],
+  "ice.find_ice.2": [
+   "Where do I drill?"
+  ],
+  "ice.extract_water.1": [
+   "How much regolith should I process?",
+   "How do you get water out of icy soil?"
+  ],
+  "ice.extract_water.2": [
+   "When do I turn on the cold trap?",
+   "How do you get water out of icy soil?",
+   "Why does Moon water need cleaning?"
+  ],
+  "ice.allocate_water.1": [
+   "How should I divide the water?",
+   "How much water does one astronaut need a day?"
+  ],
+  "ice.emergency.1": [
+   "The oxygen is dropping, what do I do?"
+  ],
+  "ice.emergency.2": [
+   "The oxygen is dropping, what do I do?",
+   "What do the emergency options do?"
+  ],
+  "ice.report.1": [
+   "Which data should I send to Earth?"
+  ],
+  "power.power_system.3": [
+   "How do I fill in the status report?"
+  ],
+  "power.restore_solar_array.1": [
+   "Why are the solar panels making less power?"
+  ],
+  "power.balance_the_grid.1": [
+   "What should I turn off when the battery is low?",
+   "What happens after I turn off the extra equipment?"
+  ],
+  "power.balance_the_grid.2": [
+   "What is the answer to the fission question?"
+  ],
+  "solar_storm.radiation_basics.1": [
+   "Which radiation is the more constant long-term hazard?"
+  ],
+  "solar_storm.shelter_safety.2": [
+   "How do I use the thickness slider?",
+   "Does more material always mean more protection?",
+   "Why cover the shelter with regolith?"
+  ],
+  "crop.setup.1": [
+   "Why is regolith dangerous?",
+   "Does chromium in Moon dust irritate skin?"
+  ],
+  "ice.allocate_water.2": [
+   "What is electrolysis?",
+   "What is hydrogen used for?",
+   "How much oxygen do I get from 50 liters of water?"
+  ],
+  "solar_storm.radiation_basics.2": [
+   "How does Earth protect us from radiation?"
+  ],
+  "solar_storm.build_shield.2": [
+   "Why cover the shelter with regolith?"
+  ],
+  "solar_storm.shelter_safety.1": [
+   "Which building is safest in a solar storm?",
+   "What do astronauts do when a solar storm warning comes?"
+  ]
+ }
+}

@@ -1,0 +1,195 @@
+/* Astro Bee chat widget. Matches the MoonFall HTML game: navy panels, blue borders, gold highlights, pixel fonts.
+   Colours come from the game's mission panel (.mission-header-card, .mission-subtasks-box, .subtask-btn). */
+@font-face {
+  font-family: "AB Jersey";
+  src: url("../assets/fonts/Jersey10.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "AB Pixel";
+  src: url("../assets/fonts/PixelOperator-Bold.ttf") format("truetype");
+  font-display: swap;
+}
+
+.ab-root {
+  --ab-navy: #00163b;
+  --ab-navy-2: #00224d;
+  --ab-panel: rgba(0, 28, 70, 0.9);
+  --ab-blue: #0050b3;
+  --ab-blue-2: #005ec4;
+  --ab-blue-soft: rgba(0, 90, 195, 0.65);
+  --ab-gold: #ffcc00;
+  --ab-gold-dark: #d4a000;
+  --ab-white: #ffffff;
+  --ab-text: #e8f1ff;
+  --ab-muted: #8faec5;
+  --ab-font: "AB Jersey", "Jersey 10", "Pixel Operator", monospace;
+  --ab-font-body: "AB Pixel", "Pixel Operator", "Noto Sans Bengali", "Segoe UI", system-ui, sans-serif;
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483000;
+  font-family: var(--ab-font-body);
+  color: var(--ab-text);
+}
+.ab-root *, .ab-root *::before, .ab-root *::after { box-sizing: border-box; }
+/* The game sets user-select:none on everything; iOS then refuses typing in inputs. */
+.ab-root .ab-input, .ab-root .ab-log { user-select: text; -webkit-user-select: text; }
+.ab-root[lang="bn"] { --ab-font-body: "Noto Sans Bengali", "AB Pixel", "Segoe UI", system-ui, sans-serif; }
+
+/* launcher: HUD button like the game's mission header card */
+.ab-launch {
+  position: relative;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--ab-navy); color: var(--ab-white);
+  border: 3px solid var(--ab-blue); border-radius: 12px;
+  padding: 5px 14px 5px 5px; cursor: pointer;
+  font-family: var(--ab-font); font-size: 22px; letter-spacing: 0.04em;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.ab-launch:hover { background: var(--ab-gold); border-color: var(--ab-gold-dark); color: #000; box-shadow: 0 0 20px rgba(255, 204, 0, 0.85); }
+.ab-launch:active { transform: scale(0.96); }
+.ab-launch img { width: 40px; height: 40px; object-fit: contain; image-rendering: pixelated; }
+.ab-launch-short { display: none; }
+.ab-alert-dot {
+  display: none; position: absolute; top: -9px; right: -9px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--ab-gold); color: #000; border: 2px solid #000;
+  font-family: var(--ab-font); font-size: 18px; line-height: 18px; text-align: center;
+  animation: ab-pulse 1.1s ease-in-out infinite;
+}
+.ab-alert .ab-alert-dot { display: block; }
+@keyframes ab-pulse { 50% { transform: scale(1.18); box-shadow: 0 0 12px rgba(255, 204, 0, 0.9); } }
+.ab-launch:focus-visible, .ab-btn:focus-visible, .ab-chip:focus-visible, .ab-input:focus-visible { outline: 3px solid var(--ab-gold); outline-offset: 2px; }
+
+/* panel */
+.ab-panel {
+  position: absolute; right: 0; bottom: 0;
+  width: 360px; height: min(560px, calc(100vh - 32px));
+  display: none; flex-direction: column;
+  background: var(--ab-panel); border: 3px solid var(--ab-blue); border-radius: 12px;
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+.ab-open .ab-panel { display: flex; }
+.ab-open .ab-launch { display: none; }
+
+.ab-head { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: var(--ab-navy); border-bottom: 3px solid var(--ab-blue); }
+.ab-avatar { width: 44px; height: 44px; flex: none; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7)); }
+.ab-thinking .ab-avatar { animation: ab-bob 0.9s ease-in-out infinite; }
+@keyframes ab-bob { 50% { transform: translateY(-4px) rotate(-3deg); } }
+.ab-title { flex: 1; min-width: 0; }
+.ab-name {
+  display: inline-block; background: var(--ab-white); color: var(--ab-blue);
+  border: 3px solid var(--ab-blue-2); border-radius: 8px; padding: 0 8px;
+  font-family: var(--ab-font); font-size: 22px; line-height: 1.1;
+}
+.ab-name-img { background: none; border: 0; padding: 0; line-height: 0; }
+.ab-name-img img { height: 28px; width: auto; display: block; }
+.ab-sub {
+  font-family: var(--ab-font); font-size: 18px; line-height: 1; color: var(--ab-gold); letter-spacing: 0.03em; margin-top: 3px;
+  overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; text-shadow: 2px 2px 0 #000;
+}
+.ab-btn {
+  background: var(--ab-navy-2); color: var(--ab-white); border: 2px solid var(--ab-blue-2); border-radius: 8px;
+  font-family: var(--ab-font); font-size: 18px; padding: 2px 8px; cursor: pointer; min-width: 34px; min-height: 32px;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.ab-btn:hover { background: var(--ab-gold); border-color: var(--ab-gold-dark); color: #000; }
+
+/* live sun strip (Radiation / Solar Storm mission) */
+.ab-live { display: none; padding: 6px 10px; background: #2a1600; border-bottom: 2px solid #ff9a1f; font-size: 13px; color: #ffe2b8; }
+.ab-live.ab-show { display: block; }
+.ab-live b { font-family: var(--ab-font); font-size: 17px; color: #ffb547; font-weight: normal; margin-right: 6px; }
+.ab-live a { color: #ffd38a; }
+
+/* messages: bot = blue task button, user = gold selected task */
+.ab-log { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--ab-blue-2) transparent; }
+.ab-msg { max-width: 90%; padding: 7px 10px; border-radius: 9px; font-size: 16px; line-height: 1.3; letter-spacing: 0.02em; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ab-bot { align-self: flex-start; background: var(--ab-navy-2); border: 2.5px solid var(--ab-blue-2); color: var(--ab-white); box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.15), 0 4px 10px rgba(0, 0, 0, 0.5); }
+.ab-user { align-self: flex-end; background: linear-gradient(180deg, #ffcc00 0%, #e6b800 100%); border: 2.5px solid var(--ab-gold-dark); color: #000; }
+.ab-debrief { border-color: var(--ab-gold); }
+.ab-debrief::before { content: "Mission debrief"; display: block; font-family: var(--ab-font); color: var(--ab-gold); font-size: 19px; margin-bottom: 2px; text-shadow: 1px 1px 0 #000; }
+.ab-badge { display: inline-block; font-family: var(--ab-font); font-size: 14px; color: #000; background: var(--ab-gold); border-radius: 6px; padding: 0 6px; margin-bottom: 4px; }
+.ab-srcs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.ab-src {
+  font-family: "Segoe UI", system-ui, sans-serif; font-size: 12px; color: var(--ab-text); background: var(--ab-navy);
+  border: 1px solid var(--ab-muted); border-radius: 999px; padding: 2px 8px; text-decoration: none;
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ab-src:hover { border-color: var(--ab-gold); color: var(--ab-white); }
+.ab-dots span { display: inline-block; width: 7px; height: 7px; margin: 0 2px; background: var(--ab-gold); border-radius: 1px; animation: ab-dot 1s infinite; }
+.ab-dots span:nth-child(2) { animation-delay: 0.15s; } .ab-dots span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes ab-dot { 50% { transform: translateY(-5px); opacity: 0.5; } }
+
+/* suggestion chips + input */
+.ab-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 10px 8px; }
+.ab-chip {
+  flex: 0 1 auto; max-width: 100%; background: var(--ab-navy-2); color: var(--ab-white); border: 2px solid var(--ab-blue-2); border-radius: 8px;
+  padding: 4px 9px; font-family: var(--ab-font-body); font-size: 14px; cursor: pointer; text-align: left;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.ab-chip:hover { background: var(--ab-gold); border-color: var(--ab-gold-dark); color: #000; }
+.ab-form { display: flex; gap: 8px; padding: 8px 10px 8px; border-top: 2px solid var(--ab-blue-soft); }
+.ab-input {
+  flex: 1; min-width: 0; background: var(--ab-navy); color: var(--ab-white); border: 2px solid var(--ab-blue-2); border-radius: 9px;
+  padding: 8px 10px; font-size: 16px; font-family: var(--ab-font-body);
+}
+.ab-input::placeholder { color: var(--ab-muted); }
+.ab-send { font-size: 20px; padding: 0 14px; background: var(--ab-gold); border-color: var(--ab-gold-dark); color: #000; }
+.ab-send:hover { background: #ffd633; }
+.ab-send:disabled { opacity: 0.5; cursor: wait; }
+.ab-note { font-family: "Segoe UI", system-ui, sans-serif; font-size: 10.5px; color: var(--ab-muted); text-align: center; padding: 0 10px 6px; }
+
+@media (max-width: 520px) {
+  .ab-root:not(.ab-in-stage) { right: 8px; bottom: 8px; }
+  .ab-root:not(.ab-in-stage) .ab-panel { position: fixed; inset: 8px; width: auto; height: auto; }
+  .ab-root:not(.ab-in-stage) .ab-launch span { display: none; }
+  .ab-root:not(.ab-in-stage) .ab-launch { padding: 6px; }
+}
+
+/* ---------- inside the game's 16:9 stage (data-mount) ----------
+   Top-right, under the game's "Screen" button; the panel ends above the dialogue bar (which starts near 75% height),
+   so story text, SKIP and the mission panel stay visible. Sizes follow the stage, so force-horizontal rotation works. */
+.ab-root.ab-in-stage {
+  position: absolute; inset: 0; right: auto; bottom: auto; width: 100%; height: 100%;
+  z-index: 100; pointer-events: none;
+  container-type: size; container-name: ab-stage;
+}
+.ab-in-stage .ab-launch, .ab-in-stage .ab-panel { pointer-events: auto; }
+.ab-in-stage .ab-launch {
+  position: absolute; top: 56px; right: 12px;
+  flex-direction: column; gap: 0; padding: 4px 4px 2px;
+  width: clamp(54px, 5.6%, 74px);
+  animation: ab-idle 2.2s ease-in-out infinite;
+}
+.ab-in-stage .ab-launch:hover { animation-play-state: paused; transform: translateY(-3px) scale(1.06); }
+.ab-in-stage .ab-launch img { width: 100%; height: auto; aspect-ratio: 1; }
+.ab-in-stage .ab-launch-long { display: none; }
+.ab-in-stage .ab-launch-short { display: block; font-size: 18px; line-height: 1; color: var(--ab-gold); text-shadow: 2px 2px 0 #000; }
+.ab-in-stage .ab-launch:hover .ab-launch-short { color: #000; text-shadow: none; }
+@keyframes ab-idle { 50% { transform: translateY(-4px); } }
+.ab-in-stage .ab-panel {
+  top: 56px; right: 12px; bottom: auto;
+  width: clamp(260px, 26%, 340px);
+  height: min(520px, calc(68% - 56px)); /* highest dialogue edge (SKIP button) measured at 72.3% of the stage */
+}
+/* phones in landscape: the stage is short, so use the right half at full height */
+@container ab-stage (max-height: 480px) {
+  .ab-in-stage .ab-launch { top: 48px; right: 8px; width: 50px; }
+  .ab-in-stage .ab-launch-short { font-size: 15px; }
+  .ab-in-stage .ab-panel { top: 50px; right: 6px; width: 48%; height: calc(100% - 56px); } /* below the game's fixed "Screen" button */
+  .ab-in-stage .ab-head { padding: 4px 8px; }
+  .ab-in-stage .ab-avatar { width: 32px; height: 32px; }
+  .ab-in-stage .ab-name-img img { height: 22px; }
+  .ab-in-stage .ab-sub { font-size: 15px; }
+  .ab-in-stage .ab-msg { font-size: 14px; }
+  .ab-in-stage .ab-note { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-thinking .ab-avatar, .ab-dots span, .ab-in-stage .ab-launch, .ab-alert-dot { animation: none; }
+  .ab-log { scroll-behavior: auto; }
+}
