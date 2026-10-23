@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MoonFall - Mission 3.1: Lunar Rover Crater Traverse</title>
+  <meta name="description"
+    content="Pilot the lunar rover across the rugged Shackleton Crater rim, collecting cryogenic ice crystals and minerals while dodging basalt boulders before battery runs out!">
+
+  <!-- Retro Pixel Font -->
+  <link rel="preload" href="assets/fonts/Jersey10.ttf" as="font" type="font/ttf" crossorigin>
+
+  <style>
+    @font-face {
+      font-family: 'Jersey 10';
+      src: url('assets/fonts/Jersey10.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --pixel-cyan: #00e5ff;
+      --pixel-yellow: #fdcb0e;
+      --pixel-green: #22c55e;
+      --pixel-red: #ef4444;
+      --pixel-blue: #38bdf8;
+      --pixel-gold: #f59e0b;
+      --font-pixel: 'Jersey 10', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html,
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #000000;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: var(--font-pixel);
+      color: #ffffff;
+    }
+
+    /* 16:9 Viewport Stage matching MoonFall base and missions */
+    .game-viewport {
+      position: relative;
+      width: 100vw;
+      height: 56.25vw;
+      max-width: 177.78vh;
+      max-height: 100vh;
+      aspect-ratio: 16 / 9;
+      background: #020614;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+      overflow: hidden;
+    }
+
+    /* Main Game Canvas */
+    #gameCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      z-index: 5;
+    }
+
+    /* Outer Tactical Wireframe Frame */
+    .tactical-frame {
+      position: absolute;
+      inset: 8px;
+      border: 1.5px solid rgba(0, 229, 255, 0.35);
+      pointer-events: none;
+      z-index: 40;
+      box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.1);
+    }
+
+    .corner {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-color: #00e5ff;
+      border-style: solid;
+    }
+    .corner.tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; }
+    .corner.tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; }
+    .corner.bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; }
+    .corner.br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
+
+    /* Top Arcade HUD */
+    .arcade-hud {
+      position: absolute;
+      top: 14px;
+      left: 18px;
+      right: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 30;
+      pointer-events: none;
+    }
+
+    .hud-chip {
+      background: rgba(1, 14, 34, 0.88);
+      border: 1.5px solid rgba(0, 229, 255, 0.6);
+      border-radius: 6px;
+      padding: 4px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+    }
+
+    .hud-label {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      letter-spacing: 0.04em;
+    }
+
+    .hud-value {
+      font-size: 1.55rem;
+      font-weight: bold;
+      color: var(--pixel-cyan);
+      letter-spacing: 0.02em;
+    }
+
+    /* Battery Meter Bar */
+    .battery-bar-outer {
+      width: 90px;
+      height: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1.5px solid var(--pixel-yellow);
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .battery-bar-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #22c55e, #fdcb0e);
+      transition: width 0.15s ease;
+    }
+
+    /* Distance Progress Track */
+    .distance-track-container {
+      position: absolute;
+      top: 58px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44%;
+      max-width: 420px;
+      background: rgba(1, 14, 32, 0.8);
+      border: 1px solid rgba(0, 229, 255, 0.4);
+      border-radius: 4px;
+      padding: 4px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    .distance-track-bar {
+      position: relative;
+      width: 100%;
+      height: 6px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 3px;
+      overflow: visible;
+    }
+
+    .distance-track-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--pixel-cyan);
+      border-radius: 3px;
+      box-shadow: 0 0 8px var(--pixel-cyan);
+    }
+
+    .distance-rover-pin {
+      position: absolute;
+      top: -5px;
+      left: 0%;
+      transform: translateX(-50%);
+      font-size: 0.95rem;
+      transition: left 0.1s linear;
+    }
+
+    /* Mobile / On-Screen Arcade Controls */
+    .arcade-touch-controls {
+      position: absolute;
+      bottom: 18px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 35;
+      pointer-events: none;
+    }
+
+    .touch-btn-group {
+      display: flex;
+      gap: 12px;
+      pointer-events: auto;
+    }
+
+    .touch-arcade-btn {
+      background: rgba(1, 18, 44, 0.88);
+      border: 2px solid var(--pixel-cyan);
+      border-radius: 8px;
+      color: #ffffff;
+      font-family: var(--font-pixel);
+      font-size: 1.45rem;
+      padding: 10px 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8);
+      transition: all 0.1s ease;
+      touch-action: manipulation;
+    }
+
+    .touch-arcade-btn:active, .touch-arcade-btn.active {
+      background: var(--pixel-cyan);
+      color: #000000;
+      transform: scale(0.94);
+      box-shadow: 0 0 18px var(--pixel-cyan);
+    }
+
+    .touch-jump-btn {
+      border-color: var(--pixel-yellow);
+      color: var(--pixel-yellow);
+      font-size: 1.55rem;
+      padding: 12px 24px;
+    }
+
+    .touch-jump-btn:active, .touch-jump-btn.active {
+      background: var(--pixel-yellow);
+      color: #000000;
+      box-shadow: 0 0 18px var(--pixel-yellow);
+    }
+
+    /* Start Briefing Overlay */
+    .start-briefing-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 6, 18, 0.85);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .start-briefing-modal.hidden {
+      display: none !important;
+    }
+
+    .briefing-card {
+      width: 76%;
+      max-width: 680px;
+      background: rgba(2, 18, 44, 0.98);
+      border: 2.5px solid var(--pixel-cyan);
+      border-radius: 10px;
+      padding: 22px 26px;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.95), inset 0 0 24px rgba(0, 229, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .briefing-title {
+      font-size: 2.1rem;
+      color: var(--pixel-yellow);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(253, 203, 14, 0.6);
+    }
+
+    .briefing-dialogue {
+      background: rgba(0, 14, 32, 0.9);
+      border-left: 3px solid var(--pixel-cyan);
+      padding: 10px 16px;
+      border-radius: 0 6px 6px 0;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .briefing-avatar {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.7));
+    }
+
+    .briefing-text {
+      font-size: 1.25rem;
+      color: #e2e8f0;
+      line-height: 1.35;
+    }
+
+    .briefing-keys-row {
+      display: flex;
+      gap: 18px;
+      margin: 4px 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .key-badge {
+      background: rgba(0, 28, 64, 0.85);
+      border: 1px solid var(--pixel-cyan);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 1.15rem;
+      color: #38bdf8;
+    }
+
+    .btn-chunky-start {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.12s ease, filter 0.12s ease;
+      filter: drop-shadow(0 6px 16px rgba(255, 45, 60, 0.6));
+    }
+
+    .btn-chunky-start img {
+      width: 160px;
+      height: auto;
+      display: block;
+    }
+
+    .btn-chunky-start:hover {
+      transform: scale(1.06);
+      filter: drop-shadow(0 0 22px rgba(255, 45, 60, 0.9));
+    }
+
+    .btn-chunky-start:active {
+      transform: scale(0.96);
+    }
+
+    /* Game Over / Mission Complete Modal */
+    .summary-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 6, 18, 0.85);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .summary-modal.hidden {
+      display: none !important;
+    }
+
+    .summary-card {
+      width: 78%;
+      max-width: 680px;
+      background: rgba(2, 18, 44, 0.98);
+      border: 2.5px solid var(--pixel-cyan);
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 14px 50px rgba(0, 0, 0, 0.95), inset 0 0 25px rgba(0, 229, 255, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .complete-title-img {
+      max-width: 80%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 14px rgba(0, 229, 255, 0.8));
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .summary-box {
+      background: rgba(0, 24, 54, 0.75);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      border-radius: 6px;
+      padding: 10px;
+    }
+
+    .summary-val {
+      font-size: 1.85rem;
+      font-weight: bold;
+      color: var(--pixel-cyan);
+    }
+
+    .summary-sub {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+
+    .summary-impact {
+      background: rgba(0, 16, 36, 0.9);
+      border-left: 3px solid var(--pixel-green);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      text-align: left;
+      line-height: 1.35;
+      width: 100%;
+    }
+
+    .summary-buttons {
+      display: flex;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .pixel-btn-action {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.12s ease;
+    }
+
+    .pixel-btn-action img {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    .pixel-btn-action:hover {
+      transform: scale(1.08);
+    }
+
+    .pixel-btn-action:active {
+      transform: scale(0.94);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 16:9 Game Viewport Wrapper -->
+  <main class="game-viewport" id="gameViewport">
+    <!-- Game Canvas -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- Tactical Wireframe Frame -->
+    <div class="tactical-frame">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+    </div>
+
+    <!-- Top Arcade HUD -->
+    <header class="arcade-hud">
+      <div class="hud-chip">
+        <span class="hud-label">💎 WATER ICE:</span>
+        <span class="hud-value" id="hudWater" style="color: #00e5ff;">0.0 L</span>
+      </div>
+
+      <div class="hud-chip">
+        <span class="hud-label">🪙 ILMENITE ORE:</span>
+        <span class="hud-value" id="hudMinerals" style="color: #fdcb0e;">0 KG</span>
+      </div>
+
+      <div class="hud-chip">
+        <span class="hud-label">⚡ BATTERY:</span>
+        <div class="battery-bar-outer">
+          <div class="battery-bar-fill" id="hudBatteryFill"></div>
+        </div>
+        <span id="hudBatteryText" style="font-size: 1.25rem; font-weight: bold; color: #fdcb0e;">100%</span>
+      </div>
+    </header>
+
+    <!-- Distance Progress Track -->
+    <div class="distance-track-container">
+      <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: #94a3b8;">
+        <span>CRATER RIM</span>
+        <span id="distanceProgressText" style="color: #00e5ff;">0 / 1000m</span>
+        <span>OUTPOST AIRLOCK</span>
+      </div>
+      <div class="distance-track-bar">
+        <div class="distance-track-fill" id="distanceTrackFill"></div>
+        <div class="distance-rover-pin" id="distanceRoverPin">🚜</div>
+      </div>
+    </div>
+
+    <!-- Mobile / On-Screen Touch Controls -->
+    <div class="arcade-touch-controls">
+      <div class="touch-btn-group">
+        <button class="touch-arcade-btn" id="btnTouchLeft">◀ REV</button>
+        <button class="touch-arcade-btn" id="btnTouchRight">FWD ▶</button>
+      </div>
+      <div class="touch-btn-group">
+        <button class="touch-arcade-btn touch-jump-btn" id="btnTouchJump">🚀 JUMP HOP</button>
+      </div>
+    </div>
+
+    <!-- Start Briefing Modal -->
+    <div class="start-briefing-modal" id="startBriefingModal">
+      <div class="briefing-card">
+        <h2 class="briefing-title">🚜 LUNAR ROVER CRATER TRAVERSE</h2>
+
+        <div class="briefing-dialogue">
+          <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="briefing-avatar">
+          <div class="briefing-text">
+            "Cadet! Pilot our Pragyan lunar rover <strong>1,000 meters</strong> across Shackleton Crater rim to the Outpost Airlock.
+            Collect <strong>cyan ice crystals 💎</strong> and <strong>ilmenite minerals 🪙</strong>, but jump over basalt boulders before battery runs out!"
+          </div>
+        </div>
+
+        <div class="briefing-keys-row">
+          <span class="key-badge">⌨️ ARROWS / A, D: Drive</span>
+          <span class="key-badge">🚀 SPACE / W: Thruster Hop</span>
+          <span class="key-badge">📱 TOUCH: On-Screen Buttons</span>
+        </div>
+
+        <!-- Chunky Pixel Art START Button from 2.2_Hydroponics/image 132.png -->
+        <button class="btn-chunky-start" onclick="startGame()" title="START MISSION">
+          <img src="2.2_Hydroponics/image 132.png" alt="START">
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary / Mission Complete Modal -->
+    <div class="summary-modal hidden" id="summaryModal">
+      <div class="summary-card">
+        <img src="assets/Mission Complete.png" alt="Mission Complete" class="complete-title-img">
+        <div id="summaryOutcomeText" style="font-size: 1.35rem; color: #fdcb0e;">
+          Outpost Airlock Reached Safely!
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-box">
+            <div class="summary-val" id="sumWaterVal">18.5 L</div>
+            <div class="summary-sub">WATER EXTRACTED</div>
+          </div>
+          <div class="summary-box">
+            <div class="summary-val" id="sumMineralsVal" style="color: #fdcb0e;">60 KG</div>
+            <div class="summary-sub">ILMENITE ORE</div>
+          </div>
+          <div class="summary-box">
+            <div class="summary-val" id="sumRatingVal" style="color: #22c55e;">⭐⭐⭐</div>
+            <div class="summary-sub">PILOT RATING</div>
+          </div>
+        </div>
+
+        <div class="summary-impact" id="summaryImpactText">
+          <strong>BASE LIFE SUPPORT IMPACT:</strong> Collected 18.5 Liters of cryogenic ice crystals!
+          This provides <strong>4.1 days of drinking water</strong> for the crew and produces
+          <strong>16.2 kg of rocket fuel propellant</strong> at the ISRU Facility.
+        </div>
+
+        <!-- Chunky Pixel Action Buttons (Try Again, Home) -->
+        <div class="summary-buttons">
+          <button class="pixel-btn-action" onclick="restartGame()" title="Try Again">
+            <img src="assets/Frame 25.png" alt="Try Again">
+          </button>
+          <button class="pixel-btn-action" onclick="returnToBase()" title="Home Base">
+            <img src="assets/Frame 26.png" alt="Home">
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // =========================================================================
+    // Space Web Audio Synthesizer (Motor, Jump Jet, Pickups, Crashes)
+    // =========================================================================
+    class RoverAudio {
+      constructor() {
+        this.ctx = null;
+        this.motorOsc = null;
+        this.motorGain = null;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume().catch(() => { });
+        }
+      }
+      startMotor() {
+        this.init();
+        if (!this.ctx || this.motorOsc) return;
+        try {
+          this.motorOsc = this.ctx.createOscillator();
+          this.motorGain = this.ctx.createGain();
+          this.motorOsc.type = 'triangle';
+          this.motorOsc.frequency.setValueAtTime(55, this.ctx.currentTime);
+          this.motorGain.gain.setValueAtTime(0.01, this.ctx.currentTime);
+
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(280, this.ctx.currentTime);
+
+          this.motorOsc.connect(filter);
+          filter.connect(this.motorGain);
+          this.motorGain.connect(this.ctx.destination);
+          this.motorOsc.start();
+        } catch (e) { }
+      }
+      updateMotor(speedRatio) {
+        if (!this.motorOsc || !this.ctx) return;
+        const targetFreq = 50 + speedRatio * 90;
+        const targetVol = speedRatio > 0.05 ? 0.03 + speedRatio * 0.04 : 0.005;
+        this.motorOsc.frequency.setTargetAtTime(targetFreq, this.ctx.currentTime, 0.05);
+        this.motorGain.gain.setTargetAtTime(targetVol, this.ctx.currentTime, 0.05);
+      }
+      playJump() {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(140, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(520, this.ctx.currentTime + 0.18);
+          gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.22);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.22);
+        } catch (e) { }
+      }
+      playPickup(type) {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const now = this.ctx.currentTime;
+          osc.type = 'sine';
+
+          if (type === 'ice') {
+            osc.frequency.setValueAtTime(650, now);
+            osc.frequency.exponentialRampToValueAtTime(1200, now + 0.12);
+          } else if (type === 'ore') {
+            osc.frequency.setValueAtTime(450, now);
+            osc.frequency.setValueAtTime(800, now + 0.08);
+          } else {
+            // battery
+            osc.frequency.setValueAtTime(520, now);
+            osc.frequency.exponentialRampToValueAtTime(1040, now + 0.15);
+          }
+
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.15);
+        } catch (e) { }
+      }
+      playCrash() {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(120, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 0.25);
+          gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.25);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.25);
+        } catch (e) { }
+      }
+      playVictory() {
+        this.init();
+        if (!this.ctx) return;
+        const notes = [440, 554, 659, 880, 1108];
+        notes.forEach((freq, i) => {
+          setTimeout(() => {
+            try {
+              const osc = this.ctx.createOscillator();
+              const gain = this.ctx.createGain();
+              osc.type = 'triangle';
+              osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+              gain.gain.setValueAtTime(0.14, this.ctx.currentTime);
+              gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+              osc.connect(gain);
+              gain.connect(this.ctx.destination);
+              osc.start();
+              osc.stop(this.ctx.currentTime + 0.35);
+            } catch (e) { }
+          }, i * 90);
+        });
+      }
+      stop() {
+        if (this.motorOsc) {
+          try { this.motorOsc.stop(); } catch (e) { }
+          this.motorOsc = null;
+        }
+      }
+    }
+
+    const sound = new RoverAudio();
+
+    // =========================================================================
+    // Game Physics & State Management
+    // =========================================================================
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let isPlaying = false;
+    let distance = 0;              // 0 to 1000 meters
+    let waterYield = 0.0;          // Liters
+    let minerals = 0;              // kg
+    let battery = 100.0;           // %
+    let thrusterCooldown = 0;
+
+    // Rover entity (Lunar physics: 1.62 m/s² low gravity)
+    const rover = {
+      x: 140,
+      y: 0,
+      width: 74,
+      height: 44,
+      vy: 0,
+      vx: 0,
+      onGround: true,
+      wheelRotation: 0,
+      jetActive: false,
+      invulnerableTimer: 0
+    };
+
+    // Terrain, Obstacles & Collectibles
+    let groundY = 0;
+    let items = [];
+    let particles = [];
+    let stars = [];
+
+    // Keys State
+    const keys = { left: false, right: false, jump: false };
+
+    // Starfield initialization
+    for (let i = 0; i < 90; i++) {
+      stars.push({
+        x: Math.random() * 2000,
+        y: Math.random() * 400,
+        size: Math.random() * 2.2 + 0.8,
+        twinkle: Math.random() * Math.PI * 2
+      });
+    }
+
+    // Input Handlers
+    window.addEventListener('keydown', (e) => {
+      if (!isPlaying) return;
+      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = true;
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = true;
+      if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
+        e.preventDefault();
+        triggerJump();
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = false;
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = false;
+    });
+
+    // On-Screen Touch Controls
+    function setupTouch(id, onDown, onUp) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('touchstart', (e) => { e.preventDefault(); onDown(); el.classList.add('active'); });
+      el.addEventListener('touchend', (e) => { e.preventDefault(); onUp(); el.classList.remove('active'); });
+      el.addEventListener('mousedown', () => { onDown(); el.classList.add('active'); });
+      el.addEventListener('mouseup', () => { onUp(); el.classList.remove('active'); });
+      el.addEventListener('mouseleave', () => { onUp(); el.classList.remove('active'); });
+    }
+
+    setupTouch('btnTouchLeft', () => keys.left = true, () => keys.left = false);
+    setupTouch('btnTouchRight', () => keys.right = true, () => keys.right = false);
+    setupTouch('btnTouchJump', () => triggerJump(), () => { });
+
+    function triggerJump() {
+      if (!isPlaying) return;
+      if (rover.onGround || thrusterCooldown <= 0) {
+        rover.vy = -10.5; // low lunar gravity hop
+        rover.onGround = false;
+        rover.jetActive = true;
+        battery = Math.max(0, battery - 1.8);
+        thrusterCooldown = 0.5;
+        sound.playJump();
+
+        // Spawn thruster particles
+        for (let i = 0; i < 14; i++) {
+          particles.push({
+            x: rover.x + 10 + (Math.random() - 0.5) * 10,
+            y: rover.y + rover.height - 4,
+            vx: (Math.random() - 0.5) * 3 - 2,
+            vy: Math.random() * 4 + 2,
+            size: Math.random() * 4 + 2,
+            life: 1.0,
+            color: '#00e5ff'
+          });
+        }
+      }
+    }
+
+    // =========================================================================
+    // Game Lifecycle: Start, Spawn, Loop, End
+    // =========================================================================
+    function startGame() {
+      sound.init();
+      sound.startMotor();
+      document.getElementById('startBriefingModal').classList.add('hidden');
+      document.getElementById('summaryModal').classList.add('hidden');
+
+      isPlaying = true;
+      distance = 0;
+      waterYield = 0.0;
+      minerals = 0;
+      battery = 100.0;
+      rover.vx = 0;
+      rover.vy = 0;
+      items = [];
+      particles = [];
+
+      resize();
+      groundY = canvas.height * 0.78;
+      rover.y = groundY - rover.height;
+
+      // Initial spawns
+      for (let x = 600; x < 2400; x += 180 + Math.random() * 140) {
+        spawnItem(x);
+      }
+    }
+
+    function spawnItem(worldX) {
+      const rand = Math.random();
+      if (rand < 0.38) {
+        // Cyan Ice Crystal
+        items.push({ type: 'ice', x: worldX, y: groundY - 32 - Math.random() * 40, size: 24 });
+      } else if (rand < 0.65) {
+        // Ilmenite Ore Chunk
+        items.push({ type: 'ore', x: worldX, y: groundY - 28, size: 22 });
+      } else if (rand < 0.78) {
+        // Battery Power Cell
+        items.push({ type: 'battery', x: worldX, y: groundY - 38, size: 24 });
+      } else {
+        // Basalt Boulder Hazard
+        items.push({ type: 'boulder', x: worldX, y: groundY - 26, width: 34, height: 26 });
+      }
+    }
+
+    let lastTick = performance.now();
+
+    function gameLoop(now) {
+      const dt = Math.min((now - lastTick) / 1000, 0.08);
+      lastTick = now;
+
+      if (isPlaying) {
+        // Drive controls
+        const accel = 14.0;
+        const maxSpeed = 8.5;
+
+        if (keys.right) {
+          rover.vx = Math.min(maxSpeed, rover.vx + accel * dt);
+        } else if (keys.left) {
+          rover.vx = Math.max(-2.5, rover.vx - accel * 1.5 * dt);
+        } else {
+          // Friction decay
+          rover.vx *= 0.94;
+        }
+
+        // Distance advance
+        if (rover.vx > 0) {
+          distance += rover.vx * dt * 8.5;
+          battery = Math.max(0, battery - (rover.vx / maxSpeed) * 1.1 * dt);
+        }
+
+        // Low Lunar Gravity Physics
+        const gravity = 18.0; // floaty feel
+        rover.y += rover.vy;
+        rover.vy += gravity * dt;
+
+        if (rover.y >= groundY - rover.height) {
+          rover.y = groundY - rover.height;
+          rover.vy = 0;
+          rover.onGround = true;
+          rover.jetActive = false;
+        }
+
+        // Wheel rotation
+        rover.wheelRotation += rover.vx * 0.15;
+
+        // Wheel dust particles
+        if (rover.onGround && Math.abs(rover.vx) > 1.0 && Math.random() < 0.45) {
+          particles.push({
+            x: rover.x + 8,
+            y: groundY - 2,
+            vx: -rover.vx * 0.4 + (Math.random() - 0.5) * 1.5,
+            vy: -Math.random() * 2 - 0.5,
+            size: Math.random() * 3 + 1.5,
+            life: 0.7,
+            color: '#94a3b8'
+          });
+        }
+
+        // Audio update
+        sound.updateMotor(Math.abs(rover.vx) / maxSpeed);
+
+        if (thrusterCooldown > 0) thrusterCooldown -= dt;
+        if (rover.invulnerableTimer > 0) rover.invulnerableTimer -= dt;
+
+        // Scroll items relative to rover forward speed
+        const scrollSpeed = rover.vx * 70 * dt;
+        items.forEach(item => { item.x -= scrollSpeed; });
+
+        // Remove offscreen items & spawn new ones ahead
+        items = items.filter(item => item.x > -100);
+        const rightmost = items.reduce((max, it) => Math.max(max, it.x), 0);
+        if (rightmost < canvas.width + 500 && distance < 980) {
+          spawnItem(rightmost + 160 + Math.random() * 150);
+        }
+
+        // Check Collisions
+        checkCollisions();
+
+        // Update HUD
+        updateHUD();
+
+        // Win / Loss Condition
+        if (distance >= 1000) {
+          finishGame(true);
+        } else if (battery <= 0) {
+          finishGame(false);
+        }
+      }
+
+      // Draw all elements
+      renderScene();
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function checkCollisions() {
+      const rx = rover.x;
+      const ry = rover.y;
+      const rw = rover.width;
+      const rh = rover.height;
+
+      for (let i = items.length - 1; i >= 0; i--) {
+        const item = items[i];
+
+        if (item.type === 'boulder') {
+          // Boulder Box Collision
+          if (rx + rw - 12 > item.x && rx + 10 < item.x + item.width &&
+            ry + rh > item.y && ry < item.y + item.height) {
+            if (rover.invulnerableTimer <= 0) {
+              // Crash!
+              sound.playCrash();
+              rover.vx = -3.5;
+              rover.vy = -4.5;
+              battery = Math.max(0, battery - 8.0);
+              rover.invulnerableTimer = 1.0;
+
+              // Spark particles
+              for (let p = 0; p < 12; p++) {
+                particles.push({
+                  x: item.x + item.width / 2,
+                  y: item.y + 8,
+                  vx: (Math.random() - 0.5) * 6,
+                  vy: -Math.random() * 5 - 1,
+                  size: Math.random() * 3 + 2,
+                  life: 0.8,
+                  color: '#ef4444'
+                });
+              }
+            }
+          }
+        } else {
+          // Circle Collectible Collision
+          const cx = item.x;
+          const cy = item.y;
+          if (cx > rx && cx < rx + rw && cy > ry && cy < ry + rh) {
+            // Picked up!
+            if (item.type === 'ice') {
+              waterYield += 2.5;
+              sound.playPickup('ice');
+            } else if (item.type === 'ore') {
+              minerals += 10;
+              sound.playPickup('ore');
+            } else if (item.type === 'battery') {
+              battery = Math.min(100, battery + 20);
+              sound.playPickup('battery');
+            }
+
+            // Pickup sparkles
+            for (let s = 0; s < 10; s++) {
+              particles.push({
+                x: cx,
+                y: cy,
+                vx: (Math.random() - 0.5) * 4,
+                vy: -Math.random() * 4 - 1,
+                size: Math.random() * 3 + 1,
+                life: 0.7,
+                color: item.type === 'ice' ? '#00e5ff' : '#fdcb0e'
+              });
+            }
+
+            items.splice(i, 1);
+          }
+        }
+      }
+    }
+
+    function updateHUD() {
+      document.getElementById('hudWater').textContent = waterYield.toFixed(1) + ' L';
+      document.getElementById('hudMinerals').textContent = minerals + ' KG';
+      document.getElementById('hudBatteryText').textContent = Math.round(battery) + '%';
+      document.getElementById('hudBatteryFill').style.width = Math.max(0, battery) + '%';
+
+      if (battery < 20) {
+        document.getElementById('hudBatteryFill').style.background = '#ef4444';
+      } else if (battery < 50) {
+        document.getElementById('hudBatteryFill').style.background = '#fdcb0e';
+      } else {
+        document.getElementById('hudBatteryFill').style.background = 'linear-gradient(90deg, #22c55e, #fdcb0e)';
+      }
+
+      const progress = Math.min(100, (distance / 1000) * 100);
+      document.getElementById('distanceTrackFill').style.width = progress + '%';
+      document.getElementById('distanceRoverPin').style.left = progress + '%';
+      document.getElementById('distanceProgressText').textContent = Math.round(distance) + ' / 1000m';
+    }
+
+    // =========================================================================
+    // Canvas Rendering: Parallax Crater Terrain & Animated Pixel Rover
+    // =========================================================================
+    function renderScene() {
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      // 1. Deep Space Sky with Twinkling Stars
+      ctx.fillStyle = '#010614';
+      ctx.fillRect(0, 0, w, h);
+
+      stars.forEach(s => {
+        const twinkleAlpha = 0.4 + 0.6 * Math.sin(performance.now() * 0.003 + s.twinkle);
+        ctx.fillStyle = `rgba(255, 255, 255, ${twinkleAlpha})`;
+        // Slow parallax scroll for stars
+        const starX = (s.x - distance * 0.08) % w;
+        ctx.fillRect(starX < 0 ? starX + w : starX, s.y, s.size, s.size);
+      });
+
+      // 2. Distant Earth in Sky
+      const earthX = w * 0.78 - (distance * 0.03) % w;
+      drawEarth(earthX < 0 ? earthX + w : earthX, 70, 32);
+
+      // 3. Parallax Crater Mountain Ridge (Midground)
+      drawCraterRidge(distance * 0.25, groundY - 70, '#0a1936', '#061126');
+
+      // 4. Foreground Lunar Surface
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(0, groundY, w, h - groundY);
+
+      // Surface texture & craters
+      ctx.fillStyle = '#0f172a';
+      const groundOffset = (distance * 7.5) % 120;
+      for (let x = -groundOffset; x < w + 120; x += 110) {
+        ctx.beginPath();
+        ctx.ellipse(x, groundY + 8, 38, 7, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Neon surface line
+      ctx.strokeStyle = '#00e5ff';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(0, groundY);
+      ctx.lineTo(w, groundY);
+      ctx.stroke();
+
+      // 5. Draw Items (Ice Crystals, Minerals, Batteries, Boulders)
+      items.forEach(drawItem);
+
+      // 6. Draw Animated Pixel Rover
+      drawRover();
+
+      // 7. Draw Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.028;
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function drawEarth(cx, cy, r) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fillStyle = '#1d4ed8';
+      ctx.fill();
+      // Swirl of white clouds
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.beginPath();
+      ctx.arc(cx - 6, cy - 8, r * 0.45, 0, Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx + 10, cy + 8, r * 0.35, 0, Math.PI);
+      ctx.fill();
+      // Outer atmospheric blue glow
+      ctx.shadowColor = '#38bdf8';
+      ctx.shadowBlur = 16;
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawCraterRidge(offset, baseHeight, col1, col2) {
+      ctx.save();
+      ctx.fillStyle = col1;
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height);
+      const step = 60;
+      for (let x = 0; x <= canvas.width + step; x += step) {
+        const nx = (x + offset) * 0.008;
+        const y = baseHeight + Math.sin(nx) * 28 + Math.cos(nx * 2.1) * 14;
+        ctx.lineTo(x, y);
+      }
+      ctx.lineTo(canvas.width, canvas.height);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawItem(it) {
+      ctx.save();
+      if (it.type === 'ice') {
+        // Glowing Cyan Crystal Diamond
+        const bob = Math.sin(performance.now() * 0.006 + it.x) * 4;
+        const cy = it.y + bob;
+        ctx.fillStyle = '#00e5ff';
+        ctx.shadowColor = '#00e5ff';
+        ctx.shadowBlur = 14;
+        ctx.beginPath();
+        ctx.moveTo(it.x, cy - 14);
+        ctx.lineTo(it.x + 12, cy);
+        ctx.lineTo(it.x, cy + 14);
+        ctx.lineTo(it.x - 12, cy);
+        ctx.closePath();
+        ctx.fill();
+
+        // Inner sparkle facet
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.moveTo(it.x, cy - 8);
+        ctx.lineTo(it.x + 6, cy);
+        ctx.lineTo(it.x, cy + 8);
+        ctx.closePath();
+        ctx.fill();
+      } else if (it.type === 'ore') {
+        // Golden/Bronze Ilmenite Ore Nugget
+        ctx.fillStyle = '#fdcb0e';
+        ctx.shadowColor = '#fdcb0e';
+        ctx.shadowBlur = 8;
+        ctx.fillRect(it.x - 10, it.y - 10, 20, 20);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(it.x - 6, it.y - 6, 12, 12);
+      } else if (it.type === 'battery') {
+        // Battery Power Canister
+        ctx.fillStyle = '#22c55e';
+        ctx.shadowColor = '#22c55e';
+        ctx.shadowBlur = 10;
+        ctx.fillRect(it.x - 8, it.y - 12, 16, 24);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(it.x - 4, it.y - 16, 8, 4);
+      } else if (it.type === 'boulder') {
+        // Basalt Rock Obstacle
+        ctx.fillStyle = '#334155';
+        ctx.beginPath();
+        ctx.moveTo(it.x, it.y + it.height);
+        ctx.lineTo(it.x + 6, it.y + 4);
+        ctx.lineTo(it.x + it.width * 0.5, it.y);
+        ctx.lineTo(it.x + it.width - 4, it.y + 6);
+        ctx.lineTo(it.x + it.width, it.y + it.height);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawRover() {
+      ctx.save();
+      const rx = rover.x;
+      const ry = rover.y;
+
+      // Invulnerability flash
+      if (rover.invulnerableTimer > 0 && Math.sin(performance.now() * 0.04) > 0) {
+        ctx.restore();
+        return;
+      }
+
+      // Headlight Beam Cone ahead
+      const beam = ctx.createRadialGradient(rx + 68, ry + 18, 5, rx + 240, ry + 25, 200);
+      beam.addColorStop(0, 'rgba(0, 229, 255, 0.45)');
+      beam.addColorStop(1, 'rgba(0, 229, 255, 0)');
+      ctx.fillStyle = beam;
+      ctx.beginPath();
+      ctx.moveTo(rx + 64, ry + 16);
+      ctx.lineTo(rx + 260, ry - 30);
+      ctx.lineTo(rx + 260, groundY + 10);
+      ctx.closePath();
+      ctx.fill();
+
+      // Jet Thruster Flame
+      if (rover.jetActive) {
+        ctx.save();
+        ctx.fillStyle = '#00e5ff';
+        ctx.shadowColor = '#00e5ff';
+        ctx.shadowBlur = 16;
+        ctx.beginPath();
+        ctx.moveTo(rx + 12, ry + 36);
+        ctx.lineTo(rx + 24, ry + 36);
+        ctx.lineTo(rx + 18, ry + 56 + Math.random() * 8);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Rover Chassis (Chunky Pixel Art Style)
+      ctx.fillStyle = '#e2e8f0';
+      ctx.fillRect(rx + 8, ry + 12, 54, 22);
+
+      // Blue Mission Decal Stripe
+      ctx.fillStyle = '#0099ff';
+      ctx.fillRect(rx + 8, ry + 22, 54, 4);
+
+      // Gold Solar Array Top Wing
+      ctx.fillStyle = '#fdcb0e';
+      ctx.fillRect(rx + 14, ry + 4, 38, 5);
+
+      // Antenna Mast & Dish
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(rx + 16, ry + 4);
+      ctx.lineTo(rx + 10, ry - 12);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(rx + 10, ry - 12, 6, -Math.PI * 0.8, Math.PI * 0.2);
+      ctx.stroke();
+
+      // Front Camera Sensor & Headlight
+      ctx.fillStyle = '#00e5ff';
+      ctx.fillRect(rx + 62, ry + 16, 5, 8);
+
+      // Two Chunky Rotating Rover Wheels
+      drawWheel(rx + 16, ry + 38);
+      drawWheel(rx + 52, ry + 38);
+
+      ctx.restore();
+    }
+
+    function drawWheel(wx, wy) {
+      ctx.save();
+      ctx.translate(wx, wy);
+      ctx.rotate(rover.wheelRotation);
+
+      // Tire tread
+      ctx.fillStyle = '#334155';
+      ctx.beginPath();
+      ctx.arc(0, 0, 11, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Hub spokes
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(-8, 0); ctx.lineTo(8, 0);
+      ctx.moveTo(0, -8); ctx.lineTo(0, 8);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    // =========================================================================
+    // Game Over & Win Screen
+    // =========================================================================
+    function finishGame(isWin) {
+      isPlaying = false;
+      sound.stop();
+
+      const modal = document.getElementById('summaryModal');
+      const outcomeText = document.getElementById('summaryOutcomeText');
+      const impactText = document.getElementById('summaryImpactText');
+
+      if (isWin) {
+        sound.playVictory();
+        outcomeText.textContent = "🏆 OUTPOST AIRLOCK REACHED!";
+        outcomeText.style.color = '#fdcb0e';
+
+        document.getElementById('sumWaterVal').textContent = waterYield.toFixed(1) + ' L';
+        document.getElementById('sumMineralsVal').textContent = minerals + ' KG';
+
+        const rating = waterYield >= 15 ? "⭐⭐⭐" : (waterYield >= 8 ? "⭐⭐" : "⭐");
+        document.getElementById('sumRatingVal').textContent = rating;
+
+        const days = (waterYield / 4.5).toFixed(1);
+        const lox = (waterYield * 0.88).toFixed(1);
+        impactText.innerHTML = `<strong>BASE LIFE SUPPORT IMPACT:</strong> Collected <strong>${waterYield.toFixed(1)} Liters</strong> of cryogenic water ice! This provides <strong>${days} days of astronaut drinking water</strong> and produces <strong>${lox} kg of LOX propellant</strong>.`;
+      } else {
+        outcomeText.textContent = "⚡ BATTERY DEPLETED ON CRATER RIM!";
+        outcomeText.style.color = '#ef4444';
+        document.getElementById('sumRatingVal').textContent = "DEAD BATTERY";
+        impactText.innerHTML = `The rover ran out of battery at <strong>${Math.round(distance)}m</strong>. Collect battery power canisters along the traverse to keep moving!`;
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function restartGame() {
+      document.getElementById('summaryModal').classList.add('hidden');
+      startGame();
+    }
+
+    function returnToBase() {
+      sound.stop();
+      window.location.href = 'mainbase.html';
+    }
+
+    // Start rendering frame loop
+    requestAnimationFrame(gameLoop);
+  </script>
+</body>
+
+</html>

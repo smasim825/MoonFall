@@ -2247,6 +2247,12 @@
         circleNum.style.textShadow = '0 0 14px rgba(239, 68, 68, 0.85)';
       }
 
+      // Persist completion state for Mission 2.1 to unlock 2.2 Hydroponics
+      try {
+        localStorage.setItem('moonfall_mission_2_1_completed', 'true');
+        localStorage.setItem('moonfall_mission_2_1_score', scorePercent);
+      } catch (e) { }
+
       // Show Mission Complete Overlay
       missionCompleteOverlay.classList.remove('hidden');
 
@@ -2281,7 +2287,7 @@
     }
 
     function goToNextMission() {
-      window.location.href = '5.1_Radiation_mission.html';
+      window.location.href = '2.2_Hydroponics.html';
     }
 
     // Keyboard Shortcuts (Space / Enter to Advance)

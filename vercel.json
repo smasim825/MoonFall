@@ -9,6 +9,8 @@
     { "source": "/1.1_power.html", "destination": "/5.1_Radiation_mission.html" },
     { "source": "/meal", "destination": "/2.1_daily_meal.html" },
     { "source": "/food", "destination": "/2.1_daily_meal.html" },
+    { "source": "/hydroponics", "destination": "/2.2_Hydroponics.html" },
+    { "source": "/2.2_hydroponics", "destination": "/2.2_Hydroponics.html" },
     { "source": "/base", "destination": "/index.html" },
     { "source": "/mainbase", "destination": "/index.html" }
   ]
