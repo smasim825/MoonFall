@@ -152,14 +152,16 @@ body {
 
 .dialogue-box {
   position: relative;
-  /* Width corresponds to 2813 / 3207 = ~87.7% */
-  width: 87.7%;
-  max-width: 1400px;
+  /* Width corresponds to 2813 / 3207 = ~84% */
+  width: 84%;
+  max-width: 1360px;
   /* Aspect ratio matches Rectangle 3.png (2813 / 378 ≈ 7.44) */
   aspect-ratio: 2813 / 378;
   display: flex;
   align-items: center;
   padding: 0 4.5%;
+  margin-left: 6.5%;
+  margin-right: 1.5%;
 }
 
 /* Background image of the dialogue container (Rectangle 3.png) */
@@ -1075,18 +1077,30 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 99999;
+  background: #000000;
+  z-index: 1000000;
   justify-content: center;
   align-items: center;
   padding: 20px;
 }
 
 @media screen and (orientation: portrait) and (max-width: 900px) {
-  body:not(.force-horizontal):not(.dismiss-orient) .orientation-banner {
-    display: flex;
+  body:not(.force-horizontal) .orientation-banner {
+    display: flex !important;
+  }
+}
+
+/* On PC / desktop (min-width: 901px or non-touch/landscape), completely hide rotate toggle & banner */
+@media screen and (min-width: 901px) {
+  .orientation-banner,
+  .quick-rotate-toggle {
+    display: none !important;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .orientation-banner {
+    display: none !important;
   }
 }
 

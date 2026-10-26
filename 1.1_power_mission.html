@@ -197,13 +197,15 @@
     /* Chiaki Mukai Dialogue Box (scene-1-box: Rectangle 3.png) */
     .dialogue-box.scene-1-box {
       position: relative;
-      width: 87.7%;
-      max-width: 1400px;
+      width: 84%;
+      max-width: 1360px;
       aspect-ratio: 2813 / 378;
       display: flex;
       align-items: center;
       padding: 0;
       box-sizing: border-box;
+      margin-left: 7%;
+      margin-right: 1.5%;
     }
 
     .scene-1-box .dialogue-bg-img {
@@ -809,14 +811,11 @@
   <aside class="orientation-banner" id="orientationBanner" role="dialog" aria-modal="true" aria-label="Rotate Device">
     <div class="orientation-card">
       <div class="phone-rotate-icon">📱 ➔ 🔄</div>
-      <div class="orientation-title">Landscape View</div>
-      <p class="orientation-desc">For the best mission experience, rotate your phone horizontally.</p>
+      <div class="orientation-title">Landscape View Required</div>
+      <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to continue.</p>
       <div class="orientation-buttons">
         <button class="orientation-btn btn-rotate-now" onclick="toggleForceHorizontal()">
-          ⤾ Rotate to Horizontal
-        </button>
-        <button class="orientation-btn btn-dismiss-rotate" onclick="dismissOrientationBanner()">
-          Continue Vertical
+          ⤾ Rotate Screen to Horizontal
         </button>
       </div>
     </div>

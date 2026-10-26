@@ -970,18 +970,30 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.88);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 99999;
+      background: #000000;
+      z-index: 1000000;
       justify-content: center;
       align-items: center;
       padding: 20px;
     }
 
     @media screen and (orientation: portrait) and (max-width: 900px) {
-      body:not(.force-horizontal):not(.dismiss-orient) .orientation-banner {
-        display: flex;
+      body:not(.force-horizontal) .orientation-banner {
+        display: flex !important;
+      }
+    }
+
+    /* On PC / desktop (min-width: 901px or non-touch/landscape), completely hide rotate toggle & banner */
+    @media screen and (min-width: 901px) {
+      .orientation-banner,
+      .quick-rotate-toggle {
+        display: none !important;
+      }
+    }
+
+    @media screen and (orientation: landscape) {
+      .orientation-banner {
+        display: none !important;
       }
     }
 
@@ -1053,14 +1065,7 @@
       transform: scale(0.96);
     }
 
-    .btn-dismiss-rotate {
-      background: transparent;
-      color: #728fa8;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      font-size: 0.95rem;
-    }
-
-    /* Floating Quick Rotate Button (Minimized) */
+    /* Floating Quick Rotate Button (Minimized - Mobile Only) */
     .quick-rotate-toggle {
       position: fixed;
       top: 8px;
@@ -1460,14 +1465,11 @@
   <aside class="orientation-banner" id="orientationBanner" role="dialog" aria-modal="true" aria-label="Rotate Device">
     <div class="orientation-card">
       <div class="phone-rotate-icon">📱 ➔ 🔄</div>
-      <div class="orientation-title">Landscape View</div>
-      <p class="orientation-desc">For the best lunar base command experience, rotate your phone horizontally.</p>
+      <div class="orientation-title">Landscape View Required</div>
+      <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to start your mission.</p>
       <div class="orientation-buttons">
         <button class="orientation-btn btn-rotate-now" onclick="toggleForceHorizontal()">
-          ⤾ Rotate to Horizontal
-        </button>
-        <button class="orientation-btn btn-dismiss-rotate" onclick="dismissOrientationBanner()">
-          Continue Vertical
+          ⤾ Rotate Screen to Horizontal
         </button>
       </div>
     </div>
@@ -2201,11 +2203,13 @@
 
     // Auto-advance loading bar like Clash of Clans
     let currentPct = 0;
-    const loadStart = performance.now();
+    let loadStart = null;
     const loadDuration = 2600; // 2.6s loading progress
+    let introStarted = false;
 
     function stepLoading(now) {
       if (introDismissed) return;
+      if (!loadStart) loadStart = now;
       const elapsed = now - loadStart;
       const t = Math.min(elapsed / loadDuration, 1);
 
@@ -2233,7 +2237,21 @@
       }
     }
 
-    requestAnimationFrame(stepLoading);
+    function checkAndStartIntro() {
+      if (introStarted || introDismissed) return;
+      // On mobile in portrait: wait until phone is rotated horizontally!
+      const isPortraitPhone = window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches && !document.body.classList.contains('force-horizontal');
+      if (isPortraitPhone) return;
+
+      introStarted = true;
+      requestAnimationFrame(stepLoading);
+    }
+
+    checkAndStartIntro();
+    window.addEventListener('resize', checkAndStartIntro);
+    window.addEventListener('orientationchange', () => {
+      setTimeout(checkAndStartIntro, 120);
+    });
 
     // Optional: click to speed up or skip if user clicks
     introOverlay.addEventListener('click', () => {
@@ -2553,17 +2571,19 @@
     // =========================================================================
     function toggleForceHorizontal() {
       document.body.classList.toggle('force-horizontal');
-      document.body.classList.add('dismiss-orient');
       const banner = document.getElementById('orientationBanner');
-      if (banner) banner.style.display = 'none';
+      if (banner && document.body.classList.contains('force-horizontal')) {
+        banner.style.display = 'none';
+      }
       if (sound && sound.clickSound) sound.clickSound();
+      checkAndStartIntro();
     }
 
     function dismissOrientationBanner() {
-      document.body.classList.add('dismiss-orient');
       const banner = document.getElementById('orientationBanner');
       if (banner) banner.style.display = 'none';
       if (sound && sound.clickSound) sound.clickSound();
+      checkAndStartIntro();
     }
 
     window.addEventListener('orientationchange', () => {
@@ -2571,6 +2591,7 @@
         document.body.classList.remove('force-horizontal');
         const banner = document.getElementById('orientationBanner');
         if (banner) banner.style.display = 'none';
+        checkAndStartIntro();
       }
     });
 
