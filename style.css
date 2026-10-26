@@ -1165,27 +1165,34 @@ body {
   font-size: 0.95rem;
 }
 
-/* Floating Quick Rotate Button */
+/* Floating Quick Rotate Button (Minimized) */
 .quick-rotate-toggle {
   position: fixed;
-  top: 12px;
-  right: 12px;
+  top: 8px;
+  right: 8px;
   z-index: 9999;
-  background: rgba(10, 20, 35, 0.85);
-  border: 1px solid #038ff3;
+  background: rgba(10, 20, 35, 0.7);
+  border: 1px solid rgba(3, 143, 243, 0.5);
   color: #00d9ff;
   font-family: 'Jersey 10', monospace;
-  font-size: 0.95rem;
-  padding: 6px 12px;
-  border-radius: 20px;
+  font-size: 0.72rem;
+  padding: 3px 7px;
+  border-radius: 12px;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  gap: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.quick-rotate-toggle:hover {
+  background: rgba(10, 20, 35, 0.95);
+  border-color: #038ff3;
+  transform: scale(1.05);
 }
 
 .quick-rotate-toggle:active {

@@ -1060,27 +1060,34 @@
       font-size: 0.95rem;
     }
 
-    /* Floating Quick Rotate Button */
+    /* Floating Quick Rotate Button (Minimized) */
     .quick-rotate-toggle {
       position: fixed;
-      top: 12px;
-      right: 12px;
+      top: 8px;
+      right: 8px;
       z-index: 9999;
-      background: rgba(10, 20, 35, 0.85);
-      border: 1px solid #038ff3;
+      background: rgba(10, 20, 35, 0.7);
+      border: 1px solid rgba(3, 143, 243, 0.5);
       color: #00d9ff;
       font-family: 'Jersey 10', monospace;
-      font-size: 0.95rem;
-      padding: 6px 12px;
-      border-radius: 20px;
+      font-size: 0.72rem;
+      padding: 3px 7px;
+      border-radius: 12px;
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 5px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      gap: 3px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
       transition: all 0.2s ease;
+      line-height: 1;
+    }
+
+    .quick-rotate-toggle:hover {
+      background: rgba(10, 20, 35, 0.95);
+      border-color: #038ff3;
+      transform: scale(1.05);
     }
 
     .quick-rotate-toggle:active {
@@ -1110,17 +1117,10 @@
     }
 
     /* ==========================================================================
-       Tactical Retro Wireframe HUD Frame & Controls (Upper & Lower Functions)
+       Tactical Retro Wireframe HUD Frame & Controls (Hidden as requested)
        ========================================================================== */
     .tactical-hud-container {
-      position: absolute;
-      inset: 8px;
-      pointer-events: none;
-      z-index: 55;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: opacity 0.25s ease;
+      display: none !important;
     }
 
     .base-viewport.zoomed-mode .tactical-hud-container {
@@ -1581,73 +1581,7 @@
       </div>
     </div>
 
-    <!-- =========================================================================
-         TACTICAL RETRO WIREFRAME HUD (Upper & Lower Controls)
-         ========================================================================= -->
-    <div class="tactical-hud-container" id="tacticalHudContainer">
-      <!-- Outer Wireframe Frame -->
-      <div class="tactical-border-frame">
-        <div class="tactical-corner top-left"></div>
-        <div class="tactical-corner top-right"></div>
-        <div class="tactical-corner bottom-left"></div>
-        <div class="tactical-corner bottom-right"></div>
-      </div>
 
-      <!-- Upper Controls Bar -->
-      <header class="hud-bar-top">
-        <div class="hud-btn-group">
-          <button class="hud-terminal-btn btn-status" onclick="openTacticalModal('modalBaseStatus')">
-            [BASE STATUS]
-          </button>
-          <button class="hud-terminal-btn btn-power" onclick="openTacticalModal('modalPowerGrid')">
-            [⚡ POWER GRID]
-          </button>
-          <div class="hud-telemetry-pill">
-            <span class="pulse-dot"></span>
-            <span>SOL 14 // 14:20 LST</span>
-          </div>
-        </div>
-
-        <div class="hud-btn-group">
-          <button class="hud-terminal-btn btn-active-mission" onclick="openTacticalModal('modalActiveMission')">
-            [ACTIVE MISSION]
-          </button>
-          <button class="hud-terminal-btn btn-ask" onclick="openTacticalModal('modalAsk')">
-            [ASK ASTRO BEE]
-          </button>
-          <button class="hud-terminal-btn" id="soundToggleBtn" onclick="toggleSoundFX()" title="Toggle Sound">
-            [🔊 SOUND]
-          </button>
-        </div>
-      </header>
-
-      <!-- Lower Controls Bar -->
-      <footer class="hud-bar-bottom">
-        <div class="hud-btn-group">
-          <button class="hud-terminal-btn" onclick="openTacticalModal('modalMissions')">
-            [MISSIONS]
-          </button>
-          <button class="hud-terminal-btn" onclick="openTacticalModal('modalInventory')">
-            [INVENTORY]
-          </button>
-          <button class="hud-terminal-btn btn-research" onclick="openTacticalModal('modalResearch')">
-            [RESEARCH]
-          </button>
-        </div>
-
-        <div class="hud-btn-group">
-          <button class="hud-terminal-btn" onclick="openTacticalModal('modalCrew')">
-            [CREW]
-          </button>
-          <button class="hud-terminal-btn btn-comms" onclick="openTacticalModal('modalComms')">
-            [COMM LINK]
-          </button>
-          <button class="hud-terminal-btn" onclick="openTacticalModal('modalLog')">
-            [MISSION LOG]
-          </button>
-        </div>
-      </footer>
-    </div>
 
     <!-- =========================================================================
          TACTICAL INTERACTIVE MODALS (Semi-transparent backdrop - Lunar Base stays visible!)
