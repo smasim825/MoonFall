@@ -79,16 +79,13 @@
       -webkit-user-select: none;
     }
 
+    /* Fullscreen Viewport Stage: Fills 100% width and height without black side bars */
     .game-viewport {
       position: relative;
       width: 100vw;
-      height: 56.25vw;
-      /* Strict 16:9 Aspect Ratio */
-      max-height: 100vh;
-      max-width: 177.78vh;
+      height: 100vh;
       background: #000000;
       overflow: hidden;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
     }
 
     /* Scene Stage */
@@ -804,13 +801,13 @@
       pointer-events: none;
     }
 
-    /* Dialogue Content: strictly below top blue line/tab, expanded left & right for maximum line length */
+    /* Dialogue Content: strictly below top blue line/tab, expanded left & right under skip button */
     .scene-1-box .dialogue-content {
       position: absolute;
-      top: 19%;
+      top: 20%;
       bottom: 6%;
       left: 11.5%;
-      right: 15%;
+      right: 2.5%;
       display: flex;
       align-items: center;
       overflow: hidden;

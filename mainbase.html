@@ -43,16 +43,12 @@
       font-family: 'Jersey 10', 'Pixel Operator', monospace;
     }
 
-    /* 16:9 Viewport Stage matching the game canvas (3207 x 1804) */
+    /* Fullscreen Viewport Stage: Fills 100% width and height without black side bars */
     .base-viewport {
       position: relative;
       width: 100vw;
-      height: 56.25vw;
-      max-width: 177.78vh;
-      max-height: 100vh;
-      aspect-ratio: 16 / 9;
+      height: 100vh;
       background-color: #000;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
       overflow: hidden;
     }
 
