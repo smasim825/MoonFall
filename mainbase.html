@@ -289,7 +289,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.65);
       z-index: 40;
       opacity: 0;
       pointer-events: none;
@@ -297,25 +297,26 @@
       cursor: pointer;
     }
 
-    .base-viewport.zoomed-mode .zoom-backdrop {
+    .base-viewport.zoomed-mode .zoom-backdrop,
+    .base-viewport.base-intro-mode .zoom-backdrop {
       opacity: 1;
       pointer-events: auto;
     }
 
-    /* Zoomed Building & Badge (Elevated above dark backdrop with subtle, clean accent) */
+    /* Zoomed / Selected Building & Badge (Popped out brightly while other buildings stay dark) */
     .building-layer.is-zoomed,
     .building-layer.is-zoomed:hover {
       z-index: 60 !important;
-      transform: scale(1.18) translateY(-10px) !important;
-      filter: brightness(1.1) drop-shadow(0 0 8px var(--glow-color)) drop-shadow(0 16px 35px rgba(0, 0, 0, 0.95)) !important;
+      transform: none !important;
+      filter: brightness(1.08) drop-shadow(0 10px 26px rgba(0, 0, 0, 0.92)) !important;
       pointer-events: auto !important;
     }
 
     .badge-layer.is-zoomed,
     .badge-layer.is-zoomed:hover {
       z-index: 65 !important;
-      transform: scale(1.16) translateY(-16px) !important;
-      filter: brightness(1.12) drop-shadow(0 0 8px var(--badge-glow)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.85)) !important;
+      transform: none !important;
+      filter: brightness(1.08) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.88)) !important;
       animation-play-state: paused !important;
       pointer-events: auto !important;
     }
@@ -338,7 +339,7 @@
     .building-detail-panel.active {
       opacity: 1;
       transform: translateX(0);
-      pointer-events: auto;
+      pointer-events: none;
     }
 
     /* Left Side: Missions Container (Side-by-side with buttons on the right side) */
@@ -553,15 +554,14 @@
        ========================================================================== */
     .dialogue-box.scene-2-box {
       position: absolute;
-      bottom: 2.2vh;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 82%;
-      max-width: 1360px;
+      bottom: 3.2vh;
+      left: 3.5vw;
+      transform: none;
+      width: clamp(480px, 62vw, 900px);
       aspect-ratio: 2610 / 248;
       display: flex;
       align-items: center;
-      padding: 0 4.5%;
+      padding: 0 3.5%;
       z-index: 85;
       pointer-events: auto;
     }
@@ -583,7 +583,7 @@
       left: 0.5%;
       top: 50%;
       transform: translateY(-50%);
-      width: 14.5%;
+      width: 13.5%;
       aspect-ratio: 374 / 386;
       z-index: 6;
       display: flex;
@@ -616,9 +616,9 @@
     /* Astro Bee Badge (scene 3/Frame 7.png) */
     .astro-bee-badge {
       position: absolute;
-      top: -46%;
+      top: -38%;
       left: 13.5%;
-      width: 17.2%;
+      width: 15.5%;
       aspect-ratio: 449 / 134;
       z-index: 5;
     }
@@ -630,50 +630,36 @@
       pointer-events: none;
     }
 
-    /* Skip / Action Button */
-    .skip-btn.skip-btn-scene2 {
+    /* Next Building Tour Button on Dialogue Box */
+    .tour-next-btn {
       position: absolute;
-      top: -26%;
-      right: 2.8%;
-      width: 14.4%;
-      aspect-ratio: 376 / 127;
-      display: block;
-      background: transparent;
-      border: none;
+      top: -36%;
+      right: 2.2%;
+      background: linear-gradient(180deg, #ffca28 0%, #f59e0b 100%);
+      border: 2.5px solid #000000;
+      box-shadow: inset 0 2px 0 #ffe082, inset 0 -2px 0 #b45309, 0 4px 0 #000000;
+      border-radius: 7px;
+      color: #000000;
+      font-family: 'Pixel Operator', 'Jersey 10', monospace;
+      font-weight: bold;
+      font-size: clamp(0.95rem, 1.25vw, 1.3rem);
+      padding: 4px 14px;
       cursor: pointer;
       z-index: 50;
       pointer-events: auto;
-      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       transition: transform 0.15s ease, filter 0.15s ease;
     }
 
-    .skip-btn.skip-btn-scene2:hover {
+    .tour-next-btn:hover {
       transform: scale(1.05);
-      filter: brightness(1.15);
+      filter: brightness(1.12);
     }
 
-    .skip-btn.skip-btn-scene2:active {
+    .tour-next-btn:active {
       transform: scale(0.96);
-    }
-
-    .skip-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
-      pointer-events: none;
-    }
-
-    .skip-icon {
-      position: absolute;
-      left: 12.8%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 26.3%;
-      height: auto;
-      object-fit: contain;
-      pointer-events: none;
     }
 
     /* Dialogue Content & Text */
@@ -681,8 +667,8 @@
       position: relative;
       z-index: 2;
       width: 100%;
-      padding-left: 14.5%;
-      padding-right: 15%;
+      padding-left: 14%;
+      padding-right: 4%;
       display: flex;
       align-items: center;
       overflow: hidden;
@@ -690,12 +676,12 @@
 
     .dialogue-text.text-warning-yellow {
       font-family: 'Jersey 10', 'Pixel Operator', monospace;
-      font-size: clamp(1.15rem, 2.1vw, 2.6rem);
+      font-size: clamp(1rem, 1.5vw, 1.7rem);
       font-weight: 400;
-      line-height: 1.15;
-      color: #fdcb0e;
+      line-height: 1.22;
+      color: #38bdf8;
       letter-spacing: 0.02em;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.95), 0 0 10px rgba(56, 189, 248, 0.35);
       -webkit-font-smoothing: none;
       -moz-osx-font-smoothing: grayscale;
       image-rendering: pixelated;
@@ -774,7 +760,7 @@
        ========================================================================== */
     .intro-moon-wrapper {
       position: relative;
-      width: clamp(140px, 17vw, 255px);
+      width: clamp(190px, 23vw, 330px);
       aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
@@ -786,41 +772,41 @@
     /* Soft Pure White Atmospheric Glow */
     .moon-white-glow {
       position: absolute;
-      inset: -22%;
+      inset: -14%;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.18) 50%, transparent 72%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.11) 50%, transparent 72%);
       pointer-events: none;
       z-index: 1;
-      filter: blur(14px);
+      filter: blur(11px);
       animation: moon-glow-breathe 3.5s ease-in-out infinite alternate;
     }
 
     @keyframes moon-glow-breathe {
       0% {
-        transform: scale(0.95);
-        opacity: 0.7;
+        transform: scale(0.96);
+        opacity: 0.62;
       }
 
       100% {
-        transform: scale(1.05);
-        opacity: 0.95;
+        transform: scale(1.03);
+        opacity: 0.88;
       }
     }
 
-    /* Lighter, brighter white Moon PNG with pure white glow */
+    /* Lighter, brighter white Moon PNG with subtle white glow */
     .intro-moon-img {
       position: relative;
       z-index: 2;
       width: 100%;
       height: 100%;
       object-fit: contain;
-      image-rendering: auto;
+      image-rendering: pixelated;
       filter:
-        brightness(1.3)
-        contrast(1.08)
-        drop-shadow(0 0 25px rgba(255, 255, 255, 0.95))
-        drop-shadow(0 0 55px rgba(255, 255, 255, 0.65))
-        drop-shadow(0 0 90px rgba(255, 255, 255, 0.35));
+        brightness(1.22)
+        contrast(1.07)
+        drop-shadow(0 0 16px rgba(255, 255, 255, 0.72))
+        drop-shadow(0 0 36px rgba(255, 255, 255, 0.42))
+        drop-shadow(0 0 60px rgba(255, 255, 255, 0.18));
     }
 
     @keyframes moon-drift {
@@ -1452,6 +1438,708 @@
       background: linear-gradient(90deg, #00e5ff, #38bdf8);
       transition: width 0.4s ease;
     }
+
+    /* =========================================================================
+       PIXEL-ART CLASH-STYLE 2-CARD PHASE SELECTOR
+       ========================================================================= */
+    .phase-dashboard-btn {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      z-index: 35;
+      background: linear-gradient(180deg, #ffca28 0%, #f59e0b 100%);
+      border: 3px solid #000000;
+      box-shadow: inset 0 3px 0 #ffe082, inset 0 -3px 0 #b45309, 0 6px 0 #000000, 0 8px 18px rgba(0, 0, 0, 0.85);
+      border-radius: 8px;
+      color: #ffffff;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1.1rem, 1.5vw, 1.55rem);
+      padding: 5px 16px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      image-rendering: pixelated;
+      transition: transform 0.12s ease, filter 0.12s ease;
+    }
+
+    .phase-dashboard-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+    .phase-dashboard-btn:active {
+      transform: translateY(2px);
+    }
+
+    .base-viewport.zoomed-mode .phase-dashboard-btn {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .phase-dashboard-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 4, 14, 0.78);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 95;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2vh 2.5vw;
+      opacity: 1;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
+    }
+
+    .phase-dashboard-backdrop.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Outer Game Board (Pixel-Art CoC Inspired Frame + Top Tabs) */
+    .coc-phase-board-wrap {
+      width: min(94vw, 940px);
+      max-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.95));
+    }
+
+    /* Top Folder Tabs Bar */
+    .coc-board-tabs {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 10px;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .coc-tabs-left {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .coc-tab {
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1.1rem, 1.7vw, 1.75rem);
+      letter-spacing: 0.05em;
+      color: #cbd5e1;
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      border: 3.5px solid #000000;
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      padding: 6px 18px 8px 18px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.18);
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000;
+      transition: filter 0.15s ease;
+    }
+
+    .coc-tab.active-tab {
+      background: linear-gradient(180deg, #1d4ed8 0%, #172554 100%);
+      color: #ffffff;
+      padding-top: 9px;
+      box-shadow: inset 0 3px 0 #60a5fa;
+      margin-bottom: -3.5px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .coc-tab:hover:not(.active-tab) {
+      filter: brightness(1.2);
+      color: #ffffff;
+    }
+
+    .coc-tab-count {
+      background: #000000;
+      border: 2px solid #38bdf8;
+      border-radius: 5px;
+      padding: 0 6px;
+      font-size: 0.78em;
+      color: #38bdf8;
+    }
+
+    .coc-board-close-btn {
+      background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+      border: 3.5px solid #000000;
+      border-radius: 8px;
+      box-shadow: inset 0 3px 0 #fca5a5, inset 0 -3px 0 #7f1d1d, 0 4px 0 #000;
+      color: #ffffff;
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1.15rem, 1.6vw, 1.65rem);
+      padding: 3px 14px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+      transition: transform 0.12s ease, filter 0.12s ease;
+    }
+
+    .coc-board-close-btn:hover {
+      filter: brightness(1.15);
+      transform: scale(1.05);
+    }
+
+    /* Main Board Body */
+    .coc-board-body {
+      background: linear-gradient(180deg, #172554 0%, #0b132b 100%);
+      border: 4px solid #000000;
+      border-radius: 14px;
+      box-shadow: inset 0 3px 0 #3b82f6, inset 0 -4px 0 #050814, 0 8px 0 #000000;
+      padding: clamp(12px, 2vh, 20px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(12px, 2vw, 20px);
+    }
+
+    @media (max-width: 680px) {
+      .coc-board-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Tall Portrait Card (Battle / Ranked Battle Style) */
+    .coc-portrait-card {
+      position: relative;
+      height: clamp(350px, 68vh, 510px);
+      border: 4px solid #000000;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 12px 14px 14px 14px;
+      box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.45), inset 0 -3px 0 rgba(0, 0, 0, 0.6), 0 6px 0 rgba(0, 0, 0, 0.75);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .coc-portrait-card:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Card 1 (Left): Bright Lunar Sky + Base + Astronaut Crew */
+    .coc-card-phase1 {
+      background:
+        linear-gradient(180deg, rgba(14, 116, 224, 0.55) 0%, rgba(30, 58, 138, 0.35) 50%, rgba(5, 12, 28, 0.92) 85%, #040917 100%),
+        url('assets/mainbase_bg.webp') center 65% / cover no-repeat;
+    }
+
+    /* Card 2 (Right): Cosmic Solar Storm Sunset Purple/Gold Sky + Main Base */
+    .coc-card-phase2 {
+      background:
+        linear-gradient(180deg, rgba(126, 34, 206, 0.72) 0%, rgba(217, 119, 6, 0.55) 48%, rgba(24, 10, 42, 0.94) 84%, #090414 100%),
+        url('assets/Main Base-2 1.webp') center 60% / cover no-repeat;
+      box-shadow: inset 0 3px 0 rgba(253, 224, 71, 0.6), inset 0 -3px 0 rgba(0, 0, 0, 0.7), 0 6px 0 rgba(0, 0, 0, 0.75);
+    }
+
+    /* Top Row Inside Each Card (Left Icon Boxes + Right [i] Info Button) */
+    .coc-card-top-bar {
+      position: relative;
+      z-index: 6;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .coc-top-badges {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .coc-square-badge {
+      background: linear-gradient(180deg, #e2e8f0 0%, #94a3b8 100%);
+      border: 3px solid #000000;
+      border-radius: 8px;
+      box-shadow: inset 0 2px 0 #ffffff, inset 0 -2px 0 #475569, 0 3px 0 #000000;
+      padding: 5px 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1rem, 1.35vw, 1.35rem);
+      color: #ffffff;
+      text-shadow: -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .coc-square-badge.purple-tint {
+      background: linear-gradient(180deg, #a855f7 0%, #6b21a8 100%);
+      box-shadow: inset 0 2px 0 #d8b4fe, inset 0 -2px 0 #3b0764, 0 3px 0 #000000;
+    }
+
+    .coc-square-badge:hover {
+      transform: scale(1.06);
+    }
+
+    /* Top-Right Blue [i] Button */
+    .coc-info-btn {
+      width: clamp(32px, 3vw, 40px);
+      height: clamp(32px, 3vw, 40px);
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+      border: 3px solid #000000;
+      border-radius: 7px;
+      box-shadow: inset 0 2px 0 #bae6fd, inset 0 -2px 0 #0369a1, 0 3px 0 #000000;
+      color: #ffffff;
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-shadow: -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000;
+      transition: transform 0.12s ease, filter 0.12s ease;
+    }
+
+    .coc-info-btn:hover {
+      filter: brightness(1.15);
+      transform: scale(1.08);
+    }
+
+    /* Center Hero Artwork Stage Inside Each Card */
+    .coc-card-art-stage {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      pointer-events: none;
+      margin: 4px 0;
+    }
+
+    /* Card 1 Crew Collage (3 Pixel Astronauts like CoC Troop Collage) */
+    .coc-crew-collage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .coc-crew-char {
+      height: clamp(115px, 24vh, 195px);
+      width: auto;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.85));
+    }
+
+    .coc-crew-char.char-left {
+      transform: translateX(18px) scale(0.92);
+      z-index: 1;
+    }
+
+    .coc-crew-char.char-center {
+      height: clamp(130px, 27vh, 215px);
+      z-index: 3;
+      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.55)) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.95));
+    }
+
+    .coc-crew-char.char-right {
+      transform: translateX(-18px) scale(0.92);
+      z-index: 2;
+    }
+
+    /* Quick 4-Mission Mini Pills Strip on Card 1 */
+    .coc-mission-mini-pills {
+      pointer-events: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      width: 100%;
+      margin-top: -6px;
+      z-index: 5;
+    }
+
+    .coc-mini-pill {
+      background: rgba(2, 18, 44, 0.92);
+      border: 2.5px solid #000000;
+      box-shadow: inset 0 1px 0 rgba(56, 189, 248, 0.6), 0 2px 0 #000000;
+      border-radius: 6px;
+      padding: 3px 4px;
+      color: #e2e8f0;
+      font-family: 'Pixel Operator', monospace;
+      font-size: clamp(0.72rem, 0.92vw, 0.92rem);
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: all 0.14s ease;
+    }
+
+    .coc-mini-pill:hover {
+      background: #ffcc00;
+      color: #000000;
+      transform: translateY(-2px);
+    }
+
+    /* Card 2 Center Ranked Crest (Glowing Moon + Main Base + Rank Number like Dragon Crest '29') */
+    .coc-ranked-crest {
+      position: relative;
+      width: clamp(120px, 22vh, 175px);
+      height: clamp(120px, 22vh, 175px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: crest-float 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes crest-float {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-6px) scale(1.03); }
+    }
+
+    .coc-crest-glow {
+      position: absolute;
+      inset: -18%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.65) 0%, rgba(168, 85, 247, 0.45) 48%, transparent 72%);
+      filter: blur(10px);
+    }
+
+    .coc-crest-shield {
+      position: relative;
+      width: 92%;
+      height: 92%;
+      background: linear-gradient(180deg, #9333ea 0%, #4c1d95 60%, #1e1b4b 100%);
+      border: 4px solid #000000;
+      border-radius: 22% 22% 48% 48%;
+      box-shadow: inset 0 4px 0 #d8b4fe, inset 0 -4px 0 #2e1065, 0 8px 18px rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .coc-crest-img {
+      width: 78%;
+      height: 78%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85));
+    }
+
+    .coc-crest-number {
+      position: absolute;
+      bottom: -6px;
+      right: -8px;
+      background: #000000;
+      border: 3px solid #ffcc00;
+      border-radius: 8px;
+      padding: 0 8px;
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1.3rem, 2vw, 2rem);
+      color: #ffffff;
+      line-height: 1.05;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Info Drawer Overlay inside Card (Toggled by clicking [i]) */
+    .coc-card-info-drawer {
+      position: absolute;
+      inset: 56px 12px 115px 12px;
+      background: rgba(3, 12, 30, 0.95);
+      border: 3px solid #38bdf8;
+      border-radius: 10px;
+      padding: 10px 12px;
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.95);
+    }
+
+    .coc-card-info-drawer.hidden {
+      display: none !important;
+    }
+
+    .coc-drawer-item {
+      background: #0f2952;
+      border: 2px solid #000000;
+      border-radius: 6px;
+      padding: 5px 10px;
+      color: #ffffff;
+      font-family: 'Pixel Operator', monospace;
+      font-size: clamp(0.85rem, 1.08vw, 1.05rem);
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .coc-drawer-item:hover {
+      background: #ffcc00;
+      color: #000000;
+    }
+
+    /* Bottom Action Stack of Each Card (Title + Big Chunky 3D Button + Footer Strip) */
+    .coc-card-bottom {
+      position: relative;
+      z-index: 6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .coc-card-title {
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1.65rem, 2.5vw, 2.55rem);
+      color: #ffffff;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      text-align: center;
+      text-shadow:
+        -2.5px -2.5px 0 #000000,
+        2.5px -2.5px 0 #000000,
+        -2.5px 2.5px 0 #000000,
+        2.5px 2.5px 0 #000000,
+        0 4px 0 #000000;
+    }
+
+    /* Chunky 3D Beveled CoC CTA Button */
+    .coc-big-cta-btn {
+      width: 100%;
+      border: 3.5px solid #000000;
+      border-radius: 10px;
+      padding: clamp(8px, 1.3vh, 13px) 12px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      transition: transform 0.12s ease, filter 0.12s ease;
+    }
+
+    .coc-big-cta-btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+    }
+
+    .coc-big-cta-btn:active {
+      transform: translateY(2px);
+    }
+
+    /* Gold/Orange Button ("Find a Match" Style) */
+    .coc-btn-orange {
+      background: linear-gradient(180deg, #ffda44 0%, #f59e0b 55%, #d97706 100%);
+      box-shadow: inset 0 4px 0 #fef08a, inset 0 -4px 0 #92400e, 0 5px 0 #000000;
+    }
+
+    /* Blue/Cyan Button ("Join Tournament" Style) */
+    .coc-btn-blue {
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 55%, #0369a1 100%);
+      box-shadow: inset 0 4px 0 #bae6fd, inset 0 -4px 0 #0c4a6e, 0 5px 0 #000000;
+    }
+
+    .coc-btn-main-text {
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1.35rem, 2vw, 2.05rem);
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      text-shadow:
+        -2px -2px 0 #000000,
+        2px -2px 0 #000000,
+        -2px 2px 0 #000000,
+        2px 2px 0 #000000,
+        0 3px 0 #000000;
+    }
+
+    .coc-btn-sub-cost {
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1.05rem, 1.45vw, 1.45rem);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1;
+      margin-top: 2px;
+      text-shadow:
+        -1.5px -1.5px 0 #000000,
+        1.5px -1.5px 0 #000000,
+        -1.5px 1.5px 0 #000000,
+        1.5px 1.5px 0 #000000,
+        0 2px 0 #000000;
+    }
+
+    /* Bottom Status Strip under Card 2 ("Sign-up ends in: 2d 18h" Style) */
+    .coc-card-footer-strip {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.72);
+      border: 2px solid #000000;
+      border-radius: 6px;
+      padding: 3px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'Pixel Operator', monospace;
+      font-size: clamp(0.8rem, 1.05vw, 1rem);
+      font-weight: bold;
+      color: #fde047;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    /* =========================================================================
+       2ND WINDOW: 4 MISSIONS SIDE-BY-SIDE PORTRAIT CARDS (PHASE 1)
+       ========================================================================= */
+    .coc-phase-board-wrap.wide-4-cards {
+      width: min(96vw, 1220px);
+    }
+
+    .coc-board-body.grid-4-missions {
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(8px, 1.2vw, 15px);
+    }
+
+    @media (max-width: 900px) {
+      .coc-board-body.grid-4-missions {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .coc-board-body.hidden-view {
+      display: none !important;
+    }
+
+    /* 4 Themed Mission Portrait Cards */
+    .coc-m-card-1 {
+      background:
+        linear-gradient(180deg, rgba(245, 158, 11, 0.55) 0%, rgba(30, 58, 138, 0.45) 52%, rgba(5, 12, 28, 0.94) 86%, #040917 100%),
+        url('1.1_power_mission_assest/image 1.webp') center / cover no-repeat;
+      box-shadow: inset 0 3px 0 rgba(253, 224, 71, 0.7), inset 0 -3px 0 rgba(0, 0, 0, 0.7), 0 6px 0 rgba(0, 0, 0, 0.75);
+    }
+
+    .coc-m-card-2 {
+      background:
+        linear-gradient(180deg, rgba(16, 185, 129, 0.55) 0%, rgba(6, 78, 59, 0.45) 52%, rgba(5, 18, 14, 0.94) 86%, #030d0a 100%),
+        url('2.1_Daily_Meal/Group 1.webp') center / cover no-repeat;
+      box-shadow: inset 0 3px 0 rgba(110, 231, 183, 0.7), inset 0 -3px 0 rgba(0, 0, 0, 0.7), 0 6px 0 rgba(0, 0, 0, 0.75);
+    }
+
+    .coc-m-card-3 {
+      background:
+        linear-gradient(180deg, rgba(14, 165, 233, 0.6) 0%, rgba(12, 74, 110, 0.45) 52%, rgba(4, 15, 28, 0.94) 86%, #020813 100%),
+        url('assets/mainbase_bg.webp') 70% 30% / cover no-repeat;
+      box-shadow: inset 0 3px 0 rgba(125, 211, 252, 0.7), inset 0 -3px 0 rgba(0, 0, 0, 0.7), 0 6px 0 rgba(0, 0, 0, 0.75);
+    }
+
+    .coc-m-card-4 {
+      background:
+        linear-gradient(180deg, rgba(168, 85, 247, 0.6) 0%, rgba(127, 29, 29, 0.48) 52%, rgba(18, 7, 31, 0.94) 86%, #090312 100%),
+        url('assets/scene 8/image 128.webp') center / cover no-repeat;
+      box-shadow: inset 0 3px 0 rgba(216, 180, 254, 0.7), inset 0 -3px 0 rgba(0, 0, 0, 0.7), 0 6px 0 rgba(0, 0, 0, 0.75);
+    }
+
+    /* Single NPC Character + Symbol Crest inside each of the 4 cards */
+    .coc-npc-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .coc-npc-img {
+      height: clamp(135px, 28vh, 225px);
+      width: auto;
+      max-width: 95%;
+      object-fit: contain;
+      object-position: bottom center;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.9));
+      transition: transform 0.2s ease;
+    }
+
+    .coc-portrait-card:hover .coc-npc-img {
+      transform: scale(1.05) translateY(-3px);
+    }
+
+    /* Floating Mission Symbol Badge on Chest/Corner of NPC Stage */
+    .coc-symbol-medallion {
+      position: absolute;
+      bottom: 8px;
+      right: 6px;
+      width: clamp(38px, 3.6vw, 48px);
+      height: clamp(38px, 3.6vw, 48px);
+      background: #0f172a;
+      border: 3px solid #ffcc00;
+      border-radius: 50%;
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.4), 0 4px 10px rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1.2rem, 1.8vw, 1.65rem);
+      color: #ffea00;
+      z-index: 5;
+    }
+
+    /* Bright Electric Yellow Lightning Bolt Symbol */
+    .yellow-bolt {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffea00 !important;
+      font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+      filter: drop-shadow(0 0 6px rgba(255, 234, 0, 0.95)) drop-shadow(1px 1px 0 #000);
+    }
+
+    .bolt-svg-icon {
+      width: 64%;
+      height: 64%;
+      display: block;
+      filter: drop-shadow(0 0 8px rgba(255, 230, 0, 0.95)) drop-shadow(0 2px 0 #000000);
+    }
+
+    /* Additional Button Colors for 4 Missions */
+    .coc-btn-green {
+      background: linear-gradient(180deg, #4ade80 0%, #16a34a 55%, #15803d 100%);
+      box-shadow: inset 0 4px 0 #bbf7d0, inset 0 -4px 0 #14532d, 0 5px 0 #000000;
+    }
+
+    .coc-btn-purple {
+      background: linear-gradient(180deg, #c084fc 0%, #9333ea 55%, #6b21a8 100%);
+      box-shadow: inset 0 4px 0 #e9d5ff, inset 0 -4px 0 #3b0764, 0 5px 0 #000000;
+    }
+
+    .coc-square-badge.gold-tint {
+      background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+      box-shadow: inset 0 2px 0 #fde68a, inset 0 -2px 0 #78350f, 0 3px 0 #000000;
+    }
+
+    .coc-square-badge.green-tint {
+      background: linear-gradient(180deg, #34d399 0%, #059669 100%);
+      box-shadow: inset 0 2px 0 #a7f3d0, inset 0 -2px 0 #064e3b, 0 3px 0 #000000;
+    }
+
+    .coc-square-badge.cyan-tint {
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+      box-shadow: inset 0 2px 0 #bae6fd, inset 0 -2px 0 #0c4a6e, 0 3px 0 #000000;
+    }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css">
 </head>
@@ -1511,6 +2199,292 @@
     <!-- Lunar Surface Base Background -->
     <div class="base-background"></div>
 
+    <!-- Floating Button to Open 2-Phase Mission Dashboard Anytime -->
+    <button class="phase-dashboard-btn" id="phaseDashboardToggleBtn" onclick="openPhaseDashboard()" title="Open Mission Phases">
+      ⚔️ PHASES
+    </button>
+
+    <!-- PIXEL-ART CLASH-OF-CLANS INSPIRED 2-WINDOW PHASE & MISSION MODAL -->
+    <div class="phase-dashboard-backdrop hidden" id="phaseDashboardModal" onclick="if(event.target===this) closePhaseDashboard()">
+      <div class="coc-phase-board-wrap" id="cocBoardWrap">
+        <!-- Top Folder Tabs -->
+        <div class="coc-board-tabs">
+          <div class="coc-tabs-left">
+            <button class="coc-tab active-tab" id="tabPhasesBtn" type="button" onclick="showPhaseOverviewWindow()">
+              <span>⚔️ MISSION PHASES</span>
+            </button>
+            <button class="coc-tab" id="tabPhase1MissionsBtn" type="button" onclick="openPhase1MissionsWindow()">
+              <span>🎖️ PHASE 1 MISSIONS</span>
+              <span class="coc-tab-count">4</span>
+            </button>
+            <button class="coc-tab" type="button" onclick="closePhaseDashboard()">
+              <span>🗺️ BASE MAP</span>
+            </button>
+          </div>
+          <button class="coc-board-close-btn" type="button" onclick="closePhaseDashboard()" title="Close">✕</button>
+        </div>
+
+        <!-- ===================================================================
+             WINDOW 1: 2-PHASE OVERVIEW (PHASE 1 TRAINING vs PHASE 2 LAST LIGHT)
+             =================================================================== -->
+        <div class="coc-board-body" id="cocWindowPhases">
+
+          <!-- LEFT CARD: PHASE 1 (CADET TRAINING - Click opens 4-Mission Window!) -->
+          <div class="coc-portrait-card coc-card-phase1">
+            <div class="coc-card-top-bar">
+              <div class="coc-top-badges">
+                <div class="coc-square-badge" onclick="openPhase1MissionsWindow()" title="Open 4 Training Missions">
+                  <span>📜</span>
+                  <span>PHASE 1</span>
+                </div>
+              </div>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerPhase1')" title="View 4 Missions">i</button>
+            </div>
+
+            <!-- Toggleable Info Drawer for 4 Training Missions -->
+            <div class="coc-card-info-drawer hidden" id="drawerPhase1">
+              <div class="coc-drawer-item" onclick="selectPhaseMission('bldPower', 'badgePower')">
+                <span><span class="yellow-bolt">⚡</span> 1. Power &amp; Energy</span><span>SELECT ▶</span>
+              </div>
+              <div class="coc-drawer-item" onclick="selectPhaseMission('bldPlant', 'badgePlant')">
+                <span>🍃 2. Food &amp; Hydroponics</span><span>SELECT ▶</span>
+              </div>
+              <div class="coc-drawer-item" onclick="selectPhaseMission('bldIsru', 'badgeIsru')">
+                <span>💧 3. Water &amp; Oxygen</span><span>SELECT ▶</span>
+              </div>
+              <div class="coc-drawer-item" onclick="selectPhaseMission('bldShelter', 'badgeShelter')">
+                <span>🛡️ 4. Radiation Shelter</span><span>SELECT ▶</span>
+              </div>
+            </div>
+
+            <!-- Center Pixel Astronaut Crew Collage -->
+            <div class="coc-card-art-stage">
+              <div class="coc-crew-collage">
+                <img src="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp" alt="Chiaki Mukai" class="coc-crew-char char-left">
+                <img src="assets/scene 8/Rakesh_Sharma_Idle.png" alt="Rakesh Sharma" class="coc-crew-char char-center">
+                <img src="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" class="coc-crew-char char-right">
+              </div>
+            </div>
+
+            <!-- Bottom Title + Chunky Orange Button (Opens 4-Mission Window!) -->
+            <div class="coc-card-bottom">
+              <div class="coc-card-title">Cadet Training</div>
+              <button class="coc-big-cta-btn coc-btn-orange" type="button" onclick="openPhase1MissionsWindow()">
+                <span class="coc-btn-main-text">View 4 Missions</span>
+                <span class="coc-btn-sub-cost"><span class="yellow-bolt">⚡</span> 🍃 💧 🛡️</span>
+              </button>
+              <div class="coc-card-footer-strip" style="color: #93c5fd;">
+                🎯 Master all 4 Outpost Systems
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT CARD: PHASE 2 (MOONFALL: LAST LIGHT - "Ranked Battle" Card Style) -->
+          <div class="coc-portrait-card coc-card-phase2">
+            <div class="coc-card-top-bar">
+              <div class="coc-top-badges">
+                <div class="coc-square-badge purple-tint" onclick="toggleCardInfo('drawerPhase2')" title="Survival Rank">
+                  <span>🏆</span>
+                  <span>PHASE 2</span>
+                </div>
+                <div class="coc-square-badge purple-tint" onclick="toggleCardInfo('drawerPhase2')" title="Main Base Dome">
+                  <span>🛡️</span>
+                </div>
+              </div>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerPhase2')" title="Mission Info">i</button>
+            </div>
+
+            <!-- Toggleable Info Drawer for Phase 2 Trade-Offs -->
+            <div class="coc-card-info-drawer hidden" id="drawerPhase2">
+              <div class="coc-drawer-item" style="cursor:default;"><span><span class="yellow-bolt">⚡</span> Power Budgeting</span><span>Lunar Night</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>💧 Water vs. O₂</span><span>Life Support</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🌱 Food &amp; Crops</span><span>3,035 kcal</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🛡️ Solar Storm + Delay</span><span>NASA DONKI</span></div>
+            </div>
+
+            <!-- Center Ranked Shield Crest (Like the Purple Dragon Crest '29') -->
+            <div class="coc-card-art-stage">
+              <div class="coc-ranked-crest">
+                <div class="coc-crest-glow"></div>
+                <div class="coc-crest-shield">
+                  <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="MoonFall Last Light" class="coc-crest-img">
+                  <div class="coc-crest-number">5</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Title + Chunky Blue Button + Timer Footer -->
+            <div class="coc-card-bottom">
+              <div class="coc-card-title">MoonFall: Last Light</div>
+              <button class="coc-big-cta-btn coc-btn-blue" type="button" onclick="selectPhaseMission('bldMain', 'badgeMain')">
+                <span class="coc-btn-main-text">Enter Main Base</span>
+                <span class="coc-btn-sub-cost">Final Command 🚀</span>
+              </button>
+              <div class="coc-card-footer-strip">
+                ⏱️ Mission Duration: 4–5 Min · 5 Systems
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ===================================================================
+             WINDOW 2: 4 MISSIONS SIDE-BY-SIDE (NPC CHARACTER + SYMBOL CARDS)
+             =================================================================== -->
+        <div class="coc-board-body grid-4-missions hidden-view" id="cocWindow4Missions">
+
+          <!-- MISSION 1 CARD: POWER & ENERGY (Dr. Chiaki Mukai + ⚡) -->
+          <div class="coc-portrait-card coc-m-card-1">
+            <div class="coc-card-top-bar">
+              <div class="coc-top-badges">
+                <div class="coc-square-badge gold-tint">
+                  <span class="yellow-bolt">⚡</span><span>MISSION 1</span>
+                </div>
+              </div>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM1')" title="Mission 1 Info">i</button>
+            </div>
+
+            <div class="coc-card-info-drawer hidden" id="drawerM1">
+              <div class="coc-drawer-item" style="cursor:default;"><span>👩‍🚀 Guide:</span><span>Chiaki Mukai</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>☀️ Topic:</span><span>Solar &amp; Fission</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🔋 Goal:</span><span>PDU &amp; Storage</span></div>
+            </div>
+
+            <div class="coc-card-art-stage">
+              <div class="coc-npc-stage">
+                <img src="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp" alt="Dr. Chiaki Mukai" class="coc-npc-img">
+                <div class="coc-symbol-medallion" style="border-color: #fbbf24;">
+                  <svg class="bolt-svg-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M13.5 2L4.5 13.5H11.5L10.5 22L19.5 10.5H12.5L13.5 2Z" fill="#ffea00" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="coc-card-bottom">
+              <div class="coc-card-title" style="font-size: clamp(1.35rem, 1.85vw, 1.95rem);">Power &amp; Energy</div>
+              <button class="coc-big-cta-btn coc-btn-orange" type="button" onclick="selectPhaseMission('bldPower', 'badgePower')">
+                <span class="coc-btn-main-text" style="font-size: clamp(1.2rem, 1.6vw, 1.65rem);">Power System</span>
+                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Chiaki Mukai <span class="yellow-bolt">⚡</span></span>
+              </button>
+              <div class="coc-card-footer-strip" style="color: #fde047;">
+                <span class="yellow-bolt">⚡</span> Power Station
+              </div>
+            </div>
+          </div>
+
+          <!-- MISSION 2 CARD: FOOD & PRODUCTION (Sunita Williams + 🍃) -->
+          <div class="coc-portrait-card coc-m-card-2">
+            <div class="coc-card-top-bar">
+              <div class="coc-top-badges">
+                <div class="coc-square-badge green-tint">
+                  <span>🍃</span><span>MISSION 2</span>
+                </div>
+              </div>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM2')" title="Mission 2 Info">i</button>
+            </div>
+
+            <div class="coc-card-info-drawer hidden" id="drawerM2">
+              <div class="coc-drawer-item" style="cursor:default;"><span>👩‍🚀 Guide:</span><span>Sunita Williams</span></div>
+              <div class="coc-drawer-item" onclick="window.location.href='2.1_daily_meal.html'"><span>🍱 2.1 Daily Meal</span><span>▶</span></div>
+              <div class="coc-drawer-item" onclick="window.location.href='2.2_Hydroponics.html'"><span>🌱 2.2 Hydroponics</span><span>▶</span></div>
+            </div>
+
+            <div class="coc-card-art-stage">
+              <div class="coc-npc-stage">
+                <img src="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" class="coc-npc-img">
+                <div class="coc-symbol-medallion" style="border-color: #34d399;">🍃</div>
+              </div>
+            </div>
+
+            <div class="coc-card-bottom">
+              <div class="coc-card-title" style="font-size: clamp(1.35rem, 1.85vw, 1.95rem);">Food &amp; Crops</div>
+              <button class="coc-big-cta-btn coc-btn-green" type="button" onclick="selectPhaseMission('bldPlant', 'badgePlant')">
+                <span class="coc-btn-main-text" style="font-size: clamp(1.2rem, 1.6vw, 1.65rem);">Meals &amp; Hydro</span>
+                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Sunita Williams 🌱</span>
+              </button>
+              <div class="coc-card-footer-strip" style="color: #86efac;">
+                🍃 Plant Growth Lab
+              </div>
+            </div>
+          </div>
+
+          <!-- MISSION 3 CARD: WATER & OXYGEN (Neil Armstrong + 💧/O2) -->
+          <div class="coc-portrait-card coc-m-card-3">
+            <div class="coc-card-top-bar">
+              <div class="coc-top-badges">
+                <div class="coc-square-badge cyan-tint">
+                  <span>💧</span><span>MISSION 3</span>
+                </div>
+              </div>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM3')" title="Mission 3 Info">i</button>
+            </div>
+
+            <div class="coc-card-info-drawer hidden" id="drawerM3">
+              <div class="coc-drawer-item" style="cursor:default;"><span>👨‍🚀 Guide:</span><span>Neil Armstrong</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🧊 Step 1:</span><span>Drill &amp; Melt Ice</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🫧 Step 2:</span><span>H₂O → O₂ Split</span></div>
+            </div>
+
+            <div class="coc-card-art-stage">
+              <div class="coc-npc-stage">
+                <img src="1.1_power_mission_assest/Neil_Armstrong_Idle.webp" alt="Neil Armstrong" class="coc-npc-img">
+                <div class="coc-symbol-medallion" style="border-color: #38bdf8;">💧</div>
+              </div>
+            </div>
+
+            <div class="coc-card-bottom">
+              <div class="coc-card-title" style="font-size: clamp(1.35rem, 1.85vw, 1.95rem);">Water &amp; Oxygen</div>
+              <button class="coc-big-cta-btn coc-btn-blue" type="button" onclick="selectPhaseMission('bldIsru', 'badgeIsru')">
+                <span class="coc-btn-main-text" style="font-size: clamp(1.2rem, 1.6vw, 1.65rem);">Ice to H₂O &amp; O₂</span>
+                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Neil Armstrong 💧</span>
+              </button>
+              <div class="coc-card-footer-strip" style="color: #7dd3fc;">
+                💧 ISRU Facility
+              </div>
+            </div>
+          </div>
+
+          <!-- MISSION 4 CARD: RADIATION PROTECTION (Rakesh Sharma + 🛡️) -->
+          <div class="coc-portrait-card coc-m-card-4">
+            <div class="coc-card-top-bar">
+              <div class="coc-top-badges">
+                <div class="coc-square-badge purple-tint">
+                  <span>🛡️</span><span>MISSION 4</span>
+                </div>
+              </div>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM4')" title="Mission 4 Info">i</button>
+            </div>
+
+            <div class="coc-card-info-drawer hidden" id="drawerM4">
+              <div class="coc-drawer-item" style="cursor:default;"><span>👨‍🚀 Guide:</span><span>Rakesh Sharma</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>☀️ Alert:</span><span>SPE &amp; GCR Storm</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🧱 Shield:</span><span>Water &amp; Regolith</span></div>
+            </div>
+
+            <div class="coc-card-art-stage">
+              <div class="coc-npc-stage">
+                <img src="assets/scene 8/Rakesh_Sharma_Idle.png" alt="Rakesh Sharma" class="coc-npc-img">
+                <div class="coc-symbol-medallion" style="border-color: #c084fc;">🛡️</div>
+              </div>
+            </div>
+
+            <div class="coc-card-bottom">
+              <div class="coc-card-title" style="font-size: clamp(1.35rem, 1.85vw, 1.95rem);">Radiation Shield</div>
+              <button class="coc-big-cta-btn coc-btn-purple" type="button" onclick="selectPhaseMission('bldShelter', 'badgeShelter')">
+                <span class="coc-btn-main-text" style="font-size: clamp(1.2rem, 1.6vw, 1.65rem);">Prepare Shelter</span>
+                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Rakesh Sharma 🛡️</span>
+              </button>
+              <div class="coc-card-footer-strip" style="color: #d8b4fe;">
+                🛡️ Radiation Shelter
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <!-- 1. Power Station Badge & Building (Back Layer) -->
     <img src="assets/base_assets/badge_power.png" alt="Power Station" class="badge-layer badge-power" id="badgePower"
       title="Power Station">
@@ -1561,10 +2535,9 @@
           <img src="assets/scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
         </div>
 
-        <!-- Action / Start Mission Button -->
-        <button class="skip-btn skip-btn-scene2" onclick="launchGame()" title="Start Mission" aria-label="Start Mission">
-          <img src="assets/Caption Text-1.png" alt="START" class="skip-bg">
-          <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+        <!-- Next Building / Tour Step Button -->
+        <button class="tour-next-btn" id="tourNextBtn" onclick="stepNextIntroBuilding()" title="Next Building">
+          NEXT (1/4) ▶
         </button>
 
         <!-- Dialogue Background Frame (scene 3/Frame 6.png) -->
@@ -2187,11 +3160,65 @@
     const cocFill = document.getElementById('cocFill');
     let introDismissed = false;
 
+    const phaseDashboardModal = document.getElementById('phaseDashboardModal');
+
+    function showPhaseOverviewWindow() {
+      if (sound && sound.clickSound) sound.clickSound();
+      const wrap = document.getElementById('cocBoardWrap');
+      const wPhases = document.getElementById('cocWindowPhases');
+      const w4 = document.getElementById('cocWindow4Missions');
+      const tab1 = document.getElementById('tabPhasesBtn');
+      const tab2 = document.getElementById('tabPhase1MissionsBtn');
+      if (wrap) wrap.classList.remove('wide-4-cards');
+      if (wPhases) wPhases.classList.remove('hidden-view');
+      if (w4) w4.classList.add('hidden-view');
+      if (tab1) tab1.classList.add('active-tab');
+      if (tab2) tab2.classList.remove('active-tab');
+    }
+
+    function openPhase1MissionsWindow() {
+      if (sound && sound.clickSound) sound.clickSound();
+      const wrap = document.getElementById('cocBoardWrap');
+      const wPhases = document.getElementById('cocWindowPhases');
+      const w4 = document.getElementById('cocWindow4Missions');
+      const tab1 = document.getElementById('tabPhasesBtn');
+      const tab2 = document.getElementById('tabPhase1MissionsBtn');
+      if (wrap) wrap.classList.add('wide-4-cards');
+      if (wPhases) wPhases.classList.add('hidden-view');
+      if (w4) w4.classList.remove('hidden-view');
+      if (tab1) tab1.classList.remove('active-tab');
+      if (tab2) tab2.classList.add('active-tab');
+    }
+
+    function openPhaseDashboard() {
+      if (sound && sound.clickSound) sound.clickSound();
+      if (currentZoomedBldId || isBaseIntroActive) unzoomBuilding();
+      showPhaseOverviewWindow();
+      if (phaseDashboardModal) phaseDashboardModal.classList.remove('hidden');
+    }
+
+    function closePhaseDashboard() {
+      if (sound && sound.clickSound) sound.clickSound();
+      if (phaseDashboardModal) phaseDashboardModal.classList.add('hidden');
+    }
+
+    function selectPhaseMission(bldId, badgeId) {
+      if (phaseDashboardModal) phaseDashboardModal.classList.add('hidden');
+      zoomBuilding(bldId, badgeId);
+    }
+
+    function toggleCardInfo(drawerId) {
+      if (sound && sound.clickSound) sound.clickSound();
+      const drawer = document.getElementById(drawerId);
+      if (drawer) drawer.classList.toggle('hidden');
+    }
+
     function dismissIntro() {
       if (introDismissed) return;
       introDismissed = true;
       sound.warpSound();
       introOverlay.classList.add('fade-out');
+      startBaseIntroScene();
       setTimeout(() => {
         if (animId) cancelAnimationFrame(animId);
       }, 900);
@@ -2270,12 +3297,10 @@
       bldPower: {
         missions: [
           {
-            icon: '⚡',
+            icon: '<svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;display:block;filter:drop-shadow(0 0 8px rgba(255,230,0,0.95)) drop-shadow(0 2px 0 #000);"><path d="M13.5 2L4.5 13.5H11.5L10.5 22L19.5 10.5H12.5L13.5 2Z" fill="#ffea00" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round"/></svg>',
             title: 'Mission 1: Power and Energy',
             subtasks: [
-              { id: 'power_sys', label: 'Power System', active: true, locked: false, dialogue: 'Learn about the components that keep our lunar base powered up.', url: '1.1_power_mission.html' },
-              { id: 'balance_grid', label: 'Balance the Grid', active: false, locked: true, requiredTask: 'Power System', dialogue: 'Balance thermal cooling turbines and battery arrays to handle energy spikes.' },
-              { id: 'restore_array', label: 'Restore Solar Array', active: false, locked: true, requiredTask: 'Balance the Grid', dialogue: 'Realign high-efficiency solar photovoltaic panels to capture peak lunar sunlight.' }
+              { id: 'power_sys', label: 'Power System', active: true, locked: false, dialogue: 'Learn about the components that keep our lunar base powered up.', url: '1.1_power_mission.html' }
             ]
           }
         ],
@@ -2298,27 +3323,19 @@
         missions: [
           {
             icon: '💧',
-            title: 'Mission 3: Water Production',
+            title: 'Mission 3: Water & Oxygen',
             subtasks: [
-              { id: 'locate_drill', label: 'Locate and Drill', active: true, locked: false, dialogue: 'Explore the lunar South Pole, locate underground ice, and collect icy regolith.', url: '3.1_rover_traverse.html' },
-              { id: 'melt_purify', label: 'Melt and Purify', active: false, locked: true, requiredTask: 'Locate and Drill', dialogue: 'Extract water from icy lunar soil and purify it for use at the base.' }
-            ]
-          },
-          {
-            icon: '<span style="color:#ff3b69;font-weight:900;">O</span><sub style="color:#ff3b69;font-size:0.7em;font-weight:bold;bottom:-0.15em;">2</sub>',
-            title: 'Mission 4: Oxygen Production',
-            subtasks: [
-              { id: 'water_electrolysis', label: 'Water Electrolysis', active: false, locked: false, dialogue: 'Electrolyze purified water to split H2O into fresh breathable oxygen.' }
+              { id: 'locate_drill', label: 'Ice to Water & Oxygen', active: true, locked: false, dialogue: 'Locate lunar South Pole ice, melt and purify water for storage, and electrolyze H2O into breathable oxygen.', url: '3.1_rover_traverse.html' }
             ]
           }
         ],
-        dialogue: 'Explore the lunar South Pole, locate underground ice, and collect icy regolith.'
+        dialogue: 'Locate lunar South Pole ice, melt and purify water for storage, and electrolyze H2O into breathable oxygen.'
       },
       bldShelter: {
         missions: [
           {
             icon: '🛡️',
-            title: 'Mission 5: Radiation Protection',
+            title: 'Mission 4: Radiation Protection',
             subtasks: [
               { id: 'prepare_shelter', label: 'Prepare the Shelter', active: true, locked: false, dialogue: 'Protect the crew from a solar storm by preparing a radiation-safe shelter.', url: '5.1_Radiation_mission.html' }
             ]
@@ -2329,15 +3346,14 @@
       bldMain: {
         missions: [
           {
-            icon: '🏠',
-            title: 'Mission 0: Habitat Operations',
+            icon: '🌑',
+            title: 'Phase 2: MoonFall LAST LIGHT',
             subtasks: [
-              { id: 'habitat_command', label: 'Habitat Command', active: true, locked: false, dialogue: 'The central hub of our lunar expedition. Monitor base integrity and astronaut health.' },
-              { id: 'env_controls', label: 'Environmental Controls', active: false, locked: true, requiredTask: 'Habitat Command', dialogue: 'Calibrate atmospheric air pressure and temperature inside the habitat module.' }
+              { id: 'last_light', label: 'MoonFall: LAST LIGHT', active: true, locked: false, dialogue: 'Final Outpost Survival Command! Balance Power, Water, Oxygen, Food, and Radiation Shielding through Lunar Nightfall.' }
             ]
           }
         ],
-        dialogue: 'The central hub of our lunar expedition. Monitor base integrity and astronaut health.'
+        dialogue: 'Final Outpost Survival Command! Balance Power, Water, Oxygen, Food, and Radiation Shielding through Lunar Nightfall.'
       }
     };
 
@@ -2352,7 +3368,50 @@
     const astrobeeText = document.getElementById('astrobeeText');
  
     let currentZoomedBldId = null;
+    let isBaseIntroActive = false;
+    let introTourIndex = 0;
     let dialogueResetTimer = null;
+
+    const introBuildingTourOrder = [
+      { bldId: 'bldPower', badgeId: 'badgePower' },
+      { bldId: 'bldPlant', badgeId: 'badgePlant' },
+      { bldId: 'bldIsru', badgeId: 'badgeIsru' },
+      { bldId: 'bldShelter', badgeId: 'badgeShelter' }
+    ];
+
+    function updateTourNextButton(bldId) {
+      const tourNextBtn = document.getElementById('tourNextBtn');
+      if (!tourNextBtn) return;
+      const idx = introBuildingTourOrder.findIndex(item => item.bldId === bldId);
+      if (idx !== -1) {
+        introTourIndex = idx;
+        if (idx < introBuildingTourOrder.length - 1) {
+          tourNextBtn.textContent = `NEXT (${idx + 1}/4) ▶`;
+        } else {
+          tourNextBtn.textContent = `PHASES (4/4) ▶`;
+        }
+      } else {
+        tourNextBtn.textContent = `PHASES ▶`;
+      }
+    }
+
+    function startBaseIntroScene() {
+      isBaseIntroActive = true;
+      introTourIndex = 0;
+      const first = introBuildingTourOrder[0];
+      zoomBuilding(first.bldId, first.badgeId);
+    }
+
+    function stepNextIntroBuilding() {
+      if (sound && sound.clickSound) sound.clickSound();
+      if (introTourIndex < introBuildingTourOrder.length - 1) {
+        introTourIndex++;
+        const next = introBuildingTourOrder[introTourIndex];
+        zoomBuilding(next.bldId, next.badgeId);
+      } else {
+        openPhaseDashboard();
+      }
+    }
 
     function getActiveSubtask(bldId) {
       const data = buildingMissions[bldId];
@@ -2479,31 +3538,38 @@
       if (currentZoomedBldId === bldId) return;
       unzoomBuilding();
 
+      isBaseIntroActive = false;
       currentZoomedBldId = bldId;
       const bld = document.getElementById(bldId);
       const badge = document.getElementById(badgeId);
 
       sound.clickSound();
+      baseViewport.classList.remove('base-intro-mode');
       baseViewport.classList.add('zoomed-mode');
       if (bld) bld.classList.add('is-zoomed');
       if (badge) badge.classList.add('is-zoomed');
 
       renderMissions(bldId);
+      updateTourNextButton(bldId);
 
       buildingDetailPanel.classList.add('active');
     }
 
     function unzoomBuilding() {
-      if (!currentZoomedBldId) return;
-      const bld = document.getElementById(currentZoomedBldId);
-      const mod = modules.find(m => m.bldId === currentZoomedBldId);
-      const badge = mod ? document.getElementById(mod.badgeId) : null;
+      if (!currentZoomedBldId && !isBaseIntroActive) return;
+      if (currentZoomedBldId) {
+        const bld = document.getElementById(currentZoomedBldId);
+        const mod = modules.find(m => m.bldId === currentZoomedBldId);
+        const badge = mod ? document.getElementById(mod.badgeId) : null;
 
-      if (bld) bld.classList.remove('is-zoomed');
-      if (badge) badge.classList.remove('is-zoomed');
+        if (bld) bld.classList.remove('is-zoomed');
+        if (badge) badge.classList.remove('is-zoomed');
+      }
 
+      isBaseIntroActive = false;
       currentZoomedBldId = null;
       baseViewport.classList.remove('zoomed-mode');
+      baseViewport.classList.remove('base-intro-mode');
       buildingDetailPanel.classList.remove('active');
     }
 
@@ -2513,13 +3579,17 @@
     }
 
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && currentZoomedBldId) {
+      if (e.key === 'Escape' && (currentZoomedBldId || isBaseIntroActive)) {
         unzoomBuilding();
       }
     });
 
     function launchGame() {
       sound.clickSound();
+      if (isBaseIntroActive && !currentZoomedBldId) {
+        openPhaseDashboard();
+        return;
+      }
       const activeSub = currentZoomedBldId ? getActiveSubtask(currentZoomedBldId) : null;
       const targetUrl = (activeSub && activeSub.url) ? activeSub.url : '1.1_power_mission.html';
       window.location.href = targetUrl;
