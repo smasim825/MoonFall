@@ -748,6 +748,31 @@
       background: #000000;
     }
 
+    .moon-journey-unmute-btn {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      z-index: 12;
+      background: rgba(0, 15, 35, 0.85);
+      border: 2px solid #00e5ff;
+      box-shadow: 0 4px 14px rgba(0, 229, 255, 0.4);
+      border-radius: 8px;
+      color: #00e5ff;
+      font-family: 'Pixel Operator', 'Jersey 10', monospace;
+      font-size: clamp(0.95rem, 1.2vw, 1.25rem);
+      padding: 6px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .moon-journey-unmute-btn:hover {
+      background: rgba(0, 229, 255, 0.25);
+      transform: scale(1.05);
+    }
+
     .moon-journey-skip-btn {
       position: absolute;
       bottom: 28px;
@@ -2256,9 +2281,12 @@
   </div>
 
   <!-- Moon Journey Starting Video Overlay (Plays immediately after MoonFall Loading Page) -->
-  <div class="moon-journey-overlay" id="moonJourneyOverlay">
-    <video class="moon-journey-video" id="moonJourneyVideo" src="moon_journey.mp4" playsinline preload="auto"></video>
-    <button class="moon-journey-skip-btn" type="button" onclick="finishMoonJourneyVideo()">
+  <div class="moon-journey-overlay" id="moonJourneyOverlay" onclick="unmuteMoonJourneyVideo()">
+    <video class="moon-journey-video" id="moonJourneyVideo" src="moon_journey.mp4" playsinline muted preload="auto"></video>
+    <button class="moon-journey-unmute-btn" id="moonJourneyUnmuteBtn" type="button" onclick="event.stopPropagation(); toggleMoonJourneyAudio();">
+      🔊 UNMUTE
+    </button>
+    <button class="moon-journey-skip-btn" type="button" onclick="event.stopPropagation(); finishMoonJourneyVideo();">
       SKIP ▶▶
     </button>
   </div>
@@ -3283,7 +3311,35 @@
 
     const moonJourneyOverlay = document.getElementById('moonJourneyOverlay');
     const moonJourneyVideo = document.getElementById('moonJourneyVideo');
+    const moonJourneyUnmuteBtn = document.getElementById('moonJourneyUnmuteBtn');
     let moonJourneyFinished = false;
+
+    function updateMoonJourneyAudioUI() {
+      if (!moonJourneyUnmuteBtn || !moonJourneyVideo) return;
+      if (moonJourneyVideo.muted) {
+        moonJourneyUnmuteBtn.innerHTML = '🔇 SOUND OFF';
+        moonJourneyUnmuteBtn.style.borderColor = '#f59e0b';
+        moonJourneyUnmuteBtn.style.color = '#f59e0b';
+      } else {
+        moonJourneyUnmuteBtn.innerHTML = '🔊 SOUND ON';
+        moonJourneyUnmuteBtn.style.borderColor = '#00e5ff';
+        moonJourneyUnmuteBtn.style.color = '#00e5ff';
+      }
+    }
+
+    function toggleMoonJourneyAudio() {
+      if (!moonJourneyVideo) return;
+      moonJourneyVideo.muted = !moonJourneyVideo.muted;
+      updateMoonJourneyAudioUI();
+    }
+
+    function unmuteMoonJourneyVideo() {
+      if (!moonJourneyVideo) return;
+      if (moonJourneyVideo.muted) {
+        moonJourneyVideo.muted = false;
+        updateMoonJourneyAudioUI();
+      }
+    }
 
     function finishMoonJourneyVideo() {
       if (moonJourneyFinished) return;
@@ -3310,18 +3366,17 @@
       }
       moonJourneyOverlay.classList.add('active');
       moonJourneyVideo.currentTime = 0;
-      // Start muted to guarantee autoplay is allowed across all browsers without gesture
-      moonJourneyVideo.muted = true;
+      moonJourneyVideo.muted = true; // Always start muted so browsers never block playback
+      updateMoonJourneyAudioUI();
+
       const playPromise = moonJourneyVideo.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
-          // Unmute if allowed by browser policy
-          moonJourneyVideo.muted = false;
-        }).catch(() => {
-          moonJourneyVideo.muted = true;
-          moonJourneyVideo.play().catch(() => {
-            finishMoonJourneyVideo();
-          });
+          // Playback started smoothly
+        }).catch((err) => {
+          console.warn("Video play failed:", err);
+          // If video still cannot play, smoothly fall through to base intro
+          finishMoonJourneyVideo();
         });
       }
     }
