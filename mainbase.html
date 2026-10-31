@@ -3310,11 +3310,14 @@
       }
       moonJourneyOverlay.classList.add('active');
       moonJourneyVideo.currentTime = 0;
-      moonJourneyVideo.muted = false;
+      // Start muted to guarantee autoplay is allowed across all browsers without gesture
+      moonJourneyVideo.muted = true;
       const playPromise = moonJourneyVideo.play();
       if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Fallback to muted autoplay if browser blocks unmuted autoplay without prior user gesture
+        playPromise.then(() => {
+          // Unmute if allowed by browser policy
+          moonJourneyVideo.muted = false;
+        }).catch(() => {
           moonJourneyVideo.muted = true;
           moonJourneyVideo.play().catch(() => {
             finishMoonJourneyVideo();
