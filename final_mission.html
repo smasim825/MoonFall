@@ -334,6 +334,44 @@
       margin-top: 4px;
     }
 
+    .lsi-explain-text {
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      line-height: 1.35;
+      background: rgba(15, 23, 42, 0.7);
+      border-left: 2px solid #38bdf8;
+      border-radius: 4px;
+      padding: 5px 8px;
+      margin: 6px 0 2px 0;
+    }
+
+    .help-bubble {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.2);
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+      font-size: 0.72rem;
+      font-weight: bold;
+      font-family: var(--font-ui);
+      cursor: help;
+      margin-left: 6px;
+      transition: all 0.15s ease;
+      vertical-align: middle;
+    }
+
+    .help-bubble:hover {
+      background: #38bdf8;
+      color: #020617;
+      transform: scale(1.15);
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+    }
+
     .lsi-status-tag {
       display: inline-block;
       margin-top: 6px;
@@ -350,6 +388,41 @@
       background: rgba(239, 68, 68, 0.25);
       color: #f87171;
       border-color: #ef4444;
+    }
+
+    /* About the Science Panel */
+    .science-panel {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .science-panel-title {
+      font-size: 0.95rem;
+      color: #38bdf8;
+      letter-spacing: 0.05em;
+      font-weight: bold;
+    }
+
+    .science-panel-text {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .science-sources-placeholder {
+      font-family: var(--font-ui);
+      font-size: 0.76rem;
+      color: #94a3b8;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 6px;
+      margin-top: 4px;
     }
 
     /* 8 Resources Grid */
@@ -1204,7 +1277,7 @@
       <span class="brand-icon">🌕</span>
       <div>
         <h1 class="brand-title">MOON FALL: LAST LIGHT</h1>
-        <div class="brand-subtitle">18 Hours to Keep the Outpost Alive // Artemis South Pole Base</div>
+        <div class="brand-subtitle">YEAR 2017 // Shackleton Rim Outpost // 18-Hour Solar Storm Survival</div>
       </div>
     </div>
 
@@ -1240,20 +1313,38 @@
     <aside class="telemetry-sidebar">
       <div class="panel-header">
         <h2 class="panel-title">📡 OUTPOST TELEMETRY</h2>
-        <span style="font-size: 0.9rem; color: #94a3b8;">SHACKLETON RIM</span>
+        <span style="font-size: 0.9rem; color: #94a3b8;">SHACKLETON RIM // 2017</span>
       </div>
 
       <!-- Life Support Index (LSI) -->
       <div class="lsi-card" id="lsiCard">
-        <div class="lsi-label">LIFE SUPPORT INDEX</div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="lsi-label">LIFE SUPPORT INDEX</div>
+          <span class="help-bubble" title="LSI is the average of our breathable air (Oxygen) and clean Water. It must stay at 50% or higher for the base to support human life.">?</span>
+        </div>
         <div class="lsi-val" id="lsiValueDisplay">70%</div>
         <div class="lsi-formula">LSI = (Oxygen + Water) / 2</div>
+        <div class="lsi-explain-text">
+          <strong>What does this mean?</strong> It is the average of our air and water. It must stay at 50% or higher for the crew to survive.
+        </div>
         <div class="lsi-status-tag" id="lsiStatusTag">NOMINAL (&ge; 50%)</div>
       </div>
 
       <!-- 8 Critical Resource Bars -->
       <div class="resource-list" id="resourceList">
         <!-- Rendered dynamically -->
+      </div>
+
+      <!-- About the Science Panel -->
+      <div class="science-panel">
+        <div class="science-panel-title">🔬 ABOUT THE SCIENCE</div>
+        <p class="science-panel-text">
+          Game numbers are simplified for play. Real NASA data (such as space-weather records) will be added and credited here.
+        </p>
+        <div class="science-sources-placeholder">
+          <strong>[Data sources placeholder]</strong><br>
+          NASA Solar &amp; Heliospheric Observatory (SOHO) &bull; NOAA Space Weather Prediction Center &bull; NASA Moon to Mars Architecture
+        </div>
       </div>
     </aside>
 
@@ -1554,7 +1645,7 @@
         support: 'P4',
         leadAdvice: 'Solar proton flux is spiking off the charts. We have minutes before crew health drops to critical levels outside the core bunker. Evacuate now!',
         supportAdvice: 'If we abandon the surface arrays and rover umbilicals without orderly shutdown, power surges could wreck our external equipment.',
-        story: 'A sharp emergency alert interrupts the quiet of the lunar morning. A solar particle event is approaching, and the outpost has only thirty minutes to prepare. The crew looks to the Commander as the warning sirens begin echoing through the habitat.',
+        story: 'A priority solar storm warning arrives from Earth Mission Control. A massive solar particle event will strike the Shackleton Rim outpost in only thirty minutes. The Commander must decide whether to rush the crew into shelter right now or secure outdoor equipment first.',
         consumption: { Oxygen: -1, Water: 0, Power: 0, Food: 0 },
         choices: {
           A: {
@@ -1577,9 +1668,9 @@
         time: '06:00',
         lead: 'P1',
         support: 'P4',
-        leadAdvice: 'The main storm front has hit. Deep shelter offers the best protection for crew health, but water walls would absorb particle cascades even more effectively.',
-        supportAdvice: 'Moving or welding bulkheads takes heavy power tools. Watch our battery reserves if you reinforce the structure.',
-        story: 'The storm front reaches the base perimeter. The designated shelter is intact, but its shielding is uneven and essential supplies are scattered between modules. The Commander must decide what the crew can protect before exposure becomes dangerous.',
+        leadAdvice: 'Lunar soil—called regolith—is our best natural shield. Piling it on the thin wall or stacking water containers will protect crew health.',
+        supportAdvice: 'Scooping and piling heavy mounds of regolith takes electric rover power. Watch our battery reserves.',
+        story: 'The solar storm strikes Shackleton Rim. The outpost is intact, but one sunward wall has thin shielding. The astronauts can use lunar soil—called regolith—or water containers to help block the dangerous space radiation.',
         consumption: { Oxygen: -2, Water: 0, Power: -1, Food: 0 },
         choices: {
           A: {
@@ -1589,10 +1680,10 @@
             desc: 'Crowd all four astronauts into the deepest lava-tube annex under maximum regolith depth.'
           },
           B: {
-            title: 'Reinforce the weak wall',
+            title: 'Pile regolith on the weak wall',
             immediate: { Power: -8, 'Crew Health': 12, Equipment: 5 },
             delayed: { Power: -2 },
-            desc: 'Use motorized jacks and sintered regolith tiles to fortify the habitat’s vulnerable sunward wall.'
+            desc: 'Use the electric rover scoop to heap moon soil (regolith) against the thin wall to reinforce it.'
           },
           C: {
             title: 'Use water containers as shielding',
@@ -1608,9 +1699,9 @@
         time: '08:00',
         lead: 'P4',
         support: 'P2',
-        leadAdvice: 'The primary inverter just blew from magnetic induction! If we don’t shed load immediately, the entire fuel-cell bus could collapse.',
+        leadAdvice: 'The storm caused a magnetic induction surge that blew our primary inverter! We must cut load immediately or the batteries collapse.',
         supportAdvice: 'If the power drops too low in the environmental loops, the atmospheric scrubbers will stall. Don’t cut life support completely.',
-        story: 'A surge trips the main distribution bus. Lights fade across the habitat, and the greenhouse control panel goes dark. Backup circuits remain available, but restoring everything at once could drain the batteries before the storm peaks.',
+        story: 'Space weather particles trigger an electrical surge that trips the main distribution bus. Lights fade across the habitat, and the greenhouse panel goes dark. With solar arrays offline during the storm, the outpost is burning battery power fast.',
         consumption: { Oxygen: -2, Water: -1, Power: -1, Food: 0 },
         choices: {
           A: {
@@ -1639,9 +1730,9 @@
         time: '11:00',
         lead: 'P2',
         support: 'P4',
-        leadAdvice: 'Atmospheric pressure is stable, but partial O₂ is sinking. Cryo-stored oxygen is safe, but electrolysis gives us a high volume bump.',
+        leadAdvice: 'Cabin oxygen is dropping. We can tap our emergency oxygen tanks, or split water using electricity to make fresh air.',
         supportAdvice: 'Remember the physics: water electrolysis demands heavy voltage! It will eat our remaining kilowatt-hours.',
-        story: 'The oxygen reserve begins falling faster than forecast. The electrolysis unit can replenish the atmosphere, but it consumes water and a large share of available electricity. The stored supply buys time, not certainty.',
+        story: 'The oxygen reserve begins falling faster than forecast. The electrolysis unit can replenish the atmosphere by splitting water, but it consumes water and a large share of available electricity. Stored tanks buy time without using power, but cannot be refilled.',
         consumption: { Oxygen: -2, Water: -1, Power: -1, Food: 0 },
         choices: {
           A: {
@@ -1664,9 +1755,9 @@
         time: '13:00',
         lead: 'P2',
         support: 'P3',
-        leadAdvice: 'Recycling loop filter #2 has seized with regolith sediment. If we don’t clean it, bacterial contamination will spread.',
-        supportAdvice: 'The hydroponics root beds can survive a short dry spell, but if you cut them completely, the crops will wither by sunset.',
-        story: 'A filter alarm reports contamination in one branch of the water loop. The clean reserve is shrinking, and the greenhouse competes with the crew for every litre. A backup purifier is ready, but its startup cost is substantial.',
+        leadAdvice: 'Recycling loop filter #2 has seized with regolith sediment. We can drink our emergency reserves, or melt ice from a shadowed crater pocket.',
+        supportAdvice: 'The greenhouse crops need water too! If we cut their water feed completely, the plants will dry out and die before sunset.',
+        story: 'A filter alarm reports contamination in one branch of the water loop. Deep inside craters at the Moon’s South Pole, permanently shadowed areas stay cold enough to hold water ice. The Commander must choose how to supply water.',
         consumption: { Oxygen: -2, Water: -1, Power: -1, Food: 0 },
         choices: {
           A: {
@@ -1676,10 +1767,10 @@
             desc: 'Tap reserve potable bladders directly. Relieves strain on machinery but depletes pure water stores.'
           },
           B: {
-            title: 'Activate backup purification',
+            title: 'Melt ice from a shadowed crater pocket',
             immediate: { Water: 18, Power: -15, Equipment: -5 },
             delayed: { Power: -3 },
-            desc: 'Engage the thermal-distillation backup rig to reclaim wastewater. Yields +18% water but draws heavy power.'
+            desc: 'Permanently shadowed crater pockets stay cold enough to hold water ice! Melting it yields fresh water, but uses power and equipment.'
           },
           C: {
             title: 'Prioritize drinking water',
@@ -1752,8 +1843,8 @@
         lead: 'P1',
         support: 'P2',
         leadAdvice: 'The solar storm wave is decaying, but ambient residual flux remains elevated. Staying in bunkered shelter is safest for crew health.',
-        supportAdvice: 'If we wait too long, cold-soaked battery cells and electronics will seize permanently. We must reboot outpost life support!',
-        story: 'Eighteen hours have passed since the warning. The storm peak is easing, but the outpost is fragile and the crew is exhausted. You can remain under shelter until conditions settle, or begin a controlled recovery while systems are still under strain.',
+        supportAdvice: 'The storm has passed! If we wait too long, cold-soaked electronics and valves will freeze. We must decide how to spend our remaining power.',
+        story: 'Eighteen hours after the warning, the solar storm has finally passed Shackleton Rim. Outside radiation levels are dropping, but base batteries are low and the crew is exhausted. The Commander must make the final decision on how to spend the remaining power.',
         consumption: { Oxygen: -2, Water: 0, Power: -1, Food: 0 },
         choices: {
           A: {
@@ -1766,7 +1857,7 @@
             title: 'Begin controlled recovery',
             immediate: { Water: -3, Power: -12, 'Crew Health': -10, Equipment: 10 },
             delayed: { Power: -2 },
-            desc: 'Power up primary habitat life support, unfreeze external equipment lines, and begin restoring full lunar outpost operations.'
+            desc: 'Spend remaining power to reboot base systems, unfreeze equipment lines, and begin restoring full lunar outpost operations.'
           }
         }
       }
@@ -2070,6 +2161,16 @@
       Equipment: '🔧'
     };
 
+    const RESOURCE_EXPLANATIONS = {
+      Oxygen: 'The fresh air our crew breathes every second inside the moon base.',
+      Water: 'Clean water for drinking, cooking, and keeping our greenhouse alive.',
+      Power: 'Electricity from solar panels and batteries that runs all heaters and pumps.',
+      Food: 'Nutritious meals stored for the astronauts so they have energy to work.',
+      'Crew Health': 'How safe astronauts are from space radiation, injury, and fatigue (regolith soil blocks radiation!).',
+      Greenhouse: 'Indoor plant trays that grow fresh vegetables and help refresh the air.',
+      Equipment: 'Life-support scrubbers, water pumps, rovers, and habitat machinery.'
+    };
+
     function escapeHtml(text) {
       if (!text) return '';
       const div = document.createElement('div');
@@ -2143,12 +2244,14 @@
         }
 
         const icon = RESOURCE_ICONS[resName] || '🔹';
+        const helpText = RESOURCE_EXPLANATIONS[resName] || 'Base life support resource.';
 
         row.innerHTML = `
           <div class="res-header">
             <div class="res-name-box">
               <span class="res-icon">${icon}</span>
               <span>${resName}</span>
+              <span class="help-bubble" title="${escapeHtml(helpText)}">?</span>
             </div>
             <div class="res-val-box">
               ${deltaHtml}
@@ -2168,11 +2271,11 @@
     }
 
     function getFailureThresholdGuide(r) {
-      if (r === 'Oxygen') return 'Min 20%';
-      if (r === 'Water') return 'Min 20%';
-      if (r === 'Crew Health') return 'Min 50%';
-      if (r === 'Equipment') return 'Min 50%';
-      if (r === 'Power') return 'Must stay > 0%';
+      if (r === 'Oxygen') return 'Min 20% (Must not fall below 20%)';
+      if (r === 'Water') return 'Min 20% (Must not fall below 20%)';
+      if (r === 'Crew Health') return 'Min 50% (Must stay 50% or higher)';
+      if (r === 'Equipment') return 'Min 50% (Must stay 50% or higher)';
+      if (r === 'Power') return 'Must stay > 0% (Power cannot drop to 0%)';
       return 'None (Indirect LSI/Score)';
     }
 
@@ -2184,9 +2287,11 @@
       missionTitleDisplay.textContent = `${m.id} — ${m.title}`;
       missionStoryDisplay.textContent = m.story;
 
-      // Storm text based on mission progression
-      if (engine.currentMissionIndex <= 1) stormStatusText.textContent = 'SOLAR STORM INCOMING (05:30)';
+      // Storm text based on mission progression (2017 timeline at Shackleton Rim)
+      if (engine.currentMissionIndex <= 1) stormStatusText.textContent = 'SOLAR STORM INCOMING (2017) // SHACKLETON RIM';
       else if (engine.currentMissionIndex <= 3) stormStatusText.textContent = 'STORM FRONT ACTIVE // PEAK RADIUS';
+      else if (engine.currentMissionIndex <= 6) stormStatusText.textContent = 'MAX FLUX PROTON BOMBARDMENT';
+      else stormStatusText.textContent = 'STORM SUBSIDING // RECOVERY PHASE';
       else if (engine.currentMissionIndex <= 6) stormStatusText.textContent = 'MAX FLUX PROTON BOMBARDMENT';
       else stormStatusText.textContent = 'STORM SUBSIDING // RECOVERY PHASE';
 
