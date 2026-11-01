@@ -11,6 +11,9 @@
     { "source": "/food", "destination": "/2.1_daily_meal.html" },
     { "source": "/hydroponics", "destination": "/2.2_Hydroponics.html" },
     { "source": "/2.2_hydroponics", "destination": "/2.2_Hydroponics.html" },
+    { "source": "/final-mission", "destination": "/final_mission.html" },
+    { "source": "/final", "destination": "/final_mission.html" },
+    { "source": "/last-light", "destination": "/final_mission.html" },
     { "source": "/base", "destination": "/index.html" },
     { "source": "/mainbase", "destination": "/index.html" }
   ]
