@@ -717,6 +717,100 @@
       pointer-events: none;
     }
 
+    /* Dark Screen after loading with single TAP TO START button */
+    .tap-start-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      z-index: 99995;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.45s ease, visibility 0.45s ease;
+    }
+
+    .tap-start-screen.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .tap-start-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      user-select: none;
+    }
+
+    .tap-start-title {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1.4rem, 2.2vw, 2.3rem);
+      color: #38bdf8;
+      letter-spacing: 0.18em;
+      text-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
+    }
+
+    .tap-start-btn {
+      background: linear-gradient(180deg, #ffca28 0%, #f59e0b 100%);
+      border: 3.5px solid #000000;
+      box-shadow: inset 0 3px 0 #ffe082, inset 0 -3px 0 #b45309, 0 6px 0 #000000, 0 10px 28px rgba(245, 158, 11, 0.6);
+      border-radius: 12px;
+      color: #000000;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1.6rem, 2.6vw, 2.6rem);
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      padding: 14px 44px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      animation: pulse-tap-btn 1.4s infinite alternate;
+      transition: transform 0.12s ease, filter 0.12s ease;
+    }
+
+    .tap-start-btn:hover {
+      transform: scale(1.06);
+      filter: brightness(1.12);
+    }
+
+    .tap-start-btn:active {
+      transform: scale(0.96);
+    }
+
+    @keyframes pulse-tap-btn {
+      from {
+        transform: scale(1);
+        box-shadow: inset 0 3px 0 #ffe082, inset 0 -3px 0 #b45309, 0 6px 0 #000000, 0 8px 20px rgba(245, 158, 11, 0.4);
+      }
+      to {
+        transform: scale(1.05);
+        box-shadow: inset 0 3px 0 #ffe082, inset 0 -3px 0 #b45309, 0 6px 0 #000000, 0 14px 36px rgba(245, 158, 11, 0.85);
+      }
+    }
+
+    .tap-start-subtext {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1.1rem, 1.4vw, 1.5rem);
+      color: #94a3b8;
+      letter-spacing: 0.06em;
+      animation: blink-subtext 1.8s infinite;
+    }
+
+    @keyframes blink-subtext {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 0.35; }
+    }
+
     /* Fullscreen Moon Journey Intro Video Overlay (Plays right after Loading Screen) */
     .moon-journey-overlay {
       position: fixed;
@@ -2459,6 +2553,17 @@
     </div>
   </div>
 
+  <!-- Dark Screen after Loading Screen with Just One Button: TAP TO START -->
+  <div class="tap-start-screen" id="tapStartScreen" onclick="startMissionWithAudio()">
+    <div class="tap-start-content">
+      <div class="tap-start-title">MISSION READY</div>
+      <button class="tap-start-btn" id="tapStartBtn" type="button" onclick="event.stopPropagation(); startMissionWithAudio();">
+        🚀 TAP TO START
+      </button>
+      <div class="tap-start-subtext">Tap anywhere to launch</div>
+    </div>
+  </div>
+
   <!-- Moon Journey Starting Video Overlay (Plays immediately after MoonFall Loading Page) -->
   <div class="moon-journey-overlay" id="moonJourneyOverlay" onpointerdown="unlockGlobalAudio(); unmuteMoonJourneyVideo();" onclick="unlockGlobalAudio(); unmuteMoonJourneyVideo();">
     <video class="moon-journey-video" id="moonJourneyVideo" src="moon_journey_video.mp4" playsinline muted preload="auto"></video>
@@ -3642,20 +3747,44 @@
       }
     }
 
-    function dismissIntro() {
-      if (introDismissed) return;
-      introDismissed = true;
-      unlockGlobalAudio();
-      sound.init(); // Initialize audio context
-      sound.warpSound();
+    const tapStartScreen = document.getElementById('tapStartScreen');
+    let missionStarted = false;
+
+    function showTapStartScreen() {
+      if (introDismissed || missionStarted) return;
       introOverlay.classList.add('fade-out');
       setTimeout(() => {
         introOverlay.style.display = 'none';
-      }, 850);
-      playMoonJourneyVideo();
-      setTimeout(() => {
         if (animId) cancelAnimationFrame(animId);
-      }, 900);
+      }, 700);
+
+      if (tapStartScreen) {
+        tapStartScreen.classList.add('active');
+      }
+    }
+
+    function startMissionWithAudio() {
+      if (missionStarted) return;
+      missionStarted = true;
+      introDismissed = true;
+
+      // Direct user gesture unlocks audio context completely
+      unlockGlobalAudio();
+      sound.init();
+      sound.warpSound();
+
+      if (tapStartScreen) {
+        tapStartScreen.classList.remove('active');
+        setTimeout(() => {
+          tapStartScreen.style.display = 'none';
+        }, 450);
+      }
+
+      playMoonJourneyVideo();
+    }
+
+    function dismissIntro() {
+      startMissionWithAudio();
     }
 
     // Auto-advance loading bar like Clash of Clans
@@ -3665,7 +3794,7 @@
     let introStarted = false;
 
     function stepLoading(now) {
-      if (introDismissed) return;
+      if (introDismissed || missionStarted) return;
       if (!loadStart) loadStart = now;
       const elapsed = now - loadStart;
       const t = Math.min(elapsed / loadDuration, 1);
@@ -3687,15 +3816,15 @@
       if (currentPct < 100) {
         requestAnimationFrame(stepLoading);
       } else {
-        // Reached 100% -> Brief pause then auto fade out into Main Base
+        // Reached 100% -> Show Dark screen with single TAP TO START button
         setTimeout(() => {
-          dismissIntro();
-        }, 380);
+          showTapStartScreen();
+        }, 350);
       }
     }
 
     function checkAndStartIntro() {
-      if (introStarted || introDismissed) return;
+      if (introStarted || introDismissed || missionStarted) return;
       // On mobile in portrait: wait until phone is rotated horizontally!
       const isPortraitPhone = window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches && !document.body.classList.contains('force-horizontal');
       if (isPortraitPhone) return;
@@ -3712,15 +3841,17 @@
 
     // Optional: click to speed up or skip if user clicks
     introOverlay.addEventListener('click', () => {
-      if (!introDismissed && currentPct > 30) {
-        dismissIntro();
+      if (!introDismissed && !missionStarted && currentPct > 25) {
+        currentPct = 100;
+        if (cocFill) cocFill.style.width = '100%';
+        showTapStartScreen();
       }
     });
 
     window.addEventListener('keydown', (e) => {
-      if ([' ', 'Enter'].includes(e.key) && !introDismissed) {
+      if ([' ', 'Enter'].includes(e.key) && !missionStarted) {
         e.preventDefault();
-        dismissIntro();
+        startMissionWithAudio();
       }
     });
 
