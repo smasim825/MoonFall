@@ -2461,7 +2461,8 @@
 
   <!-- Moon Journey Starting Video Overlay (Plays immediately after MoonFall Loading Page) -->
   <div class="moon-journey-overlay" id="moonJourneyOverlay" onpointerdown="unlockGlobalAudio(); unmuteMoonJourneyVideo();" onclick="unlockGlobalAudio(); unmuteMoonJourneyVideo();">
-    <video class="moon-journey-video" id="moonJourneyVideo" src="moon_journey.mp4" playsinline preload="auto"></video>
+    <video class="moon-journey-video" id="moonJourneyVideo" src="moon_journey_video.mp4" playsinline muted preload="auto"></video>
+    <audio id="moonJourneyAudio" src="moon_journey.mp3" preload="auto"></audio>
     <button class="moon-journey-unmute-btn" id="moonJourneyUnmuteBtn" type="button" onclick="event.stopPropagation(); toggleMoonJourneyAudio();">
       🔊 UNMUTE
     </button>
@@ -3521,27 +3522,37 @@
 
     const moonJourneyOverlay = document.getElementById('moonJourneyOverlay');
     const moonJourneyVideo = document.getElementById('moonJourneyVideo');
+    const moonJourneyAudio = document.getElementById('moonJourneyAudio');
     const moonJourneyUnmuteBtn = document.getElementById('moonJourneyUnmuteBtn');
     let moonJourneyFinished = false;
 
+    function isJourneyAudioPlaying() {
+      return moonJourneyAudio && !moonJourneyAudio.paused && !moonJourneyAudio.muted;
+    }
+
     function updateMoonJourneyAudioUI() {
-      if (!moonJourneyUnmuteBtn || !moonJourneyVideo) return;
-      if (moonJourneyVideo.muted) {
-        moonJourneyUnmuteBtn.innerHTML = '🔊 UNMUTE';
-        moonJourneyUnmuteBtn.style.borderColor = '#ffca28';
-        moonJourneyUnmuteBtn.style.color = '#ffca28';
-      } else {
+      if (!moonJourneyUnmuteBtn) return;
+      if (isJourneyAudioPlaying()) {
         moonJourneyUnmuteBtn.innerHTML = '🔊 SOUND ON';
         moonJourneyUnmuteBtn.style.borderColor = '#00e5ff';
         moonJourneyUnmuteBtn.style.color = '#00e5ff';
+      } else {
+        moonJourneyUnmuteBtn.innerHTML = '🔊 UNMUTE';
+        moonJourneyUnmuteBtn.style.borderColor = '#ffca28';
+        moonJourneyUnmuteBtn.style.color = '#ffca28';
       }
     }
 
     function unlockGlobalAudio() {
       if (sound && sound.init) sound.init();
-      if (moonJourneyVideo && moonJourneyVideo.muted) {
-        moonJourneyVideo.muted = false;
-        updateMoonJourneyAudioUI();
+      if (moonJourneyAudio) {
+        moonJourneyAudio.muted = false;
+        if (moonJourneyVideo && !moonJourneyVideo.paused) {
+          moonJourneyAudio.currentTime = moonJourneyVideo.currentTime;
+          moonJourneyAudio.play().then(() => {
+            updateMoonJourneyAudioUI();
+          }).catch(() => {});
+        }
       }
     }
     window.addEventListener('pointerdown', unlockGlobalAudio, { passive: true });
@@ -3550,17 +3561,21 @@
     window.addEventListener('keydown', unlockGlobalAudio, { passive: true });
 
     function toggleMoonJourneyAudio() {
-      if (!moonJourneyVideo) return;
-      moonJourneyVideo.muted = !moonJourneyVideo.muted;
-      updateMoonJourneyAudioUI();
+      if (!moonJourneyAudio) return;
+      if (moonJourneyAudio.paused || moonJourneyAudio.muted) {
+        moonJourneyAudio.muted = false;
+        if (moonJourneyVideo) {
+          moonJourneyAudio.currentTime = moonJourneyVideo.currentTime;
+        }
+        moonJourneyAudio.play().catch(() => {});
+      } else {
+        moonJourneyAudio.pause();
+      }
+      setTimeout(updateMoonJourneyAudioUI, 50);
     }
 
     function unmuteMoonJourneyVideo() {
-      if (!moonJourneyVideo) return;
-      if (moonJourneyVideo.muted) {
-        moonJourneyVideo.muted = false;
-        updateMoonJourneyAudioUI();
-      }
+      unlockGlobalAudio();
     }
 
     function finishMoonJourneyVideo() {
@@ -3569,6 +3584,9 @@
       if (sound && sound.clickSound) sound.clickSound();
       if (moonJourneyVideo) {
         moonJourneyVideo.pause();
+      }
+      if (moonJourneyAudio) {
+        moonJourneyAudio.pause();
       }
       if (moonJourneyOverlay) {
         moonJourneyOverlay.classList.remove('active');
@@ -3582,6 +3600,13 @@
     if (moonJourneyVideo) {
       moonJourneyVideo.addEventListener('ended', finishMoonJourneyVideo);
       moonJourneyVideo.addEventListener('error', finishMoonJourneyVideo);
+      moonJourneyVideo.addEventListener('timeupdate', () => {
+        if (moonJourneyAudio && !moonJourneyAudio.paused) {
+          if (Math.abs(moonJourneyVideo.currentTime - moonJourneyAudio.currentTime) > 0.2) {
+            moonJourneyAudio.currentTime = moonJourneyVideo.currentTime;
+          }
+        }
+      });
     }
 
     function playMoonJourneyVideo() {
@@ -3591,25 +3616,29 @@
       }
       moonJourneyOverlay.classList.add('active');
       moonJourneyVideo.currentTime = 0;
-      
-      // Attempt to play with sound on first
-      moonJourneyVideo.muted = false;
-      updateMoonJourneyAudioUI();
+      moonJourneyVideo.muted = true; // Video track is silent for zero autoplay restrictions
 
-      const playPromise = moonJourneyVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          // Unmuted playback succeeded
-          updateMoonJourneyAudioUI();
-        }).catch((err) => {
-          console.warn("Unmuted video autoplay blocked by browser policy, falling back to muted:", err);
-          // If browser strictly blocks unmuted autoplay without prior interaction, fallback to muted
-          moonJourneyVideo.muted = true;
-          updateMoonJourneyAudioUI();
-          moonJourneyVideo.play().catch(() => {
-            finishMoonJourneyVideo();
+      if (moonJourneyAudio) {
+        moonJourneyAudio.currentTime = 0;
+        moonJourneyAudio.muted = false;
+      }
+
+      // Play video half
+      moonJourneyVideo.play().catch(() => {
+        finishMoonJourneyVideo();
+      });
+
+      // Play audio half simultaneously
+      if (moonJourneyAudio) {
+        const audioPromise = moonJourneyAudio.play();
+        if (audioPromise !== undefined) {
+          audioPromise.then(() => {
+            updateMoonJourneyAudioUI();
+          }).catch((err) => {
+            console.warn("Browser blocked audio autoplay until first touch/click:", err);
+            updateMoonJourneyAudioUI();
           });
-        });
+        }
       }
     }
 
