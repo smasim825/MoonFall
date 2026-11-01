@@ -1185,7 +1185,7 @@
     const SPECIALISTS = {
       P1: {
         id: 'P1',
-        title: 'Radiation & Shelter Specialist',
+        title: 'Crew Health & Shelter Specialist',
         name: 'Rakesh Sharma',
         badgeColor: '#c084fc',
         avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png'
@@ -1220,21 +1220,21 @@
         time: '05:30',
         lead: 'P1',
         support: 'P4',
-        leadAdvice: 'Solar proton flux is spiking off the charts. We have minutes before exposure levels turn lethal outside the core bunker. Evacuate now!',
+        leadAdvice: 'Solar proton flux is spiking off the charts. We have minutes before crew health drops to critical levels outside the core bunker. Evacuate now!',
         supportAdvice: 'If we abandon the surface arrays and rover umbilicals without orderly shutdown, power surges could wreck our external equipment.',
         story: 'A sharp emergency alert interrupts the quiet of the lunar morning. A solar particle event is approaching, and the outpost has only thirty minutes to prepare. The crew looks to the Commander as the warning sirens begin echoing through the habitat.',
         consumption: { Oxygen: -1, Water: 0, Power: 0, Food: 0 },
         choices: {
           A: {
             title: 'Evacuate immediately',
-            immediate: { 'Radiation Safety': 10, Equipment: -15 },
+            immediate: { 'Crew Health': 10, Equipment: -15 },
             delayed: { Equipment: -5 },
-            desc: 'Order all personnel into the hardened core bunker instantly, abandoning exposed machinery.'
+            desc: 'Order all personnel into the hardened core bunker instantly, protecting crew health while abandoning exposed machinery.'
           },
           B: {
             title: 'Secure critical equipment first',
-            immediate: { Power: -5, 'Radiation Safety': -12, Equipment: 10 },
-            delayed: { 'Radiation Safety': -3 },
+            immediate: { Power: -5, 'Crew Health': -12, Equipment: 10 },
+            delayed: { 'Crew Health': -3 },
             desc: 'Hold positions for 20 minutes to bolt down rover telemetry and isolate external solar masts.'
           }
         }
@@ -1245,28 +1245,28 @@
         time: '06:00',
         lead: 'P1',
         support: 'P4',
-        leadAdvice: 'The main storm front has hit. Deep shelter offers the best absorption, but water walls would absorb neutron cascades even more effectively.',
+        leadAdvice: 'The main storm front has hit. Deep shelter offers the best protection for crew health, but water walls would absorb particle cascades even more effectively.',
         supportAdvice: 'Moving or welding bulkheads takes heavy power tools. Watch our battery reserves if you reinforce the structure.',
         story: 'The storm front reaches the base perimeter. The designated shelter is intact, but its shielding is uneven and essential supplies are scattered between modules. The Commander must decide what the crew can protect before exposure becomes dangerous.',
         consumption: { Oxygen: -2, Water: 0, Power: -1, Food: 0 },
         choices: {
           A: {
             title: 'Move to the deepest shelter',
-            immediate: { Power: -3, 'Radiation Safety': 18, Equipment: -5 },
+            immediate: { Power: -3, 'Crew Health': 18, Equipment: -5 },
             delayed: { Equipment: -3 },
             desc: 'Crowd all four astronauts into the deepest lava-tube annex under maximum regolith depth.'
           },
           B: {
             title: 'Reinforce the weak wall',
-            immediate: { Power: -8, 'Radiation Safety': 12, Equipment: 5 },
+            immediate: { Power: -8, 'Crew Health': 12, Equipment: 5 },
             delayed: { Power: -2 },
             desc: 'Use motorized jacks and sintered regolith tiles to fortify the habitat’s vulnerable sunward wall.'
           },
           C: {
             title: 'Use water containers as shielding',
-            immediate: { Water: -15, 'Radiation Safety': 20 },
+            immediate: { Water: -15, 'Crew Health': 20 },
             delayed: { Water: -3 },
-            desc: 'Stack greywater bladders against the habitat ceiling. Hydrogen atoms provide elite proton stopping power.'
+            desc: 'Stack greywater bladders against the habitat ceiling. Hydrogen atoms provide elite protection for crew health.'
           }
         }
       },
@@ -1289,13 +1289,13 @@
           },
           B: {
             title: 'Activate backup power',
-            immediate: { Power: -18, Greenhouse: 5, Cooling: 5, Equipment: 8 },
+            immediate: { Power: -18, Greenhouse: 5, Equipment: 8 },
             delayed: { Power: -5 },
             desc: 'Fire up the secondary emergency Stirling generator to keep full environmental systems running.'
           },
           C: {
             title: 'Reduce power across systems',
-            immediate: { Power: -8, Greenhouse: -8, Cooling: -5 },
+            immediate: { Power: -8, Greenhouse: -8 },
             delayed: { Greenhouse: -3 },
             desc: 'Enact outpost-wide brownout. Throttle heating, dim hab lighting, and reduce atmospheric pump RPM by 40%.'
           }
@@ -1388,28 +1388,28 @@
         time: '20:00',
         lead: 'P4',
         support: 'P1',
-        leadAdvice: 'Thermal radiator loop B has sprung an ammonia leak! The hab core temperature is climbing 1.5°C every ten minutes!',
-        supportAdvice: 'A manual patch requires an EVA into the unshielded airlock corridor during active solar proton bombardment. Extreme hazard!',
-        story: 'A damaged thermal-control compartment begins to overheat. The cooling loop is unstable, and a repair team would need to work near a compromised section of the habitat. The storm is still active. One bad trade could end the mission.',
+        leadAdvice: 'Main distribution bus B has suffered a violent cascade short circuit! Equipment is sparking and power surges threaten the core habitat.',
+        supportAdvice: 'A manual repair in compartment 4 risks severe electrical shock and habitat exposure. Crew health will take a direct hit!',
+        story: 'A severe arc fault in power-bus junction 4 ruptures critical hardware. The electrical conduit is unstable, and a repair team would need to work near a dangerously compromised compartment of the habitat. The storm is still active. One bad trade could end the mission.',
         consumption: { Oxygen: -2, Water: 0, Power: -1, Food: 0 },
         choices: {
           A: {
             title: 'Isolate the damaged compartment',
-            immediate: { Power: 5, Cooling: -15, Equipment: -5 },
+            immediate: { Power: 5, Equipment: -5 },
             delayed: { Equipment: -5 },
-            desc: 'Seal off module 4 from the main loop. Drops cooling by -15% but preserves power and keeps astronauts inside the shelter.'
+            desc: 'Seal off module 4 from the power grid. Stabilizes baseline power (+5%) but leaves damaged hardware abandoned (-5% Equipment).'
           },
           B: {
             title: 'Attempt manual repair',
-            immediate: { Power: -12, 'Radiation Safety': -5, Cooling: 20, Equipment: 15 },
+            immediate: { Power: -12, 'Crew Health': -5, Equipment: 15 },
             delayed: { Power: -3 },
-            desc: 'Send an astronaut in a shielded rig to torque down the isolation valve. Restores cooling (+20%) but exposes crew to radiation.'
+            desc: 'Send an astronaut in protective gear to manually splice the high-voltage bus. Restores critical equipment (+15%) at the expense of power and crew health.'
           },
           C: {
-            title: 'Reroute cooling',
-            immediate: { Power: -10, Cooling: 10, Greenhouse: -8 },
+            title: 'Reroute power around the fault',
+            immediate: { Power: -10, Greenhouse: -8 },
             delayed: { Greenhouse: -3 },
-            desc: 'Divert heat exchangers through the subterranean regolith sink. Moderately stabilizes cooling (+10%) while chilling greenhouse tubes.'
+            desc: 'Bypass the faulted junction by routing high-current lines through the greenhouse sub-station. Drains power and dims crop lighting.'
           }
         }
       },
@@ -1419,22 +1419,22 @@
         time: '00:00',
         lead: 'P1',
         support: 'P2',
-        leadAdvice: 'The solar storm wave is decaying, but ambient secondary radiation remains elevated. Staying in bunkered lockdown is safest.',
-        supportAdvice: 'If we wait too long, frozen valves and cold-soaked battery cells will seize permanently. We must reboot outpost life support!',
-        story: 'Eighteen hours have passed since the warning. The radiation peak is easing, but the outpost is fragile and the crew is exhausted. You can remain under shelter until conditions settle, or begin a controlled recovery while systems are still under strain.',
+        leadAdvice: 'The solar storm wave is decaying, but ambient residual flux remains elevated. Staying in bunkered shelter is safest for crew health.',
+        supportAdvice: 'If we wait too long, cold-soaked battery cells and electronics will seize permanently. We must reboot outpost life support!',
+        story: 'Eighteen hours have passed since the warning. The storm peak is easing, but the outpost is fragile and the crew is exhausted. You can remain under shelter until conditions settle, or begin a controlled recovery while systems are still under strain.',
         consumption: { Oxygen: -2, Water: 0, Power: -1, Food: 0 },
         choices: {
           A: {
             title: 'Stay sheltered',
-            immediate: { Water: -2, Power: -5, 'Radiation Safety': 8 },
+            immediate: { Water: -2, Power: -5, 'Crew Health': 8 },
             delayed: { Food: -2 },
-            desc: 'Remain in bunkered lockdown until ground sensors confirm background radiation levels have returned to baseline.'
+            desc: 'Remain in bunkered lockdown until ground sensors confirm habitat environment has returned to baseline safety.'
           },
           B: {
             title: 'Begin controlled recovery',
-            immediate: { Water: -3, Power: -12, 'Radiation Safety': -10, Cooling: 5, Equipment: 10 },
+            immediate: { Water: -3, Power: -12, 'Crew Health': -10, Equipment: 10 },
             delayed: { Power: -2 },
-            desc: 'Power up primary habitat life support, unfreeze external radiator lines, and begin restoring full lunar outpost operations.'
+            desc: 'Power up primary habitat life support, unfreeze external equipment lines, and begin restoring full lunar outpost operations.'
           }
         }
       }
@@ -1456,9 +1456,8 @@
           Water: 65,
           Power: 75,
           Food: 90,
-          'Radiation Safety': 65,
+          'Crew Health': 65,
           Greenhouse: 90,
-          Cooling: 80,
           Equipment: 90
         };
         this.pendingDelayed = null;
@@ -1470,13 +1469,13 @@
 
       async loadSimulationJSON() {
         try {
-          const res = await fetch('moon_fall_1296_simulation_v2.json');
+          const res = await fetch('moon_fall_1296_simulation_v4.json');
           if (res.ok) {
             this.simData = await res.json();
-            console.log('[MOON FALL] Simulation JSON loaded successfully (1,296 entries available).');
+            console.log('[MOON FALL] Simulation JSON v4 loaded successfully (1,296 entries available).');
           }
         } catch (e) {
-          console.warn('[MOON FALL] moon_fall_1296_simulation_v2.json could not be fetched. Live engine will run standalone.', e);
+          console.warn('[MOON FALL] moon_fall_1296_simulation_v4.json could not be fetched. Live engine will run standalone.', e);
         }
       }
 
@@ -1502,17 +1501,14 @@
         if (lsi < 50) {
           return { failed: true, resource: 'Life Support Index', reason: 'Life Support Index below 50% fatal limit', value: lsi, missionNum, stage, choiceKey };
         }
-        if (this.resources['Radiation Safety'] < 15) {
-          return { failed: true, resource: 'Radiation Safety', reason: 'Radiation Safety below 15% lethal dose limit', value: this.resources['Radiation Safety'], missionNum, stage, choiceKey };
+        if (this.resources['Crew Health'] < 50) {
+          return { failed: true, resource: 'Crew Health', reason: 'Crew Health below 50% critical threshold', value: this.resources['Crew Health'], missionNum, stage, choiceKey };
         }
         if (this.resources.Power <= 0) {
           return { failed: true, resource: 'Power', reason: 'Power depleted (reaches 0%)', value: 0, missionNum, stage, choiceKey };
         }
-        if (this.resources.Cooling <= 0) {
-          return { failed: true, resource: 'Cooling', reason: 'Cooling loop seized (reaches 0%)', value: 0, missionNum, stage, choiceKey };
-        }
-        if (this.resources.Equipment <= 0) {
-          return { failed: true, resource: 'Equipment', reason: 'Critical equipment failure (reaches 0%)', value: 0, missionNum, stage, choiceKey };
+        if (this.resources.Equipment < 50) {
+          return { failed: true, resource: 'Equipment', reason: 'Equipment below 50% critical threshold', value: this.resources.Equipment, missionNum, stage, choiceKey };
         }
         return null;
       }
@@ -1612,13 +1608,13 @@
 
       calculateFinalScore() {
         const sum = Object.values(this.resources).reduce((a, b) => a + b, 0);
-        return sum / 8;
+        return sum / 7;
       }
 
       getStarRating(score) {
         if (this.isFailed) return 0;
-        if (score >= 68) return 3;
-        if (score >= 63) return 2;
+        if (score >= 66) return 3;
+        if (score >= 60) return 2;
         if (score >= 50) return 1;
         return 0;
       }
@@ -1717,9 +1713,8 @@
       Water: '💧',
       Power: '⚡',
       Food: '🍞',
-      'Radiation Safety': '🛡️',
+      'Crew Health': '🛡️',
       Greenhouse: '🍃',
-      Cooling: '❄️',
       Equipment: '🔧'
     };
 
@@ -1759,7 +1754,7 @@
       if (lsi < 50) {
         lsiCard.classList.add('danger');
         lsiStatusTag.textContent = 'CRITICAL FAILURE (< 50%)';
-      } else if (lsi <= 55) {
+      } else if (lsi <= 65) {
         lsiCard.classList.add('danger');
         lsiStatusTag.textContent = 'WARNING: NEAR FATAL';
       } else {
@@ -1773,14 +1768,13 @@
         const row = document.createElement('div');
         row.className = 'res-row';
 
-        // Check critical warning thresholds
+        // Check critical warning thresholds (within ~15 points of threshold)
         let isCrit = false;
-        if (resName === 'Oxygen' && val <= 25) isCrit = true;
-        if (resName === 'Water' && val <= 25) isCrit = true;
-        if (resName === 'Radiation Safety' && val <= 20) isCrit = true;
-        if (resName === 'Power' && val <= 10) isCrit = true;
-        if (resName === 'Cooling' && val <= 10) isCrit = true;
-        if (resName === 'Equipment' && val <= 10) isCrit = true;
+        if (resName === 'Oxygen' && val <= 35) isCrit = true;
+        if (resName === 'Water' && val <= 35) isCrit = true;
+        if (resName === 'Crew Health' && val <= 65) isCrit = true;
+        if (resName === 'Power' && val <= 15) isCrit = true;
+        if (resName === 'Equipment' && val <= 65) isCrit = true;
         if (isCrit) row.classList.add('critical-warning');
 
         // Color coding
@@ -1824,8 +1818,9 @@
     function getFailureThresholdGuide(r) {
       if (r === 'Oxygen') return 'Min 20%';
       if (r === 'Water') return 'Min 20%';
-      if (r === 'Radiation Safety') return 'Min 15%';
-      if (r === 'Power' || r === 'Cooling' || r === 'Equipment') return 'Must stay > 0%';
+      if (r === 'Crew Health') return 'Min 50%';
+      if (r === 'Equipment') return 'Min 50%';
+      if (r === 'Power') return 'Must stay > 0%';
       return 'None (Indirect LSI/Score)';
     }
 
@@ -2057,15 +2052,15 @@
 
       if (stars === 3) {
         finalStarsBox.textContent = '⭐⭐⭐';
-        finalStarTierLabel.textContent = '3 STARS // OUTSTANDING OUTPOST SURVIVAL (Score ≥ 68)';
+        finalStarTierLabel.textContent = '3 STARS // OUTSTANDING OUTPOST SURVIVAL (Score ≥ 66)';
         finalStarTierLabel.style.color = '#38bdf8';
       } else if (stars === 2) {
         finalStarsBox.textContent = '⭐⭐';
-        finalStarTierLabel.textContent = '2 STARS // ADMIRABLE MISSION RESILIENCE (63–67.9)';
+        finalStarTierLabel.textContent = '2 STARS // ADMIRABLE MISSION RESILIENCE (60–65.9)';
         finalStarTierLabel.style.color = '#fbbf24';
       } else if (stars === 1) {
         finalStarsBox.textContent = '⭐';
-        finalStarTierLabel.textContent = '1 STAR // MARGINAL SURVIVAL (50–62.9)';
+        finalStarTierLabel.textContent = '1 STAR // MARGINAL SURVIVAL (50–59.9)';
         finalStarTierLabel.style.color = '#f87171';
       } else {
         finalStarsBox.textContent = '❌';
@@ -2168,7 +2163,7 @@
       } else {
         comHtml = `
           <div style="font-family: var(--font-ui); color: #94a3b8;">
-            Simulation database commentary unavailable for this run. Live score calculated from 8-resource average: <strong>${finalScore.toFixed(2)}</strong>.
+            Simulation database commentary unavailable for this run. Live score calculated from 7-resource average: <strong>${finalScore.toFixed(2)}</strong>.
           </div>
         `;
       }
