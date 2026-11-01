@@ -605,6 +605,273 @@
       font-family: var(--font-ui);
     }
 
+    /* =========================================================================
+       M8 OPTIONAL MISSION CONTROL COMMS LINK & SPEED-OF-LIGHT DELAY
+       ========================================================================= */
+    .comms-section {
+      background: linear-gradient(180deg, rgba(16, 28, 56, 0.95) 0%, rgba(8, 16, 34, 0.98) 100%);
+      border: 1.5px solid #3b82f6;
+      border-radius: 10px;
+      padding: 14px 18px;
+      box-shadow: 0 4px 18px rgba(37, 99, 235, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .comms-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .comms-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .comms-title {
+      font-size: 1.25rem;
+      color: #60a5fa;
+      letter-spacing: 0.05em;
+    }
+
+    .comms-tag-badge {
+      background: rgba(59, 130, 246, 0.2);
+      color: #93c5fd;
+      border: 1px solid #3b82f6;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      font-family: var(--font-ui);
+    }
+
+    .comms-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mars-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      user-select: none;
+    }
+
+    .mars-toggle-label input[type="checkbox"] {
+      cursor: pointer;
+      width: 15px;
+      height: 15px;
+      accent-color: #ef4444;
+    }
+
+    .comms-call-btn {
+      background: linear-gradient(180deg, #1d4ed8 0%, #1e40af 100%);
+      border: 1px solid #60a5fa;
+      border-radius: 6px;
+      color: #ffffff;
+      padding: 8px 16px;
+      font-family: var(--font-pixel);
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+    }
+
+    .comms-call-btn:hover:not(:disabled) {
+      background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .comms-call-btn:disabled {
+      background: #334155;
+      border-color: #475569;
+      color: #94a3b8;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .comms-delay-hint {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      color: #94a3b8;
+    }
+
+    .comms-anim-box {
+      background: rgba(3, 7, 18, 0.85);
+      border: 1px dashed #3b82f6;
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: none;
+    }
+
+    .comms-anim-track {
+      position: relative;
+      height: 40px;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 6px;
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      overflow: hidden;
+    }
+
+    .comms-station {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.92rem;
+      z-index: 2;
+      font-family: var(--font-ui);
+      color: #e2e8f0;
+      font-weight: 500;
+    }
+
+    .comms-packet {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.35rem;
+      transition: left 0.05s linear;
+      z-index: 3;
+      filter: drop-shadow(0 0 8px #60a5fa);
+    }
+
+    .comms-timer-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-ui);
+      font-size: 0.86rem;
+      color: #93c5fd;
+    }
+
+    .comms-reply-panel {
+      background: linear-gradient(180deg, #0b1528 0%, #081020 100%);
+      border: 1.5px solid #38bdf8;
+      border-radius: 8px;
+      padding: 14px 16px;
+      box-shadow: 0 4px 18px rgba(56, 189, 248, 0.18);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .comms-reply-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+      padding-bottom: 8px;
+      gap: 6px;
+    }
+
+    .comms-reply-title {
+      font-size: 1.15rem;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .comms-lag-badge {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid #f59e0b;
+      color: #fbbf24;
+      font-size: 0.8rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: var(--font-ui);
+      font-weight: bold;
+    }
+
+    .comms-telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 8px;
+      margin: 4px 0;
+    }
+
+    .comms-telemetry-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+    }
+
+    .comms-telemetry-name {
+      color: #94a3b8;
+      font-size: 0.78rem;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .comms-telemetry-values {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+    }
+
+    .comms-advice-box {
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 3px solid #38bdf8;
+      padding: 10px 14px;
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      color: #f1f5f9;
+      line-height: 1.45;
+    }
+
+    .comms-kids-explainer {
+      background: rgba(16, 185, 129, 0.08);
+      border-left: 3px solid #10b981;
+      padding: 8px 12px;
+      font-family: var(--font-ui);
+      font-size: 0.88rem;
+      color: #a7f3d0;
+      line-height: 1.35;
+    }
+
+    .comms-footer-note {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    .disabled-choices {
+      pointer-events: none !important;
+      opacity: 0.42 !important;
+      filter: grayscale(0.65) !important;
+      cursor: not-allowed !important;
+      transition: opacity 0.2s ease;
+    }
+
     /* Decision Cards */
     .decisions-section-title {
       font-size: 1.4rem;
@@ -1015,6 +1282,71 @@
       <div class="decisions-section-title">
         <span>⚔️</span>
         <span>COMMANDER DECISION REQUIRED</span>
+      </div>
+
+      <!-- M8 Mission Control Relay (Optional Advisory) -->
+      <div id="missionControlSection" class="comms-section" style="display: none;">
+        <div class="comms-header-bar">
+          <div class="comms-title-wrap">
+            <span style="font-size: 1.3rem;">📡</span>
+            <span class="comms-title">COMMUNICATION RELAY // HOUSTON</span>
+            <span class="comms-tag-badge">OPTIONAL CONSULTATION</span>
+          </div>
+          <div class="comms-controls">
+            <label class="mars-toggle-label" title="Simulate interplanetary communication delay">
+              <input type="checkbox" id="marsModeToggle">
+              <span>Mars mode</span>
+            </label>
+            <button id="callMissionControlBtn" class="comms-call-btn" type="button" onclick="onCallMissionControl()">
+              <span>📡</span>
+              <span>Call Mission Control</span>
+            </button>
+          </div>
+        </div>
+        <div id="commsDelayHint" class="comms-delay-hint">
+          Moon mode: One-way delay 1.3s (round trip: 2.6s). Does not apply effects or use up your turn.
+        </div>
+
+        <!-- Signal Animation Box -->
+        <div id="commsAnimBox" class="comms-anim-box">
+          <div class="comms-timer-line">
+            <span id="commsAnimStatus">Transmitting telemetry packet to Houston...</span>
+            <span style="font-weight: bold; color: #fbbf24;">Round trip remaining: <span id="commsTimerDisplay">2.6s</span></span>
+          </div>
+          <div class="comms-anim-track">
+            <div id="commsLocalStation" class="comms-station">🌕 Moon Outpost</div>
+            <div id="commsAnimPacket" class="comms-packet">📨</div>
+            <div class="comms-station">🌍 Earth (Houston)</div>
+          </div>
+        </div>
+
+        <!-- Mission Control Reply Panel -->
+        <div id="commsReplyPanel" class="comms-reply-panel">
+          <div class="comms-reply-header">
+            <div class="comms-reply-title">
+              <span>📡</span>
+              <span>MISSION CONTROL ADVISORY TRANSMISSION</span>
+            </div>
+            <div id="commsLagBadge" class="comms-lag-badge">Earth's data is 1.3 seconds old.</div>
+          </div>
+
+          <div style="font-family: var(--font-ui); font-size: 0.85rem; color: #94a3b8;">
+            Earth's view is always slightly behind. Outpost telemetry snapshot vs crew view:
+          </div>
+
+          <!-- Comparison Grid -->
+          <div id="commsTelemetryGrid" class="comms-telemetry-grid"></div>
+
+          <div id="commsAdviceBox" class="comms-advice-box"></div>
+
+          <div class="comms-kids-explainer">
+            <strong>💡 Did You Know?</strong> Radio signals take about 1.3 seconds to reach Earth from the Moon. On Mars the one-way delay can be about 3 to 22 minutes.
+          </div>
+
+          <div class="comms-footer-note">
+            * Delay values are simplified for the game.
+          </div>
+        </div>
       </div>
 
       <div class="decisions-grid" id="decisionsGrid">
@@ -1708,6 +2040,26 @@
     const bestPathDrawer = document.getElementById('bestPathDrawer');
     const bestPathContent = document.getElementById('bestPathContent');
 
+    // Mission Control M8 Elements
+    const missionControlSection = document.getElementById('missionControlSection');
+    const callMissionControlBtn = document.getElementById('callMissionControlBtn');
+    const marsModeToggle = document.getElementById('marsModeToggle');
+    const commsDelayHint = document.getElementById('commsDelayHint');
+    const commsAnimBox = document.getElementById('commsAnimBox');
+    const commsAnimStatus = document.getElementById('commsAnimStatus');
+    const commsTimerDisplay = document.getElementById('commsTimerDisplay');
+    const commsAnimPacket = document.getElementById('commsAnimPacket');
+    const commsLocalStation = document.getElementById('commsLocalStation');
+    const commsReplyPanel = document.getElementById('commsReplyPanel');
+    const commsLagBadge = document.getElementById('commsLagBadge');
+    const commsTelemetryGrid = document.getElementById('commsTelemetryGrid');
+    const commsAdviceBox = document.getElementById('commsAdviceBox');
+
+    // In-memory Mission Control State
+    let missionControlUsed = false;
+    let missionControlSnapshot = null;
+    let commsTimerInterval = null;
+
     const RESOURCE_ICONS = {
       Oxygen: '🌬️',
       Water: '💧',
@@ -1901,6 +2253,187 @@
         `;
         decisionsGrid.appendChild(card);
       }
+
+      // Handle M8 Optional Mission Control Call section
+      if (m.id === 'M8') {
+        missionControlSection.style.display = 'flex';
+        if (missionControlUsed) {
+          callMissionControlBtn.disabled = true;
+          callMissionControlBtn.textContent = '📡 Mission Control Consulted';
+          marsModeToggle.disabled = true;
+        } else {
+          callMissionControlBtn.disabled = false;
+          callMissionControlBtn.innerHTML = '<span>📡</span><span>Call Mission Control</span>';
+          marsModeToggle.disabled = false;
+          commsAnimBox.style.display = 'none';
+          commsReplyPanel.style.display = 'none';
+        }
+      } else {
+        missionControlSection.style.display = 'none';
+        if (commsTimerInterval) {
+          clearInterval(commsTimerInterval);
+          commsTimerInterval = null;
+        }
+        decisionsGrid.classList.remove('disabled-choices');
+      }
+    }
+
+    // Mars mode toggle event handler
+    if (marsModeToggle) {
+      marsModeToggle.addEventListener('change', () => {
+        if (marsModeToggle.checked) {
+          commsDelayHint.textContent = 'Mars mode: One-way delay: about 12 minutes (sped up to 12 seconds for play).';
+          commsLocalStation.innerHTML = '🪐 Mars Outpost';
+        } else {
+          commsDelayHint.textContent = 'Moon mode: One-way delay 1.3s (round trip: 2.6s). Does not apply effects or use up your turn.';
+          commsLocalStation.innerHTML = '🌕 Moon Outpost';
+        }
+      });
+    }
+
+    function onCallMissionControl() {
+      if (missionControlUsed) return;
+      missionControlUsed = true;
+      sound.clickSound();
+
+      const isMars = marsModeToggle.checked;
+      const totalSeconds = isMars ? 12.0 : 2.6;
+
+      // 1. Save snapshot of all 7 current resource values and LSI
+      missionControlSnapshot = {
+        resources: { ...engine.resources },
+        lsi: engine.getLSI(),
+        isMars: isMars
+      };
+
+      // Disable button & toggle
+      callMissionControlBtn.disabled = true;
+      callMissionControlBtn.textContent = '📡 Signal in Transit...';
+      marsModeToggle.disabled = true;
+
+      // 3. Keep decision buttons visible but disable them until reply arrives
+      decisionsGrid.classList.add('disabled-choices');
+
+      // 2. Show signal animation with countdown timer
+      commsAnimBox.style.display = 'block';
+      commsReplyPanel.style.display = 'none';
+
+      let startTime = Date.now();
+      const totalMs = totalSeconds * 1000;
+
+      if (commsTimerInterval) clearInterval(commsTimerInterval);
+
+      commsTimerInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, (totalMs - elapsed) / 1000);
+        const progress = Math.min(1, elapsed / totalMs);
+
+        commsTimerDisplay.textContent = `${remaining.toFixed(1)}s`;
+
+        if (progress < 0.5) {
+          const legProgress = progress / 0.5;
+          commsAnimPacket.style.left = `${(legProgress * 80) + 10}%`;
+          commsAnimStatus.textContent = isMars 
+            ? 'Transmitting outbound telemetry packet toward Earth...'
+            : 'Transmitting outbound telemetry packet to Houston (1.3s delay)...';
+        } else {
+          const legProgress = (progress - 0.5) / 0.5;
+          commsAnimPacket.style.left = `${(80 - legProgress * 80) + 10}%`;
+          commsAnimStatus.textContent = isMars
+            ? 'Receiving inbound Mission Control advisory packet...'
+            : 'Receiving inbound Mission Control advisory from Earth (1.3s delay)...';
+        }
+
+        if (elapsed >= totalMs) {
+          clearInterval(commsTimerInterval);
+          commsTimerInterval = null;
+          commsAnimBox.style.display = 'none';
+
+          // Re-enable decisions
+          decisionsGrid.classList.remove('disabled-choices');
+          callMissionControlBtn.textContent = '📡 Mission Control Consulted';
+          sound.warnSound();
+
+          // 4. Show Mission Control reply panel
+          showMissionControlReply(missionControlSnapshot);
+        }
+      }, 50);
+    }
+
+    function getMissionControlAdvice(snapshot) {
+      let lowestRes = 'Oxygen';
+      let lowestVal = Infinity;
+      for (const [r, val] of Object.entries(snapshot.resources)) {
+        if (val < lowestVal) {
+          lowestVal = val;
+          lowestRes = r;
+        }
+      }
+
+      const adviceMap = {
+        Oxygen: `Telemetry indicates Oxygen reserves are down to ${Math.round(lowestVal)}%. Ensure atmospheric scrubbers remain viable.`,
+        Water: `Telemetry indicates potable Water reserves are down to ${Math.round(lowestVal)}%. Conserve life-support fluid inventories.`,
+        Power: `Telemetry indicates outpost Power is down to ${Math.round(lowestVal)}%. Guard your electrical grid against cascade collapse.`,
+        Food: `Telemetry indicates Food provisions are down to ${Math.round(lowestVal)}%. Ration emergency caloric supplies.`,
+        'Crew Health': `Telemetry indicates Crew Health index is down to ${Math.round(lowestVal)}%. Prioritize physical safety and habitat shielding.`,
+        Greenhouse: `Telemetry indicates Greenhouse bio-biomass is down to ${Math.round(lowestVal)}%. Account for hydroponic ecosystem vitality.`,
+        Equipment: `Telemetry indicates base Equipment integrity is down to ${Math.round(lowestVal)}%. Protect essential habitat mechanisms.`
+      };
+
+      const adviceLine = adviceMap[lowestRes] || `Telemetry confirms ${lowestRes} is currently the lowest resource at ${Math.round(lowestVal)}%.`;
+      return `${adviceLine} The decision is yours, Commander.`;
+    }
+
+    function showMissionControlReply(snapshot) {
+      if (!snapshot) return;
+
+      if (snapshot.isMars) {
+        commsLagBadge.textContent = "Earth's data is about 12 minutes old (sped up to 12 seconds for play).";
+      } else {
+        commsLagBadge.textContent = "Earth's data is 1.3 seconds old.";
+      }
+
+      commsTelemetryGrid.innerHTML = '';
+
+      for (const [rName, earthVal] of Object.entries(snapshot.resources)) {
+        const crewVal = engine.resources[rName];
+        const icon = RESOURCE_ICONS[rName] || '🔹';
+        const card = document.createElement('div');
+        card.className = 'comms-telemetry-card';
+        card.innerHTML = `
+          <div class="comms-telemetry-name">
+            <span>${icon} ${escapeHtml(rName)}</span>
+          </div>
+          <div class="comms-telemetry-values">
+            <span style="color: #94a3b8;" title="What Earth saw">Earth: <strong style="color: #38bdf8;">${Math.round(earthVal)}%</strong></span>
+            <span style="color: #cbd5e1;" title="What crew sees">Hab: <strong style="color: #ffffff;">${Math.round(crewVal)}%</strong></span>
+          </div>
+        `;
+        commsTelemetryGrid.appendChild(card);
+      }
+
+      // Include LSI in comparison
+      const lsiCard = document.createElement('div');
+      lsiCard.className = 'comms-telemetry-card';
+      lsiCard.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+      lsiCard.innerHTML = `
+        <div class="comms-telemetry-name">
+          <span>❤️ Life Support (LSI)</span>
+        </div>
+        <div class="comms-telemetry-values">
+          <span style="color: #94a3b8;">Earth: <strong style="color: #38bdf8;">${(Math.round(snapshot.lsi * 10) / 10)}%</strong></span>
+          <span style="color: #cbd5e1;">Hab: <strong style="color: #ffffff;">${(Math.round(engine.getLSI() * 10) / 10)}%</strong></span>
+        </div>
+      `;
+      commsTelemetryGrid.appendChild(lsiCard);
+
+      // General advice line based strictly on snapshot
+      commsAdviceBox.innerHTML = `
+        <div style="font-size: 0.8rem; color: #38bdf8; font-weight: bold; margin-bottom: 3px;">TRANSMITTED ADVISORY:</div>
+        <div>"${escapeHtml(getMissionControlAdvice(snapshot))}"</div>
+      `;
+
+      commsReplyPanel.style.display = 'flex';
     }
 
     function onPlayerSelectDecision(choiceKey) {
@@ -2207,6 +2740,23 @@
       finalDebriefModal.classList.remove('active');
       debriefModal.classList.remove('active');
       bestPathDrawer.style.display = 'none';
+
+      // Reset Mission Control comms state
+      missionControlUsed = false;
+      missionControlSnapshot = null;
+      if (commsTimerInterval) {
+        clearInterval(commsTimerInterval);
+        commsTimerInterval = null;
+      }
+      decisionsGrid.classList.remove('disabled-choices');
+      if (commsReplyPanel) commsReplyPanel.style.display = 'none';
+      if (commsAnimBox) commsAnimBox.style.display = 'none';
+      if (marsModeToggle) {
+        marsModeToggle.checked = false;
+        marsModeToggle.disabled = false;
+      }
+      if (commsLocalStation) commsLocalStation.innerHTML = '🌕 Moon Outpost';
+      if (commsDelayHint) commsDelayHint.textContent = 'Moon mode: One-way delay 1.3s (round trip: 2.6s). Does not apply effects or use up your turn.';
 
       engine.reset();
       initUI();
