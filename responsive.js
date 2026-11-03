@@ -7,6 +7,40 @@
     gameHudHome.insertBefore(gameHudMarker, gameHud);
   }
 
+  window.toggleMobileMenu = () => {
+    const hud = document.getElementById('gameTopHud');
+    const toggle = document.getElementById('mobileMenuToggle');
+    if (!hud || !toggle) return;
+    const isOpen = hud.classList.toggle('mobile-menu-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    const span = toggle.querySelector('span');
+    if (span) span.textContent = isOpen ? '✕' : '☰';
+  };
+
+  window.closeMobileMenu = () => {
+    const hud = document.getElementById('gameTopHud');
+    const toggle = document.getElementById('mobileMenuToggle');
+    if (hud) hud.classList.remove('mobile-menu-open');
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation menu');
+      const span = toggle.querySelector('span');
+      if (span) span.textContent = '☰';
+    }
+  };
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (event) => {
+    const hud = document.getElementById('gameTopHud');
+    const menu = document.getElementById('mobileNavMenu');
+    const toggle = document.getElementById('mobileMenuToggle');
+    if (!hud || !hud.classList.contains('mobile-menu-open')) return;
+    if (menu && !menu.contains(event.target) && toggle && !toggle.contains(event.target)) {
+      window.closeMobileMenu();
+    }
+  });
+
   const setForceHorizontal = (enabled) => {
     document.body.classList.toggle('force-horizontal', enabled);
 

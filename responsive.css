@@ -47,14 +47,15 @@ body {
   touch-action: manipulation;
 }
 
-.game-top-hud.mobile-floating-hud {
-  position: fixed !important;
-  top: max(8px, env(safe-area-inset-top)) !important;
-  left: 8px !important;
-  right: 56px !important;
-  width: auto !important;
-  z-index: 1000002 !important;
-  transform: none !important;
+/* ==========================================================================
+   Mobile Burger Menu & Top HUD Navigation
+   ========================================================================== */
+.mobile-menu-toggle {
+  display: none;
+}
+
+.mobile-nav-menu {
+  display: none;
 }
 
 body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .game-top-hud.mobile-floating-hud {
@@ -101,6 +102,204 @@ body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rota
   }
 }
 
+/* ==========================================================================
+   Mobile / Phone Screen Rules (<= 900px)
+   ========================================================================== */
+@media screen and (max-width: 900px) {
+  .game-top-hud {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    width: auto !important;
+    left: 8px !important;
+    right: 8px !important;
+    top: 8px !important;
+    position: absolute !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+  }
+
+  .game-top-hud.mobile-floating-hud {
+    position: fixed !important;
+    top: max(8px, env(safe-area-inset-top)) !important;
+    left: 8px !important;
+    right: 8px !important;
+    z-index: 1000002 !important;
+  }
+
+  /* Hide Desktop navigation buttons on mobile screen */
+  .hud-group-left,
+  .top-nav-cluster .top-nav-tabs {
+    display: none !important;
+  }
+
+  /* Telemetry Status Bar: STAYS PROMINENTLY AT THE TOP! */
+  .top-status-bar {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    order: 1 !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    padding: 5px 8px !important;
+    margin: 0 !important;
+    font-size: clamp(0.70rem, 2.2vw, 0.88rem) !important;
+    background: rgba(0, 16, 40, 0.94) !important;
+    border: 1.5px solid #0050b3 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 14px rgba(0, 80, 179, 0.5) !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+  }
+
+  .top-status-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .top-status-bar .status-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    padding: 0 4px !important;
+  }
+
+  .top-status-bar .status-label {
+    display: inline !important; /* Stays visible: POWER, WATER, BIOMASS, REGOLITH */
+    color: #94a3b8 !important;
+    font-weight: bold !important;
+  }
+
+  /* Mobile Burger Toggle Button */
+  .mobile-menu-toggle {
+    display: inline-flex !important;
+    order: 2 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+    border: 2px solid #00cfff !important;
+    border-radius: 8px !important;
+    background: linear-gradient(180deg, #10243b 0%, #06101f 100%) !important;
+    box-shadow: 0 3px 0 #000, 0 0 14px rgba(0, 207, 255, 0.4) !important;
+    color: #00e5ff !important;
+    font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
+    font-size: 26px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    z-index: 1000005 !important;
+    transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
+  }
+
+  .mobile-menu-toggle:active {
+    transform: translateY(2px) !important;
+  }
+
+  /* Mobile Dropdown Navigation Menu */
+  .mobile-nav-menu {
+    display: none;
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    right: 0 !important;
+    width: min(290px, calc(100vw - 16px)) !important;
+    background: rgba(4, 12, 26, 0.98) !important;
+    border: 2px solid #00cfff !important;
+    border-radius: 10px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 207, 255, 0.35) !important;
+    padding: 10px !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    z-index: 1000006 !important;
+    pointer-events: auto !important;
+    backdrop-filter: blur(12px) !important;
+    animation: menuFadeIn 0.18s ease-out;
+  }
+
+  @keyframes menuFadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .game-top-hud.mobile-menu-open .mobile-nav-menu {
+    display: flex !important;
+  }
+
+  .mobile-nav-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 10px 14px !important;
+    font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
+    font-size: 1.15rem !important;
+    letter-spacing: 0.05em !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    text-align: left !important;
+    transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease !important;
+  }
+
+  .mobile-nav-item:active {
+    transform: scale(0.97) !important;
+  }
+
+  .mobile-btn-phases {
+    background: linear-gradient(180deg, #ffca28 0%, #f59e0b 100%) !important;
+    border: 2.5px solid #000000 !important;
+    color: #000000 !important;
+    box-shadow: inset 0 2px 0 #ffe082, inset 0 -2px 0 #b45309, 0 3px 0 #000 !important;
+  }
+
+  .mobile-btn-crew {
+    background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%) !important;
+    border: 2.5px solid #000000 !important;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 0 #000 !important;
+    box-shadow: inset 0 2px 0 #7dd3fc, inset 0 -2px 0 #0369a1, 0 3px 0 #000 !important;
+  }
+
+  .mobile-btn-nasa {
+    background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%) !important;
+    border: 2px solid #00e5ff !important;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 0 #000 !important;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  }
+
+  .mobile-btn-upgrades {
+    background: linear-gradient(180deg, #475569 0%, #334155 100%) !important;
+    border: 2px solid #94a3b8 !important;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 0 #000 !important;
+    box-shadow: 0 0 12px rgba(148, 163, 184, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  }
+
+  /* Dropdown card on mobile */
+  .top-nav-dropdown {
+    position: fixed !important;
+    top: 54px !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-width: 440px !important;
+    margin: 0 auto !important;
+    max-height: calc(100vh - 70px) !important;
+    overflow-y: auto !important;
+    z-index: 1000020 !important;
+  }
+}
+
 @media screen and (max-width: 900px) and (orientation: landscape) {
   body.force-horizontal #gameViewport,
   body.force-horizontal #baseViewport,
@@ -122,7 +321,9 @@ body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rota
 
 @media screen and (min-width: 901px) {
   .orientation-banner,
-  .quick-rotate-toggle {
+  .quick-rotate-toggle,
+  .mobile-menu-toggle,
+  .mobile-nav-menu {
     display: none !important;
   }
 }

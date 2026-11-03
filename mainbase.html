@@ -1928,32 +1928,8 @@
     }
 
     /* Below 900px (Tablets / Mobile in landscape or portrait): Stacking */
+    /* Below 900px: Handled in responsive.css */
     @media (max-width: 900px) {
-      .game-top-hud {
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 6px;
-        top: 8px;
-        left: 8px;
-        right: 8px;
-      }
-      .hud-group-left {
-        order: 1;
-      }
-      .top-nav-cluster {
-        order: 2;
-      }
-      .top-status-bar {
-        order: 3;
-        width: 100%;
-        justify-content: space-around;
-        padding: 4px 8px;
-        font-size: 0.85rem;
-        background: rgba(8, 14, 30, 0.95);
-      }
-      .top-status-bar .status-label {
-        display: none;
-      }
     }
 
     @media (max-width: 580px) {
@@ -3459,8 +3435,8 @@
 
     <!-- Master Responsive Top HUD Navigation Bar -->
     <header class="game-top-hud" id="gameTopHud">
-      <!-- Left Side: Phase & Crew Controls -->
-      <div class="hud-group-left">
+      <!-- Left Side: Phase & Crew Controls (Desktop) -->
+      <div class="hud-group-left" id="hudGroupLeft">
         <button class="phase-dashboard-btn" id="phaseDashboardToggleBtn" onclick="openPhaseDashboard()" title="Open Mission Phases">
           <span class="nav-btn-icon">⚔️</span> <span class="btn-text">PHASES</span>
         </button>
@@ -3572,6 +3548,32 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Mobile Hamburger Button (Right side of Telemetry on Mobile) -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-label="Open navigation menu"
+        aria-expanded="false" aria-controls="mobileNavMenu" onclick="event.stopPropagation(); toggleMobileMenu();">
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <!-- Mobile Dropdown Navigation Menu (Contains: Phases, Meet the Crew, NASA Research, Base Upgrades) -->
+      <div class="mobile-nav-menu" id="mobileNavMenu" onclick="event.stopPropagation();">
+        <button class="mobile-nav-item mobile-btn-phases" type="button" onclick="openPhaseDashboard(); closeMobileMenu();">
+          <span class="nav-btn-icon">⚔️</span>
+          <span class="mobile-btn-text">PHASES</span>
+        </button>
+        <button class="mobile-nav-item mobile-btn-crew" type="button" onclick="openCrewManifestModal(); closeMobileMenu();">
+          <span class="nav-btn-icon">👨‍🚀</span>
+          <span class="mobile-btn-text">MEET THE CREW</span>
+        </button>
+        <button class="mobile-nav-item mobile-btn-nasa" type="button" onclick="toggleNavDropdown('nasa'); closeMobileMenu();">
+          <span class="nav-btn-icon">🔬</span>
+          <span class="mobile-btn-text">NASA RESEARCH</span>
+        </button>
+        <button class="mobile-nav-item mobile-btn-upgrades" type="button" onclick="toggleNavDropdown('upgrades'); closeMobileMenu();">
+          <span class="nav-btn-icon">🔧</span>
+          <span class="mobile-btn-text">BASE UPGRADES</span>
+        </button>
       </div>
     </header>
 
@@ -4009,6 +4011,7 @@
           <div style="display: flex; flex-direction: column; gap: 8px;">
             <div>
               <div style="display: flex; justify-content: space-between;">
+          </div>
                 <span>ISRU Water Purification &amp; Electrolysis</span>
                 <span style="color: #38bdf8;">12.4 kW</span>
               </div>
