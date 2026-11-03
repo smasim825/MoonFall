@@ -166,7 +166,7 @@
       /* Back Layer: Below Main Base */
     }
 
-    /* 3. Main Base Central Dome (Middle Layer: Decorative Hub - No Hover/Click) */
+    /* 3. Main Base (Red Theme) - Middle Layer (Upper of Power Station & ISRU) */
     .badge-main {
       --badge-glow: rgba(255, 60, 60, 0.95);
       left: 51.74%;
@@ -174,9 +174,6 @@
       width: 7.30%;
       z-index: 25;
       animation: main-bounce 2.1s infinite ease-in-out 0.9s;
-      cursor: default !important;
-      pointer-events: none !important;
-      user-select: none;
     }
 
     .building-main {
@@ -185,9 +182,6 @@
       top: 42.31%;
       width: 26.85%;
       z-index: 6;
-      cursor: default !important;
-      pointer-events: none !important;
-      user-select: none;
       /* Upper of Power Station & ISRU Processing */
     }
 
@@ -301,17 +295,17 @@
     }
 
     /* ==========================================================================
-       HOVER EFFECT: 4 Outer Mission Buildings Only (Power, Plant, ISRU, Shelter)
+       HOVER EFFECT: Desktop-Only Glow (prevents sticky square box on touchscreens)
        ========================================================================== */
     @media (hover: hover) and (pointer: fine) {
-      .building-layer:not(.building-main).hovered,
-      .building-layer:not(.building-main):hover {
+      .building-layer.hovered,
+      .building-layer:hover {
         filter: brightness(1.18) drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75)) !important;
         transform: translateY(-5px) scale(1.025) !important;
       }
 
-      .badge-layer:not(.badge-main).hovered,
-      .badge-layer:not(.badge-main):hover {
+      .badge-layer.hovered,
+      .badge-layer:hover {
         animation-play-state: paused;
         transform: translateY(-8px) scale(1.08) !important;
         filter: brightness(1.2) drop-shadow(0 0 10px var(--badge-glow, #ffffff)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85)) !important;
@@ -5863,6 +5857,7 @@
     const modules = [
       { badgeId: 'badgePower', bldId: 'bldPower', freq: 440 },
       { badgeId: 'badgePlant', bldId: 'bldPlant', freq: 520 },
+      { badgeId: 'badgeMain', bldId: 'bldMain', freq: 600 },
       { badgeId: 'badgeIsru', bldId: 'bldIsru', freq: 680 },
       { badgeId: 'badgeShelter', bldId: 'bldShelter', freq: 760 }
     ];
