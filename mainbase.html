@@ -3341,6 +3341,8 @@
     }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
+  <link rel="stylesheet" href="responsive.css">
+  <script src="responsive.js" defer></script>
 </head>
 
 <body>
@@ -3351,7 +3353,7 @@
       <div class="orientation-title">Landscape View Required</div>
       <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to start your mission.</p>
       <div class="orientation-buttons">
-        <button class="orientation-btn btn-rotate-now" onclick="toggleForceHorizontal()">
+        <button class="orientation-btn btn-rotate-now" onclick="requestLandscape()">
           ⤾ Rotate Screen to Horizontal
         </button>
       </div>
@@ -3359,7 +3361,7 @@
   </aside>
 
   <!-- Quick Floating Rotate Button on Mobile -->
-  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="toggleForceHorizontal()" title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
+  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="requestLandscape()" title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
     🔄 Screen
   </button>
 

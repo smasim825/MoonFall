@@ -1390,8 +1390,7 @@
       overflow: hidden;
     }
 
-    body.force-horizontal .base-viewport,
-    body.force-horizontal .intro-overlay {
+    body.force-horizontal .base-viewport {
       position: fixed !important;
       width: 100vh !important;
       height: 100vw !important;
@@ -3842,6 +3841,8 @@
     }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
+  <link rel="stylesheet" href="responsive.css">
+  <script src="responsive.js" defer></script>
 </head>
 
 <body>
@@ -3853,7 +3854,7 @@
       <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to
         start your mission.</p>
       <div class="orientation-buttons">
-        <button class="orientation-btn btn-rotate-now" onclick="toggleForceHorizontal()">
+        <button class="orientation-btn btn-rotate-now" onclick="requestLandscape()">
           ⤾ Rotate Screen to Horizontal
         </button>
       </div>
@@ -3861,7 +3862,7 @@
   </aside>
 
   <!-- Quick Floating Rotate Button on Mobile -->
-  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="toggleForceHorizontal()"
+  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="requestLandscape()"
     title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
     🔄 Screen
   </button>
@@ -4453,55 +4454,6 @@
     <img src="assets/base_assets/building_shelter.png" alt="Radiation Shelter" class="building-layer building-shelter"
       id="bldShelter" title="Radiation Shelter">
 
-    <!-- =========================================================================
-         MISSION 1 (POWER STATION) WALKING ENTRY SCENE OVERLAY & SPRITE
-         ========================================================================= -->
-    <!-- Airlock Target Waypoint on Power Station Entrance -->
-    <div class="airlock-target-beacon hidden" id="powerAirlockBeacon">
-      <div class="beacon-crosshair"></div>
-      <div class="beacon-pulse-ring"></div>
-      <div class="beacon-scanner-beam" id="powerScannerBeam"></div>
-      <div class="beacon-tag">⚡ PWR ENTRY AIRLOCK</div>
-    </div>
-
-    <!-- Animated Walking Astronaut Traversing Lunar Surface -->
-    <div class="entry-astronaut-wrap hidden" id="entryAstronaut">
-      <div class="astronaut-hud-tag" id="astroHudTag">
-        <span class="hud-tag-led"></span> ASTRO COMMANDO // O₂: 98%
-      </div>
-      <div class="astronaut-shadow"></div>
-      <img src="assets/character_walk/astronaut_walk.gif" alt="Astronaut Traversing Lunar Base"
-        class="entry-astronaut-sprite" id="entryAstronautSprite">
-    </div>
-
-    <!-- Cinematic Letterbox Borders & Real-Time Mission HUD -->
-    <div class="mission-walk-cinematic hidden" id="missionWalkCinematic">
-      <!-- Top Letterbox Bar -->
-      <div class="cinematic-bar top-bar">
-        <div class="cinematic-info-left">
-          <span class="cinematic-pulse-led"></span>
-          <span class="cinematic-badge">MISSION 1 // SECTOR: POWER SUBSTATION</span>
-          <span class="cinematic-divider">/</span>
-          <span class="cinematic-status" id="cinematicStatusText">CADET DEPLOYMENT IN PROGRESS...</span>
-        </div>
-        <button class="cinematic-skip-btn" id="cinematicSkipBtn" onclick="skipPowerMissionEntry()"
-          title="Skip Walk to Mission">
-          SKIP ▶▶
-        </button>
-      </div>
-
-      <!-- Bottom Letterbox Bar -->
-      <div class="cinematic-bar bottom-bar">
-        <div class="cinematic-telemetry">
-          <span>COORDINATES: 89.9°S 0.0°E (SHACKLETON)</span>
-          <span class="telemetry-sep">•</span>
-          <span>PRESSURE: 0.00 kPa [HARD VACUUM]</span>
-          <span class="telemetry-sep">•</span>
-          <span>CLEARANCE: LEVEL 1 AUTHORIZED</span>
-        </div>
-      </div>
-    </div>
-
     <!-- Screen Transition Wash Overlay -->
     <div class="entry-transition-flash" id="entryTransitionFlash"></div>
 
@@ -4695,7 +4647,7 @@
           </div>
           <div style="display: flex; gap: 10px;">
             <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.25rem; padding: 6px 20px;"
-              onclick="startPowerMissionWithWalk()">
+              onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='1.1_power_mission.html'">
               LAUNCH MISSION 1 ▶
             </button>
             <button class="hud-terminal-btn" style="font-size: 1.25rem; padding: 6px 16px;"
@@ -4773,7 +4725,7 @@
                 <div style="font-size: 0.95rem; color: #94a3b8;">Solar photovoltaic masts, nuclear baseload, and PDU
                   routing.</div>
               </div>
-              <button class="hud-terminal-btn" onclick="startPowerMissionWithWalk()">PLAY</button>
+              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='1.1_power_mission.html'">PLAY</button>
             </div>
             <div
               style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
@@ -6065,90 +6017,20 @@
     }
 
     function startPowerMissionWithWalk() {
-      stopMainBaseBgm();
-      sound.clickSound();
-
-      // Close all open tactical modals and dialogs
-      document.querySelectorAll('.tactical-modal').forEach(m => m.classList.add('hidden'));
-      const phaseModal = document.getElementById('phaseDashboardModal');
-      if (phaseModal) phaseModal.classList.add('hidden');
-      unzoomBuilding();
-
-      const viewport = document.getElementById('baseViewport');
-      const beacon = document.getElementById('powerAirlockBeacon');
-      const scannerBeam = document.getElementById('powerScannerBeam');
-      const astronaut = document.getElementById('entryAstronaut');
-      const cinematic = document.getElementById('missionWalkCinematic');
-      const statusText = document.getElementById('cinematicStatusText');
-      const astroTag = document.getElementById('astroHudTag');
-      const flash = document.getElementById('entryTransitionFlash');
-
-      if (!viewport || !astronaut) {
-        window.location.href = '1.1_power_mission.html';
-        return;
-      }
-
-      // Activate camera zoom & cinematic mode
-      viewport.classList.add('power-entry-active');
-      if (cinematic) cinematic.classList.remove('hidden');
-      if (beacon) beacon.classList.remove('hidden');
-
-      // Setup astronaut walk
-      astronaut.classList.remove('hidden');
-      astronaut.classList.remove('animating');
-      void astronaut.offsetWidth; // trigger reflow
-      astronaut.classList.add('animating');
-
-      if (statusText) statusText.textContent = 'CADET TRAVERSING LUNAR SURFACE // EN ROUTE TO SECTOR 1';
-      if (astroTag) astroTag.innerHTML = '<span class="hud-tag-led"></span> ASTRO COMMANDO // EN ROUTE';
-
-      // Play periodic footsteps (Web Audio API synthetic lunar dust crunch)
-      let stepCount = 0;
-      sound.footstepSound();
-      if (footstepInterval) clearInterval(footstepInterval);
-      footstepInterval = setInterval(() => {
-        stepCount++;
-        sound.footstepSound();
-        if (stepCount >= 7) {
-          clearInterval(footstepInterval);
-        }
-      }, 440);
-
-      // At 2.6s (approx 78% of walk animation): reached the airlock threshold
-      setTimeout(() => {
-        if (scannerBeam) scannerBeam.classList.add('active');
-        if (statusText) statusText.textContent = 'ACCESS GRANTED // AIRLOCK CYCLE & DEPRESSURIZATION';
-        if (astroTag) {
-          astroTag.innerHTML = '<span class="hud-tag-led" style="background:#00e5ff;box-shadow:0 0 6px #00e5ff;"></span> CLEARANCE VERIFIED // ENTERING';
-          astroTag.style.borderColor = '#fdcb0e';
-          astroTag.style.color = '#fdcb0e';
-        }
-        sound.airlockCycleSound();
-      }, 2600);
-
-      // At 3.25s: transition flash and load mission
-      if (powerEntryTimer) clearTimeout(powerEntryTimer);
-      powerEntryTimer = setTimeout(() => {
-        if (flash) flash.classList.add('active');
-        setTimeout(() => {
-          window.location.href = '1.1_power_mission.html';
-        }, 380);
-      }, 3250);
+      if (window.stopMainBaseBgm) stopMainBaseBgm();
+      if (sound && sound.clickSound) sound.clickSound();
+      window.location.href = '1.1_power_mission.html';
     }
 
     function launchGame() {
-      stopMainBaseBgm();
-      sound.clickSound();
+      if (window.stopMainBaseBgm) stopMainBaseBgm();
+      if (sound && sound.clickSound) sound.clickSound();
       if (isBaseIntroActive && !currentZoomedBldId) {
         openPhaseDashboard();
         return;
       }
       const activeSub = currentZoomedBldId ? getActiveSubtask(currentZoomedBldId) : null;
       const targetUrl = (activeSub && activeSub.url) ? activeSub.url : '1.1_power_mission.html';
-      if (targetUrl === '1.1_power_mission.html') {
-        startPowerMissionWithWalk();
-        return;
-      }
       window.location.href = targetUrl;
     }
 

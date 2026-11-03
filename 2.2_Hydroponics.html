@@ -16,6 +16,8 @@
 
   <!-- Astro Bee LLM Chatbot Stylesheet -->
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
+  <link rel="stylesheet" href="responsive.css">
+  <script src="responsive.js" defer></script>
 
   <!-- Asset Preloads (High Performance WebP) -->
   <link rel="preload" href="2.2_Hydroponics/Group 1.webp" as="image">
@@ -1206,6 +1208,17 @@
 </head>
 
 <body>
+  <aside class="orientation-banner" id="orientationBanner" role="dialog" aria-modal="true" aria-label="Rotate device">
+    <div class="orientation-card">
+      <div class="phone-rotate-icon" aria-hidden="true">&#8635;</div>
+      <div class="orientation-title">Landscape View Required</div>
+      <p class="orientation-desc">MoonFall plays best with your phone held horizontally.</p>
+      <div class="orientation-buttons">
+        <button class="orientation-btn btn-rotate-now" type="button" onclick="requestLandscape()">Rotate screen to play</button>
+      </div>
+    </div>
+  </aside>
+  <button class="quick-rotate-toggle" type="button" onclick="requestLandscape()" title="Rotate game screen" aria-label="Rotate game screen">&#8635; Screen</button>
   <main class="game-viewport" id="gameViewport">
     <div class="game-stage">
       <!-- Background Layer -->

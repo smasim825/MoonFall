@@ -25,6 +25,8 @@
   <link rel="preload" href="assets/Mission Complete.png" as="image">
 
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="responsive.css">
+  <script src="responsive.js" defer></script>
 
   <style>
     /* ==========================================================================
@@ -805,16 +807,7 @@
        Space Airlock Blast Doors Transition Overlay
        ========================================================================== */
     .space-airlock-overlay {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 999999;
-      pointer-events: auto;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: none !important;
     }
 
     .space-airlock-overlay.opened {
@@ -1208,84 +1201,6 @@
 </head>
 
 <body>
-  <!-- Space Airlock Blast Doors Transition Overlay -->
-  <div class="space-airlock-overlay" id="spaceAirlock">
-    <!-- Left Heavy Blast Door -->
-    <div class="airlock-door airlock-door-left" id="airlockDoorLeft">
-      <div class="airlock-hazard-stripes"></div>
-      <div class="airlock-panel-detail">
-        <div class="airlock-submodule-tag">MOD 01 // PWR-SYS</div>
-      </div>
-    </div>
-
-    <!-- Right Heavy Blast Door -->
-    <div class="airlock-door airlock-door-right" id="airlockDoorRight">
-      <div class="airlock-hazard-stripes"></div>
-      <div class="airlock-panel-detail">
-        <div class="airlock-submodule-tag">SHACKLETON // SOUTH POLE</div>
-      </div>
-    </div>
-
-    <!-- Center Industrial Bulkhead Lock & Tactical HUD -->
-    <div class="airlock-lock-hud" id="airlockHud">
-      <!-- Cyber Corner Brackets -->
-      <span class="hud-bracket hud-bracket-tl"></span>
-      <span class="hud-bracket hud-bracket-tr"></span>
-      <span class="hud-bracket hud-bracket-bl"></span>
-      <span class="hud-bracket hud-bracket-br"></span>
-
-      <!-- Top Tactical Telemetry Header -->
-      <div class="airlock-telemetry-row">
-        <span class="airlock-badge-code">SYS://AL-01</span>
-        <span class="airlock-telemetry-tag"><span class="telemetry-led led-green"></span> PRESS: 101.3 kPa</span>
-        <span class="airlock-telemetry-tag"><span class="telemetry-led led-cyan"></span> O₂: 21.4%</span>
-        <span class="airlock-badge-sector">SHACKLETON BASE</span>
-      </div>
-
-      <div class="airlock-hud-content">
-        <!-- Mechanical Vector Lock Gear -->
-        <div class="airlock-mech-lock">
-          <svg class="mech-gear-svg" viewBox="0 0 100 100" id="gearSvg">
-            <circle cx="50" cy="50" r="44" fill="none" stroke="#00e5ff" stroke-width="2" stroke-dasharray="6 4" opacity="0.75" />
-            <g class="rotating-teeth" id="rotatingTeeth">
-              <circle cx="50" cy="50" r="32" fill="none" stroke="#fdcb0e" stroke-width="2.5" stroke-dasharray="12 8" />
-              <polygon points="50,10 54,20 46,20" fill="#00e5ff" />
-              <polygon points="50,90 54,80 46,80" fill="#00e5ff" />
-              <polygon points="10,50 20,54 20,46" fill="#00e5ff" />
-              <polygon points="90,50 80,54 80,46" fill="#00e5ff" />
-            </g>
-            <circle cx="50" cy="50" r="18" fill="#081427" stroke="#00e5ff" stroke-width="2" />
-            <path id="lockBoltPath" d="M42 50 L58 50 M50 42 L50 58" stroke="#fdcb0e" stroke-width="3" stroke-linecap="round" />
-          </svg>
-          <div class="lock-status-lamp" id="lockLamp"></div>
-        </div>
-
-        <!-- Mission Title & Status Readout -->
-        <div class="airlock-text-block">
-          <div class="airlock-title-label">TARGET MODULE:</div>
-          <div class="airlock-mission-name" id="airlockTitle">⚡ MISSION 1: POWER STATION</div>
-          
-          <div class="airlock-status-ribbon" id="airlockRibbon">
-            <span class="ribbon-indicator" id="ribbonIcon">⚙️</span>
-            <span class="ribbon-text" id="airlockStatus">CYCLING AIRLOCK // DEPRESSURIZING...</span>
-          </div>
-
-          <button class="airlock-cycle-btn" id="airlockCycleBtn">
-            <span>▶ CLICK TO CYCLE AIRLOCK &amp; ENTER</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Bottom Scanning Laser Strip -->
-      <div class="airlock-scan-bar">
-        <div class="airlock-scan-progress"></div>
-      </div>
-    </div>
-
-    <!-- Cryo Steam Vent FX -->
-    <div class="airlock-steam-vent left" id="steamLeft"></div>
-  </div>
-
   <!-- Mobile Landscape Orientation Banner -->
   <aside class="orientation-banner" id="orientationBanner" role="dialog" aria-modal="true" aria-label="Rotate Device">
     <div class="orientation-card">
@@ -1293,7 +1208,7 @@
       <div class="orientation-title">Landscape View Required</div>
       <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to continue.</p>
       <div class="orientation-buttons">
-        <button class="orientation-btn btn-rotate-now" onclick="toggleForceHorizontal()">
+        <button class="orientation-btn btn-rotate-now" onclick="requestLandscape()">
           ⤾ Rotate Screen to Horizontal
         </button>
       </div>
@@ -1301,7 +1216,7 @@
   </aside>
 
   <!-- Quick Floating Rotate Button on Mobile -->
-  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="toggleForceHorizontal()"
+  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="requestLandscape()"
     title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
     🔄 Screen
   </button>
@@ -1564,21 +1479,12 @@
     }
 
     // =========================================================================
-    // All 17 Scenes Definitions
+    // All 16 Scenes Definitions
     // =========================================================================
     const SCENES = [
-      // Scene 1: Just background, character comes in 2nd screen automatically
+      // Scene 1: Chiaki Mukai welcoming + Astronaut
       {
         id: 1,
-        autoAdvance: 1800,
-        showChiaki: false,
-        showAstronaut: false,
-        cardImg: null,
-        text: ""
-      },
-      // Scene 2: 2nd image given by user - Chiaki Mukai welcoming + Astronaut
-      {
-        id: 2,
         showChiaki: true,
         chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp',
         showAstronaut: true,
@@ -2272,34 +2178,22 @@
       }
     }
 
-    let airlockTransition;
-
     function returnToBase() {
       sound.playClick();
       try { sessionStorage.setItem('moonfall_landed', 'true'); } catch (e) { }
-      if (airlockTransition) {
-        airlockTransition.exit('index.html?return=base', 'CYCLING AIRLOCK // RETURNING TO MAIN BASE');
-      } else {
-        window.location.href = 'index.html?return=base';
-      }
+      window.location.href = 'index.html?return=base';
     }
 
     function goToRadiationMission() {
       sound.playClick();
-      if (airlockTransition) {
-        airlockTransition.exit('5.1_Radiation_mission.html', 'TRANSFERRING TO RADIATION LAB');
-      } else {
-        window.location.href = '5.1_Radiation_mission.html';
-      }
+      window.location.href = '5.1_Radiation_mission.html';
     }
 
     // Keyboard navigation
     window.addEventListener('keydown', (e) => {
       if (e.code === 'Space' || e.code === 'Enter') {
         e.preventDefault();
-        if (currentSceneIdx === 0) {
-          renderScene(1);
-        } else if (!SCENES[currentSceneIdx]?.isMcq) {
+        if (!SCENES[currentSceneIdx]?.isMcq) {
           handleDialogueClick();
         }
       }
@@ -2318,8 +2212,6 @@
 
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
-      airlockTransition = new SpaceAirlockController();
-      airlockTransition.openOnStart();
       renderScene(0);
     });
   </script>

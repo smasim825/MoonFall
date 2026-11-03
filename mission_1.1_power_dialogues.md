@@ -5,7 +5,7 @@
 
 ---
 
-### Scene 2 — Station Welcome
+### Scene 1 — Station Welcome
 * **Speaker**: Chiaki Mukai
 * **Dialogue**:
   > "Welcome to the power station! Here we generate, store, and route electricity."
