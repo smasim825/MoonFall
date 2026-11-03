@@ -1817,16 +1817,16 @@
         consumption: { Oxygen: -2, Water: 0, Power: -1, Food: 0 },
         choices: {
           A: {
-            title: 'Isolate the damaged compartment',
-            immediate: { Power: 5, Equipment: -5 },
-            delayed: { Equipment: -5 },
-            desc: 'Seal off module 4 from the power grid. Stabilizes baseline power (+5%) but leaves damaged hardware abandoned (-5% Equipment).'
-          },
-          B: {
             title: 'Attempt manual repair',
             immediate: { Power: -12, 'Crew Health': -5, Equipment: 15 },
             delayed: { Power: -3 },
             desc: 'Send an astronaut in protective gear to manually splice the high-voltage bus. Restores critical equipment (+15%) at the expense of power and crew health.'
+          },
+          B: {
+            title: 'Isolate the damaged compartment',
+            immediate: { Power: -8, Equipment: -5 },
+            delayed: { Equipment: -5 },
+            desc: 'Seal off module 4 from the power grid. Stabilizes baseline circuits while cutting power to damaged feeds (-8% Power, -5% Equipment).'
           },
           C: {
             title: 'Reroute power around the fault',

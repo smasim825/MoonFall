@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canva Connection Flowchart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0b0f19;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .step-card {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .step-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+  <div class="max-w-2xl w-full bg-[#131b2e] border border-slate-800 rounded-3xl p-8 shadow-2xl backdrop-blur-xl">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between pb-6 border-b border-slate-800/80">
+      <div>
+        <h1 class="text-2xl font-bold flex items-center gap-3">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-cyan-400 text-white font-black text-sm shadow-lg shadow-purple-500/20">C</span>
+          Canva Connection Workflow
+        </h1>
+        <p class="text-xs text-slate-400 mt-1">OAuth 2.0 Authorization Flow for <span class="font-mono text-cyan-400 font-semibold">smasim825@gmail.com</span></p>
+      </div>
+      <span class="px-3 py-1 text-xs rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold tracking-wide">
+        5 STEPS
+      </span>
+    </div>
+
+    <!-- Flowchart Items -->
+    <div class="mt-8 space-y-4">
+
+      <!-- Step 1 -->
+      <div class="step-card bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 flex items-start gap-4 hover:border-indigo-500/50">
+        <div class="flex-shrink-0 w-9 h-9 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 flex items-center justify-center font-bold text-sm shadow-inner">
+          1
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-semibold text-slate-100">Initiate Sign-In</h2>
+            <span class="text-xs text-slate-500 font-medium">Antigravity / IDE</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Click the <strong class="text-indigo-400 font-semibold">"Sign in"</strong> button on the Canva card inside the chat conversation.</p>
+        </div>
+      </div>
+
+      <!-- Arrow Down -->
+      <div class="flex justify-center -my-2">
+        <svg class="w-5 h-5 text-slate-600 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 flex items-start gap-4 hover:border-cyan-500/50">
+        <div class="flex-shrink-0 w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center font-bold text-sm shadow-inner">
+          2
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-semibold text-slate-100">Browser Opens Canva Login</h2>
+            <span class="text-xs text-slate-500 font-medium">Web Browser</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Your default browser launches Canva. Sign in to your account: <span class="font-mono text-cyan-300 font-medium bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-800/50">smasim825@gmail.com</span>.</p>
+        </div>
+      </div>
+
+      <!-- Arrow Down -->
+      <div class="flex justify-center -my-2">
+        <svg class="w-5 h-5 text-slate-600 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/50">
+        <div class="flex-shrink-0 w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center font-bold text-sm shadow-inner">
+          3
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-semibold text-slate-100">Authorize Access</h2>
+            <span class="text-xs text-slate-500 font-medium">Canva OAuth Screen</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Review the requested permissions on Canva and click <strong class="text-amber-300 font-semibold">"Allow" / "Authorize"</strong>.</p>
+        </div>
+      </div>
+
+      <!-- Arrow Down -->
+      <div class="flex justify-center -my-2">
+        <svg class="w-5 h-5 text-slate-600 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-card bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 flex items-start gap-4 hover:border-purple-500/50">
+        <div class="flex-shrink-0 w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center font-bold text-sm shadow-inner">
+          4
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-semibold text-slate-100">Copy One-Time Code</h2>
+            <span class="text-xs text-slate-500 font-medium">Browser Confirmation</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Canva generates your temporary authorization code. Click the <strong class="text-purple-300 font-semibold">"Copy"</strong> button.</p>
+        </div>
+      </div>
+
+      <!-- Arrow Down -->
+      <div class="flex justify-center -my-2">
+        <svg class="w-5 h-5 text-slate-600 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step-card bg-emerald-950/30 border border-emerald-500/30 rounded-2xl p-5 flex items-start gap-4 hover:border-emerald-500/60">
+        <div class="flex-shrink-0 w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center font-bold text-sm shadow-inner">
+          ✓
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-semibold text-emerald-400">Paste Code & Finalize</h2>
+            <span class="text-xs text-emerald-400/90 font-medium">Connected</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">Return to Antigravity, paste the code into the prompt or pop-up box, and hit <strong class="text-emerald-400 font-semibold">Enter</strong>.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Note -->
+    <div class="mt-8 pt-5 border-t border-slate-800/80 flex items-center gap-3 text-xs text-slate-400">
+      <div class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></div>
+      <p>Secure standard OAuth 2.0 flow: your password is never exposed or shared with the AI.</p>
+    </div>
+
+  </div>
+</body>
+</html>
+

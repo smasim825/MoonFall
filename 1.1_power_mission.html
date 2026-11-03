@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MoonFall - Mission 1.1: Power and Energy</title>
+  <title>MoonFall - Mission 1: Power and Energy</title>
   <meta name="description" content="Lunar base power station mission and system verification quiz.">
 
   <!-- Retro Pixel Font -->
@@ -28,7 +28,7 @@
 
   <style>
     /* ==========================================================================
-       MoonFall Mission 1.1: Power Station Engine Styles
+       MoonFall Mission 1: Power Station Engine Styles
        ========================================================================== */
     @font-face {
       font-family: 'Jersey 10';
@@ -451,23 +451,23 @@
        ========================================================================== */
     .mcq-stage-box {
       position: absolute;
-      top: 22%;
+      top: 20%;
       left: 50%;
       transform: translateX(-50%);
-      width: 74%;
-      min-height: 34%;
-      background: rgba(2, 28, 62, 0.88);
-      border: 3.5px solid var(--pixel-blue-border);
-      border-radius: 14px;
+      width: 76%;
+      min-height: 36%;
+      background: radial-gradient(circle at 50% 20%, rgba(5, 20, 48, 0.94) 0%, rgba(2, 10, 24, 0.97) 100%);
+      border: 2.5px solid #00e5ff;
+      border-radius: 12px;
       box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.8),
-        inset 0 0 16px rgba(0, 153, 255, 0.3),
-        0 0 20px rgba(0, 153, 255, 0.4);
-      padding: 16px 24px;
+        0 12px 35px rgba(0, 0, 0, 0.85),
+        inset 0 0 20px rgba(0, 229, 255, 0.15),
+        0 0 25px rgba(0, 229, 255, 0.3);
+      padding: 18px 26px;
       box-sizing: border-box;
       z-index: 25;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       animation: mcq-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -800,11 +800,492 @@
     .hidden {
       display: none !important;
     }
+
+    /* ==========================================================================
+       Space Airlock Blast Doors Transition Overlay
+       ========================================================================== */
+    .space-airlock-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 999999;
+      pointer-events: auto;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .space-airlock-overlay.opened {
+      pointer-events: none !important;
+      display: none !important;
+    }
+
+    .airlock-door {
+      position: absolute;
+      top: 0;
+      width: 50.2vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #070c18 0%, #152238 45%, #0a1122 100%);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
+      transition: transform 0.65s cubic-bezier(0.2, 0.95, 0.25, 1);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      will-change: transform;
+    }
+
+    .airlock-door-left {
+      left: 0;
+      transform: translateX(0);
+      border-right: 3.5px solid #00e5ff;
+      box-shadow: inset -10px 0 30px rgba(0, 229, 255, 0.25);
+    }
+
+    .airlock-door-right {
+      right: 0;
+      transform: translateX(0);
+      border-left: 3.5px solid #00e5ff;
+      box-shadow: inset 10px 0 30px rgba(0, 229, 255, 0.25);
+    }
+
+    /* Open Animations */
+    .space-airlock-overlay.anim-open .airlock-door-left {
+      transform: translateX(-101%);
+    }
+
+    .space-airlock-overlay.anim-open .airlock-door-right {
+      transform: translateX(101%);
+    }
+
+    .space-airlock-overlay.anim-open .airlock-lock-hud {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.3s ease, transform 0.35s ease;
+    }
+
+    /* Diagonal Caution Stripes on Seams */
+    .airlock-hazard-stripes {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 22px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #f59e0b,
+        #f59e0b 14px,
+        #0b0f19 14px,
+        #0b0f19 28px
+      );
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+    }
+
+    .airlock-door-left .airlock-hazard-stripes {
+      right: 0;
+    }
+
+    .airlock-door-right .airlock-hazard-stripes {
+      left: 0;
+    }
+
+    /* Decorative Paneling & Decals */
+    .airlock-panel-detail {
+      position: absolute;
+      inset: 40px;
+      border: 1.5px solid rgba(0, 153, 255, 0.25);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.2);
+      pointer-events: none;
+    }
+
+    .airlock-submodule-tag {
+      position: absolute;
+      bottom: 24px;
+      font-size: 1.15rem;
+      color: rgba(0, 229, 255, 0.65);
+      letter-spacing: 0.12em;
+      font-family: var(--font-pixel);
+    }
+
+    .airlock-door-left .airlock-submodule-tag { left: 24px; }
+    .airlock-door-right .airlock-submodule-tag { right: 24px; text-align: right; }
+
+    /* Center Hydraulic Lock & Tactical HUD */
+    .airlock-lock-hud {
+      position: relative;
+      z-index: 10;
+      background: radial-gradient(circle at 50% 30%, #0d1a33 0%, #050b17 100%);
+      border: 2px solid #00e5ff;
+      border-radius: 8px;
+      padding: 16px 24px 14px;
+      box-shadow:
+        0 14px 45px rgba(0, 0, 0, 0.95),
+        0 0 35px rgba(0, 229, 255, 0.35),
+        inset 0 0 24px rgba(0, 229, 255, 0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: min(90vw, 560px);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 229, 255, 0.025) 3px,
+        rgba(0, 229, 255, 0.025) 6px
+      );
+    }
+
+    /* Cyber Tech Corner Brackets */
+    .hud-bracket {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border: 2.5px solid #fdcb0e;
+      pointer-events: none;
+      filter: drop-shadow(0 0 6px rgba(253, 203, 14, 0.6));
+    }
+    .hud-bracket-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+    .hud-bracket-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+    .hud-bracket-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+    .hud-bracket-br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+    /* Top Telemetry Header */
+    .airlock-telemetry-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.25);
+      padding-bottom: 8px;
+      font-size: 0.88rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #94a3b8;
+      letter-spacing: 0.06em;
+    }
+
+    .airlock-badge-code {
+      color: #fdcb0e;
+      font-weight: bold;
+      background: rgba(253, 203, 14, 0.12);
+      border: 1px solid rgba(253, 203, 14, 0.4);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .airlock-telemetry-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .telemetry-led {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .telemetry-led.led-green {
+      background: #00e676;
+      box-shadow: 0 0 8px #00e676;
+    }
+
+    .telemetry-led.led-cyan {
+      background: #00e5ff;
+      box-shadow: 0 0 8px #00e5ff;
+    }
+
+    .airlock-badge-sector {
+      color: #00e5ff;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* Main Content: Gear + Readout */
+    .airlock-hud-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Mechanical Vector Lock Gear */
+    .airlock-mech-lock {
+      width: 76px;
+      height: 76px;
+      position: relative;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mech-gear-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.5));
+    }
+
+    .rotating-teeth {
+      transform-origin: 50px 50px;
+      animation: gear-spin 10s linear infinite;
+    }
+
+    @keyframes gear-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .lock-status-lamp {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #f59e0b;
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 0 10px #f59e0b;
+      transition: all 0.3s ease;
+      animation: lamp-pulse 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes lamp-pulse {
+      from { opacity: 0.7; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1.15); }
+    }
+
+    .lock-status-lamp.state-unlocked {
+      background: #00e676 !important;
+      box-shadow: 0 0 14px #00e676 !important;
+      animation: none !important;
+    }
+
+    /* Mission Title & Status */
+    .airlock-text-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .airlock-title-label {
+      font-size: 0.82rem;
+      color: rgba(0, 229, 255, 0.8);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .airlock-mission-name {
+      font-size: clamp(1.35rem, 2.3vw, 1.95rem);
+      color: #fdcb0e;
+      font-family: var(--font-pixel);
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 12px rgba(253, 203, 14, 0.6);
+      line-height: 1.1;
+    }
+
+    /* High-Tech Status Ribbon */
+    .airlock-status-ribbon {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1.5px solid rgba(0, 229, 255, 0.35);
+      border-radius: 6px;
+      padding: 6px 12px;
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .ribbon-indicator {
+      font-size: 1.25rem;
+      display: inline-block;
+      animation: icon-float 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes icon-float {
+      from { transform: translateY(-1px); }
+      to { transform: translateY(1px); }
+    }
+
+    .ribbon-text {
+      font-size: clamp(0.95rem, 1.5vw, 1.25rem);
+      color: #00e5ff;
+      font-weight: bold;
+      font-family: var(--font-pixel);
+      letter-spacing: 0.05em;
+    }
+
+    /* Interactive Cycle Airlock Button */
+    .airlock-cycle-btn {
+      margin-top: 8px;
+      width: 100%;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      border: 1.5px solid #00e5ff;
+      border-radius: 6px;
+      color: #ffffff;
+      font-family: var(--font-pixel);
+      font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+      padding: 7px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      letter-spacing: 0.06em;
+      box-shadow: 0 0 16px rgba(0, 229, 255, 0.45);
+      animation: airlock-pulse-glow 1.5s ease-in-out infinite alternate;
+      transition: all 0.2s ease;
+    }
+
+    .airlock-cycle-btn:hover {
+      background: #0284c7;
+      transform: scale(1.02);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.8);
+    }
+
+    @keyframes airlock-pulse-glow {
+      from { box-shadow: 0 0 10px rgba(0, 229, 255, 0.35); }
+      to { box-shadow: 0 0 24px rgba(0, 229, 255, 0.85); }
+    }
+
+    .airlock-scan-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      margin-top: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .airlock-scan-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, #00e5ff, #ffffff, #00e5ff, transparent);
+      animation: scan-sweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes scan-sweep {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Cryo Steam Vent FX */
+    .airlock-steam-vent {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 140px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 8;
+      left: calc(50% - 70px);
+      background: radial-gradient(ellipse at center, rgba(0, 229, 255, 0.45) 0%, rgba(255, 255, 255, 0.2) 40%, transparent 75%);
+      filter: blur(16px);
+    }
+
+    .airlock-steam-vent.active {
+      opacity: 1;
+      animation: steam-burst 0.6s ease-out forwards;
+    }
+
+    @keyframes steam-burst {
+      0% { transform: scaleX(0.4); opacity: 0; }
+      40% { transform: scaleX(1.4); opacity: 0.9; }
+      100% { transform: scaleX(2.0); opacity: 0; }
+    }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css">
 </head>
 
 <body>
+  <!-- Space Airlock Blast Doors Transition Overlay -->
+  <div class="space-airlock-overlay" id="spaceAirlock">
+    <!-- Left Heavy Blast Door -->
+    <div class="airlock-door airlock-door-left" id="airlockDoorLeft">
+      <div class="airlock-hazard-stripes"></div>
+      <div class="airlock-panel-detail">
+        <div class="airlock-submodule-tag">MOD 01 // PWR-SYS</div>
+      </div>
+    </div>
+
+    <!-- Right Heavy Blast Door -->
+    <div class="airlock-door airlock-door-right" id="airlockDoorRight">
+      <div class="airlock-hazard-stripes"></div>
+      <div class="airlock-panel-detail">
+        <div class="airlock-submodule-tag">SHACKLETON // SOUTH POLE</div>
+      </div>
+    </div>
+
+    <!-- Center Industrial Bulkhead Lock & Tactical HUD -->
+    <div class="airlock-lock-hud" id="airlockHud">
+      <!-- Cyber Corner Brackets -->
+      <span class="hud-bracket hud-bracket-tl"></span>
+      <span class="hud-bracket hud-bracket-tr"></span>
+      <span class="hud-bracket hud-bracket-bl"></span>
+      <span class="hud-bracket hud-bracket-br"></span>
+
+      <!-- Top Tactical Telemetry Header -->
+      <div class="airlock-telemetry-row">
+        <span class="airlock-badge-code">SYS://AL-01</span>
+        <span class="airlock-telemetry-tag"><span class="telemetry-led led-green"></span> PRESS: 101.3 kPa</span>
+        <span class="airlock-telemetry-tag"><span class="telemetry-led led-cyan"></span> O₂: 21.4%</span>
+        <span class="airlock-badge-sector">SHACKLETON BASE</span>
+      </div>
+
+      <div class="airlock-hud-content">
+        <!-- Mechanical Vector Lock Gear -->
+        <div class="airlock-mech-lock">
+          <svg class="mech-gear-svg" viewBox="0 0 100 100" id="gearSvg">
+            <circle cx="50" cy="50" r="44" fill="none" stroke="#00e5ff" stroke-width="2" stroke-dasharray="6 4" opacity="0.75" />
+            <g class="rotating-teeth" id="rotatingTeeth">
+              <circle cx="50" cy="50" r="32" fill="none" stroke="#fdcb0e" stroke-width="2.5" stroke-dasharray="12 8" />
+              <polygon points="50,10 54,20 46,20" fill="#00e5ff" />
+              <polygon points="50,90 54,80 46,80" fill="#00e5ff" />
+              <polygon points="10,50 20,54 20,46" fill="#00e5ff" />
+              <polygon points="90,50 80,54 80,46" fill="#00e5ff" />
+            </g>
+            <circle cx="50" cy="50" r="18" fill="#081427" stroke="#00e5ff" stroke-width="2" />
+            <path id="lockBoltPath" d="M42 50 L58 50 M50 42 L50 58" stroke="#fdcb0e" stroke-width="3" stroke-linecap="round" />
+          </svg>
+          <div class="lock-status-lamp" id="lockLamp"></div>
+        </div>
+
+        <!-- Mission Title & Status Readout -->
+        <div class="airlock-text-block">
+          <div class="airlock-title-label">TARGET MODULE:</div>
+          <div class="airlock-mission-name" id="airlockTitle">⚡ MISSION 1: POWER STATION</div>
+          
+          <div class="airlock-status-ribbon" id="airlockRibbon">
+            <span class="ribbon-indicator" id="ribbonIcon">⚙️</span>
+            <span class="ribbon-text" id="airlockStatus">CYCLING AIRLOCK // DEPRESSURIZING...</span>
+          </div>
+
+          <button class="airlock-cycle-btn" id="airlockCycleBtn">
+            <span>▶ CLICK TO CYCLE AIRLOCK &amp; ENTER</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Scanning Laser Strip -->
+      <div class="airlock-scan-bar">
+        <div class="airlock-scan-progress"></div>
+      </div>
+    </div>
+
+    <!-- Cryo Steam Vent FX -->
+    <div class="airlock-steam-vent left" id="steamLeft"></div>
+  </div>
+
   <!-- Mobile Landscape Orientation Banner -->
   <aside class="orientation-banner" id="orientationBanner" role="dialog" aria-modal="true" aria-label="Rotate Device">
     <div class="orientation-card">
@@ -826,13 +1307,13 @@
   </button>
 
   <!-- Responsive 16:9 Game Viewport Wrapper -->
-  <main class="power-game-viewport" id="gameViewport" role="application" aria-label="Mission 1.1 Power and Energy">
+  <main class="power-game-viewport" id="gameViewport" role="application" aria-label="Mission 1: Power and Energy">
 
     <div class="power-stage" id="powerStage">
 
       <!-- Top HUD -->
       <header class="top-hud">
-        <div class="hud-title-badge" id="hudTitle">⚡ MISSION 1.1: POWER STATION</div>
+        <div class="hud-title-badge" id="hudTitle">⚡ MISSION 1: POWER STATION</div>
         <div style="display:flex; gap:8px;">
           <button class="hud-btn" id="soundBtn" onclick="toggleSound()">🔊 SOUND</button>
           <button class="hud-btn" onclick="returnToBase()">🏠 MAIN BASE</button>
@@ -1580,14 +2061,235 @@
       renderScene(0);
     }
 
+    // =========================================================================
+    // Space Airlock Transition Controller (Start & End of Mission)
+    // =========================================================================
+    class SpaceAirlockController {
+      constructor() {
+        this.overlay = document.getElementById('spaceAirlock');
+        this.statusText = document.getElementById('airlockStatus');
+        this.titleText = document.getElementById('airlockTitle');
+        this.lampEl = document.getElementById('lockLamp');
+        this.ribbonIcon = document.getElementById('ribbonIcon');
+        this.boltPath = document.getElementById('lockBoltPath');
+        this.cycleBtn = document.getElementById('airlockCycleBtn');
+        this.steamVent = document.getElementById('steamLeft');
+        this.audioCtx = null;
+        this.hasOpened = false;
+        this.isExiting = false;
+      }
+
+      initAudio() {
+        try {
+          if (typeof sound !== 'undefined' && sound.ctx) {
+            this.audioCtx = sound.ctx;
+          } else if (!this.audioCtx) {
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            if (AudioContextClass) this.audioCtx = new AudioContextClass();
+          }
+          if (this.audioCtx && this.audioCtx.state === 'suspended') {
+            this.audioCtx.resume();
+          }
+        } catch (e) {}
+      }
+
+      playPneumaticHiss() {
+        try {
+          this.initAudio();
+          if (!this.audioCtx) return;
+          const sampleRate = this.audioCtx.sampleRate;
+          const duration = 0.65;
+          const bufferSize = Math.floor(sampleRate * duration);
+          const buffer = this.audioCtx.createBuffer(1, bufferSize, sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            data[i] = Math.random() * 2 - 1;
+          }
+          const noise = this.audioCtx.createBufferSource();
+          noise.buffer = buffer;
+
+          const filter = this.audioCtx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(2800, this.audioCtx.currentTime);
+          filter.frequency.exponentialRampToValueAtTime(600, this.audioCtx.currentTime + duration);
+          filter.Q.value = 2.8;
+
+          const gain = this.audioCtx.createGain();
+          gain.gain.setValueAtTime(0.48, this.audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + duration);
+
+          noise.connect(filter);
+          filter.connect(gain);
+          gain.connect(this.audioCtx.destination);
+          noise.start();
+        } catch (e) {}
+      }
+
+      playLockThud() {
+        try {
+          this.initAudio();
+          if (!this.audioCtx) return;
+          const now = this.audioCtx.currentTime;
+
+          // Deep hydraulic bass impact
+          const sub = this.audioCtx.createOscillator();
+          const subGain = this.audioCtx.createGain();
+          sub.type = 'sine';
+          sub.frequency.setValueAtTime(140, now);
+          sub.frequency.exponentialRampToValueAtTime(28, now + 0.38);
+          subGain.gain.setValueAtTime(0.7, now);
+          subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+          sub.connect(subGain);
+          subGain.connect(this.audioCtx.destination);
+          sub.start(now);
+          sub.stop(now + 0.38);
+
+          // Metallic mechanical latch clack
+          const clack = this.audioCtx.createOscillator();
+          const clackGain = this.audioCtx.createGain();
+          clack.type = 'square';
+          clack.frequency.setValueAtTime(420, now);
+          clack.frequency.exponentialRampToValueAtTime(95, now + 0.09);
+          clackGain.gain.setValueAtTime(0.35, now);
+          clackGain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+          clack.connect(clackGain);
+          clackGain.connect(this.audioCtx.destination);
+          clack.start(now);
+          clack.stop(now + 0.09);
+        } catch (e) {}
+      }
+
+      playSealChime() {
+        try {
+          this.initAudio();
+          if (!this.audioCtx) return;
+          const now = this.audioCtx.currentTime;
+          [784, 1046].forEach((freq, idx) => {
+            const osc = this.audioCtx.createOscillator();
+            const gain = this.audioCtx.createGain();
+            osc.type = 'sine';
+            const startTime = now + idx * 0.09;
+            osc.frequency.setValueAtTime(freq, startTime);
+            gain.gain.setValueAtTime(0.22, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.25);
+            osc.connect(gain);
+            gain.connect(this.audioCtx.destination);
+            osc.start(startTime);
+            osc.stop(startTime + 0.25);
+          });
+        } catch (e) {}
+      }
+
+      executeOpen() {
+        this.playPneumaticHiss();
+        this.playLockThud();
+        this.playSealChime();
+
+        if (this.steamVent) this.steamVent.classList.add('active');
+        if (this.lampEl) this.lampEl.classList.add('state-unlocked');
+        if (this.ribbonIcon) this.ribbonIcon.textContent = '✔';
+        if (this.boltPath) {
+          this.boltPath.setAttribute('transform', 'rotate(45 50 50)');
+          this.boltPath.setAttribute('stroke', '#00e676');
+        }
+        if (this.cycleBtn) this.cycleBtn.style.display = 'none';
+        if (this.statusText) {
+          this.statusText.textContent = 'SEAL DISENGAGED // ACCESS GRANTED';
+          this.statusText.style.color = '#00e676';
+        }
+
+        setTimeout(() => {
+          this.overlay.classList.add('anim-open');
+          setTimeout(() => {
+            this.overlay.classList.add('opened');
+          }, 750);
+        }, 280);
+      }
+
+      openOnStart() {
+        if (!this.overlay) return;
+
+        const triggerUnlock = () => {
+          if (this.hasOpened) return;
+          this.hasOpened = true;
+          this.initAudio();
+          this.executeOpen();
+        };
+
+        if (this.cycleBtn) {
+          this.cycleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            triggerUnlock();
+          });
+        }
+        this.overlay.addEventListener('click', triggerUnlock);
+        this.overlay.addEventListener('touchstart', triggerUnlock);
+
+        // Auto-open after 2.4s if untouched
+        setTimeout(() => {
+          if (!this.hasOpened) {
+            triggerUnlock();
+          }
+        }, 2400);
+      }
+
+      exit(targetUrl, statusMessage = 'RETURNING TO MAIN BASE...') {
+        if (this.isExiting) return;
+        this.isExiting = true;
+        this.initAudio();
+
+        this.overlay.classList.remove('opened');
+        this.overlay.classList.remove('anim-open');
+
+        if (this.lampEl) this.lampEl.classList.remove('state-unlocked');
+        if (this.ribbonIcon) this.ribbonIcon.textContent = '🔒';
+        if (this.boltPath) {
+          this.boltPath.removeAttribute('transform');
+          this.boltPath.setAttribute('stroke', '#fdcb0e');
+        }
+        if (this.cycleBtn) this.cycleBtn.style.display = 'none';
+        if (this.statusText) {
+          this.statusText.textContent = statusMessage;
+          this.statusText.style.color = '#00e5ff';
+        }
+
+        // 1. Play loud airlock seal hiss immediately
+        this.playPneumaticHiss();
+
+        // 2. Play heavy hydraulic slam & lock chime when doors meet
+        setTimeout(() => {
+          this.playLockThud();
+          this.playSealChime();
+          if (this.statusText) {
+            this.statusText.textContent = 'AIRLOCK SEALED // DECOMPRESSION COMPLETE';
+            this.statusText.style.color = '#fdcb0e';
+          }
+          // 3. Allow audio to finish before navigating
+          setTimeout(() => {
+            window.location.href = targetUrl;
+          }, 450);
+        }, 550);
+      }
+    }
+
+    let airlockTransition;
+
     function returnToBase() {
       sound.playClick();
-      window.location.href = 'index.html';
+      if (airlockTransition) {
+        airlockTransition.exit('index.html', 'CYCLING AIRLOCK // RETURNING TO MAIN BASE');
+      } else {
+        window.location.href = 'index.html';
+      }
     }
 
     function goToRadiationMission() {
       sound.playClick();
-      window.location.href = '5.1_Radiation_mission.html';
+      if (airlockTransition) {
+        airlockTransition.exit('5.1_Radiation_mission.html', 'TRANSFERRING TO RADIATION LAB');
+      } else {
+        window.location.href = '5.1_Radiation_mission.html';
+      }
     }
 
     // Keyboard navigation
@@ -1615,6 +2317,8 @@
 
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
+      airlockTransition = new SpaceAirlockController();
+      airlockTransition.openOnStart();
       renderScene(0);
     });
   </script>

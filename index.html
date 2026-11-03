@@ -717,93 +717,81 @@
       pointer-events: none;
     }
 
-    /* Dark Screen after loading with single TAP TO START button */
-    .tap-start-screen {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #000000;
-      z-index: 99995;
+    /* White Glowing Sci-Fi START button container - directly replacing coc-loading-container */
+    .tap-start-container {
+      position: relative;
+      width: clamp(170px, 20vw, 250px);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
+      margin: 0 auto;
+      gap: 10px;
       opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.45s ease, visibility 0.45s ease;
+      transform: scale(0.95);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .tap-start-screen.active {
+    .tap-start-container.active {
       opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
+      transform: scale(1);
     }
 
-    .tap-start-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 22px;
-      user-select: none;
+    .tap-start-container.hidden {
+      display: none !important;
     }
 
-    .tap-start-title {
-      font-family: 'Jersey 10', 'Pixel Operator', monospace;
-      font-size: clamp(1.4rem, 2.2vw, 2.3rem);
-      color: #38bdf8;
-      letter-spacing: 0.18em;
-      text-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
-    }
-
+    /* Sci-Fi START Button - Pixel Art Style, Glowing White (NO GOLD) */
     .tap-start-btn {
-      background: linear-gradient(180deg, #ffca28 0%, #f59e0b 100%);
-      border: 3.5px solid #000000;
-      box-shadow: inset 0 3px 0 #ffe082, inset 0 -3px 0 #b45309, 0 6px 0 #000000, 0 10px 28px rgba(245, 158, 11, 0.6);
-      border-radius: 12px;
-      color: #000000;
-      font-family: 'Jersey 10', 'Pixel Operator', monospace;
-      font-size: clamp(1.6rem, 2.6vw, 2.6rem);
-      font-weight: bold;
-      letter-spacing: 0.08em;
-      padding: 14px 44px;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0;
+      margin: 0;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      animation: pulse-tap-btn 1.4s infinite alternate;
-      transition: transform 0.12s ease, filter 0.12s ease;
+      display: block;
+      width: 100%;
+      filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 32px rgba(255, 255, 255, 0.75)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
+      animation: pulse-start-btn 1.8s ease-in-out infinite alternate;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .start-btn-graphic {
+      width: 100%;
+      height: auto;
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
     }
 
     .tap-start-btn:hover {
-      transform: scale(1.06);
-      filter: brightness(1.12);
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 22px rgba(255, 255, 255, 1)) drop-shadow(0 0 48px rgba(255, 255, 255, 0.9)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.9));
     }
 
     .tap-start-btn:active {
-      transform: scale(0.96);
+      transform: scale(0.95);
     }
 
-    @keyframes pulse-tap-btn {
+    @keyframes pulse-start-btn {
       from {
         transform: scale(1);
-        box-shadow: inset 0 3px 0 #ffe082, inset 0 -3px 0 #b45309, 0 6px 0 #000000, 0 8px 20px rgba(245, 158, 11, 0.4);
+        filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 26px rgba(255, 255, 255, 0.55)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7));
       }
       to {
-        transform: scale(1.05);
-        box-shadow: inset 0 3px 0 #ffe082, inset 0 -3px 0 #b45309, 0 6px 0 #000000, 0 14px 36px rgba(245, 158, 11, 0.85);
+        transform: scale(1.03);
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1)) drop-shadow(0 0 42px rgba(255, 255, 255, 0.8)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.85));
       }
     }
 
     .tap-start-subtext {
-      font-family: 'Jersey 10', 'Pixel Operator', monospace;
-      font-size: clamp(1.1rem, 1.4vw, 1.5rem);
-      color: #94a3b8;
-      letter-spacing: 0.06em;
-      animation: blink-subtext 1.8s infinite;
+      font-family: 'Pixel Operator', 'Jersey 10', monospace;
+      font-size: clamp(0.9rem, 1.2vw, 1.25rem);
+      color: #cbd5e1;
+      letter-spacing: 0.08em;
+      text-shadow: 0 1px 4px #000000;
+      animation: blink-subtext 2.2s infinite;
+      margin-top: 4px;
     }
 
     @keyframes blink-subtext {
@@ -940,12 +928,13 @@
        ========================================================================== */
     .intro-moon-wrapper {
       position: relative;
-      width: clamp(190px, 23vw, 330px);
+      width: clamp(260px, 32vw, 450px);
+      max-height: 38vh;
       aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 2vh auto;
+      margin: 0 auto 1.5vh auto;
       animation: moon-drift 4.2s ease-in-out infinite alternate;
     }
 
@@ -1008,21 +997,26 @@
       letter-spacing: 0.08em;
       line-height: 0.95;
       text-align: center;
+      -webkit-text-stroke: 3px #ded9cb;
+      paint-order: stroke fill;
       text-shadow:
-        0 0 20px rgba(0, 240, 255, 0.9),
-        0 0 45px rgba(0, 160, 255, 0.6),
-        3px 3px 0 #000;
+        0 0 20px rgba(222, 217, 203, 0.8),
+        0 0 45px rgba(210, 204, 188, 0.5),
+        0 0 75px rgba(190, 185, 170, 0.25),
+        3px 4px 0 #000000;
       margin-bottom: 0.6vh;
     }
 
     .intro-subtitle {
       font-family: 'Pixel Operator', monospace;
       font-size: clamp(0.85rem, 1.25vw, 1.5rem);
-      color: #00f0ff;
+      color: #ffffff;
       letter-spacing: 0.35em;
       text-transform: uppercase;
       text-align: center;
-      text-shadow: 0 0 10px #00f0ff;
+      -webkit-text-stroke: 1px #ded9cb;
+      paint-order: stroke fill;
+      text-shadow: 0 0 12px rgba(222, 217, 203, 0.85), 0 0 24px rgba(210, 204, 188, 0.45);
       margin-bottom: 3.5vh;
     }
 
@@ -1688,6 +1682,386 @@
 
     .phase-dashboard-btn:active {
       transform: translateY(2px);
+    }
+
+    /* =========================================================================
+       TOP HUD STATUS PILL & NASA RESEARCH / BASE UPGRADES NAVBAR
+       ========================================================================= */
+    .top-status-bar {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: clamp(8px, 1.4vw, 18px);
+      background: rgba(10, 18, 38, 0.9);
+      border: 2px solid #1e3a8a;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 6px 18px;
+      pointer-events: auto;
+      user-select: none;
+    }
+
+    .top-status-bar .status-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Pixel Operator', 'Jersey 10', monospace;
+      font-size: clamp(0.85rem, 1.1vw, 1.1rem);
+      font-weight: bold;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .top-status-bar .status-icon {
+      font-size: 1.1em;
+    }
+
+    .top-status-bar .status-label {
+      color: #cbd5e1;
+    }
+
+    .top-status-bar .val-active { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.5); }
+    .top-status-bar .val-nominal { color: #38bdf8; text-shadow: 0 0 8px rgba(56, 189, 248, 0.5); }
+    .top-status-bar .val-growing { color: #4ade80; text-shadow: 0 0 8px rgba(74, 222, 128, 0.5); }
+    .top-status-bar .val-processing { color: #c084fc; text-shadow: 0 0 8px rgba(192, 132, 252, 0.5); }
+
+    /* Top-Right Navbar Cluster (NASA Research & Base Upgrades) */
+    .top-nav-cluster {
+      position: absolute;
+      top: 14px;
+      right: 84px;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      pointer-events: auto;
+    }
+
+    .top-nav-tabs {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Clash-Style 3D Pixel Art Buttons matching PHASES & MEET THE CREW */
+    .top-nav-btn {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1.1rem, 1.5vw, 1.55rem);
+      color: #ffffff;
+      padding: 5px 16px;
+      border: 3px solid #000000;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+      letter-spacing: 0.05em;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000;
+      image-rendering: pixelated;
+      pointer-events: auto !important;
+      white-space: nowrap;
+      transition: transform 0.12s ease, filter 0.12s ease;
+    }
+
+    .top-nav-btn.btn-nasa {
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+      box-shadow: inset 0 3px 0 #7dd3fc, inset 0 -3px 0 #0369a1, 0 6px 0 #000000, 0 8px 18px rgba(0, 0, 0, 0.85);
+    }
+
+    .top-nav-btn.btn-upgrades {
+      background: linear-gradient(180deg, #64748b 0%, #334155 100%);
+      box-shadow: inset 0 3px 0 #94a3b8, inset 0 -3px 0 #1e293b, 0 6px 0 #000000, 0 8px 18px rgba(0, 0, 0, 0.85);
+    }
+
+    .top-nav-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+    .top-nav-btn:active {
+      transform: translateY(2px);
+    }
+
+    .top-nav-btn.active-tab-highlight {
+      transform: translateY(2px);
+      box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.45), inset 0 -3px 0 rgba(0, 0, 0, 0.5), 0 3px 0 #000000, 0 0 16px rgba(0, 229, 255, 0.9) !important;
+      outline: 2px solid #00e5ff;
+    }
+
+    /* Dropdown Overlay / Card - Hidden until clicked */
+    .top-nav-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      z-index: 300;
+      animation: dropdown-pop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .top-nav-dropdown.hidden {
+      display: none !important;
+    }
+
+    @keyframes dropdown-pop {
+      from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .nav-dropdown-columns {
+      display: flex;
+    }
+
+    .nav-dropdown-col {
+      width: clamp(270px, 24vw, 320px);
+      background: #080f24;
+      border: 2.5px solid #0284c7;
+      border-radius: 12px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.95), 0 0 24px rgba(2, 132, 199, 0.5);
+      overflow: hidden;
+    }
+
+    .nav-dropdown-col.col-upgrades {
+      border-color: #64748b;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.95), 0 0 24px rgba(100, 116, 139, 0.5);
+    }
+
+    .nav-col-header {
+      padding: 8px 14px;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: 1.18rem;
+      color: #ffffff;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .col-nasa .nav-col-header {
+      background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+      border-bottom: 2px solid #38bdf8;
+    }
+
+    .col-upgrades .nav-col-header {
+      background: linear-gradient(180deg, #475569 0%, #1e293b 100%);
+      border-bottom: 2px solid #64748b;
+    }
+
+    .nav-col-items {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-col-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.65);
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.12s ease;
+      user-select: none;
+    }
+
+    .nav-col-item:last-child {
+      border-bottom: none;
+    }
+
+    .nav-col-item:hover {
+      background: rgba(30, 58, 138, 0.65);
+      transform: translateX(3px);
+    }
+
+    .nav-col-item .item-icon-box {
+      font-size: 1.65rem;
+      min-width: 34px;
+      text-align: center;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.7));
+    }
+
+    .nav-col-item .item-text-box {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-col-item .item-title {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: 1.18rem;
+      font-weight: bold;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+    }
+
+    .nav-col-item .item-sub {
+      font-family: 'Pixel Operator', 'Jersey 10', monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      font-weight: bold;
+      letter-spacing: 0.04em;
+    }
+
+    /* Intel Dossier Modal for NASA Research & Base Upgrades */
+    .nasa-dossier-card {
+      width: min(92vw, 680px);
+      max-height: 88vh;
+      background: #0b1329;
+      border: 3px solid #1d4ed8;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(29, 78, 216, 0.5);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modal-pop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nasa-dossier-header {
+      background: linear-gradient(90deg, #1e3a8a 0%, #0f172a 100%);
+      padding: 14px 20px;
+      border-bottom: 2px solid #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .dossier-header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .dossier-icon {
+      font-size: 2.2rem;
+      filter: drop-shadow(0 2px 8px rgba(0, 229, 255, 0.4));
+    }
+
+    .dossier-tag {
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.8rem;
+      color: #38bdf8;
+      letter-spacing: 0.08em;
+      font-weight: bold;
+    }
+
+    .dossier-title {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1.3rem, 2vw, 1.85rem);
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      margin: 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+
+    .nasa-dossier-body {
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dossier-desc {
+      font-family: 'Pixel Operator', monospace;
+      font-size: clamp(1rem, 1.25vw, 1.2rem);
+      line-height: 1.5;
+      color: #e2e8f0;
+      background: rgba(15, 23, 42, 0.65);
+      border-left: 3px solid #38bdf8;
+      padding: 12px 16px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .dossier-sources-box {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid #334155;
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sources-heading {
+      font-family: 'Pixel Operator', 'Jersey 10', monospace;
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #facc15;
+      letter-spacing: 0.06em;
+    }
+
+    .sources-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .source-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(30, 58, 138, 0.35);
+      border: 1.5px solid #2563eb;
+      border-radius: 6px;
+      padding: 8px 14px;
+      color: #38bdf8;
+      text-decoration: none;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.95rem;
+      font-weight: bold;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    }
+
+    .source-link-btn:hover {
+      background: rgba(37, 99, 235, 0.55);
+      border-color: #60a5fa;
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+    .source-link-btn::after {
+      content: '↗';
+      font-size: 1.15rem;
+      color: #93c5fd;
+    }
+
+    .nasa-dossier-footer {
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1.5px solid #1e293b;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .dossier-close-btn {
+      background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+      border: 2px solid #38bdf8;
+      border-radius: 6px;
+      color: #ffffff;
+      font-family: 'Pixel Operator', 'Jersey 10', monospace;
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 8px 18px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: transform 0.12s ease, filter 0.12s ease;
+    }
+
+    .dossier-close-btn:hover {
+      transform: scale(1.04);
+      filter: brightness(1.15);
     }
 
     .phase-dashboard-backdrop {
@@ -2497,6 +2871,334 @@
       background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
       box-shadow: inset 0 2px 0 #bae6fd, inset 0 -2px 0 #0c4a6e, 0 3px 0 #000000;
     }
+
+    /* ==========================================================================
+       Mission 1: Power Station Astronaut Walking Entry Scene Styles
+       ========================================================================== */
+    .base-viewport.power-entry-active {
+      transition: transform 3.4s cubic-bezier(0.2, 0.8, 0.3, 1);
+      transform-origin: 44.3% 52.8%;
+      transform: scale(1.15);
+    }
+
+    .base-viewport.power-entry-active .building-layer:not(#bldPower),
+    .base-viewport.power-entry-active .badge-layer {
+      opacity: 0.15 !important;
+      filter: grayscale(0.7) brightness(0.7);
+      transition: opacity 0.8s ease, filter 0.8s ease;
+      pointer-events: none;
+    }
+
+    .base-viewport.power-entry-active #bldPower {
+      filter: brightness(1.25) drop-shadow(0 0 28px rgba(253, 203, 14, 0.95)) drop-shadow(0 0 50px rgba(0, 229, 255, 0.6)) !important;
+      z-index: 22 !important;
+    }
+
+    /* Airlock Target Waypoint Beacon positioned at real Power Station Door */
+    .airlock-target-beacon {
+      position: absolute;
+      left: 44.3%;
+      top: 52.8%;
+      transform: translate(-50%, -50%);
+      z-index: 24;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .airlock-target-beacon.hidden {
+      display: none !important;
+    }
+
+    .beacon-crosshair {
+      width: 32px;
+      height: 32px;
+      border: 2px dashed #00e5ff;
+      border-radius: 50%;
+      animation: beaconRotate 4s linear infinite;
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.85);
+    }
+
+    .beacon-pulse-ring {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      top: -6px;
+      border: 2px solid #fdcb0e;
+      border-radius: 50%;
+      animation: beaconPulse 1.6s ease-out infinite;
+    }
+
+    .beacon-tag {
+      margin-top: 4px;
+      font-family: 'Jersey 10', monospace;
+      font-size: 0.95rem;
+      color: #fdcb0e;
+      background: rgba(0, 10, 25, 0.92);
+      padding: 2px 8px;
+      border: 1px solid #fdcb0e;
+      border-radius: 3px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      box-shadow: 0 0 12px rgba(253, 203, 14, 0.55);
+    }
+
+    .beacon-scanner-beam {
+      position: absolute;
+      top: -38px;
+      width: 48px;
+      height: 76px;
+      background: linear-gradient(180deg, rgba(0, 229, 255, 0) 0%, rgba(0, 229, 255, 0.75) 75%, #ffffff 100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .beacon-scanner-beam.active {
+      opacity: 1;
+      animation: laserSweep 0.65s ease-in-out infinite alternate;
+    }
+
+    /* Walking Astronaut Sprite Container - Clear, Prominent & Heroic Scale */
+    .entry-astronaut-wrap {
+      position: absolute;
+      left: 54.0%;
+      top: 62.5%;
+      width: 58px;
+      height: 160px;
+      z-index: 50;
+      pointer-events: none;
+      transform-origin: bottom center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .entry-astronaut-wrap.hidden {
+      display: none !important;
+    }
+
+    .entry-astronaut-wrap.animating {
+      animation: astroWalkToPower 3.4s cubic-bezier(0.2, 0.05, 0.25, 1) forwards;
+    }
+
+    .astronaut-hud-tag {
+      display: none; /* Keep clean and cinematic without distracting text bubble */
+    }
+
+    .entry-astronaut-sprite {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      display: block;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85));
+    }
+
+    .astronaut-shadow {
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 12px;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 75%);
+      border-radius: 50%;
+    }
+
+    /* Traversal: Direct straight diagonal stride to Power Station Airlock (44.3%, 52.8%) */
+    @keyframes astroWalkToPower {
+      0% {
+        left: 54.0%;
+        top: 62.5%;
+        transform: scale(1.0);
+        opacity: 0;
+      }
+      6% {
+        opacity: 1;
+        transform: scale(0.98);
+      }
+      80% {
+        left: 44.3%;
+        top: 52.8%;
+        transform: scale(0.72);
+        opacity: 1;
+        filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85));
+      }
+      88% {
+        left: 44.3%;
+        top: 52.8%;
+        transform: scale(0.68);
+        opacity: 1;
+        filter: drop-shadow(0 0 16px #00e5ff) brightness(1.3);
+      }
+      100% {
+        left: 44.3%;
+        top: 52.8%;
+        transform: scale(0.55);
+        opacity: 0;
+        filter: drop-shadow(0 0 24px #fdcb0e) brightness(2.2);
+      }
+    }
+
+    @keyframes shadowPulse {
+      0%, 100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateX(-50%) scale(0.85);
+        opacity: 0.55;
+      }
+    }
+
+    @keyframes beaconRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes beaconPulse {
+      0% { transform: scale(0.85); opacity: 1; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    @keyframes laserSweep {
+      0% { transform: translateY(-16px); }
+      100% { transform: translateY(26px); }
+    }
+
+    @keyframes blinkLed {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    /* Cinematic Letterbox Overlays */
+    .mission-walk-cinematic {
+      position: absolute;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .mission-walk-cinematic.hidden {
+      display: none !important;
+    }
+
+    .cinematic-bar {
+      background: rgba(3, 7, 18, 0.94);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      pointer-events: auto;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+    }
+
+    .cinematic-bar.top-bar {
+      height: 48px;
+      border-bottom: 2px solid #00e5ff;
+      animation: slideDownBar 0.35s ease-out;
+    }
+
+    .cinematic-bar.bottom-bar {
+      height: 38px;
+      border-top: 2px solid #00e5ff;
+      animation: slideUpBar 0.35s ease-out;
+    }
+
+    @keyframes slideDownBar {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    @keyframes slideUpBar {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .cinematic-info-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Jersey 10', monospace;
+      font-size: 1.15rem;
+    }
+
+    .cinematic-pulse-led {
+      width: 10px;
+      height: 10px;
+      background: #fdcb0e;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #fdcb0e;
+      animation: blinkLed 0.6s infinite;
+    }
+
+    .cinematic-badge {
+      color: #fdcb0e;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .cinematic-divider {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .cinematic-status {
+      color: #00e5ff;
+      letter-spacing: 0.5px;
+    }
+
+    .cinematic-skip-btn {
+      background: rgba(0, 229, 255, 0.15);
+      border: 1.5px solid #00e5ff;
+      color: #00e5ff;
+      font-family: 'Jersey 10', monospace;
+      font-size: 1.1rem;
+      padding: 4px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cinematic-skip-btn:hover {
+      background: #00e5ff;
+      color: #000;
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
+    }
+
+    .cinematic-telemetry {
+      font-family: 'Jersey 10', monospace;
+      font-size: 0.95rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .telemetry-sep {
+      color: #475569;
+    }
+
+    .entry-transition-flash {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 28.5% 46.5%, #00e5ff 0%, #031428 65%, #000000 100%);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease-in-out;
+    }
+
+    .entry-transition-flash.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css">
 </head>
@@ -2522,20 +3224,22 @@
   </button>
 
   <!-- Intro Splash Screen: Pure Black Screen, Moon, MoonFall Title, Falling Stars, COC Loading Bar -->
-  <div class="intro-overlay" id="introOverlay" onpointerdown="unlockGlobalAudio();" onclick="unlockGlobalAudio();">
+  <div class="intro-overlay" id="introOverlay" onpointerdown="unlockGlobalAudio(); handleIntroClick();" onclick="unlockGlobalAudio(); handleIntroClick();">
     <canvas class="starfall-canvas" id="starfallCanvas"></canvas>
-    <div class="intro-content">
-      <!-- Simple Elegant Glowing White Moon -->
+
+    <div class="intro-content" id="introLoadingContent">
+      <!-- Simple Elegant Glowing White Moon (Stays in place throughout) -->
       <div class="intro-moon-wrapper">
         <div class="moon-white-glow"></div>
         <img src="assets/moon.png" alt="Moon" class="intro-moon-img">
       </div>
 
+      <!-- MoonFall Title with offwhite stroke (Stays in place throughout) -->
       <h1 class="intro-title">MoonFall</h1>
       <p class="intro-subtitle">Lunar Surface Mission</p>
 
-      <!-- Authentic Clash of Clans (COC) Style Thick Loading Bar -->
-      <div class="coc-loading-container">
+      <!-- Slot 1: Authentic Clash of Clans (COC) Style Thick Loading Bar -->
+      <div class="coc-loading-container" id="cocLoadingContainer">
         <!-- Floating "Loading" Title Overlapping Top of Bar -->
         <div class="coc-loading-title">Loading</div>
 
@@ -2548,19 +3252,15 @@
         </div>
 
         <div class="coc-tip-text">Smart engineering is about the best use of lunar resources</div>
-
       </div>
-    </div>
-  </div>
 
-  <!-- Dark Screen after Loading Screen with Just One Button: TAP TO START -->
-  <div class="tap-start-screen" id="tapStartScreen" onclick="startMissionWithAudio()">
-    <div class="tap-start-content">
-      <div class="tap-start-title">MISSION READY</div>
-      <button class="tap-start-btn" id="tapStartBtn" type="button" onclick="event.stopPropagation(); startMissionWithAudio();">
-        🚀 TAP TO START
-      </button>
-      <div class="tap-start-subtext">Tap anywhere to launch</div>
+      <!-- Slot 2: Pixel Art White Glowing START Button (Directly in place of Loading Bar) -->
+      <div class="tap-start-container hidden" id="tapStartContainer">
+        <button class="tap-start-btn" id="tapStartBtn" type="button" onclick="event.stopPropagation(); startMissionWithAudio();">
+          <img src="assets/start_btn_pixel.png" alt="START" class="start-btn-graphic">
+        </button>
+        <div class="tap-start-subtext">Tap anywhere to launch</div>
+      </div>
     </div>
   </div>
 
@@ -2587,6 +3287,105 @@
     <button class="crew-intro-btn" id="crewIntroToggleBtn" onclick="openCrewManifestModal()" title="Meet the 4 Outpost Astronauts">
       👨‍🚀 MEET THE CREW
     </button>
+
+    <!-- Top-Center Lunar Resource Status Pill Bar -->
+    <div class="top-status-bar" id="topStatusBar">
+      <div class="status-item"><span class="status-icon">⚡</span> <span class="status-label">POWER:</span> <span class="status-val val-active">ACTIVE</span></div>
+      <div class="status-item"><span class="status-icon">💧</span> <span class="status-label">WATER:</span> <span class="status-val val-nominal">NOMINAL</span></div>
+      <div class="status-item"><span class="status-icon">🌿</span> <span class="status-label">BIOMASS:</span> <span class="status-val val-growing">GROWING</span></div>
+      <div class="status-item"><span class="status-icon">⛏️</span> <span class="status-label">REGOLITH:</span> <span class="status-val val-processing">PROCESSING</span></div>
+    </div>
+
+    <!-- Top-Right NASA Research & Base Upgrades Navbar Cluster -->
+    <div class="top-nav-cluster" id="topNavCluster">
+      <div class="top-nav-tabs">
+        <button class="top-nav-btn btn-nasa" id="btnNasaResearch" type="button" onclick="event.stopPropagation(); toggleNavDropdown('nasa');">
+          <span class="nav-btn-icon">🔬</span> NASA RESEARCH
+        </button>
+        <button class="top-nav-btn btn-upgrades" id="btnBaseUpgrades" type="button" onclick="event.stopPropagation(); toggleNavDropdown('upgrades');">
+          <span class="nav-btn-icon">🔧</span> BASE UPGRADES
+        </button>
+      </div>
+
+      <!-- Dropdown Panel (Shown ONLY when clicked) -->
+      <div class="top-nav-dropdown hidden" id="topNavDropdown" onclick="event.stopPropagation();">
+        <div class="nav-dropdown-columns">
+          <!-- Column 1: NASA Research -->
+          <div class="nav-dropdown-col col-nasa" id="dropdownColNasa">
+            <div class="nav-col-header">
+              <span class="col-icon">🔬</span> NASA RESEARCH
+            </div>
+            <div class="nav-col-items">
+              <div class="nav-col-item" onclick="openNasaItemDetail('carbothermal')">
+                <div class="item-icon-box">⚗️</div>
+                <div class="item-text-box">
+                  <div class="item-title">CARBOTHERMAL O2</div>
+                  <div class="item-sub">EXTRACTION</div>
+                </div>
+              </div>
+              <div class="nav-col-item" onclick="openNasaItemDetail('fsp')">
+                <div class="item-icon-box">☢️</div>
+                <div class="item-text-box">
+                  <div class="item-title">FISSION SURFACE</div>
+                  <div class="item-sub">POWER</div>
+                </div>
+              </div>
+              <div class="nav-col-item" onclick="openNasaItemDetail('cadre')">
+                <div class="item-icon-box">🤖</div>
+                <div class="item-text-box">
+                  <div class="item-title">AUTONOMOUS SWARM</div>
+                  <div class="item-sub">ROBOTICS (CADRE)</div>
+                </div>
+              </div>
+              <div class="nav-col-item" onclick="openNasaItemDetail('microwave')">
+                <div class="item-icon-box">📡</div>
+                <div class="item-text-box">
+                  <div class="item-title">MICROWAVE</div>
+                  <div class="item-sub">SINTERING</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Base Upgrades -->
+          <div class="nav-dropdown-col col-upgrades" id="dropdownColUpgrades">
+            <div class="nav-col-header">
+              <span class="col-icon">🔧</span> BASE UPGRADES
+            </div>
+            <div class="nav-col-items">
+              <div class="nav-col-item" onclick="openNasaItemDetail('hls')">
+                <div class="item-icon-box">🛸</div>
+                <div class="item-text-box">
+                  <div class="item-title">HLS LANDING</div>
+                  <div class="item-sub">SITE PREP</div>
+                </div>
+              </div>
+              <div class="nav-col-item" onclick="openNasaItemDetail('shielding')">
+                <div class="item-icon-box">🏛️</div>
+                <div class="item-text-box">
+                  <div class="item-title">3D-PRINTED</div>
+                  <div class="item-sub">SHIELDING</div>
+                </div>
+              </div>
+              <div class="nav-col-item" onclick="openNasaItemDetail('cryotanks')">
+                <div class="item-icon-box">🧪</div>
+                <div class="item-text-box">
+                  <div class="item-title">HIGH-CAPACITY</div>
+                  <div class="item-sub">CRYOTANKS</div>
+                </div>
+              </div>
+              <div class="nav-col-item" onclick="openNasaItemDetail('vsat')">
+                <div class="item-icon-box">🛰️</div>
+                <div class="item-text-box">
+                  <div class="item-title">VERTICAL SOLAR</div>
+                  <div class="item-sub">ARRAYS (VSAT)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- PIXEL-ART CLASH-OF-CLANS INSPIRED 2-WINDOW PHASE & MISSION MODAL -->
     <div class="phase-dashboard-backdrop hidden" id="phaseDashboardModal" onclick="if(event.target===this) closePhaseDashboard()">
@@ -2637,7 +3436,7 @@
                 <span>💧 3. Water &amp; Oxygen</span><span>SELECT ▶</span>
               </div>
               <div class="coc-drawer-item" onclick="selectPhaseMission('bldShelter', 'badgeShelter')">
-                <span>🛡️ 4. Radiation Shelter</span><span>SELECT ▶</span>
+                <span>🛡️ 5. Radiation Shelter</span><span>SELECT ▶</span>
               </div>
             </div>
 
@@ -2829,12 +3628,12 @@
             </div>
           </div>
 
-          <!-- MISSION 4 CARD: RADIATION PROTECTION (Rakesh Sharma + 🛡️) -->
+          <!-- MISSION 5 CARD: RADIATION PROTECTION (Rakesh Sharma + 🛡️) -->
           <div class="coc-portrait-card coc-m-card-4">
             <div class="coc-card-top-bar">
               <div class="coc-top-badges">
                 <div class="coc-square-badge purple-tint">
-                  <span>🛡️</span><span>MISSION 4</span>
+                  <span>🛡️</span><span>MISSION 5</span>
                 </div>
               </div>
               <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM4')" title="Mission 4 Info">i</button>
@@ -2898,6 +3697,56 @@
       title="Radiation Shelter">
     <img src="assets/base_assets/building_shelter.png" alt="Radiation Shelter" class="building-layer building-shelter"
       id="bldShelter" title="Radiation Shelter">
+
+    <!-- =========================================================================
+         MISSION 1 (POWER STATION) WALKING ENTRY SCENE OVERLAY & SPRITE
+         ========================================================================= -->
+    <!-- Airlock Target Waypoint on Power Station Entrance -->
+    <div class="airlock-target-beacon hidden" id="powerAirlockBeacon">
+      <div class="beacon-crosshair"></div>
+      <div class="beacon-pulse-ring"></div>
+      <div class="beacon-scanner-beam" id="powerScannerBeam"></div>
+      <div class="beacon-tag">⚡ PWR ENTRY AIRLOCK</div>
+    </div>
+
+    <!-- Animated Walking Astronaut Traversing Lunar Surface -->
+    <div class="entry-astronaut-wrap hidden" id="entryAstronaut">
+      <div class="astronaut-hud-tag" id="astroHudTag">
+        <span class="hud-tag-led"></span> ASTRO COMMANDO // O₂: 98%
+      </div>
+      <div class="astronaut-shadow"></div>
+      <img src="assets/character_walk/astronaut_walk.gif" alt="Astronaut Traversing Lunar Base" class="entry-astronaut-sprite" id="entryAstronautSprite">
+    </div>
+
+    <!-- Cinematic Letterbox Borders & Real-Time Mission HUD -->
+    <div class="mission-walk-cinematic hidden" id="missionWalkCinematic">
+      <!-- Top Letterbox Bar -->
+      <div class="cinematic-bar top-bar">
+        <div class="cinematic-info-left">
+          <span class="cinematic-pulse-led"></span>
+          <span class="cinematic-badge">MISSION 1 // SECTOR: POWER SUBSTATION</span>
+          <span class="cinematic-divider">/</span>
+          <span class="cinematic-status" id="cinematicStatusText">CADET DEPLOYMENT IN PROGRESS...</span>
+        </div>
+        <button class="cinematic-skip-btn" id="cinematicSkipBtn" onclick="skipPowerMissionEntry()" title="Skip Walk to Mission">
+          SKIP ▶▶
+        </button>
+      </div>
+
+      <!-- Bottom Letterbox Bar -->
+      <div class="cinematic-bar bottom-bar">
+        <div class="cinematic-telemetry">
+          <span>COORDINATES: 89.9°S 0.0°E (SHACKLETON)</span>
+          <span class="telemetry-sep">•</span>
+          <span>PRESSURE: 0.00 kPa [HARD VACUUM]</span>
+          <span class="telemetry-sep">•</span>
+          <span>CLEARANCE: LEVEL 1 AUTHORIZED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen Transition Wash Overlay -->
+    <div class="entry-transition-flash" id="entryTransitionFlash"></div>
 
     <!-- Zoom Backdrop (Darkens surrounding when building is clicked) -->
     <div class="zoom-backdrop" id="zoomBackdrop" title="Click anywhere to return"></div>
@@ -3063,14 +3912,14 @@
           </div>
           <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 12px; margin-bottom: 16px;">
             <div style="color: #00e5ff; font-weight: bold; margin-bottom: 4px;">ACTIVE SUBTASK:</div>
-            <div style="font-size: 1.25rem; color: #fff;">1.1 Power System Verification</div>
+            <div style="font-size: 1.25rem; color: #fff;">Mission 1: Power System Verification</div>
             <div style="font-size: 1rem; color: #94a3b8; margin-top: 2px;">
               Learn key power components (Solar Mast, FSP Nuclear Reactor, PDU, Battery Bank) and complete the verification quiz with Astro Bee.
             </div>
           </div>
           <div style="display: flex; gap: 10px;">
-            <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.25rem; padding: 6px 20px;" onclick="window.location.href='1.1_power_mission.html'">
-              LAUNCH MISSION 1.1 ▶
+            <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.25rem; padding: 6px 20px;" onclick="startPowerMissionWithWalk()">
+              LAUNCH MISSION 1 ▶
             </button>
             <button class="hud-terminal-btn" style="font-size: 1.25rem; padding: 6px 16px;" onclick="closeTacticalModal('modalActiveMission'); zoomBuilding('bldPower', 'badgePower');">
               ZOOM FACILITY
@@ -3136,7 +3985,7 @@
                 <div style="font-size: 1.25rem; color: #fdcb0e;">⚡ Mission 1: Power &amp; Energy</div>
                 <div style="font-size: 0.95rem; color: #94a3b8;">Solar photovoltaic masts, nuclear baseload, and PDU routing.</div>
               </div>
-              <button class="hud-terminal-btn" onclick="window.location.href='1.1_power_mission.html'">PLAY</button>
+              <button class="hud-terminal-btn" onclick="startPowerMissionWithWalk()">PLAY</button>
             </div>
             <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
@@ -3385,6 +4234,32 @@
         </div>
       </div>
     </div>
+
+    <!-- 11. NASA RESEARCH & BASE UPGRADES INTEL DOSSIER MODAL -->
+    <div class="tactical-modal hidden" id="modalNasaDetail" onclick="closeModalOnBackdrop(event, 'modalNasaDetail')">
+      <div class="nasa-dossier-card">
+        <div class="nasa-dossier-header">
+          <div class="dossier-header-left">
+            <span class="dossier-icon" id="dossierIcon">🔬</span>
+            <div>
+              <div class="dossier-tag" id="dossierTag">NASA RESEARCH // FUTURE SURFACE INITIATIVE</div>
+              <h3 class="dossier-title" id="dossierTitle">CARBOTHERMAL O2 EXTRACTION</h3>
+            </div>
+          </div>
+          <button class="modal-close-btn" onclick="closeTacticalModal('modalNasaDetail')">[X]</button>
+        </div>
+        <div class="nasa-dossier-body">
+          <div class="dossier-desc" id="dossierDesc"></div>
+          <div class="dossier-sources-box">
+            <div class="sources-heading">🛰️ OFFICIAL NASA SOURCES &amp; DOCUMENTATION:</div>
+            <div class="sources-links" id="dossierSources"></div>
+          </div>
+        </div>
+        <div class="nasa-dossier-footer">
+          <button class="dossier-close-btn" onclick="closeTacticalModal('modalNasaDetail')">✓ ACKNOWLEDGE INTEL</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -3551,6 +4426,40 @@
           gain.connect(this.ctx.destination);
           osc.start();
           osc.stop(this.ctx.currentTime + 0.18);
+        } catch (e) { }
+      }
+      footstepSound() {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(115, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(42, this.ctx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.1);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.1);
+        } catch (e) { }
+      }
+      airlockCycleSound() {
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, this.ctx.currentTime);
+          osc.frequency.setValueAtTime(1320, this.ctx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.35);
         } catch (e) { }
       }
     }
@@ -3747,19 +4656,32 @@
       }
     }
 
-    const tapStartScreen = document.getElementById('tapStartScreen');
     let missionStarted = false;
+    let isMissionReady = false;
 
     function showTapStartScreen() {
-      if (introDismissed || missionStarted) return;
-      introOverlay.classList.add('fade-out');
-      setTimeout(() => {
-        introOverlay.style.display = 'none';
-        if (animId) cancelAnimationFrame(animId);
-      }, 700);
+      if (introDismissed || missionStarted || isMissionReady) return;
+      isMissionReady = true;
 
-      if (tapStartScreen) {
-        tapStartScreen.classList.add('active');
+      // In place of the loading bar, show the white glowing TAP TO START button!
+      const cocLoadingContainer = document.getElementById('cocLoadingContainer');
+      const tapStartContainer = document.getElementById('tapStartContainer');
+
+      if (cocLoadingContainer) {
+        cocLoadingContainer.style.transition = 'opacity 0.3s ease';
+        cocLoadingContainer.style.opacity = '0';
+        setTimeout(() => {
+          cocLoadingContainer.style.display = 'none';
+
+          if (tapStartContainer) {
+            tapStartContainer.classList.remove('hidden');
+            void tapStartContainer.offsetWidth; // force reflow
+            tapStartContainer.classList.add('active');
+          }
+        }, 300);
+      } else if (tapStartContainer) {
+        tapStartContainer.classList.remove('hidden');
+        tapStartContainer.classList.add('active');
       }
     }
 
@@ -3773,14 +4695,25 @@
       sound.init();
       sound.warpSound();
 
-      if (tapStartScreen) {
-        tapStartScreen.classList.remove('active');
+      if (introOverlay) {
+        introOverlay.classList.add('fade-out');
         setTimeout(() => {
-          tapStartScreen.style.display = 'none';
-        }, 450);
+          introOverlay.style.display = 'none';
+          if (animId) cancelAnimationFrame(animId);
+        }, 600);
       }
 
       playMoonJourneyVideo();
+    }
+
+    function handleIntroClick() {
+      if (isMissionReady) {
+        startMissionWithAudio();
+      } else if (!introDismissed && !missionStarted && currentPct > 20) {
+        currentPct = 100;
+        if (cocFill) cocFill.style.width = '100%';
+        showTapStartScreen();
+      }
     }
 
     function dismissIntro() {
@@ -3816,10 +4749,10 @@
       if (currentPct < 100) {
         requestAnimationFrame(stepLoading);
       } else {
-        // Reached 100% -> Show Dark screen with single TAP TO START button
+        // Reached 100% -> Show MISSION READY button screen
         setTimeout(() => {
           showTapStartScreen();
-        }, 350);
+        }, 300);
       }
     }
 
@@ -3837,15 +4770,6 @@
     window.addEventListener('resize', checkAndStartIntro);
     window.addEventListener('orientationchange', () => {
       setTimeout(checkAndStartIntro, 120);
-    });
-
-    // Optional: click to speed up or skip if user clicks
-    introOverlay.addEventListener('click', () => {
-      if (!introDismissed && !missionStarted && currentPct > 25) {
-        currentPct = 100;
-        if (cocFill) cocFill.style.width = '100%';
-        showTapStartScreen();
-      }
     });
 
     window.addEventListener('keydown', (e) => {
@@ -3900,7 +4824,7 @@
         missions: [
           {
             icon: '🛡️',
-            title: 'Mission 4: Radiation Protection',
+            title: 'Mission 5: Radiation Protection',
             subtasks: [
               { id: 'prepare_shelter', label: 'Prepare the Shelter', active: true, locked: false, dialogue: 'Protect the crew from a solar storm by preparing a radiation-safe shelter.', url: '5.1_Radiation_mission.html' }
             ]
@@ -4147,6 +5071,86 @@
       }
     });
 
+    let powerEntryTimer = null;
+    let footstepInterval = null;
+
+    function skipPowerMissionEntry() {
+      if (powerEntryTimer) clearTimeout(powerEntryTimer);
+      if (footstepInterval) clearInterval(footstepInterval);
+      window.location.href = '1.1_power_mission.html';
+    }
+
+    function startPowerMissionWithWalk() {
+      sound.clickSound();
+
+      // Close all open tactical modals and dialogs
+      document.querySelectorAll('.tactical-modal').forEach(m => m.classList.add('hidden'));
+      const phaseModal = document.getElementById('phaseDashboardModal');
+      if (phaseModal) phaseModal.classList.add('hidden');
+      unzoomBuilding();
+
+      const viewport = document.getElementById('baseViewport');
+      const beacon = document.getElementById('powerAirlockBeacon');
+      const scannerBeam = document.getElementById('powerScannerBeam');
+      const astronaut = document.getElementById('entryAstronaut');
+      const cinematic = document.getElementById('missionWalkCinematic');
+      const statusText = document.getElementById('cinematicStatusText');
+      const astroTag = document.getElementById('astroHudTag');
+      const flash = document.getElementById('entryTransitionFlash');
+
+      if (!viewport || !astronaut) {
+        window.location.href = '1.1_power_mission.html';
+        return;
+      }
+
+      // Activate camera zoom & cinematic mode
+      viewport.classList.add('power-entry-active');
+      if (cinematic) cinematic.classList.remove('hidden');
+      if (beacon) beacon.classList.remove('hidden');
+
+      // Setup astronaut walk
+      astronaut.classList.remove('hidden');
+      astronaut.classList.remove('animating');
+      void astronaut.offsetWidth; // trigger reflow
+      astronaut.classList.add('animating');
+
+      if (statusText) statusText.textContent = 'CADET TRAVERSING LUNAR SURFACE // EN ROUTE TO SECTOR 1';
+      if (astroTag) astroTag.innerHTML = '<span class="hud-tag-led"></span> ASTRO COMMANDO // EN ROUTE';
+
+      // Play periodic footsteps (Web Audio API synthetic lunar dust crunch)
+      let stepCount = 0;
+      sound.footstepSound();
+      if (footstepInterval) clearInterval(footstepInterval);
+      footstepInterval = setInterval(() => {
+        stepCount++;
+        sound.footstepSound();
+        if (stepCount >= 7) {
+          clearInterval(footstepInterval);
+        }
+      }, 440);
+
+      // At 2.6s (approx 78% of walk animation): reached the airlock threshold
+      setTimeout(() => {
+        if (scannerBeam) scannerBeam.classList.add('active');
+        if (statusText) statusText.textContent = 'ACCESS GRANTED // AIRLOCK CYCLE & DEPRESSURIZATION';
+        if (astroTag) {
+          astroTag.innerHTML = '<span class="hud-tag-led" style="background:#00e5ff;box-shadow:0 0 6px #00e5ff;"></span> CLEARANCE VERIFIED // ENTERING';
+          astroTag.style.borderColor = '#fdcb0e';
+          astroTag.style.color = '#fdcb0e';
+        }
+        sound.airlockCycleSound();
+      }, 2600);
+
+      // At 3.25s: transition flash and load mission
+      if (powerEntryTimer) clearTimeout(powerEntryTimer);
+      powerEntryTimer = setTimeout(() => {
+        if (flash) flash.classList.add('active');
+        setTimeout(() => {
+          window.location.href = '1.1_power_mission.html';
+        }, 380);
+      }, 3250);
+    }
+
     function launchGame() {
       sound.clickSound();
       if (isBaseIntroActive && !currentZoomedBldId) {
@@ -4155,6 +5159,10 @@
       }
       const activeSub = currentZoomedBldId ? getActiveSubtask(currentZoomedBldId) : null;
       const targetUrl = (activeSub && activeSub.url) ? activeSub.url : '1.1_power_mission.html';
+      if (targetUrl === '1.1_power_mission.html') {
+        startPowerMissionWithWalk();
+        return;
+      }
       window.location.href = targetUrl;
     }
 
@@ -4278,6 +5286,190 @@
       if (event.target.id === modalId) {
         closeTacticalModal(modalId);
       }
+    }
+
+    // =========================================================================
+    // NASA RESEARCH & BASE UPGRADES NAVBAR & INTEL DOSSIER
+    // =========================================================================
+    const nasaInitiativesData = {
+      carbothermal: {
+        category: "NASA RESEARCH // FUTURE SURFACE INITIATIVES",
+        icon: "⚗️",
+        title: "Carbothermal O2 Extraction (CaRD Project)",
+        description: "NASA's operational testing program to melt lunar regolith with concentrated thermal energy and extract oxygen for life support and propellant.",
+        sources: [
+          { title: "NASA TechPort – Carbothermal Reduction Demonstration", url: "https://techport.nasa.gov/projects/147004" },
+          { title: "NASA NTRS Report", url: "https://ntrs.nasa.gov/citations/20230003977" }
+        ]
+      },
+      fsp: {
+        category: "NASA RESEARCH // FUTURE SURFACE INITIATIVES",
+        icon: "☢️",
+        title: "Fission Surface Power (FSP)",
+        description: "NASA’s joint project with the Department of Energy to place a 40-kWe nuclear reactor on the lunar surface to survive the 14-day lunar night independent of sunlight.",
+        sources: [
+          { title: "NASA Technical Reports Server – FSP Project", url: "https://ntrs.nasa.gov/citations/20240003580" }
+        ]
+      },
+      cadre: {
+        category: "NASA RESEARCH // FUTURE SURFACE INITIATIVES",
+        icon: "🤖",
+        title: "Autonomous Swarm Robotics (CADRE)",
+        description: "JPL's mission sending cooperative, shoebox-sized autonomous rovers that map the terrain and share data through a dynamic mesh network without Earth control.",
+        sources: [
+          { title: "NASA JPL CADRE Mission Overview", url: "https://www.jpl.nasa.gov/missions/cadre/" }
+        ]
+      },
+      microwave: {
+        category: "NASA RESEARCH // FUTURE SURFACE INITIATIVES",
+        icon: "📡",
+        title: "Microwave Regolith Sintering",
+        description: "Research under NASA’s Lunar Surface Innovation Initiative (LSII) to melt fine lunar dust into ceramic-hard pavement and blocks to eliminate hazardous abrasive dust.",
+        sources: [
+          { title: "NASA STMD Lunar Surface Innovation Initiative (LSII)", url: "https://www.nasa.gov/directorates/stmd/lunar-surface-innovation-initiative/" }
+        ]
+      },
+      hls: {
+        category: "BASE UPGRADES // INFRASTRUCTURE MILESTONES",
+        icon: "🛸",
+        title: "HLS Landing Site Prep (Plume-Surface Interaction Mitigation)",
+        description: "NASA’s initiative to engineer dedicated blast fences and landing berms to stop Starship/Blue Origin rocket plumes from sandblasting lunar habitats with supersonic regolith.",
+        sources: [
+          { title: "NASA Artemis Overview – Plume-Surface Interaction Tests", url: "https://www.nasa.gov/missions/artemis/nasa-begins-moon-mission-plume-surface-interaction-tests/" },
+          { title: "NASA Technical Reports Server – PSI Testing Report", url: "https://ntrs.nasa.gov/citations/20260004959" }
+        ]
+      },
+      shielding: {
+        category: "BASE UPGRADES // INFRASTRUCTURE MILESTONES",
+        icon: "🏛️",
+        title: "3D-Printed Shielding (Project Olympus)",
+        description: "NASA’s active partnership with ICON and architectural firms to additively manufacture uncrewed landing pads, radiation barriers, and habitats directly out of local moon dust.",
+        sources: [
+          { title: "NASA Marshall – ICON Lunar Construction Partnership", url: "https://www.nasa.gov/centers-and-facilities/marshall/nasa-icon-advance-lunar-construction-technology-for-moon-missions/" },
+          { title: "NASA Technical Reports Server – MMPACT Project Report", url: "https://ntrs.nasa.gov/citations/20205007535" }
+        ]
+      },
+      cryotanks: {
+        category: "BASE UPGRADES // INFRASTRUCTURE MILESTONES",
+        icon: "🧪",
+        title: "High-Capacity Cryotanks (Cryogenic Fluid Management - CFM)",
+        description: "NASA’s technology development mission testing zero-boil-off, deep-cold tanks to store liquid oxygen and hydrogen on the lunar surface without pressure venting.",
+        sources: [
+          { title: "NASA Technology Demonstration Missions: Cryogenic Fluid Management", url: "https://www.nasa.gov/space-technology-mission-directorate/tdm/cryogenic-fluid-management-cfm/" }
+        ]
+      },
+      vsat: {
+        category: "BASE UPGRADES // INFRASTRUCTURE MILESTONES",
+        icon: "🛰️",
+        title: "Vertical Solar Arrays (VSAT)",
+        description: "Deployable, 30-foot telescoping solar masts designed to capture horizontal grazing sunlight at the Moon's South Pole crater rims without casting ground-level shadows.",
+        sources: [
+          { title: "NASA TechPort – Vertical Solar Array Technology (VSAT)", url: "https://techport.nasa.gov/projects/116305" }
+        ]
+      }
+    };
+
+    let activeNavTab = null;
+
+    function toggleNavDropdown(type) {
+      if (sound && sound.clickSound) sound.clickSound();
+      const dropdown = document.getElementById('topNavDropdown');
+      const btnNasa = document.getElementById('btnNasaResearch');
+      const btnUpgrades = document.getElementById('btnBaseUpgrades');
+      const colNasa = document.getElementById('dropdownColNasa');
+      const colUpgrades = document.getElementById('dropdownColUpgrades');
+
+      if (!dropdown) return;
+
+      const isHidden = dropdown.classList.contains('hidden');
+
+      if (isHidden) {
+        dropdown.classList.remove('hidden');
+        activeNavTab = type;
+      } else if (activeNavTab === type) {
+        dropdown.classList.add('hidden');
+        activeNavTab = null;
+      } else {
+        activeNavTab = type;
+      }
+
+      if (!dropdown.classList.contains('hidden')) {
+        if (activeNavTab === 'nasa') {
+          if (btnNasa) btnNasa.classList.add('active-tab-highlight');
+          if (btnUpgrades) btnUpgrades.classList.remove('active-tab-highlight');
+          if (colNasa) colNasa.style.display = 'block';
+          if (colUpgrades) colUpgrades.style.display = 'none';
+          dropdown.style.left = '0';
+          dropdown.style.right = 'auto';
+        } else {
+          if (btnUpgrades) btnUpgrades.classList.add('active-tab-highlight');
+          if (btnNasa) btnNasa.classList.remove('active-tab-highlight');
+          if (colUpgrades) colUpgrades.style.display = 'block';
+          if (colNasa) colNasa.style.display = 'none';
+          dropdown.style.left = 'auto';
+          dropdown.style.right = '0';
+        }
+      } else {
+        if (btnNasa) btnNasa.classList.remove('active-tab-highlight');
+        if (btnUpgrades) btnUpgrades.classList.remove('active-tab-highlight');
+        if (colNasa) colNasa.style.display = 'none';
+        if (colUpgrades) colUpgrades.style.display = 'none';
+      }
+    }
+
+    function closeNavDropdown() {
+      const dropdown = document.getElementById('topNavDropdown');
+      const btnNasa = document.getElementById('btnNasaResearch');
+      const btnUpgrades = document.getElementById('btnBaseUpgrades');
+      const colNasa = document.getElementById('dropdownColNasa');
+      const colUpgrades = document.getElementById('dropdownColUpgrades');
+      if (dropdown) dropdown.classList.add('hidden');
+      if (btnNasa) btnNasa.classList.remove('active-tab-highlight');
+      if (btnUpgrades) btnUpgrades.classList.remove('active-tab-highlight');
+      if (colNasa) colNasa.style.display = 'none';
+      if (colUpgrades) colUpgrades.style.display = 'none';
+      activeNavTab = null;
+    }
+
+    document.addEventListener('click', (e) => {
+      const cluster = document.getElementById('topNavCluster');
+      if (cluster && !cluster.contains(e.target)) {
+        closeNavDropdown();
+      }
+    });
+
+    function openNasaItemDetail(key) {
+      if (sound && sound.clickSound) sound.clickSound();
+      const item = nasaInitiativesData[key];
+      if (!item) return;
+
+      closeNavDropdown();
+
+      const iconEl = document.getElementById('dossierIcon');
+      const tagEl = document.getElementById('dossierTag');
+      const titleEl = document.getElementById('dossierTitle');
+      const descEl = document.getElementById('dossierDesc');
+      const sourcesEl = document.getElementById('dossierSources');
+
+      if (iconEl) iconEl.textContent = item.icon;
+      if (tagEl) tagEl.textContent = item.category;
+      if (titleEl) titleEl.textContent = item.title;
+      if (descEl) descEl.textContent = item.description;
+
+      if (sourcesEl) {
+        sourcesEl.innerHTML = '';
+        item.sources.forEach(s => {
+          const a = document.createElement('a');
+          a.href = s.url;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.className = 'source-link-btn';
+          a.innerHTML = `<span>📖 ${s.title}</span>`;
+          sourcesEl.appendChild(a);
+        });
+      }
+
+      openTacticalModal('modalNasaDetail');
     }
 
     // Escape key closes modals or unzooms
