@@ -3,7 +3,7 @@
 **Team Name:** Chandrapath  
 **Event:** NASA Space Apps Challenge  
 **Setting:** Shackleton Rim Outpost, Lunar South Pole (Year 2017 / Artemis Framework)  
-**Live Deployment:** [Vercel Deployment](https://moon-fall.vercel.app/)
+**Live Deployments:** [moonfall-blush.vercel.app](https://moonfall-blush.vercel.app) | [moon-fall.vercel.app](https://moon-fall.vercel.app/)
 
 ---
 
