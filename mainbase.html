@@ -1933,6 +1933,47 @@
       display: none !important;
     }
 
+    /* Enforce Astrobee Launcher Position and Cyan Style in Base Viewport (Cache-Proof) */
+    .ab-root.ab-in-stage .ab-launch {
+      position: absolute !important;
+      top: 12px !important;
+      right: 14px !important;
+      width: clamp(76px, 6.2vw, 92px) !important;
+      min-height: clamp(76px, 6.4vw, 92px) !important;
+      background: linear-gradient(180deg, #0d2244 0%, #041024 100%) !important;
+      border: 3px solid #00e5ff !important;
+      border-radius: 12px !important;
+      box-shadow: 0 0 18px rgba(0, 229, 255, 0.45), 0 8px 24px rgba(0, 0, 0, 0.9), inset 0 2px 0 rgba(255, 255, 255, 0.25) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 1px !important;
+      padding: 6px 7px 4px !important;
+      cursor: pointer !important;
+    }
+
+    .ab-root.ab-in-stage .ab-launch img {
+      width: clamp(46px, 4vw, 58px) !important;
+      height: clamp(46px, 4vw, 58px) !important;
+      aspect-ratio: 1 !important;
+      object-fit: contain !important;
+      image-rendering: pixelated !important;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 8px rgba(0, 229, 255, 0.45)) !important;
+    }
+
+    .ab-root.ab-in-stage .ab-launch-short {
+      display: block !important;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
+      font-size: clamp(19px, 1.45vw, 24px) !important;
+      font-weight: bold !important;
+      letter-spacing: 0.08em !important;
+      line-height: 1 !important;
+      color: #ffea00 !important;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 2px 0 #000 !important;
+      margin-top: 1px !important;
+    }
+
     /* Floating Base Music Toggle Button (aligned under Astrobee on the right edge) */
     .base-music-toggle {
       position: absolute;
@@ -3053,7 +3094,7 @@
       box-shadow: inset 0 2px 0 #bae6fd, inset 0 -2px 0 #0c4a6e, 0 3px 0 #000000;
     }
   </style>
-  <link rel="stylesheet" href="astrobee/astrobee.css">
+  <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
 </head>
 
 <body>
