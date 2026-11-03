@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MoonFall - Mission: ISRU (Water &amp; Oxygen)</title>
+  <meta name="description" content="In-Situ Resource Utilization mission: finding water ice at the lunar South Pole.">
+
+  <!-- Retro Pixel Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/Jersey10.ttf" as="font" type="font/ttf" crossorigin>
+
+  <!-- Preload Core Images -->
+  <link rel="preload" href="H2O assets/bg/bg_of_water.png" as="image">
+  <link rel="preload" href="H2O assets/character/Guion_Bluford_PointUp.png" as="image">
+
+  <style>
+    /* ==========================================================================
+       MoonFall ISRU Mission Engine Styles (follows 1.1_power_mission.html logic)
+       ========================================================================== */
+    @font-face {
+      font-family: 'Jersey 10';
+      src: url('assets/fonts/Jersey10.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --pixel-blue-border: #0099ff;
+      --pixel-yellow-btn: #fdcb0e;
+      --font-pixel: 'Jersey 10', monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: #000000;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: var(--font-pixel);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .hidden { display: none !important; }
+
+    /* Fullscreen Viewport */
+    .isru-game-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      overflow: hidden;
+    }
+
+    .isru-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Background Layer: Lunar South Pole */
+    .isru-bg-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('H2O assets/bg/bg_of_water.png');
+      background-size: cover;
+      background-position: center;
+      image-rendering: pixelated;
+      image-rendering: -webkit-optimize-contrast;
+      z-index: 1;
+      animation: bg-fade-in 0.9s ease;
+    }
+
+    @keyframes bg-fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Character (Left Side, in front of dialogue bar) */
+    .character-guide {
+      position: absolute;
+      bottom: -2%;
+      left: 7%;
+      height: 60%;
+      width: auto;
+      pointer-events: none;
+      z-index: 30;
+      display: flex;
+      align-items: flex-end;
+      animation: char-slide-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .character-guide img {
+      height: 100%;
+      width: auto;
+      max-height: 100%;
+      max-width: none;
+      object-fit: contain;
+      object-position: bottom left;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.75));
+      image-rendering: pixelated;
+    }
+
+    @keyframes char-slide-in {
+      from { opacity: 0; transform: translateX(-24px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Floating diagram / equipment card (reserved for next scenes) */
+    .diagram-card-container {
+      position: absolute;
+      top: 5.5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 58%;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    /* Right-aligned card variant (Scene 2: Submersive Ice) */
+    .diagram-card-container.card-right {
+      top: 16%;
+      left: 45.5%;
+      transform: none;
+      width: 46.5%;
+      height: 52%;
+      justify-content: flex-end;
+      align-items: flex-start;
+      animation: card-appear-right 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes card-appear-right {
+      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .diagram-card-container img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.8));
+      image-rendering: pixelated;
+    }
+
+    /* Dialogue Dock Footer */
+    .dialogue-wrapper {
+      position: absolute;
+      bottom: 4.8%;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 25;
+      padding: 0 3%;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .dialogue-box.scene-1-box {
+      position: relative;
+      width: 84%;
+      max-width: 1360px;
+      aspect-ratio: 2813 / 378;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      margin-left: 7%;
+      margin-right: 1.5%;
+    }
+
+    .dialogue-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
+    }
+
+    .speaker-badge {
+      position: absolute;
+      top: -16.5%;
+      left: 17.5%;
+      width: 17.5%;
+      aspect-ratio: 479 / 127;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 35;
+      pointer-events: none;
+    }
+
+    .speaker-badge-img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      image-rendering: pixelated;
+    }
+
+    .skip-btn {
+      position: absolute;
+      top: -16.5%;
+      right: 3.2%;
+      width: 13.4%;
+      aspect-ratio: 376 / 127;
+      display: block;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 50;
+      pointer-events: auto;
+      padding: 0;
+      outline: none;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .skip-btn * { pointer-events: none; }
+    .skip-btn:hover { transform: scale(1.04); filter: brightness(1.08); }
+    .skip-btn:active { transform: scale(0.97); }
+
+    .skip-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      image-rendering: pixelated;
+    }
+
+    .skip-icon {
+      position: absolute;
+      left: 12.8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 26.3%;
+      height: auto;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    .dialogue-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      padding-left: 18.5%;
+      padding-right: 3%;
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .dialogue-text {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.25rem, 2.3vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.12;
+      color: #000000;
+      white-space: normal;
+      letter-spacing: 0.015em;
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: grayscale;
+      margin: 0;
+      width: 100%;
+    }
+
+    /* Smaller text for long (3-line) dialogue */
+    .dialogue-text.long-text {
+      font-size: clamp(1.05rem, 1.85vw, 2.05rem);
+      line-height: 1.1;
+    }
+
+    /* Top HUD / Controls */
+    .top-hud {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      right: 14px;
+      z-index: 40;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .hud-title-badge {
+      background: rgba(0, 10, 30, 0.75);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 3px 14px;
+      color: #ffffff;
+      font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+      letter-spacing: 0.05em;
+      pointer-events: auto;
+    }
+
+    .hud-btn {
+      background: rgba(0, 10, 30, 0.75);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 4px 14px;
+      color: #7dd3fc;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+      cursor: pointer;
+      pointer-events: auto;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .hud-btn:hover { background: #0284c7; color: #ffffff; }
+
+    /* ======================================================================
+       Interactive Map (Scene 2: Submersive Ice) - zoom, pan, labelled markers
+       ====================================================================== */
+    .map-container {
+      position: absolute;
+      top: 16%;
+      left: 45.5%;
+      width: 46.5%;
+      height: 52%;
+      z-index: 16;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      pointer-events: none;
+      animation: card-appear-right 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .map-card {
+      position: relative;
+      height: 100%;
+      max-width: 100%;
+      aspect-ratio: 1504 / 970;
+      pointer-events: auto;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.8));
+    }
+
+    .map-frame-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      image-rendering: pixelated;
+      pointer-events: none;
+    }
+
+    /* Map window = the inner picture area of Frame 2.png (x 90-1414, y 183-922 of 1504x970) */
+    .map-window {
+      position: absolute;
+      left: 5.98%;
+      top: 18.87%;
+      width: 88.03%;
+      height: 76.19%;
+      overflow: hidden;
+      background: #000;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .map-window.dragging { cursor: grabbing; }
+
+    .map-pan {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+
+    .map-pan-img {
+      position: absolute;
+      left: -6.80%;
+      top: -24.76%;
+      width: 113.60%;
+      height: 131.26%;
+      image-rendering: pixelated;
+      pointer-events: none;
+      max-width: none;
+      max-height: none;
+    }
+
+    /* Markers (constant on-screen size regardless of zoom) */
+    .map-marker {
+      position: absolute;
+      width: 0;
+      height: 0;
+      z-index: 5;
+    }
+
+    .marker-dot {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: clamp(12px, 1.5vw, 22px);
+      height: clamp(12px, 1.5vw, 22px);
+      transform: translate(-50%, -50%) scale(var(--inv, 1));
+      border-radius: 50%;
+      background: rgba(0, 10, 30, 0.85);
+      border: 2px solid #fdcb0e;
+      color: #fdcb0e;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.7rem, 1vw, 1rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .map-marker:hover .marker-dot,
+    .map-marker.active .marker-dot {
+      background: #fdcb0e;
+      color: #000;
+    }
+
+    .marker-label {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: translate(-50%, calc(-100% - clamp(10px, 1.2vw, 18px))) scale(var(--inv, 1));
+      transform-origin: 50% 100%;
+      white-space: nowrap;
+      background: rgba(0, 10, 30, 0.9);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 5px;
+      padding: 1px 8px;
+      color: #ffffff;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.8rem, 1.2vw, 1.2rem);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .map-marker:hover .marker-label,
+    .map-marker.active .marker-label,
+    .map-window.show-labels .marker-label { opacity: 1; }
+
+    /* Water probability halo */
+    .water-halo {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: clamp(34px, 4.2vw, 64px);
+      height: clamp(34px, 4.2vw, 64px);
+      transform: translate(-50%, -50%) scale(var(--inv, 1));
+      border-radius: 50%;
+      pointer-events: none;
+      display: none;
+    }
+
+    .map-window.show-water .water-halo { display: block; }
+
+    .water-halo.prob-high {
+      border: 3px solid #22ff88;
+      box-shadow: 0 0 14px #22ff88, inset 0 0 14px rgba(34, 255, 136, 0.5);
+      animation: halo-pulse 1.3s ease-in-out infinite;
+    }
+
+    .water-halo.prob-medium {
+      border: 2px dashed #fdcb0e;
+      box-shadow: 0 0 8px rgba(253, 203, 14, 0.7);
+    }
+
+    .water-halo.prob-low {
+      border: 2px dotted #ff5566;
+      opacity: 0.8;
+    }
+
+    @keyframes halo-pulse {
+      0%, 100% { opacity: 0.55; }
+      50% { opacity: 1; }
+    }
+
+    .halo-tag {
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      margin-top: 2px;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.7rem, 1vw, 1rem);
+      padding: 0 5px;
+      border-radius: 3px;
+      color: #000;
+      white-space: nowrap;
+    }
+
+    .prob-high .halo-tag { background: #22ff88; }
+    .prob-medium .halo-tag { background: #fdcb0e; }
+    .prob-low .halo-tag { background: #ff5566; color: #fff; }
+
+    /* Map toolbar (zoom + water toggle) */
+    .map-toolbar {
+      position: absolute;
+      right: 7.5%;
+      top: 22.5%;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .map-tool-btn {
+      min-width: clamp(26px, 2.6vw, 40px);
+      height: clamp(26px, 2.6vw, 40px);
+      padding: 0 6px;
+      background: rgba(0, 10, 30, 0.85);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 5px;
+      color: #7dd3fc;
+      font-family: var(--font-pixel);
+      font-size: clamp(1rem, 1.7vw, 1.7rem);
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .map-tool-btn:hover { background: #0284c7; color: #fff; }
+
+    .map-tool-btn.toggle-on { background: #0e7a45; color: #fff; border-color: #22ff88; }
+
+    .water-toggle { font-size: clamp(0.8rem, 1.2vw, 1.2rem); }
+
+    /* Info panel (component name + probability) */
+    .map-info {
+      position: absolute;
+      left: 7%;
+      bottom: 7%;
+      z-index: 20;
+      max-width: 46%;
+      background: rgba(0, 10, 30, 0.9);
+      border: 2px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 4px 10px 6px;
+      color: #fff;
+      font-family: var(--font-pixel);
+      pointer-events: none;
+    }
+
+    .map-info-name {
+      font-size: clamp(0.95rem, 1.5vw, 1.55rem);
+      color: #fdcb0e;
+      line-height: 1.05;
+    }
+
+    .map-info-desc {
+      font-size: clamp(0.8rem, 1.15vw, 1.15rem);
+      line-height: 1.05;
+      color: #dbeafe;
+    }
+
+    .map-info-prob {
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: clamp(0.8rem, 1.15vw, 1.15rem);
+    }
+
+    .prob-bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      overflow: hidden;
+      min-width: 60px;
+    }
+
+    .prob-fill { height: 100%; width: 0; transition: width 0.25s ease; }
+
+    .map-hint {
+      position: absolute;
+      left: 7%;
+      top: 22.5%;
+      z-index: 20;
+      background: rgba(0, 10, 30, 0.7);
+      border-radius: 4px;
+      padding: 1px 8px;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.75rem, 1.05vw, 1.05rem);
+      color: #9ee7ff;
+      pointer-events: none;
+    }
+
+    /* "More scenes coming" toast (shown after last defined scene) */
+    .coming-soon-toast {
+      position: absolute;
+      top: 14%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 45;
+      background: rgba(0, 10, 30, 0.85);
+      border: 2px solid var(--pixel-blue-border);
+      border-radius: 8px;
+      padding: 8px 22px;
+      color: #fdcb0e;
+      font-size: clamp(1.1rem, 2vw, 1.8rem);
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .coming-soon-toast.show { opacity: 1; }
+  </style>
+</head>
+
+<body>
+  <main class="isru-game-viewport" id="gameViewport" role="application" aria-label="ISRU Mission: Water and Oxygen">
+    <div class="isru-stage" id="isruStage">
+
+      <!-- Top HUD -->
+      <header class="top-hud">
+        <div class="hud-title-badge" id="hudTitle">💧 MISSION: ISRU</div>
+        <div style="display:flex; gap:8px;">
+          <button class="hud-btn" id="soundBtn" onclick="toggleSound()">🔊 SOUND</button>
+          <button class="hud-btn" onclick="returnToBase()">🏠 MAIN BASE</button>
+        </div>
+      </header>
+
+      <!-- Background: Lunar South Pole -->
+      <div class="isru-bg-layer" id="isruBgLayer" aria-hidden="true"></div>
+
+      <!-- Character Stage (Left) -->
+      <div class="character-guide hidden" id="guideStage">
+        <img src="H2O assets/character/Guion_Bluford_PointUp.png" alt="Mission Guide" id="guideImg">
+      </div>
+
+      <!-- Floating Diagram Card (used by later scenes) -->
+      <div class="diagram-card-container hidden" id="diagramCardContainer">
+        <img src="" alt="Diagram" id="diagramCardImg">
+      </div>
+
+      <!-- Interactive Map (Scene 2) -->
+      <div class="map-container hidden" id="mapContainer">
+        <div class="map-card">
+          <img class="map-frame-img" src="H2O assets/equipements/Frame 2.png" alt="Submersive Ice map frame">
+          <div class="map-window show-water" id="mapWindow" aria-label="Interactive lunar ice map">
+            <div class="map-pan" id="mapPan">
+              <img class="map-pan-img" src="H2O assets/equipements/Frame 2.png" alt="Submersive ice map">
+            </div>
+          </div>
+          <div class="map-hint" id="mapHint">Scroll / pinch to zoom · drag to move · tap a marker</div>
+          <div class="map-toolbar">
+            <button class="map-tool-btn" id="mapZoomIn" title="Zoom in" aria-label="Zoom in">+</button>
+            <button class="map-tool-btn" id="mapZoomOut" title="Zoom out" aria-label="Zoom out">−</button>
+            <button class="map-tool-btn" id="mapReset" title="Reset view" aria-label="Reset view">⟲</button>
+            <button class="map-tool-btn water-toggle toggle-on" id="waterToggle" title="Show water probability">💧</button>
+          </div>
+          <div class="map-info" id="mapInfo">
+            <div class="map-info-name" id="mapInfoName">Tap a marker</div>
+            <div class="map-info-desc" id="mapInfoDesc">Green rings show the highest chance of water ice.</div>
+            <div class="map-info-prob hidden" id="mapInfoProbRow">
+              <span id="mapInfoProbText"></span>
+              <div class="prob-bar"><div class="prob-fill" id="mapInfoProbFill"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="coming-soon-toast" id="comingSoonToast">MORE SCENES COMING SOON...</div>
+
+      <!-- Dialogue Dock Footer -->
+      <footer class="dialogue-wrapper hidden" id="dialogueWrapper">
+        <div class="dialogue-box scene-1-box" id="dialogueBox" onclick="handleDialogueClick()">
+          <div class="speaker-badge" id="speakerBadge">
+            <img src="1.1_power_mission_assest/Caption Text.webp" alt="Chiaki Mukai" class="speaker-badge-img">
+          </div>
+          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene"
+            aria-label="Skip to Next Scene">
+            <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="assets/Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <div class="dialogue-content">
+            <p class="dialogue-text" id="dialogueText"></p>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script>
+    // =========================================================================
+    // Web Audio Synthesizer
+    // =========================================================================
+    class SoundEngine {
+      constructor() { this.ctx = null; this.muted = false; }
+
+      init() {
+        if (!this.ctx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) this.ctx = new AC();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      }
+
+      _blip(type, freq, vol, dur) {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + dur);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + dur);
+        } catch (e) { }
+      }
+
+      playTypewriter() { this._blip('triangle', 740 + Math.random() * 120, 0.04, 0.028); }
+      playClick() { this._blip('sine', 880, 0.08, 0.08); }
+    }
+
+    const sound = new SoundEngine();
+
+    function toggleSound() {
+      sound.muted = !sound.muted;
+      document.getElementById('soundBtn').textContent = sound.muted ? '🔇 MUTED' : '🔊 SOUND';
+    }
+
+    // =========================================================================
+    // Scene Definitions (add more scenes to this array as the mission grows)
+    // =========================================================================
+    const GUIDE_POINT_UP = 'H2O assets/character/Guion_Bluford_PointUp.png';
+
+    const SCENES = [
+      // Scene 1: Lunar South Pole intro
+      {
+        id: 1,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        cardImg: null,
+        speaker: 'Chiaki Mukai',
+        text: "Welcome to the lunar South Pole, Cadet! Over billions of years, water from comets, asteroids, and the solar wind may have accumulated on the Moon."
+      },
+      // Scene 2: Submersive Ice (Frame 2.png card on the right)
+      {
+        id: 2,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        cardImg: null,
+        interactiveMap: true,
+        speaker: 'Chiaki Mukai',
+        text: "Permanently shadowed craters act as natural ‘cold traps’ where sunlight never reaches the floor, allowing water ice to survive. Some of this ice may also be hidden beneath the surface!"
+      }
+    ];
+
+    // =========================================================================
+    // State & DOM refs
+    // =========================================================================
+    let currentSceneIdx = 0;
+    let isTyping = false;
+    let typeTimer = null;
+    let currentFullText = '';
+    let toastTimer = null;
+
+    const guideStage = document.getElementById('guideStage');
+    const guideImg = document.getElementById('guideImg');
+    const diagramCardContainer = document.getElementById('diagramCardContainer');
+    const diagramCardImg = document.getElementById('diagramCardImg');
+    const dialogueWrapper = document.getElementById('dialogueWrapper');
+    const dialogueText = document.getElementById('dialogueText');
+    const toastEl = document.getElementById('comingSoonToast');
+
+    function renderScene(idx) {
+      currentSceneIdx = idx;
+      const s = SCENES[idx];
+
+      if (s.showGuide) {
+        guideImg.src = s.guidePose || GUIDE_POINT_UP;
+        guideStage.classList.remove('hidden');
+      } else {
+        guideStage.classList.add('hidden');
+      }
+
+      mapContainer.classList.toggle('hidden', !s.interactiveMap);
+      if (s.interactiveMap) { mapContainer.style.animation = 'none'; void mapContainer.offsetWidth; mapContainer.style.animation = ''; resetMapView(); }
+
+      diagramCardContainer.classList.remove('card-right');
+      if (s.cardImg) {
+        diagramCardImg.src = s.cardImg;
+        if (s.cardClass) diagramCardContainer.classList.add(s.cardClass);
+        // restart entrance animation
+        diagramCardContainer.classList.add('hidden');
+        void diagramCardContainer.offsetWidth;
+        diagramCardContainer.classList.remove('hidden');
+      } else {
+        diagramCardContainer.classList.add('hidden');
+      }
+
+      if (s.text) {
+        dialogueText.classList.toggle('long-text', s.text.length > 140);
+        dialogueWrapper.classList.remove('hidden');
+        startTypewriter(s.text);
+      } else {
+        dialogueWrapper.classList.add('hidden');
+      }
+    }
+
+    // =========================================================================
+    // Typewriter Engine
+    // =========================================================================
+    function startTypewriter(str) {
+      currentFullText = str;
+      if (typeTimer) clearTimeout(typeTimer);
+      isTyping = true;
+      dialogueText.textContent = '';
+      let i = 0;
+
+      (function typeChar() {
+        if (!isTyping) return;
+        if (i < str.length) {
+          dialogueText.textContent += str.charAt(i);
+          if (i % 3 === 0) sound.playTypewriter();
+          i++;
+          typeTimer = setTimeout(typeChar, 18);
+        } else {
+          isTyping = false;
+        }
+      })();
+    }
+
+    function finishTypewriter() {
+      if (!isTyping) return;
+      isTyping = false;
+      if (typeTimer) clearTimeout(typeTimer);
+      dialogueText.textContent = currentFullText;
+    }
+
+    function handleDialogueClick() {
+      if (isTyping) { finishTypewriter(); return; }
+      nextScene();
+    }
+
+    function handleActionBtnClick() {
+      sound.playClick();
+      if (isTyping) { finishTypewriter(); return; }
+      nextScene();
+    }
+
+    function nextScene() {
+      sound.playClick();
+      if (currentSceneIdx < SCENES.length - 1) {
+        renderScene(currentSceneIdx + 1);
+      } else {
+        toastEl.classList.add('show');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1800);
+      }
+    }
+
+    function returnToBase() {
+      sound.playClick();
+      try { sessionStorage.setItem('moonfall_landed', 'true'); } catch (e) { }
+      window.location.href = 'index.html?return=base';
+    }
+
+    // =========================================================================
+    // Interactive Map: zoom / pan / labelled components / water probability
+    // Coordinates are pixels of Frame 2.png (1504x970); map window = x90-1414, y183-922
+    // =========================================================================
+    const MAP_COMPONENTS = [
+      { x: 1110, y: 545, name: 'Permanently Shadowed Crater', prob: 95,
+        desc: 'A cold trap: sunlight never reaches the floor, so ice stays frozen for billions of years.' },
+      { x: 290, y: 765, name: 'Shadowed Basin Ice Deposit', prob: 92,
+        desc: 'Large dark basin with a thick ice field, possibly buried under the dust.' },
+      { x: 1120, y: 822, name: 'Crater Floor Ice', prob: 80,
+        desc: 'Small shadowed crater whose floor holds frozen water.' },
+      { x: 588, y: 447, name: 'Surface Ice Patch', prob: 68,
+        desc: 'Exposed frost in a shaded hollow. Good, but smaller than the big deposits.' },
+      { x: 385, y: 438, name: 'Small Ice Patch', prob: 60,
+        desc: 'A thin ice patch at the edge of a shadow. Worth a sample.' },
+      { x: 800, y: 520, name: 'Sunlit Plateau', prob: 8,
+        desc: 'Bright, sun-warmed ground. Ice cannot survive here.' },
+      { x: 910, y: 305, name: 'Prospecting Rover', prob: null,
+        desc: 'Our rover scanning the surface for hydrogen and ice.' },
+      { x: 1230, y: 640, name: 'Traverse Route', prob: null,
+        desc: 'The red path the rover follows to survey the ice sites safely.' }
+    ];
+
+    const MAP_W = 1324, MAP_H = 739, MAP_OX = 90, MAP_OY = 183;
+    const MIN_ZOOM = 1, MAX_ZOOM = 4;
+
+    const mapContainer = document.getElementById('mapContainer');
+    const mapWindow = document.getElementById('mapWindow');
+    const mapPan = document.getElementById('mapPan');
+    const mapInfoName = document.getElementById('mapInfoName');
+    const mapInfoDesc = document.getElementById('mapInfoDesc');
+    const mapInfoProbRow = document.getElementById('mapInfoProbRow');
+    const mapInfoProbText = document.getElementById('mapInfoProbText');
+    const mapInfoProbFill = document.getElementById('mapInfoProbFill');
+    const waterToggle = document.getElementById('waterToggle');
+
+    let mapZoom = 1, mapTx = 0, mapTy = 0;
+    let mapDrag = null, dragMoved = false;
+
+    function probLevel(p) { return p >= 75 ? 'high' : p >= 40 ? 'medium' : 'low'; }
+
+    function buildMapMarkers() {
+      MAP_COMPONENTS.forEach((c, i) => {
+        const m = document.createElement('div');
+        m.className = 'map-marker';
+        m.style.left = ((c.x - MAP_OX) / MAP_W * 100) + '%';
+        m.style.top = ((c.y - MAP_OY) / MAP_H * 100) + '%';
+        m.dataset.idx = i;
+
+        if (c.prob !== null) {
+          const lvl = probLevel(c.prob);
+          const halo = document.createElement('div');
+          halo.className = 'water-halo prob-' + lvl;
+          const tag = document.createElement('span');
+          tag.className = 'halo-tag';
+          tag.textContent = lvl.toUpperCase() + ' ' + c.prob + '%';
+          halo.appendChild(tag);
+          m.appendChild(halo);
+        }
+
+        const dot = document.createElement('div');
+        dot.className = 'marker-dot';
+        dot.textContent = c.prob === null ? '•' : '?';
+        m.appendChild(dot);
+
+        const label = document.createElement('div');
+        label.className = 'marker-label';
+        label.textContent = c.name;
+        m.appendChild(label);
+
+        m.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (dragMoved) return;
+          sound.playClick();
+          selectComponent(i);
+        });
+        mapPan.appendChild(m);
+      });
+    }
+
+    function selectComponent(i) {
+      const c = MAP_COMPONENTS[i];
+      document.querySelectorAll('.map-marker').forEach(el => el.classList.toggle('active', el.dataset.idx == i));
+      mapInfoName.textContent = c.name;
+      mapInfoDesc.textContent = c.desc;
+      if (c.prob === null) {
+        mapInfoProbRow.classList.add('hidden');
+      } else {
+        const lvl = probLevel(c.prob);
+        const color = lvl === 'high' ? '#22ff88' : lvl === 'medium' ? '#fdcb0e' : '#ff5566';
+        mapInfoProbText.textContent = 'Water chance: ' + lvl.toUpperCase() + ' (' + c.prob + '%)';
+        mapInfoProbText.style.color = color;
+        mapInfoProbFill.style.background = color;
+        mapInfoProbRow.classList.remove('hidden');
+        requestAnimationFrame(() => { mapInfoProbFill.style.width = c.prob + '%'; });
+      }
+    }
+
+    function clampMap() {
+      const w = mapWindow.clientWidth, h = mapWindow.clientHeight;
+      mapTx = Math.min(0, Math.max(w - w * mapZoom, mapTx));
+      mapTy = Math.min(0, Math.max(h - h * mapZoom, mapTy));
+    }
+
+    function applyMap() {
+      clampMap();
+      mapPan.style.transform = 'translate(' + mapTx + 'px,' + mapTy + 'px) scale(' + mapZoom + ')';
+      mapPan.style.setProperty('--inv', (1 / mapZoom).toFixed(4));
+      // show every label once zoomed in enough
+      mapWindow.classList.toggle('show-labels', mapZoom >= 2.4);
+    }
+
+    function zoomMapAt(factor, cx, cy) {
+      const nz = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, mapZoom * factor));
+      const k = nz / mapZoom;
+      mapTx = cx - (cx - mapTx) * k;
+      mapTy = cy - (cy - mapTy) * k;
+      mapZoom = nz;
+      applyMap();
+    }
+
+    function resetMapView() {
+      mapZoom = 1; mapTx = 0; mapTy = 0;
+      applyMap();
+    }
+
+    function initMap() {
+      buildMapMarkers();
+
+      mapWindow.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const r = mapWindow.getBoundingClientRect();
+        zoomMapAt(e.deltaY < 0 ? 1.2 : 1 / 1.2, e.clientX - r.left, e.clientY - r.top);
+      }, { passive: false });
+
+      mapWindow.addEventListener('pointerdown', (e) => {
+        mapDrag = { x: e.clientX, y: e.clientY, tx: mapTx, ty: mapTy, id: e.pointerId };
+        dragMoved = false;
+      });
+      mapWindow.addEventListener('pointermove', (e) => {
+        if (!mapDrag) return;
+        const dx = e.clientX - mapDrag.x, dy = e.clientY - mapDrag.y;
+        if (!dragMoved && Math.abs(dx) + Math.abs(dy) > 4) {
+          dragMoved = true;
+          mapWindow.classList.add('dragging');
+          try { mapWindow.setPointerCapture(mapDrag.id); } catch (err) { }
+        }
+        if (!dragMoved) return;
+        mapTx = mapDrag.tx + dx;
+        mapTy = mapDrag.ty + dy;
+        applyMap();
+      });
+      const endDrag = () => {
+        mapDrag = null;
+        mapWindow.classList.remove('dragging');
+        setTimeout(() => { dragMoved = false; }, 0);
+      };
+      mapWindow.addEventListener('pointerup', endDrag);
+      mapWindow.addEventListener('pointercancel', endDrag);
+
+      const center = () => [mapWindow.clientWidth / 2, mapWindow.clientHeight / 2];
+      document.getElementById('mapZoomIn').addEventListener('click', () => { sound.playClick(); zoomMapAt(1.4, ...center()); });
+      document.getElementById('mapZoomOut').addEventListener('click', () => { sound.playClick(); zoomMapAt(1 / 1.4, ...center()); });
+      document.getElementById('mapReset').addEventListener('click', () => { sound.playClick(); resetMapView(); });
+      waterToggle.addEventListener('click', () => {
+        sound.playClick();
+        mapWindow.classList.toggle('show-water');
+        waterToggle.classList.toggle('toggle-on', mapWindow.classList.contains('show-water'));
+      });
+      window.addEventListener('resize', applyMap);
+    }
+
+    initMap();
+
+    // Boot
+    renderScene(0);
+  </script>
+</body>
+
+</html>
+
