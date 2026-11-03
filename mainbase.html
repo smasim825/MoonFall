@@ -1902,6 +1902,60 @@
       display: none !important;
     }
 
+    /* Floating Base Music Toggle Button (aligned under Astrobee on the right edge) */
+    .base-music-toggle {
+      position: absolute;
+      top: 110px;
+      right: 14px;
+      z-index: 215;
+      width: clamp(76px, 6.2vw, 92px);
+      padding: 5px 6px;
+      background: linear-gradient(180deg, #0d2244 0%, #041024 100%);
+      border: 2px solid #00e5ff;
+      border-radius: 9px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      color: #00e5ff;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(0.95rem, 1.1vw, 1.25rem);
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      user-select: none;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease, background 0.15s ease;
+    }
+
+    .base-music-toggle:hover {
+      transform: translateY(-2px);
+      border-color: #ffea00;
+      color: #ffea00;
+      box-shadow: 0 0 18px rgba(255, 234, 0, 0.7), 0 6px 18px rgba(0, 0, 0, 0.95);
+      background: linear-gradient(180deg, #143566 0%, #081d3d 100%);
+    }
+
+    .base-music-toggle:active {
+      transform: translateY(1px);
+    }
+
+    .base-music-toggle.muted {
+      border-color: rgba(148, 163, 184, 0.45);
+      color: #94a3b8;
+      background: rgba(10, 18, 32, 0.88);
+      box-shadow: none;
+    }
+
+    @container ab-stage (max-height: 480px) {
+      .base-music-toggle {
+        top: 96px;
+        right: 8px;
+        width: 64px;
+        font-size: 0.85rem;
+        padding: 3px 4px;
+      }
+    }
+
     @keyframes dropdown-pop {
       from {
         opacity: 0;
@@ -3049,6 +3103,18 @@
     <!-- Lunar Surface Base Background -->
     <div class="base-background"></div>
 
+    <!-- Main Base Background Music (Plays in loop during base stay only, starts after landing intro) -->
+    <audio id="mainBaseBgm" loop preload="auto">
+      <source src="main_base_music.mp3" type="audio/mpeg">
+      <source src="main_base_music.m4a" type="audio/mp4">
+      <source src="main_base_music.mp4" type="video/mp4">
+    </audio>
+
+    <!-- Floating Base Music Toggle Button (aligned vertically under Astrobee on the right) -->
+    <button class="base-music-toggle" id="baseMusicToggle" type="button" onclick="event.stopPropagation(); toggleMainBaseBgm();" title="Toggle Base Background Music">
+      <span class="music-icon">🎵</span> <span class="music-label">MUSIC</span>
+    </button>
+
     <!-- Master Responsive Top HUD Navigation Bar -->
     <header class="game-top-hud" id="gameTopHud">
       <!-- Left Side: Phase & Crew Controls -->
@@ -3273,7 +3339,7 @@
             <!-- Bottom Title + Chunky Blue Button + Timer Footer -->
             <div class="coc-card-bottom">
               <div class="coc-card-title">MoonFall: Last Light</div>
-              <button class="coc-big-cta-btn coc-btn-blue" type="button" onclick="window.location.href='final_mission.html'">
+              <button class="coc-big-cta-btn coc-btn-blue" type="button" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='final_mission.html'">
                 <span class="coc-btn-main-text">Start Final Mission</span>
                 <span class="coc-btn-sub-cost">18-Hour Emergency 🚀</span>
               </button>
@@ -3343,8 +3409,8 @@
 
             <div class="coc-card-info-drawer hidden" id="drawerM2">
               <div class="coc-drawer-item" style="cursor:default;"><span>👩‍🚀 Guide:</span><span>Sunita Williams</span></div>
-              <div class="coc-drawer-item" onclick="window.location.href='2.1_daily_meal.html'"><span>🍱 2.1 Daily Meal</span><span>▶</span></div>
-              <div class="coc-drawer-item" onclick="window.location.href='2.2_Hydroponics.html'"><span>🌱 2.2 Hydroponics</span><span>▶</span></div>
+              <div class="coc-drawer-item" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.1_daily_meal.html'"><span>🍱 2.1 Daily Meal</span><span>▶</span></div>
+              <div class="coc-drawer-item" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.2_Hydroponics.html'"><span>🌱 2.2 Hydroponics</span><span>▶</span></div>
             </div>
 
             <div class="coc-card-art-stage">
@@ -3642,7 +3708,7 @@
             </div>
           </div>
           <div style="display: flex; gap: 10px;">
-            <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.25rem; padding: 6px 20px;" onclick="window.location.href='1.1_power_mission.html'">
+            <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.25rem; padding: 6px 20px;" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='1.1_power_mission.html'">
               LAUNCH MISSION 1.1 ▶
             </button>
             <button class="hud-terminal-btn" style="font-size: 1.25rem; padding: 6px 16px;" onclick="closeTacticalModal('modalActiveMission'); zoomBuilding('bldPower', 'badgePower');">
@@ -3709,7 +3775,7 @@
                 <div style="font-size: 1.25rem; color: #fdcb0e;">⚡ Mission 1: Power &amp; Energy</div>
                 <div style="font-size: 0.95rem; color: #94a3b8;">Solar photovoltaic masts, nuclear baseload, and PDU routing.</div>
               </div>
-              <button class="hud-terminal-btn" onclick="window.location.href='1.1_power_mission.html'">PLAY</button>
+              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='1.1_power_mission.html'">PLAY</button>
             </div>
             <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
@@ -3717,7 +3783,7 @@
                 <div style="font-size: 0.95rem; color: #94a3b8;">Pilot the lunar rover across Shackleton rim to collect cryo ice crystals.</div>
               </div>
               <div style="display: flex; gap: 6px;">
-                <button class="hud-terminal-btn" style="border-color: #00e5ff; color: #00e5ff;" onclick="window.location.href='3.1_rover_traverse.html'">PLAY ▶</button>
+                <button class="hud-terminal-btn" style="border-color: #00e5ff; color: #00e5ff;" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='3.1_rover_traverse.html'">PLAY ▶</button>
                 <button class="hud-terminal-btn" onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldIsru', 'badgeIsru');">VIEW</button>
               </div>
             </div>
@@ -3726,7 +3792,7 @@
                 <div style="font-size: 1.25rem; color: #00e676;">🌱 Mission 3: Plant Growth Lab</div>
                 <div style="font-size: 0.95rem; color: #94a3b8;">Hydroponic nutrient cycles and fresh astronaut diet.</div>
               </div>
-              <button class="hud-terminal-btn" onclick="window.location.href='2.1_daily_meal.html'">PLAY</button>
+              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.1_daily_meal.html'">PLAY</button>
             </div>
             <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #ff4444; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
@@ -3740,7 +3806,7 @@
                 <div style="font-size: 1.25rem; color: #c084fc;">🛡️ Mission 5: Radiation Shelter</div>
                 <div style="font-size: 0.95rem; color: #94a3b8;">Solar particle events protection and regolith radiation shielding.</div>
               </div>
-              <button class="hud-terminal-btn" onclick="window.location.href='5.1_Radiation_mission.html'">PLAY</button>
+              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='5.1_Radiation_mission.html'">PLAY</button>
             </div>
           </div>
         </div>
@@ -4230,6 +4296,88 @@
     const moonJourneyUnmuteBtn = document.getElementById('moonJourneyUnmuteBtn');
     let moonJourneyFinished = false;
 
+    // =========================================================================
+    // Main Base Background Music (Plays in loop during base stay only, starts after landing intro)
+    // =========================================================================
+    const mainBaseBgm = document.getElementById('mainBaseBgm');
+    const baseMusicToggle = document.getElementById('baseMusicToggle');
+    let mainBaseBgmMuted = false;
+    let isBaseBgmActive = false;
+
+    function playMainBaseBgm() {
+      if (!mainBaseBgm || mainBaseBgmMuted) return;
+      isBaseBgmActive = true;
+      mainBaseBgm.volume = 0.55;
+      mainBaseBgm.loop = true;
+      const playPromise = mainBaseBgm.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          updateMainBaseMusicUI(true);
+        }).catch((err) => {
+          console.warn("Main base BGM autoplay deferred until interaction:", err);
+          updateMainBaseMusicUI(false);
+          const resumeOnTouch = () => {
+            if (isBaseBgmActive && !mainBaseBgmMuted && mainBaseBgm && mainBaseBgm.paused) {
+              mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => {});
+            }
+            window.removeEventListener('pointerdown', resumeOnTouch);
+            window.removeEventListener('keydown', resumeOnTouch);
+          };
+          window.addEventListener('pointerdown', resumeOnTouch, { once: true, passive: true });
+          window.addEventListener('keydown', resumeOnTouch, { once: true, passive: true });
+        });
+      }
+    }
+
+    function toggleMainBaseBgm() {
+      if (!mainBaseBgm) return;
+      if (mainBaseBgm.paused || mainBaseBgmMuted) {
+        mainBaseBgmMuted = false;
+        mainBaseBgm.muted = false;
+        isBaseBgmActive = true;
+        mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => {});
+      } else {
+        mainBaseBgmMuted = true;
+        mainBaseBgm.pause();
+        updateMainBaseMusicUI(false);
+      }
+    }
+
+    function updateMainBaseMusicUI(isPlaying) {
+      if (!baseMusicToggle) return;
+      if (isPlaying && !mainBaseBgmMuted) {
+        baseMusicToggle.classList.remove('muted');
+        baseMusicToggle.innerHTML = '<span class="music-icon">🎵</span> <span class="music-label">MUSIC</span>';
+        baseMusicToggle.title = 'Mute Base Music';
+      } else {
+        baseMusicToggle.classList.add('muted');
+        baseMusicToggle.innerHTML = '<span class="music-icon">🔇</span> <span class="music-label">MUTED</span>';
+        baseMusicToggle.title = 'Unmute Base Music';
+      }
+    }
+
+    function stopMainBaseBgm() {
+      isBaseBgmActive = false;
+      if (!mainBaseBgm) return;
+      try {
+        mainBaseBgm.pause();
+      } catch (e) {}
+    }
+
+    window.addEventListener('beforeunload', stopMainBaseBgm);
+    window.addEventListener('pagehide', stopMainBaseBgm);
+
+    document.addEventListener('visibilitychange', () => {
+      if (!mainBaseBgm) return;
+      if (document.hidden) {
+        if (!mainBaseBgm.paused) mainBaseBgm.pause();
+      } else {
+        if (isBaseBgmActive && !mainBaseBgmMuted && mainBaseBgm.paused) {
+          mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => {});
+        }
+      }
+    });
+
     function isJourneyAudioPlaying() {
       return moonJourneyAudio && !moonJourneyAudio.paused && !moonJourneyAudio.muted;
     }
@@ -4249,6 +4397,9 @@
 
     function unlockGlobalAudio() {
       if (sound && sound.init) sound.init();
+      if (mainBaseBgm && isBaseBgmActive && !mainBaseBgmMuted && mainBaseBgm.paused) {
+        mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => {});
+      }
       if (moonJourneyAudio) {
         moonJourneyAudio.muted = false;
         if (moonJourneyVideo && !moonJourneyVideo.paused) {
@@ -4299,6 +4450,7 @@
         }, 650);
       }
       startBaseIntroScene();
+      playMainBaseBgm();
     }
 
     if (moonJourneyVideo) {
@@ -4577,6 +4729,7 @@
     function startBaseIntroScene() {
       isBaseIntroActive = false;
       unzoomBuilding();
+      playMainBaseBgm();
     }
 
     function stepNextIntroBuilding() {
@@ -4762,6 +4915,7 @@
     });
 
     function launchGame() {
+      stopMainBaseBgm();
       sound.clickSound();
       if (isBaseIntroActive && !currentZoomedBldId) {
         openPhaseDashboard();
