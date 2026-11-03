@@ -3911,7 +3911,7 @@
             <div class="tour-next-arrow-glyph">⬇</div>
           </div>
           <button class="tour-next-btn onboarding-target-pulse" id="tourNextBtn" onclick="stepNextIntroBuilding()" title="Next Building">
-            NEXT (1/4) ▶
+            NEXT (1/5) ▶
           </button>
         </div>
 
@@ -5117,7 +5117,8 @@
       { bldId: 'bldPower', badgeId: 'badgePower' },
       { bldId: 'bldPlant', badgeId: 'badgePlant' },
       { bldId: 'bldIsru', badgeId: 'badgeIsru' },
-      { bldId: 'bldShelter', badgeId: 'badgeShelter' }
+      { bldId: 'bldShelter', badgeId: 'badgeShelter' },
+      { bldId: 'bldMain', badgeId: 'badgeMain' }
     ];
 
     function showTourArrowGuide() {
@@ -5140,10 +5141,11 @@
       const idx = introBuildingTourOrder.findIndex(item => item.bldId === bldId);
       if (idx !== -1) {
         introTourIndex = idx;
-        if (idx < introBuildingTourOrder.length - 1) {
-          tourNextBtn.textContent = `NEXT (${idx + 1}/4) ▶`;
+        const total = introBuildingTourOrder.length;
+        if (idx < total - 1) {
+          tourNextBtn.textContent = `NEXT (${idx + 1}/${total}) ▶`;
         } else {
-          tourNextBtn.textContent = `PHASES (4/4) ▶`;
+          tourNextBtn.textContent = `PHASES (${total}/${total}) ▶`;
         }
         showTourArrowGuide();
       } else {

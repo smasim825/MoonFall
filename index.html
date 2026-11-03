@@ -22,9 +22,9 @@
           return;
         }
         const isReturn = params.get('return') === 'base' ||
-                         params.get('skipIntro') === 'true' ||
-                         window.location.hash === '#base' ||
-                         sessionStorage.getItem('moonfall_landed') === 'true';
+          params.get('skipIntro') === 'true' ||
+          window.location.hash === '#base' ||
+          sessionStorage.getItem('moonfall_landed') === 'true';
         if (isReturn) {
           document.documentElement.classList.add('skip-intro-direct');
         }
@@ -298,6 +298,7 @@
        HOVER EFFECT: Desktop-Only Glow (prevents sticky square box on touchscreens)
        ========================================================================== */
     @media (hover: hover) and (pointer: fine) {
+
       .building-layer.hovered,
       .building-layer:hover {
         filter: brightness(1.18) drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75)) !important;
@@ -381,6 +382,7 @@
       align-items: flex-start;
       gap: 14px;
       z-index: 75;
+      padding-top: 35px;
       pointer-events: auto;
     }
 
@@ -388,7 +390,8 @@
       display: flex;
       flex-direction: column;
       gap: 1.4vh;
-      width: clamp(285px, 23vw, 355px); /* NOT wide, compact width! */
+      width: clamp(285px, 23vw, 355px);
+      /* NOT wide, compact width! */
     }
 
     .mission-group {
@@ -401,7 +404,8 @@
       background: #00163b;
       border: 3px solid #0050b3;
       border-radius: 12px;
-      padding: 1.4vh 1.4vw; /* Increased length/height */
+      padding: 1.4vh 1.4vw;
+      /* Increased length/height */
       display: flex;
       align-items: center;
       gap: 14px;
@@ -431,10 +435,12 @@
       background: rgba(0, 28, 70, 0.65);
       border: 2.5px solid rgba(0, 90, 195, 0.65);
       border-radius: 12px;
-      padding: 1.4vh 1.1vw; /* Increased length/height */
+      padding: 1.4vh 1.1vw;
+      /* Increased length/height */
       display: flex;
       flex-direction: column;
-      gap: 1.2vh; /* Increased vertical spacing */
+      gap: 1.2vh;
+      /* Increased vertical spacing */
       backdrop-filter: blur(8px);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
     }
@@ -443,7 +449,8 @@
       font-family: 'Pixel Operator', monospace;
       font-size: clamp(1.05rem, 1.3vw, 1.55rem);
       font-weight: bold;
-      padding: 1.3vh 1.4vw; /* Increased length/height */
+      padding: 1.3vh 1.4vw;
+      /* Increased length/height */
       border-radius: 9px;
       cursor: pointer;
       letter-spacing: 0.04em;
@@ -451,7 +458,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      min-height: 56px; /* Taller button length */
+      min-height: 56px;
+      /* Taller button length */
       transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
       position: relative;
     }
@@ -512,9 +520,21 @@
     }
 
     @keyframes lock-shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-5px); }
-      40%, 80% { transform: translateX(5px); }
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20%,
+      60% {
+        transform: translateX(-5px);
+      }
+
+      40%,
+      80% {
+        transform: translateX(5px);
+      }
     }
 
     .subtask-lock-icon {
@@ -572,9 +592,12 @@
     }
 
     @keyframes task-glow {
-      0%, 100% {
+
+      0%,
+      100% {
         box-shadow: 0 0 12px rgba(255, 204, 0, 0.55);
       }
+
       50% {
         box-shadow: 0 0 22px rgba(255, 204, 0, 0.9);
       }
@@ -637,9 +660,11 @@
       0% {
         transform: translateY(-50%) rotate(0deg);
       }
+
       50% {
         transform: translateY(calc(-50% - 5px)) rotate(-0.5deg);
       }
+
       100% {
         transform: translateY(calc(-50% + 4px)) rotate(0.5deg);
       }
@@ -691,8 +716,13 @@
     }
 
     @keyframes tour-arrow-bounce {
-      0% { transform: translate(-50%, 0); }
-      100% { transform: translate(-50%, -6px); }
+      0% {
+        transform: translate(-50%, 0);
+      }
+
+      100% {
+        transform: translate(-50%, -6px);
+      }
     }
 
     .tour-next-arrow-hint {
@@ -705,14 +735,14 @@
       font-weight: bold;
       padding: 1px 7px;
       white-space: nowrap;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.8), 0 0 12px rgba(250, 204, 21, 0.5);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), 0 0 12px rgba(250, 204, 21, 0.5);
       letter-spacing: 0.04em;
     }
 
     .tour-next-arrow-glyph {
       font-size: 1.85rem;
       color: #facc15;
-      text-shadow: 0 0 10px #facc15, 0 0 20px rgba(250, 204, 21, 0.9), 0 2px 4px rgba(0,0,0,0.9);
+      text-shadow: 0 0 10px #facc15, 0 0 20px rgba(250, 204, 21, 0.9), 0 2px 4px rgba(0, 0, 0, 0.9);
       line-height: 1;
       margin-top: -2px;
     }
@@ -861,6 +891,7 @@
         transform: scale(1);
         filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 26px rgba(255, 255, 255, 0.55)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7));
       }
+
       to {
         transform: scale(1.03);
         filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1)) drop-shadow(0 0 42px rgba(255, 255, 255, 0.8)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.85));
@@ -878,8 +909,15 @@
     }
 
     @keyframes blink-subtext {
-      0%, 100% { opacity: 0.9; }
-      50% { opacity: 0.35; }
+
+      0%,
+      100% {
+        opacity: 0.9;
+      }
+
+      50% {
+        opacity: 0.35;
+      }
     }
 
     /* Fullscreen Moon Journey Intro Video Overlay (Plays right after Loading Screen) */
@@ -1054,11 +1092,7 @@
       object-fit: contain;
       image-rendering: pixelated;
       filter:
-        brightness(1.22)
-        contrast(1.07)
-        drop-shadow(0 0 16px rgba(255, 255, 255, 0.72))
-        drop-shadow(0 0 36px rgba(255, 255, 255, 0.42))
-        drop-shadow(0 0 60px rgba(255, 255, 255, 0.18));
+        brightness(1.22) contrast(1.07) drop-shadow(0 0 16px rgba(255, 255, 255, 0.72)) drop-shadow(0 0 36px rgba(255, 255, 255, 0.42)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.18));
     }
 
     @keyframes moon-drift {
@@ -1226,6 +1260,7 @@
 
     /* On PC / desktop (min-width: 901px or non-touch/landscape), completely hide rotate toggle & banner */
     @media screen and (min-width: 901px) {
+
       .orientation-banner,
       .quick-rotate-toggle {
         display: none !important;
@@ -1258,8 +1293,15 @@
     }
 
     @keyframes rotate-wiggle {
-      0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(-90deg); }
+
+      0%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      50% {
+        transform: rotate(-90deg);
+      }
     }
 
     .orientation-title {
@@ -1373,6 +1415,7 @@
       opacity: 0.35;
       pointer-events: none;
     }
+
     .base-viewport.zoomed-mode .tactical-hud-container:hover {
       opacity: 0.95;
       pointer-events: auto;
@@ -1394,20 +1437,28 @@
       border-style: solid;
       pointer-events: none;
     }
+
     .tactical-corner.top-left {
-      top: -2px; left: -2px;
+      top: -2px;
+      left: -2px;
       border-width: 3px 0 0 3px;
     }
+
     .tactical-corner.top-right {
-      top: -2px; right: -2px;
+      top: -2px;
+      right: -2px;
       border-width: 3px 3px 0 0;
     }
+
     .tactical-corner.bottom-left {
-      bottom: -2px; left: -2px;
+      bottom: -2px;
+      left: -2px;
       border-width: 0 0 3px 3px;
     }
+
     .tactical-corner.bottom-right {
-      bottom: -2px; right: -2px;
+      bottom: -2px;
+      right: -2px;
       border-width: 0 3px 3px 0;
     }
 
@@ -1461,6 +1512,7 @@
       box-shadow: 0 0 14px rgba(0, 229, 255, 0.85);
       transform: translateY(-2px);
     }
+
     .hud-terminal-btn:active {
       transform: translateY(1px);
     }
@@ -1469,10 +1521,12 @@
       border-color: #00e5ff;
       color: #00e5ff;
     }
+
     .hud-terminal-btn.btn-power {
       border-color: #38bdf8;
       color: #38bdf8;
     }
+
     .hud-terminal-btn.btn-power:hover {
       background: rgba(56, 189, 248, 0.25);
       color: #ffffff;
@@ -1483,6 +1537,7 @@
       border-color: #fdcb0e;
       color: #fdcb0e;
     }
+
     .hud-terminal-btn.btn-active-mission:hover {
       background: rgba(253, 203, 14, 0.25);
       color: #ffffff;
@@ -1493,6 +1548,7 @@
       border-color: #c084fc;
       color: #c084fc;
     }
+
     .hud-terminal-btn.btn-ask:hover {
       background: rgba(192, 132, 252, 0.25);
       color: #ffffff;
@@ -1503,6 +1559,7 @@
       border-color: #4ade80;
       color: #4ade80;
     }
+
     .hud-terminal-btn.btn-research:hover {
       background: rgba(74, 222, 128, 0.25);
       color: #ffffff;
@@ -1513,6 +1570,7 @@
       border-color: #f472b6;
       color: #f472b6;
     }
+
     .hud-terminal-btn.btn-comms:hover {
       background: rgba(244, 114, 182, 0.25);
       color: #ffffff;
@@ -1533,6 +1591,7 @@
       gap: 6px;
       letter-spacing: 0.05em;
     }
+
     .pulse-dot {
       width: 7px;
       height: 7px;
@@ -1541,9 +1600,19 @@
       box-shadow: 0 0 6px #4ade80;
       animation: pulseGreen 1.8s infinite;
     }
+
     @keyframes pulseGreen {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.35; transform: scale(0.8); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.35;
+        transform: scale(0.8);
+      }
     }
 
     /* Tactical HUD Modals (Semi-transparent backdrop so base remains visible!) */
@@ -1560,13 +1629,21 @@
       animation: modalFadeIn 0.18s ease-out;
       pointer-events: auto;
     }
+
     .tactical-modal.hidden {
       display: none !important;
     }
 
     @keyframes modalFadeIn {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .tactical-modal-card {
@@ -1614,6 +1691,7 @@
       cursor: pointer;
       transition: all 0.15s ease;
     }
+
     .modal-close-btn:hover {
       background: #ff4444;
       color: #ffffff;
@@ -1692,6 +1770,7 @@
       overflow: hidden;
       margin-top: 4px;
     }
+
     .power-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, #00e5ff, #38bdf8);
@@ -1717,7 +1796,7 @@
       pointer-events: none;
     }
 
-    .game-top-hud > * {
+    .game-top-hud>* {
       pointer-events: auto;
     }
 
@@ -1825,10 +1904,25 @@
       color: #cbd5e1;
     }
 
-    .top-status-bar .val-active { color: #facc15; text-shadow: 0 0 8px rgba(250, 204, 21, 0.5); }
-    .top-status-bar .val-nominal { color: #38bdf8; text-shadow: 0 0 8px rgba(56, 189, 248, 0.5); }
-    .top-status-bar .val-growing { color: #4ade80; text-shadow: 0 0 8px rgba(74, 222, 128, 0.5); }
-    .top-status-bar .val-processing { color: #c084fc; text-shadow: 0 0 8px rgba(192, 132, 252, 0.5); }
+    .top-status-bar .val-active {
+      color: #facc15;
+      text-shadow: 0 0 8px rgba(250, 204, 21, 0.5);
+    }
+
+    .top-status-bar .val-nominal {
+      color: #38bdf8;
+      text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+    }
+
+    .top-status-bar .val-growing {
+      color: #4ade80;
+      text-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
+    }
+
+    .top-status-bar .val-processing {
+      color: #c084fc;
+      text-shadow: 0 0 8px rgba(192, 132, 252, 0.5);
+    }
 
     /* Top-Right Navbar Cluster (NASA Research & Base Upgrades) */
     .top-nav-cluster {
@@ -1895,6 +1989,7 @@
     .btn-text.short-label {
       display: none;
     }
+
     .btn-text.full-label {
       display: inline;
     }
@@ -1907,6 +2002,7 @@
       .top-status-bar .status-label {
         display: none;
       }
+
       .top-status-bar {
         padding: 4px 10px;
         gap: 8px;
@@ -1918,10 +2014,14 @@
       .btn-text.full-label {
         display: none;
       }
+
       .btn-text.short-label {
         display: inline;
       }
-      .top-nav-btn, .phase-dashboard-btn, .crew-intro-btn {
+
+      .top-nav-btn,
+      .phase-dashboard-btn,
+      .crew-intro-btn {
         padding: 4px 8px;
         gap: 4px;
       }
@@ -1937,12 +2037,15 @@
         left: 8px;
         right: 8px;
       }
+
       .hud-group-left {
         order: 1;
       }
+
       .top-nav-cluster {
         order: 2;
       }
+
       .top-status-bar {
         order: 3;
         width: 100%;
@@ -1951,6 +2054,7 @@
         font-size: 0.85rem;
         background: rgba(8, 14, 30, 0.95);
       }
+
       .top-status-bar .status-label {
         display: none;
       }
@@ -1958,14 +2062,20 @@
 
     @media (max-width: 580px) {
       .btn-text.short-label {
-        display: none; /* Just show icons on very small screens */
+        display: none;
+        /* Just show icons on very small screens */
       }
-      .phase-dashboard-btn, .crew-intro-btn, .top-nav-btn {
+
+      .phase-dashboard-btn,
+      .crew-intro-btn,
+      .top-nav-btn {
         padding: 5px 9px;
       }
+
       .top-status-bar {
         gap: 4px;
       }
+
       .top-status-bar .status-item {
         font-size: 0.78rem;
         gap: 3px;
@@ -2085,6 +2195,7 @@
         opacity: 0;
         transform: translateY(-8px) scale(0.96);
       }
+
       to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -2180,14 +2291,21 @@
     }
 
     @keyframes onboarding-fade-in {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .onboarding-arrow-glyph {
       font-size: 1.9rem;
       color: #facc15;
-      text-shadow: 0 0 12px #facc15, 0 0 22px rgba(250, 204, 21, 0.8), 0 2px 4px rgba(0,0,0,0.9);
+      text-shadow: 0 0 12px #facc15, 0 0 22px rgba(250, 204, 21, 0.8), 0 2px 4px rgba(0, 0, 0, 0.9);
       animation: bounce-arrow-vert 0.85s infinite ease-in-out alternate;
       line-height: 1;
       user-select: none;
@@ -2204,8 +2322,13 @@
     }
 
     @keyframes bounce-arrow-vert {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-8px); }
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-8px);
+      }
     }
 
     .onboarding-directive-card {
@@ -2259,7 +2382,7 @@
       font-size: 1.15rem;
       color: #fef08a;
       letter-spacing: 0.04em;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     }
 
     .onboarding-card-text {
@@ -2299,10 +2422,13 @@
     }
 
     @keyframes target-glow-pulse {
-      0%, 100% {
+
+      0%,
+      100% {
         box-shadow: 0 0 10px #facc15, 0 0 20px rgba(250, 204, 21, 0.6);
         transform: scale(1);
       }
+
       50% {
         box-shadow: 0 0 22px #facc15, 0 0 34px rgba(250, 204, 21, 0.95);
         transform: scale(1.05);
@@ -2354,7 +2480,7 @@
       font-size: 1.65rem;
       min-width: 34px;
       text-align: center;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.7));
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
     }
 
     .nav-col-item .item-text-box {
@@ -2429,7 +2555,7 @@
       color: #ffffff;
       letter-spacing: 0.05em;
       margin: 0;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
     .nasa-dossier-body {
@@ -2855,8 +2981,13 @@
     }
 
     @keyframes crest-float {
-      0% { transform: translateY(0) scale(1); }
-      100% { transform: translateY(-6px) scale(1.03); }
+      0% {
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        transform: translateY(-6px) scale(1.03);
+      }
     }
 
     .coc-crest-glow {
@@ -3453,7 +3584,8 @@
     }
 
     .astronaut-hud-tag {
-      display: none; /* Keep clean and cinematic without distracting text bubble */
+      display: none;
+      /* Keep clean and cinematic without distracting text bubble */
     }
 
     .entry-astronaut-sprite {
@@ -3484,10 +3616,12 @@
         transform: scale(1.0);
         opacity: 0;
       }
+
       6% {
         opacity: 1;
         transform: scale(0.98);
       }
+
       80% {
         left: 44.3%;
         top: 52.8%;
@@ -3495,6 +3629,7 @@
         opacity: 1;
         filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85));
       }
+
       88% {
         left: 44.3%;
         top: 52.8%;
@@ -3502,6 +3637,7 @@
         opacity: 1;
         filter: drop-shadow(0 0 16px #00e5ff) brightness(1.3);
       }
+
       100% {
         left: 44.3%;
         top: 52.8%;
@@ -3512,10 +3648,13 @@
     }
 
     @keyframes shadowPulse {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: translateX(-50%) scale(1);
         opacity: 0.8;
       }
+
       50% {
         transform: translateX(-50%) scale(0.85);
         opacity: 0.55;
@@ -3523,23 +3662,47 @@
     }
 
     @keyframes beaconRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     @keyframes beaconPulse {
-      0% { transform: scale(0.85); opacity: 1; }
-      100% { transform: scale(1.6); opacity: 0; }
+      0% {
+        transform: scale(0.85);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
     }
 
     @keyframes laserSweep {
-      0% { transform: translateY(-16px); }
-      100% { transform: translateY(26px); }
+      0% {
+        transform: translateY(-16px);
+      }
+
+      100% {
+        transform: translateY(26px);
+      }
     }
 
     @keyframes blinkLed {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.2;
+      }
     }
 
     /* Cinematic Letterbox Overlays */
@@ -3581,13 +3744,23 @@
     }
 
     @keyframes slideDownBar {
-      from { transform: translateY(-100%); }
-      to { transform: translateY(0); }
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
     }
 
     @keyframes slideUpBar {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
+      from {
+        transform: translateY(100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
     }
 
     .cinematic-info-left {
@@ -3677,7 +3850,8 @@
     <div class="orientation-card">
       <div class="phone-rotate-icon">📱 ➔ 🔄</div>
       <div class="orientation-title">Landscape View Required</div>
-      <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to start your mission.</p>
+      <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to
+        start your mission.</p>
       <div class="orientation-buttons">
         <button class="orientation-btn btn-rotate-now" onclick="toggleForceHorizontal()">
           ⤾ Rotate Screen to Horizontal
@@ -3687,12 +3861,14 @@
   </aside>
 
   <!-- Quick Floating Rotate Button on Mobile -->
-  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="toggleForceHorizontal()" title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
+  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="toggleForceHorizontal()"
+    title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
     🔄 Screen
   </button>
 
   <!-- Intro Splash Screen: Pure Black Screen, Moon, MoonFall Title, Falling Stars, COC Loading Bar -->
-  <div class="intro-overlay" id="introOverlay" onpointerdown="unlockGlobalAudio(); handleIntroClick();" onclick="unlockGlobalAudio(); handleIntroClick();">
+  <div class="intro-overlay" id="introOverlay" onpointerdown="unlockGlobalAudio(); handleIntroClick();"
+    onclick="unlockGlobalAudio(); handleIntroClick();">
     <canvas class="starfall-canvas" id="starfallCanvas"></canvas>
 
     <div class="intro-content" id="introLoadingContent">
@@ -3724,7 +3900,8 @@
 
       <!-- Slot 2: Pixel Art White Glowing START Button (Directly in place of Loading Bar) -->
       <div class="tap-start-container hidden" id="tapStartContainer">
-        <button class="tap-start-btn" id="tapStartBtn" type="button" onclick="event.stopPropagation(); startMissionWithAudio();">
+        <button class="tap-start-btn" id="tapStartBtn" type="button"
+          onclick="event.stopPropagation(); startMissionWithAudio();">
           <img src="assets/start_btn_pixel.png" alt="START" class="start-btn-graphic">
         </button>
         <div class="tap-start-subtext">Tap anywhere to launch</div>
@@ -3733,10 +3910,14 @@
   </div>
 
   <!-- Moon Journey Starting Video Overlay (Plays immediately after MoonFall Loading Page) -->
-  <div class="moon-journey-overlay" id="moonJourneyOverlay" onpointerdown="unlockGlobalAudio(); unmuteMoonJourneyVideo();" onclick="unlockGlobalAudio(); unmuteMoonJourneyVideo();">
-    <video class="moon-journey-video" id="moonJourneyVideo" src="moon_journey_video.mp4" playsinline muted preload="auto"></video>
+  <div class="moon-journey-overlay" id="moonJourneyOverlay"
+    onpointerdown="unlockGlobalAudio(); unmuteMoonJourneyVideo();"
+    onclick="unlockGlobalAudio(); unmuteMoonJourneyVideo();">
+    <video class="moon-journey-video" id="moonJourneyVideo" src="moon_journey_video.mp4" playsinline muted
+      preload="auto"></video>
     <audio id="moonJourneyAudio" src="moon_journey.mp3" preload="auto"></audio>
-    <button class="moon-journey-unmute-btn" id="moonJourneyUnmuteBtn" type="button" onclick="event.stopPropagation(); toggleMoonJourneyAudio();">
+    <button class="moon-journey-unmute-btn" id="moonJourneyUnmuteBtn" type="button"
+      onclick="event.stopPropagation(); toggleMoonJourneyAudio();">
       🔊 UNMUTE
     </button>
     <button class="moon-journey-skip-btn" type="button" onclick="event.stopPropagation(); finishMoonJourneyVideo();">
@@ -3756,7 +3937,8 @@
     </audio>
 
     <!-- Floating Base Music Toggle Button (aligned vertically under Astrobee on the right) -->
-    <button class="base-music-toggle" id="baseMusicToggle" type="button" onclick="event.stopPropagation(); toggleMainBaseBgm();" title="Toggle Base Background Music">
+    <button class="base-music-toggle" id="baseMusicToggle" type="button"
+      onclick="event.stopPropagation(); toggleMainBaseBgm();" title="Toggle Base Background Music">
       <span class="music-icon">🎵</span> <span class="music-label">MUSIC</span>
     </button>
 
@@ -3767,14 +3949,17 @@
         <div class="onboarding-directive-card">
           <div class="onboarding-card-header">
             <span class="directive-badge" id="onboardingStepBadge">STEP 1 OF 3</span>
-            <button type="button" class="directive-skip-btn" onclick="dismissOnboardingGuide()" title="Skip Walkthrough">SKIP ✕</button>
+            <button type="button" class="directive-skip-btn" onclick="dismissOnboardingGuide()"
+              title="Skip Walkthrough">SKIP ✕</button>
           </div>
           <div class="onboarding-card-body">
             <h4 class="onboarding-card-title" id="onboardingTitle">INSPECT MISSION PHASES</h4>
-            <p class="onboarding-card-text" id="onboardingDesc">Click <strong>⚔️ PHASES</strong> to view expedition objectives and outpost progress.</p>
+            <p class="onboarding-card-text" id="onboardingDesc">Click <strong>⚔️ PHASES</strong> to view expedition
+              objectives and outpost progress.</p>
           </div>
           <div class="onboarding-card-footer">
-            <button type="button" class="onboarding-proceed-btn" id="onboardingProceedBtn" onclick="onboardingProceedAction()">
+            <button type="button" class="onboarding-proceed-btn" id="onboardingProceedBtn"
+              onclick="onboardingProceedAction()">
               OPEN PHASES ⚔️
             </button>
           </div>
@@ -3786,30 +3971,41 @@
     <header class="game-top-hud" id="gameTopHud">
       <!-- Left Side: Phase & Crew Controls -->
       <div class="hud-group-left">
-        <button class="phase-dashboard-btn" id="phaseDashboardToggleBtn" onclick="openPhaseDashboard()" title="Open Mission Phases">
+        <button class="phase-dashboard-btn" id="phaseDashboardToggleBtn" onclick="openPhaseDashboard()"
+          title="Open Mission Phases">
           <span class="nav-btn-icon">⚔️</span> <span class="btn-text">PHASES</span>
         </button>
-        <button class="crew-intro-btn" id="crewIntroToggleBtn" onclick="openCrewManifestModal()" title="Meet the 4 Outpost Astronauts">
-          <span class="nav-btn-icon">👨‍🚀</span> <span class="btn-text full-label">MEET THE CREW</span><span class="btn-text short-label">CREW</span>
+        <button class="crew-intro-btn" id="crewIntroToggleBtn" onclick="openCrewManifestModal()"
+          title="Meet the 4 Outpost Astronauts">
+          <span class="nav-btn-icon">👨‍🚀</span> <span class="btn-text full-label">MEET THE CREW</span><span
+            class="btn-text short-label">CREW</span>
         </button>
       </div>
 
       <!-- Center: Outpost Resource Telemetry -->
       <div class="top-status-bar" id="topStatusBar">
-        <div class="status-item"><span class="status-icon">⚡</span> <span class="status-label">POWER:</span> <span class="status-val val-active">ACTIVE</span></div>
-        <div class="status-item"><span class="status-icon">💧</span> <span class="status-label">WATER:</span> <span class="status-val val-nominal">NOMINAL</span></div>
-        <div class="status-item"><span class="status-icon">🌿</span> <span class="status-label">BIOMASS:</span> <span class="status-val val-growing">GROWING</span></div>
-        <div class="status-item"><span class="status-icon">⛏️</span> <span class="status-label">REGOLITH:</span> <span class="status-val val-processing">PROCESSING</span></div>
+        <div class="status-item"><span class="status-icon">⚡</span> <span class="status-label">POWER:</span> <span
+            class="status-val val-active">ACTIVE</span></div>
+        <div class="status-item"><span class="status-icon">💧</span> <span class="status-label">WATER:</span> <span
+            class="status-val val-nominal">NOMINAL</span></div>
+        <div class="status-item"><span class="status-icon">🌿</span> <span class="status-label">BIOMASS:</span> <span
+            class="status-val val-growing">GROWING</span></div>
+        <div class="status-item"><span class="status-icon">⛏️</span> <span class="status-label">REGOLITH:</span> <span
+            class="status-val val-processing">PROCESSING</span></div>
       </div>
 
       <!-- Top-Right NASA Research & Base Upgrades Navbar Cluster -->
       <div class="top-nav-cluster" id="topNavCluster">
         <div class="top-nav-tabs">
-          <button class="top-nav-btn btn-nasa" id="btnNasaResearch" type="button" onclick="event.stopPropagation(); toggleNavDropdown('nasa');">
-            <span class="nav-btn-icon">🔬</span> <span class="btn-text full-label">NASA RESEARCH</span><span class="btn-text short-label">RESEARCH</span>
+          <button class="top-nav-btn btn-nasa" id="btnNasaResearch" type="button"
+            onclick="event.stopPropagation(); toggleNavDropdown('nasa');">
+            <span class="nav-btn-icon">🔬</span> <span class="btn-text full-label">NASA RESEARCH</span><span
+              class="btn-text short-label">RESEARCH</span>
           </button>
-          <button class="top-nav-btn btn-upgrades" id="btnBaseUpgrades" type="button" onclick="event.stopPropagation(); toggleNavDropdown('upgrades');">
-            <span class="nav-btn-icon">🔧</span> <span class="btn-text full-label">BASE UPGRADES</span><span class="btn-text short-label">UPGRADES</span>
+          <button class="top-nav-btn btn-upgrades" id="btnBaseUpgrades" type="button"
+            onclick="event.stopPropagation(); toggleNavDropdown('upgrades');">
+            <span class="nav-btn-icon">🔧</span> <span class="btn-text full-label">BASE UPGRADES</span><span
+              class="btn-text short-label">UPGRADES</span>
           </button>
         </div>
 
@@ -3822,7 +4018,8 @@
                 <div class="nav-col-title-wrap">
                   <span class="col-icon">🔬</span> NASA RESEARCH
                 </div>
-                <button type="button" class="nav-col-close-btn" onclick="event.stopPropagation(); closeNavDropdown();" title="Close" aria-label="Close">[X]</button>
+                <button type="button" class="nav-col-close-btn" onclick="event.stopPropagation(); closeNavDropdown();"
+                  title="Close" aria-label="Close">[X]</button>
               </div>
               <div class="nav-col-items">
                 <div class="nav-col-item" onclick="openNasaItemDetail('carbothermal')">
@@ -3862,7 +4059,8 @@
                 <div class="nav-col-title-wrap">
                   <span class="col-icon">🔧</span> BASE UPGRADES
                 </div>
-                <button type="button" class="nav-col-close-btn" onclick="event.stopPropagation(); closeNavDropdown();" title="Close" aria-label="Close">[X]</button>
+                <button type="button" class="nav-col-close-btn" onclick="event.stopPropagation(); closeNavDropdown();"
+                  title="Close" aria-label="Close">[X]</button>
               </div>
               <div class="nav-col-items">
                 <div class="nav-col-item" onclick="openNasaItemDetail('hls')">
@@ -3901,7 +4099,8 @@
     </header>
 
     <!-- PIXEL-ART CLASH-OF-CLANS INSPIRED 2-WINDOW PHASE & MISSION MODAL -->
-    <div class="phase-dashboard-backdrop hidden" id="phaseDashboardModal" onclick="if(event.target===this) closePhaseDashboard()">
+    <div class="phase-dashboard-backdrop hidden" id="phaseDashboardModal"
+      onclick="if(event.target===this) closePhaseDashboard()">
       <div class="coc-phase-board-wrap" id="cocBoardWrap">
         <!-- Top Folder Tabs -->
         <div class="coc-board-tabs">
@@ -3934,7 +4133,8 @@
                   <span>PHASE 1</span>
                 </div>
               </div>
-              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerPhase1')" title="View 4 Missions">i</button>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerPhase1')"
+                title="View 4 Missions">i</button>
             </div>
 
             <!-- Toggleable Info Drawer for 4 Training Missions -->
@@ -3956,9 +4156,11 @@
             <!-- Center Pixel Astronaut Crew Collage -->
             <div class="coc-card-art-stage">
               <div class="coc-crew-collage">
-                <img src="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp" alt="Chiaki Mukai" class="coc-crew-char char-left">
+                <img src="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp" alt="Chiaki Mukai"
+                  class="coc-crew-char char-left">
                 <img src="assets/scene 8/Rakesh_Sharma_Idle.png" alt="Rakesh Sharma" class="coc-crew-char char-center">
-                <img src="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" class="coc-crew-char char-right">
+                <img src="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams"
+                  class="coc-crew-char char-right">
               </div>
             </div>
 
@@ -3979,23 +4181,30 @@
           <div class="coc-portrait-card coc-card-phase2">
             <div class="coc-card-top-bar">
               <div class="coc-top-badges">
-                <div class="coc-square-badge purple-tint" onclick="toggleCardInfo('drawerPhase2')" title="Survival Rank">
+                <div class="coc-square-badge purple-tint" onclick="toggleCardInfo('drawerPhase2')"
+                  title="Survival Rank">
                   <span>🏆</span>
                   <span>PHASE 2</span>
                 </div>
-                <div class="coc-square-badge purple-tint" onclick="toggleCardInfo('drawerPhase2')" title="Main Base Dome">
+                <div class="coc-square-badge purple-tint" onclick="toggleCardInfo('drawerPhase2')"
+                  title="Main Base Dome">
                   <span>🛡️</span>
                 </div>
               </div>
-              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerPhase2')" title="Mission Info">i</button>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerPhase2')"
+                title="Mission Info">i</button>
             </div>
 
             <!-- Toggleable Info Drawer for Phase 2 Trade-Offs -->
             <div class="coc-card-info-drawer hidden" id="drawerPhase2">
-              <div class="coc-drawer-item" style="cursor:default;"><span><span class="yellow-bolt">⚡</span> Power Budgeting</span><span>Lunar Night</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>💧 Water vs. O₂</span><span>Life Support</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>🌱 Food &amp; Crops</span><span>3,035 kcal</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>🛡️ Solar Storm + Delay</span><span>NASA DONKI</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span><span class="yellow-bolt">⚡</span> Power
+                  Budgeting</span><span>Lunar Night</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>💧 Water vs. O₂</span><span>Life Support</span>
+              </div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🌱 Food &amp; Crops</span><span>3,035
+                  kcal</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🛡️ Solar Storm + Delay</span><span>NASA
+                  DONKI</span></div>
             </div>
 
             <!-- Center Ranked Shield Crest (Like the Purple Dragon Crest '29') -->
@@ -4003,7 +4212,8 @@
               <div class="coc-ranked-crest">
                 <div class="coc-crest-glow"></div>
                 <div class="coc-crest-shield">
-                  <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="MoonFall Last Light" class="coc-crest-img">
+                  <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="MoonFall Last Light"
+                    class="coc-crest-img">
                   <div class="coc-crest-number">5</div>
                 </div>
               </div>
@@ -4012,7 +4222,8 @@
             <!-- Bottom Title + Chunky Blue Button + Timer Footer -->
             <div class="coc-card-bottom">
               <div class="coc-card-title">MoonFall: Last Light</div>
-              <button class="coc-big-cta-btn coc-btn-blue" type="button" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='final_mission.html'">
+              <button class="coc-big-cta-btn coc-btn-blue" type="button"
+                onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='final_mission.html'">
                 <span class="coc-btn-main-text">Start Final Mission</span>
                 <span class="coc-btn-sub-cost">18-Hour Emergency 🚀</span>
               </button>
@@ -4037,21 +4248,27 @@
                   <span class="yellow-bolt">⚡</span><span>MISSION 1</span>
                 </div>
               </div>
-              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM1')" title="Mission 1 Info">i</button>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM1')"
+                title="Mission 1 Info">i</button>
             </div>
 
             <div class="coc-card-info-drawer hidden" id="drawerM1">
-              <div class="coc-drawer-item" style="cursor:default;"><span>👩‍🚀 Guide:</span><span>Chiaki Mukai</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>☀️ Topic:</span><span>Solar &amp; Fission</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>🔋 Goal:</span><span>PDU &amp; Storage</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>👩‍🚀 Guide:</span><span>Chiaki Mukai</span>
+              </div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>☀️ Topic:</span><span>Solar &amp;
+                  Fission</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🔋 Goal:</span><span>PDU &amp; Storage</span>
+              </div>
             </div>
 
             <div class="coc-card-art-stage">
               <div class="coc-npc-stage">
-                <img src="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp" alt="Dr. Chiaki Mukai" class="coc-npc-img">
+                <img src="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp" alt="Dr. Chiaki Mukai"
+                  class="coc-npc-img">
                 <div class="coc-symbol-medallion" style="border-color: #fbbf24;">
                   <svg class="bolt-svg-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M13.5 2L4.5 13.5H11.5L10.5 22L19.5 10.5H12.5L13.5 2Z" fill="#ffea00" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M13.5 2L4.5 13.5H11.5L10.5 22L19.5 10.5H12.5L13.5 2Z" fill="#ffea00" stroke="#f59e0b"
+                      stroke-width="1.5" stroke-linejoin="round" />
                   </svg>
                 </div>
               </div>
@@ -4059,9 +4276,11 @@
 
             <div class="coc-card-bottom">
               <div class="coc-card-title" style="font-size: clamp(1.35rem, 1.85vw, 1.95rem);">Power &amp; Energy</div>
-              <button class="coc-big-cta-btn coc-btn-orange" type="button" onclick="selectPhaseMission('bldPower', 'badgePower')">
+              <button class="coc-big-cta-btn coc-btn-orange" type="button"
+                onclick="selectPhaseMission('bldPower', 'badgePower')">
                 <span class="coc-btn-main-text" style="font-size: clamp(1.2rem, 1.6vw, 1.65rem);">Power System</span>
-                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Chiaki Mukai <span class="yellow-bolt">⚡</span></span>
+                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Chiaki Mukai <span
+                    class="yellow-bolt">⚡</span></span>
               </button>
               <div class="coc-card-footer-strip" style="color: #fde047;">
                 <span class="yellow-bolt">⚡</span> Power Station
@@ -4077,27 +4296,37 @@
                   <span>🍃</span><span>MISSION 2</span>
                 </div>
               </div>
-              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM2')" title="Mission 2 Info">i</button>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM2')"
+                title="Mission 2 Info">i</button>
             </div>
 
             <div class="coc-card-info-drawer hidden" id="drawerM2">
-              <div class="coc-drawer-item" style="cursor:default;"><span>👩‍🚀 Guide:</span><span>Sunita Williams</span></div>
-              <div class="coc-drawer-item" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.1_daily_meal.html'"><span>🍱 2.1 Daily Meal</span><span>▶</span></div>
-              <div class="coc-drawer-item" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.2_Hydroponics.html'"><span>🌱 2.2 Hydroponics</span><span>▶</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>👩‍🚀 Guide:</span><span>Sunita Williams</span>
+              </div>
+              <div class="coc-drawer-item"
+                onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.1_daily_meal.html'">
+                <span>🍱 2.1 Daily Meal</span><span>▶</span></div>
+              <div class="coc-drawer-item"
+                onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.2_Hydroponics.html'">
+                <span>🌱 2.2 Hydroponics</span><span>▶</span></div>
             </div>
 
             <div class="coc-card-art-stage">
               <div class="coc-npc-stage">
-                <img src="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" class="coc-npc-img">
+                <img src="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams"
+                  class="coc-npc-img">
                 <div class="coc-symbol-medallion" style="border-color: #34d399;">🍃</div>
               </div>
             </div>
 
             <div class="coc-card-bottom">
               <div class="coc-card-title" style="font-size: clamp(1.35rem, 1.85vw, 1.95rem);">Food &amp; Crops</div>
-              <button class="coc-big-cta-btn coc-btn-green" type="button" onclick="selectPhaseMission('bldPlant', 'badgePlant')">
-                <span class="coc-btn-main-text" style="font-size: clamp(1.2rem, 1.6vw, 1.65rem);">Meals &amp; Hydro</span>
-                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Sunita Williams 🌱</span>
+              <button class="coc-big-cta-btn coc-btn-green" type="button"
+                onclick="selectPhaseMission('bldPlant', 'badgePlant')">
+                <span class="coc-btn-main-text" style="font-size: clamp(1.2rem, 1.6vw, 1.65rem);">Meals &amp;
+                  Hydro</span>
+                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Sunita Williams
+                  🌱</span>
               </button>
               <div class="coc-card-footer-strip" style="color: #86efac;">
                 🍃 Plant Growth Lab
@@ -4113,13 +4342,17 @@
                   <span>💧</span><span>MISSION 3</span>
                 </div>
               </div>
-              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM3')" title="Mission 3 Info">i</button>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM3')"
+                title="Mission 3 Info">i</button>
             </div>
 
             <div class="coc-card-info-drawer hidden" id="drawerM3">
-              <div class="coc-drawer-item" style="cursor:default;"><span>👨‍🚀 Guide:</span><span>Neil Armstrong</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>🧊 Step 1:</span><span>Drill &amp; Melt Ice</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>🫧 Step 2:</span><span>H₂O → O₂ Split</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>👨‍🚀 Guide:</span><span>Neil Armstrong</span>
+              </div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🧊 Step 1:</span><span>Drill &amp; Melt
+                  Ice</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🫧 Step 2:</span><span>H₂O → O₂ Split</span>
+              </div>
             </div>
 
             <div class="coc-card-art-stage">
@@ -4131,9 +4364,12 @@
 
             <div class="coc-card-bottom">
               <div class="coc-card-title" style="font-size: clamp(1.35rem, 1.85vw, 1.95rem);">Water &amp; Oxygen</div>
-              <button class="coc-big-cta-btn coc-btn-blue" type="button" onclick="selectPhaseMission('bldIsru', 'badgeIsru')">
-                <span class="coc-btn-main-text" style="font-size: clamp(1.2rem, 1.6vw, 1.65rem);">Ice to H₂O &amp; O₂</span>
-                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Neil Armstrong 💧</span>
+              <button class="coc-big-cta-btn coc-btn-blue" type="button"
+                onclick="selectPhaseMission('bldIsru', 'badgeIsru')">
+                <span class="coc-btn-main-text" style="font-size: clamp(1.2rem, 1.6vw, 1.65rem);">Ice to H₂O &amp;
+                  O₂</span>
+                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Neil Armstrong
+                  💧</span>
               </button>
               <div class="coc-card-footer-strip" style="color: #7dd3fc;">
                 💧 ISRU Facility
@@ -4149,13 +4385,17 @@
                   <span>🛡️</span><span>MISSION 5</span>
                 </div>
               </div>
-              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM4')" title="Mission 4 Info">i</button>
+              <button class="coc-info-btn" type="button" onclick="toggleCardInfo('drawerM4')"
+                title="Mission 4 Info">i</button>
             </div>
 
             <div class="coc-card-info-drawer hidden" id="drawerM4">
-              <div class="coc-drawer-item" style="cursor:default;"><span>👨‍🚀 Guide:</span><span>Rakesh Sharma</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>☀️ Alert:</span><span>SPE &amp; GCR Storm</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>🧱 Shield:</span><span>Water &amp; Regolith</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>👨‍🚀 Guide:</span><span>Rakesh Sharma</span>
+              </div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>☀️ Alert:</span><span>SPE &amp; GCR
+                  Storm</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🧱 Shield:</span><span>Water &amp;
+                  Regolith</span></div>
             </div>
 
             <div class="coc-card-art-stage">
@@ -4167,9 +4407,11 @@
 
             <div class="coc-card-bottom">
               <div class="coc-card-title" style="font-size: clamp(1.35rem, 1.85vw, 1.95rem);">Radiation Shield</div>
-              <button class="coc-big-cta-btn coc-btn-purple" type="button" onclick="selectPhaseMission('bldShelter', 'badgeShelter')">
+              <button class="coc-big-cta-btn coc-btn-purple" type="button"
+                onclick="selectPhaseMission('bldShelter', 'badgeShelter')">
                 <span class="coc-btn-main-text" style="font-size: clamp(1.2rem, 1.6vw, 1.65rem);">Prepare Shelter</span>
-                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Rakesh Sharma 🛡️</span>
+                <span class="coc-btn-sub-cost" style="font-size: clamp(0.95rem, 1.2vw, 1.2rem);">Rakesh Sharma
+                  🛡️</span>
               </button>
               <div class="coc-card-footer-strip" style="color: #d8b4fe;">
                 🛡️ Radiation Shelter
@@ -4184,12 +4426,12 @@
     <!-- 1. Power Station Badge & Building (Back Layer) -->
     <img src="assets/base_assets/badge_power.png" alt="Power Station" class="badge-layer badge-power" id="badgePower"
       title="Power Station">
-    <img src="assets/base_assets/building_power.png" alt="Power Station" class="building-layer building-power" id="bldPower"
-      title="Power Station">
+    <img src="assets/base_assets/building_power.png" alt="Power Station" class="building-layer building-power"
+      id="bldPower" title="Power Station">
 
     <!-- 2. ISRU Processing Facility Badge & Building (Back Layer) -->
-    <img src="assets/base_assets/badge_isru.png" alt="ISRU Processing Facility" class="badge-layer badge-isru" id="badgeIsru"
-      title="ISRU Processing Facility">
+    <img src="assets/base_assets/badge_isru.png" alt="ISRU Processing Facility" class="badge-layer badge-isru"
+      id="badgeIsru" title="ISRU Processing Facility">
     <img src="assets/base_assets/building_isru.png" alt="ISRU Processing Facility" class="building-layer building-isru"
       id="bldIsru" title="ISRU Processing Facility">
 
@@ -4202,12 +4444,12 @@
     <!-- 4. Plant Growth Lab Badge & Building (Front Layer: Upper of Main Base) -->
     <img src="assets/base_assets/badge_plant.png" alt="Plant Growth Lab" class="badge-layer badge-plant" id="badgePlant"
       title="Plant Growth Lab">
-    <img src="assets/base_assets/building_plant.png" alt="Plant Growth Lab" class="building-layer building-plant" id="bldPlant"
-      title="Plant Growth Lab">
+    <img src="assets/base_assets/building_plant.png" alt="Plant Growth Lab" class="building-layer building-plant"
+      id="bldPlant" title="Plant Growth Lab">
 
     <!-- 5. Radiation Shelter Badge & Building (Front Layer: Upper of Main Base) -->
-    <img src="assets/base_assets/badge_shelter.png" alt="Radiation Shelter" class="badge-layer badge-shelter" id="badgeShelter"
-      title="Radiation Shelter">
+    <img src="assets/base_assets/badge_shelter.png" alt="Radiation Shelter" class="badge-layer badge-shelter"
+      id="badgeShelter" title="Radiation Shelter">
     <img src="assets/base_assets/building_shelter.png" alt="Radiation Shelter" class="building-layer building-shelter"
       id="bldShelter" title="Radiation Shelter">
 
@@ -4228,7 +4470,8 @@
         <span class="hud-tag-led"></span> ASTRO COMMANDO // O₂: 98%
       </div>
       <div class="astronaut-shadow"></div>
-      <img src="assets/character_walk/astronaut_walk.gif" alt="Astronaut Traversing Lunar Base" class="entry-astronaut-sprite" id="entryAstronautSprite">
+      <img src="assets/character_walk/astronaut_walk.gif" alt="Astronaut Traversing Lunar Base"
+        class="entry-astronaut-sprite" id="entryAstronautSprite">
     </div>
 
     <!-- Cinematic Letterbox Borders & Real-Time Mission HUD -->
@@ -4241,7 +4484,8 @@
           <span class="cinematic-divider">/</span>
           <span class="cinematic-status" id="cinematicStatusText">CADET DEPLOYMENT IN PROGRESS...</span>
         </div>
-        <button class="cinematic-skip-btn" id="cinematicSkipBtn" onclick="skipPowerMissionEntry()" title="Skip Walk to Mission">
+        <button class="cinematic-skip-btn" id="cinematicSkipBtn" onclick="skipPowerMissionEntry()"
+          title="Skip Walk to Mission">
           SKIP ▶▶
         </button>
       </div>
@@ -4287,8 +4531,9 @@
             <div class="tour-next-arrow-hint">CLICK NEXT ▶</div>
             <div class="tour-next-arrow-glyph">⬇</div>
           </div>
-          <button class="tour-next-btn onboarding-target-pulse" id="tourNextBtn" onclick="stepNextIntroBuilding()" title="Next Building">
-            NEXT (1/4) ▶
+          <button class="tour-next-btn onboarding-target-pulse" id="tourNextBtn" onclick="stepNextIntroBuilding()"
+            title="Next Building">
+            NEXT (1/5) ▶
           </button>
         </div>
 
@@ -4387,28 +4632,36 @@
                 <span>ISRU Water Purification &amp; Electrolysis</span>
                 <span style="color: #38bdf8;">12.4 kW</span>
               </div>
-              <div class="power-bar-wrapper"><div class="power-bar-fill" style="width: 45%;"></div></div>
+              <div class="power-bar-wrapper">
+                <div class="power-bar-fill" style="width: 45%;"></div>
+              </div>
             </div>
             <div>
               <div style="display: flex; justify-content: space-between;">
                 <span>Main Habitat Dome &amp; ECLSS Life Support</span>
                 <span style="color: #38bdf8;">18.6 kW</span>
               </div>
-              <div class="power-bar-wrapper"><div class="power-bar-fill" style="width: 65%;"></div></div>
+              <div class="power-bar-wrapper">
+                <div class="power-bar-fill" style="width: 65%;"></div>
+              </div>
             </div>
             <div>
               <div style="display: flex; justify-content: space-between;">
                 <span>Plant Growth Hydroponics &amp; LED Lighting</span>
                 <span style="color: #38bdf8;">8.2 kW</span>
               </div>
-              <div class="power-bar-wrapper"><div class="power-bar-fill" style="width: 30%;"></div></div>
+              <div class="power-bar-wrapper">
+                <div class="power-bar-fill" style="width: 30%;"></div>
+              </div>
             </div>
             <div>
               <div style="display: flex; justify-content: space-between;">
                 <span>Radiation Shelter Active Heat Pumps &amp; Systems</span>
                 <span style="color: #38bdf8;">6.8 kW</span>
               </div>
-              <div class="power-bar-wrapper"><div class="power-bar-fill" style="width: 25%;"></div></div>
+              <div class="power-bar-wrapper">
+                <div class="power-bar-fill" style="width: 25%;"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -4416,7 +4669,8 @@
     </div>
 
     <!-- 3. ACTIVE MISSION MODAL -->
-    <div class="tactical-modal hidden" id="modalActiveMission" onclick="closeModalOnBackdrop(event, 'modalActiveMission')">
+    <div class="tactical-modal hidden" id="modalActiveMission"
+      onclick="closeModalOnBackdrop(event, 'modalActiveMission')">
       <div class="tactical-modal-card">
         <div class="modal-card-header">
           <h3 class="modal-card-title" style="color: #fdcb0e;">🎯 CURRENT ACTIVE MISSION</h3>
@@ -4427,20 +4681,25 @@
             <strong>MISSION 1: POWER AND ENERGY</strong>
           </div>
           <div style="color: #94a3b8; margin-bottom: 14px;">
-            Sector: Power Substation Facility | Objective: Inspect power generation, energy storage, and electrical distribution across the lunar base.
+            Sector: Power Substation Facility | Objective: Inspect power generation, energy storage, and electrical
+            distribution across the lunar base.
           </div>
-          <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 12px; margin-bottom: 16px;">
+          <div
+            style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 12px; margin-bottom: 16px;">
             <div style="color: #00e5ff; font-weight: bold; margin-bottom: 4px;">ACTIVE SUBTASK:</div>
             <div style="font-size: 1.25rem; color: #fff;">Mission 1: Power System Verification</div>
             <div style="font-size: 1rem; color: #94a3b8; margin-top: 2px;">
-              Learn key power components (Solar Mast, FSP Nuclear Reactor, PDU, Battery Bank) and complete the verification quiz with Astro Bee.
+              Learn key power components (Solar Mast, FSP Nuclear Reactor, PDU, Battery Bank) and complete the
+              verification quiz with Astro Bee.
             </div>
           </div>
           <div style="display: flex; gap: 10px;">
-            <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.25rem; padding: 6px 20px;" onclick="startPowerMissionWithWalk()">
+            <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.25rem; padding: 6px 20px;"
+              onclick="startPowerMissionWithWalk()">
               LAUNCH MISSION 1 ▶
             </button>
-            <button class="hud-terminal-btn" style="font-size: 1.25rem; padding: 6px 16px;" onclick="closeTacticalModal('modalActiveMission'); zoomBuilding('bldPower', 'badgePower');">
+            <button class="hud-terminal-btn" style="font-size: 1.25rem; padding: 6px 16px;"
+              onclick="closeTacticalModal('modalActiveMission'); zoomBuilding('bldPower', 'badgePower');">
               ZOOM FACILITY
             </button>
           </div>
@@ -4457,24 +4716,30 @@
         </div>
         <div class="modal-card-body">
           <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px;">
-            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" style="width: 52px; height: 52px; object-fit: contain;">
+            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee"
+              style="width: 52px; height: 52px; object-fit: contain;">
             <div>
               <div style="font-size: 1.3rem; color: #ffffff;">Astro Bee Flight Assistant Online</div>
-              <div style="font-size: 0.95rem; color: #c084fc;">Ask me anything about lunar physics, power systems, or mission science:</div>
+              <div style="font-size: 0.95rem; color: #c084fc;">Ask me anything about lunar physics, power systems, or
+                mission science:</div>
             </div>
           </div>
           <div style="display: flex; flex-direction: column; gap: 8px;">
-            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;" onclick="answerPrompt(0)">
+            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;"
+              onclick="answerPrompt(0)">
               ❓ How do solar arrays generate power during low sun elevation at the South Pole?
             </button>
-            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;" onclick="answerPrompt(1)">
+            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;"
+              onclick="answerPrompt(1)">
               ❓ Why is water ice permanently trapped in Shackleton Crater?
             </button>
-            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;" onclick="answerPrompt(2)">
+            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;"
+              onclick="answerPrompt(2)">
               ❓ How does 3 meters of lunar regolith protect the crew from radiation?
             </button>
           </div>
-          <div id="askAnswerBox" style="margin-top: 12px; padding: 10px 14px; background: rgba(0, 10, 26, 0.9); border: 1px solid #c084fc; border-radius: 6px; display: none;">
+          <div id="askAnswerBox"
+            style="margin-top: 12px; padding: 10px 14px; background: rgba(0, 10, 26, 0.9); border: 1px solid #c084fc; border-radius: 6px; display: none;">
             <div style="color: #fdcb0e; font-weight: bold; margin-bottom: 4px;" id="askAnswerTitle"></div>
             <div style="color: #e2e8f0; font-size: 1.05rem;" id="askAnswerText"></div>
           </div>
@@ -4482,7 +4747,9 @@
           <div style="margin-top: 14px; border-top: 1px solid rgba(192, 132, 252, 0.3); padding-top: 10px;">
             <div style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 6px;">ASK ASTRO BEE DIRECTLY:</div>
             <div style="display: flex; gap: 8px;">
-              <input type="text" id="astrobeeInputQuery" placeholder="Ask a question about the lunar base..." style="flex: 1; background: rgba(0, 15, 35, 0.8); border: 1px solid #00e5ff; color: #fff; font-family: 'Jersey 10', monospace; font-size: 1.15rem; padding: 6px 10px; border-radius: 4px;" onkeydown="if(event.key==='Enter') submitAstroBeeQuery()">
+              <input type="text" id="astrobeeInputQuery" placeholder="Ask a question about the lunar base..."
+                style="flex: 1; background: rgba(0, 15, 35, 0.8); border: 1px solid #00e5ff; color: #fff; font-family: 'Jersey 10', monospace; font-size: 1.15rem; padding: 6px 10px; border-radius: 4px;"
+                onkeydown="if(event.key==='Enter') submitAstroBeeQuery()">
               <button class="hud-terminal-btn btn-ask" onclick="submitAstroBeeQuery()">ASK</button>
             </div>
           </div>
@@ -4499,43 +4766,59 @@
         </div>
         <div class="modal-card-body">
           <div style="display: flex; flex-direction: column; gap: 9px;">
-            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #fdcb0e; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+            <div
+              style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #fdcb0e; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
                 <div style="font-size: 1.25rem; color: #fdcb0e;">⚡ Mission 1: Power &amp; Energy</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Solar photovoltaic masts, nuclear baseload, and PDU routing.</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Solar photovoltaic masts, nuclear baseload, and PDU
+                  routing.</div>
               </div>
               <button class="hud-terminal-btn" onclick="startPowerMissionWithWalk()">PLAY</button>
             </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+            <div
+              style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
                 <div style="font-size: 1.25rem; color: #00e5ff;">💧 Mission 2: Water Ice &amp; Rover Traverse</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Pilot the lunar rover across Shackleton rim to collect cryo ice crystals.</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Pilot the lunar rover across Shackleton rim to collect
+                  cryo ice crystals.</div>
               </div>
               <div style="display: flex; gap: 6px;">
-                <button class="hud-terminal-btn" style="border-color: #00e5ff; color: #00e5ff;" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='3.1_rover_traverse.html'">PLAY ▶</button>
-                <button class="hud-terminal-btn" onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldIsru', 'badgeIsru');">VIEW</button>
+                <button class="hud-terminal-btn" style="border-color: #00e5ff; color: #00e5ff;"
+                  onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='3.1_rover_traverse.html'">PLAY
+                  ▶</button>
+                <button class="hud-terminal-btn"
+                  onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldIsru', 'badgeIsru');">VIEW</button>
               </div>
             </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e676; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+            <div
+              style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e676; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
                 <div style="font-size: 1.25rem; color: #00e676;">🌱 Mission 3: Plant Growth Lab</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Hydroponic nutrient cycles and fresh astronaut diet.</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Hydroponic nutrient cycles and fresh astronaut diet.
+                </div>
               </div>
-              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.1_daily_meal.html'">PLAY</button>
+              <button class="hud-terminal-btn"
+                onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.1_daily_meal.html'">PLAY</button>
             </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #ff4444; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+            <div
+              style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #ff4444; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
                 <div style="font-size: 1.25rem; color: #ff6666;">🏛️ Mission 4: Main Base Command Dome</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Atmospheric pressure, communications array, and habitat control.</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Atmospheric pressure, communications array, and habitat
+                  control.</div>
               </div>
-              <button class="hud-terminal-btn" onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldMain', 'badgeMain');">VIEW</button>
+              <button class="hud-terminal-btn"
+                onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldMain', 'badgeMain');">VIEW</button>
             </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #c084fc; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+            <div
+              style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #c084fc; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
                 <div style="font-size: 1.25rem; color: #c084fc;">🛡️ Mission 5: Radiation Shelter</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Solar particle events protection and regolith radiation shielding.</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Solar particle events protection and regolith radiation
+                  shielding.</div>
               </div>
-              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='5.1_Radiation_mission.html'">PLAY</button>
+              <button class="hud-terminal-btn"
+                onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='5.1_Radiation_mission.html'">PLAY</button>
             </div>
           </div>
         </div>
@@ -4598,24 +4881,31 @@
             Scientific upgrades &amp; in-situ engineering milestones:
           </div>
           <div style="display: flex; flex-direction: column; gap: 9px;">
-            <div style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #4ade80; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+            <div
+              style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #4ade80; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
                 <div style="color: #4ade80; font-size: 1.25rem;">✅ Sintered Regolith Radiation Berm (Tier 1)</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Microwave heating transforms lunar dust into structural radiation shields.</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Microwave heating transforms lunar dust into structural
+                  radiation shields.</div>
               </div>
               <span style="color: #4ade80; font-weight: bold;">ACTIVE</span>
             </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #38bdf8; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+            <div
+              style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #38bdf8; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
                 <div style="color: #38bdf8; font-size: 1.25rem;">⏳ Closed-Loop Hydroponic Water Recycling (Tier 2)</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Recovers 94.2% moisture through plant transpiration condenser loops.</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Recovers 94.2% moisture through plant transpiration
+                  condenser loops.</div>
               </div>
               <span style="color: #fdcb0e; font-weight: bold;">68% PROG</span>
             </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #94a3b8; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; opacity: 0.8;">
+            <div
+              style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #94a3b8; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; opacity: 0.8;">
               <div>
-                <div style="color: #cbd5e1; font-size: 1.25rem;">🔒 Molten Regolith Electrolysis for Oxygen (Tier 3)</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Extracts pure O₂ and iron-silicon alloy directly from dry highlands regolith.</div>
+                <div style="color: #cbd5e1; font-size: 1.25rem;">🔒 Molten Regolith Electrolysis for Oxygen (Tier 3)
+                </div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Extracts pure O₂ and iron-silicon alloy directly from
+                  dry highlands regolith.</div>
               </div>
               <span style="color: #94a3b8; font-weight: bold;">REQ 50 kW</span>
             </div>
@@ -4635,24 +4925,28 @@
           <!-- Chiaki Mukai -->
           <div class="crew-member-card crew-card-amber">
             <div class="crew-avatar-frame">
-              <img src="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp" alt="Dr. Chiaki Mukai" class="crew-avatar-img">
+              <img src="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp" alt="Dr. Chiaki Mukai"
+                class="crew-avatar-img">
             </div>
             <div class="crew-name-badge" style="color: #fbbf24;">Dr. Chiaki Mukai</div>
             <div class="crew-role-badge">Power &amp; Energy Lead</div>
             <div class="crew-speech-bubble">
-              "Konnichiwa! I supervise the Stirling nuclear reactor and solar masts. On the Moon, reliable power keeps every life support system breathing."
+              "Konnichiwa! I supervise the Stirling nuclear reactor and solar masts. On the Moon, reliable power keeps
+              every life support system breathing."
             </div>
           </div>
 
           <!-- Sunita Williams -->
           <div class="crew-member-card crew-card-green">
             <div class="crew-avatar-frame">
-              <img src="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" class="crew-avatar-img">
+              <img src="2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams"
+                class="crew-avatar-img">
             </div>
             <div class="crew-name-badge" style="color: #34d399;">Sunita Williams</div>
             <div class="crew-role-badge">Hydroponics &amp; Nutrition</div>
             <div class="crew-speech-bubble">
-              "Hello explorer! I cultivate fresh crops in our Plant Growth Lab and balance astronaut diets so we stay fit in lunar gravity."
+              "Hello explorer! I cultivate fresh crops in our Plant Growth Lab and balance astronaut diets so we stay
+              fit in lunar gravity."
             </div>
           </div>
 
@@ -4664,7 +4958,8 @@
             <div class="crew-name-badge" style="color: #38bdf8;">Neil Armstrong</div>
             <div class="crew-role-badge">ISRU &amp; Water/O₂ Extraction</div>
             <div class="crew-speech-bubble">
-              "Welcome to the frontier. I head cryo-drilling inside shadowed polar craters and split ice into water and rocket-grade oxygen."
+              "Welcome to the frontier. I head cryo-drilling inside shadowed polar craters and split ice into water and
+              rocket-grade oxygen."
             </div>
           </div>
 
@@ -4676,7 +4971,8 @@
             <div class="crew-name-badge" style="color: #c084fc;">Rakesh Sharma</div>
             <div class="crew-role-badge">Radiation Protection Chief</div>
             <div class="crew-speech-bubble">
-              "Namaste! Cosmic rays and solar storms are our greatest threat. I engineer sintered regolith shields to keep the crew safe."
+              "Namaste! Cosmic rays and solar storms are our greatest threat. I engineer sintered regolith shields to
+              keep the crew safe."
             </div>
           </div>
         </div>
@@ -5091,7 +5387,7 @@
           updateMainBaseMusicUI(false);
           const resumeOnTouch = () => {
             if (isBaseBgmActive && !mainBaseBgmMuted && mainBaseBgm && mainBaseBgm.paused) {
-              mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => {});
+              mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => { });
             }
             window.removeEventListener('pointerdown', resumeOnTouch);
             window.removeEventListener('keydown', resumeOnTouch);
@@ -5108,7 +5404,7 @@
         mainBaseBgmMuted = false;
         mainBaseBgm.muted = false;
         isBaseBgmActive = true;
-        mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => {});
+        mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => { });
       } else {
         mainBaseBgmMuted = true;
         mainBaseBgm.pause();
@@ -5135,7 +5431,7 @@
       if (!mainBaseBgm) return;
       try {
         mainBaseBgm.pause();
-      } catch (e) {}
+      } catch (e) { }
     }
 
     window.addEventListener('beforeunload', stopMainBaseBgm);
@@ -5147,7 +5443,7 @@
         if (!mainBaseBgm.paused) mainBaseBgm.pause();
       } else {
         if (isBaseBgmActive && !mainBaseBgmMuted && mainBaseBgm.paused) {
-          mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => {});
+          mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => { });
         }
       }
     });
@@ -5172,7 +5468,7 @@
     function unlockGlobalAudio() {
       if (sound && sound.init) sound.init();
       if (mainBaseBgm && isBaseBgmActive && !mainBaseBgmMuted && mainBaseBgm.paused) {
-        mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => {});
+        mainBaseBgm.play().then(() => updateMainBaseMusicUI(true)).catch(() => { });
       }
       if (moonJourneyAudio) {
         moonJourneyAudio.muted = false;
@@ -5180,7 +5476,7 @@
           moonJourneyAudio.currentTime = moonJourneyVideo.currentTime;
           moonJourneyAudio.play().then(() => {
             updateMoonJourneyAudioUI();
-          }).catch(() => {});
+          }).catch(() => { });
         }
       }
     }
@@ -5196,7 +5492,7 @@
         if (moonJourneyVideo) {
           moonJourneyAudio.currentTime = moonJourneyVideo.currentTime;
         }
-        moonJourneyAudio.play().catch(() => {});
+        moonJourneyAudio.play().catch(() => { });
       } else {
         moonJourneyAudio.pause();
       }
@@ -5385,10 +5681,10 @@
           return false;
         }
         isReturn = document.documentElement.classList.contains('skip-intro-direct') ||
-                   params.get('return') === 'base' ||
-                   params.get('skipIntro') === 'true' ||
-                   window.location.hash === '#base' ||
-                   sessionStorage.getItem('moonfall_landed') === 'true';
+          params.get('return') === 'base' ||
+          params.get('skipIntro') === 'true' ||
+          window.location.hash === '#base' ||
+          sessionStorage.getItem('moonfall_landed') === 'true';
       } catch (e) { }
 
       if (isReturn) {
@@ -5518,7 +5814,7 @@
     const zoomCloseBtn = document.getElementById('zoomCloseBtn');
     const missionsWrapper = document.getElementById('missionsWrapper');
     const astrobeeText = document.getElementById('astrobeeText');
- 
+
     var currentZoomedBldId = null;
     var isBaseIntroActive = false;
     var introTourIndex = 0;
@@ -5528,7 +5824,8 @@
       { bldId: 'bldPower', badgeId: 'badgePower' },
       { bldId: 'bldPlant', badgeId: 'badgePlant' },
       { bldId: 'bldIsru', badgeId: 'badgeIsru' },
-      { bldId: 'bldShelter', badgeId: 'badgeShelter' }
+      { bldId: 'bldShelter', badgeId: 'badgeShelter' },
+      { bldId: 'bldMain', badgeId: 'badgeMain' }
     ];
 
     function showTourArrowGuide() {
@@ -5551,10 +5848,11 @@
       const idx = introBuildingTourOrder.findIndex(item => item.bldId === bldId);
       if (idx !== -1) {
         introTourIndex = idx;
-        if (idx < introBuildingTourOrder.length - 1) {
-          tourNextBtn.textContent = `NEXT (${idx + 1}/4) ▶`;
+        const total = introBuildingTourOrder.length;
+        if (idx < total - 1) {
+          tourNextBtn.textContent = `NEXT (${idx + 1}/${total}) ▶`;
         } else {
-          tourNextBtn.textContent = `PHASES (4/4) ▶`;
+          tourNextBtn.textContent = `PHASES (${total}/${total}) ▶`;
         }
         showTourArrowGuide();
       } else {
@@ -6243,13 +6541,13 @@
       if (btnCrew) btnCrew.classList.remove('onboarding-target-pulse');
       if (badgePower) badgePower.classList.remove('onboarding-target-pulse');
 
-      try { sessionStorage.setItem('moonfall_onboarded', 'true'); } catch(e) {}
+      try { sessionStorage.setItem('moonfall_onboarded', 'true'); } catch (e) { }
     }
 
     function startOnboardingGuide() {
       try {
         if (sessionStorage.getItem('moonfall_onboarded') === 'true') return;
-      } catch(e) {}
+      } catch (e) { }
 
       setTimeout(() => {
         setOnboardingStep(1);
@@ -6364,11 +6662,13 @@
         else if (testParam === 'onboard1') setOnboardingStep(1);
         else if (testParam === 'onboard2') setOnboardingStep(2);
         else if (testParam === 'onboard3') setOnboardingStep(3);
-      } catch(e) {}
+      } catch (e) { }
     })();
   </script>
   <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
-  <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev" data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.png" data-badge="assets/scene 3/Frame 7.png" defer></script>
+  <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev"
+    data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.png"
+    data-badge="assets/scene 3/Frame 7.png" defer></script>
   <script src="astrobee/moonfall.js" defer></script>
 </body>
 
