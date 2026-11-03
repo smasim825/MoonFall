@@ -1618,68 +1618,85 @@
     /* =========================================================================
        PIXEL-ART CLASH-STYLE 2-CARD PHASE SELECTOR
        ========================================================================= */
-    .phase-dashboard-btn {
+    /* =========================================================================
+       MASTER RESPONSIVE TOP HUD BAR
+       ========================================================================= */
+    .game-top-hud {
       position: absolute;
-      top: 14px;
-      left: 16px;
-      z-index: 100;
+      top: 12px;
+      left: 14px;
+      right: clamp(98px, 8vw, 118px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(6px, 1.1vw, 16px);
+      pointer-events: none;
+    }
+
+    .game-top-hud > * {
+      pointer-events: auto;
+    }
+
+    .hud-group-left {
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(6px, 0.8vw, 10px);
+      flex-shrink: 0;
+    }
+
+    /* Clash-Style 3D Pixel Art Buttons matching PHASES & MEET THE CREW */
+    .phase-dashboard-btn {
+      position: static;
       background: linear-gradient(180deg, #ffca28 0%, #f59e0b 100%);
       border: 3px solid #000000;
-      box-shadow: inset 0 3px 0 #ffe082, inset 0 -3px 0 #b45309, 0 6px 0 #000000, 0 8px 18px rgba(0, 0, 0, 0.85);
+      box-shadow: inset 0 3px 0 #ffe082, inset 0 -3px 0 #b45309, 0 5px 0 #000000, 0 8px 16px rgba(0, 0, 0, 0.85);
       border-radius: 8px;
       color: #ffffff;
       font-family: 'Jersey 10', 'Pixel Operator', monospace;
-      font-size: clamp(1.1rem, 1.5vw, 1.55rem);
-      padding: 5px 16px;
+      font-size: clamp(0.95rem, 1.25vw, 1.45rem);
+      padding: 5px clamp(8px, 1.1vw, 16px);
       cursor: pointer;
       pointer-events: auto !important;
       letter-spacing: 0.05em;
       text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       image-rendering: pixelated;
+      white-space: nowrap;
       transition: transform 0.12s ease, filter 0.12s ease;
     }
 
     .crew-intro-btn {
-      position: absolute;
-      top: 14px;
-      left: 170px;
-      z-index: 100;
+      position: static;
       background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
       border: 3px solid #000000;
-      box-shadow: inset 0 3px 0 #bae6fd, inset 0 -3px 0 #0369a1, 0 6px 0 #000000, 0 8px 18px rgba(0, 0, 0, 0.85);
+      box-shadow: inset 0 3px 0 #bae6fd, inset 0 -3px 0 #0369a1, 0 5px 0 #000000, 0 8px 16px rgba(0, 0, 0, 0.85);
       border-radius: 8px;
       color: #ffffff;
       font-family: 'Jersey 10', 'Pixel Operator', monospace;
-      font-size: clamp(1.1rem, 1.5vw, 1.55rem);
-      padding: 5px 16px;
+      font-size: clamp(0.95rem, 1.25vw, 1.45rem);
+      padding: 5px clamp(8px, 1.1vw, 16px);
       cursor: pointer;
       pointer-events: auto !important;
       letter-spacing: 0.05em;
       text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       image-rendering: pixelated;
+      white-space: nowrap;
       transition: transform 0.12s ease, filter 0.12s ease;
     }
 
-    .crew-intro-btn:hover {
-      filter: brightness(1.1);
-      transform: translateY(-2px);
-    }
-
-    .crew-intro-btn:active {
-      transform: translateY(2px);
-    }
-
+    .crew-intro-btn:hover,
     .phase-dashboard-btn:hover {
-      filter: brightness(1.1);
+      filter: brightness(1.12);
       transform: translateY(-2px);
     }
 
+    .crew-intro-btn:active,
     .phase-dashboard-btn:active {
       transform: translateY(2px);
     }
@@ -1688,32 +1705,32 @@
        TOP HUD STATUS PILL & NASA RESEARCH / BASE UPGRADES NAVBAR
        ========================================================================= */
     .top-status-bar {
-      position: absolute;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex;
+      position: static;
+      transform: none;
+      display: inline-flex;
       align-items: center;
-      gap: clamp(8px, 1.4vw, 18px);
-      background: rgba(10, 18, 38, 0.9);
+      justify-content: center;
+      gap: clamp(6px, 1.1vw, 16px);
+      background: rgba(10, 18, 38, 0.92);
       border: 2px solid #1e3a8a;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12);
       border-radius: 8px;
-      padding: 6px 18px;
+      padding: 5px clamp(8px, 1.2vw, 18px);
       pointer-events: auto;
       user-select: none;
+      flex-shrink: 1;
+      min-width: 0;
     }
 
     .top-status-bar .status-item {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       font-family: 'Pixel Operator', 'Jersey 10', monospace;
-      font-size: clamp(0.85rem, 1.1vw, 1.1rem);
+      font-size: clamp(0.8rem, 1.05vw, 1.08rem);
       font-weight: bold;
       color: #ffffff;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       white-space: nowrap;
     }
 
@@ -1732,34 +1749,31 @@
 
     /* Top-Right Navbar Cluster (NASA Research & Base Upgrades) */
     .top-nav-cluster {
-      position: absolute;
-      top: 14px;
-      right: 84px;
-      z-index: 200;
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       pointer-events: auto;
+      flex-shrink: 0;
     }
 
     .top-nav-tabs {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: clamp(6px, 0.8vw, 10px);
     }
 
-    /* Clash-Style 3D Pixel Art Buttons matching PHASES & MEET THE CREW */
     .top-nav-btn {
       font-family: 'Jersey 10', 'Pixel Operator', monospace;
-      font-size: clamp(1.1rem, 1.5vw, 1.55rem);
+      font-size: clamp(0.95rem, 1.25vw, 1.45rem);
       color: #ffffff;
-      padding: 5px 16px;
+      padding: 5px clamp(8px, 1.1vw, 16px);
       border: 3px solid #000000;
       border-radius: 8px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       user-select: none;
       letter-spacing: 0.05em;
       text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000;
@@ -1771,16 +1785,16 @@
 
     .top-nav-btn.btn-nasa {
       background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
-      box-shadow: inset 0 3px 0 #7dd3fc, inset 0 -3px 0 #0369a1, 0 6px 0 #000000, 0 8px 18px rgba(0, 0, 0, 0.85);
+      box-shadow: inset 0 3px 0 #7dd3fc, inset 0 -3px 0 #0369a1, 0 5px 0 #000000, 0 8px 16px rgba(0, 0, 0, 0.85);
     }
 
     .top-nav-btn.btn-upgrades {
       background: linear-gradient(180deg, #64748b 0%, #334155 100%);
-      box-shadow: inset 0 3px 0 #94a3b8, inset 0 -3px 0 #1e293b, 0 6px 0 #000000, 0 8px 18px rgba(0, 0, 0, 0.85);
+      box-shadow: inset 0 3px 0 #94a3b8, inset 0 -3px 0 #1e293b, 0 5px 0 #000000, 0 8px 16px rgba(0, 0, 0, 0.85);
     }
 
     .top-nav-btn:hover {
-      filter: brightness(1.1);
+      filter: brightness(1.12);
       transform: translateY(-2px);
     }
 
@@ -1790,14 +1804,96 @@
 
     .top-nav-btn.active-tab-highlight {
       transform: translateY(2px);
-      box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.45), inset 0 -3px 0 rgba(0, 0, 0, 0.5), 0 3px 0 #000000, 0 0 16px rgba(0, 229, 255, 0.9) !important;
+      box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.45), inset 0 -3px 0 rgba(0, 0, 0, 0.5), 0 2px 0 #000000, 0 0 16px rgba(0, 229, 255, 0.9) !important;
       outline: 2px solid #00e5ff;
+    }
+
+    /* Labels toggleable by breakpoint */
+    .btn-text.short-label {
+      display: none;
+    }
+    .btn-text.full-label {
+      display: inline;
+    }
+
+    /* =========================================================================
+       RESPONSIVE BREAKPOINTS FOR TOP NAVBAR
+       ========================================================================= */
+    /* When width is <= 1360px: hide redundant label text "POWER:", "WATER:" to prevent any squeeze */
+    @media (max-width: 1360px) {
+      .top-status-bar .status-label {
+        display: none;
+      }
+      .top-status-bar {
+        padding: 4px 10px;
+        gap: 8px;
+      }
+    }
+
+    /* Between 900px and 1100px: shorten button text */
+    @media (max-width: 1100px) {
+      .btn-text.full-label {
+        display: none;
+      }
+      .btn-text.short-label {
+        display: inline;
+      }
+      .top-nav-btn, .phase-dashboard-btn, .crew-intro-btn {
+        padding: 4px 8px;
+        gap: 4px;
+      }
+    }
+
+    /* Below 900px (Tablets / Mobile in landscape or portrait): Stacking */
+    @media (max-width: 900px) {
+      .game-top-hud {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 6px;
+        top: 8px;
+        left: 8px;
+        right: 8px;
+      }
+      .hud-group-left {
+        order: 1;
+      }
+      .top-nav-cluster {
+        order: 2;
+      }
+      .top-status-bar {
+        order: 3;
+        width: 100%;
+        justify-content: space-around;
+        padding: 4px 8px;
+        font-size: 0.85rem;
+        background: rgba(8, 14, 30, 0.95);
+      }
+      .top-status-bar .status-label {
+        display: none;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .btn-text.short-label {
+        display: none; /* Just show icons on very small screens */
+      }
+      .phase-dashboard-btn, .crew-intro-btn, .top-nav-btn {
+        padding: 5px 9px;
+      }
+      .top-status-bar {
+        gap: 4px;
+      }
+      .top-status-bar .status-item {
+        font-size: 0.78rem;
+        gap: 3px;
+      }
     }
 
     /* Dropdown Overlay / Card - Hidden until clicked */
     .top-nav-dropdown {
       position: absolute;
       top: calc(100% + 8px);
+      right: 0;
       z-index: 300;
       animation: dropdown-pop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -2953,112 +3049,117 @@
     <!-- Lunar Surface Base Background -->
     <div class="base-background"></div>
 
-    <!-- Floating Button to Open 2-Phase Mission Dashboard Anytime -->
-    <button class="phase-dashboard-btn" id="phaseDashboardToggleBtn" onclick="openPhaseDashboard()" title="Open Mission Phases">
-      ⚔️ PHASES
-    </button>
-    <button class="crew-intro-btn" id="crewIntroToggleBtn" onclick="openCrewManifestModal()" title="Meet the 4 Outpost Astronauts">
-      👨‍🚀 MEET THE CREW
-    </button>
-
-    <!-- Top-Center Lunar Resource Status Pill Bar -->
-    <div class="top-status-bar" id="topStatusBar">
-      <div class="status-item"><span class="status-icon">⚡</span> <span class="status-label">POWER:</span> <span class="status-val val-active">ACTIVE</span></div>
-      <div class="status-item"><span class="status-icon">💧</span> <span class="status-label">WATER:</span> <span class="status-val val-nominal">NOMINAL</span></div>
-      <div class="status-item"><span class="status-icon">🌿</span> <span class="status-label">BIOMASS:</span> <span class="status-val val-growing">GROWING</span></div>
-      <div class="status-item"><span class="status-icon">⛏️</span> <span class="status-label">REGOLITH:</span> <span class="status-val val-processing">PROCESSING</span></div>
-    </div>
-
-    <!-- Top-Right NASA Research & Base Upgrades Navbar Cluster -->
-    <div class="top-nav-cluster" id="topNavCluster">
-      <div class="top-nav-tabs">
-        <button class="top-nav-btn btn-nasa" id="btnNasaResearch" type="button" onclick="event.stopPropagation(); toggleNavDropdown('nasa');">
-          <span class="nav-btn-icon">🔬</span> NASA RESEARCH
+    <!-- Master Responsive Top HUD Navigation Bar -->
+    <header class="game-top-hud" id="gameTopHud">
+      <!-- Left Side: Phase & Crew Controls -->
+      <div class="hud-group-left">
+        <button class="phase-dashboard-btn" id="phaseDashboardToggleBtn" onclick="openPhaseDashboard()" title="Open Mission Phases">
+          <span class="nav-btn-icon">⚔️</span> <span class="btn-text">PHASES</span>
         </button>
-        <button class="top-nav-btn btn-upgrades" id="btnBaseUpgrades" type="button" onclick="event.stopPropagation(); toggleNavDropdown('upgrades');">
-          <span class="nav-btn-icon">🔧</span> BASE UPGRADES
+        <button class="crew-intro-btn" id="crewIntroToggleBtn" onclick="openCrewManifestModal()" title="Meet the 4 Outpost Astronauts">
+          <span class="nav-btn-icon">👨‍🚀</span> <span class="btn-text full-label">MEET THE CREW</span><span class="btn-text short-label">CREW</span>
         </button>
       </div>
 
-      <!-- Dropdown Panel (Shown ONLY when clicked) -->
-      <div class="top-nav-dropdown hidden" id="topNavDropdown" onclick="event.stopPropagation();">
-        <div class="nav-dropdown-columns">
-          <!-- Column 1: NASA Research -->
-          <div class="nav-dropdown-col col-nasa" id="dropdownColNasa">
-            <div class="nav-col-header">
-              <span class="col-icon">🔬</span> NASA RESEARCH
-            </div>
-            <div class="nav-col-items">
-              <div class="nav-col-item" onclick="openNasaItemDetail('carbothermal')">
-                <div class="item-icon-box">⚗️</div>
-                <div class="item-text-box">
-                  <div class="item-title">CARBOTHERMAL O2</div>
-                  <div class="item-sub">EXTRACTION</div>
-                </div>
-              </div>
-              <div class="nav-col-item" onclick="openNasaItemDetail('fsp')">
-                <div class="item-icon-box">☢️</div>
-                <div class="item-text-box">
-                  <div class="item-title">FISSION SURFACE</div>
-                  <div class="item-sub">POWER</div>
-                </div>
-              </div>
-              <div class="nav-col-item" onclick="openNasaItemDetail('cadre')">
-                <div class="item-icon-box">🤖</div>
-                <div class="item-text-box">
-                  <div class="item-title">AUTONOMOUS SWARM</div>
-                  <div class="item-sub">ROBOTICS (CADRE)</div>
-                </div>
-              </div>
-              <div class="nav-col-item" onclick="openNasaItemDetail('microwave')">
-                <div class="item-icon-box">📡</div>
-                <div class="item-text-box">
-                  <div class="item-title">MICROWAVE</div>
-                  <div class="item-sub">SINTERING</div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- Center: Outpost Resource Telemetry -->
+      <div class="top-status-bar" id="topStatusBar">
+        <div class="status-item"><span class="status-icon">⚡</span> <span class="status-label">POWER:</span> <span class="status-val val-active">ACTIVE</span></div>
+        <div class="status-item"><span class="status-icon">💧</span> <span class="status-label">WATER:</span> <span class="status-val val-nominal">NOMINAL</span></div>
+        <div class="status-item"><span class="status-icon">🌿</span> <span class="status-label">BIOMASS:</span> <span class="status-val val-growing">GROWING</span></div>
+        <div class="status-item"><span class="status-icon">⛏️</span> <span class="status-label">REGOLITH:</span> <span class="status-val val-processing">PROCESSING</span></div>
+      </div>
 
-          <!-- Column 2: Base Upgrades -->
-          <div class="nav-dropdown-col col-upgrades" id="dropdownColUpgrades">
-            <div class="nav-col-header">
-              <span class="col-icon">🔧</span> BASE UPGRADES
+      <!-- Top-Right NASA Research & Base Upgrades Navbar Cluster -->
+      <div class="top-nav-cluster" id="topNavCluster">
+        <div class="top-nav-tabs">
+          <button class="top-nav-btn btn-nasa" id="btnNasaResearch" type="button" onclick="event.stopPropagation(); toggleNavDropdown('nasa');">
+            <span class="nav-btn-icon">🔬</span> <span class="btn-text full-label">NASA RESEARCH</span><span class="btn-text short-label">RESEARCH</span>
+          </button>
+          <button class="top-nav-btn btn-upgrades" id="btnBaseUpgrades" type="button" onclick="event.stopPropagation(); toggleNavDropdown('upgrades');">
+            <span class="nav-btn-icon">🔧</span> <span class="btn-text full-label">BASE UPGRADES</span><span class="btn-text short-label">UPGRADES</span>
+          </button>
+        </div>
+
+        <!-- Dropdown Panel (Shown ONLY when clicked) -->
+        <div class="top-nav-dropdown hidden" id="topNavDropdown" onclick="event.stopPropagation();">
+          <div class="nav-dropdown-columns">
+            <!-- Column 1: NASA Research -->
+            <div class="nav-dropdown-col col-nasa" id="dropdownColNasa">
+              <div class="nav-col-header">
+                <span class="col-icon">🔬</span> NASA RESEARCH
+              </div>
+              <div class="nav-col-items">
+                <div class="nav-col-item" onclick="openNasaItemDetail('carbothermal')">
+                  <div class="item-icon-box">⚗️</div>
+                  <div class="item-text-box">
+                    <div class="item-title">CARBOTHERMAL O2</div>
+                    <div class="item-sub">EXTRACTION</div>
+                  </div>
+                </div>
+                <div class="nav-col-item" onclick="openNasaItemDetail('fsp')">
+                  <div class="item-icon-box">☢️</div>
+                  <div class="item-text-box">
+                    <div class="item-title">FISSION SURFACE</div>
+                    <div class="item-sub">POWER</div>
+                  </div>
+                </div>
+                <div class="nav-col-item" onclick="openNasaItemDetail('cadre')">
+                  <div class="item-icon-box">🤖</div>
+                  <div class="item-text-box">
+                    <div class="item-title">AUTONOMOUS SWARM</div>
+                    <div class="item-sub">ROBOTICS (CADRE)</div>
+                  </div>
+                </div>
+                <div class="nav-col-item" onclick="openNasaItemDetail('microwave')">
+                  <div class="item-icon-box">📡</div>
+                  <div class="item-text-box">
+                    <div class="item-title">MICROWAVE</div>
+                    <div class="item-sub">SINTERING</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="nav-col-items">
-              <div class="nav-col-item" onclick="openNasaItemDetail('hls')">
-                <div class="item-icon-box">🛸</div>
-                <div class="item-text-box">
-                  <div class="item-title">HLS LANDING</div>
-                  <div class="item-sub">SITE PREP</div>
-                </div>
+
+            <!-- Column 2: Base Upgrades -->
+            <div class="nav-dropdown-col col-upgrades" id="dropdownColUpgrades">
+              <div class="nav-col-header">
+                <span class="col-icon">🔧</span> BASE UPGRADES
               </div>
-              <div class="nav-col-item" onclick="openNasaItemDetail('shielding')">
-                <div class="item-icon-box">🏛️</div>
-                <div class="item-text-box">
-                  <div class="item-title">3D-PRINTED</div>
-                  <div class="item-sub">SHIELDING</div>
+              <div class="nav-col-items">
+                <div class="nav-col-item" onclick="openNasaItemDetail('hls')">
+                  <div class="item-icon-box">🛸</div>
+                  <div class="item-text-box">
+                    <div class="item-title">HLS LANDING</div>
+                    <div class="item-sub">SITE PREP</div>
+                  </div>
                 </div>
-              </div>
-              <div class="nav-col-item" onclick="openNasaItemDetail('cryotanks')">
-                <div class="item-icon-box">🧪</div>
-                <div class="item-text-box">
-                  <div class="item-title">HIGH-CAPACITY</div>
-                  <div class="item-sub">CRYOTANKS</div>
+                <div class="nav-col-item" onclick="openNasaItemDetail('shielding')">
+                  <div class="item-icon-box">🏛️</div>
+                  <div class="item-text-box">
+                    <div class="item-title">3D-PRINTED</div>
+                    <div class="item-sub">SHIELDING</div>
+                  </div>
                 </div>
-              </div>
-              <div class="nav-col-item" onclick="openNasaItemDetail('vsat')">
-                <div class="item-icon-box">🛰️</div>
-                <div class="item-text-box">
-                  <div class="item-title">VERTICAL SOLAR</div>
-                  <div class="item-sub">ARRAYS (VSAT)</div>
+                <div class="nav-col-item" onclick="openNasaItemDetail('cryotanks')">
+                  <div class="item-icon-box">🧪</div>
+                  <div class="item-text-box">
+                    <div class="item-title">HIGH-CAPACITY</div>
+                    <div class="item-sub">CRYOTANKS</div>
+                  </div>
+                </div>
+                <div class="nav-col-item" onclick="openNasaItemDetail('vsat')">
+                  <div class="item-icon-box">🛰️</div>
+                  <div class="item-text-box">
+                    <div class="item-title">VERTICAL SOLAR</div>
+                    <div class="item-sub">ARRAYS (VSAT)</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </header>
 
     <!-- PIXEL-ART CLASH-OF-CLANS INSPIRED 2-WINDOW PHASE & MISSION MODAL -->
     <div class="phase-dashboard-backdrop hidden" id="phaseDashboardModal" onclick="if(event.target===this) closePhaseDashboard()">
