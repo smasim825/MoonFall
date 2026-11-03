@@ -2276,10 +2276,11 @@
 
     function returnToBase() {
       sound.playClick();
+      try { sessionStorage.setItem('moonfall_landed', 'true'); } catch (e) { }
       if (airlockTransition) {
-        airlockTransition.exit('index.html', 'CYCLING AIRLOCK // RETURNING TO MAIN BASE');
+        airlockTransition.exit('index.html?return=base', 'CYCLING AIRLOCK // RETURNING TO MAIN BASE');
       } else {
-        window.location.href = 'index.html';
+        window.location.href = 'index.html?return=base';
       }
     }
 

@@ -1293,7 +1293,7 @@
       <button class="nav-btn" id="audioToggleBtn" onclick="toggleAudio()" title="Toggle Mission Audio">
         🔊 AUDIO
       </button>
-      <a href="index.html" class="nav-btn" title="Return to Main Base">
+      <a href="index.html?return=base" class="nav-btn" title="Return to Main Base" onclick="try{sessionStorage.setItem('moonfall_landed','true');}catch(e){}">
         🗺️ BASE MAP
       </a>
     </div>

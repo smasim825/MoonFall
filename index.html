@@ -9,7 +9,35 @@
   <link rel="preload" href="assets/mainbase_bg.webp" as="image">
   <link rel="preload" href="assets/fonts/Jersey10.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="assets/fonts/PixelOperator-Bold.ttf" as="font" type="font/ttf" crossorigin>
+
+  <script>
+    (function () {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('intro') === 'true') {
+          sessionStorage.removeItem('moonfall_landed');
+          return;
+        }
+        const isReturn = params.get('return') === 'base' ||
+                         params.get('skipIntro') === 'true' ||
+                         window.location.hash === '#base' ||
+                         sessionStorage.getItem('moonfall_landed') === 'true';
+        if (isReturn) {
+          document.documentElement.classList.add('skip-intro-direct');
+        }
+      } catch (e) { }
+    })();
+  </script>
+
   <style>
+    html.skip-intro-direct .intro-overlay,
+    html.skip-intro-direct .moon-journey-overlay {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
     @font-face {
       font-family: 'Jersey 10';
       src: url('assets/fonts/Jersey10.ttf') format('truetype');
@@ -4769,6 +4797,7 @@
 
     function stopMainBaseBgm() {
       isBaseBgmActive = false;
+      try { sessionStorage.setItem('moonfall_landed', 'true'); } catch (e) { }
       if (!mainBaseBgm) return;
       try {
         mainBaseBgm.pause();
@@ -4847,6 +4876,7 @@
     function finishMoonJourneyVideo() {
       if (moonJourneyFinished) return;
       moonJourneyFinished = true;
+      try { sessionStorage.setItem('moonfall_landed', 'true'); } catch (e) { }
       if (sound && sound.clickSound) sound.clickSound();
       if (moonJourneyVideo) {
         moonJourneyVideo.pause();
@@ -5009,8 +5039,49 @@
       }
     }
 
+    function checkDirectBaseEntry() {
+      let isReturn = false;
+      try {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('intro') === 'true') {
+          sessionStorage.removeItem('moonfall_landed');
+          return false;
+        }
+        isReturn = document.documentElement.classList.contains('skip-intro-direct') ||
+                   params.get('return') === 'base' ||
+                   params.get('skipIntro') === 'true' ||
+                   window.location.hash === '#base' ||
+                   sessionStorage.getItem('moonfall_landed') === 'true';
+      } catch (e) { }
+
+      if (isReturn) {
+        introDismissed = true;
+        missionStarted = true;
+        isMissionReady = true;
+        moonJourneyFinished = true;
+        try { sessionStorage.setItem('moonfall_landed', 'true'); } catch (e) { }
+
+        if (introOverlay) {
+          introOverlay.style.display = 'none';
+          introOverlay.classList.add('fade-out');
+        }
+        if (moonJourneyOverlay) {
+          moonJourneyOverlay.style.display = 'none';
+          moonJourneyOverlay.classList.remove('active');
+        }
+        if (animId) cancelAnimationFrame(animId);
+
+        startBaseIntroScene();
+        playMainBaseBgm();
+        return true;
+      }
+      return false;
+    }
+
     function checkAndStartIntro() {
       if (introStarted || introDismissed || missionStarted) return;
+      if (checkDirectBaseEntry()) return;
+
       // On mobile in portrait: wait until phone is rotated horizontally!
       const isPortraitPhone = window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches && !document.body.classList.contains('force-horizontal');
       if (isPortraitPhone) return;
@@ -5019,7 +5090,9 @@
       requestAnimationFrame(stepLoading);
     }
 
-    checkAndStartIntro();
+    if (!checkDirectBaseEntry()) {
+      checkAndStartIntro();
+    }
     window.addEventListener('resize', checkAndStartIntro);
     window.addEventListener('orientationchange', () => {
       setTimeout(checkAndStartIntro, 120);

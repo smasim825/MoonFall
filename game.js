@@ -869,7 +869,8 @@
         e.preventDefault();
         e.stopPropagation();
         sound.playBeep();
-        window.location.href = 'index.html';
+        try { sessionStorage.setItem('moonfall_landed', 'true'); } catch (err) { }
+        window.location.href = 'index.html?return=base';
       });
     }
     if (btnNext) {
