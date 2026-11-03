@@ -2058,15 +2058,209 @@
     }
 
     .nav-col-header {
-      padding: 8px 14px;
+      padding: 8px 10px 8px 14px;
       font-family: 'Jersey 10', 'Pixel Operator', monospace;
       font-size: 1.18rem;
       color: #ffffff;
       letter-spacing: 0.06em;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .nav-col-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-col-close-btn {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: 1.05rem;
+      padding: 1px 7px;
+      border-radius: 4px;
+      cursor: pointer;
+      line-height: 1.1;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .nav-col-close-btn:hover {
+      background: #ef4444;
+      border-color: #fca5a5;
+      color: #ffffff;
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
+    }
+
+    .nav-col-close-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* =========================================================================
+       Guided Onboarding Tutorial Arrows & Directives
+       ========================================================================= */
+    .onboarding-guide-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 220;
+    }
+
+    .onboarding-guide-overlay.hidden {
+      display: none !important;
+    }
+
+    .onboarding-guide-container {
+      position: absolute;
+      pointer-events: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1), left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: onboarding-fade-in 0.3s ease;
+      z-index: 225;
+    }
+
+    @keyframes onboarding-fade-in {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .onboarding-arrow-glyph {
+      font-size: 1.9rem;
+      color: #facc15;
+      text-shadow: 0 0 12px #facc15, 0 0 22px rgba(250, 204, 21, 0.8), 0 2px 4px rgba(0,0,0,0.9);
+      animation: bounce-arrow-vert 0.85s infinite ease-in-out alternate;
+      line-height: 1;
+      user-select: none;
+      margin-left: 20px;
+      margin-bottom: 3px;
+    }
+
+    .onboarding-arrow-glyph.arrow-down {
+      margin-top: 4px;
+      margin-bottom: 0;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      order: 2;
+    }
+
+    @keyframes bounce-arrow-vert {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+
+    .onboarding-directive-card {
+      background: linear-gradient(180deg, #091224 0%, #030712 100%);
+      border: 2.5px solid #facc15;
+      border-radius: 10px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.95), 0 0 22px rgba(250, 204, 21, 0.45);
+      padding: 10px 14px;
+      width: clamp(260px, 24vw, 320px);
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      color: #ffffff;
+    }
+
+    .onboarding-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .directive-badge {
+      background: #facc15;
+      color: #000000;
+      font-size: 0.82rem;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .directive-skip-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.7);
+      font-family: inherit;
+      font-size: 0.75rem;
+      padding: 1px 6px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .directive-skip-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      color: #fff;
+      border-color: #ef4444;
+    }
+
+    .onboarding-card-title {
+      margin: 0 0 4px 0;
+      font-size: 1.15rem;
+      color: #fef08a;
+      letter-spacing: 0.04em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+
+    .onboarding-card-text {
+      margin: 0 0 10px 0;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.25;
+    }
+
+    .onboarding-card-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .onboarding-proceed-btn {
+      background: linear-gradient(180deg, #facc15 0%, #ca8a04 100%);
+      border: 2px solid #fef08a;
+      color: #000000;
+      font-family: inherit;
+      font-size: 0.98rem;
+      font-weight: bold;
+      padding: 5px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #854d0e, 0 0 10px rgba(250, 204, 21, 0.4);
+      transition: transform 0.1s ease, filter 0.1s ease;
+    }
+
+    .onboarding-proceed-btn:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+    }
+
+    .onboarding-proceed-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #854d0e;
+    }
+
+    @keyframes target-glow-pulse {
+      0%, 100% {
+        box-shadow: 0 0 10px #facc15, 0 0 20px rgba(250, 204, 21, 0.6);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 22px #facc15, 0 0 34px rgba(250, 204, 21, 0.95);
+        transform: scale(1.05);
+      }
+    }
+
+    .onboarding-target-pulse {
+      animation: target-glow-pulse 1.3s infinite ease-in-out !important;
+      z-index: 230 !important;
+      position: relative !important;
     }
 
     .col-nasa .nav-col-header {
@@ -3514,6 +3708,28 @@
       <span class="music-icon">🎵</span> <span class="music-label">MUSIC</span>
     </button>
 
+    <!-- Interactive Onboarding Guidance Overlay (Arrow & Directives) -->
+    <div class="onboarding-guide-overlay hidden" id="onboardingGuideOverlay">
+      <div class="onboarding-guide-container" id="onboardingGuideContainer">
+        <div class="onboarding-arrow-glyph" id="onboardingArrowGlyph">⬆</div>
+        <div class="onboarding-directive-card">
+          <div class="onboarding-card-header">
+            <span class="directive-badge" id="onboardingStepBadge">STEP 1 OF 3</span>
+            <button type="button" class="directive-skip-btn" onclick="dismissOnboardingGuide()" title="Skip Walkthrough">SKIP ✕</button>
+          </div>
+          <div class="onboarding-card-body">
+            <h4 class="onboarding-card-title" id="onboardingTitle">INSPECT MISSION PHASES</h4>
+            <p class="onboarding-card-text" id="onboardingDesc">Click <strong>⚔️ PHASES</strong> to view expedition objectives and outpost progress.</p>
+          </div>
+          <div class="onboarding-card-footer">
+            <button type="button" class="onboarding-proceed-btn" id="onboardingProceedBtn" onclick="onboardingProceedAction()">
+              OPEN PHASES ⚔️
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Master Responsive Top HUD Navigation Bar -->
     <header class="game-top-hud" id="gameTopHud">
       <!-- Left Side: Phase & Crew Controls -->
@@ -3549,9 +3765,12 @@
         <div class="top-nav-dropdown hidden" id="topNavDropdown" onclick="event.stopPropagation();">
           <div class="nav-dropdown-columns">
             <!-- Column 1: NASA Research -->
-            <div class="nav-dropdown-col col-nasa" id="dropdownColNasa">
+            <div class="nav-dropdown-col col-nasa" id="dropdownColNasa" style="display: none;">
               <div class="nav-col-header">
-                <span class="col-icon">🔬</span> NASA RESEARCH
+                <div class="nav-col-title-wrap">
+                  <span class="col-icon">🔬</span> NASA RESEARCH
+                </div>
+                <button type="button" class="nav-col-close-btn" onclick="event.stopPropagation(); closeNavDropdown();" title="Close" aria-label="Close">[X]</button>
               </div>
               <div class="nav-col-items">
                 <div class="nav-col-item" onclick="openNasaItemDetail('carbothermal')">
@@ -3586,9 +3805,12 @@
             </div>
 
             <!-- Column 2: Base Upgrades -->
-            <div class="nav-dropdown-col col-upgrades" id="dropdownColUpgrades">
+            <div class="nav-dropdown-col col-upgrades" id="dropdownColUpgrades" style="display: none;">
               <div class="nav-col-header">
-                <span class="col-icon">🔧</span> BASE UPGRADES
+                <div class="nav-col-title-wrap">
+                  <span class="col-icon">🔧</span> BASE UPGRADES
+                </div>
+                <button type="button" class="nav-col-close-btn" onclick="event.stopPropagation(); closeNavDropdown();" title="Close" aria-label="Close">[X]</button>
               </div>
               <div class="nav-col-items">
                 <div class="nav-col-item" onclick="openNasaItemDetail('hls')">
@@ -4748,6 +4970,8 @@
       closeTacticalModal('modalCrew');
       showPhaseOverviewWindow();
       if (phaseDashboardModal) phaseDashboardModal.classList.remove('hidden');
+      const overlay = document.getElementById('onboardingGuideOverlay');
+      if (overlay) overlay.classList.add('hidden');
     }
 
     function openCrewManifestModal() {
@@ -4755,15 +4979,23 @@
       if (currentZoomedBldId || isBaseIntroActive) unzoomBuilding();
       closePhaseDashboard();
       openTacticalModal('modalCrew');
+      const overlay = document.getElementById('onboardingGuideOverlay');
+      if (overlay) overlay.classList.add('hidden');
     }
 
     function closePhaseDashboard() {
       if (sound && sound.clickSound) sound.clickSound();
       if (phaseDashboardModal) phaseDashboardModal.classList.add('hidden');
+      if (typeof onboardingStep !== 'undefined' && onboardingStep === 1) {
+        advanceOnboardingFromPhases();
+      }
     }
 
     function selectPhaseMission(bldId, badgeId) {
       if (phaseDashboardModal) phaseDashboardModal.classList.add('hidden');
+      if (typeof onboardingStep !== 'undefined' && onboardingStep > 0) {
+        dismissOnboardingGuide();
+      }
       zoomBuilding(bldId, badgeId);
     }
 
@@ -4936,6 +5168,9 @@
       }
       startBaseIntroScene();
       playMainBaseBgm();
+      if (typeof startOnboardingGuide === 'function') {
+        startOnboardingGuide();
+      }
     }
 
     if (moonJourneyVideo) {
@@ -5393,6 +5628,9 @@
     }
 
     function zoomBuilding(bldId, badgeId) {
+      if (typeof onboardingStep !== 'undefined' && onboardingStep > 0) {
+        dismissOnboardingGuide();
+      }
       if (currentZoomedBldId === bldId) return;
       unzoomBuilding();
 
@@ -5654,6 +5892,9 @@
       if (target) {
         target.classList.add('hidden');
       }
+      if (modalId === 'modalCrew' && typeof onboardingStep !== 'undefined' && onboardingStep === 2) {
+        advanceOnboardingFromCrew();
+      }
     }
 
     function closeModalOnBackdrop(event, modalId) {
@@ -5743,7 +5984,7 @@
       }
     };
 
-    let activeNavTab = null;
+    var activeNavTab = null;
 
     function toggleNavDropdown(type) {
       if (sound && sound.clickSound) sound.clickSound();
@@ -5755,39 +5996,30 @@
 
       if (!dropdown) return;
 
-      const isHidden = dropdown.classList.contains('hidden');
+      const isOpen = !dropdown.classList.contains('hidden');
 
-      if (isHidden) {
-        dropdown.classList.remove('hidden');
-        activeNavTab = type;
-      } else if (activeNavTab === type) {
-        dropdown.classList.add('hidden');
-        activeNavTab = null;
-      } else {
-        activeNavTab = type;
+      if (isOpen && activeNavTab === type) {
+        closeNavDropdown();
+        return;
       }
 
-      if (!dropdown.classList.contains('hidden')) {
-        if (activeNavTab === 'nasa') {
-          if (btnNasa) btnNasa.classList.add('active-tab-highlight');
-          if (btnUpgrades) btnUpgrades.classList.remove('active-tab-highlight');
-          if (colNasa) colNasa.style.display = 'block';
-          if (colUpgrades) colUpgrades.style.display = 'none';
-          dropdown.style.left = '0';
-          dropdown.style.right = 'auto';
-        } else {
-          if (btnUpgrades) btnUpgrades.classList.add('active-tab-highlight');
-          if (btnNasa) btnNasa.classList.remove('active-tab-highlight');
-          if (colUpgrades) colUpgrades.style.display = 'block';
-          if (colNasa) colNasa.style.display = 'none';
-          dropdown.style.left = 'auto';
-          dropdown.style.right = '0';
-        }
-      } else {
-        if (btnNasa) btnNasa.classList.remove('active-tab-highlight');
+      dropdown.classList.remove('hidden');
+      activeNavTab = type;
+
+      if (type === 'nasa') {
+        if (btnNasa) btnNasa.classList.add('active-tab-highlight');
         if (btnUpgrades) btnUpgrades.classList.remove('active-tab-highlight');
-        if (colNasa) colNasa.style.display = 'none';
-        if (colUpgrades) colUpgrades.style.display = 'none';
+        if (colNasa) colNasa.style.setProperty('display', 'block', 'important');
+        if (colUpgrades) colUpgrades.style.setProperty('display', 'none', 'important');
+        dropdown.style.left = '0';
+        dropdown.style.right = 'auto';
+      } else {
+        if (btnUpgrades) btnUpgrades.classList.add('active-tab-highlight');
+        if (btnNasa) btnNasa.classList.remove('active-tab-highlight');
+        if (colUpgrades) colUpgrades.style.setProperty('display', 'block', 'important');
+        if (colNasa) colNasa.style.setProperty('display', 'none', 'important');
+        dropdown.style.left = 'auto';
+        dropdown.style.right = '0';
       }
     }
 
@@ -5800,9 +6032,152 @@
       if (dropdown) dropdown.classList.add('hidden');
       if (btnNasa) btnNasa.classList.remove('active-tab-highlight');
       if (btnUpgrades) btnUpgrades.classList.remove('active-tab-highlight');
-      if (colNasa) colNasa.style.display = 'none';
-      if (colUpgrades) colUpgrades.style.display = 'none';
+      if (colNasa) colNasa.style.setProperty('display', 'none', 'important');
+      if (colUpgrades) colUpgrades.style.setProperty('display', 'none', 'important');
       activeNavTab = null;
+    }
+
+    // =========================================================================
+    // Guided Onboarding Tutorial (3-Step Directed Player Journey)
+    // =========================================================================
+    var onboardingStep = 0; // 0 = inactive, 1 = Phases, 2 = Crew, 3 = Power/Leave Base
+
+    function positionForStep1() {
+      const container = document.getElementById('onboardingGuideContainer');
+      const glyph = document.getElementById('onboardingArrowGlyph');
+      if (!container || !glyph) return;
+      glyph.textContent = '⬆';
+      glyph.classList.remove('arrow-down');
+      glyph.style.marginLeft = '28px';
+      container.style.top = '58px';
+      container.style.left = '16px';
+      container.style.right = 'auto';
+      container.style.bottom = 'auto';
+      container.style.alignItems = 'flex-start';
+    }
+
+    function positionForStep2() {
+      const container = document.getElementById('onboardingGuideContainer');
+      const glyph = document.getElementById('onboardingArrowGlyph');
+      if (!container || !glyph) return;
+      glyph.textContent = '⬆';
+      glyph.classList.remove('arrow-down');
+      glyph.style.marginLeft = '52px';
+      container.style.top = '58px';
+      container.style.left = '122px';
+      container.style.right = 'auto';
+      container.style.bottom = 'auto';
+      container.style.alignItems = 'flex-start';
+    }
+
+    function positionForStep3() {
+      const container = document.getElementById('onboardingGuideContainer');
+      const glyph = document.getElementById('onboardingArrowGlyph');
+      if (!container || !glyph) return;
+      glyph.textContent = '⬇';
+      glyph.classList.add('arrow-down');
+      glyph.style.marginLeft = '0';
+      container.style.top = '6%';
+      container.style.left = '19%';
+      container.style.right = 'auto';
+      container.style.bottom = 'auto';
+      container.style.alignItems = 'center';
+    }
+
+    function setOnboardingStep(step) {
+      onboardingStep = step;
+      const overlay = document.getElementById('onboardingGuideOverlay');
+      const btnPhases = document.getElementById('phaseDashboardToggleBtn');
+      const btnCrew = document.getElementById('crewIntroToggleBtn');
+      const badgePower = document.getElementById('badgePower');
+      const badge = document.getElementById('onboardingStepBadge');
+      const title = document.getElementById('onboardingTitle');
+      const desc = document.getElementById('onboardingDesc');
+      const proceedBtn = document.getElementById('onboardingProceedBtn');
+
+      if (!overlay) return;
+
+      // Clear existing highlight pulses
+      if (btnPhases) btnPhases.classList.remove('onboarding-target-pulse');
+      if (btnCrew) btnCrew.classList.remove('onboarding-target-pulse');
+      if (badgePower) badgePower.classList.remove('onboarding-target-pulse');
+
+      if (step === 1) {
+        overlay.classList.remove('hidden');
+        positionForStep1();
+        if (btnPhases) btnPhases.classList.add('onboarding-target-pulse');
+        if (badge) badge.textContent = 'STEP 1 OF 3';
+        if (title) title.textContent = 'INSPECT MISSION PHASES';
+        if (desc) desc.innerHTML = 'Click <strong>⚔️ PHASES</strong> to view outpost construction objectives &amp; milestones.';
+        if (proceedBtn) proceedBtn.innerHTML = 'OPEN PHASES ⚔️';
+      } else if (step === 2) {
+        overlay.classList.remove('hidden');
+        positionForStep2();
+        if (btnCrew) btnCrew.classList.add('onboarding-target-pulse');
+        if (badge) badge.textContent = 'STEP 2 OF 3';
+        if (title) title.textContent = 'MEET EXPEDITION CREW';
+        if (desc) desc.innerHTML = 'Click <strong>👨‍🚀 MEET THE CREW</strong> to consult Commander Wiseman &amp; specialists.';
+        if (proceedBtn) proceedBtn.innerHTML = 'MEET CREW 👨‍🚀';
+      } else if (step === 3) {
+        overlay.classList.remove('hidden');
+        positionForStep3();
+        if (badgePower) badgePower.classList.add('onboarding-target-pulse');
+        if (badge) badge.textContent = 'STEP 3 OF 3';
+        if (title) title.textContent = 'COMMENCE EXPEDITION // LEAVE BASE';
+        if (desc) desc.innerHTML = 'Click the <strong>⚡ POWER STATION</strong> on the base to deploy for Mission 1.1!';
+        if (proceedBtn) proceedBtn.innerHTML = 'POWER STATION ⚡';
+      } else {
+        dismissOnboardingGuide();
+      }
+    }
+
+    function onboardingProceedAction() {
+      if (sound && sound.clickSound) sound.clickSound();
+      if (onboardingStep === 1) {
+        openPhaseDashboard();
+      } else if (onboardingStep === 2) {
+        openCrewManifestModal();
+      } else if (onboardingStep === 3) {
+        zoomBuilding('bldPower', 'badgePower');
+        dismissOnboardingGuide();
+      }
+    }
+
+    function advanceOnboardingFromPhases() {
+      if (onboardingStep === 1) {
+        setOnboardingStep(2);
+      }
+    }
+
+    function advanceOnboardingFromCrew() {
+      if (onboardingStep === 2) {
+        setOnboardingStep(3);
+      }
+    }
+
+    function dismissOnboardingGuide() {
+      onboardingStep = 0;
+      const overlay = document.getElementById('onboardingGuideOverlay');
+      const btnPhases = document.getElementById('phaseDashboardToggleBtn');
+      const btnCrew = document.getElementById('crewIntroToggleBtn');
+      const badgePower = document.getElementById('badgePower');
+
+      if (overlay) overlay.classList.add('hidden');
+      if (btnPhases) btnPhases.classList.remove('onboarding-target-pulse');
+      if (btnCrew) btnCrew.classList.remove('onboarding-target-pulse');
+      if (badgePower) badgePower.classList.remove('onboarding-target-pulse');
+
+      try { sessionStorage.setItem('moonfall_onboarded', 'true'); } catch(e) {}
+    }
+
+    function startOnboardingGuide() {
+      try {
+        if (sessionStorage.getItem('moonfall_onboarded') === 'true') return;
+      } catch(e) {}
+
+      setTimeout(() => {
+        setOnboardingStep(1);
+      }, 700);
     }
 
     document.addEventListener('click', (e) => {
@@ -5903,6 +6278,18 @@
       }
       input.value = '';
     }
+
+    // URL parameter testing helper (for automated CI/CD and verification)
+    (function checkTestParams() {
+      try {
+        const testParam = new URLSearchParams(window.location.search).get('test_ui');
+        if (testParam === 'nasa') toggleNavDropdown('nasa');
+        else if (testParam === 'upgrades') toggleNavDropdown('upgrades');
+        else if (testParam === 'onboard1') setOnboardingStep(1);
+        else if (testParam === 'onboard2') setOnboardingStep(2);
+        else if (testParam === 'onboard3') setOnboardingStep(3);
+      } catch(e) {}
+    })();
   </script>
   <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
   <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev" data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.png" data-badge="assets/scene 3/Frame 7.png" defer></script>
