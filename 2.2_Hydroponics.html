@@ -22,23 +22,22 @@
   <script src="responsive.js" defer></script>
 
   <!-- Asset Preloads (High Performance WebP) -->
-  <link rel="preload" href="2.2_Hydroponics/Group 1.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/CharacterPoses/Sunita_Williams_Wave.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/CharacterPoses/Sunita_Williams_Present2.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/Group 1.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/CharacterPoses/Sunita_Williams_Present2.webp" as="image">
   <link rel="preload" href="assets/power/Astronaut_ThumbsUp.png" as="image">
-  <link rel="preload" href="2.2_Hydroponics/Frame 13.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/image 128.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/image 129.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/image 130.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/lunar_regolith_collection.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/Astronaut Tending Hydroponic Garden.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/Astronaut Tending Neon Hydroponics.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/3.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/4.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/5.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/6.webp" as="image">
-  <link rel="preload" href="2.2_Hydroponics/Final Analysis_ Healthy Plant Lab Report.webp" as="image">
-  <link rel="preload" href="2.1_Daily_Meal/Dialogue_Box.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/Frame 13.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/image 128.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/image 129.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/image 130.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/Astronaut Tending Hydroponic Garden.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/Astronaut Tending Neon Hydroponics.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/3.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/4.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/5.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/6.webp" as="image">
+  <link rel="preload" href="assets/hydroponics/Final Analysis_ Healthy Plant Lab Report.webp" as="image">
+  <link rel="preload" href="assets/meal/Dialogue_Box.webp" as="image">
   <link rel="preload" href="assets/scene 3/Frame 6.png" as="image">
   <link rel="preload" href="assets/scene 3/Frame 7.png" as="image">
   <link rel="preload" href="assets/scene 3/Pragyan_ShivShakti_Neutral.png" as="image">
@@ -106,7 +105,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      background-image: url('2.2_Hydroponics/Group 1.webp');
+      background-image: url('assets/hydroponics/Group 1.webp');
       background-size: cover;
       background-position: center;
       image-rendering: pixelated;
@@ -734,7 +733,7 @@
       cursor: pointer;
     }
 
-    /* Sunita Box (using 2.1_Daily_Meal/Dialogue_Box.webp) */
+    /* Sunita Box (using assets/meal/Dialogue_Box.webp) */
     .dialogue-box.scene-1-box {
       position: relative;
       width: 85%;
@@ -1340,7 +1339,7 @@
 
       <!-- Character: Sunita Williams (Left) -->
       <div class="character-sunita" id="charSunita">
-        <img src="2.2_Hydroponics/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" id="sunitaImg">
+        <img src="assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" id="sunitaImg">
       </div>
 
       <!-- Character: White Astronaut (Right) -->
@@ -1351,26 +1350,26 @@
       <!-- Airlock Back-view Characters (Scenes 4 & 5 - image 129 & 130) -->
       <div class="airlock-characters-container hidden" id="airlockCharacters">
         <div class="airlock-sunita-back">
-          <img src="2.2_Hydroponics/image 129.webp" alt="Sunita Williams Back View">
+          <img src="assets/hydroponics/image 129.webp" alt="Sunita Williams Back View">
         </div>
         <div class="airlock-astronaut-back">
-          <img src="2.2_Hydroponics/image 130.webp" alt="Astronaut Back View">
+          <img src="assets/hydroponics/image 130.webp" alt="Astronaut Back View">
         </div>
       </div>
 
       <!-- Surface Regolith Overlays (Scenes 6 & 7: R.png top-left, tOXIC_cOMPONENTS.webp on right) -->
       <div class="toxic-surface-overlays hidden" id="toxicSurfaceOverlays">
         <div class="hazard-skull-badge">
-          <img src="2.2_Hydroponics/R.webp" alt="Danger Skull">
+          <img src="assets/hydroponics/R.webp" alt="Danger Skull">
         </div>
         <div class="toxic-components-panel">
-          <img src="2.2_Hydroponics/tOXIC_cOMPONENTS.webp" alt="Toxic Components">
+          <img src="assets/hydroponics/tOXIC_cOMPONENTS.webp" alt="Toxic Components">
         </div>
       </div>
 
       <!-- Scene 2: Regolith + Hydroponics Card (Frame 13.png) -->
       <div class="regolith-card-container hidden" id="regolithCard">
-        <img src="2.2_Hydroponics/Frame 13.webp" alt="Regolith + Hydroponics" class="regolith-card-img">
+        <img src="assets/hydroponics/Frame 13.webp" alt="Regolith + Hydroponics" class="regolith-card-img">
       </div>
 
       <!-- Scene 10: Interactive Red START Button -->
@@ -1439,7 +1438,7 @@
             <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
             <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
           </button>
-          <img src="2.1_Daily_Meal/Dialogue_Box.webp" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <img src="assets/meal/Dialogue_Box.webp" alt="" class="dialogue-bg-img" aria-hidden="true">
           <div class="dialogue-content" id="dialogueContentSunita">
             <p class="dialogue-text" id="dialogueTextSunita"></p>
           </div>
@@ -1676,8 +1675,8 @@
       {
         id: 1,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/Group 1.webp',
-        sunitaPose: '2.2_Hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
+        bg: 'assets/hydroponics/Group 1.webp',
+        sunitaPose: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
         astronaut: true,
         speaker: 'sunita',
         text: "Welcome back, Rookie! Your first lunar soil experiment starts now."
@@ -1686,8 +1685,8 @@
       {
         id: 2,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/Group 1.webp',
-        sunitaPose: '2.2_Hydroponics/CharacterPoses/Sunita_Williams_Present2.webp',
+        bg: 'assets/hydroponics/Group 1.webp',
+        sunitaPose: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Present2.webp',
         astronaut: true,
         showCard: true,
         speaker: 'sunita',
@@ -1697,8 +1696,8 @@
       {
         id: 3,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/Group 1.webp',
-        sunitaPose: '2.2_Hydroponics/CharacterPoses/Sunita_Williams_Present2.webp',
+        bg: 'assets/hydroponics/Group 1.webp',
+        sunitaPose: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Present2.webp',
         astronaut: true,
         speaker: 'sunita',
         text: "So let's collect some regolith."
@@ -1707,7 +1706,7 @@
       {
         id: 4,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/image 128.webp',
+        bg: 'assets/hydroponics/image 128.webp',
         sunitaPose: null,
         astronaut: false,
         airlockCharacters: true,
@@ -1718,7 +1717,7 @@
       {
         id: 5,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/image 128.webp',
+        bg: 'assets/hydroponics/image 128.webp',
         sunitaPose: null,
         astronaut: false,
         airlockCharacters: true,
@@ -1729,7 +1728,7 @@
       {
         id: 6,
         type: 'visual',
-        bg: '2.2_Hydroponics/image 132.webp',
+        bg: 'assets/hydroponics/image 132.webp',
         sunitaPose: null,
         astronaut: false,
         toxicOverlays: true,
@@ -1740,7 +1739,7 @@
       {
         id: 7,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/image 132.webp',
+        bg: 'assets/hydroponics/image 132.webp',
         sunitaPose: null,
         astronaut: false,
         toxicOverlays: true,
@@ -1751,7 +1750,7 @@
       {
         id: 8,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/Astronaut Tending Hydroponic Garden.webp',
+        bg: 'assets/hydroponics/Astronaut Tending Hydroponic Garden.webp',
         sunitaPose: null,
         astronaut: false,
         speaker: 'sunita',
@@ -1761,7 +1760,7 @@
       {
         id: 9,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/Astronaut Tending Neon Hydroponics.webp',
+        bg: 'assets/hydroponics/Astronaut Tending Neon Hydroponics.webp',
         sunitaPose: null,
         astronaut: false,
         speaker: 'sunita',
@@ -1771,7 +1770,7 @@
       {
         id: 10,
         type: 'start_button',
-        bg: '2.2_Hydroponics/Astronaut Tending Neon Hydroponics.webp',
+        bg: 'assets/hydroponics/Astronaut Tending Neon Hydroponics.webp',
         sunitaPose: null,
         astronaut: false,
         speaker: 'sunita',
@@ -1782,7 +1781,7 @@
       {
         id: 12,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/3.webp',
+        bg: 'assets/hydroponics/3.webp',
         sunitaPose: null,
         astronaut: false,
         hudDays: '5 Days Passed',
@@ -1794,7 +1793,7 @@
       {
         id: 13,
         type: 'question',
-        bg: '2.2_Hydroponics/3.webp',
+        bg: 'assets/hydroponics/3.webp',
         hudDays: '5 Days Passed',
         hudEarth: true,
         question: {
@@ -1807,7 +1806,7 @@
       {
         id: 14,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/5.webp',
+        bg: 'assets/hydroponics/5.webp',
         sunitaPose: null,
         astronaut: false,
         hudDays: '15 Days Passed',
@@ -1819,7 +1818,7 @@
       {
         id: 15,
         type: 'question',
-        bg: '2.2_Hydroponics/5.webp',
+        bg: 'assets/hydroponics/5.webp',
         hudDays: '15 Days Passed',
         hudEarth: true,
         question: {
@@ -1832,7 +1831,7 @@
       {
         id: 16,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/6.webp',
+        bg: 'assets/hydroponics/6.webp',
         sunitaPose: null,
         astronaut: false,
         hudDays: '23 Days Passed',
@@ -1844,7 +1843,7 @@
       {
         id: 17,
         type: 'question',
-        bg: '2.2_Hydroponics/6.webp',
+        bg: 'assets/hydroponics/6.webp',
         hudDays: '23 Days Passed',
         hudEarth: true,
         question: {
@@ -1857,7 +1856,7 @@
       {
         id: 18,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/6.webp',
+        bg: 'assets/hydroponics/6.webp',
         sunitaPose: null,
         astronaut: false,
         hudDays: '23 Days Passed',
@@ -1868,7 +1867,7 @@
       {
         id: 19,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/Final Analysis_ Healthy Plant Lab Report.webp',
+        bg: 'assets/hydroponics/Final Analysis_ Healthy Plant Lab Report.webp',
         sunitaPose: null,
         astronaut: false,
         speaker: 'sunita',
@@ -1878,7 +1877,7 @@
       {
         id: 20,
         type: 'question',
-        bg: '2.2_Hydroponics/Final Analysis_ Healthy Plant Lab Report.webp',
+        bg: 'assets/hydroponics/Final Analysis_ Healthy Plant Lab Report.webp',
         question: {
           prompt: "Q4. How was the growth rate?",
           options: ["Slow", "Moderate", "Fast"],
@@ -1889,7 +1888,7 @@
       {
         id: 21,
         type: 'dialogue',
-        bg: '2.2_Hydroponics/Final Analysis_ Healthy Plant Lab Report.webp',
+        bg: 'assets/hydroponics/Final Analysis_ Healthy Plant Lab Report.webp',
         speaker: 'astrobee',
         text: "Thank you for your report! Your observations will help humanity learn more about lunar conditions."
       }

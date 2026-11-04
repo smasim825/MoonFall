@@ -14,12 +14,12 @@
         role: 'Chief Medical Officer & Power Specialist',
         agency: 'JAXA',
         color: '#fbbf24',
-        avatar: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp',
+        avatar: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
         poses: {
-          wave: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp',
-          pointUp: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp',
-          idle: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Idle.webp',
-          present: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Present.webp',
+          wave: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
+          pointUp: 'assets/power/CharacterPoses/Chiaki_Mukai_PointUp.webp',
+          idle: 'assets/power/CharacterPoses/Chiaki_Mukai_Idle.webp',
+          present: 'assets/power/CharacterPoses/Chiaki_Mukai_Present.webp',
           thumbsUp: 'assets/power/Chiaki_Mukai_ThumbsUp.webp'
         }
       },
@@ -29,10 +29,10 @@
         role: 'Outpost Life Support & Hydroponics Lead',
         agency: 'NASA',
         color: '#10b981',
-        avatar: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.webp',
+        avatar: 'assets/meal/CharacterPoses/Sunita_Williams_Wave.webp',
         poses: {
-          wave: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Wave.webp',
-          present: '2.1_Daily_Meal/CharacterPoses/Sunita_Williams_Present2.webp'
+          wave: 'assets/meal/CharacterPoses/Sunita_Williams_Wave.webp',
+          present: 'assets/meal/CharacterPoses/Sunita_Williams_Present2.webp'
         }
       },
       RAKESH_SHARMA: {
@@ -88,9 +88,9 @@
     BACKGROUNDS: {
       MAIN_BASE: 'assets/Main Base-2 1.webp',
       MAIN_BASE_ALT: 'assets/mainbase_bg.webp',
-      POWER_STATION: '1.1_power_mission_assest/image 1.webp',
-      DAILY_MEAL: '2.1_Daily_Meal/image 8.webp',
-      HYDROPONICS: '2.2_Hydroponics/image 130.webp',
+      POWER_STATION: 'assets/power/image 1.webp',
+      DAILY_MEAL: 'assets/meal/image 8.webp',
+      HYDROPONICS: 'assets/hydroponics/image 130.webp',
       RADIATION_SHELTER: 'assets/scene 8/image 128.webp'
     },
 
@@ -108,10 +108,10 @@
 
     // UI Frames & Elements
     UI: {
-      CAPTION_BLUE: '1.1_power_mission_assest/Caption Text.webp',
+      CAPTION_BLUE: 'assets/power/Caption Text.webp',
       CAPTION_FRAME6: 'assets/scene 3/Frame 6.png',
       CAPTION_FRAME7: 'assets/scene 3/Frame 7.png',
-      DIALOGUE_BOX: '2.1_Daily_Meal/Dialogue_Box.webp'
+      DIALOGUE_BOX: 'assets/meal/Dialogue_Box.webp'
     },
 
     // Helper method to retrieve a character pose safely

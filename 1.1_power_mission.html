@@ -14,14 +14,14 @@
   <link rel="preload" href="assets/fonts/Jersey10.ttf" as="font" type="font/ttf" crossorigin>
 
   <!-- Preload Core Images -->
-  <link rel="preload" href="1.1_power_mission_assest/image 1.webp" as="image">
-  <link rel="preload" href="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp" as="image">
-  <link rel="preload" href="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp" as="image">
-  <link rel="preload" href="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Idle.webp" as="image">
-  <link rel="preload" href="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Present.webp" as="image">
-  <link rel="preload" href="1.1_power_mission_assest/Neil_Armstrong_Idle.webp" as="image">
+  <link rel="preload" href="assets/power/image 1.webp" as="image">
+  <link rel="preload" href="assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp" as="image">
+  <link rel="preload" href="assets/power/CharacterPoses/Chiaki_Mukai_PointUp.webp" as="image">
+  <link rel="preload" href="assets/power/CharacterPoses/Chiaki_Mukai_Idle.webp" as="image">
+  <link rel="preload" href="assets/power/CharacterPoses/Chiaki_Mukai_Present.webp" as="image">
+  <link rel="preload" href="assets/power/Neil_Armstrong_Idle.webp" as="image">
   <link rel="preload" href="assets/power/Astronaut_Present.webp" as="image">
-  <link rel="preload" href="1.1_power_mission_assest/Pragyan_ShivShakti_Neutral.webp" as="image">
+  <link rel="preload" href="assets/power/Pragyan_ShivShakti_Neutral.webp" as="image">
   <link rel="preload" href="assets/Mission Complete.png" as="image">
 
   <link rel="stylesheet" href="style.css">
@@ -86,7 +86,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      background-image: url('1.1_power_mission_assest/image 1.webp');
+      background-image: url('assets/power/image 1.webp');
       background-size: cover;
       background-position: center;
       image-rendering: pixelated;
@@ -1129,24 +1129,24 @@
 
       <!-- Character Stage: Dr. Chiaki Mukai (Left) -->
       <div class="character-chiaki hidden" id="chiakiStage">
-        <img src="1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp" alt="Dr. Chiaki Mukai" id="chiakiImg">
+        <img src="assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp" alt="Dr. Chiaki Mukai" id="chiakiImg">
       </div>
 
       <!-- Character Stage: White Astronaut (Right) -->
       <div class="character-astronaut hidden" id="astronautStage">
-        <img src="1.1_power_mission_assest/Neil_Armstrong_Idle.webp" alt="Astronaut" id="astronautImg">
+        <img src="assets/power/Neil_Armstrong_Idle.webp" alt="Astronaut" id="astronautImg">
       </div>
 
       <!-- Floating Educational Diagram Card (Right Upper Quadrant) -->
       <div class="diagram-card-container hidden" id="diagramCardContainer">
-        <img src="1.1_power_mission_assest/Objects/solarArray.webp" alt="Power System Diagram" id="diagramCardImg">
+        <img src="assets/power/Objects/solarArray.webp" alt="Power System Diagram" id="diagramCardImg">
       </div>
 
       <!-- MCQ Quiz Stage Box (Scenes 13 - 17) -->
       <section class="mcq-stage-box hidden" id="mcqBox" aria-label="System Verification Question">
         <!-- Astro Bee Robot Avatar overlapping top-left -->
         <div class="mcq-robot-avatar">
-          <img src="1.1_power_mission_assest/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee">
+          <img src="assets/power/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee">
         </div>
         <!-- Speaker Pill -->
         <div class="mcq-speaker-pill">Astro Bee</div>
@@ -1203,7 +1203,7 @@
         <!-- Chiaki Mukai Dialogue Box (Scenes 2-11) -->
         <div class="dialogue-box scene-1-box" id="dialogueBoxChiaki" onclick="handleDialogueClick()">
           <div class="speaker-badge" id="speakerBadgeChiaki">
-            <img src="1.1_power_mission_assest/Caption Text.webp" alt="Chiaki Mukai" class="speaker-badge-img">
+            <img src="assets/power/Caption Text.webp" alt="Chiaki Mukai" class="speaker-badge-img">
           </div>
           <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene"
             aria-label="Skip to Next Scene">
@@ -1440,9 +1440,9 @@
       {
         id: 1,
         showChiaki: true,
-        chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp',
+        chiakiPose: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
         showAstronaut: true,
-        astronautPose: '1.1_power_mission_assest/Neil_Armstrong_Idle.webp',
+        astronautPose: 'assets/power/Neil_Armstrong_Idle.webp',
         cardImg: null,
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
@@ -1452,9 +1452,9 @@
       {
         id: 3,
         showChiaki: true,
-        chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp',
+        chiakiPose: 'assets/power/CharacterPoses/Chiaki_Mukai_PointUp.webp',
         showAstronaut: false,
-        cardImg: '1.1_power_mission_assest/Objects/solarArray.webp',
+        cardImg: 'assets/power/Objects/solarArray.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
         text: "This is our Solar Array! Photovoltaic cells convert sunlight into electrical power."
@@ -1463,9 +1463,9 @@
       {
         id: 4,
         showChiaki: true,
-        chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp',
+        chiakiPose: 'assets/power/CharacterPoses/Chiaki_Mukai_PointUp.webp',
         showAstronaut: false,
-        cardImg: '1.1_power_mission_assest/Objects/solarArray.webp',
+        cardImg: 'assets/power/Objects/solarArray.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
         text: "Tall deployable arrays at the south pole capture continuous sunlight above craters."
@@ -1474,9 +1474,9 @@
       {
         id: 5,
         showChiaki: true,
-        chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Idle.webp',
+        chiakiPose: 'assets/power/CharacterPoses/Chiaki_Mukai_Idle.webp',
         showAstronaut: false,
-        cardImg: '1.1_power_mission_assest/Objects/BatteryStorageUnit.webp',
+        cardImg: 'assets/power/Objects/BatteryStorageUnit.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
         text: "This Battery Unit stores energy for use when solar arrays cannot produce power."
@@ -1485,9 +1485,9 @@
       {
         id: 6,
         showChiaki: true,
-        chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Present.webp',
+        chiakiPose: 'assets/power/CharacterPoses/Chiaki_Mukai_Present.webp',
         showAstronaut: false,
-        cardImg: '1.1_power_mission_assest/Objects/LunarDaynightCycle-1.webp',
+        cardImg: 'assets/power/Objects/LunarDaynightCycle-1.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
         text: "Lunar daylight lasts 14 Earth days, followed by 14 days of night. Storage is vital because..."
@@ -1496,9 +1496,9 @@
       {
         id: 7,
         showChiaki: true,
-        chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp',
+        chiakiPose: 'assets/power/CharacterPoses/Chiaki_Mukai_PointUp.webp',
         showAstronaut: false,
-        cardImg: '1.1_power_mission_assest/Objects/LunarDaynightCycle-2.webp',
+        cardImg: 'assets/power/Objects/LunarDaynightCycle-2.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
         text: "Panels need sunlight and battery capacity is limited, so we must conserve energy."
@@ -1507,9 +1507,9 @@
       {
         id: 8,
         showChiaki: true,
-        chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Present.webp',
+        chiakiPose: 'assets/power/CharacterPoses/Chiaki_Mukai_Present.webp',
         showAstronaut: false,
-        cardImg: '1.1_power_mission_assest/Objects/Fission.webp',
+        cardImg: 'assets/power/Objects/Fission.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
         text: "Nuclear fission systems can generate continuous power even during long lunar darkness."
@@ -1518,9 +1518,9 @@
       {
         id: 9,
         showChiaki: true,
-        chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_PointUp.webp',
+        chiakiPose: 'assets/power/CharacterPoses/Chiaki_Mukai_PointUp.webp',
         showAstronaut: false,
-        cardImg: '1.1_power_mission_assest/Objects/NuclearF.webp',
+        cardImg: 'assets/power/Objects/NuclearF.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
         text: "Fission reactors will power the outpost through darkness, but none operate here yet."
@@ -1529,9 +1529,9 @@
       {
         id: 10,
         showChiaki: true,
-        chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Present.webp',
+        chiakiPose: 'assets/power/CharacterPoses/Chiaki_Mukai_Present.webp',
         showAstronaut: false,
-        cardImg: '1.1_power_mission_assest/Objects/PDU.webp',
+        cardImg: 'assets/power/Objects/PDU.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
         text: "This Power Distribution Unit routes electricity to life support and science labs."
@@ -1540,9 +1540,9 @@
       {
         id: 11,
         showChiaki: true,
-        chiakiPose: '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp',
+        chiakiPose: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
         showAstronaut: true,
-        astronautPose: '1.1_power_mission_assest/Neil_Armstrong_Idle.webp',
+        astronautPose: 'assets/power/Neil_Armstrong_Idle.webp',
         cardImg: null,
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
@@ -1553,7 +1553,7 @@
         id: 12,
         showChiaki: false,
         showAstronaut: true,
-        astronautPose: '1.1_power_mission_assest/Neil_Armstrong_Idle.webp',
+        astronautPose: 'assets/power/Neil_Armstrong_Idle.webp',
         cardImg: null,
         robotAvatar: true,
         speaker: 'Astro Bee',
@@ -1690,7 +1690,7 @@
 
       // 2. Character: Chiaki Mukai
       if (s.showChiaki) {
-        chiakiImg.src = s.chiakiPose || '1.1_power_mission_assest/CharacterPoses/Chiaki_Mukai_Wave.webp';
+        chiakiImg.src = s.chiakiPose || 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp';
         chiakiStage.classList.remove('hidden');
       } else {
         chiakiStage.classList.add('hidden');
@@ -1698,7 +1698,7 @@
 
       // 3. Character: Astronaut
       if (s.showAstronaut) {
-        astronautImg.src = s.astronautPose || '1.1_power_mission_assest/Neil_Armstrong_Idle.webp';
+        astronautImg.src = s.astronautPose || 'assets/power/Neil_Armstrong_Idle.webp';
         astronautStage.classList.remove('hidden');
       } else {
         astronautStage.classList.add('hidden');
