@@ -24,7 +24,7 @@
   <!-- Scene 1 Critical Asset Preloads (Instant First-Paint Render) -->
   <link rel="preload" href="assets/meal/Group 1.webp" as="image" fetchpriority="high">
   <link rel="preload" href="assets/meal/CharacterPoses/Sunita_Williams_Wave.webp" as="image" fetchpriority="high">
-  <link rel="preload" href="assets/power/Astronaut_ThumbsUp.png" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/power/Astronaut_ThumbsUp.webp" as="image" fetchpriority="high">
   <link rel="preload" href="assets/Rectangle 3.png" as="image" fetchpriority="high">
   <link rel="preload" href="assets/meal/Sunita_Badge.webp" as="image" fetchpriority="high">
 
@@ -1257,18 +1257,18 @@
 
       <!-- Character Stage: Sunita Williams -->
       <div class="character-sunita" id="sunitaStage">
-        <img src="assets/meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" id="sunitaImg">
+        <img src="assets/meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" id="sunitaImg" fetchpriority="high">
       </div>
 
       <!-- Character Stage: White Astronaut (Scene 1 only) -->
       <div class="character-astronaut" id="astronautStage">
-        <img src="assets/power/Astronaut_ThumbsUp.png" alt="Astronaut" id="astronautImg">
+        <img src="assets/power/Astronaut_ThumbsUp.webp" alt="Astronaut" id="astronautImg" fetchpriority="high">
       </div>
 
       <!-- Educational Diagram Card (Centered in Middle) -->
       <section class="diagram-card-container hidden" id="diagramCardContainer" aria-label="Educational Diagram">
         <img src="assets/meal/Frame 3_multilayer.webp" alt="Diagram Card" id="diagramCardImg"
-          class="diagram-card-img">
+          class="diagram-card-img" loading="lazy" decoding="async">
         <div class="card-prep-info hidden" id="cardPrepInfo">Meal Sealed & Ready</div>
       </section>
 
@@ -1278,17 +1278,17 @@
         <div class="meal-options-list" id="mealOptionsList">
           <div class="meal-option-card" id="mealCard1" onclick="selectMeal(1)" onmouseenter="previewMeal(1)"
             onmouseleave="unpreviewMeal(1)">
-            <img src="assets/meal/image 7.webp" alt="Meal 1 - Balanced">
+            <img src="assets/meal/image 7.webp" alt="Meal 1 - Balanced" loading="lazy" decoding="async">
             <span class="selected-tag">SELECTED</span>
           </div>
           <div class="meal-option-card" id="mealCard2" onclick="selectMeal(2)" onmouseenter="previewMeal(2)"
             onmouseleave="unpreviewMeal(2)">
-            <img src="assets/meal/image 8.webp" alt="Meal 2 - Low Water">
+            <img src="assets/meal/image 8.webp" alt="Meal 2 - Low Water" loading="lazy" decoding="async">
             <span class="selected-tag">SELECTED</span>
           </div>
           <div class="meal-option-card" id="mealCard3" onclick="selectMeal(3)" onmouseenter="previewMeal(3)"
             onmouseleave="unpreviewMeal(3)">
-            <img src="assets/meal/image 9.webp" alt="Meal 3 - High Energy">
+            <img src="assets/meal/image 9.webp" alt="Meal 3 - High Energy" loading="lazy" decoding="async">
             <span class="selected-tag">SELECTED</span>
           </div>
         </div>
@@ -1297,7 +1297,7 @@
         <div class="reserve-hud-stack" id="reserveHudStack">
           <!-- Water Reserve Box -->
           <div class="reserve-box water-box" id="waterReserveBox">
-            <img src="assets/meal/Water_Reserve.webp" alt="Water Reserve" class="reserve-box-bg">
+            <img src="assets/meal/Water_Reserve.webp" alt="Water Reserve" class="reserve-box-bg" loading="lazy" decoding="async">
             <div class="reserve-track" id="waterReserveTrack">
               <!-- 10 Blue Capsules -->
             </div>
@@ -1305,7 +1305,7 @@
 
           <!-- Power Reserve Box -->
           <div class="reserve-box power-box" id="powerReserveBox">
-            <img src="assets/meal/Group 4.webp" alt="Power Reserve" class="reserve-box-bg">
+            <img src="assets/meal/Group 4.webp" alt="Power Reserve" class="reserve-box-bg" loading="lazy" decoding="async">
             <div class="reserve-track" id="powerReserveTrack">
               <!-- 10 Yellow Bars -->
             </div>
@@ -1315,21 +1315,21 @@
 
       <!-- Scene 11: Daily Meal Intake Popup Modal -->
       <section class="daily-intake-popup hidden" id="dailyIntakePopup" aria-label="Daily Intake Status">
-        <img src="assets/meal/image 42.webp" alt="Daily Intake Box" class="daily-intake-bg">
+        <img src="assets/meal/image 42.webp" alt="Daily Intake Box" class="daily-intake-bg" loading="lazy" decoding="async">
         <div class="daily-intake-text-wrap">
           <div class="daily-intake-title">DAILY INTAKE</div>
           <div class="daily-intake-sub" id="dailyIntakeKcal">850 KCAL/ 3035KCAL</div>
         </div>
         <!-- First Green Capsule Bar Animated in Slot 1 -->
         <div class="daily-intake-slot1" id="dailyIntakeSlot1">
-          <img src="assets/meal/image 43.webp" alt="Intake Portion Filled">
+          <img src="assets/meal/image 43.webp" alt="Intake Portion Filled" loading="lazy" decoding="async">
         </div>
       </section>
 
       <!-- MCQ Stage Box (Verification Quiz) -->
       <section class="mcq-stage-box hidden" id="mcqBox" aria-label="Verification Question Box">
         <div class="mcq-robot-avatar">
-          <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee">
+          <img src="assets/power/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee" loading="lazy" decoding="async">
         </div>
         <div class="mcq-speaker-pill" id="mcqSpeakerPill">Astro Bee</div>
         <h2 class="mcq-question-title" id="mcqQuestionTitle">Question Title</h2>
@@ -2417,9 +2417,26 @@
       if (!trans) return;
       entryTransitionDone = false;
       trans.classList.remove("doors-open", "dismissed");
+
+      let minTimeDone = false;
+      let bgLoaded = false;
+      const tryOpen = () => {
+        if (minTimeDone && bgLoaded) openEntryTransition();
+      };
       entryTransitionTimer = setTimeout(() => {
-        openEntryTransition();
-      }, 550);
+        minTimeDone = true;
+        tryOpen();
+      }, 500);
+      const probe = new Image();
+      probe.onload = probe.onerror = () => {
+        bgLoaded = true;
+        tryOpen();
+      };
+      probe.src = 'assets/meal/Group 1.webp';
+      setTimeout(() => {
+        bgLoaded = true;
+        tryOpen();
+      }, 1300);
     }
 
     function openEntryTransition() {

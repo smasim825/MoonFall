@@ -24,7 +24,7 @@
   <!-- Scene 1 Critical Asset Preloads (Instant First-Paint Render) -->
   <link rel="preload" href="assets/hydroponics/Group 1.webp" as="image" fetchpriority="high">
   <link rel="preload" href="assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp" as="image" fetchpriority="high">
-  <link rel="preload" href="assets/power/Astronaut_ThumbsUp.png" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/power/Astronaut_ThumbsUp.webp" as="image" fetchpriority="high">
   <link rel="preload" href="assets/Rectangle 3.png" as="image" fetchpriority="high">
   <link rel="preload" href="assets/meal/Sunita_Badge.webp" as="image" fetchpriority="high">
 
@@ -1335,37 +1335,37 @@
 
       <!-- Character: Sunita Williams (Left) -->
       <div class="character-sunita" id="charSunita">
-        <img src="assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" id="sunitaImg">
+        <img src="assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" id="sunitaImg" fetchpriority="high">
       </div>
 
       <!-- Character: White Astronaut (Right) -->
       <div class="character-astronaut" id="charAstronaut">
-        <img src="assets/power/Astronaut_ThumbsUp.png" alt="Astronaut" id="astronautImg">
+        <img src="assets/power/Astronaut_ThumbsUp.webp" alt="Astronaut" id="astronautImg" fetchpriority="high">
       </div>
 
       <!-- Airlock Back-view Characters (Scenes 4 & 5 - image 129 & 130) -->
       <div class="airlock-characters-container hidden" id="airlockCharacters">
         <div class="airlock-sunita-back">
-          <img src="assets/hydroponics/image 129.webp" alt="Sunita Williams Back View">
+          <img src="assets/hydroponics/image 129.webp" alt="Sunita Williams Back View" loading="lazy" decoding="async">
         </div>
         <div class="airlock-astronaut-back">
-          <img src="assets/hydroponics/image 130.webp" alt="Astronaut Back View">
+          <img src="assets/hydroponics/image 130.webp" alt="Astronaut Back View" loading="lazy" decoding="async">
         </div>
       </div>
 
       <!-- Surface Regolith Overlays (Scenes 6 & 7: R.png top-left, tOXIC_cOMPONENTS.webp on right) -->
       <div class="toxic-surface-overlays hidden" id="toxicSurfaceOverlays">
         <div class="hazard-skull-badge">
-          <img src="assets/hydroponics/R.webp" alt="Danger Skull">
+          <img src="assets/hydroponics/R.webp" alt="Danger Skull" loading="lazy" decoding="async">
         </div>
         <div class="toxic-components-panel">
-          <img src="assets/hydroponics/tOXIC_cOMPONENTS.webp" alt="Toxic Components">
+          <img src="assets/hydroponics/tOXIC_cOMPONENTS.webp" alt="Toxic Components" loading="lazy" decoding="async">
         </div>
       </div>
 
       <!-- Scene 2: Regolith + Hydroponics Card (Frame 13.png) -->
       <div class="regolith-card-container hidden" id="regolithCard">
-        <img src="assets/hydroponics/Frame 13.webp" alt="Regolith + Hydroponics" class="regolith-card-img">
+        <img src="assets/hydroponics/Frame 13.webp" alt="Regolith + Hydroponics" class="regolith-card-img" loading="lazy" decoding="async">
       </div>
 
       <!-- Scene 10: Interactive Red START Button -->
@@ -1413,7 +1413,7 @@
       <section class="mcq-stage-box hidden" id="questionWrapper" aria-label="Astro Bee Question Box">
         <!-- Robot Avatar on the left -->
         <div class="mcq-robot-avatar">
-          <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
+          <img src="assets/power/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee" class="robot-avatar-img" loading="lazy" decoding="async">
         </div>
         <!-- Speaker Pill -->
         <div class="mcq-speaker-pill">Astro Bee</div>
@@ -1446,7 +1446,7 @@
         <!-- Astro Bee Dialogue Box (Frame 6.png - for Scene 21 & Complete) -->
         <div class="dialogue-box scene-2-box hidden" id="dialogueBoxAstroBee" onclick="handleDialogueClick()">
           <div class="robot-avatar-container">
-            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
+            <img src="assets/power/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee" class="robot-avatar-img" loading="lazy" decoding="async">
           </div>
           <div class="astro-bee-badge">
             <img src="assets/scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
@@ -2335,9 +2335,28 @@
       if (!trans) return;
       entryTransitionDone = false;
       trans.classList.remove("doors-open", "dismissed");
+
+      // Wait for BOTH minimum airlock scan (500ms) AND Scene 1 background decode (max 1300ms fallback)
+      let minTimeDone = false;
+      let bgLoaded = false;
+      const tryOpen = () => {
+        if (minTimeDone && bgLoaded) openEntryTransition();
+      };
       entryTransitionTimer = setTimeout(() => {
-        openEntryTransition();
-      }, 550);
+        minTimeDone = true;
+        tryOpen();
+      }, 500);
+      const firstBg = (scenes[currentSceneIndex] && scenes[currentSceneIndex].bg) || 'assets/hydroponics/Group 1.webp';
+      const probe = new Image();
+      probe.onload = probe.onerror = () => {
+        bgLoaded = true;
+        tryOpen();
+      };
+      probe.src = firstBg;
+      setTimeout(() => {
+        bgLoaded = true;
+        tryOpen();
+      }, 1300);
     }
 
     function openEntryTransition() {
