@@ -1003,6 +1003,68 @@
       line-height: 1.08;
     }
 
+    /* Top HUD */
+    .top-hud {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      right: clamp(96px, 8.5vw, 116px);
+      z-index: 40;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    @media (max-width: 900px), (max-height: 500px) {
+      .top-hud {
+        right: max(72px, calc(64px + env(safe-area-inset-right)));
+      }
+    }
+
+    .hud-title-badge {
+      background: rgba(0, 10, 30, 0.75);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 3px 14px;
+      color: #ffffff;
+      font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+      letter-spacing: 0.05em;
+      pointer-events: auto;
+    }
+
+    .hud-btn {
+      background: rgba(0, 10, 30, 0.75);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 4px 14px;
+      color: #7dd3fc;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+      cursor: pointer;
+      pointer-events: auto;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .hud-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+    }
+
+    .hud-home-icon {
+      width: clamp(15px, 1.3vw, 19px);
+      height: clamp(15px, 1.3vw, 19px);
+      fill: currentColor;
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: -1px;
+    }
+
     /* ==========================================================================
        Mission Complete Overlay (Exact match to 1.1 Power & 2.1 Daily Meal)
        ========================================================================== */
@@ -1222,6 +1284,22 @@
       <!-- Background Layer -->
       <div class="bg-layer" id="bgLayer"></div>
 
+      <!-- Top HUD -->
+      <header class="top-hud">
+        <div class="hud-title-badge" id="hudMissionTitle">MISSION 2.2: HYDROPONICS LAB</div>
+        <div style="display:flex; gap:8px;">
+          <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
+            <span id="soundIcon">🔊</span> <span id="soundText">SOUND</span>
+          </button>
+          <button class="hud-btn" onclick="returnToBase()" title="Return to Main Base" aria-label="Return to Main Base">
+            <svg class="hud-home-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+            <span>MAIN BASE</span>
+          </button>
+        </div>
+      </header>
+
       <!-- Dark Overlay -->
       <div class="dark-overlay" id="darkOverlay"></div>
 
@@ -1396,6 +1474,7 @@
     class AudioSynthesizer {
       constructor() {
         this.ctx = null;
+        this.muted = false;
       }
 
       init() {
@@ -1411,6 +1490,7 @@
       }
 
       playTypewriterClick() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1428,6 +1508,7 @@
       }
 
       playDialogueAdvance() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1446,6 +1527,7 @@
       }
 
       playCorrect() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1466,6 +1548,7 @@
       }
 
       playWrong() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1485,6 +1568,7 @@
       }
 
       playTimelapseTick() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1502,6 +1586,7 @@
       }
 
       playFanfare() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1531,6 +1616,20 @@
     }
 
     const audio = new AudioSynthesizer();
+    const sound = audio;
+
+    function toggleSound() {
+      audio.muted = !audio.muted;
+      const soundIcon = document.getElementById('soundIcon');
+      const soundText = document.getElementById('soundText');
+      if (soundIcon && soundText) {
+        soundIcon.textContent = audio.muted ? '🔇' : '🔊';
+        soundText.textContent = audio.muted ? 'MUTED' : 'SOUND';
+      } else {
+        const btn = document.getElementById('soundBtn');
+        if (btn) btn.textContent = audio.muted ? '🔇 MUTED' : '🔊 SOUND';
+      }
+    }
 
     /* ==========================================================================
        Mission 2.2 Storyboard Scene Definitions (Scenes 1 to 21 + Complete)

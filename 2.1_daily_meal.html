@@ -1217,12 +1217,17 @@
       <!-- Top HUD -->
       <header class="top-hud">
         <div class="hud-title-badge" id="hudMissionTitle">MISSION 2.1: PLAN DAILY MEAL</div>
-        <button class="hud-btn" onclick="returnToBase()" title="Return to Main Base" aria-label="Return to Main Base">
-          <svg class="hud-home-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-          </svg>
-          <span>MAIN BASE</span>
-        </button>
+        <div style="display:flex; gap:8px;">
+          <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
+            <span id="soundIcon">🔊</span> <span id="soundText">SOUND</span>
+          </button>
+          <button class="hud-btn" onclick="returnToBase()" title="Return to Main Base" aria-label="Return to Main Base">
+            <svg class="hud-home-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span>MAIN BASE</span>
+          </button>
+        </div>
       </header>
 
       <!-- Character Stage: Sunita Williams -->
@@ -1388,6 +1393,7 @@
     class SoundEngine {
       constructor() {
         this.ctx = null;
+        this.muted = false;
       }
 
       init() {
@@ -1401,6 +1407,7 @@
       }
 
       playTypewriter() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1418,6 +1425,7 @@
       }
 
       playDialogueAdvance() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1436,6 +1444,7 @@
       }
 
       playHoverTick() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1453,6 +1462,7 @@
       }
 
       playMealSelected() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1473,6 +1483,7 @@
       }
 
       playIntakeFill() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1493,6 +1504,7 @@
       }
 
       playOptionSelect(isCorrect) {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1524,6 +1536,7 @@
       }
 
       playSuccessFanfare() {
+        if (this.muted) return;
         try {
           this.init();
           if (!this.ctx) return;
@@ -1546,6 +1559,19 @@
     }
 
     const sound = new SoundEngine();
+
+    function toggleSound() {
+      sound.muted = !sound.muted;
+      const soundIcon = document.getElementById('soundIcon');
+      const soundText = document.getElementById('soundText');
+      if (soundIcon && soundText) {
+        soundIcon.textContent = sound.muted ? '🔇' : '🔊';
+        soundText.textContent = sound.muted ? 'MUTED' : 'SOUND';
+      } else {
+        const btn = document.getElementById('soundBtn');
+        if (btn) btn.textContent = sound.muted ? '🔇 MUTED' : '🔊 SOUND';
+      }
+    }
 
     // =========================================================================
     // Mission Data & Script Configuration (Scenes 1 - 12)
