@@ -203,14 +203,13 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     left: 50% !important;
     top: max(8px, env(safe-area-inset-top)) !important;
     transform: translateX(-50%) !important;
-    width: fit-content !important;
+    width: auto !important;
     max-width: calc(100vw - 120px) !important;
     align-items: center !important;
-    justify-content: center !important;
-    gap: 4px !important;
+    justify-content: safe center !important;
+    gap: 5px !important;
     padding: 3px 6px !important;
     margin: 0 !important;
-    font-size: clamp(0.62rem, 1.6vw, 0.74rem) !important;
     background: rgba(0, 16, 40, 0.94) !important;
     border: 1.5px solid #0050b3 !important;
     border-radius: 8px !important;
@@ -230,13 +229,23 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     align-items: center !important;
     gap: 2px !important;
     padding: 0 2px !important;
+    font-size: clamp(0.60rem, 1.55vw, 0.72rem) !important;
     flex-shrink: 0 !important;
+  }
+
+  .top-status-bar .status-icon {
+    font-size: 0.85rem !important;
   }
 
   .top-status-bar .status-label {
     display: inline !important; /* Stays visible: POWER, WATER, BIOMASS, REGOLITH */
     color: #94a3b8 !important;
     font-weight: bold !important;
+    font-size: clamp(0.60rem, 1.55vw, 0.72rem) !important;
+  }
+
+  .top-status-bar .status-val {
+    font-size: clamp(0.60rem, 1.55vw, 0.72rem) !important;
   }
 
   /* Item 4: Mobile Burger Dropdown Navigation Menu - Reduced Width (Not Length) */
