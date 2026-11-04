@@ -1041,12 +1041,10 @@
        ========================================================================== */
     .mission-complete-overlay {
       position: absolute;
-      top: clamp(28px, 4.5vh, 48px);
-      bottom: clamp(100px, 15vh, 130px);
+      top: 9%;
       left: 50%;
       transform: translate(-50%, 0);
-      width: 88%;
-      max-width: 900px;
+      width: 82%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1054,7 +1052,6 @@
       z-index: 45;
       pointer-events: auto;
       animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      box-sizing: border-box;
     }
 
     @keyframes pop-in {
@@ -1071,18 +1068,16 @@
 
     .mission-complete-container {
       width: 100%;
-      max-height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: clamp(4px, 1vh, 12px);
+      gap: 1.2vw;
     }
 
     .mission-complete-title {
-      height: clamp(30px, 5.5vh, 58px);
-      width: auto;
-      max-width: 78%;
+      width: 76%;
+      max-width: 820px;
+      height: auto;
       object-fit: contain;
       image-rendering: pixelated;
       filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.85));
@@ -1092,13 +1087,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: clamp(2px, 0.6vh, 6px) 0;
+      margin: 8px 0 6px 0;
     }
 
     .circle-score-box {
       position: relative;
-      width: clamp(96px, 14vh, 156px);
-      height: clamp(96px, 14vh, 156px);
+      width: clamp(150px, 16.5vw, 215px);
+      height: clamp(150px, 16.5vw, 215px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1139,7 +1134,7 @@
 
     .circle-score-num {
       font-family: var(--font-pixel);
-      font-size: clamp(1.9rem, 3.8vh, 3.5rem);
+      font-size: clamp(2.5rem, 4.6vw, 4.8rem);
       font-weight: 400;
       color: #22c55e;
       line-height: 1;
@@ -1148,20 +1143,20 @@
 
     .circle-score-sub {
       font-family: var(--font-pixel);
-      font-size: clamp(0.75rem, 1.3vh, 1.15rem);
+      font-size: clamp(0.95rem, 1.45vw, 1.45rem);
       color: #94a3b8;
       letter-spacing: 0.12em;
       line-height: 1;
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     .mission-complete-buttons {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: clamp(8px, 1.8vw, 22px);
+      gap: 1.5vw;
       width: 88%;
-      margin-top: clamp(2px, 0.8vh, 8px);
+      margin-top: 4px;
     }
 
     .mission-btn {
@@ -1187,7 +1182,7 @@
 
     .mission-btn img {
       width: auto;
-      height: clamp(28px, 4.8vh, 48px);
+      height: clamp(38px, 4.4vw, 54px);
       object-fit: contain;
       image-rendering: pixelated;
     }
