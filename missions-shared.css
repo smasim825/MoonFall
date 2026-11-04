@@ -1,0 +1,480 @@
+/* =============================================================================
+   MOONFALL // MISSIONS SHARED STYLESHEET (missions-shared.css)
+   Reusable, unified components across all Outpost Training & Mission Modules
+   ============================================================================= */
+
+:root {
+  --color-hud-cyan: #00e5ff;
+  --color-hud-blue: #0284c7;
+  --color-hud-gold: #fdcb0e;
+  --color-hud-red: #ef4444;
+  --color-bg-deep: #070c18;
+  --font-pixel: 'Jersey 10', 'Pixel Operator', monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+}
+
+/* =============================================================================
+   1. VIEWPORT & 16:9 ASPECT RATIO STAGE
+   ============================================================================= */
+.game-viewport,
+.power-game-viewport {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: 177.78vh; /* 16:9 Aspect Ratio */
+  aspect-ratio: 16 / 9;
+  margin: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
+}
+
+.game-stage,
+.power-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* =============================================================================
+   2. TOP HUD (TITLE, SOUND TOGGLE, HOME BUTTON, INTRO REPLAY)
+   ============================================================================= */
+.top-hud {
+  position: absolute;
+  top: max(8px, env(safe-area-inset-top));
+  left: max(12px, env(safe-area-inset-left));
+  right: max(12px, env(safe-area-inset-right));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.hud-title-badge {
+  pointer-events: auto;
+  font-family: var(--font-pixel);
+  font-size: clamp(0.85rem, 1.8vw, 1.35rem);
+  color: #ffffff;
+  background: rgba(0, 16, 40, 0.92);
+  border: 2px solid var(--color-hud-cyan);
+  border-radius: 6px;
+  padding: 4px 12px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.hud-btn {
+  font-family: var(--font-pixel);
+  font-size: clamp(0.75rem, 1.4vw, 1.05rem);
+  color: #00e5ff;
+  background: linear-gradient(180deg, #10243b 0%, #06101f 100%);
+  border: 1.5px solid #00cfff;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  box-shadow: 0 2px 0 #000, 0 0 8px rgba(0, 207, 255, 0.3);
+  transition: all 0.15s ease;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.hud-btn:hover {
+  filter: brightness(1.2);
+  transform: translateY(-1px);
+}
+
+.hud-btn:active {
+  transform: translateY(1px);
+}
+
+.hud-home-icon {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* =============================================================================
+   3. MISSION ENTRY TRANSITION (AIRLOCK BLAST DOORS)
+   ============================================================================= */
+.mission-entry-transition {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: auto;
+  user-select: none;
+  cursor: pointer;
+  transition: opacity 0.35s ease;
+}
+
+.mission-entry-transition.dismissed {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.entry-door {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.5%;
+  height: 100%;
+  background: radial-gradient(circle at center, #111e33 0%, #070d18 85%);
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.95);
+  will-change: transform;
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.entry-door-left {
+  left: 0;
+  transform: translateX(0);
+  border-right: 3px solid var(--color-hud-cyan);
+  box-shadow: inset -6px 0 25px rgba(0, 229, 255, 0.35);
+}
+
+.entry-door-right {
+  right: 0;
+  transform: translateX(0);
+  border-left: 3px solid var(--color-hud-cyan);
+  box-shadow: inset 6px 0 25px rgba(0, 229, 255, 0.35);
+}
+
+.entry-hazard-stripe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(253, 203, 14, 0.4) 0px,
+    rgba(253, 203, 14, 0.4) 8px,
+    rgba(10, 15, 25, 0.8) 8px,
+    rgba(10, 15, 25, 0.8) 16px
+  );
+}
+
+.entry-door-left .entry-hazard-stripe { right: 0; }
+.entry-door-right .entry-hazard-stripe { left: 0; }
+
+.entry-door-panel {
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  border-radius: 4px;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+              linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.entry-door-decal {
+  position: absolute;
+  bottom: 18px;
+  font-family: var(--font-pixel);
+  font-size: clamp(0.55rem, 1vw, 0.75rem);
+  color: rgba(0, 229, 255, 0.45);
+  letter-spacing: 0.1em;
+}
+
+.entry-door-left .entry-door-decal { left: 24px; }
+.entry-door-right .entry-door-decal { right: 24px; text-align: right; }
+
+.mission-entry-transition.doors-open .entry-door-left { transform: translateX(-102%); }
+.mission-entry-transition.doors-open .entry-door-right { transform: translateX(102%); }
+
+.entry-hud-badge {
+  position: relative;
+  z-index: 90;
+  background: rgba(6, 12, 24, 0.94);
+  border: 2px solid var(--color-hud-cyan);
+  border-radius: 10px;
+  padding: clamp(12px, 2.2vw, 20px) clamp(16px, 3.2vw, 32px);
+  text-align: center;
+  box-shadow: 0 0 35px rgba(0, 229, 255, 0.45), inset 0 0 20px rgba(0, 229, 255, 0.12);
+  backdrop-filter: blur(8px);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.mission-entry-transition.doors-open .entry-hud-badge {
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+}
+
+.entry-badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+  color: #94a3b8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.entry-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-hud-cyan);
+  box-shadow: 0 0 10px var(--color-hud-cyan);
+  animation: entry-pulse 1s infinite alternate ease-in-out;
+}
+
+@keyframes entry-pulse {
+  from { transform: scale(0.8); opacity: 0.6; }
+  to { transform: scale(1.3); opacity: 1; }
+}
+
+.entry-badge-title {
+  font-family: var(--font-pixel);
+  font-size: clamp(0.95rem, 2.2vw, 1.6rem);
+  color: var(--color-hud-gold);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 14px rgba(253, 203, 14, 0.6);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.entry-badge-sub {
+  font-family: var(--font-sans);
+  font-size: clamp(0.7rem, 1.3vw, 0.95rem);
+  color: var(--color-hud-cyan);
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.entry-scan-bar {
+  width: 100%;
+  max-width: 280px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 99px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 4px;
+}
+
+.entry-scan-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #0284c7, #00e5ff);
+  box-shadow: 0 0 10px #00e5ff;
+  animation: entry-fill 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes entry-fill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.entry-skip-hint {
+  font-family: var(--font-pixel);
+  font-size: clamp(0.55rem, 0.95vw, 0.7rem);
+  color: #64748b;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+  opacity: 0.85;
+}
+
+/* =============================================================================
+   4. MISSION COMPLETE MODAL OVERLAY
+   ============================================================================= */
+.mission-complete-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.88);
+  backdrop-filter: blur(8px);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  transition: opacity 0.3s ease;
+}
+
+.mission-complete-overlay.hidden {
+  display: none !important;
+}
+
+.complete-card-box {
+  background: rgba(7, 16, 38, 0.94);
+  border: 2px solid var(--color-hud-cyan);
+  border-radius: 12px;
+  padding: clamp(16px, 2.5vw, 28px);
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0, 229, 255, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.15);
+  max-width: min(92vw, 560px);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.complete-title {
+  font-family: var(--font-pixel);
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+/* Action Buttons Row */
+.action-btns-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.5vw, 16px);
+  width: 100%;
+  margin-top: 6px;
+}
+
+.mission-btn {
+  font-family: var(--font-pixel);
+  font-size: clamp(0.85rem, 1.6vw, 1.15rem);
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  user-select: none;
+  touch-action: manipulation;
+  transition: all 0.15s ease;
+}
+
+.btn-try-again {
+  background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+  border: 1.5px solid #f87171;
+  box-shadow: 0 3px 0 #450a0a;
+}
+
+.btn-home {
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+  border: 1.5px solid #38bdf8;
+  box-shadow: 0 3px 0 #082f49;
+}
+
+.btn-next {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+  border: 1.5px solid #fbbf24;
+  box-shadow: 0 3px 0 #78350f;
+  color: #000000;
+  font-weight: bold;
+}
+
+.mission-btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
+}
+
+.mission-btn:active {
+  transform: translateY(1px);
+}
+
+/* =============================================================================
+   5. MOBILE LANDSCAPE ORIENTATION GUARD
+   ============================================================================= */
+.orientation-banner {
+  display: none;
+}
+
+@media screen and (orientation: portrait) {
+  .orientation-banner {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: rgba(3, 7, 18, 0.96);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+  }
+}
+
+.orientation-card {
+  background: rgba(15, 23, 42, 0.95);
+  border: 2px solid var(--color-hud-cyan);
+  border-radius: 12px;
+  padding: 24px 20px;
+  max-width: 380px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.phone-rotate-icon {
+  font-size: 2.5rem;
+  animation: pulse-rotate 2s infinite ease-in-out;
+}
+
+@keyframes pulse-rotate {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(90deg); }
+}
+
+.orientation-title {
+  font-family: var(--font-pixel);
+  font-size: 1.35rem;
+  color: var(--color-hud-gold);
+}
+
+.orientation-desc {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.orientation-btn {
+  font-family: var(--font-pixel);
+  font-size: 1rem;
+  color: #ffffff;
+  background: linear-gradient(180deg, #0284c7, #0369a1);
+  border: 1.5px solid var(--color-hud-cyan);
+  border-radius: 6px;
+  padding: 8px 18px;
+  cursor: pointer;
+}

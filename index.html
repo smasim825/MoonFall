@@ -2352,17 +2352,21 @@
 
     .onboarding-card-title {
       margin: 0 0 4px 0;
-      font-size: 1.15rem;
-      color: #fef08a;
+      font-size: 1.05rem;
+      color: #fde047;
       letter-spacing: 0.04em;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+      -webkit-font-smoothing: antialiased;
     }
 
     .onboarding-card-text {
       margin: 0 0 10px 0;
-      font-size: 0.88rem;
-      color: #cbd5e1;
-      line-height: 1.25;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #f1f5f9;
+      line-height: 1.35;
+      -webkit-font-smoothing: antialiased;
     }
 
     .onboarding-card-footer {
@@ -2374,14 +2378,16 @@
       background: linear-gradient(180deg, #facc15 0%, #ca8a04 100%);
       border: 2px solid #fef08a;
       color: #000000;
-      font-family: inherit;
-      font-size: 0.98rem;
-      font-weight: bold;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
       padding: 5px 12px;
       border-radius: 5px;
       cursor: pointer;
       box-shadow: 0 3px 0 #854d0e, 0 0 10px rgba(250, 204, 21, 0.4);
       transition: transform 0.1s ease, filter 0.1s ease;
+      -webkit-font-smoothing: antialiased;
     }
 
     .onboarding-proceed-btn:hover {
@@ -2723,16 +2729,26 @@
 
     .coc-board-close-btn {
       background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
-      border: 3.5px solid #000000;
+      border: 3px solid #000000;
       border-radius: 8px;
-      box-shadow: inset 0 3px 0 #fca5a5, inset 0 -3px 0 #7f1d1d, 0 4px 0 #000;
+      box-shadow: inset 0 2px 0 #fca5a5, inset 0 -2px 0 #7f1d1d, 0 3px 0 #000;
       color: #ffffff;
-      font-family: 'Jersey 10', monospace;
-      font-size: clamp(1.15rem, 1.6vw, 1.65rem);
-      padding: 3px 14px;
-      margin-bottom: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: clamp(30px, 3.8vw, 38px);
+      height: clamp(30px, 3.8vw, 38px);
+      min-width: 30px;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 4px;
       cursor: pointer;
-      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+      font-family: Arial, -apple-system, sans-serif;
+      font-size: clamp(1rem, 1.4vw, 1.3rem);
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
       transition: transform 0.12s ease, filter 0.12s ease;
     }
 
@@ -3112,34 +3128,29 @@
     }
 
     .coc-btn-main-text {
-      font-family: 'Jersey 10', monospace;
-      font-size: clamp(1.35rem, 2vw, 2.05rem);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1rem, 1.5vw, 1.35rem);
       color: #ffffff;
-      letter-spacing: 0.05em;
-      line-height: 1;
-      text-shadow:
-        -2px -2px 0 #000000,
-        2px -2px 0 #000000,
-        -2px 2px 0 #000000,
-        2px 2px 0 #000000,
-        0 3px 0 #000000;
+      letter-spacing: 0.03em;
+      line-height: 1.15;
+      text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.75);
+      -webkit-font-smoothing: antialiased;
     }
 
     .coc-btn-sub-cost {
-      font-family: 'Jersey 10', monospace;
-      font-size: clamp(1.05rem, 1.45vw, 1.45rem);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.8rem, 1.1vw, 1rem);
       color: #ffffff;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      line-height: 1;
-      margin-top: 2px;
-      text-shadow:
-        -1.5px -1.5px 0 #000000,
-        1.5px -1.5px 0 #000000,
-        -1.5px 1.5px 0 #000000,
-        1.5px 1.5px 0 #000000,
-        0 2px 0 #000000;
+      line-height: 1.1;
+      margin-top: 1px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+      -webkit-font-smoothing: antialiased;
     }
 
     /* Bottom Status Strip under Card 2 ("Sign-up ends in: 2d 18h" Style) */
@@ -3802,6 +3813,7 @@
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
   <link rel="stylesheet" href="responsive.css?v=20261104-10">
+  <script src="game-assets.js"></script>
   <script src="responsive.js" defer></script>
 </head>
 
@@ -3896,7 +3908,6 @@
     <audio id="mainBaseBgm" loop preload="auto">
       <source src="main_base_music.mp3" type="audio/mpeg">
       <source src="main_base_music.m4a" type="audio/mp4">
-      <source src="main_base_music.mp4" type="video/mp4">
     </audio>
 
     <!-- Floating Base Music Toggle Button (aligned vertically under Astrobee on the right) -->
@@ -5320,7 +5331,7 @@
     function playMainBaseBgm() {
       if (!mainBaseBgm || mainBaseBgmMuted) return;
       isBaseBgmActive = true;
-      mainBaseBgm.volume = 0.32;
+      mainBaseBgm.volume = 0.16; // reduced ambient volume
       mainBaseBgm.loop = true;
       const playPromise = mainBaseBgm.play();
       if (playPromise !== undefined) {
@@ -6333,32 +6344,62 @@
     // =========================================================================
     var onboardingStep = 0; // 0 = inactive, 1 = Phases, 2 = Crew, 3 = Power/Leave Base
 
+    function isMobileNavActive() {
+      const burger = document.getElementById('mobileMenuToggle');
+      if (burger && window.getComputedStyle(burger).display !== 'none') return true;
+      return window.innerWidth <= 900;
+    }
+
     function positionForStep1() {
       const container = document.getElementById('onboardingGuideContainer');
       const glyph = document.getElementById('onboardingArrowGlyph');
+      const burger = document.getElementById('mobileMenuToggle');
       if (!container || !glyph) return;
       glyph.textContent = '⬆';
       glyph.classList.remove('arrow-down');
-      glyph.style.marginLeft = '28px';
-      container.style.top = '58px';
-      container.style.left = '16px';
-      container.style.right = 'auto';
-      container.style.bottom = 'auto';
-      container.style.alignItems = 'flex-start';
+
+      if (isMobileNavActive()) {
+        glyph.style.marginLeft = '8px';
+        container.style.top = '48px';
+        container.style.left = '8px';
+        container.style.right = 'auto';
+        container.style.bottom = 'auto';
+        container.style.alignItems = 'flex-start';
+        if (burger) burger.classList.add('onboarding-target-pulse');
+      } else {
+        glyph.style.marginLeft = '28px';
+        container.style.top = '58px';
+        container.style.left = '16px';
+        container.style.right = 'auto';
+        container.style.bottom = 'auto';
+        container.style.alignItems = 'flex-start';
+      }
     }
 
     function positionForStep2() {
       const container = document.getElementById('onboardingGuideContainer');
       const glyph = document.getElementById('onboardingArrowGlyph');
+      const burger = document.getElementById('mobileMenuToggle');
       if (!container || !glyph) return;
       glyph.textContent = '⬆';
       glyph.classList.remove('arrow-down');
-      glyph.style.marginLeft = '52px';
-      container.style.top = '58px';
-      container.style.left = '122px';
-      container.style.right = 'auto';
-      container.style.bottom = 'auto';
-      container.style.alignItems = 'flex-start';
+
+      if (isMobileNavActive()) {
+        glyph.style.marginLeft = '8px';
+        container.style.top = '48px';
+        container.style.left = '8px';
+        container.style.right = 'auto';
+        container.style.bottom = 'auto';
+        container.style.alignItems = 'flex-start';
+        if (burger) burger.classList.add('onboarding-target-pulse');
+      } else {
+        glyph.style.marginLeft = '52px';
+        container.style.top = '58px';
+        container.style.left = '122px';
+        container.style.right = 'auto';
+        container.style.bottom = 'auto';
+        container.style.alignItems = 'flex-start';
+      }
     }
 
     function positionForStep3() {
@@ -6381,6 +6422,7 @@
       const btnPhases = document.getElementById('phaseDashboardToggleBtn');
       const btnCrew = document.getElementById('crewIntroToggleBtn');
       const badgePower = document.getElementById('badgePower');
+      const burger = document.getElementById('mobileMenuToggle');
       const badge = document.getElementById('onboardingStepBadge');
       const title = document.getElementById('onboardingTitle');
       const desc = document.getElementById('onboardingDesc');
@@ -6392,22 +6434,33 @@
       if (btnPhases) btnPhases.classList.remove('onboarding-target-pulse');
       if (btnCrew) btnCrew.classList.remove('onboarding-target-pulse');
       if (badgePower) badgePower.classList.remove('onboarding-target-pulse');
+      if (burger) burger.classList.remove('onboarding-target-pulse');
 
       if (step === 1) {
         overlay.classList.remove('hidden');
         positionForStep1();
-        if (btnPhases) btnPhases.classList.add('onboarding-target-pulse');
+        if (isMobileNavActive()) {
+          if (burger) burger.classList.add('onboarding-target-pulse');
+          if (desc) desc.innerHTML = 'Tap <strong>☰ MENU</strong> or <strong>OPEN PHASES</strong> to view outpost construction objectives &amp; milestones.';
+        } else {
+          if (btnPhases) btnPhases.classList.add('onboarding-target-pulse');
+          if (desc) desc.innerHTML = 'Click <strong>⚔️ PHASES</strong> to view outpost construction objectives &amp; milestones.';
+        }
         if (badge) badge.textContent = 'STEP 1 OF 3';
         if (title) title.textContent = 'INSPECT MISSION PHASES';
-        if (desc) desc.innerHTML = 'Click <strong>⚔️ PHASES</strong> to view outpost construction objectives &amp; milestones.';
         if (proceedBtn) proceedBtn.innerHTML = 'OPEN PHASES ⚔️';
       } else if (step === 2) {
         overlay.classList.remove('hidden');
         positionForStep2();
-        if (btnCrew) btnCrew.classList.add('onboarding-target-pulse');
+        if (isMobileNavActive()) {
+          if (burger) burger.classList.add('onboarding-target-pulse');
+          if (desc) desc.innerHTML = 'Tap <strong>☰ MENU</strong> or <strong>MEET CREW</strong> to consult Commander Wiseman &amp; specialists.';
+        } else {
+          if (btnCrew) btnCrew.classList.add('onboarding-target-pulse');
+          if (desc) desc.innerHTML = 'Click <strong>👨‍🚀 MEET THE CREW</strong> to consult Commander Wiseman &amp; specialists.';
+        }
         if (badge) badge.textContent = 'STEP 2 OF 3';
         if (title) title.textContent = 'MEET EXPEDITION CREW';
-        if (desc) desc.innerHTML = 'Click <strong>👨‍🚀 MEET THE CREW</strong> to consult Commander Wiseman &amp; specialists.';
         if (proceedBtn) proceedBtn.innerHTML = 'MEET CREW 👨‍🚀';
       } else if (step === 3) {
         overlay.classList.remove('hidden');
@@ -6452,11 +6505,13 @@
       const btnPhases = document.getElementById('phaseDashboardToggleBtn');
       const btnCrew = document.getElementById('crewIntroToggleBtn');
       const badgePower = document.getElementById('badgePower');
+      const burger = document.getElementById('mobileMenuToggle');
 
       if (overlay) overlay.classList.add('hidden');
       if (btnPhases) btnPhases.classList.remove('onboarding-target-pulse');
       if (btnCrew) btnCrew.classList.remove('onboarding-target-pulse');
       if (badgePower) badgePower.classList.remove('onboarding-target-pulse');
+      if (burger) burger.classList.remove('onboarding-target-pulse');
 
       try { sessionStorage.setItem('moonfall_onboarded', 'true'); } catch (e) { }
     }
@@ -6579,6 +6634,8 @@
         else if (testParam === 'onboard1') setOnboardingStep(1);
         else if (testParam === 'onboard2') setOnboardingStep(2);
         else if (testParam === 'onboard3') setOnboardingStep(3);
+        else if (testParam === 'phases') openPhaseDashboard();
+        else if (testParam === 'phases4') { openPhaseDashboard(); openPhase1MissionsWindow(); }
       } catch (e) { }
     })();
   </script>
