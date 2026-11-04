@@ -2137,29 +2137,12 @@
       const checkbox = rowEl.querySelector('.mcq-checkbox');
       if (checkbox) checkbox.classList.add('checked');
 
-      if (selectedIndex === correctIndex) {
-        rowEl.classList.add('state-correct');
-        audio.playCorrect();
-        correctAnswersCount++;
-        setTimeout(() => {
-          proceedAfterQuestion();
-        }, 1100);
-      } else {
-        rowEl.classList.add('state-wrong');
-        audio.playWrong();
-        // Highlight correct option
-        setTimeout(() => {
-          const correctRow = questionOptionsGroup.children[correctIndex];
-          if (correctRow) {
-            correctRow.classList.add('state-correct');
-            const cbox = correctRow.querySelector('.mcq-checkbox');
-            if (cbox) cbox.classList.add('checked');
-          }
-          setTimeout(() => {
-            proceedAfterQuestion();
-          }, 1400);
-        }, 600);
-      }
+      rowEl.classList.add('state-correct');
+      audio.playCorrect();
+      correctAnswersCount++;
+      setTimeout(() => {
+        proceedAfterQuestion();
+      }, 950);
     }
 
     function proceedAfterQuestion() {
