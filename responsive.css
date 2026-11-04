@@ -204,13 +204,13 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     top: max(8px, env(safe-area-inset-top)) !important;
     transform: translateX(-50%) !important;
     width: fit-content !important;
-    max-width: calc(100vw - 140px) !important;
+    max-width: calc(100vw - 120px) !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 6px !important;
-    padding: 4px 8px !important;
+    gap: 4px !important;
+    padding: 3px 6px !important;
     margin: 0 !important;
-    font-size: clamp(0.68rem, 1.8vw, 0.78rem) !important;
+    font-size: clamp(0.62rem, 1.6vw, 0.74rem) !important;
     background: rgba(0, 16, 40, 0.94) !important;
     border: 1.5px solid #0050b3 !important;
     border-radius: 8px !important;
@@ -229,7 +229,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     display: inline-flex !important;
     align-items: center !important;
     gap: 2px !important;
-    padding: 0 3px !important;
+    padding: 0 2px !important;
     flex-shrink: 0 !important;
   }
 
@@ -330,9 +330,9 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     position: absolute !important;
     top: max(8px, env(safe-area-inset-top)) !important;
     right: max(8px, env(safe-area-inset-right)) !important;
-    width: 48px !important;
-    min-height: 50px !important;
-    height: 50px !important;
+    width: 56px !important;
+    min-height: 56px !important;
+    height: 56px !important;
     padding: 3px 2px !important;
     border: 2px solid #00e5ff !important;
     border-radius: 8px !important;
@@ -341,21 +341,21 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   .ab-root.ab-in-stage .ab-launch img {
-    width: 28px !important;
-    height: 28px !important;
+    width: 32px !important;
+    height: 32px !important;
   }
 
   .ab-root.ab-in-stage .ab-launch-short {
-    font-size: 13px !important;
+    font-size: 14px !important;
     margin-top: 1px !important;
   }
 
   .base-music-toggle {
     position: absolute !important;
-    top: calc(max(8px, env(safe-area-inset-top)) + 54px) !important;
+    top: calc(max(8px, env(safe-area-inset-top)) + 60px) !important;
     right: max(8px, env(safe-area-inset-right)) !important;
-    width: 48px !important;
-    min-width: 48px !important;
+    width: 56px !important;
+    min-width: 56px !important;
     padding: 3px 2px !important;
     border-radius: 6px !important;
     font-size: 0.72rem !important;
@@ -374,9 +374,10 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
 
   /* Item 3: Mission Sidebar & Play/Close Buttons */
   .missions-wrapper {
-    top: 50px !important;
+    position: relative !important;
+    top: 54px !important;
     left: max(8px, env(safe-area-inset-left)) !important;
-    gap: 8px !important;
+    gap: 6px !important;
     padding-top: 0 !important;
   }
 
@@ -434,17 +435,17 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
      - NASA Research & Base Upgrades: compact 2-column grid */
   /* 5.1: Meet The Crew Modal (4 Crew Members Side by Side) */
   .crew-modal-card {
-    width: min(96vw, 840px) !important;
+    width: min(96vw, 920px) !important;
     max-height: 94vh !important;
     border-radius: 10px !important;
   }
 
   .crew-modal-header {
-    padding: 5px 12px !important;
+    padding: 6px 14px !important;
   }
 
   .crew-modal-title {
-    font-size: 1.05rem !important;
+    font-size: 1.1rem !important;
   }
 
   .crew-modal-title .modal-close-btn,
@@ -456,31 +457,31 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   .crew-modal-body {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
-    gap: 6px !important;
-    padding: 6px 8px !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
     overflow-y: auto !important;
   }
 
   .crew-member-card {
-    padding: 6px 4px !important;
+    padding: 8px 6px !important;
     border-width: 2px !important;
     border-radius: 8px !important;
   }
 
   .crew-avatar-frame {
-    width: 44px !important;
-    height: 44px !important;
-    min-height: 44px !important;
-    margin-bottom: 3px !important;
+    width: 58px !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    margin-bottom: 4px !important;
   }
 
   .crew-avatar-img {
-    max-height: 40px !important;
+    max-height: 52px !important;
   }
 
   .crew-name-badge {
-    font-size: 0.8rem !important;
-    margin-bottom: 2px !important;
+    font-size: 0.92rem !important;
+    margin-bottom: 3px !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
@@ -488,10 +489,10 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   .crew-role-badge {
-    font-size: 0.64rem !important;
-    padding: 1px 3px !important;
-    line-height: 1.1 !important;
-    margin-bottom: 3px !important;
+    font-size: 0.72rem !important;
+    padding: 2px 4px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 4px !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
     -webkit-box-orient: vertical !important;
@@ -499,12 +500,12 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   .crew-speech-bubble {
-    font-size: 0.64rem !important;
-    line-height: 1.15 !important;
-    padding: 3px 4px !important;
-    max-height: 52px !important;
+    font-size: 0.72rem !important;
+    line-height: 1.2 !important;
+    padding: 4px 6px !important;
+    max-height: 68px !important;
     overflow-y: auto !important;
-    border-radius: 5px !important;
+    border-radius: 6px !important;
   }
 
   /* 5.2: Mission Phases Board Modal */
@@ -538,14 +539,19 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     border-radius: 8px !important;
   }
 
-  .coc-board-body.grid-4-missions {
+  /* Ensure inactive tab window stays hidden on mobile */
+  .coc-board-body.hidden-view {
+    display: none !important;
+  }
+
+  .coc-board-body.grid-4-missions:not(.hidden-view) {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
     gap: 6px !important;
     overflow-y: auto !important;
   }
 
-  .coc-board-body:not(.grid-4-missions) {
+  .coc-board-body:not(.grid-4-missions):not(.hidden-view) {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 8px !important;
@@ -632,6 +638,75 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
 
   .item-sub {
     font-size: 0.7rem !important;
+  }
+
+  /* 5.4: NASA Research & Base Upgrades Intel Dossier Detail Modal */
+  .nasa-dossier-card {
+    width: min(92vw, 620px) !important;
+    max-height: calc(100vh - 20px) !important;
+    border-radius: 8px !important;
+  }
+
+  .nasa-dossier-header {
+    padding: 6px 12px !important;
+    gap: 8px !important;
+  }
+
+  .dossier-header-left {
+    gap: 8px !important;
+  }
+
+  .dossier-icon {
+    font-size: 1.5rem !important;
+  }
+
+  .dossier-tag {
+    font-size: 0.72rem !important;
+  }
+
+  .dossier-title {
+    font-size: 1.12rem !important;
+  }
+
+  .nasa-dossier-body {
+    padding: 8px 12px !important;
+    gap: 8px !important;
+    max-height: calc(100vh - 110px) !important;
+    overflow-y: auto !important;
+  }
+
+  .dossier-desc {
+    font-size: 0.85rem !important;
+    line-height: 1.35 !important;
+    padding: 6px 10px !important;
+  }
+
+  .dossier-sources-box {
+    padding: 6px 10px !important;
+    gap: 4px !important;
+  }
+
+  .sources-heading {
+    font-size: 0.72rem !important;
+  }
+
+  .dossier-source-link {
+    font-size: 0.75rem !important;
+    padding: 4px 8px !important;
+  }
+
+  .nasa-dossier-footer {
+    padding: 6px 12px !important;
+  }
+
+  .dossier-close-btn {
+    padding: 5px 12px !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* Compact bound for tactical modal cards */
+  .tactical-modal-card {
+    max-height: calc(100vh - 20px) !important;
   }
 }
 
