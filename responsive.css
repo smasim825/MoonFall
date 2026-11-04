@@ -175,8 +175,6 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     bottom: auto !important;
     right: auto !important;
   }
-    right: auto !important;
-  }
 
   body.force-horizontal #gameViewport,
   body.force-horizontal #baseViewport,
