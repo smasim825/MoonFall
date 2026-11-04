@@ -825,463 +825,224 @@
     }
 
     /* ==========================================================================
-       Space Airlock Blast Doors Transition Overlay
+       Mission Entry Transition (Sci-Fi Airlock Reveal Demo)
        ========================================================================== */
-    .space-airlock-overlay {
-      display: none !important;
-    }
-
-    .space-airlock-overlay.opened {
-      pointer-events: none !important;
-      display: none !important;
-    }
-
-    .airlock-door {
+    .mission-entry-transition {
       position: absolute;
-      top: 0;
-      width: 50.2vw;
-      height: 100vh;
-      background: linear-gradient(135deg, #070c18 0%, #152238 45%, #0a1122 100%);
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
-      transition: transform 0.65s cubic-bezier(0.2, 0.95, 0.25, 1);
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 85;
       display: flex;
       align-items: center;
+      justify-content: center;
       overflow: hidden;
-      will-change: transform;
+      pointer-events: auto;
+      user-select: none;
+      cursor: pointer;
+      transition: opacity 0.35s ease;
     }
 
-    .airlock-door-left {
-      left: 0;
-      transform: translateX(0);
-      border-right: 3.5px solid #00e5ff;
-      box-shadow: inset -10px 0 30px rgba(0, 229, 255, 0.25);
+    .mission-entry-transition.dismissed {
+      display: none !important;
+      pointer-events: none !important;
     }
 
-    .airlock-door-right {
-      right: 0;
-      transform: translateX(0);
-      border-left: 3.5px solid #00e5ff;
-      box-shadow: inset 10px 0 30px rgba(0, 229, 255, 0.25);
-    }
-
-    /* Open Animations */
-    .space-airlock-overlay.anim-open .airlock-door-left {
-      transform: translateX(-101%);
-    }
-
-    .space-airlock-overlay.anim-open .airlock-door-right {
-      transform: translateX(101%);
-    }
-
-    .space-airlock-overlay.anim-open .airlock-lock-hud {
-      opacity: 0;
-      transform: scale(0.9);
-      transition: opacity 0.3s ease, transform 0.35s ease;
-    }
-
-    /* Diagonal Caution Stripes on Seams */
-    .airlock-hazard-stripes {
+    /* Blast Doors (Left & Right Halves) */
+    .entry-door {
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 22px;
-      background: repeating-linear-gradient(-45deg,
-          #f59e0b,
-          #f59e0b 14px,
-          #0b0f19 14px,
-          #0b0f19 28px);
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+      width: 50.5%;
+      height: 100%;
+      background: radial-gradient(circle at center, #111e33 0%, #070d18 85%);
+      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.95);
+      will-change: transform;
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
     }
 
-    .airlock-door-left .airlock-hazard-stripes {
+    .entry-door-left {
+      left: 0;
+      transform: translateX(0);
+      border-right: 3px solid #00e5ff;
+      box-shadow: inset -6px 0 25px rgba(0, 229, 255, 0.35);
+    }
+
+    .entry-door-right {
+      right: 0;
+      transform: translateX(0);
+      border-left: 3px solid #00e5ff;
+      box-shadow: inset 6px 0 25px rgba(0, 229, 255, 0.35);
+    }
+
+    /* Caution Stripes on Seam Edges */
+    .entry-hazard-stripe {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 14px;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(253, 203, 14, 0.4) 0px,
+        rgba(253, 203, 14, 0.4) 8px,
+        rgba(10, 15, 25, 0.8) 8px,
+        rgba(10, 15, 25, 0.8) 16px
+      );
+    }
+
+    .entry-door-left .entry-hazard-stripe {
       right: 0;
     }
 
-    .airlock-door-right .airlock-hazard-stripes {
+    .entry-door-right .entry-hazard-stripe {
       left: 0;
     }
 
-    /* Decorative Paneling & Decals */
-    .airlock-panel-detail {
+    /* High-Tech Grid & Decal Texture */
+    .entry-door-panel {
       position: absolute;
-      inset: 40px;
-      border: 1.5px solid rgba(0, 153, 255, 0.25);
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.2);
+      inset: 18px;
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      border-radius: 4px;
       pointer-events: none;
+      background: linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                  linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
     }
 
-    .airlock-submodule-tag {
+    .entry-door-decal {
       position: absolute;
-      bottom: 24px;
-      font-size: 1.15rem;
-      color: rgba(0, 229, 255, 0.65);
-      letter-spacing: 0.12em;
+      bottom: 18px;
       font-family: var(--font-pixel);
+      font-size: clamp(0.55rem, 1vw, 0.75rem);
+      color: rgba(0, 229, 255, 0.45);
+      letter-spacing: 0.1em;
     }
 
-    .airlock-door-left .airlock-submodule-tag {
+    .entry-door-left .entry-door-decal {
       left: 24px;
     }
 
-    .airlock-door-right .airlock-submodule-tag {
+    .entry-door-right .entry-door-decal {
       right: 24px;
       text-align: right;
     }
 
-    /* Center Hydraulic Lock & Tactical HUD */
-    .airlock-lock-hud {
+    /* Open Animations */
+    .mission-entry-transition.doors-open .entry-door-left {
+      transform: translateX(-102%);
+    }
+
+    .mission-entry-transition.doors-open .entry-door-right {
+      transform: translateX(102%);
+    }
+
+    /* Center Tactical HUD Badge */
+    .entry-hud-badge {
       position: relative;
-      z-index: 10;
-      background: radial-gradient(circle at 50% 30%, #0d1a33 0%, #050b17 100%);
+      z-index: 90;
+      background: rgba(6, 12, 24, 0.94);
       border: 2px solid #00e5ff;
-      border-radius: 8px;
-      padding: 16px 24px 14px;
-      box-shadow:
-        0 14px 45px rgba(0, 0, 0, 0.95),
-        0 0 35px rgba(0, 229, 255, 0.35),
-        inset 0 0 24px rgba(0, 229, 255, 0.12);
+      border-radius: 10px;
+      padding: clamp(12px, 2.2vw, 20px) clamp(16px, 3.2vw, 32px);
+      text-align: center;
+      box-shadow: 0 0 35px rgba(0, 229, 255, 0.45), inset 0 0 20px rgba(0, 229, 255, 0.12);
+      backdrop-filter: blur(8px);
+      transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 90%;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      width: min(90vw, 560px);
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      background-image: repeating-linear-gradient(0deg,
-          transparent,
-          transparent 3px,
-          rgba(0, 229, 255, 0.025) 3px,
-          rgba(0, 229, 255, 0.025) 6px);
-    }
-
-    /* Cyber Tech Corner Brackets */
-    .hud-bracket {
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      border: 2.5px solid #fdcb0e;
-      pointer-events: none;
-      filter: drop-shadow(0 0 6px rgba(253, 203, 14, 0.6));
-    }
-
-    .hud-bracket-tl {
-      top: -2px;
-      left: -2px;
-      border-right: none;
-      border-bottom: none;
-    }
-
-    .hud-bracket-tr {
-      top: -2px;
-      right: -2px;
-      border-left: none;
-      border-bottom: none;
-    }
-
-    .hud-bracket-bl {
-      bottom: -2px;
-      left: -2px;
-      border-right: none;
-      border-top: none;
-    }
-
-    .hud-bracket-br {
-      bottom: -2px;
-      right: -2px;
-      border-left: none;
-      border-top: none;
-    }
-
-    /* Top Telemetry Header */
-    .airlock-telemetry-row {
-      display: flex;
       align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(0, 229, 255, 0.25);
-      padding-bottom: 8px;
-      font-size: 0.88rem;
-      font-family: 'JetBrains Mono', monospace;
-      color: #94a3b8;
-      letter-spacing: 0.06em;
+      gap: 8px;
     }
 
-    .airlock-badge-code {
-      color: #fdcb0e;
-      font-weight: bold;
-      background: rgba(253, 203, 14, 0.12);
-      border: 1px solid rgba(253, 203, 14, 0.4);
-      padding: 2px 7px;
-      border-radius: 4px;
+    .mission-entry-transition.doors-open .entry-hud-badge {
+      opacity: 0;
+      transform: scale(0.85);
+      pointer-events: none;
     }
 
-    .airlock-telemetry-tag {
+    .entry-badge-status {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+      color: #94a3b8;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .telemetry-led {
+    .entry-pulse-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      display: inline-block;
-    }
-
-    .telemetry-led.led-green {
-      background: #00e676;
-      box-shadow: 0 0 8px #00e676;
-    }
-
-    .telemetry-led.led-cyan {
       background: #00e5ff;
-      box-shadow: 0 0 8px #00e5ff;
+      box-shadow: 0 0 10px #00e5ff;
+      animation: entry-pulse 1s infinite alternate ease-in-out;
     }
 
-    .airlock-badge-sector {
-      color: #00e5ff;
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
+    @keyframes entry-pulse {
+      from { transform: scale(0.8); opacity: 0.6; }
+      to { transform: scale(1.3); opacity: 1; }
     }
 
-    /* Main Content: Gear + Readout */
-    .airlock-hud-content {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    /* Mechanical Vector Lock Gear */
-    .airlock-mech-lock {
-      width: 76px;
-      height: 76px;
-      position: relative;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .mech-gear-svg {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.5));
-    }
-
-    .rotating-teeth {
-      transform-origin: 50px 50px;
-      animation: gear-spin 10s linear infinite;
-    }
-
-    @keyframes gear-spin {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .lock-status-lamp {
-      position: absolute;
-      bottom: 2px;
-      right: 2px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #f59e0b;
-      border: 1.5px solid #ffffff;
-      box-shadow: 0 0 10px #f59e0b;
-      transition: all 0.3s ease;
-      animation: lamp-pulse 1.2s ease-in-out infinite alternate;
-    }
-
-    @keyframes lamp-pulse {
-      from {
-        opacity: 0.7;
-        transform: scale(0.9);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1.15);
-      }
-    }
-
-    .lock-status-lamp.state-unlocked {
-      background: #00e676 !important;
-      box-shadow: 0 0 14px #00e676 !important;
-      animation: none !important;
-    }
-
-    /* Mission Title & Status */
-    .airlock-text-block {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .airlock-title-label {
-      font-size: 0.82rem;
-      color: rgba(0, 229, 255, 0.8);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .airlock-mission-name {
-      font-size: clamp(1.35rem, 2.3vw, 1.95rem);
+    .entry-badge-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.95rem, 2.2vw, 1.6rem);
       color: #fdcb0e;
-      font-family: var(--font-pixel);
       letter-spacing: 0.04em;
-      text-shadow: 0 0 12px rgba(253, 203, 14, 0.6);
-      line-height: 1.1;
+      text-shadow: 0 0 14px rgba(253, 203, 14, 0.6);
+      margin: 0;
+      line-height: 1.2;
     }
 
-    /* High-Tech Status Ribbon */
-    .airlock-status-ribbon {
-      margin-top: 6px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1.5px solid rgba(0, 229, 255, 0.35);
-      border-radius: 6px;
-      padding: 6px 12px;
-      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6);
-    }
-
-    .ribbon-indicator {
-      font-size: 1.25rem;
-      display: inline-block;
-      animation: icon-float 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes icon-float {
-      from {
-        transform: translateY(-1px);
-      }
-
-      to {
-        transform: translateY(1px);
-      }
-    }
-
-    .ribbon-text {
-      font-size: clamp(0.95rem, 1.5vw, 1.25rem);
+    .entry-badge-sub {
+      font-family: var(--font-sans);
+      font-size: clamp(0.7rem, 1.3vw, 0.95rem);
       color: #00e5ff;
-      font-weight: bold;
-      font-family: var(--font-pixel);
-      letter-spacing: 0.05em;
-    }
-
-    /* Interactive Cycle Airlock Button */
-    .airlock-cycle-btn {
-      margin-top: 8px;
-      width: 100%;
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-      border: 1.5px solid #00e5ff;
-      border-radius: 6px;
-      color: #ffffff;
-      font-family: var(--font-pixel);
-      font-size: clamp(1.1rem, 1.8vw, 1.45rem);
-      padding: 7px 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
       letter-spacing: 0.06em;
-      box-shadow: 0 0 16px rgba(0, 229, 255, 0.45);
-      animation: airlock-pulse-glow 1.5s ease-in-out infinite alternate;
-      transition: all 0.2s ease;
+      font-weight: 600;
+      text-transform: uppercase;
     }
 
-    .airlock-cycle-btn:hover {
-      background: #0284c7;
-      transform: scale(1.02);
-      box-shadow: 0 0 25px rgba(0, 229, 255, 0.8);
-    }
-
-    @keyframes airlock-pulse-glow {
-      from {
-        box-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
-      }
-
-      to {
-        box-shadow: 0 0 24px rgba(0, 229, 255, 0.85);
-      }
-    }
-
-    .airlock-scan-bar {
+    /* Scanning Progress Bar */
+    .entry-scan-bar {
       width: 100%;
-      height: 6px;
+      max-width: 280px;
+      height: 4px;
       background: rgba(255, 255, 255, 0.12);
-      border-radius: 9999px;
-      margin-top: 8px;
+      border-radius: 99px;
       overflow: hidden;
       position: relative;
+      margin-top: 4px;
     }
 
-    .airlock-scan-progress {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .entry-scan-fill {
       height: 100%;
-      width: 100%;
-      background: linear-gradient(90deg, transparent, #00e5ff, #ffffff, #00e5ff, transparent);
-      animation: scan-sweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      width: 0%;
+      background: linear-gradient(90deg, #0284c7, #00e5ff);
+      box-shadow: 0 0 10px #00e5ff;
+      animation: entry-fill 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    @keyframes scan-sweep {
-      0% {
-        transform: translateX(-100%);
-      }
-
-      100% {
-        transform: translateX(100%);
-      }
+    @keyframes entry-fill {
+      0% { width: 0%; }
+      100% { width: 100%; }
     }
 
-    /* Cryo Steam Vent FX */
-    .airlock-steam-vent {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 140px;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 8;
-      left: calc(50% - 70px);
-      background: radial-gradient(ellipse at center, rgba(0, 229, 255, 0.45) 0%, rgba(255, 255, 255, 0.2) 40%, transparent 75%);
-      filter: blur(16px);
+    .entry-skip-hint {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.55rem, 0.95vw, 0.7rem);
+      color: #64748b;
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+      opacity: 0.85;
     }
-
-    .airlock-steam-vent.active {
-      opacity: 1;
-      animation: steam-burst 0.6s ease-out forwards;
-    }
-
-    @keyframes steam-burst {
-      0% {
-        transform: scaleX(0.4);
-        opacity: 0;
-      }
-
-      40% {
-        transform: scaleX(1.4);
-        opacity: 0.9;
-      }
-
-      100% {
-        transform: scaleX(2.0);
-        opacity: 0;
-      }
-    }
-  </style>
+    </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
 </head>
 
@@ -1319,6 +1080,9 @@
           <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
             <span id="soundIcon">🔊</span> <span id="soundText">SOUND</span>
           </button>
+          <button class="hud-btn" onclick="window.replayEntryTransition()" title="Replay Entry Transition" aria-label="Replay Entry Transition">
+            <span>🎬</span> <span>INTRO</span>
+          </button>
           <button class="hud-btn" onclick="returnToBase()" title="Return to Main Base" aria-label="Return to Main Base">
             <svg class="hud-home-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
@@ -1327,6 +1091,30 @@
           </button>
         </div>
       </header>
+
+      <!-- Mission Entry Sci-Fi Transition Overlay (Demo) -->
+      <div class="mission-entry-transition" id="entryTransition" onclick="dismissEntryTransition()" role="dialog" aria-label="Mission Entry Transition" title="Click anywhere to skip">
+        <div class="entry-door entry-door-left">
+          <div class="entry-door-panel"></div>
+          <div class="entry-door-decal">SECTOR 01 // AIRLOCK L-1</div>
+          <div class="entry-hazard-stripe"></div>
+        </div>
+        <div class="entry-door entry-door-right">
+          <div class="entry-door-panel"></div>
+          <div class="entry-door-decal">LUNAR OUTPOST // D-POWER</div>
+          <div class="entry-hazard-stripe"></div>
+        </div>
+        <div class="entry-hud-badge" id="entryBadge">
+          <div class="entry-badge-status">
+            <span class="entry-pulse-dot"></span>
+            <span>PRESSURIZING AIRLOCK // SYS-NOMINAL</span>
+          </div>
+          <h2 class="entry-badge-title">⚡ MISSION 1: POWER STATION</h2>
+          <div class="entry-badge-sub">ENERGY &amp; POWER DISTRIBUTION</div>
+          <div class="entry-scan-bar"><div class="entry-scan-fill"></div></div>
+          <div class="entry-skip-hint">TAP ANYWHERE TO SKIP ⏭</div>
+        </div>
+      </div>
 
       <!-- Background: Power Station Interior Room -->
       <div class="power-bg-layer" id="powerBgLayer" aria-hidden="true"></div>
@@ -1456,6 +1244,59 @@
       constructor() {
         this.ctx = null;
         this.muted = false;
+      }
+
+      playAirlockOpen() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const now = this.ctx.currentTime;
+          
+          // 1. Gentle pneumatic hiss (filtered noise)
+          const bufferSize = Math.floor(this.ctx.sampleRate * 0.22);
+          const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            data[i] = Math.random() * 2 - 1;
+          }
+          const noise = this.ctx.createBufferSource();
+          noise.buffer = buffer;
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = "bandpass";
+          filter.frequency.setValueAtTime(900, now);
+          filter.frequency.exponentialRampToValueAtTime(250, now + 0.22);
+          const noiseGain = this.ctx.createGain();
+          noiseGain.gain.setValueAtTime(0.06, now);
+          noiseGain.gain.linearRampToValueAtTime(0.0001, now + 0.22);
+          noise.connect(filter);
+          filter.connect(noiseGain);
+          noiseGain.connect(this.ctx.destination);
+          noise.start(now);
+
+          // 2. Dual futuristic chime
+          const osc1 = this.ctx.createOscillator();
+          const gain1 = this.ctx.createGain();
+          osc1.type = "sine";
+          osc1.frequency.setValueAtTime(523.25, now + 0.04);
+          gain1.gain.setValueAtTime(0.10, now + 0.04);
+          gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.40);
+          osc1.connect(gain1);
+          gain1.connect(this.ctx.destination);
+          osc1.start(now + 0.04);
+          osc1.stop(now + 0.40);
+
+          const osc2 = this.ctx.createOscillator();
+          const gain2 = this.ctx.createGain();
+          osc2.type = "sine";
+          osc2.frequency.setValueAtTime(783.99, now + 0.14);
+          gain2.gain.setValueAtTime(0.12, now + 0.14);
+          gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.50);
+          osc2.connect(gain2);
+          gain2.connect(this.ctx.destination);
+          osc2.start(now + 0.14);
+          osc2.stop(now + 0.50);
+        } catch (e) { }
       }
 
       init() {
@@ -2079,215 +1920,76 @@
     }
 
     // =========================================================================
-    // Space Airlock Transition Controller (Start & End of Mission)
+    // Mission Entry Transition Controller (Demo)
     // =========================================================================
-    class SpaceAirlockController {
-      constructor() {
-        this.overlay = document.getElementById('spaceAirlock');
-        this.statusText = document.getElementById('airlockStatus');
-        this.titleText = document.getElementById('airlockTitle');
-        this.lampEl = document.getElementById('lockLamp');
-        this.ribbonIcon = document.getElementById('ribbonIcon');
-        this.boltPath = document.getElementById('lockBoltPath');
-        this.cycleBtn = document.getElementById('airlockCycleBtn');
-        this.steamVent = document.getElementById('steamLeft');
-        this.audioCtx = null;
-        this.hasOpened = false;
-        this.isExiting = false;
+    let entryTransitionTimer = null;
+    let entryTransitionDone = false;
+
+    function initEntryTransition() {
+      const params = new URLSearchParams(window.location.search);
+      // Freeze states for demo / inspection
+      if (params.get('state') === 'closed') {
+        return;
       }
-
-      initAudio() {
-        try {
-          if (typeof sound !== 'undefined' && sound.ctx) {
-            this.audioCtx = sound.ctx;
-          } else if (!this.audioCtx) {
-            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-            if (AudioContextClass) this.audioCtx = new AudioContextClass();
-          }
-          if (this.audioCtx && this.audioCtx.state === 'suspended') {
-            this.audioCtx.resume();
-          }
-        } catch (e) { }
-      }
-
-      playPneumaticHiss() {
-        try {
-          this.initAudio();
-          if (!this.audioCtx) return;
-          const sampleRate = this.audioCtx.sampleRate;
-          const duration = 0.65;
-          const bufferSize = Math.floor(sampleRate * duration);
-          const buffer = this.audioCtx.createBuffer(1, bufferSize, sampleRate);
-          const data = buffer.getChannelData(0);
-          for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
-          }
-          const noise = this.audioCtx.createBufferSource();
-          noise.buffer = buffer;
-
-          const filter = this.audioCtx.createBiquadFilter();
-          filter.type = 'bandpass';
-          filter.frequency.setValueAtTime(2800, this.audioCtx.currentTime);
-          filter.frequency.exponentialRampToValueAtTime(600, this.audioCtx.currentTime + duration);
-          filter.Q.value = 2.8;
-
-          const gain = this.audioCtx.createGain();
-          gain.gain.setValueAtTime(0.48, this.audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + duration);
-
-          noise.connect(filter);
-          filter.connect(gain);
-          gain.connect(this.audioCtx.destination);
-          noise.start();
-        } catch (e) { }
-      }
-
-      playLockThud() {
-        try {
-          this.initAudio();
-          if (!this.audioCtx) return;
-          const now = this.audioCtx.currentTime;
-
-          // Deep hydraulic bass impact
-          const sub = this.audioCtx.createOscillator();
-          const subGain = this.audioCtx.createGain();
-          sub.type = 'sine';
-          sub.frequency.setValueAtTime(140, now);
-          sub.frequency.exponentialRampToValueAtTime(28, now + 0.38);
-          subGain.gain.setValueAtTime(0.7, now);
-          subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
-          sub.connect(subGain);
-          subGain.connect(this.audioCtx.destination);
-          sub.start(now);
-          sub.stop(now + 0.38);
-
-          // Metallic mechanical latch clack
-          const clack = this.audioCtx.createOscillator();
-          const clackGain = this.audioCtx.createGain();
-          clack.type = 'square';
-          clack.frequency.setValueAtTime(420, now);
-          clack.frequency.exponentialRampToValueAtTime(95, now + 0.09);
-          clackGain.gain.setValueAtTime(0.35, now);
-          clackGain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-          clack.connect(clackGain);
-          clackGain.connect(this.audioCtx.destination);
-          clack.start(now);
-          clack.stop(now + 0.09);
-        } catch (e) { }
-      }
-
-      playSealChime() {
-        try {
-          this.initAudio();
-          if (!this.audioCtx) return;
-          const now = this.audioCtx.currentTime;
-          [784, 1046].forEach((freq, idx) => {
-            const osc = this.audioCtx.createOscillator();
-            const gain = this.audioCtx.createGain();
-            osc.type = 'sine';
-            const startTime = now + idx * 0.09;
-            osc.frequency.setValueAtTime(freq, startTime);
-            gain.gain.setValueAtTime(0.22, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.25);
-            osc.connect(gain);
-            gain.connect(this.audioCtx.destination);
-            osc.start(startTime);
-            osc.stop(startTime + 0.25);
-          });
-        } catch (e) { }
-      }
-
-      executeOpen() {
-        this.playPneumaticHiss();
-        this.playLockThud();
-        this.playSealChime();
-
-        if (this.steamVent) this.steamVent.classList.add('active');
-        if (this.lampEl) this.lampEl.classList.add('state-unlocked');
-        if (this.ribbonIcon) this.ribbonIcon.textContent = '✔';
-        if (this.boltPath) {
-          this.boltPath.setAttribute('transform', 'rotate(45 50 50)');
-          this.boltPath.setAttribute('stroke', '#00e676');
+      if (params.get('state') === 'opening') {
+        const trans = document.getElementById("entryTransition");
+        if (trans) {
+          trans.querySelector('.entry-door-left').style.transform = 'translateX(-50%)';
+          trans.querySelector('.entry-door-right').style.transform = 'translateX(50%)';
+          const badge = trans.querySelector('.entry-hud-badge');
+          if (badge) { badge.style.opacity = '0.35'; badge.style.transform = 'scale(0.92)'; }
         }
-        if (this.cycleBtn) this.cycleBtn.style.display = 'none';
-        if (this.statusText) {
-          this.statusText.textContent = 'SEAL DISENGAGED // ACCESS GRANTED';
-          this.statusText.style.color = '#00e676';
-        }
-
-        setTimeout(() => {
-          this.overlay.classList.add('anim-open');
-          setTimeout(() => {
-            this.overlay.classList.add('opened');
-          }, 750);
-        }, 280);
+        return;
+      }
+      if (params.get('state') === 'opened' || params.has('complete')) {
+        const trans = document.getElementById("entryTransition");
+        if (trans) trans.classList.add("dismissed");
+        entryTransitionDone = true;
+        return;
       }
 
-      openOnStart() {
-        if (!this.overlay) return;
-
-        const triggerUnlock = () => {
-          if (this.hasOpened) return;
-          this.hasOpened = true;
-          this.initAudio();
-          this.executeOpen();
-        };
-
-        if (this.cycleBtn) {
-          this.cycleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            triggerUnlock();
-          });
-        }
-        this.overlay.addEventListener('click', triggerUnlock);
-        this.overlay.addEventListener('touchstart', triggerUnlock);
-
-        // Auto-open after 2.4s if untouched
-        setTimeout(() => {
-          if (!this.hasOpened) {
-            triggerUnlock();
-          }
-        }, 2400);
-      }
-
-      exit(targetUrl, statusMessage = 'RETURNING TO MAIN BASE...') {
-        if (this.isExiting) return;
-        this.isExiting = true;
-        this.initAudio();
-
-        this.overlay.classList.remove('opened');
-        this.overlay.classList.remove('anim-open');
-
-        if (this.lampEl) this.lampEl.classList.remove('state-unlocked');
-        if (this.ribbonIcon) this.ribbonIcon.textContent = '🔒';
-        if (this.boltPath) {
-          this.boltPath.removeAttribute('transform');
-          this.boltPath.setAttribute('stroke', '#fdcb0e');
-        }
-        if (this.cycleBtn) this.cycleBtn.style.display = 'none';
-        if (this.statusText) {
-          this.statusText.textContent = statusMessage;
-          this.statusText.style.color = '#00e5ff';
-        }
-
-        // 1. Play loud airlock seal hiss immediately
-        this.playPneumaticHiss();
-
-        // 2. Play heavy hydraulic slam & lock chime when doors meet
-        setTimeout(() => {
-          this.playLockThud();
-          this.playSealChime();
-          if (this.statusText) {
-            this.statusText.textContent = 'AIRLOCK SEALED // DECOMPRESSION COMPLETE';
-            this.statusText.style.color = '#fdcb0e';
-          }
-          // 3. Allow audio to finish before navigating
-          setTimeout(() => {
-            window.location.href = targetUrl;
-          }, 450);
-        }, 550);
-      }
+      // Schedule automated open sequence
+      entryTransitionTimer = setTimeout(() => {
+        openEntryTransition();
+      }, 550);
     }
+
+    function openEntryTransition() {
+      const trans = document.getElementById("entryTransition");
+      if (!trans || entryTransitionDone) return;
+      
+      // Play high-tech pneumatic hiss & chime
+      if (typeof sound !== "undefined" && sound && sound.playAirlockOpen) {
+        sound.playAirlockOpen();
+      }
+
+      trans.classList.add("doors-open");
+      entryTransitionTimer = setTimeout(() => {
+        trans.classList.add("dismissed");
+        entryTransitionDone = true;
+      }, 800);
+    }
+
+    function dismissEntryTransition() {
+      if (entryTransitionTimer) clearTimeout(entryTransitionTimer);
+      openEntryTransition();
+    }
+
+    // Exposed for replaying demo anytime
+    window.replayEntryTransition = function() {
+      const trans = document.getElementById("entryTransition");
+      if (!trans) return;
+      entryTransitionDone = false;
+      trans.classList.remove("doors-open", "dismissed");
+      // Restart progress bar animation
+      const bar = trans.querySelector(".entry-scan-fill");
+      if (bar) {
+        bar.style.animation = "none";
+        void bar.offsetWidth; // Trigger reflow
+        bar.style.animation = "";
+      }
+      initEntryTransition();
+    };
 
     function returnToBase() {
       sound.playClick();
@@ -2328,6 +2030,7 @@
         showMissionComplete();
       } else {
         renderScene(0);
+        initEntryTransition();
       }
     });
   </script>
