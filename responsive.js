@@ -45,7 +45,7 @@
       setForceHorizontal(false);
       const returnToggle = document.querySelector('.quick-rotate-toggle');
       if (returnToggle) {
-        returnToggle.textContent = '↻ Screen';
+        returnToggle.innerHTML = '↻';
         returnToggle.setAttribute('aria-label', 'Rotate game view');
         returnToggle.title = 'Rotate game view';
       }
@@ -73,7 +73,7 @@
 
     const toggle = document.querySelector('.quick-rotate-toggle');
     if (toggle) {
-      toggle.textContent = '↶ Screen';
+      toggle.innerHTML = '↶';
       toggle.setAttribute('aria-label', 'Return to portrait view');
       toggle.title = 'Return to portrait view';
     }
@@ -84,7 +84,7 @@
     const toggle = document.querySelector('.quick-rotate-toggle');
     if (toggle) {
       const isRotated = document.body.classList.contains('force-horizontal');
-      toggle.textContent = isRotated ? '↶ Screen' : '↻ Screen';
+      toggle.innerHTML = isRotated ? '↶' : '↻';
       toggle.setAttribute('aria-label', isRotated ? 'Return to portrait view' : 'Rotate game view');
       toggle.title = isRotated ? 'Return to portrait view' : 'Rotate game view';
     }

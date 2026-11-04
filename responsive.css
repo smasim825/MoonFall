@@ -40,11 +40,34 @@ body {
 
 .quick-rotate-toggle {
   display: none !important;
-  top: max(8px, env(safe-area-inset-top));
-  right: max(8px, env(safe-area-inset-right));
-  min-height: 34px;
-  z-index: 1000001;
-  touch-action: manipulation;
+  position: fixed !important;
+  bottom: max(14px, env(safe-area-inset-bottom)) !important;
+  left: max(14px, env(safe-area-inset-left)) !important;
+  top: auto !important;
+  right: auto !important;
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  border-radius: 50% !important;
+  background: rgba(4, 18, 36, 0.92) !important;
+  border: 2px solid #00cfff !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 207, 255, 0.5) !important;
+  color: #00e5ff !important;
+  font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+  z-index: 1000010 !important;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.quick-rotate-toggle:active {
+  transform: scale(0.92) !important;
 }
 
 /* ==========================================================================
@@ -75,7 +98,11 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
 
   body.force-horizontal .quick-rotate-toggle {
     display: flex !important;
-    position: fixed;
+    position: fixed !important;
+    bottom: max(14px, env(safe-area-inset-bottom)) !important;
+    left: max(14px, env(safe-area-inset-left)) !important;
+    top: auto !important;
+    right: auto !important;
   }
 
   body.force-horizontal #gameViewport,

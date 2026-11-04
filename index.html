@@ -1348,27 +1348,33 @@
       transform: scale(0.96);
     }
 
-    /* Floating Quick Rotate Button (Minimized - Mobile Only) */
+    /* Floating Quick Rotate Button (Minimized - Bottom Left Corner) */
     .quick-rotate-toggle {
       position: fixed;
-      top: 8px;
-      right: 8px;
+      bottom: max(14px, env(safe-area-inset-bottom));
+      left: max(14px, env(safe-area-inset-left));
+      top: auto;
+      right: auto;
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      min-height: 38px;
+      border-radius: 50%;
       z-index: 9999;
-      background: rgba(10, 20, 35, 0.7);
-      border: 1px solid rgba(3, 143, 243, 0.5);
-      color: #00d9ff;
+      background: rgba(4, 18, 36, 0.92);
+      border: 2px solid #00cfff;
+      color: #00e5ff;
       font-family: 'Jersey 10', monospace;
-      font-size: 0.72rem;
-      padding: 3px 7px;
-      border-radius: 12px;
+      font-size: 20px;
+      padding: 0;
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 3px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-      transition: all 0.2s ease;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 207, 255, 0.5);
+      transition: transform 0.15s ease, background 0.15s ease;
       line-height: 1;
     }
 
@@ -1379,7 +1385,7 @@
     }
 
     .quick-rotate-toggle:active {
-      transform: scale(0.95);
+      transform: scale(0.92);
     }
 
     /* Force Horizontal Screen in Portrait */
@@ -3835,7 +3841,7 @@
   <!-- Quick Floating Rotate Button on Mobile -->
   <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="requestLandscape()"
     title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
-    🔄 Screen
+    🔄
   </button>
 
   <!-- Intro Splash Screen: Pure Black Screen, Moon, MoonFall Title, Falling Stars, COC Loading Bar -->
