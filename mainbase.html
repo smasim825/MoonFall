@@ -305,8 +305,9 @@
     }
 
     /* ==========================================================================
-       HOVER EFFECT: Desktop-Only Glow (prevents sticky square box on touchscreens)
+       HOVER EFFECT: Desktop & Mobile Touch Glow (Themed 5 Colors)
        ========================================================================== */
+    /* Desktop Mouse Hover */
     @media (hover: hover) and (pointer: fine) {
       .building-layer.hovered,
       .building-layer:hover {
@@ -319,6 +320,27 @@
         animation-play-state: paused;
         transform: translateY(-8px) scale(1.08) !important;
         filter: brightness(1.2) drop-shadow(0 0 10px var(--badge-glow, #ffffff)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85)) !important;
+      }
+    }
+
+    /* Mobile / Touchscreen: Precise Contained Themed Outline (Zero Overlap) */
+    @media (max-width: 1024px), (hover: none) {
+      .building-layer {
+        filter: drop-shadow(0 0 3.5px var(--glow-color)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.65));
+        transition: filter 0.22s ease, transform 0.22s ease;
+      }
+
+      .building-layer.hovered,
+      .building-layer:active {
+        filter: brightness(1.2) drop-shadow(0 0 7px var(--glow-color)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.82)) !important;
+        transform: translateY(-3px) scale(1.02) !important;
+      }
+
+      .badge-layer.hovered,
+      .badge-layer:active {
+        animation-play-state: paused;
+        transform: translateY(-5px) scale(1.06) !important;
+        filter: brightness(1.2) drop-shadow(0 0 8px var(--badge-glow, #ffffff)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85)) !important;
       }
     }
 
@@ -344,12 +366,12 @@
       pointer-events: auto;
     }
 
-    /* Zoomed / Selected Building & Badge (Popped out brightly while other buildings stay dark) */
+    /* Zoomed / Selected Building & Badge (Popped out brightly with its signature themed color) */
     .building-layer.is-zoomed,
     .building-layer.is-zoomed:hover {
       z-index: 60 !important;
       transform: none !important;
-      filter: brightness(1.08) drop-shadow(0 10px 26px rgba(0, 0, 0, 0.92)) !important;
+      filter: brightness(1.14) drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 12px 28px rgba(0, 0, 0, 0.95)) !important;
       pointer-events: auto !important;
     }
 
@@ -357,7 +379,7 @@
     .badge-layer.is-zoomed:hover {
       z-index: 65 !important;
       transform: none !important;
-      filter: brightness(1.08) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.88)) !important;
+      filter: brightness(1.15) drop-shadow(0 0 10px var(--badge-glow, #ffffff)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.88)) !important;
       animation-play-state: paused !important;
       pointer-events: auto !important;
     }
@@ -5161,6 +5183,15 @@
       isBaseIntroActive = false;
       unzoomBuilding();
       playMainBaseBgm();
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const z = params.get('zoom');
+        if (z) {
+          setTimeout(() => {
+            zoomBuilding(z, z.replace('bld', 'badge'));
+          }, 80);
+        }
+      } catch (e) {}
     }
 
     function stepNextIntroBuilding() {
@@ -5376,11 +5407,10 @@
 
       const setHover = (active) => {
         if (currentZoomedBldId) return; // don't override zoom styling on hover
-        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
         if (active) {
           bld.classList.add('hovered');
           badge.classList.add('hovered');
-          sound.hoverSound(freq);
+          if (sound && sound.hoverSound) sound.hoverSound(freq);
         } else {
           bld.classList.remove('hovered');
           badge.classList.remove('hovered');
@@ -5389,8 +5419,26 @@
 
       [badge, bld].forEach(el => {
         if (!el) return;
-        el.addEventListener('mouseenter', () => setHover(true));
-        el.addEventListener('mouseleave', () => setHover(false));
+        el.addEventListener('mouseenter', () => {
+          if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            setHover(true);
+          }
+        });
+        el.addEventListener('mouseleave', () => {
+          if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            setHover(false);
+          }
+        });
+        // Mobile touch press interaction
+        el.addEventListener('touchstart', () => {
+          if (!currentZoomedBldId) {
+            setHover(true);
+          }
+        }, { passive: true });
+        el.addEventListener('touchend', () => {
+          setTimeout(() => setHover(false), 220);
+        }, { passive: true });
+
         el.addEventListener('click', (e) => {
           e.stopPropagation();
           document.querySelectorAll('.building-layer, .badge-layer').forEach(item => item.classList.remove('hovered'));
