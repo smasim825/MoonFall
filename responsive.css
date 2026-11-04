@@ -302,6 +302,30 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     transform: translateY(2px) !important;
   }
 
+  /* Onboarding Tutorial Arrow & Container: Enforce mobile alignment directly in CSS */
+  .onboarding-guide-container:not(.step-3-power) {
+    top: 48px !important;
+    left: 8px !important;
+    right: auto !important;
+    bottom: auto !important;
+    align-items: flex-start !important;
+    width: min(290px, calc(100vw - 20px)) !important;
+  }
+
+  .onboarding-guide-container:not(.step-3-power) .onboarding-arrow-glyph {
+    margin-left: 8px !important;
+  }
+
+  .onboarding-guide-container.step-3-power {
+    top: 6% !important;
+    left: 19% !important;
+    align-items: center !important;
+  }
+
+  .onboarding-guide-container.step-3-power .onboarding-arrow-glyph {
+    margin-left: 0 !important;
+  }
+
   /* Telemetry Status Bar: CENTERED IN THE MIDDLE OF THE SCREEN */
   .top-status-bar {
     display: flex !important;

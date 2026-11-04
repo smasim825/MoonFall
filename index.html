@@ -3928,8 +3928,7 @@
           </div>
           <div class="onboarding-card-body">
             <h4 class="onboarding-card-title" id="onboardingTitle">INSPECT MISSION PHASES</h4>
-            <p class="onboarding-card-text" id="onboardingDesc">Click <strong>⚔️ PHASES</strong> to view expedition
-              objectives and outpost progress.</p>
+            <p class="onboarding-card-text" id="onboardingDesc">Tap <strong>☰ MENU</strong> or <strong>OPEN PHASES</strong> to view outpost construction objectives &amp; milestones.</p>
           </div>
           <div class="onboarding-card-footer">
             <button type="button" class="onboarding-proceed-btn" id="onboardingProceedBtn"
@@ -6347,7 +6346,7 @@
     function isMobileNavActive() {
       const burger = document.getElementById('mobileMenuToggle');
       if (burger && window.getComputedStyle(burger).display !== 'none') return true;
-      return window.innerWidth <= 900;
+      return window.innerWidth <= 1024 || window.innerHeight <= 550 || ('ontouchstart' in window);
     }
 
     function positionForStep1() {
@@ -6355,6 +6354,7 @@
       const glyph = document.getElementById('onboardingArrowGlyph');
       const burger = document.getElementById('mobileMenuToggle');
       if (!container || !glyph) return;
+      container.classList.remove('step-3-power');
       glyph.textContent = '⬆';
       glyph.classList.remove('arrow-down');
 
@@ -6381,6 +6381,7 @@
       const glyph = document.getElementById('onboardingArrowGlyph');
       const burger = document.getElementById('mobileMenuToggle');
       if (!container || !glyph) return;
+      container.classList.remove('step-3-power');
       glyph.textContent = '⬆';
       glyph.classList.remove('arrow-down');
 
@@ -6406,6 +6407,7 @@
       const container = document.getElementById('onboardingGuideContainer');
       const glyph = document.getElementById('onboardingArrowGlyph');
       if (!container || !glyph) return;
+      container.classList.add('step-3-power');
       glyph.textContent = '⬇';
       glyph.classList.add('arrow-down');
       glyph.style.marginLeft = '0';
