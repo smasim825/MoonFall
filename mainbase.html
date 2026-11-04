@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="MoonFall">
@@ -3313,7 +3313,7 @@
     }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
-  <link rel="stylesheet" href="responsive.css?v=20261104-6">
+  <link rel="stylesheet" href="responsive.css?v=20261104-7">
   <script src="responsive.js" defer></script>
 </head>
 
@@ -3348,6 +3348,12 @@
   <div class="intro-overlay" id="introOverlay" onpointerdown="unlockGlobalAudio(); handleIntroClick();" onclick="unlockGlobalAudio(); handleIntroClick();">
     <canvas class="starfall-canvas" id="starfallCanvas"></canvas>
 
+    <!-- Top Corner Fullscreen Button (Available immediately on start) -->
+    <button class="intro-top-fullscreen-btn" id="introTopFullscreenBtn" type="button"
+      onclick="event.stopPropagation(); toggleFullScreen();" title="Toggle Fullscreen">
+      ⛶ FULL SCREEN
+    </button>
+
     <!-- Phase 1: Loading Content (Moon + MoonFall + Loading Bar) -->
     <div class="intro-content" id="introLoadingContent">
       <!-- Simple Elegant Glowing White Moon (Stays in place throughout) -->
@@ -3378,8 +3384,12 @@
 
       <!-- Slot 2: Pixel Art White Glowing START Button (Directly in place of Loading Bar) -->
       <div class="tap-start-container hidden" id="tapStartContainer">
-        <button class="tap-start-btn" id="tapStartBtn" type="button" onclick="event.stopPropagation(); startMissionWithAudio();">
+        <button class="tap-start-btn" id="tapStartBtn" type="button" onclick="event.stopPropagation(); startMissionWithFullscreen();">
           <img src="assets/start_btn_pixel.png" alt="START" class="start-btn-graphic">
+        </button>
+        <button class="intro-fullscreen-btn" id="introFullscreenBtn" type="button"
+          onclick="event.stopPropagation(); startMissionWithFullscreen();">
+          ⛶ START FULLSCREEN
         </button>
         <div class="tap-start-subtext">Tap anywhere to launch</div>
       </div>
@@ -5899,22 +5909,6 @@
       } catch(e) {}
     })();
   </script>
-  <!-- iOS Safari Fullscreen Instructions Toast -->
-  <div class="ios-fullscreen-toast" id="iosFullscreenToast" onclick="event.stopPropagation();">
-    <div class="toast-header">
-      <span class="toast-badge">📱 IPHONE FULLSCREEN GUIDE</span>
-      <button class="toast-close-btn" type="button" onclick="dismissIosFullscreenToast()">✕</button>
-    </div>
-    <div class="toast-body">
-      To play with <strong>zero Safari bars</strong> on iPhone:
-      <div class="toast-steps">
-        1. Tap the Safari <strong>Share button (⎋)</strong> at the top<br>
-        2. Select <strong>"Add to Home Screen"</strong><br>
-        3. Open from your home screen for true 100% edge-to-edge game!
-      </div>
-    </div>
-  </div>
-
   <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
   <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev" data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.png" data-badge="assets/scene 3/Frame 7.png" defer></script>
   <script src="astrobee/moonfall.js" defer></script>

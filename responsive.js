@@ -90,62 +90,46 @@
     }
   };
 
-  let toastTimer = null;
-  window.showIOSFullscreenTip = () => {
-    const toast = document.getElementById('iosFullscreenToast');
-    if (!toast) return;
-    toast.style.display = 'block';
-    if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      window.dismissIosFullscreenToast();
-    }, 6000);
-  };
-
-  window.dismissIosFullscreenToast = () => {
-    const toast = document.getElementById('iosFullscreenToast');
-    if (toast) toast.style.display = 'none';
-    if (toastTimer) clearTimeout(toastTimer);
-  };
-
   window.toggleFullScreen = async () => {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
+    // 1. Standard / Webkit Fullscreen API
+    const el = document.documentElement;
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      const el = document.documentElement;
-      let entered = false;
-
       if (el.requestFullscreen) {
         try {
           await el.requestFullscreen();
-          entered = true;
         } catch (e) {}
       } else if (el.webkitRequestFullscreen) {
         try {
           el.webkitRequestFullscreen();
-          entered = true;
         } catch (e) {}
-      }
-
-      if (entered) {
-        if (screen.orientation?.lock) {
-          await screen.orientation.lock('landscape').catch(() => {});
-        }
-        return;
       }
     } else {
       if (document.exitFullscreen) {
         await document.exitFullscreen().catch(() => {});
-        return;
       } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
-        return;
       }
     }
 
-    // On iOS Safari where element.requestFullscreen is blocked by Apple, show friendly guide
-    if (isIOS) {
-      window.showIOSFullscreenTip();
+    // 2. Lock screen orientation to landscape
+    if (screen.orientation?.lock) {
+      try {
+        await screen.orientation.lock('landscape').catch(() => {});
+      } catch (e) {}
+    }
+
+    // 3. Safari Minimal-UI Collapse Trigger (collapses Safari top/bottom bars)
+    window.scrollTo(0, 1);
+    setTimeout(() => window.scrollTo(0, 1), 80);
+    setTimeout(() => window.scrollTo(0, 1), 250);
+  };
+
+  window.startMissionWithFullscreen = async () => {
+    await window.toggleFullScreen();
+    if (typeof window.startMissionWithAudio === 'function') {
+      window.startMissionWithAudio();
+    } else if (typeof window.handleIntroClick === 'function') {
+      window.handleIntroClick();
     }
   };
 
