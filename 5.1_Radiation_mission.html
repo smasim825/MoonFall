@@ -12,16 +12,42 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
   <link rel="preload" href="assets/fonts/Jersey10.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="assets/image 127.webp" as="image">
-  <link rel="preload" href="assets/image 126.webp" as="image">
-  <link rel="preload" href="assets/scene 8/image 128.webp" as="image">
+  <link rel="preload" href="assets/image 127.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/image 126.webp" as="image" fetchpriority="high">
 
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="missions-shared.css">
-  <link rel="stylesheet" href="responsive.css">
-  <script src="game-assets.js"></script>
-  <script src="responsive.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261105b">
+  <link rel="stylesheet" href="missions-shared.css?v=20261105b">
+  <link rel="stylesheet" href="responsive.css?v=20261105b">
+  <script src="game-assets.js?v=20261105b"></script>
+  <script src="responsive.js?v=20261105b" defer></script>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
+  <style>
+    /* Ensure Mission Complete floats transparently with zero black background or extra button borders */
+    .game-viewport {
+      width: 100vw !important;
+      width: 100dvw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      max-width: none !important;
+      max-height: none !important;
+      aspect-ratio: auto !important;
+    }
+    .mission-complete-overlay {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: none !important;
+      pointer-events: none !important;
+    }
+    .mission-complete-buttons,
+    .mission-complete-overlay .mission-btn {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      pointer-events: auto !important;
+    }
+  </style>
 </head>
 
 <body>
