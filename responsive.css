@@ -1122,48 +1122,13 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 }
 
-/* Starting Screen Fullscreen Buttons */
-.intro-top-fullscreen-btn {
-  position: absolute;
-  top: max(16px, env(safe-area-inset-top));
-  right: max(16px, env(safe-area-inset-right));
-  z-index: 100000;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(4, 18, 36, 0.94);
-  border: 2px solid #00e5ff;
-  border-radius: 8px;
-  padding: 7px 14px;
-  color: #00e5ff;
-  font-family: 'Jersey 10', 'Pixel Operator', monospace;
-  font-size: 1.05rem;
-  letter-spacing: 0.04em;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 14px rgba(0, 229, 255, 0.45);
-  cursor: pointer;
-  pointer-events: auto;
-  transition: all 0.2s ease;
-  touch-action: manipulation;
-}
-
-.intro-top-fullscreen-btn:active {
-  transform: scale(0.95);
-  background: rgba(0, 229, 255, 0.25);
-}
-
-.btn-fullscreen {
-  background: linear-gradient(180deg, #059669 0%, #047857 100%);
-  border: 1.5px solid #34d399;
-  color: #ffffff;
-  padding: 4px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: 'Jersey 10', 'Pixel Operator', monospace;
-  font-size: 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  box-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
+/* Fullscreen Buttons (Removed per user request) */
+.intro-top-fullscreen-btn,
+.btn-fullscreen,
+.mobile-btn-fullscreen,
+#btnFullscreenToggle,
+#introTopFullscreenBtn {
+  display: none !important;
 }
 
 /* ==========================================================================

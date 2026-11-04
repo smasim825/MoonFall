@@ -92,32 +92,8 @@
 
   let toastTimer = null;
   window.showIOSFullscreenTip = () => {
-    let toast = document.getElementById('iosFullscreenToast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'iosFullscreenToast';
-      toast.className = 'ios-fullscreen-toast';
-      toast.innerHTML = `
-        <div class="toast-header">
-          <span class="toast-badge">📱 IPHONE FULLSCREEN</span>
-          <button class="toast-close-btn" type="button" onclick="dismissIosFullscreenToast()">✕</button>
-        </div>
-        <div class="toast-body">
-          To play with <strong>zero Safari bars</strong> on iPhone:
-          <div class="toast-steps">
-            1. Tap the Safari <strong>Share button (⎋)</strong><br>
-            2. Select <strong>"Add to Home Screen"</strong><br>
-            3. Open from home screen for true borderless game!
-          </div>
-        </div>
-      `;
-      document.body.appendChild(toast);
-    }
-    toast.style.display = 'block';
-    if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      window.dismissIosFullscreenToast();
-    }, 6000);
+    // Disabled: fullscreen hints removed per user request
+    return;
   };
 
   window.dismissIosFullscreenToast = () => {

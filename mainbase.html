@@ -3325,12 +3325,6 @@
   <div class="intro-overlay" id="introOverlay" onpointerdown="unlockGlobalAudio(); handleIntroClick();" onclick="unlockGlobalAudio(); handleIntroClick();">
     <canvas class="starfall-canvas" id="starfallCanvas"></canvas>
 
-    <!-- Top Corner Fullscreen Button (Available immediately on start) -->
-    <button class="intro-top-fullscreen-btn" id="introTopFullscreenBtn" type="button"
-      onclick="event.stopPropagation(); toggleFullScreen();" title="Toggle Fullscreen">
-      ⛶ FULL SCREEN
-    </button>
-
     <!-- Phase 1: Loading Content (Moon + MoonFall + Loading Bar) -->
     <div class="intro-content" id="introLoadingContent">
       <!-- Simple Elegant Glowing White Moon (Stays in place throughout) -->
@@ -3442,10 +3436,6 @@
           <span class="nav-btn-icon">🔧</span>
           <span class="mobile-btn-text">BASE UPGRADES</span>
         </button>
-        <button class="mobile-nav-item mobile-btn-fullscreen" type="button" onclick="toggleFullScreen(); closeMobileMenu();">
-          <span class="nav-btn-icon">⛶</span>
-          <span class="mobile-btn-text">FULL SCREEN</span>
-        </button>
       </div>
 
       <!-- Left Side: Phase & Crew Controls (Desktop) -->
@@ -3455,9 +3445,6 @@
         </button>
         <button class="crew-intro-btn" id="crewIntroToggleBtn" onclick="openCrewManifestModal()" title="Meet the 4 Outpost Astronauts">
           <span class="nav-btn-icon">👨‍🚀</span> <span class="btn-text full-label">MEET THE CREW</span><span class="btn-text short-label">CREW</span>
-        </button>
-        <button class="top-nav-btn btn-fullscreen" id="btnFullscreenToggle" type="button" onclick="toggleFullScreen()" title="Toggle Fullscreen">
-          <span class="nav-btn-icon">⛶</span> <span class="btn-text">FULLSCREEN</span>
         </button>
       </div>
 
