@@ -90,17 +90,60 @@
     }
   };
 
+  let toastTimer = null;
+  window.showIOSFullscreenTip = () => {
+    let toast = document.getElementById('iosFullscreenToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'iosFullscreenToast';
+      toast.className = 'ios-fullscreen-toast';
+      toast.innerHTML = `
+        <div class="toast-header">
+          <span class="toast-badge">📱 IPHONE FULLSCREEN</span>
+          <button class="toast-close-btn" type="button" onclick="dismissIosFullscreenToast()">✕</button>
+        </div>
+        <div class="toast-body">
+          To play with <strong>zero Safari bars</strong> on iPhone:
+          <div class="toast-steps">
+            1. Tap the Safari <strong>Share button (⎋)</strong><br>
+            2. Select <strong>"Add to Home Screen"</strong><br>
+            3. Open from home screen for true borderless game!
+          </div>
+        </div>
+      `;
+      document.body.appendChild(toast);
+    }
+    toast.style.display = 'block';
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      window.dismissIosFullscreenToast();
+    }, 6000);
+  };
+
+  window.dismissIosFullscreenToast = () => {
+    const toast = document.getElementById('iosFullscreenToast');
+    if (toast) toast.style.display = 'none';
+    if (toastTimer) clearTimeout(toastTimer);
+  };
+
   window.toggleFullScreen = async () => {
-    // 1. Standard / Webkit Fullscreen API
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    // 1. Standard / Webkit Fullscreen API (Android, PC, Mac, iPad)
     const el = document.documentElement;
+    let fullscreenEntered = false;
+
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
       if (el.requestFullscreen) {
         try {
           await el.requestFullscreen();
+          fullscreenEntered = true;
         } catch (e) {}
       } else if (el.webkitRequestFullscreen) {
         try {
           el.webkitRequestFullscreen();
+          fullscreenEntered = true;
         } catch (e) {}
       }
     } else {
@@ -122,6 +165,11 @@
     window.scrollTo(0, 1);
     setTimeout(() => window.scrollTo(0, 1), 80);
     setTimeout(() => window.scrollTo(0, 1), 250);
+
+    // 4. On iOS where Apple restricts native DOM requestFullscreen, show friendly Home Screen tip
+    if (isIOS && !window.navigator.standalone) {
+      window.showIOSFullscreenTip();
+    }
   };
 
   window.startMissionWithFullscreen = async () => {

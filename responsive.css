@@ -4,6 +4,7 @@ body {
   min-width: 0;
   min-height: 100%;
   margin: 0;
+  padding: 0;
 }
 
 body {
@@ -12,6 +13,8 @@ body {
   overflow: hidden;
   overscroll-behavior: none;
   -webkit-tap-highlight-color: transparent;
+  display: block !important;
+  position: relative !important;
 }
 
 .orientation-banner {
@@ -149,6 +152,11 @@ body:has(#moonJourneyOverlay.active) .game-top-hud {
   display: none !important;
 }
 
+body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) #baseViewport,
+body:has(#moonJourneyOverlay.active) #baseViewport {
+  display: none !important;
+}
+
 body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rotate-toggle,
 body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   display: none !important;
@@ -159,12 +167,14 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     display: flex !important;
   }
 
-  body.force-horizontal .quick-rotate-toggle {
+  body.force-horizontal:not(:has(#moonJourneyOverlay.active)):not(:has(#introOverlay:not(.fade-out):not([style*="display: none"]))) .quick-rotate-toggle {
     display: flex !important;
     position: fixed !important;
     top: max(14px, env(safe-area-inset-top)) !important;
     left: max(14px, env(safe-area-inset-left)) !important;
     bottom: auto !important;
+    right: auto !important;
+  }
     right: auto !important;
   }
 
@@ -960,12 +970,34 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     padding: 6px 14px !important;
   }
 
-  /* Responsive Landing Video Overlay */
+  /* Responsive Landing Video Overlay & Stage Base Viewport */
   #moonJourneyOverlay,
   .moon-journey-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
     width: 100vw !important;
+    width: 100dvw !important;
+    height: 100vh !important;
     height: 100dvh !important;
+    z-index: 99990 !important;
+    background: #000000 !important;
     overflow: hidden !important;
+    flex: none !important;
+  }
+
+  #baseViewport,
+  .base-viewport {
+    position: absolute !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    width: 100dvw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    flex: none !important;
   }
 
   #moonJourneyOverlay .moon-journey-video {
@@ -989,6 +1021,79 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     padding: 6px 16px !important;
     z-index: 1000002 !important;
   }
+}
+
+/* iOS Safari Fullscreen Instructions Toast */
+.ios-fullscreen-toast {
+  display: none;
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 380px);
+  background: rgba(10, 18, 36, 0.96);
+  border: 2px solid #38bdf8;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9), 0 0 24px rgba(56, 189, 248, 0.5);
+  padding: 12px 14px;
+  z-index: 10000020;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  animation: toastPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes toastPop {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.ios-fullscreen-toast .toast-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 4px;
+}
+
+.ios-fullscreen-toast .toast-badge {
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: 1.05rem;
+  color: #38bdf8;
+  letter-spacing: 0.05em;
+}
+
+.ios-fullscreen-toast .toast-close-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.ios-fullscreen-toast .toast-close-btn:hover {
+  color: #ffffff;
+}
+
+.ios-fullscreen-toast .toast-body {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #cbd5e1;
+}
+
+.ios-fullscreen-toast .toast-steps {
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: rgba(2, 132, 199, 0.15);
+  border-radius: 6px;
+  border: 1px solid rgba(2, 132, 199, 0.3);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #e2e8f0;
 }
 
 /* Portrait mobile phone overrides */
