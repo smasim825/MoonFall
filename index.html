@@ -834,85 +834,51 @@
       pointer-events: none;
     }
 
-    /* White Glowing Sci-Fi START button container - directly replacing coc-loading-container */
+    /* Simple clean text after loading - replaces start button */
     .tap-start-container {
       position: relative;
-      width: clamp(170px, 20vw, 250px);
+      width: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       margin: 0 auto;
-      gap: 10px;
       opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.3s ease;
+      cursor: pointer;
     }
 
     .tap-start-container.active {
       opacity: 1;
-      transform: scale(1);
     }
 
     .tap-start-container.hidden {
       display: none !important;
     }
 
-    /* Sci-Fi START Button - Pixel Art Style, Glowing White (NO GOLD) */
-    .tap-start-btn {
-      background: transparent;
-      border: none;
-      outline: none;
-      padding: 0;
-      margin: 0;
-      cursor: pointer;
-      display: block;
-      width: 100%;
-      filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 32px rgba(255, 255, 255, 0.75)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
-      animation: pulse-start-btn 1.8s ease-in-out infinite alternate;
-      transition: transform 0.15s ease, filter 0.15s ease;
-    }
-
-    .start-btn-graphic {
-      width: 100%;
-      height: auto;
-      display: block;
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-    }
-
-    .tap-start-btn:hover {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 22px rgba(255, 255, 255, 1)) drop-shadow(0 0 48px rgba(255, 255, 255, 0.9)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.9));
-    }
-
-    .tap-start-btn:active {
-      transform: scale(0.95);
-    }
-
-    @keyframes pulse-start-btn {
-      from {
-        transform: scale(1);
-        filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 26px rgba(255, 255, 255, 0.55)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7));
-      }
-
-      to {
-        transform: scale(1.03);
-        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1)) drop-shadow(0 0 42px rgba(255, 255, 255, 0.8)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.85));
-      }
-    }
-
-    .tap-start-subtext {
-      font-family: 'Pixel Operator', 'Jersey 10', monospace;
-      font-size: clamp(0.9rem, 1.2vw, 1.25rem);
+    .tap-anywhere-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      font-weight: 400;
       color: #cbd5e1;
-      letter-spacing: 0.08em;
-      text-shadow: 0 1px 4px #000000;
-      animation: blink-subtext 2.2s infinite;
-      margin-top: 4px;
+      text-shadow: none;
+      letter-spacing: 0.04em;
+      padding: 8px 16px;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      animation: tapSimplePulse 2.4s ease-in-out infinite;
+      transition: color 0.2s ease;
     }
 
-    @keyframes blink-subtext {
+    .tap-anywhere-text:hover {
+      color: #ffffff;
+    }
+
+    @keyframes tapSimplePulse {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 0.45; }
+    }
 
       0%,
       100% {
@@ -3808,7 +3774,7 @@
     }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
-  <link rel="stylesheet" href="responsive.css?v=20261104-7">
+  <link rel="stylesheet" href="responsive.css?v=20261104-8">
   <script src="responsive.js" defer></script>
 </head>
 
@@ -3878,17 +3844,9 @@
         <div class="coc-tip-text">Smart engineering is about the best use of lunar resources</div>
       </div>
 
-      <!-- Slot 2: Pixel Art White Glowing START Button (Directly in place of Loading Bar) -->
-      <div class="tap-start-container hidden" id="tapStartContainer">
-        <button class="tap-start-btn" id="tapStartBtn" type="button"
-          onclick="event.stopPropagation(); startMissionWithFullscreen();">
-          <img src="assets/start_btn_pixel.png" alt="START" class="start-btn-graphic">
-        </button>
-        <button class="intro-fullscreen-btn" id="introFullscreenBtn" type="button"
-          onclick="event.stopPropagation(); startMissionWithFullscreen();">
-          ⛶ START FULLSCREEN
-        </button>
-        <div class="tap-start-subtext">Tap anywhere to launch</div>
+      <!-- Slot 2: Simple Clean Text in place of Loading Bar -->
+      <div class="tap-start-container hidden" id="tapStartContainer" onclick="event.stopPropagation(); startMissionWithFullscreen();">
+        <div class="tap-anywhere-text">[ Tap anywhere to start ]</div>
       </div>
     </div>
   </div>
