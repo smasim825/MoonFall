@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -150,6 +150,169 @@
     @keyframes card-appear-right {
       from { opacity: 0; transform: translateY(-10px) scale(0.97); }
       to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    
+    /* Wide centered card variant (Scenes 6, 7, 8: Found Submersive Ice, Click Location, Trident Drill) */
+    .diagram-card-container.card-wide {
+      top: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 68%;
+      max-width: 1120px;
+      height: 60%;
+      justify-content: center;
+      align-items: center;
+      pointer-events: auto;
+      animation: card-appear 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .diagram-card-inner {
+      position: relative;
+      height: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto;
+    }
+
+    .diagram-card-inner > img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.8));
+      image-rendering: pixelated;
+    }
+
+    /* Site Selection Interactive Overlay (Scene 7: Click any Location) */
+    .site-select-overlay {
+      position: absolute;
+      left: 4.15%;
+      top: 16.64%;
+      width: 91.7%;
+      height: 79.84%;
+      cursor: crosshair;
+      pointer-events: auto;
+      z-index: 20;
+    }
+
+    .site-clickable-dot {
+      position: absolute;
+      width: clamp(28px, 3.2vw, 48px);
+      height: clamp(28px, 3.2vw, 48px);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease;
+      z-index: 10;
+    }
+
+    .site-clickable-dot::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px dashed #00e5ff;
+      animation: pulse-ring 2s infinite linear;
+    }
+
+    .site-clickable-dot:hover {
+      transform: translate(-50%, -50%) scale(1.35);
+    }
+
+    .site-clickable-dot:hover::before {
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 16px #00e5ff;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .site-select-hint {
+      position: absolute;
+      top: -34px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 12, 34, 0.92);
+      border: 1.5px solid #00e5ff;
+      border-radius: 6px;
+      color: #00e5ff;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.95rem, 1.4vw, 1.4rem);
+      padding: 3px 18px;
+      white-space: nowrap;
+      pointer-events: none;
+      animation: hint-glow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes hint-glow {
+      from { box-shadow: 0 0 6px rgba(0, 229, 255, 0.4); }
+      to { box-shadow: 0 0 18px rgba(0, 229, 255, 0.95); }
+    }
+
+    /* Target lock reticle on clicked location */
+    .site-lock-reticle {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: reticle-lock 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes reticle-lock {
+      0% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    .reticle-box {
+      width: clamp(54px, 5.2vw, 80px);
+      height: clamp(54px, 5.2vw, 80px);
+      position: relative;
+    }
+
+    .reticle-corner {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: #00e5ff;
+      border-style: solid;
+    }
+
+    .reticle-corner.tl { top: 0; left: 0; border-width: 3px 0 0 3px; }
+    .reticle-corner.tr { top: 0; right: 0; border-width: 3px 3px 0 0; }
+    .reticle-corner.bl { bottom: 0; left: 0; border-width: 0 0 3px 3px; }
+    .reticle-corner.br { bottom: 0; right: 0; border-width: 0 3px 3px 0; }
+
+    .reticle-cross {
+      position: absolute;
+      inset: 50%;
+      width: 10px;
+      height: 10px;
+      transform: translate(-50%, -50%);
+      background: #00e5ff;
+      border-radius: 50%;
+      box-shadow: 0 0 14px #00e5ff;
+    }
+
+    .reticle-label {
+      margin-top: 8px;
+      background: rgba(0, 12, 34, 0.95);
+      border: 1.5px solid #22ff88;
+      border-radius: 4px;
+      color: #22ff88;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.9rem, 1.3vw, 1.3rem);
+      padding: 2px 10px;
+      white-space: nowrap;
+      text-shadow: 0 0 8px rgba(34, 255, 136, 0.7);
     }
 
     .diagram-card-container img {
@@ -769,22 +932,58 @@
 
     .scan-toolbar { pointer-events: auto; z-index: 20; }
 
+    /* Scanner Prompt Backdrop Scrim */
+    .scan-prompt-backdrop {
+      position: absolute;
+      left: 4.15%;
+      top: 16.64%;
+      width: 91.7%;
+      height: 79.84%;
+      background: rgba(0, 10, 28, 0.72);
+      backdrop-filter: blur(2.5px);
+      -webkit-backdrop-filter: blur(2.5px);
+      z-index: 24;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      border-radius: 4px;
+    }
+
+    .scan-prompt-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     /* Permission prompt shown before the scan starts */
     .scan-prompt {
       position: absolute;
       left: 50%;
-      top: 54%;
-      transform: translate(-50%, -50%);
-      width: 62%;
-      z-index: 25;
-      background: rgba(0, 12, 34, 0.93);
+      top: 56%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 64%;
+      max-width: 780px;
+      z-index: 26;
+      background: rgba(0, 14, 38, 0.96);
       border: 3px solid #00e5ff;
-      border-radius: 10px;
-      box-shadow: 0 0 24px rgba(0, 229, 255, 0.55);
-      padding: 2.2% 3%;
+      border-radius: 12px;
+      box-shadow: 0 0 35px rgba(0, 229, 255, 0.7), inset 0 0 24px rgba(0, 229, 255, 0.2);
+      padding: 2.6% 3.4%;
       text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .scan-prompt.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
       pointer-events: auto;
-      animation: scan-appear 0.35s ease;
+    }
+
+    .scan-prompt.closing {
+      opacity: 0;
+      transform: translate(-50%, -52%) scale(0.92);
+      pointer-events: none;
     }
 
     .scan-prompt-title {
@@ -793,37 +992,91 @@
       color: #00e5ff;
       letter-spacing: 0.04em;
       line-height: 1;
-      text-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
+      text-shadow: 0 0 14px rgba(0, 229, 255, 0.85);
     }
 
     .scan-prompt-sub {
-      margin-top: 6px;
+      margin-top: 8px;
       font-family: var(--font-pixel);
       font-size: clamp(1rem, 1.8vw, 1.9rem);
       color: #dbeafe;
-      line-height: 1.1;
+      line-height: 1.15;
     }
 
     .scan-prompt-btns {
-      margin-top: 12px;
+      margin-top: 16px;
       display: flex;
       justify-content: center;
-      gap: 14px;
+      gap: 16px;
     }
 
     .scan-prompt-btn {
       font-family: var(--font-pixel);
-      font-size: clamp(1rem, 1.8vw, 1.9rem);
-      padding: 4px 22px;
-      border-radius: 6px;
+      font-size: clamp(1.05rem, 1.9vw, 2rem);
+      padding: 6px 26px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.12s, filter 0.12s;
+      outline: none;
+      transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
     }
 
-    .scan-prompt-btn:hover { transform: scale(1.05); filter: brightness(1.15); }
+    .scan-prompt-btn.yes {
+      background: #00e5ff;
+      color: #00121f;
+      border: 2px solid #ffffff;
+      font-weight: bold;
+      box-shadow: 0 0 16px rgba(0, 229, 255, 0.6);
+    }
 
-    .scan-prompt-btn.yes { background: #00e5ff; color: #00121f; border: 2px solid #aefbff; }
-    .scan-prompt-btn.no { background: rgba(0, 10, 30, 0.85); color: #7dd3fc; border: 2px solid #0099ff; }
+    .scan-prompt-btn.yes:hover {
+      transform: scale(1.06);
+      filter: brightness(1.15);
+      box-shadow: 0 0 24px rgba(0, 229, 255, 0.95);
+    }
+
+    .scan-prompt-btn.yes:active {
+      transform: scale(0.96);
+    }
+
+    .scan-prompt-btn.no {
+      background: rgba(0, 10, 30, 0.88);
+      color: #7dd3fc;
+      border: 2px solid #0099ff;
+    }
+
+    .scan-prompt-btn.no:hover {
+      background: rgba(0, 25, 60, 0.95);
+      color: #ffffff;
+      border-color: #00e5ff;
+      transform: scale(1.04);
+    }
+
+    /* Chance-of-ice tags on each detected site */
+    .scan-tag {
+      position: absolute;
+      transform: translate(-50%, -100%) scale(var(--inv, 1));
+      transform-origin: 50% 100%;
+      margin-top: -2.6%;
+      background: rgba(0, 12, 34, 0.9);
+      border: 1.5px solid #00e5ff;
+      border-radius: 4px;
+      padding: 0 6px;
+      color: #00e5ff;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.85rem, 1.3vw, 1.3rem);
+      line-height: 1.15;
+      white-space: nowrap;
+      cursor: pointer;
+      pointer-events: auto;
+      display: none;
+      z-index: 6;
+    }
+
+    .scan-tag.show { display: block; animation: scan-appear 0.3s ease; }
+    .scan-tag:hover, .scan-tag.active { background: #00e5ff; color: #00121f; }
+
+    .scan-info { left: 6%; bottom: 6.5%; z-index: 21; max-width: 40%; }
+    .scan-info .prob-bar { min-width: 90px; }
 
     /* Standalone SKIP (no dialogue box in scan scenes) */
     .skip-btn.skip-btn-float {
@@ -881,7 +1134,23 @@
 
       <!-- Floating Diagram Card (used by later scenes) -->
       <div class="diagram-card-container hidden" id="diagramCardContainer">
-        <img src="" alt="Diagram" id="diagramCardImg">
+        <div class="diagram-card-inner" id="diagramCardInner">
+          <img src="" alt="Diagram" id="diagramCardImg">
+          <!-- Site selection interactive layer (Scene 7: Click any Location) -->
+          <div class="site-select-overlay hidden" id="siteSelectOverlay">
+            <div class="site-select-hint">CLICK ANY WATER ICE LOCATION TO DEPLOY DRILL</div>
+            <div class="site-lock-reticle hidden" id="siteLockReticle">
+              <div class="reticle-box">
+                <span class="reticle-corner tl"></span>
+                <span class="reticle-corner tr"></span>
+                <span class="reticle-corner bl"></span>
+                <span class="reticle-corner br"></span>
+                <div class="reticle-cross"></div>
+              </div>
+              <div class="reticle-label" id="reticleLabel">DRILL SITE LOCKED</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Interactive Map (Scene 2) -->
@@ -930,6 +1199,15 @@
             <button class="map-tool-btn" id="scanZoomReset" title="Reset view" aria-label="Reset view">⟲</button>
           </div>
           <div class="scan-status hidden" id="scanStatus"></div>
+          <div class="map-info scan-info hidden" id="scanInfo">
+            <div class="map-info-name" id="scanInfoName"></div>
+            <div class="map-info-desc" id="scanInfoDesc"></div>
+            <div class="map-info-prob hidden" id="scanInfoProbRow">
+              <span id="scanInfoProbText"></span>
+              <div class="prob-bar"><div class="prob-fill" id="scanInfoProbFill" style="background:#00e5ff"></div></div>
+            </div>
+          </div>
+          <div class="scan-prompt-backdrop" id="scanPromptBackdrop"></div>
           <div class="scan-prompt" id="scanPrompt">
             <div class="scan-prompt-title">Let's scan to find ice!</div>
             <div class="scan-prompt-sub" id="scanPromptSub">Allow the orbital scanner to search the South Pole for water ice?</div>
@@ -1062,6 +1340,45 @@
         showGuide: false,
         scanMode: 'done',
         text: ""
+      },
+      // Scene 6: Found Submersive Ice (User Uploaded Image)
+      {
+        id: 6,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        cardImg: 'H2O assets/equipements/scan2.png',
+        cardClass: 'card-wide',
+        speaker: 'Chiaki Mukai',
+        text: "Great! We've identified some promising locations. Select one to choose our drilling site."
+      },
+      // Scene 7: Click any Location to select site for drilling (User Image 2)
+      {
+        id: 7,
+        showGuide: false,
+        cardImg: 'H2O assets/equipements/scan3.png',
+        cardClass: 'card-wide',
+        isSiteSelection: true,
+        text: ""
+      },
+      // Scene 8: Trident Drill deployed into subsurface
+      {
+        id: 8,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        cardImg: 'H2O assets/equipements/drill.png',
+        cardClass: 'card-wide',
+        speaker: 'Chiaki Mukai',
+        text: "The Trident Drill is deployed at our chosen site! This rotary percussive drill penetrates up to 1 meter deep into the lunar regolith to extract frozen ice-core samples."
+      },
+      // Scene 9: Trident Drill hardware close-up
+      {
+        id: 9,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        cardImg: 'H2O assets/equipements/drill 2.png',
+        cardClass: 'card-wide',
+        speaker: 'Chiaki Mukai',
+        text: "The drill hardware uses specialized auger flutes to deliver icy core cuttings to the surface for sealed heating and water extraction!"
       }
     ];
 
@@ -1078,6 +1395,87 @@
     const guideImg = document.getElementById('guideImg');
     const diagramCardContainer = document.getElementById('diagramCardContainer');
     const diagramCardImg = document.getElementById('diagramCardImg');
+    const siteSelectOverlay = document.getElementById('siteSelectOverlay');
+    let siteSelectionLocked = false;
+
+    function setupSiteSelection() {
+      siteSelectionLocked = false;
+      siteSelectOverlay.innerHTML = `
+        <div class="site-select-hint">CLICK ANY WATER ICE LOCATION TO DEPLOY DRILL</div>
+        <div class="site-lock-reticle hidden" id="siteLockReticle">
+          <div class="reticle-box">
+            <span class="reticle-corner tl"></span>
+            <span class="reticle-corner tr"></span>
+            <span class="reticle-corner bl"></span>
+            <span class="reticle-corner br"></span>
+            <div class="reticle-cross"></div>
+          </div>
+          <div class="reticle-label" id="reticleLabel">🎯 DRILL SITE LOCKED</div>
+        </div>
+      `;
+
+      SCAN_SITES.forEach(([sx, sy, c], idx) => {
+        const xPct = ((sx / 2000 * 100) - 4.15) / 91.7 * 100;
+        const yPct = ((sy / 1280 * 100) - 16.64) / 79.84 * 100;
+
+        const dot = document.createElement('div');
+        dot.className = 'site-clickable-dot';
+        dot.style.left = xPct + '%';
+        dot.style.top = yPct + '%';
+        dot.title = `Site #${idx + 1} (${c}% Ice Chance)`;
+
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectDrillSite(xPct, yPct, idx + 1, c);
+        });
+
+        siteSelectOverlay.appendChild(dot);
+      });
+
+      siteSelectOverlay.onclick = (e) => {
+        if (siteSelectionLocked) return;
+        const rect = siteSelectOverlay.getBoundingClientRect();
+        const clickX = ((e.clientX - rect.left) / rect.width) * 100;
+        const clickY = ((e.clientY - rect.top) / rect.height) * 100;
+        selectDrillSite(clickX, clickY, Math.floor(Math.random() * 14) + 1, 92);
+      };
+    }
+
+    function selectDrillSite(xPct, yPct, siteNum, chance) {
+      if (siteSelectionLocked) return;
+      siteSelectionLocked = true;
+
+      sound.playClick();
+      sound._blip('sine', 1320, 0.12, 0.28);
+
+      const reticle = document.getElementById('siteLockReticle');
+      const label = document.getElementById('reticleLabel');
+      if (reticle && label) {
+        reticle.style.left = xPct + '%';
+        reticle.style.top = yPct + '%';
+        label.textContent = `🎯 DRILL SITE #${siteNum} LOCKED (${chance}% ICE)`;
+        reticle.classList.remove('hidden');
+      }
+
+      const hint = siteSelectOverlay.querySelector('.site-select-hint');
+      if (hint) {
+        hint.textContent = `COORDINATES LOCKED: DEPLOYING TRIDENT DRILL...`;
+        hint.style.borderColor = '#22ff88';
+        hint.style.color = '#22ff88';
+      }
+
+      setTimeout(() => {
+        sound.playClick();
+        nextScene();
+      }, 1400);
+    }
+
+    function resetSiteSelection() {
+      siteSelectionLocked = false;
+      const reticle = document.getElementById('siteLockReticle');
+      if (reticle) reticle.classList.add('hidden');
+    }
+
     const dialogueWrapper = document.getElementById('dialogueWrapper');
     const dialogueText = document.getElementById('dialogueText');
     const toastEl = document.getElementById('comingSoonToast');
@@ -1102,7 +1500,7 @@
       if (s.scanMode === 'scanning') showScanPrompt();
       else if (s.scanMode === 'done') showScanDone();
 
-      diagramCardContainer.classList.remove('card-right');
+      diagramCardContainer.classList.remove('card-right', 'card-wide');
       if (s.cardImg) {
         diagramCardImg.src = s.cardImg;
         if (s.cardClass) diagramCardContainer.classList.add(s.cardClass);
@@ -1112,6 +1510,15 @@
         diagramCardContainer.classList.remove('hidden');
       } else {
         diagramCardContainer.classList.add('hidden');
+      }
+
+      if (s.isSiteSelection) {
+        siteSelectOverlay.classList.remove('hidden');
+        skipFloat.classList.remove('hidden');
+        setupSiteSelection();
+      } else {
+        siteSelectOverlay.classList.add('hidden');
+        resetSiteSelection();
       }
 
       if (s.text) {
@@ -1129,10 +1536,12 @@
     // Ice Scanner (Scenes 4 & 5): cyan beam sweeps the map and detects water ice
     // Coordinates are pixels of scan.png / scan1.png (2000x1280)
     // =========================================================================
+    // [x, y, chance of finding ice %] - estimates from blob size / depth of shadow
     const SCAN_SITES = [
-      [988, 503], [1120, 610], [1243, 707], [905, 860], [850, 735], [1465, 997], [1815, 670],
-      [1560, 745], [400, 298], [645, 385], [1018, 755], [975, 1180], [1148, 805], [1103, 457]
+      [988, 503, 96], [1120, 610, 94], [1243, 707, 91], [905, 860, 88], [850, 735, 82], [1465, 997, 85], [1815, 670, 78],
+      [1560, 745, 74], [400, 298, 80], [645, 385, 70], [1018, 755, 76], [975, 1180, 72], [1148, 805, 66], [1103, 457, 68]
     ];
+    const chanceLevel = (c) => c >= 85 ? 'VERY HIGH' : c >= 70 ? 'HIGH' : 'MODERATE';
     const SCAN_L = 4.15, SCAN_T = 16.64, SCAN_W = 91.7, SCAN_H = 79.84; // map window in % of card
     const SCAN_DURATION = 5200;
 
@@ -1149,9 +1558,10 @@
     const skipFloat = document.getElementById('skipFloat');
     let scanRaf = null, scanStart = 0, scanNextBeep = 0;
     const scanPings = [];
+    const scanTags = [];
 
     function buildScanPings() {
-      SCAN_SITES.forEach(([x, y]) => {
+      SCAN_SITES.forEach(([x, y, chance], i) => {
         const p = document.createElement('div');
         p.className = 'scan-ping';
         p.style.left = (x / 2000 * 100) + '%';
@@ -1159,6 +1569,21 @@
         p.dataset.x = x / 2000 * 100;
         scanInner.appendChild(p);
         scanPings.push(p);
+
+        const tag = document.createElement('div');
+        tag.className = 'scan-tag';
+        tag.style.left = (x / 2000 * 100) + '%';
+        tag.style.top = (y / 1280 * 100) + '%';
+        tag.textContent = chance + '%';
+        tag.dataset.x = x / 2000 * 100;
+        tag.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (scanDragMoved) return;
+          sound.playClick();
+          showSiteInfo(i);
+        });
+        scanInner.appendChild(tag);
+        scanTags.push(tag);
       });
     }
 
@@ -1171,28 +1596,50 @@
         if (parseFloat(pg.dataset.x) <= xPct) {
           found++;
           if (!pg.classList.contains('on')) { pg.classList.add('on'); sound._blip('sine', 1200, 0.05, 0.12); }
+          scanTags[scanPings.indexOf(pg)].classList.add('show');
         }
       });
       return found;
     }
 
+    const scanPromptBackdrop = document.getElementById('scanPromptBackdrop');
+
     function showScanPrompt() {
       scanPhase = 'prompt';
       scanPings.forEach(pg => pg.classList.remove('on'));
+      scanTags.forEach(tg => tg.classList.remove('show', 'active'));
+      hideSiteInfo();
       scanContainer.classList.remove('scanning', 'scan-done');
       scanReveal.classList.add('hidden');
       scanBeam.classList.add('hidden');
       scanStatus.classList.add('hidden');
       document.getElementById('scanPromptSub').textContent = 'Allow the orbital scanner to search the South Pole for water ice?';
-      scanPrompt.classList.remove('hidden');
       resetScanView();
+
+      // Smooth popup entrance: reset classes first, then animate in with a clean pop
+      scanPrompt.classList.remove('hidden', 'closing');
+      scanPrompt.classList.remove('show');
+      if (scanPromptBackdrop) scanPromptBackdrop.classList.remove('active');
+
+      setTimeout(() => {
+        if (scanPhase === 'prompt') {
+          if (scanPromptBackdrop) scanPromptBackdrop.classList.add('active');
+          scanPrompt.classList.add('show');
+          sound.playClick();
+        }
+      }, 140);
     }
 
     function allowScan() {
       sound.playClick();
-      scanPrompt.classList.add('hidden');
-      skipFloat.classList.remove('hidden');
-      startScan();
+      if (scanPromptBackdrop) scanPromptBackdrop.classList.remove('active');
+      scanPrompt.classList.add('closing');
+      setTimeout(() => {
+        scanPrompt.classList.remove('show', 'closing');
+        scanPrompt.classList.add('hidden');
+        skipFloat.classList.remove('hidden');
+        startScan();
+      }, 260);
     }
 
     function denyScan() {
@@ -1204,6 +1651,8 @@
       scanPhase = 'scanning';
       scanStatus.classList.remove('hidden');
       scanPings.forEach(pg => pg.classList.remove('on'));
+      scanTags.forEach(tg => tg.classList.remove('show', 'active'));
+      hideSiteInfo();
       scanContainer.classList.remove('scan-done');
       scanContainer.classList.add('scanning');
       scanReveal.classList.remove('hidden');
@@ -1231,6 +1680,8 @@
     function stopScan() {
       scanPhase = 'idle';
       if (scanRaf !== null) { cancelAnimationFrame(scanRaf); clearTimeout(scanRaf); scanRaf = null; }
+      if (scanPrompt) { scanPrompt.classList.remove('show', 'closing'); scanPrompt.classList.add('hidden'); }
+      if (scanPromptBackdrop) scanPromptBackdrop.classList.remove('active');
     }
 
     function showScanDone() {
@@ -1243,20 +1694,50 @@
       scanBeam.classList.add('hidden');
       scanReveal.style.clipPath = 'none';
       scanPings.forEach(pg => pg.classList.add('on'));
-      scanStatus.textContent = 'WATER ICE DETECTED  |  ' + SCAN_SITES.length + ' SITES';
+      scanTags.forEach(tg => tg.classList.add('show'));
+      const best = Math.max(...SCAN_SITES.map(s => s[2]));
+      scanStatus.textContent = 'WATER ICE DETECTED  |  ' + SCAN_SITES.length + ' SITES  |  BEST CHANCE: ' + best + '%';
+      scanInfoName.textContent = 'Tap a % tag';
+      scanInfoDesc.textContent = 'Each tag shows the chance of finding ice at that site.';
+      scanInfoProbRow.classList.add('hidden');
+      scanInfo.classList.remove('hidden');
       sound._blip('sine', 1046, 0.1, 0.25);
+    }
+
+    const scanInfo = document.getElementById('scanInfo');
+    const scanInfoName = document.getElementById('scanInfoName');
+    const scanInfoDesc = document.getElementById('scanInfoDesc');
+    const scanInfoProbRow = document.getElementById('scanInfoProbRow');
+    const scanInfoProbText = document.getElementById('scanInfoProbText');
+    const scanInfoProbFill = document.getElementById('scanInfoProbFill');
+    let scanZoom = 1, scanTx = 0, scanTy = 0, scanDrag = null, scanDragMoved = false;
+
+    function hideSiteInfo() { scanInfo.classList.add('hidden'); scanInfoProbFill.style.width = '0'; }
+
+    function showSiteInfo(i) {
+      const [x, y, c] = SCAN_SITES[i];
+      scanTags.forEach((tg, k) => tg.classList.toggle('active', k === i));
+      scanInfoName.textContent = 'Ice Site #' + (i + 1);
+      scanInfoDesc.textContent = c >= 85
+        ? 'Deep, permanently shadowed crater - an ideal cold trap.'
+        : c >= 70
+          ? 'Shaded terrain with strong ice signal.'
+          : 'Partly shaded ground - ice is likely but patchy.';
+      scanInfoProbText.textContent = 'Chance of ice: ' + c + '% (' + chanceLevel(c) + ')';
+      scanInfoProbRow.classList.remove('hidden');
+      scanInfo.classList.remove('hidden');
+      requestAnimationFrame(() => { scanInfoProbFill.style.width = c + '%'; });
     }
 
     buildScanPings();
 
     // ---- Scan map zoom / pan ----
-    let scanZoom = 1, scanTx = 0, scanTy = 0, scanDrag = null, scanDragMoved = false;
-
     function applyScanView() {
       const w = scanWindow.clientWidth, h = scanWindow.clientHeight;
       scanTx = Math.min(0, Math.max(w - w * scanZoom, scanTx));
       scanTy = Math.min(0, Math.max(h - h * scanZoom, scanTy));
       scanPan.style.transform = 'translate(' + scanTx + 'px,' + scanTy + 'px) scale(' + scanZoom + ')';
+      scanPan.style.setProperty('--inv', (1 / scanZoom).toFixed(4));
     }
 
     function zoomScanAt(factor, cx, cy) {
@@ -1277,17 +1758,23 @@
         zoomScanAt(e.deltaY < 0 ? 1.2 : 1 / 1.2, e.clientX - r.left, e.clientY - r.top);
       }, { passive: false });
       scanWindow.addEventListener('pointerdown', (e) => {
-        scanDrag = { x: e.clientX, y: e.clientY, tx: scanTx, ty: scanTy };
-        try { scanWindow.setPointerCapture(e.pointerId); } catch (err) { }
-        scanWindow.classList.add('dragging');
+        scanDrag = { x: e.clientX, y: e.clientY, tx: scanTx, ty: scanTy, id: e.pointerId };
+        scanDragMoved = false;
       });
       scanWindow.addEventListener('pointermove', (e) => {
         if (!scanDrag) return;
-        scanTx = scanDrag.tx + (e.clientX - scanDrag.x);
-        scanTy = scanDrag.ty + (e.clientY - scanDrag.y);
+        const dx = e.clientX - scanDrag.x, dy = e.clientY - scanDrag.y;
+        if (!scanDragMoved && Math.abs(dx) + Math.abs(dy) > 4) {
+          scanDragMoved = true;
+          scanWindow.classList.add('dragging');
+          try { scanWindow.setPointerCapture(scanDrag.id); } catch (err) { }
+        }
+        if (!scanDragMoved) return;
+        scanTx = scanDrag.tx + dx;
+        scanTy = scanDrag.ty + dy;
         applyScanView();
       });
-      const end = () => { scanDrag = null; scanWindow.classList.remove('dragging'); };
+      const end = () => { scanDrag = null; scanWindow.classList.remove('dragging'); setTimeout(() => { scanDragMoved = false; }, 0); };
       scanWindow.addEventListener('pointerup', end);
       scanWindow.addEventListener('pointercancel', end);
       const ctr = () => [scanWindow.clientWidth / 2, scanWindow.clientHeight / 2];
