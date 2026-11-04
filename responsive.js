@@ -35,6 +35,9 @@
 
   const setForceHorizontal = (enabled) => {
     document.body.classList.toggle('force-horizontal', enabled);
+    if (typeof window.checkAndStartIntro === 'function') {
+      window.checkAndStartIntro();
+    }
   };
 
   window.requestLandscape = async () => {

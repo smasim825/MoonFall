@@ -3941,6 +3941,32 @@
 
     <!-- Master Responsive Top HUD Navigation Bar -->
     <header class="game-top-hud" id="gameTopHud">
+      <!-- Mobile Hamburger Button (Left side of Telemetry on Mobile) -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-label="Open navigation menu"
+        aria-expanded="false" aria-controls="mobileNavMenu" onclick="event.stopPropagation(); toggleMobileMenu();">
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <!-- Mobile Dropdown Navigation Menu (Left-aligned under burger) -->
+      <div class="mobile-nav-menu" id="mobileNavMenu" onclick="event.stopPropagation();">
+        <button class="mobile-nav-item mobile-btn-phases" type="button" onclick="openPhaseDashboard(); closeMobileMenu();">
+          <span class="nav-btn-icon">⚔️</span>
+          <span class="mobile-btn-text">PHASES</span>
+        </button>
+        <button class="mobile-nav-item mobile-btn-crew" type="button" onclick="openCrewManifestModal(); closeMobileMenu();">
+          <span class="nav-btn-icon">👨‍🚀</span>
+          <span class="mobile-btn-text">MEET THE CREW</span>
+        </button>
+        <button class="mobile-nav-item mobile-btn-nasa" type="button" onclick="toggleNavDropdown('nasa'); closeMobileMenu();">
+          <span class="nav-btn-icon">🔬</span>
+          <span class="mobile-btn-text">NASA RESEARCH</span>
+        </button>
+        <button class="mobile-nav-item mobile-btn-upgrades" type="button" onclick="toggleNavDropdown('upgrades'); closeMobileMenu();">
+          <span class="nav-btn-icon">🔧</span>
+          <span class="mobile-btn-text">BASE UPGRADES</span>
+        </button>
+      </div>
+
       <!-- Left Side: Phase & Crew Controls (Desktop) -->
       <div class="hud-group-left" id="hudGroupLeft">
         <button class="phase-dashboard-btn" id="phaseDashboardToggleBtn" onclick="openPhaseDashboard()"
@@ -4067,32 +4093,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Mobile Hamburger Button (Right side of Telemetry on Mobile) -->
-      <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-label="Open navigation menu"
-        aria-expanded="false" aria-controls="mobileNavMenu" onclick="event.stopPropagation(); toggleMobileMenu();">
-        <span aria-hidden="true">☰</span>
-      </button>
-
-      <!-- Mobile Dropdown Navigation Menu (Contains: Phases, Meet the Crew, NASA Research, Base Upgrades) -->
-      <div class="mobile-nav-menu" id="mobileNavMenu" onclick="event.stopPropagation();">
-        <button class="mobile-nav-item mobile-btn-phases" type="button" onclick="openPhaseDashboard(); closeMobileMenu();">
-          <span class="nav-btn-icon">⚔️</span>
-          <span class="mobile-btn-text">PHASES</span>
-        </button>
-        <button class="mobile-nav-item mobile-btn-crew" type="button" onclick="openCrewManifestModal(); closeMobileMenu();">
-          <span class="nav-btn-icon">👨‍🚀</span>
-          <span class="mobile-btn-text">MEET THE CREW</span>
-        </button>
-        <button class="mobile-nav-item mobile-btn-nasa" type="button" onclick="toggleNavDropdown('nasa'); closeMobileMenu();">
-          <span class="nav-btn-icon">🔬</span>
-          <span class="mobile-btn-text">NASA RESEARCH</span>
-        </button>
-        <button class="mobile-nav-item mobile-btn-upgrades" type="button" onclick="toggleNavDropdown('upgrades'); closeMobileMenu();">
-          <span class="nav-btn-icon">🔧</span>
-          <span class="mobile-btn-text">BASE UPGRADES</span>
-        </button>
       </div>
     </header>
 
@@ -5588,13 +5588,13 @@
     // Auto-advance loading bar like Clash of Clans
     let currentPct = 0;
     let loadStart = null;
-    const loadDuration = 2600; // 2.6s loading progress
+    const loadDuration = 2400; // ~2.4s loading progress
     let introStarted = false;
 
     function stepLoading(now) {
       if (introDismissed || missionStarted) return;
-      if (!loadStart) loadStart = now;
-      const elapsed = now - loadStart;
+      if (!loadStart) loadStart = now || performance.now();
+      const elapsed = (now || performance.now()) - loadStart;
       const t = Math.min(elapsed / loadDuration, 1);
 
       // Supercell / COC easing curve: fast start, brief suspense around 75%, quick finish
@@ -5609,7 +5609,8 @@
 
       currentPct = Math.min(Math.round(progress), 100);
 
-      if (cocFill) cocFill.style.width = currentPct + '%';
+      const barFill = cocFill || document.getElementById('cocFill');
+      if (barFill) barFill.style.width = currentPct + '%';
 
       if (currentPct < 100) {
         requestAnimationFrame(stepLoading);
@@ -5617,7 +5618,7 @@
         // Reached 100% -> Show MISSION READY button screen
         setTimeout(() => {
           showTapStartScreen();
-        }, 300);
+        }, 200);
       }
     }
 
@@ -5664,21 +5665,27 @@
       if (introStarted || introDismissed || missionStarted) return;
       if (checkDirectBaseEntry()) return;
 
-      // On mobile in portrait: wait until phone is rotated horizontally!
-      const isPortraitPhone = window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches && !document.body.classList.contains('force-horizontal');
-      if (isPortraitPhone) return;
-
       introStarted = true;
       requestAnimationFrame(stepLoading);
     }
+    window.checkAndStartIntro = checkAndStartIntro;
 
     if (!checkDirectBaseEntry()) {
       checkAndStartIntro();
     }
+    document.addEventListener('DOMContentLoaded', checkAndStartIntro);
+    window.addEventListener('load', checkAndStartIntro);
     window.addEventListener('resize', checkAndStartIntro);
     window.addEventListener('orientationchange', () => {
       setTimeout(checkAndStartIntro, 120);
     });
+
+    // Safety timeout to ensure loading begins on all mobile devices
+    setTimeout(() => {
+      if (!introStarted && !introDismissed && !missionStarted) {
+        checkAndStartIntro();
+      }
+    }, 350);
 
     window.addEventListener('keydown', (e) => {
       if ([' ', 'Enter'].includes(e.key) && !missionStarted) {

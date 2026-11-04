@@ -110,7 +110,7 @@ body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rota
   .game-top-hud {
     display: flex !important;
     align-items: center !important;
-    justify-content: space-between !important;
+    justify-content: flex-start !important;
     gap: 8px !important;
     position: absolute !important;
     top: max(8px, env(safe-area-inset-top)) !important;
@@ -129,18 +129,51 @@ body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rota
     display: none !important;
   }
 
-  /* Telemetry Status Bar: STAYS PROMINENTLY AT THE TOP! */
+  /* Mobile Burger Toggle Button (Placed at top left of telemetry) */
+  .mobile-menu-toggle {
+    display: inline-flex !important;
+    order: 0 !important;
+    margin-right: 4px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+    border: 2px solid #00cfff !important;
+    border-radius: 8px !important;
+    background: linear-gradient(180deg, #10243b 0%, #06101f 100%) !important;
+    box-shadow: 0 3px 0 #000, 0 0 14px rgba(0, 207, 255, 0.4) !important;
+    color: #00e5ff !important;
+    font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    z-index: 1000005 !important;
+    transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
+  }
+
+  .mobile-menu-toggle:active {
+    transform: translateY(2px) !important;
+  }
+
+  /* Telemetry Status Bar: STAYS PROMINENTLY AT THE TOP WITH REDUCED GAPS */
   .top-status-bar {
     display: flex !important;
-    flex: 1 1 auto !important;
+    flex: 0 1 auto !important;
     min-width: 0 !important;
-    width: auto !important;
+    width: fit-content !important;
+    max-width: calc(100% - 46px) !important;
     order: 1 !important;
     align-items: center !important;
-    justify-content: space-around !important;
-    padding: 5px 8px !important;
+    justify-content: flex-start !important;
+    gap: 6px !important;
+    padding: 4px 8px !important;
     margin: 0 !important;
-    font-size: clamp(0.70rem, 2.2vw, 0.88rem) !important;
+    font-size: clamp(0.68rem, 2vw, 0.82rem) !important;
     background: rgba(0, 16, 40, 0.94) !important;
     border: 1.5px solid #0050b3 !important;
     border-radius: 8px !important;
@@ -157,8 +190,9 @@ body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rota
   .top-status-bar .status-item {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 4px !important;
-    padding: 0 4px !important;
+    gap: 2px !important;
+    padding: 0 3px !important;
+    flex-shrink: 0 !important;
   }
 
   .top-status-bar .status-label {
@@ -167,42 +201,13 @@ body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rota
     font-weight: bold !important;
   }
 
-  /* Mobile Burger Toggle Button (Placed at top right of telemetry) */
-  .mobile-menu-toggle {
-    display: inline-flex !important;
-    order: 2 !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 38px !important;
-    height: 38px !important;
-    min-width: 38px !important;
-    flex-shrink: 0 !important;
-    padding: 0 !important;
-    border: 2px solid #00cfff !important;
-    border-radius: 8px !important;
-    background: linear-gradient(180deg, #10243b 0%, #06101f 100%) !important;
-    box-shadow: 0 3px 0 #000, 0 0 14px rgba(0, 207, 255, 0.4) !important;
-    color: #00e5ff !important;
-    font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
-    font-size: 24px !important;
-    line-height: 1 !important;
-    cursor: pointer !important;
-    touch-action: manipulation !important;
-    user-select: none !important;
-    z-index: 1000005 !important;
-    transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
-  }
-
-  .mobile-menu-toggle:active {
-    transform: translateY(2px) !important;
-  }
-
-  /* Mobile Dropdown Navigation Menu */
+  /* Mobile Dropdown Navigation Menu - Aligned on Left Under Burger */
   .mobile-nav-menu {
     display: none;
     position: absolute !important;
     top: calc(100% + 8px) !important;
-    right: 0 !important;
+    left: 0 !important;
+    right: auto !important;
     width: min(280px, calc(100vw - 20px)) !important;
     background: rgba(4, 12, 26, 0.98) !important;
     border: 2px solid #00cfff !important;
@@ -322,3 +327,134 @@ body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rota
     display: none !important;
   }
 }
+
+/* ==========================================================================
+   Responsive Intro Splash & Loading Screen (Fixes Moon Size & Mobile Layout)
+   ========================================================================== */
+@media screen and (max-width: 900px), screen and (max-height: 520px) {
+  #introOverlay {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  #introOverlay .intro-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 580px !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    gap: 0 !important;
+  }
+
+  /* Responsive Moon sizing for mobile screens */
+  #introOverlay .intro-moon-wrapper {
+    width: clamp(80px, 17vh, 125px) !important;
+    height: clamp(80px, 17vh, 125px) !important;
+    max-height: 19vh !important;
+    margin: 0 auto 4px auto !important;
+    flex-shrink: 1 !important;
+  }
+
+  #introOverlay .intro-moon-img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  #introOverlay .moon-white-glow {
+    inset: -10% !important;
+    filter: blur(6px) !important;
+  }
+
+  /* Title scaled appropriately for mobile landscape & portrait */
+  #introOverlay .intro-title {
+    font-size: clamp(1.8rem, 6vh, 2.5rem) !important;
+    line-height: 1 !important;
+    margin: 0 0 2px 0 !important;
+    -webkit-text-stroke: 1.5px #ded9cb !important;
+    flex-shrink: 0 !important;
+  }
+
+  #introOverlay .intro-subtitle {
+    font-size: clamp(0.55rem, 1.8vh, 0.72rem) !important;
+    letter-spacing: 0.18em !important;
+    margin: 0 0 10px 0 !important;
+    -webkit-text-stroke: 0.5px #ded9cb !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* COC Loading bar scaled cleanly */
+  #introOverlay .coc-loading-container {
+    width: min(320px, 80vw) !important;
+    margin: 0 auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  #introOverlay .coc-loading-title {
+    font-size: 1.05rem !important;
+    margin-bottom: -7px !important;
+  }
+
+  #introOverlay .coc-bar-frame {
+    height: 18px !important;
+    border-radius: 10px !important;
+    border-width: 2.5px !important;
+    padding: 2px !important;
+  }
+
+  #introOverlay .coc-tip-text {
+    font-size: 0.62rem !important;
+    margin-top: 4px !important;
+    max-width: 85vw !important;
+    line-height: 1.25 !important;
+  }
+
+  #introOverlay .tap-start-container {
+    margin: 0 auto !important;
+  }
+
+  #introOverlay .tap-start-btn {
+    font-size: 1.05rem !important;
+    padding: 7px 22px !important;
+  }
+}
+
+/* Portrait mobile phone overrides */
+@media screen and (max-width: 600px) and (orientation: portrait) {
+  body:not(.force-horizontal) #introOverlay .intro-moon-wrapper {
+    width: clamp(130px, 34vw, 175px) !important;
+    height: clamp(130px, 34vw, 175px) !important;
+    max-height: 25vh !important;
+    margin: 0 auto 10px auto !important;
+  }
+
+  body:not(.force-horizontal) #introOverlay .intro-title {
+    font-size: clamp(2.3rem, 8.5vw, 3.2rem) !important;
+    margin: 0 0 4px 0 !important;
+  }
+
+  body:not(.force-horizontal) #introOverlay .intro-subtitle {
+    font-size: clamp(0.65rem, 2.5vw, 0.82rem) !important;
+    margin: 0 0 16px 0 !important;
+  }
+
+  body:not(.force-horizontal) #introOverlay .coc-loading-container {
+    width: min(300px, 85vw) !important;
+  }
+
+  body:not(.force-horizontal) #introOverlay .coc-bar-frame {
+    height: 20px !important;
+  }
+}
+
