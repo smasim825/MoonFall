@@ -4,6 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MoonFall">
+  <meta name="mobile-web-app-capable" content="yes">
   <title>MoonFall - Lunar Base Command</title>
   <link rel="preload" href="assets/moon.png" as="image">
   <link rel="preload" href="assets/mainbase_bg.webp" as="image">
@@ -3309,7 +3313,7 @@
     }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
-  <link rel="stylesheet" href="responsive.css?v=20261104-5">
+  <link rel="stylesheet" href="responsive.css?v=20261104-6">
   <script src="responsive.js" defer></script>
 </head>
 
@@ -3458,6 +3462,10 @@
           <span class="nav-btn-icon">🔧</span>
           <span class="mobile-btn-text">BASE UPGRADES</span>
         </button>
+        <button class="mobile-nav-item mobile-btn-fullscreen" type="button" onclick="toggleFullScreen(); closeMobileMenu();">
+          <span class="nav-btn-icon">⛶</span>
+          <span class="mobile-btn-text">FULL SCREEN</span>
+        </button>
       </div>
 
       <!-- Left Side: Phase & Crew Controls (Desktop) -->
@@ -3467,6 +3475,9 @@
         </button>
         <button class="crew-intro-btn" id="crewIntroToggleBtn" onclick="openCrewManifestModal()" title="Meet the 4 Outpost Astronauts">
           <span class="nav-btn-icon">👨‍🚀</span> <span class="btn-text full-label">MEET THE CREW</span><span class="btn-text short-label">CREW</span>
+        </button>
+        <button class="top-nav-btn btn-fullscreen" id="btnFullscreenToggle" type="button" onclick="toggleFullScreen()" title="Toggle Fullscreen">
+          <span class="nav-btn-icon">⛶</span> <span class="btn-text">FULLSCREEN</span>
         </button>
       </div>
 
@@ -5888,6 +5899,22 @@
       } catch(e) {}
     })();
   </script>
+  <!-- iOS Safari Fullscreen Instructions Toast -->
+  <div class="ios-fullscreen-toast" id="iosFullscreenToast" onclick="event.stopPropagation();">
+    <div class="toast-header">
+      <span class="toast-badge">📱 IPHONE FULLSCREEN GUIDE</span>
+      <button class="toast-close-btn" type="button" onclick="dismissIosFullscreenToast()">✕</button>
+    </div>
+    <div class="toast-body">
+      To play with <strong>zero Safari bars</strong> on iPhone:
+      <div class="toast-steps">
+        1. Tap the Safari <strong>Share button (⎋)</strong> at the top<br>
+        2. Select <strong>"Add to Home Screen"</strong><br>
+        3. Open from your home screen for true 100% edge-to-edge game!
+      </div>
+    </div>
+  </div>
+
   <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
   <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev" data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.png" data-badge="assets/scene 3/Frame 7.png" defer></script>
   <script src="astrobee/moonfall.js" defer></script>

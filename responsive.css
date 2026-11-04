@@ -432,6 +432,14 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     box-shadow: 0 0 12px rgba(148, 163, 184, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
   }
 
+  .mobile-btn-fullscreen {
+    background: linear-gradient(180deg, #059669 0%, #047857 100%) !important;
+    border: 2px solid #34d399 !important;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 0 #000 !important;
+    box-shadow: 0 0 12px rgba(52, 211, 153, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  }
+
   /* Item 1: Astrobee Chatbot & Music Button (Top Right Stack) */
   .ab-root.ab-in-stage .ab-launch {
     position: absolute !important;
@@ -1010,4 +1018,92 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     height: 20px !important;
   }
 }
+
+/* iOS Safari Fullscreen Instructions Toast */
+.ios-fullscreen-toast {
+  display: none;
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 400px);
+  background: rgba(10, 18, 36, 0.96);
+  border: 2px solid #38bdf8;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9), 0 0 24px rgba(56, 189, 248, 0.5);
+  padding: 12px 14px;
+  z-index: 10000020;
+  backdrop-filter: blur(14px);
+  color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  animation: toastPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes toastPop {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.ios-fullscreen-toast .toast-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 4px;
+}
+
+.ios-fullscreen-toast .toast-badge {
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: 1.05rem;
+  color: #38bdf8;
+  letter-spacing: 0.05em;
+}
+
+.ios-fullscreen-toast .toast-close-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.ios-fullscreen-toast .toast-close-btn:hover {
+  color: #ffffff;
+}
+
+.ios-fullscreen-toast .toast-body {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #cbd5e1;
+}
+
+.ios-fullscreen-toast .toast-steps {
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: rgba(2, 132, 199, 0.15);
+  border-radius: 6px;
+  border: 1px solid rgba(2, 132, 199, 0.3);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #e2e8f0;
+}
+
+.btn-fullscreen {
+  background: linear-gradient(180deg, #059669 0%, #047857 100%);
+  border: 1.5px solid #34d399;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
+}
+
 
