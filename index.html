@@ -3804,7 +3804,7 @@
     }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
-  <link rel="stylesheet" href="responsive.css?v=20261104-4">
+  <link rel="stylesheet" href="responsive.css?v=20261104-5">
   <script src="responsive.js" defer></script>
 </head>
 
@@ -3812,13 +3812,19 @@
   <!-- Mobile Landscape Orientation Banner -->
   <aside class="orientation-banner" id="orientationBanner" role="dialog" aria-modal="true" aria-label="Rotate Device">
     <div class="orientation-card">
-      <div class="phone-rotate-icon">📱 ➔ 🔄</div>
-      <div class="orientation-title">Landscape View Required</div>
-      <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to
-        start your mission.</p>
+      <div class="phone-rotate-anim">
+        <svg class="phone-rotate-svg" width="68" height="68" viewBox="0 0 64 64" fill="none">
+          <rect class="phone-rect" x="20" y="10" width="24" height="44" rx="4" stroke="#00e5ff" stroke-width="2.5" fill="rgba(0, 229, 255, 0.08)"/>
+          <circle cx="32" cy="48" r="1.5" fill="#00e5ff"/>
+          <path class="arrow-arc" d="M48 20 A 18 18 0 0 1 48 44" stroke="#facc15" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <polyline points="44,43 49,47 52,41" stroke="#facc15" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="orientation-title">ROTATE YOUR DEVICE</div>
+      <p class="orientation-desc">Please turn your phone to <strong>Landscape mode</strong> for the full widescreen lunar mission experience.</p>
       <div class="orientation-buttons">
-        <button class="orientation-btn btn-rotate-now" onclick="requestLandscape()">
-          ⤾ Rotate Screen to Horizontal
+        <button class="orientation-fallback-btn" type="button" onclick="requestLandscape()">
+          🔒 Screen locked? Tap to force landscape
         </button>
       </div>
     </div>

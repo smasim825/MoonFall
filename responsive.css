@@ -39,7 +39,7 @@ body {
 }
 
 .quick-rotate-toggle {
-  display: flex !important;
+  display: none !important;
   position: fixed !important;
   bottom: max(14px, env(safe-area-inset-bottom)) !important;
   left: max(14px, env(safe-area-inset-left)) !important;
@@ -64,6 +64,69 @@ body {
   touch-action: manipulation !important;
   z-index: 1000010 !important;
   transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+/* Animated Rotate Phone Banner */
+.phone-rotate-anim {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.phone-rotate-svg {
+  animation: phone-landscape-flip 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transform-origin: center center;
+  filter: drop-shadow(0 0 14px rgba(0, 229, 255, 0.5));
+}
+
+@keyframes phone-landscape-flip {
+  0%, 15% {
+    transform: rotate(0deg);
+  }
+  45%, 70% {
+    transform: rotate(90deg);
+  }
+  90%, 100% {
+    transform: rotate(0deg);
+  }
+}
+
+.orientation-title {
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: 1.65rem;
+  color: #00e5ff;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  text-shadow: 0 0 14px rgba(0, 229, 255, 0.6);
+}
+
+.orientation-desc {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: #cbd5e1;
+  margin-bottom: 20px;
+}
+
+.orientation-fallback-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #94a3b8;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.orientation-fallback-btn:hover,
+.orientation-fallback-btn:active {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: #00e5ff;
+  color: #ffffff;
 }
 
 .quick-rotate-toggle:active {
@@ -775,12 +838,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   .quick-rotate-toggle {
-    display: flex !important;
-    position: fixed !important;
-    bottom: max(14px, env(safe-area-inset-bottom)) !important;
-    left: max(14px, env(safe-area-inset-left)) !important;
-    top: auto !important;
-    right: auto !important;
+    display: none !important;
   }
 }
 
