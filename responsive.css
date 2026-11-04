@@ -131,6 +131,41 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     min-height: 0 !important;
     overflow-y: auto !important;
   }
+
+  /* Force-Horizontal Viewport Coordinate Adaptations
+     When phone is in portrait with force-horizontal applied:
+     - The visible width in user's view is phone height (100dvh)
+     - The visible height in user's view is phone width (100vw) */
+  body.force-horizontal .top-status-bar {
+    max-width: calc(100dvh - 130px) !important;
+  }
+
+  body.force-horizontal .crew-modal-card {
+    width: min(94dvh, 920px) !important;
+    max-height: 92vw !important;
+  }
+
+  body.force-horizontal .coc-phase-board-wrap {
+    width: min(94dvh, 850px) !important;
+    max-height: 92vw !important;
+  }
+
+  body.force-horizontal .coc-phase-board-wrap.wide-4-cards {
+    width: min(95dvh, 880px) !important;
+  }
+
+  body.force-horizontal .nasa-dossier-card {
+    width: min(92dvh, 620px) !important;
+    max-height: calc(100vw - 16px) !important;
+  }
+
+  body.force-horizontal .nasa-dossier-body {
+    max-height: calc(100vw - 100px) !important;
+  }
+
+  body.force-horizontal .tactical-modal-card {
+    max-height: calc(100vw - 16px) !important;
+  }
 }
 
 /* ==========================================================================
@@ -204,7 +239,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     top: max(8px, env(safe-area-inset-top)) !important;
     transform: translateX(-50%) !important;
     width: auto !important;
-    max-width: calc(100vw - 120px) !important;
+    max-width: min(720px, calc(100% - 120px)) !important;
     align-items: center !important;
     justify-content: safe center !important;
     gap: 5px !important;
