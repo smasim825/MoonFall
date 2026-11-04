@@ -58,11 +58,13 @@ body {
   display: none;
 }
 
-body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .game-top-hud {
+body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .game-top-hud,
+body:has(#moonJourneyOverlay.active) .game-top-hud {
   display: none !important;
 }
 
-body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rotate-toggle {
+body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rotate-toggle,
+body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   display: none !important;
 }
 
@@ -79,6 +81,8 @@ body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rota
   body.force-horizontal #gameViewport,
   body.force-horizontal #baseViewport,
   body.force-horizontal #introOverlay,
+  body.force-horizontal #moonJourneyOverlay,
+  body.force-horizontal .moon-journey-overlay,
   body.force-horizontal.final-mission-page,
   body.force-horizontal .game-viewport,
   body.force-horizontal .meal-game-viewport,
@@ -304,6 +308,8 @@ body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rota
   body.force-horizontal #gameViewport,
   body.force-horizontal #baseViewport,
   body.force-horizontal #introOverlay,
+  body.force-horizontal #moonJourneyOverlay,
+  body.force-horizontal .moon-journey-overlay,
   body.force-horizontal.final-mission-page,
   body.force-horizontal .game-viewport,
   body.force-horizontal .meal-game-viewport,
@@ -427,6 +433,36 @@ body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rota
   #introOverlay .tap-start-btn {
     font-size: 1.05rem !important;
     padding: 7px 22px !important;
+  }
+
+  /* Responsive Landing Video Overlay */
+  #moonJourneyOverlay,
+  .moon-journey-overlay {
+    width: 100vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  #moonJourneyOverlay .moon-journey-video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  #moonJourneyOverlay .moon-journey-unmute-btn {
+    top: max(10px, env(safe-area-inset-top)) !important;
+    right: max(14px, env(safe-area-inset-right)) !important;
+    font-size: 0.85rem !important;
+    padding: 5px 12px !important;
+    z-index: 1000002 !important;
+  }
+
+  #moonJourneyOverlay .moon-journey-skip-btn {
+    bottom: max(14px, env(safe-area-inset-bottom)) !important;
+    right: max(14px, env(safe-area-inset-right)) !important;
+    font-size: 0.95rem !important;
+    padding: 6px 16px !important;
+    z-index: 1000002 !important;
   }
 }
 
