@@ -120,6 +120,60 @@
       if (!char) return null;
       if (char.poses && char.poses[poseKey]) return char.poses[poseKey];
       return char.avatar;
+    },
+
+    // Web Audio Synthesizer for pneumatic airlock hiss & futuristic chime
+    playAirlockChime() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        if (!this._audioCtx) this._audioCtx = new AudioCtx();
+        if (this._audioCtx.state === 'suspended') {
+          this._audioCtx.resume();
+        }
+        const ctx = this._audioCtx;
+        const now = ctx.currentTime;
+        
+        // 1. Gentle pneumatic hiss (filtered noise)
+        const bufferSize = Math.floor(ctx.sampleRate * 0.22);
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.08));
+        }
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1400, now);
+        filter.Q.setValueAtTime(1.8, now);
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0.18, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+        noise.connect(filter);
+        filter.connect(noiseGain);
+        noiseGain.connect(ctx.destination);
+        noise.start(now);
+
+        // 2. Futuristic sci-fi confirmation double-chime (D6 -> A6)
+        const chimeTimes = [now + 0.04, now + 0.14];
+        const freqs = [1174.66, 1760.00];
+        freqs.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, chimeTimes[idx]);
+          gain.gain.setValueAtTime(0, chimeTimes[idx]);
+          gain.gain.linearRampToValueAtTime(0.14, chimeTimes[idx] + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.001, chimeTimes[idx] + 0.32);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(chimeTimes[idx]);
+          osc.stop(chimeTimes[idx] + 0.35);
+        });
+      } catch (e) {
+        // Fallback gracefully if blocked by user gesture policy
+      }
     }
   };
 

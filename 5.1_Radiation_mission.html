@@ -50,6 +50,55 @@
     <!-- Scene Stage -->
     <div class="scene-stage" id="sceneStage">
 
+      <!-- Top HUD -->
+      <header class="top-hud">
+        <div class="hud-title-badge" id="hudMissionTitle">🛡️ MISSION 5: RADIATION SHIELD</div>
+        <div style="display:flex; gap:8px;">
+          <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
+            <svg class="hud-svg-icon" id="soundSvg" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+            <span id="soundText">SOUND</span>
+          </button>
+          <button class="hud-btn" id="restartBtn" onclick="restartMission()" title="Restart Mission" aria-label="Restart Mission">
+            <svg class="hud-svg-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+            </svg>
+            <span>RESTART</span>
+          </button>
+          <button class="hud-btn" onclick="returnToBase()" title="Return to Main Base" aria-label="Return to Main Base">
+            <svg class="hud-home-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+            <span>MAIN BASE</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Mission Entry Sci-Fi Transition Overlay -->
+      <div class="mission-entry-transition" id="entryTransition" onclick="dismissEntryTransition()" role="dialog" aria-label="Mission Entry Transition" title="Click anywhere to skip">
+        <div class="entry-door entry-door-left">
+          <div class="entry-door-panel"></div>
+          <div class="entry-door-decal">SECTOR 05 // AIRLOCK L-5</div>
+          <div class="entry-hazard-stripe"></div>
+        </div>
+        <div class="entry-door entry-door-right">
+          <div class="entry-door-panel"></div>
+          <div class="entry-door-decal">LUNAR OUTPOST // D-SHELTER</div>
+          <div class="entry-hazard-stripe"></div>
+        </div>
+        <div class="entry-hud-badge" id="entryBadge">
+          <div class="entry-badge-status">
+            <span class="entry-pulse-dot"></span>
+            <span>PRESSURIZING AIRLOCK // SYS-NOMINAL</span>
+          </div>
+          <h2 class="entry-badge-title">🛡️ MISSION 5: RADIATION SHIELD</h2>
+          <div class="entry-badge-sub">SOLAR PARTICLE STORM DEFENSE</div>
+          <div class="entry-scan-bar"><div class="entry-scan-fill"></div></div>
+          <div class="entry-skip-hint">TAP ANYWHERE TO SKIP ⏭</div>
+        </div>
+      </div>
+
       <!-- Layer 1: Background Scenery (Moonbase, Greenhouse, Earth, Stars) -->
       <div class="layer layer-background" id="layerBackground" style="background-image: url('assets/image 127.webp');">
         <!-- Ambient Star Twinkle -->

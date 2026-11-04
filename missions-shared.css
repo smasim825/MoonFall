@@ -106,10 +106,14 @@
   transform: translateY(1px);
 }
 
-.hud-home-icon {
-  width: 14px;
-  height: 14px;
+.hud-home-icon,
+.hud-svg-icon {
+  width: clamp(14px, 1.25vw, 18px);
+  height: clamp(14px, 1.25vw, 18px);
   fill: currentColor;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: -1px;
 }
 
 /* =============================================================================
