@@ -1,12 +1,4 @@
 (() => {
-  const gameHud = document.getElementById('gameTopHud');
-  const gameHudHome = gameHud?.parentNode;
-  const gameHudMarker = gameHud ? document.createComment('gameTopHud home') : null;
-
-  if (gameHud && gameHudHome && gameHudMarker) {
-    gameHudHome.insertBefore(gameHudMarker, gameHud);
-  }
-
   window.toggleMobileMenu = () => {
     const hud = document.getElementById('gameTopHud');
     const toggle = document.getElementById('mobileMenuToggle');
@@ -43,15 +35,6 @@
 
   const setForceHorizontal = (enabled) => {
     document.body.classList.toggle('force-horizontal', enabled);
-
-    if (!gameHud || !gameHudMarker) return;
-    if (enabled && gameHud.parentNode !== document.body) {
-      document.body.appendChild(gameHud);
-      gameHud.classList.add('mobile-floating-hud');
-    } else if (!enabled && gameHud.parentNode === document.body && gameHudMarker.parentNode) {
-      gameHud.classList.remove('mobile-floating-hud');
-      gameHudMarker.parentNode.insertBefore(gameHud, gameHudMarker.nextSibling);
-    }
   };
 
   window.requestLandscape = async () => {
