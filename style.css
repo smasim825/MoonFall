@@ -625,7 +625,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 15;
+  z-index: 50;
   pointer-events: auto;
   animation: mission-pop-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -664,6 +664,9 @@ body {
   justify-content: center;
   gap: 1.5vw;
   width: 88%;
+  position: relative;
+  z-index: 55;
+  pointer-events: auto;
 }
 
 .mission-btn {
@@ -677,6 +680,9 @@ body {
   justify-content: center;
   transition: transform 0.15s ease, filter 0.15s ease;
   outline: none;
+  position: relative;
+  z-index: 60;
+  pointer-events: auto;
 }
 
 .mission-btn img {

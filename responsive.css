@@ -1171,7 +1171,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    z-index: 20 !important;
+    z-index: 50 !important;
     pointer-events: auto !important;
     box-sizing: border-box !important;
   }

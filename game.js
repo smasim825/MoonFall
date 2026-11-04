@@ -70,6 +70,10 @@
       } catch (e) { }
     }
 
+    playBeep() {
+      this.playSkipBlip();
+    }
+
     playDropBlip() {
       this.init();
       if (!this.ctx) return;
@@ -856,38 +860,46 @@
       }
     });
 
-    // Mission complete navigation buttons
+    // Mission complete navigation handlers
+    function doRestartMission(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      if (sound && sound.playSkipBlip) sound.playSkipBlip();
+      setScene(0);
+    }
+
+    function doReturnToBase(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      if (sound && sound.playSkipBlip) sound.playSkipBlip();
+      try { sessionStorage.setItem('moonfall_landed', 'true'); } catch (err) { }
+      window.location.href = 'index.html?return=base';
+    }
+
+    function doGoToNextMission(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      if (sound && sound.playSkipBlip) sound.playSkipBlip();
+      try { sessionStorage.setItem('moonfall_landed', 'true'); } catch (err) { }
+      window.location.href = 'final_mission.html';
+    }
+
+    window.restartMission = doRestartMission;
+    window.returnToBase = doReturnToBase;
+    window.goToNextMission = doGoToNextMission;
+
     if (btnTryAgain) {
-      btnTryAgain.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        sound.playBeep();
-        setScene(0);
-      });
+      btnTryAgain.addEventListener('click', doRestartMission);
     }
     if (btnHome) {
-      btnHome.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        sound.playBeep();
-        try { sessionStorage.setItem('moonfall_landed', 'true'); } catch (err) { }
-        window.location.href = 'index.html?return=base';
-      });
+      btnHome.addEventListener('click', doReturnToBase);
     }
     if (btnNext) {
-      btnNext.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        sound.playBeep();
-        setScene(0);
-      });
+      btnNext.addEventListener('click', doGoToNextMission);
     }
 
     // Screen click for scenes with no dialogue box (e.g. Scene 10)
     const stage = document.querySelector('.scene-stage');
     if (stage) {
       stage.addEventListener('click', (e) => {
-        if (e.target.closest('.dialogue-box') || e.target.closest('.skip-btn') || e.target.closest('.mini-game-board')) return;
+        if (e.target.closest('.dialogue-box') || e.target.closest('.skip-btn') || e.target.closest('.mini-game-board') || e.target.closest('.mission-complete-overlay') || e.target.closest('.mission-btn')) return;
         const scene = SCENES[currentSceneIndex];
         if (!scene || (!scene.boxId && !scene.miniGame)) {
           handleSkipBtnClick();
@@ -911,10 +923,16 @@
 
     // Hash-based deep linking
     const hash = window.location.hash;
-    if (hash === '#scene4') setScene(3);
-    else if (hash === '#scene3') setScene(2);
-    else if (hash === '#scene2') setScene(1);
-    else setScene(0);
+    if (hash && hash.startsWith('#scene')) {
+      const sNum = parseInt(hash.replace('#scene', ''), 10);
+      if (!isNaN(sNum) && sNum >= 1 && sNum <= SCENES.length) {
+        setScene(sNum - 1);
+      } else {
+        setScene(0);
+      }
+    } else {
+      setScene(0);
+    }
   }
 
   if (document.readyState === 'loading') {

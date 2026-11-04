@@ -87,13 +87,13 @@
         <div class="mission-complete-container">
           <img src="assets/Mission Complete.png" alt="Mission Complete" class="mission-complete-title">
           <div class="mission-complete-buttons">
-            <button class="mission-btn btn-try-again" id="btnTryAgain" title="Try Again" aria-label="Try Again">
+            <button class="mission-btn btn-try-again" id="btnTryAgain" onclick="restartMission()" title="Try Again" aria-label="Try Again">
               <img src="assets/Frame 25.png" alt="Try Again">
             </button>
-            <button class="mission-btn btn-home" id="btnHome" title="Home" aria-label="Home">
+            <button class="mission-btn btn-home" id="btnHome" onclick="returnToBase()" title="Home" aria-label="Home">
               <img src="assets/Frame 26.png" alt="Home">
             </button>
-            <button class="mission-btn btn-next" id="btnNext" title="Next" aria-label="Next">
+            <button class="mission-btn btn-next" id="btnNext" onclick="goToNextMission()" title="Next" aria-label="Next">
               <img src="assets/Frame 27.png" alt="Next">
             </button>
           </div>
