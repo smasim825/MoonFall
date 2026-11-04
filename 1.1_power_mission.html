@@ -67,7 +67,12 @@
     .power-game-viewport {
       position: relative;
       width: 100vw;
+      width: 100dvw;
       height: 100vh;
+      height: 100dvh;
+      max-width: none;
+      max-height: none;
+      aspect-ratio: auto;
       background: #000000;
       overflow: hidden;
     }
@@ -201,6 +206,7 @@
       width: 84%;
       max-width: 1360px;
       aspect-ratio: 2813 / 378;
+      min-height: clamp(72px, 19.5vh, 110px);
       display: flex;
       align-items: center;
       padding: 0;
@@ -1855,15 +1861,47 @@
     }
 
     // =========================================================================
-    // Typewriter Engine
+    // Typewriter Engine with Pixel-Accurate Auto-Fitting
     // =========================================================================
     let currentFullText = '';
+
+    function fitDialogueText(textEl, fullStr) {
+      if (!textEl || !fullStr) return;
+      const container = textEl.parentElement;
+      if (!container) return;
+      textEl.style.fontSize = '';
+      textEl.style.lineHeight = '';
+      const prevText = textEl.textContent;
+      textEl.textContent = fullStr;
+      const maxH = container.clientHeight - 16;
+      if (maxH > 16) {
+        let sizePx = parseFloat(window.getComputedStyle(textEl).fontSize) || 20;
+        let lh = 1.1;
+        textEl.style.lineHeight = String(lh);
+        while (textEl.scrollHeight > maxH && sizePx > 10.5) {
+          sizePx -= 0.5;
+          if (sizePx < 15) lh = 1.04;
+          textEl.style.fontSize = sizePx + 'px';
+          textEl.style.lineHeight = String(lh);
+        }
+      }
+      textEl.textContent = prevText;
+    }
+
+    window.addEventListener('resize', () => {
+      if (activeDialogueTextEl && currentFullText) {
+        fitDialogueText(activeDialogueTextEl, currentFullText);
+      }
+    });
 
     function startTypewriter(str) {
       currentFullText = str;
       if (typeTimer) clearTimeout(typeTimer);
       isTyping = true;
-      if (activeDialogueTextEl) activeDialogueTextEl.textContent = '';
+      if (activeDialogueTextEl) {
+        activeDialogueTextEl.textContent = '';
+        fitDialogueText(activeDialogueTextEl, str);
+      }
       let charIndex = 0;
 
       function typeChar() {

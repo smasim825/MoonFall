@@ -21,26 +21,12 @@
   <script src="game-assets.js"></script>
   <script src="responsive.js" defer></script>
 
-  <!-- Asset Preloads (High Performance WebP) -->
-  <link rel="preload" href="assets/hydroponics/Group 1.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/CharacterPoses/Sunita_Williams_Present2.webp" as="image">
-  <link rel="preload" href="assets/power/Astronaut_ThumbsUp.png" as="image">
-  <link rel="preload" href="assets/hydroponics/Frame 13.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/image 128.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/image 129.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/image 130.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/Astronaut Tending Hydroponic Garden.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/Astronaut Tending Neon Hydroponics.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/3.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/4.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/5.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/6.webp" as="image">
-  <link rel="preload" href="assets/hydroponics/Final Analysis_ Healthy Plant Lab Report.webp" as="image">
-  <link rel="preload" href="assets/meal/Dialogue_Box.webp" as="image">
-  <link rel="preload" href="assets/scene 3/Frame 6.png" as="image">
-  <link rel="preload" href="assets/scene 3/Frame 7.png" as="image">
-  <link rel="preload" href="assets/scene 3/Pragyan_ShivShakti_Neutral.png" as="image">
+  <!-- Scene 1 Critical Asset Preloads (Instant First-Paint Render) -->
+  <link rel="preload" href="assets/hydroponics/Group 1.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/power/Astronaut_ThumbsUp.png" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/Rectangle 3.png" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/meal/Sunita_Badge.webp" as="image" fetchpriority="high">
 
   <style>
     /* ==========================================================================
@@ -86,7 +72,12 @@
     .game-viewport {
       position: relative;
       width: 100vw;
+      width: 100dvw;
       height: 100vh;
+      height: 100dvh;
+      max-width: none;
+      max-height: none;
+      aspect-ratio: auto;
       background: #000000;
       overflow: hidden;
     }
@@ -248,10 +239,10 @@
 
     .hazard-skull-badge {
       position: absolute;
-      top: 6.5%;
-      left: 6%;
-      width: 9.5%;
-      max-width: 130px;
+      top: 13.5%;
+      left: 5%;
+      width: 8.5%;
+      max-width: 115px;
       aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
@@ -268,9 +259,9 @@
 
     .toxic-components-panel {
       position: absolute;
-      top: 12%;
-      right: 17%;
-      height: 50%;
+      top: 13.5%;
+      right: 16%;
+      height: 47%;
       width: auto;
       aspect-ratio: 644 / 1145;
       display: flex;
@@ -447,15 +438,15 @@
        ========================================================================== */
     .hud-days-badge {
       position: absolute;
-      top: 3.2%;
-      right: clamp(75px, 8.5vw, 105px);
+      top: clamp(42px, 11.5vh, 62px);
+      right: clamp(76px, 8.5vw, 116px);
       background: rgba(18, 25, 34, 0.94);
       border: 2px solid #5a6e82;
       border-radius: 6px;
-      padding: 4px 16px;
+      padding: 3px 14px;
       color: #ffffff;
       font-family: var(--font-pixel);
-      font-size: clamp(1.1rem, 2vw, 1.8rem);
+      font-size: clamp(0.9rem, 1.55vw, 1.45rem);
       letter-spacing: 0.05em;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.75);
       z-index: 15;
@@ -733,15 +724,18 @@
       cursor: pointer;
     }
 
-    /* Sunita Box (using assets/meal/Dialogue_Box.webp) */
+    /* Sunita Box (Exact match to 1.1 Power Mission Rectangle 3 + Floating Speaker Badge) */
     .dialogue-box.scene-1-box {
       position: relative;
-      width: 85%;
-      max-width: 1380px;
-      aspect-ratio: 2824 / 441;
+      width: 84%;
+      max-width: 1360px;
+      aspect-ratio: 2813 / 378;
+      min-height: clamp(72px, 19.5vh, 110px);
       display: flex;
+      align-items: center;
+      padding: 0;
       box-sizing: border-box;
-      margin-left: 7.5%;
+      margin-left: 7%;
       margin-right: 1.5%;
     }
 
@@ -755,13 +749,33 @@
       filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
     }
 
-    /* Skip Button centered directly on the top blue line of the dialogue box */
+    .scene-1-box .speaker-badge {
+      position: absolute;
+      top: -16.5%;
+      left: 7.5%;
+      width: 19.5%;
+      aspect-ratio: 566 / 127;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 35;
+      pointer-events: none;
+    }
+
+    .speaker-badge-img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      image-rendering: pixelated;
+    }
+
+    /* Skip Button matching 1.1 Power Mission */
     .scene-1-box .skip-btn {
       position: absolute;
-      top: 15.9%;
-      transform: translateY(-50%);
-      right: 2.5%;
-      width: 12.2%;
+      top: -16.5%;
+      right: 3.2%;
+      width: 13.4%;
       aspect-ratio: 376 / 127;
       display: block;
       background: transparent;
@@ -775,12 +789,12 @@
     }
 
     .scene-1-box .skip-btn:hover {
-      transform: translateY(-50%) scale(1.04);
+      transform: scale(1.04);
       filter: brightness(1.08);
     }
 
     .scene-1-box .skip-btn:active {
-      transform: translateY(-50%) scale(0.97);
+      transform: scale(0.97);
     }
 
     .skip-bg {
@@ -804,25 +818,24 @@
       pointer-events: none;
     }
 
-    /* Dialogue Content: strictly below top blue line/tab, expanded left & right under skip button */
+    /* Dialogue Content: full interior height matching 1.1 Power Mission */
     .scene-1-box .dialogue-content {
-      position: absolute;
-      top: 20%;
-      bottom: 6%;
-      left: 11.5%;
-      right: 2.5%;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      padding: 12px 3.5% 8px 9%;
       display: flex;
       align-items: center;
       overflow: hidden;
       box-sizing: border-box;
-      z-index: 2;
     }
 
     .scene-1-box .dialogue-text {
       font-family: var(--font-pixel);
-      font-size: clamp(1.3rem, 2.45vw, 2.65rem);
+      font-size: clamp(1.15rem, 2.3vw, 2.5rem);
       font-weight: 400;
-      line-height: 1.1;
+      line-height: 1.12;
       color: #000000;
       white-space: normal;
       word-break: normal;
@@ -833,23 +846,6 @@
       image-rendering: pixelated;
       margin: 0;
       width: 100%;
-      transition: font-size 0.12s ease;
-    }
-
-    /* Dynamic Auto-Fit Font Scaling */
-    .scene-1-box .dialogue-text.text-short {
-      font-size: clamp(1.4rem, 2.65vw, 2.85rem);
-      line-height: 1.12;
-    }
-
-    .scene-1-box .dialogue-text.text-medium {
-      font-size: clamp(1.3rem, 2.45vw, 2.65rem);
-      line-height: 1.1;
-    }
-
-    .scene-1-box .dialogue-text.text-long {
-      font-size: clamp(1.2rem, 2.22vw, 2.4rem);
-      line-height: 1.08;
     }
 
     /* Astro Bee Dialogue Box (Frame 6.png - for Scene 21 & Mission Complete) */
@@ -1433,12 +1429,15 @@
       <footer class="dialogue-wrapper" id="dialogueWrapper">
         <!-- Sunita Williams Dialogue Box -->
         <div class="dialogue-box scene-1-box" id="dialogueBoxSunita" onclick="handleDialogueClick()">
+          <div class="speaker-badge" id="speakerBadgeSunita">
+            <img src="assets/meal/Sunita_Badge.webp" alt="Sunita Williams" class="speaker-badge-img">
+          </div>
           <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene"
             aria-label="Skip to Next Scene">
             <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
             <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
           </button>
-          <img src="assets/meal/Dialogue_Box.webp" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <img src="assets/Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
           <div class="dialogue-content" id="dialogueContentSunita">
             <p class="dialogue-text" id="dialogueTextSunita"></p>
           </div>
@@ -1940,24 +1939,45 @@
     const scoreCircleProgress = document.getElementById('scoreCircleProgress');
 
     /* ==========================================================================
-       Typewriter Effect with Dynamic Auto-Fitting
+       Typewriter Effect with Pixel-Accurate Auto-Fitting (Matches Power Mission)
        ========================================================================== */
+    function fitDialogueText(textEl, fullStr) {
+      if (!textEl || !fullStr) return;
+      const container = textEl.parentElement;
+      if (!container) return;
+      textEl.style.fontSize = '';
+      textEl.style.lineHeight = '';
+      const prevText = textEl.textContent;
+      textEl.textContent = fullStr;
+      const maxH = container.clientHeight - 16;
+      if (maxH > 16) {
+        let sizePx = parseFloat(window.getComputedStyle(textEl).fontSize) || 20;
+        let lh = 1.1;
+        textEl.style.lineHeight = String(lh);
+        while (textEl.scrollHeight > maxH && sizePx > 10.5) {
+          sizePx -= 0.5;
+          if (sizePx < 15) lh = 1.04;
+          textEl.style.fontSize = sizePx + 'px';
+          textEl.style.lineHeight = String(lh);
+        }
+      }
+      textEl.textContent = prevText;
+    }
+
+    window.addEventListener('resize', () => {
+      if (activeDialogueTextEl && fullCurrentText) {
+        fitDialogueText(activeDialogueTextEl, fullCurrentText);
+      }
+    });
+
     function startTypewriter(text) {
       if (typewriterTimer) clearInterval(typewriterTimer);
       fullCurrentText = text;
       isTypewriterActive = true;
       if (!activeDialogueTextEl) activeDialogueTextEl = dialogueTextSunita;
 
-      activeDialogueTextEl.classList.remove('text-short', 'text-medium', 'text-long');
-      if (text.length <= 60) {
-        activeDialogueTextEl.classList.add('text-short');
-      } else if (text.length <= 110) {
-        activeDialogueTextEl.classList.add('text-medium');
-      } else {
-        activeDialogueTextEl.classList.add('text-long');
-      }
-
       activeDialogueTextEl.textContent = "";
+      fitDialogueText(activeDialogueTextEl, text);
       let charIndex = 0;
       typewriterTimer = setInterval(() => {
         if (charIndex < text.length) {
@@ -2386,6 +2406,37 @@
         }
       }
       renderScene(currentSceneIndex);
+
+      // Non-blocking background asset preloader for later scenes (prevents Scene 1 bandwidth starvation)
+      const deferredAssets = [
+        'assets/hydroponics/CharacterPoses/Sunita_Williams_Present2.webp',
+        'assets/hydroponics/Frame 13.webp',
+        'assets/hydroponics/image 128.webp',
+        'assets/hydroponics/image 129.webp',
+        'assets/hydroponics/image 130.webp',
+        'assets/hydroponics/image 132.webp',
+        'assets/hydroponics/R.webp',
+        'assets/hydroponics/tOXIC_cOMPONENTS.webp',
+        'assets/hydroponics/Astronaut Tending Hydroponic Garden.webp',
+        'assets/hydroponics/Astronaut Tending Neon Hydroponics.webp',
+        'assets/hydroponics/3.webp',
+        'assets/hydroponics/5.webp',
+        'assets/hydroponics/6.webp',
+        'assets/hydroponics/Final Analysis_ Healthy Plant Lab Report.webp',
+        'assets/scene 3/Frame 6.png',
+        'assets/scene 3/Frame 7.png',
+        'assets/scene 3/Pragyan_ShivShakti_Neutral.png'
+      ];
+      setTimeout(() => {
+        let idx = 0;
+        function preloadNext() {
+          if (idx >= deferredAssets.length) return;
+          const img = new Image();
+          img.onload = img.onerror = () => setTimeout(preloadNext, 40);
+          img.src = deferredAssets[idx++];
+        }
+        preloadNext();
+      }, 400);
     });
   </script>
 

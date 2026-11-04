@@ -950,6 +950,12 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
 }
 
 @media screen and (max-width: 1024px) and (orientation: landscape), screen and (max-height: 550px) and (orientation: landscape) {
+  #gameViewport,
+  #baseViewport,
+  .game-viewport,
+  .meal-game-viewport,
+  .power-game-viewport,
+  .base-viewport,
   body.force-horizontal #gameViewport,
   body.force-horizontal #baseViewport,
   body.force-horizontal #introOverlay,
@@ -963,9 +969,12 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     position: fixed !important;
     inset: 0 !important;
     width: 100vw !important;
+    width: 100dvw !important;
+    height: 100vh !important;
     height: 100dvh !important;
     max-width: none !important;
     max-height: none !important;
+    aspect-ratio: auto !important;
     transform: none !important;
   }
 
@@ -1283,13 +1292,21 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     transform: translate(-50%, 0) !important;
     width: 88% !important;
     max-width: 900px !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     z-index: 50 !important;
-    pointer-events: auto !important;
+    pointer-events: none !important;
     box-sizing: border-box !important;
+  }
+
+  .mission-complete-buttons,
+  .mission-btn {
+    pointer-events: auto !important;
   }
 
   .mission-complete-container {
