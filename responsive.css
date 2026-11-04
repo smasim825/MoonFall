@@ -137,20 +137,23 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
    Mobile / Phone Screen Rules (<= 1024px or mobile height <= 550px)
    ========================================================================== */
 @media screen and (max-width: 1024px), screen and (max-height: 550px) {
-  /* Top HUD: ALWAYS STAYS ON TOP INSIDE THE HORIZONTAL VIEWPORT! */
+  /* Top HUD: Pin firmly across the top with burger on far-left and telemetry dead-center */
   .game-top-hud {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 8px !important;
+    display: block !important;
     position: absolute !important;
-    top: max(8px, env(safe-area-inset-top)) !important;
-    left: max(8px, env(safe-area-inset-left)) !important;
-    right: max(88px, calc(env(safe-area-inset-right) + 80px)) !important;
-    width: auto !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 0 !important;
     box-sizing: border-box !important;
     padding: 0 !important;
+    margin: 0 !important;
     z-index: 250 !important;
+    pointer-events: none !important;
+  }
+
+  .game-top-hud > * {
     pointer-events: auto !important;
   }
 
@@ -160,11 +163,13 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     display: none !important;
   }
 
-  /* Mobile Burger Toggle Button (Placed at top left of telemetry) */
+  /* Mobile Burger Toggle Button: ALWAYS IN TOP-LEFT CORNER */
   .mobile-menu-toggle {
     display: inline-flex !important;
-    order: 0 !important;
-    margin-right: 4px !important;
+    position: absolute !important;
+    top: max(8px, env(safe-area-inset-top)) !important;
+    left: max(8px, env(safe-area-inset-left)) !important;
+    margin: 0 !important;
     align-items: center !important;
     justify-content: center !important;
     width: 36px !important;
@@ -191,20 +196,21 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     transform: translateY(2px) !important;
   }
 
-  /* Telemetry Status Bar: STAYS PROMINENTLY AT THE TOP WITH REDUCED GAPS */
+  /* Telemetry Status Bar: CENTERED IN THE MIDDLE OF THE SCREEN */
   .top-status-bar {
     display: flex !important;
-    flex: 0 1 auto !important;
-    min-width: 0 !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: max(8px, env(safe-area-inset-top)) !important;
+    transform: translateX(-50%) !important;
     width: fit-content !important;
-    max-width: calc(100% - 46px) !important;
-    order: 1 !important;
+    max-width: calc(100vw - 140px) !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     gap: 6px !important;
     padding: 4px 8px !important;
     margin: 0 !important;
-    font-size: clamp(0.68rem, 2vw, 0.82rem) !important;
+    font-size: clamp(0.68rem, 1.8vw, 0.78rem) !important;
     background: rgba(0, 16, 40, 0.94) !important;
     border: 1.5px solid #0050b3 !important;
     border-radius: 8px !important;
@@ -212,6 +218,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     white-space: nowrap !important;
     overflow-x: auto !important;
     scrollbar-width: none !important;
+    z-index: 251 !important;
   }
 
   .top-status-bar::-webkit-scrollbar {
@@ -232,21 +239,22 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     font-weight: bold !important;
   }
 
-  /* Mobile Dropdown Navigation Menu - Aligned on Left Under Burger */
+  /* Item 4: Mobile Burger Dropdown Navigation Menu - Reduced Width (Not Length) */
   .mobile-nav-menu {
     display: none;
     position: absolute !important;
-    top: calc(100% + 8px) !important;
-    left: 0 !important;
+    top: calc(max(8px, env(safe-area-inset-top)) + 42px) !important;
+    left: max(8px, env(safe-area-inset-left)) !important;
     right: auto !important;
-    width: min(280px, calc(100vw - 20px)) !important;
+    width: 172px !important;
+    max-width: calc(100vw - 20px) !important;
     background: rgba(4, 12, 26, 0.98) !important;
     border: 2px solid #00cfff !important;
     border-radius: 10px !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 207, 255, 0.35) !important;
-    padding: 10px !important;
+    padding: 6px !important;
     flex-direction: column !important;
-    gap: 8px !important;
+    gap: 6px !important;
     z-index: 1000006 !important;
     pointer-events: auto !important;
     backdrop-filter: blur(12px) !important;
@@ -265,19 +273,20 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   .mobile-nav-item {
     display: flex !important;
     align-items: center !important;
-    gap: 12px !important;
+    gap: 8px !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    padding: 9px 12px !important;
+    padding: 7px 10px !important;
     font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
-    font-size: 1.1rem !important;
-    letter-spacing: 0.05em !important;
+    font-size: 0.98rem !important;
+    letter-spacing: 0.04em !important;
     font-weight: bold !important;
-    border-radius: 8px !important;
+    border-radius: 6px !important;
     cursor: pointer !important;
     touch-action: manipulation !important;
     user-select: none !important;
     text-align: left !important;
+    white-space: nowrap !important;
     transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease !important;
   }
 
@@ -316,18 +325,313 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     box-shadow: 0 0 12px rgba(148, 163, 184, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
   }
 
-  /* Dropdown card on mobile */
+  /* Item 1: Astrobee Chatbot & Music Button (Top Right Stack) */
+  .ab-root.ab-in-stage .ab-launch {
+    position: absolute !important;
+    top: max(8px, env(safe-area-inset-top)) !important;
+    right: max(8px, env(safe-area-inset-right)) !important;
+    width: 48px !important;
+    min-height: 50px !important;
+    height: 50px !important;
+    padding: 3px 2px !important;
+    border: 2px solid #00e5ff !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4), 0 4px 12px rgba(0, 0, 0, 0.8) !important;
+    gap: 0 !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch img {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch-short {
+    font-size: 13px !important;
+    margin-top: 1px !important;
+  }
+
+  .base-music-toggle {
+    position: absolute !important;
+    top: calc(max(8px, env(safe-area-inset-top)) + 54px) !important;
+    right: max(8px, env(safe-area-inset-right)) !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    padding: 3px 2px !important;
+    border-radius: 6px !important;
+    font-size: 0.72rem !important;
+    gap: 2px !important;
+    line-height: 1 !important;
+    border-width: 1.5px !important;
+  }
+
+  .base-music-toggle .music-icon {
+    font-size: 11px !important;
+  }
+
+  .base-music-toggle .music-label {
+    font-size: 10px !important;
+  }
+
+  /* Item 3: Mission Sidebar & Play/Close Buttons */
+  .missions-wrapper {
+    top: 50px !important;
+    left: max(8px, env(safe-area-inset-left)) !important;
+    gap: 8px !important;
+    padding-top: 0 !important;
+  }
+
+  .missions-content-box {
+    width: min(200px, 40vw) !important;
+    gap: 5px !important;
+  }
+
+  .mission-header-card {
+    min-height: 34px !important;
+    padding: 3px 7px !important;
+    gap: 6px !important;
+    border-radius: 8px !important;
+    border-width: 2px !important;
+  }
+
+  .mission-header-icon {
+    font-size: 1.15rem !important;
+  }
+
+  .mission-header-title {
+    font-size: 0.95rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .mission-subtasks-box {
+    padding: 4px 6px !important;
+    gap: 4px !important;
+    border-radius: 8px !important;
+    border-width: 2px !important;
+  }
+
+  .subtask-btn {
+    min-height: 32px !important;
+    padding: 3px 6px !important;
+    font-size: 0.9rem !important;
+    border-radius: 6px !important;
+    border-width: 2px !important;
+  }
+
+  .mission-side-actions {
+    gap: 5px !important;
+    padding-top: 0 !important;
+  }
+
+  .mission-btn-play,
+  .mission-btn-close {
+    width: 70px !important;
+    aspect-ratio: 309 / 127 !important;
+  }
+
+  /* Item 5: Mobile Modals
+     - Meet the Crew: 4 crew members SIDE BY SIDE
+     - Phases: compact board, 4 mission cards SIDE BY SIDE in phase 1
+     - NASA Research & Base Upgrades: compact 2-column grid */
+  /* 5.1: Meet The Crew Modal (4 Crew Members Side by Side) */
+  .crew-modal-card {
+    width: min(96vw, 840px) !important;
+    max-height: 94vh !important;
+    border-radius: 10px !important;
+  }
+
+  .crew-modal-header {
+    padding: 5px 12px !important;
+  }
+
+  .crew-modal-title {
+    font-size: 1.05rem !important;
+  }
+
+  .crew-modal-title .modal-close-btn,
+  .crew-modal-header .modal-close-btn {
+    font-size: 1rem !important;
+    padding: 2px 6px !important;
+  }
+
+  .crew-modal-body {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6px !important;
+    padding: 6px 8px !important;
+    overflow-y: auto !important;
+  }
+
+  .crew-member-card {
+    padding: 6px 4px !important;
+    border-width: 2px !important;
+    border-radius: 8px !important;
+  }
+
+  .crew-avatar-frame {
+    width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    margin-bottom: 3px !important;
+  }
+
+  .crew-avatar-img {
+    max-height: 40px !important;
+  }
+
+  .crew-name-badge {
+    font-size: 0.8rem !important;
+    margin-bottom: 2px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 100% !important;
+  }
+
+  .crew-role-badge {
+    font-size: 0.64rem !important;
+    padding: 1px 3px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 3px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .crew-speech-bubble {
+    font-size: 0.64rem !important;
+    line-height: 1.15 !important;
+    padding: 3px 4px !important;
+    max-height: 52px !important;
+    overflow-y: auto !important;
+    border-radius: 5px !important;
+  }
+
+  /* 5.2: Mission Phases Board Modal */
+  .coc-phase-board-wrap {
+    width: min(96vw, 820px) !important;
+    max-height: 94vh !important;
+  }
+
+  .coc-phase-board-wrap.wide-4-cards {
+    width: min(96vw, 850px) !important;
+  }
+
+  .coc-board-tabs {
+    padding: 0 6px !important;
+    gap: 4px !important;
+  }
+
+  .coc-tab {
+    padding: 3px 7px !important;
+    font-size: 0.82rem !important;
+  }
+
+  .coc-board-close-btn {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 15px !important;
+  }
+
+  .coc-board-window {
+    padding: 6px 8px !important;
+    border-radius: 8px !important;
+  }
+
+  .coc-board-body.grid-4-missions {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6px !important;
+    overflow-y: auto !important;
+  }
+
+  .coc-board-body:not(.grid-4-missions) {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    overflow-y: auto !important;
+  }
+
+  .coc-card {
+    min-height: 145px !important;
+    padding: 5px !important;
+  }
+
+  .coc-card-header {
+    height: 46px !important;
+  }
+
+  .coc-card-art {
+    max-height: 42px !important;
+  }
+
+  .coc-card-title {
+    font-size: 0.95rem !important;
+  }
+
+  .coc-card-desc {
+    font-size: 0.7rem !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .coc-big-cta-btn {
+    padding: 3px 5px !important;
+  }
+
+  .coc-btn-main-text {
+    font-size: 0.88rem !important;
+  }
+
+  .coc-btn-sub-cost {
+    font-size: 0.7rem !important;
+  }
+
+  /* 5.3: NASA Research & Base Upgrades Dropdown Modal */
   .top-nav-dropdown {
     position: fixed !important;
-    top: 54px !important;
-    left: 10px !important;
-    right: 10px !important;
-    width: auto !important;
-    max-width: 440px !important;
-    margin: 0 auto !important;
-    max-height: calc(100vh - 70px) !important;
-    overflow-y: auto !important;
+    top: max(46px, calc(env(safe-area-inset-top) + 40px)) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: min(94vw, 560px) !important;
+    max-width: 560px !important;
+    max-height: calc(100vh - 54px) !important;
     z-index: 1000020 !important;
+  }
+
+  .nav-dropdown-col {
+    max-height: calc(100vh - 64px) !important;
+    overflow-y: auto !important;
+  }
+
+  .nav-col-header {
+    padding: 5px 10px !important;
+    font-size: 0.95rem !important;
+  }
+
+  .nav-col-items {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    padding: 6px !important;
+  }
+
+  .nav-col-item {
+    padding: 5px 8px !important;
+    gap: 6px !important;
+  }
+
+  .item-icon-box {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 1.1rem !important;
+  }
+
+  .item-title {
+    font-size: 0.82rem !important;
+  }
+
+  .item-sub {
+    font-size: 0.7rem !important;
   }
 }
 
