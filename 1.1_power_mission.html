@@ -615,7 +615,8 @@
       pointer-events: none;
     }
 
-    @media (max-width: 900px), (max-height: 500px) {
+    @media (max-width: 900px),
+    (max-height: 500px) {
       .top-hud {
         right: max(72px, calc(64px + env(safe-area-inset-right)));
       }
@@ -884,13 +885,11 @@
       top: 0;
       bottom: 0;
       width: 22px;
-      background: repeating-linear-gradient(
-        -45deg,
-        #f59e0b,
-        #f59e0b 14px,
-        #0b0f19 14px,
-        #0b0f19 28px
-      );
+      background: repeating-linear-gradient(-45deg,
+          #f59e0b,
+          #f59e0b 14px,
+          #0b0f19 14px,
+          #0b0f19 28px);
       box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
     }
 
@@ -921,8 +920,14 @@
       font-family: var(--font-pixel);
     }
 
-    .airlock-door-left .airlock-submodule-tag { left: 24px; }
-    .airlock-door-right .airlock-submodule-tag { right: 24px; text-align: right; }
+    .airlock-door-left .airlock-submodule-tag {
+      left: 24px;
+    }
+
+    .airlock-door-right .airlock-submodule-tag {
+      right: 24px;
+      text-align: right;
+    }
 
     /* Center Hydraulic Lock & Tactical HUD */
     .airlock-lock-hud {
@@ -943,13 +948,11 @@
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 3px,
-        rgba(0, 229, 255, 0.025) 3px,
-        rgba(0, 229, 255, 0.025) 6px
-      );
+      background-image: repeating-linear-gradient(0deg,
+          transparent,
+          transparent 3px,
+          rgba(0, 229, 255, 0.025) 3px,
+          rgba(0, 229, 255, 0.025) 6px);
     }
 
     /* Cyber Tech Corner Brackets */
@@ -961,10 +964,34 @@
       pointer-events: none;
       filter: drop-shadow(0 0 6px rgba(253, 203, 14, 0.6));
     }
-    .hud-bracket-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
-    .hud-bracket-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
-    .hud-bracket-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
-    .hud-bracket-br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+    .hud-bracket-tl {
+      top: -2px;
+      left: -2px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .hud-bracket-tr {
+      top: -2px;
+      right: -2px;
+      border-left: none;
+      border-bottom: none;
+    }
+
+    .hud-bracket-bl {
+      bottom: -2px;
+      left: -2px;
+      border-right: none;
+      border-top: none;
+    }
+
+    .hud-bracket-br {
+      bottom: -2px;
+      right: -2px;
+      border-left: none;
+      border-top: none;
+    }
 
     /* Top Telemetry Header */
     .airlock-telemetry-row {
@@ -1047,8 +1074,13 @@
     }
 
     @keyframes gear-spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .lock-status-lamp {
@@ -1066,8 +1098,15 @@
     }
 
     @keyframes lamp-pulse {
-      from { opacity: 0.7; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1.15); }
+      from {
+        opacity: 0.7;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1.15);
+      }
     }
 
     .lock-status-lamp.state-unlocked {
@@ -1121,8 +1160,13 @@
     }
 
     @keyframes icon-float {
-      from { transform: translateY(-1px); }
-      to { transform: translateY(1px); }
+      from {
+        transform: translateY(-1px);
+      }
+
+      to {
+        transform: translateY(1px);
+      }
     }
 
     .ribbon-text {
@@ -1162,8 +1206,13 @@
     }
 
     @keyframes airlock-pulse-glow {
-      from { box-shadow: 0 0 10px rgba(0, 229, 255, 0.35); }
-      to { box-shadow: 0 0 24px rgba(0, 229, 255, 0.85); }
+      from {
+        box-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
+      }
+
+      to {
+        box-shadow: 0 0 24px rgba(0, 229, 255, 0.85);
+      }
     }
 
     .airlock-scan-bar {
@@ -1187,8 +1236,13 @@
     }
 
     @keyframes scan-sweep {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(100%);
+      }
     }
 
     /* Cryo Steam Vent FX */
@@ -1212,9 +1266,20 @@
     }
 
     @keyframes steam-burst {
-      0% { transform: scaleX(0.4); opacity: 0; }
-      40% { transform: scaleX(1.4); opacity: 0.9; }
-      100% { transform: scaleX(2.0); opacity: 0; }
+      0% {
+        transform: scaleX(0.4);
+        opacity: 0;
+      }
+
+      40% {
+        transform: scaleX(1.4);
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: scaleX(2.0);
+        opacity: 0;
+      }
     }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
@@ -1226,7 +1291,8 @@
     <div class="orientation-card">
       <div class="phone-rotate-icon">📱 ➔ 🔄</div>
       <div class="orientation-title">Landscape View Required</div>
-      <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to continue.</p>
+      <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to
+        continue.</p>
       <div class="orientation-buttons">
         <button class="orientation-btn btn-rotate-now" onclick="requestLandscape()">
           ⤾ Rotate Screen to Horizontal
@@ -1236,8 +1302,8 @@
   </aside>
 
   <!-- Quick Floating Rotate Button on Mobile -->
-  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="requestLandscape()"
-    title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
+  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="requestLandscape()" title="Toggle Horizontal Screen"
+    aria-label="Toggle Horizontal Screen">
     🔄
   </button>
 
@@ -1255,7 +1321,7 @@
           </button>
           <button class="hud-btn" onclick="returnToBase()" title="Return to Main Base" aria-label="Return to Main Base">
             <svg class="hud-home-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
             </svg>
             <span>MAIN BASE</span>
           </button>
@@ -1343,7 +1409,8 @@
           <div class="speaker-badge" id="speakerBadgeChiaki">
             <img src="1.1_power_mission_assest/Caption Text.webp" alt="Chiaki Mukai" class="speaker-badge-img">
           </div>
-          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene" aria-label="Skip to Next Scene">
+          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene"
+            aria-label="Skip to Next Scene">
             <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
             <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
           </button>
@@ -1364,7 +1431,8 @@
             <img src="assets/scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
           </div>
           <!-- Skip Button (Caption Text-1.png contains "SKIP", Vector 6.png is ">>") -->
-          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next" aria-label="Next">
+          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next"
+            aria-label="Next">
             <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
             <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
           </button>
@@ -2039,7 +2107,7 @@
           if (this.audioCtx && this.audioCtx.state === 'suspended') {
             this.audioCtx.resume();
           }
-        } catch (e) {}
+        } catch (e) { }
       }
 
       playPneumaticHiss() {
@@ -2071,7 +2139,7 @@
           filter.connect(gain);
           gain.connect(this.audioCtx.destination);
           noise.start();
-        } catch (e) {}
+        } catch (e) { }
       }
 
       playLockThud() {
@@ -2105,7 +2173,7 @@
           clackGain.connect(this.audioCtx.destination);
           clack.start(now);
           clack.stop(now + 0.09);
-        } catch (e) {}
+        } catch (e) { }
       }
 
       playSealChime() {
@@ -2126,7 +2194,7 @@
             osc.start(startTime);
             osc.stop(startTime + 0.25);
           });
-        } catch (e) {}
+        } catch (e) { }
       }
 
       executeOpen() {
