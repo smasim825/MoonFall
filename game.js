@@ -514,12 +514,13 @@
     }
     isTyping = false;
 
-    // Scene 4 → restart from Scene 1
+    // Last Scene (Mission Complete) → hide dialogue box cleanly
     if (currentSceneIndex >= SCENES.length - 1) {
-      setScene(0);
-    } else {
-      setScene(currentSceneIndex + 1);
+      const activeBox = document.getElementById(SCENES[currentSceneIndex].boxId);
+      if (activeBox) activeBox.classList.add('hidden');
+      return;
     }
+    setScene(currentSceneIndex + 1);
   }
 
   function handleDialogueBoxClick() {

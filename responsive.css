@@ -1166,4 +1166,105 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   box-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
 }
 
+/* ==========================================================================
+   Universal Top HUD & Mission Complete Safeguards (PC & Mobile)
+   ========================================================================== */
+.top-hud {
+  right: clamp(96px, 8.5vw, 116px) !important;
+}
+
+@media (max-width: 900px), (max-height: 500px) {
+  .top-hud {
+    right: max(72px, calc(64px + env(safe-area-inset-right))) !important;
+  }
+}
+
+.hud-btn .hud-home-icon,
+.hud-home-icon {
+  width: clamp(15px, 1.3vw, 19px) !important;
+  height: clamp(15px, 1.3vw, 19px) !important;
+  fill: currentColor !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: -1px !important;
+}
+
+.mission-complete-overlay {
+  position: absolute !important;
+  top: clamp(28px, 4.5vh, 48px) !important;
+  bottom: clamp(100px, 15vh, 130px) !important;
+  left: 50% !important;
+  transform: translate(-50%, 0) !important;
+  width: 88% !important;
+  max-width: 900px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 20 !important;
+  pointer-events: auto !important;
+  box-sizing: border-box !important;
+}
+
+.mission-complete-container {
+  width: 100% !important;
+  max-height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(4px, 1vh, 12px) !important;
+}
+
+.mission-complete-title {
+  height: clamp(30px, 5.5vh, 58px) !important;
+  width: auto !important;
+  max-width: 78% !important;
+  object-fit: contain !important;
+  image-rendering: pixelated !important;
+}
+
+.circle-score-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin: clamp(2px, 0.6vh, 6px) 0 !important;
+}
+
+.circle-score-box {
+  position: relative !important;
+  width: clamp(96px, 14vh, 156px) !important;
+  height: clamp(96px, 14vh, 156px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.circle-score-num {
+  font-size: clamp(1.9rem, 3.8vh, 3.5rem) !important;
+  line-height: 1 !important;
+}
+
+.circle-score-sub {
+  font-size: clamp(0.75rem, 1.3vh, 1.15rem) !important;
+  margin-top: 2px !important;
+}
+
+.mission-complete-buttons {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(8px, 1.8vw, 22px) !important;
+  width: 88% !important;
+  margin-top: clamp(2px, 0.8vh, 8px) !important;
+}
+
+.mission-btn img {
+  height: clamp(28px, 4.8vh, 48px) !important;
+  width: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+
 

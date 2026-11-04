@@ -607,12 +607,18 @@
       position: absolute;
       top: 10px;
       left: 14px;
-      right: 14px;
+      right: clamp(96px, 8.5vw, 116px);
       z-index: 40;
       display: flex;
       justify-content: space-between;
       align-items: center;
       pointer-events: none;
+    }
+
+    @media (max-width: 900px), (max-height: 500px) {
+      .top-hud {
+        right: max(72px, calc(64px + env(safe-area-inset-right)));
+      }
     }
 
     .hud-title-badge {
@@ -636,12 +642,26 @@
       font-size: clamp(0.95rem, 1.6vw, 1.35rem);
       cursor: pointer;
       pointer-events: auto;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     .hud-btn:hover {
       background: #0284c7;
       color: #ffffff;
+      border-color: #38bdf8;
+    }
+
+    .hud-home-icon {
+      width: clamp(15px, 1.3vw, 19px);
+      height: clamp(15px, 1.3vw, 19px);
+      fill: currentColor;
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: -1px;
     }
 
     /* ==========================================================================
@@ -649,10 +669,12 @@
        ========================================================================== */
     .mission-complete-overlay {
       position: absolute;
-      top: 14%;
+      top: clamp(28px, 4.5vh, 48px);
+      bottom: clamp(100px, 15vh, 130px);
       left: 50%;
       transform: translate(-50%, 0);
-      width: 82%;
+      width: 88%;
+      max-width: 900px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -660,6 +682,7 @@
       z-index: 20;
       pointer-events: auto;
       animation: mission-pop-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      box-sizing: border-box;
     }
 
     @keyframes mission-pop-in {
@@ -676,16 +699,18 @@
 
     .mission-complete-container {
       width: 100%;
+      max-height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.2vw;
+      justify-content: center;
+      gap: clamp(4px, 1vh, 12px);
     }
 
     .mission-complete-title {
-      width: 76%;
-      max-width: 820px;
-      height: auto;
+      height: clamp(30px, 5.5vh, 58px);
+      width: auto;
+      max-width: 78%;
       object-fit: contain;
       image-rendering: pixelated;
       filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.85));
@@ -696,13 +721,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 8px 0 6px 0;
+      margin: clamp(2px, 0.6vh, 6px) 0;
     }
 
     .circle-score-box {
       position: relative;
-      width: clamp(150px, 16.5vw, 215px);
-      height: clamp(150px, 16.5vw, 215px);
+      width: clamp(96px, 14vh, 156px);
+      height: clamp(96px, 14vh, 156px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -743,7 +768,7 @@
 
     .circle-score-num {
       font-family: var(--font-pixel);
-      font-size: clamp(2.5rem, 4.6vw, 4.8rem);
+      font-size: clamp(1.9rem, 3.8vh, 3.5rem);
       font-weight: 400;
       color: #00e5ff;
       line-height: 1;
@@ -752,20 +777,20 @@
 
     .circle-score-sub {
       font-family: var(--font-pixel);
-      font-size: clamp(0.95rem, 1.45vw, 1.45rem);
+      font-size: clamp(0.75rem, 1.3vh, 1.15rem);
       color: #94a3b8;
       letter-spacing: 0.12em;
       line-height: 1;
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
     .mission-complete-buttons {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1.5vw;
+      gap: clamp(8px, 1.8vw, 22px);
       width: 88%;
-      margin-top: 4px;
+      margin-top: clamp(2px, 0.8vh, 8px);
     }
 
     .mission-btn {
@@ -782,7 +807,7 @@
     }
 
     .mission-btn img {
-      height: clamp(34px, 5vw, 62px);
+      height: clamp(28px, 4.8vh, 48px);
       width: auto;
       object-fit: contain;
       display: block;
@@ -1230,8 +1255,15 @@
       <header class="top-hud">
         <div class="hud-title-badge" id="hudTitle">⚡ MISSION 1: POWER STATION</div>
         <div style="display:flex; gap:8px;">
-          <button class="hud-btn" id="soundBtn" onclick="toggleSound()">🔊 SOUND</button>
-          <button class="hud-btn" onclick="returnToBase()">🏠 MAIN BASE</button>
+          <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
+            <span id="soundIcon">🔊</span> <span id="soundText">SOUND</span>
+          </button>
+          <button class="hud-btn" onclick="returnToBase()" title="Return to Main Base" aria-label="Return to Main Base">
+            <svg class="hud-home-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span>MAIN BASE</span>
+          </button>
         </div>
       </header>
 
@@ -1475,7 +1507,15 @@
 
     function toggleSound() {
       sound.muted = !sound.muted;
-      document.getElementById('soundBtn').textContent = sound.muted ? '🔇 MUTED' : '🔊 SOUND';
+      const soundIcon = document.getElementById('soundIcon');
+      const soundText = document.getElementById('soundText');
+      if (soundIcon && soundText) {
+        soundIcon.textContent = sound.muted ? '🔇' : '🔊';
+        soundText.textContent = sound.muted ? 'MUTED' : 'SOUND';
+      } else {
+        const btn = document.getElementById('soundBtn');
+        if (btn) btn.textContent = sound.muted ? '🔇 MUTED' : '🔊 SOUND';
+      }
     }
 
     // =========================================================================
@@ -1938,6 +1978,10 @@
         finishTypewriter();
         return;
       }
+      if (!missionCompleteOverlay.classList.contains('hidden')) {
+        dialogueWrapper.classList.add('hidden');
+        return;
+      }
       nextScene();
     }
 
@@ -1945,6 +1989,10 @@
       sound.playClick();
       if (isTyping) {
         finishTypewriter();
+        return;
+      }
+      if (!missionCompleteOverlay.classList.contains('hidden')) {
+        dialogueWrapper.classList.add('hidden');
         return;
       }
       // Step to next scene sequentially
@@ -2212,7 +2260,12 @@
 
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
-      renderScene(0);
+      if (new URLSearchParams(window.location.search).has('complete')) {
+        correctAnswersCount = 1;
+        showMissionComplete();
+      } else {
+        renderScene(0);
+      }
     });
   </script>
   <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
