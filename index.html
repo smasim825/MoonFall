@@ -2288,6 +2288,37 @@
       margin-bottom: 3px;
     }
 
+    /* Step 3 side-anchored layouts (card beside the Power Station badge) */
+    .onboarding-guide-container.step-3-power[data-side="right"],
+    .onboarding-guide-container.step-3-power[data-side="left"] {
+      flex-direction: row;
+    }
+    .onboarding-guide-container.step-3-power[data-side="right"] .onboarding-arrow-glyph {
+      order: 0;
+      margin-right: 6px !important; margin-left: 0 !important; margin-bottom: 0 !important;
+      animation: bounce-arrow-horiz-left 0.85s infinite ease-in-out alternate;
+    }
+    .onboarding-guide-container.step-3-power[data-side="left"] .onboarding-arrow-glyph {
+      order: 2;
+      margin-left: 6px !important; margin-right: 0 !important; margin-bottom: 0 !important;
+      animation: bounce-arrow-horiz-right 0.85s infinite ease-in-out alternate;
+    }
+    .onboarding-guide-container.step-3-power[data-side="below"] {
+      flex-direction: column;
+    }
+    .onboarding-guide-container.step-3-power[data-side="below"] .onboarding-arrow-glyph {
+      order: 0;
+      margin: 0 0 3px 0 !important;
+    }
+    @keyframes bounce-arrow-horiz-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-7px); }
+    }
+    @keyframes bounce-arrow-horiz-right {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(7px); }
+    }
+
     .onboarding-arrow-glyph.arrow-down {
       margin-top: 4px;
       margin-bottom: 0;
@@ -6357,6 +6388,9 @@
       const burger = document.getElementById('mobileMenuToggle');
       if (!container || !glyph) return;
       container.classList.remove('step-3-power');
+      delete container.dataset.side;
+      glyph.style.marginTop = '';
+      glyph.style.alignSelf = '';
       glyph.textContent = '⬆';
       glyph.classList.remove('arrow-down');
 
@@ -6384,6 +6418,9 @@
       const burger = document.getElementById('mobileMenuToggle');
       if (!container || !glyph) return;
       container.classList.remove('step-3-power');
+      delete container.dataset.side;
+      glyph.style.marginTop = '';
+      glyph.style.alignSelf = '';
       glyph.textContent = '⬆';
       glyph.classList.remove('arrow-down');
 
@@ -6405,20 +6442,89 @@
       }
     }
 
+    // Step 3: anchor the card to the real Power Station badge position so it
+    // never covers the badge, on any screen size (desktop, tablet, phone landscape).
     function positionForStep3() {
       const container = document.getElementById('onboardingGuideContainer');
       const glyph = document.getElementById('onboardingArrowGlyph');
+      const overlay = document.getElementById('onboardingGuideOverlay');
+      const target = document.getElementById('badgePower') || document.getElementById('bldPower');
       if (!container || !glyph) return;
       container.classList.add('step-3-power');
-      glyph.textContent = '⬇';
-      glyph.classList.add('arrow-down');
-      glyph.style.marginLeft = '0';
-      container.style.top = '6%';
-      container.style.left = '19%';
+      glyph.classList.remove('arrow-down');
+      glyph.style.marginLeft = '';
       container.style.right = 'auto';
       container.style.bottom = 'auto';
       container.style.alignItems = 'center';
+
+      if (!overlay || !target) {
+        container.dataset.side = 'right';
+        glyph.textContent = '⬅';
+        container.style.top = '6%';
+        container.style.left = '19%';
+        return;
+      }
+
+      const o = overlay.getBoundingClientRect();
+      const b = target.getBoundingClientRect();
+      const pad = 8;
+      const gap = 6;
+
+      // Try right side first (arrow points left at the badge)
+      container.dataset.side = 'right';
+      glyph.textContent = '⬅';
+      let c = container.getBoundingClientRect();
+      let left = b.right - o.left + gap;
+      let top = (b.top + b.height / 2) - o.top - c.height / 2;
+
+      if (left + c.width > o.width - pad) {
+        // Not enough room on the right: try left side (arrow points right)
+        container.dataset.side = 'left';
+        glyph.textContent = '➡';
+        c = container.getBoundingClientRect();
+        left = b.left - o.left - c.width - gap;
+        top = (b.top + b.height / 2) - o.top - c.height / 2;
+        if (left < pad) {
+          // Fallback: below the badge (arrow points up)
+          container.dataset.side = 'below';
+          glyph.textContent = '⬆';
+          c = container.getBoundingClientRect();
+          left = (b.left + b.width / 2) - o.left - c.width / 2;
+          top = b.bottom - o.top + gap;
+        }
+      }
+
+      // Keep the card below the top HUD (status bar / menu buttons)
+      let minTop = pad;
+      const hud = document.querySelector('.top-status-bar');
+      if (hud && hud.offsetParent !== null) {
+        const h = hud.getBoundingClientRect();
+        if (h.bottom > o.top) minTop = Math.max(minTop, h.bottom - o.top + 6);
+      }
+      left = Math.max(pad, Math.min(left, o.width - c.width - pad));
+      top = Math.max(minTop, Math.min(top, o.height - c.height - pad));
+      container.style.left = left + 'px';
+      container.style.top = top + 'px';
+
+      // Side layouts: keep the arrow pointing at the badge even if the card was clamped
+      glyph.style.marginTop = '';
+      glyph.style.alignSelf = '';
+      if (container.dataset.side === 'right' || container.dataset.side === 'left') {
+        const gh = glyph.getBoundingClientRect().height || 30;
+        const arrowY = (b.top + b.height / 2) - o.top - top - gh / 2;
+        glyph.style.alignSelf = 'flex-start';
+        glyph.style.marginTop = Math.max(0, Math.min(arrowY, c.height - gh)) + 'px';
+      }
     }
+
+    window.addEventListener('resize', () => {
+      if (typeof onboardingStep !== 'undefined' && onboardingStep === 3) positionForStep3();
+    });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        if (typeof onboardingStep !== 'undefined' && onboardingStep === 3) positionForStep3();
+      }, 250);
+    });
 
     function setOnboardingStep(step) {
       onboardingStep = step;

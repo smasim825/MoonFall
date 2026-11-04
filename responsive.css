@@ -316,14 +316,13 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     margin-left: 8px !important;
   }
 
+  /* Step 3 is positioned dynamically in JS (anchored beside the Power Station badge) */
   .onboarding-guide-container.step-3-power {
-    top: 6% !important;
-    left: 19% !important;
     align-items: center !important;
   }
 
-  .onboarding-guide-container.step-3-power .onboarding-arrow-glyph {
-    margin-left: 0 !important;
+  .onboarding-guide-container.step-3-power .onboarding-directive-card {
+    width: min(260px, 42vw) !important;
   }
 
   /* Telemetry Status Bar: CENTERED IN THE MIDDLE OF THE SCREEN */
