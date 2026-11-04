@@ -171,11 +171,12 @@
     /* Educational / Diagram Card (Centered below Top HUD - Never overlaps buttons) */
     .diagram-card-container {
       position: absolute;
-      top: 11.5%;
+      top: clamp(44px, 12.5%, 68px);
+      bottom: clamp(114px, 31.8%, 190px);
       left: 50%;
       transform: translateX(-50%);
       width: 42%;
-      height: 48%;
+      height: auto;
       z-index: 15;
       display: flex;
       flex-direction: column;
@@ -200,6 +201,7 @@
       max-height: 100%;
       width: auto;
       height: auto;
+      min-height: 0;
       object-fit: contain;
       image-rendering: pixelated;
       filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.85));
@@ -216,6 +218,7 @@
       letter-spacing: 0.04em;
       box-shadow: 0 0 14px rgba(0, 153, 255, 0.5);
       animation: pop-in 0.3s ease;
+      flex-shrink: 0;
     }
 
     /* ==========================================================================
@@ -223,15 +226,16 @@
        ========================================================================== */
     .scene4-container {
       position: absolute;
-      top: 6%;
-      left: 28%;
-      right: 3%;
-      height: 58%;
+      top: clamp(46px, 13.5%, 76px);
+      bottom: clamp(114px, 31.8%, 190px);
+      left: 25%;
+      right: clamp(72px, 8.8vw, 115px);
+      height: auto;
       z-index: 18;
       display: flex;
-      align-items: center;
+      align-items: stretch;
       justify-content: space-between;
-      gap: 2%;
+      gap: 2.5%;
       pointer-events: auto;
     }
 
@@ -239,7 +243,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 8px;
+      gap: clamp(4px, 1.2vh, 8px);
       width: 58%;
       height: 100%;
       transition: outline 0.2s ease;
@@ -322,8 +326,8 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 12px;
-      width: 38%;
+      gap: clamp(5px, 1.5vh, 12px);
+      width: 39%;
       height: 100%;
     }
 
@@ -417,11 +421,11 @@
        ========================================================================== */
     .daily-intake-popup {
       position: absolute;
-      top: 42%;
+      top: 39%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 44%;
-      max-width: 620px;
+      width: min(44%, 620px);
+      max-height: 44vh;
       aspect-ratio: 1182 / 589;
       z-index: 35;
       filter: drop-shadow(0 14px 40px rgba(0, 0, 0, 0.95));
@@ -1268,7 +1272,7 @@
       <!-- Educational Diagram Card (Centered in Middle) -->
       <section class="diagram-card-container hidden" id="diagramCardContainer" aria-label="Educational Diagram">
         <img src="assets/meal/Frame 3_multilayer.webp" alt="Diagram Card" id="diagramCardImg"
-          class="diagram-card-img" loading="lazy" decoding="async">
+          class="diagram-card-img" decoding="async">
         <div class="card-prep-info hidden" id="cardPrepInfo">Meal Sealed & Ready</div>
       </section>
 
@@ -1278,17 +1282,17 @@
         <div class="meal-options-list" id="mealOptionsList">
           <div class="meal-option-card" id="mealCard1" onclick="selectMeal(1)" onmouseenter="previewMeal(1)"
             onmouseleave="unpreviewMeal(1)">
-            <img src="assets/meal/image 7.webp" alt="Meal 1 - Balanced" loading="lazy" decoding="async">
+            <img src="assets/meal/image 7.webp" alt="Meal 1 - Balanced" decoding="async">
             <span class="selected-tag">SELECTED</span>
           </div>
           <div class="meal-option-card" id="mealCard2" onclick="selectMeal(2)" onmouseenter="previewMeal(2)"
             onmouseleave="unpreviewMeal(2)">
-            <img src="assets/meal/image 8.webp" alt="Meal 2 - Low Water" loading="lazy" decoding="async">
+            <img src="assets/meal/image 8.webp" alt="Meal 2 - Low Water" decoding="async">
             <span class="selected-tag">SELECTED</span>
           </div>
           <div class="meal-option-card" id="mealCard3" onclick="selectMeal(3)" onmouseenter="previewMeal(3)"
             onmouseleave="unpreviewMeal(3)">
-            <img src="assets/meal/image 9.webp" alt="Meal 3 - High Energy" loading="lazy" decoding="async">
+            <img src="assets/meal/image 9.webp" alt="Meal 3 - High Energy" decoding="async">
             <span class="selected-tag">SELECTED</span>
           </div>
         </div>
@@ -1297,7 +1301,7 @@
         <div class="reserve-hud-stack" id="reserveHudStack">
           <!-- Water Reserve Box -->
           <div class="reserve-box water-box" id="waterReserveBox">
-            <img src="assets/meal/Water_Reserve.webp" alt="Water Reserve" class="reserve-box-bg" loading="lazy" decoding="async">
+            <img src="assets/meal/Water_Reserve.webp" alt="Water Reserve" class="reserve-box-bg" decoding="async">
             <div class="reserve-track" id="waterReserveTrack">
               <!-- 10 Blue Capsules -->
             </div>
@@ -1305,7 +1309,7 @@
 
           <!-- Power Reserve Box -->
           <div class="reserve-box power-box" id="powerReserveBox">
-            <img src="assets/meal/Group 4.webp" alt="Power Reserve" class="reserve-box-bg" loading="lazy" decoding="async">
+            <img src="assets/meal/Group 4.webp" alt="Power Reserve" class="reserve-box-bg" decoding="async">
             <div class="reserve-track" id="powerReserveTrack">
               <!-- 10 Yellow Bars -->
             </div>
@@ -1315,14 +1319,14 @@
 
       <!-- Scene 11: Daily Meal Intake Popup Modal -->
       <section class="daily-intake-popup hidden" id="dailyIntakePopup" aria-label="Daily Intake Status">
-        <img src="assets/meal/image 42.webp" alt="Daily Intake Box" class="daily-intake-bg" loading="lazy" decoding="async">
+        <img src="assets/meal/image 42.webp" alt="Daily Intake Box" class="daily-intake-bg" decoding="async">
         <div class="daily-intake-text-wrap">
           <div class="daily-intake-title">DAILY INTAKE</div>
           <div class="daily-intake-sub" id="dailyIntakeKcal">850 KCAL/ 3035KCAL</div>
         </div>
         <!-- First Green Capsule Bar Animated in Slot 1 -->
         <div class="daily-intake-slot1" id="dailyIntakeSlot1">
-          <img src="assets/meal/image 43.webp" alt="Intake Portion Filled" loading="lazy" decoding="async">
+          <img src="assets/meal/image 43.webp" alt="Intake Portion Filled" decoding="async">
         </div>
       </section>
 
@@ -2496,11 +2500,19 @@
     // Initialize on Load
     window.addEventListener('DOMContentLoaded', () => {
       initReserveTracks();
-      initEntryTransition();
-      if (new URLSearchParams(window.location.search).has('complete')) {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('complete')) {
+        dismissEntryTransition();
         correctAnswersCount = 5;
         showMissionComplete();
+      } else if (params.has('scene')) {
+        dismissEntryTransition();
+        const sIdx = Math.max(0, Math.min(SCENES.length - 1, parseInt(params.get('scene'), 10) || 0));
+        currentSceneIndex = sIdx;
+        renderScene(sIdx);
+        completeTypewriter();
       } else {
+        initEntryTransition();
         renderScene(0);
       }
 
