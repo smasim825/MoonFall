@@ -749,10 +749,10 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   .crew-speech-bubble {
-    font-size: 0.72rem !important;
-    line-height: 1.2 !important;
+    font-size: 0.68rem !important;
+    line-height: 1.18 !important;
     padding: 4px 6px !important;
-    max-height: 68px !important;
+    max-height: 82px !important;
     overflow-y: auto !important;
     border-radius: 6px !important;
   }
