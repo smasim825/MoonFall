@@ -2031,77 +2031,7 @@
       }
     }
 
-    /* Below 900px: Handled in responsive.css?v=20261105c */
-    @media (max-width: 900px) {
-    }
-
-    @media (max-width: 580px) {
-      .btn-text.short-label {
-        display: none;
-        /* Just show icons on very small screens */
-      }
-
-      .phase-dashboard-btn,
-      .crew-intro-btn,
-      .top-nav-btn {
-        padding: 5px 9px;
-      }
-
-      .top-status-bar {
-        gap: 4px;
-      }
-
-      .top-status-bar .status-item {
-        font-size: 0.78rem;
-        gap: 3px;
-      }
-    }
-
-    /* Dropdown Overlay / Card - Hidden until clicked */
-    .top-nav-dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      z-index: 300;
-      animation: dropdown-pop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .top-nav-dropdown.hidden {
-      display: none !important;
-    }
-
-    /* Enforce Astrobee Launcher Position and Cyan Style in Base Viewport (Cache-Proof) */
-    .ab-root.ab-in-stage .ab-launch {
-      position: absolute !important;
-      top: 12px !important;
-      right: 14px !important;
-      width: clamp(76px, 6.2vw, 92px) !important;
-      min-height: clamp(76px, 6.4vw, 92px) !important;
-      background: linear-gradient(180deg, #0d2244 0%, #041024 100%) !important;
-      border: 3px solid #00e5ff !important;
-      border-radius: 12px !important;
-      box-shadow: 0 0 18px rgba(0, 229, 255, 0.45), 0 8px 24px rgba(0, 0, 0, 0.9), inset 0 2px 0 rgba(255, 255, 255, 0.25) !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 1px !important;
-      padding: 6px 7px 4px !important;
-      cursor: pointer !important;
-    }
-
-    .ab-root.ab-in-stage .ab-launch img {
-      width: clamp(46px, 4vw, 58px) !important;
-      height: clamp(46px, 4vw, 58px) !important;
-      aspect-ratio: 1 !important;
-      object-fit: contain !important;
-      image-rendering: pixelated !important;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 8px rgba(0, 229, 255, 0.45)) !important;
-    }
-
-    .ab-root.ab-in-stage .ab-launch-short {
-      display: block !important;
-      font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
+    /* Below 900px: Handled in responsive.css?v=20261105d'Jersey 10', 'Pixel Operator', monospace !important;
       font-size: clamp(19px, 1.45vw, 24px) !important;
       font-weight: bold !important;
       letter-spacing: 0.08em !important;
@@ -3216,40 +3146,7 @@
       gap: clamp(8px, 1.2vw, 15px);
     }
 
-    /* Mobile layout for 4-mission grid is handled in responsive.css?v=20261105c (4 cards side by side) */
-
-    .coc-board-body.hidden-view {
-      display: none !important;
-    }
-
-    /* =========================================================================
-       CREW INTRODUCTIONS MODAL (MEET THE CREW)
-       ========================================================================= */
-    .crew-modal-card {
-      width: min(96vw, 1100px);
-      max-height: 92vh;
-      background: #0d1222;
-      border: 3.5px solid #000000;
-      box-shadow: inset 0 0 0 2px rgba(56, 189, 248, 0.45), 0 12px 36px rgba(0, 0, 0, 0.95);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      animation: modal-pop 0.22s ease-out;
-    }
-
-    .crew-modal-header {
-      background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
-      border-bottom: 3px solid #000000;
-      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.4);
-      padding: 10px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .crew-modal-title {
-      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+    /* Mobile layout for 4-mission grid is handled in responsive.css?v=20261105d'Jersey 10', 'Pixel Operator', monospace;
       font-size: clamp(1.4rem, 2vw, 2.1rem);
       color: #ffffff;
       letter-spacing: 0.05em;
@@ -3268,67 +3165,7 @@
       gap: 14px;
     }
 
-    /* Mobile layout for crew modal is handled in responsive.css?v=20261105c (4 crew members side by side) */
-
-    .crew-member-card {
-      background: #111827;
-      border: 3px solid #000000;
-      border-radius: 10px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.15), 0 6px 12px rgba(0, 0, 0, 0.6);
-      transition: transform 0.18s ease, filter 0.18s ease;
-    }
-
-    .crew-member-card:hover {
-      transform: translateY(-4px);
-      filter: brightness(1.08);
-    }
-
-    .crew-card-amber {
-      border-color: #f59e0b;
-      box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.25), 0 6px 14px rgba(0, 0, 0, 0.8);
-    }
-
-    .crew-card-green {
-      border-color: #10b981;
-      box-shadow: inset 0 0 12px rgba(16, 185, 129, 0.25), 0 6px 14px rgba(0, 0, 0, 0.8);
-    }
-
-    .crew-card-cyan {
-      border-color: #06b6d4;
-      box-shadow: inset 0 0 12px rgba(6, 182, 212, 0.25), 0 6px 14px rgba(0, 0, 0, 0.8);
-    }
-
-    .crew-card-purple {
-      border-color: #a855f7;
-      box-shadow: inset 0 0 12px rgba(168, 85, 247, 0.25), 0 6px 14px rgba(0, 0, 0, 0.8);
-    }
-
-    .crew-avatar-frame {
-      width: 100%;
-      height: 180px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      margin-bottom: 10px;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
-      border-radius: 8px;
-    }
-
-    .crew-avatar-img {
-      max-height: 100%;
-      width: auto;
-      object-fit: contain;
-      image-rendering: pixelated;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8));
-    }
-
-    .crew-name-badge {
-      font-family: 'Jersey 10', monospace;
+    /* Mobile layout for crew modal is handled in responsive.css?v=20261105d'Jersey 10', monospace;
       font-size: 1.5rem;
       color: #ffffff;
       margin-bottom: 2px;
@@ -3845,9 +3682,9 @@
     }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
-  <link rel="stylesheet" href="responsive.css?v=20261105c">
+  <link rel="stylesheet" href="responsive.css?v=20261105d">
   <script src="game-assets.js"></script>
-  <script src="responsive.js?v=20261105c" defer></script>
+  <script src="responsive.js?v=20261105d" defer></script>
 </head>
 
 <body>
@@ -6465,32 +6302,57 @@
         return;
       }
 
-      const o = overlay.getBoundingClientRect();
-      const b = target.getBoundingClientRect();
+      const isRotated = document.body.classList.contains('force-horizontal') &&
+        window.matchMedia('(orientation: portrait)').matches;
+      const oRaw = overlay.getBoundingClientRect();
+      const getLocalBox = (el) => {
+        const r = el.getBoundingClientRect();
+        if (!isRotated) {
+          return {
+            left: r.left - oRaw.left,
+            top: r.top - oRaw.top,
+            right: r.right - oRaw.left,
+            bottom: r.bottom - oRaw.top,
+            width: r.width,
+            height: r.height
+          };
+        }
+        return {
+          left: r.top - oRaw.top,
+          top: oRaw.right - r.right,
+          right: r.bottom - oRaw.top,
+          bottom: oRaw.right - r.left,
+          width: r.height,
+          height: r.width
+        };
+      };
+
+      const o = { width: isRotated ? oRaw.height : oRaw.width, height: isRotated ? oRaw.width : oRaw.height };
+      const b = getLocalBox(target);
       const pad = 8;
       const gap = 6;
 
       // Try right side first (arrow points left at the badge)
       container.dataset.side = 'right';
       glyph.textContent = '⬅';
-      let c = container.getBoundingClientRect();
-      let left = b.right - o.left + gap;
-      let top = (b.top + b.height / 2) - o.top - c.height / 2;
+      let c = getLocalBox(container);
+      let left = b.right + gap;
+      let top = (b.top + b.height / 2) - c.height / 2;
 
       if (left + c.width > o.width - pad) {
         // Not enough room on the right: try left side (arrow points right)
         container.dataset.side = 'left';
         glyph.textContent = '➡';
-        c = container.getBoundingClientRect();
-        left = b.left - o.left - c.width - gap;
-        top = (b.top + b.height / 2) - o.top - c.height / 2;
+        c = getLocalBox(container);
+        left = b.left - c.width - gap;
+        top = (b.top + b.height / 2) - c.height / 2;
         if (left < pad) {
           // Fallback: below the badge (arrow points up)
           container.dataset.side = 'below';
           glyph.textContent = '⬆';
-          c = container.getBoundingClientRect();
-          left = (b.left + b.width / 2) - o.left - c.width / 2;
-          top = b.bottom - o.top + gap;
+          c = getLocalBox(container);
+          left = (b.left + b.width / 2) - c.width / 2;
+          top = b.bottom + gap;
         }
       }
 
@@ -6498,8 +6360,8 @@
       let minTop = pad;
       const hud = document.querySelector('.top-status-bar');
       if (hud && hud.offsetParent !== null) {
-        const h = hud.getBoundingClientRect();
-        if (h.bottom > o.top) minTop = Math.max(minTop, h.bottom - o.top + 6);
+        const h = getLocalBox(hud);
+        if (h.bottom > 0) minTop = Math.max(minTop, h.bottom + 6);
       }
       left = Math.max(pad, Math.min(left, o.width - c.width - pad));
       top = Math.max(minTop, Math.min(top, o.height - c.height - pad));
@@ -6510,8 +6372,8 @@
       glyph.style.marginTop = '';
       glyph.style.alignSelf = '';
       if (container.dataset.side === 'right' || container.dataset.side === 'left') {
-        const gh = glyph.getBoundingClientRect().height || 30;
-        const arrowY = (b.top + b.height / 2) - o.top - top - gh / 2;
+        const gh = getLocalBox(glyph).height || 30;
+        const arrowY = (b.top + b.height / 2) - top - gh / 2;
         glyph.style.alignSelf = 'flex-start';
         glyph.style.marginTop = Math.max(0, Math.min(arrowY, c.height - gh)) + 'px';
       }

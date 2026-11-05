@@ -1,4 +1,44 @@
 (() => {
+  const syncVisualViewportVars = () => {
+    const vv = window.visualViewport;
+    const docEl = document.documentElement;
+    const w = Math.min(
+      window.innerWidth || Infinity,
+      vv ? vv.width : Infinity,
+      docEl.clientWidth || Infinity
+    );
+    const h = Math.min(
+      window.innerHeight || Infinity,
+      vv ? vv.height : Infinity,
+      docEl.clientHeight || Infinity
+    );
+    const offsetTop = vv ? vv.offsetTop : 0;
+    const offsetLeft = vv ? vv.offsetLeft : 0;
+    if (Number.isFinite(w) && w > 0) {
+      docEl.style.setProperty('--vv-w', `${Math.round(w)}px`);
+      docEl.style.setProperty('--vv-left', `${Math.round(offsetLeft)}px`);
+      docEl.style.setProperty('--vv-center-x', `${Math.round(offsetLeft + w / 2)}px`);
+    }
+    if (Number.isFinite(h) && h > 0) {
+      docEl.style.setProperty('--vv-h', `${Math.round(h)}px`);
+      docEl.style.setProperty('--vv-top', `${Math.round(offsetTop)}px`);
+      docEl.style.setProperty('--vv-center-y', `${Math.round(offsetTop + h / 2)}px`);
+    }
+  };
+
+  syncVisualViewportVars();
+  window.addEventListener('resize', syncVisualViewportVars, { passive: true });
+  window.addEventListener('scroll', syncVisualViewportVars, { passive: true });
+  window.addEventListener('orientationchange', () => {
+    syncVisualViewportVars();
+    setTimeout(syncVisualViewportVars, 120);
+    setTimeout(syncVisualViewportVars, 350);
+  }, { passive: true });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', syncVisualViewportVars, { passive: true });
+    window.visualViewport.addEventListener('scroll', syncVisualViewportVars, { passive: true });
+  }
+
   window.toggleMobileMenu = () => {
     const hud = document.getElementById('gameTopHud');
     const toggle = document.getElementById('mobileMenuToggle');
@@ -101,6 +141,7 @@
 
   window.showToolbarGuideIfNeeded = () => {
     try {
+      if (new URLSearchParams(window.location.search).has('notip')) return;
       if (sessionStorage.getItem(TOOLBAR_TIP_STORAGE_KEY) === 'true') return;
     } catch (e) {}
     if (!isMobileDevice() || !isCurrentlyLandscape() || isAlreadyFullscreen()) return;
@@ -127,8 +168,15 @@
     await window.toggleFullScreen();
   };
 
+  const FORCE_HORIZONTAL_STORAGE_KEY = 'moonfall_force_horizontal';
+
   const setForceHorizontal = (enabled) => {
+    syncVisualViewportVars();
     document.body.classList.toggle('force-horizontal', enabled);
+    try {
+      sessionStorage.setItem(FORCE_HORIZONTAL_STORAGE_KEY, enabled ? 'true' : 'false');
+    } catch (e) {}
+    setTimeout(syncVisualViewportVars, 60);
     if (typeof window.checkAndStartIntro === 'function') {
       window.checkAndStartIntro();
     }
@@ -274,11 +322,32 @@
     }
   });
 
+  const restoreForceHorizontalIfNeeded = () => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const shouldForce =
+        params.has('force_horizontal') ||
+        (sessionStorage.getItem(FORCE_HORIZONTAL_STORAGE_KEY) === 'true' &&
+          window.matchMedia('(orientation: portrait)').matches);
+      if (shouldForce) {
+        setForceHorizontal(true);
+        const toggle = document.querySelector('.quick-rotate-toggle');
+        if (toggle) {
+          toggle.innerHTML = '↶';
+          toggle.setAttribute('aria-label', 'Reset view rotation');
+          toggle.title = 'Reset view rotation';
+        }
+      }
+    } catch (e) {}
+  };
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+      restoreForceHorizontalIfNeeded();
       setTimeout(() => window.showToolbarGuideIfNeeded(), 300);
     });
   } else {
+    restoreForceHorizontalIfNeeded();
     setTimeout(() => window.showToolbarGuideIfNeeded(), 300);
   }
 })();

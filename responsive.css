@@ -170,10 +170,15 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   body.force-horizontal:not(:has(#moonJourneyOverlay.active)):not(:has(#introOverlay:not(.fade-out):not([style*="display: none"]))) .quick-rotate-toggle {
     display: flex !important;
     position: fixed !important;
-    top: max(14px, env(safe-area-inset-top)) !important;
-    left: max(14px, env(safe-area-inset-left)) !important;
+    top: calc(var(--vv-top, 0px) + max(16px, env(safe-area-inset-top))) !important;
+    left: max(12px, env(safe-area-inset-left)) !important;
     bottom: auto !important;
     right: auto !important;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    font-size: 18px !important;
   }
 
   body.force-horizontal #gameViewport,
@@ -187,10 +192,13 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   body.force-horizontal .power-game-viewport,
   body.force-horizontal .base-viewport {
     position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    width: 100dvh !important;
-    height: 100vw !important;
+    inset: auto !important;
+    top: var(--vv-center-y, 50%) !important;
+    left: var(--vv-center-x, 50%) !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: var(--vv-h, 100svh) !important;
+    height: var(--vv-w, 100vw) !important;
     max-width: none !important;
     max-height: none !important;
     transform: translate(-50%, -50%) rotate(90deg) !important;
@@ -204,38 +212,133 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   /* Force-Horizontal Viewport Coordinate Adaptations
-     When phone is in portrait with force-horizontal applied:
-     - The visible width in user's view is phone height (100dvh)
-     - The visible height in user's view is phone width (100vw) */
+     When phone is in portrait with force-horizontal applied (e.g. Chrome/Safari with top & bottom bars):
+     - The visible width in user's rotated view is var(--vv-h, 100svh)
+     - The visible height in user's rotated view is var(--vv-w, 100vw) */
+  body.force-horizontal .mobile-menu-toggle {
+    top: 8px !important;
+    left: 16px !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    font-size: 19px !important;
+  }
+
+  body.force-horizontal .mobile-nav-menu {
+    top: 44px !important;
+    left: 16px !important;
+  }
+
+  body.force-horizontal .ab-root.ab-in-stage .ab-launch {
+    top: 8px !important;
+    right: 16px !important;
+    width: 48px !important;
+    min-height: 48px !important;
+    height: 48px !important;
+    padding: 2px !important;
+  }
+
+  body.force-horizontal .ab-root.ab-in-stage .ab-launch img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  body.force-horizontal .ab-root.ab-in-stage .ab-launch-short {
+    font-size: 12px !important;
+  }
+
+  body.force-horizontal .base-music-toggle {
+    top: 60px !important;
+    right: 16px !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    font-size: 0.65rem !important;
+    padding: 2px !important;
+  }
+
   body.force-horizontal .top-status-bar {
-    max-width: calc(100dvh - 130px) !important;
+    top: 8px !important;
+    max-width: calc(var(--vv-h, 100svh) - 140px) !important;
+    padding: 2px 6px !important;
+    gap: 3px !important;
+  }
+
+  body.force-horizontal .top-status-bar .status-item,
+  body.force-horizontal .top-status-bar .status-label,
+  body.force-horizontal .top-status-bar .status-val {
+    font-size: clamp(0.50rem, 1.25vh, 0.64rem) !important;
+  }
+
+  body.force-horizontal .top-status-bar .status-icon {
+    font-size: 0.75rem !important;
+  }
+
+  body.force-horizontal .top-hud {
+    top: 8px !important;
+    left: 14px !important;
+    right: 68px !important;
+  }
+
+  body.force-horizontal .hud-title-badge {
+    font-size: clamp(0.72rem, 1.85vh, 0.92rem) !important;
+    padding: 3px 8px !important;
+  }
+
+  body.force-horizontal .hud-btn {
+    font-size: clamp(0.70rem, 1.75vh, 0.88rem) !important;
+    padding: 3px 8px !important;
+    gap: 4px !important;
+  }
+
+  body.force-horizontal .dialogue-wrapper {
+    padding: 0 14px !important;
+  }
+
+  body.force-horizontal .scene4-container {
+    left: 24% !important;
+    right: 68px !important;
+  }
+
+  body.force-horizontal .missions-wrapper {
+    left: 14px !important;
+    top: 48px !important;
+  }
+
+  body.force-horizontal .onboarding-guide-container:not(.step-3-power) {
+    top: 44px !important;
+    left: 14px !important;
+    width: min(260px, calc(var(--vv-h, 100svh) - 36px)) !important;
+  }
+
+  body.force-horizontal .onboarding-guide-container.step-3-power .onboarding-directive-card {
+    width: min(225px, 38vh) !important;
   }
 
   body.force-horizontal .crew-modal-card {
-    width: min(94dvh, 920px) !important;
-    max-height: 92vw !important;
+    width: min(calc(var(--vv-h, 100svh) - 24px), 920px) !important;
+    max-height: calc(var(--vv-w, 100vw) - 20px) !important;
   }
 
   body.force-horizontal .coc-phase-board-wrap {
-    width: min(94dvh, 850px) !important;
-    max-height: 92vw !important;
+    width: min(calc(var(--vv-h, 100svh) - 24px), 850px) !important;
+    max-height: calc(var(--vv-w, 100vw) - 20px) !important;
   }
 
   body.force-horizontal .coc-phase-board-wrap.wide-4-cards {
-    width: min(95dvh, 880px) !important;
+    width: min(calc(var(--vv-h, 100svh) - 20px), 880px) !important;
   }
 
   body.force-horizontal .nasa-dossier-card {
-    width: min(92dvh, 620px) !important;
-    max-height: calc(100vw - 16px) !important;
+    width: min(calc(var(--vv-h, 100svh) - 28px), 620px) !important;
+    max-height: calc(var(--vv-w, 100vw) - 16px) !important;
   }
 
   body.force-horizontal .nasa-dossier-body {
-    max-height: calc(100vw - 100px) !important;
+    max-height: calc(var(--vv-w, 100vw) - 100px) !important;
   }
 
   body.force-horizontal .tactical-modal-card {
-    max-height: calc(100vw - 16px) !important;
+    max-height: calc(var(--vv-w, 100vw) - 16px) !important;
   }
 }
 
@@ -983,6 +1086,75 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 }
 
+/* Compact mobile landscape screens (e.g. Chrome/Safari with address/navigation bars visible, width <= 740px) */
+@media screen and (max-width: 740px) and (orientation: landscape) {
+  .mobile-menu-toggle {
+    top: max(6px, env(safe-area-inset-top)) !important;
+    left: max(12px, env(safe-area-inset-left)) !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    font-size: 19px !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch {
+    top: max(6px, env(safe-area-inset-top)) !important;
+    right: max(12px, env(safe-area-inset-right)) !important;
+    width: 48px !important;
+    min-height: 48px !important;
+    height: 48px !important;
+    padding: 2px !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch-short {
+    font-size: 12px !important;
+  }
+
+  .base-music-toggle {
+    top: calc(max(6px, env(safe-area-inset-top)) + 52px) !important;
+    right: max(12px, env(safe-area-inset-right)) !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    font-size: 0.65rem !important;
+    padding: 2px !important;
+  }
+
+  .top-status-bar {
+    top: max(6px, env(safe-area-inset-top)) !important;
+    max-width: calc(100% - 126px) !important;
+    padding: 2px 6px !important;
+    gap: 3px !important;
+  }
+
+  .top-status-bar .status-item,
+  .top-status-bar .status-label,
+  .top-status-bar .status-val {
+    font-size: clamp(0.50rem, 1.25vw, 0.64rem) !important;
+  }
+
+  .top-hud {
+    top: 6px !important;
+    left: max(12px, env(safe-area-inset-left)) !important;
+    right: max(66px, calc(58px + env(safe-area-inset-right))) !important;
+  }
+
+  .hud-title-badge {
+    font-size: clamp(0.72rem, 1.85vw, 0.92rem) !important;
+    padding: 3px 8px !important;
+  }
+
+  .hud-btn {
+    font-size: clamp(0.70rem, 1.75vw, 0.88rem) !important;
+    padding: 3px 8px !important;
+    gap: 4px !important;
+  }
+}
+
 @media screen and (min-width: 1025px) and (min-height: 551px) {
   .orientation-banner,
   .quick-rotate-toggle,
@@ -1394,12 +1566,12 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
 @media screen and (max-width: 1024px) and (orientation: portrait), screen and (max-height: 550px) and (orientation: portrait) {
   body.force-horizontal .toolbar-guide-overlay.active {
     position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
+    top: var(--vv-center-y, 50%) !important;
+    left: var(--vv-center-x, 50%) !important;
     right: auto !important;
     bottom: auto !important;
-    width: 100dvh !important;
-    height: 100vw !important;
+    width: var(--vv-h, 100svh) !important;
+    height: var(--vv-w, 100vw) !important;
     transform: translate(-50%, -50%) rotate(90deg) !important;
     transform-origin: center center !important;
   }
