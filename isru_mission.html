@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,13 +14,13 @@
   <link rel="preload" href="assets/fonts/Jersey10.ttf" as="font" type="font/ttf" crossorigin>
 
   <!-- Preload Core Images -->
-  <link rel="preload" href="H2O assets/bg/bg_of_water.png" as="image">
-  <link rel="preload" href="H2O assets/bg/bg_of_oxy.png" as="image">
-  <link rel="preload" href="H2O assets/equipements/scoop.png" as="image">
+  <link rel="preload" href="assets/isru/bg/bg_of_water.png" as="image">
+  <link rel="preload" href="assets/isru/bg/bg_of_oxy.png" as="image">
+  <link rel="preload" href="assets/isru/equipments/scoop.png" as="image">
   <link rel="preload" href="assets/scene 3/Pragyan_ShivShakti_Neutral.png" as="image">
   <link rel="preload" href="assets/scene 3/Frame 6.png" as="image">
   <link rel="preload" href="assets/scene 3/Frame 7.png" as="image">
-  <link rel="preload" href="H2O assets/character/Guion_Bluford_PointUp.png" as="image">
+  <link rel="preload" href="assets/isru/character/Chiaki_Mukai_PointUp.png" as="image">
 
   <style>
     /* ==========================================================================
@@ -81,7 +81,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      background-image: url('H2O assets/bg/bg_of_water.png');
+      background-image: url('assets/isru/bg/bg_of_water.png');
       background-size: cover;
       background-position: center;
       image-rendering: pixelated;
@@ -793,6 +793,440 @@
       padding-right: 17%;
     }
 
+    /* =========================================================================
+       Scene 14: Lunar Water Extraction Lab Interactive Simulation
+       ========================================================================= */
+    .lab-sim-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    /* Thermal Heating Coil Glow Zone (Furnace lower section) */
+    .lab-coil-zone {
+      position: absolute;
+      left: 45.8%;
+      top: 61.5%;
+      width: 10.5%;
+      height: 9.5%;
+      border-radius: 6px;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+    }
+
+    .lab-coil-zone:hover {
+      outline: 1.5px dashed #ff6600;
+    }
+
+    .coil-thermal-glow {
+      position: absolute;
+      inset: -20%;
+      border-radius: 8px;
+      background: radial-gradient(circle, rgba(255, 100, 0, 0.9) 0%, rgba(255, 50, 0, 0.5) 50%, transparent 80%);
+      opacity: 0;
+      filter: blur(8px);
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .lab-sim-overlay.extracting .coil-thermal-glow {
+      opacity: 0.95;
+      animation: coil-pulse 0.22s infinite alternate ease-in-out;
+    }
+
+    @keyframes coil-pulse {
+      0% { opacity: 0.75; transform: scale(0.96); filter: blur(6px); }
+      100% { opacity: 1; transform: scale(1.08); filter: blur(10px); }
+    }
+
+    /* Overhead Pipe Vapor Flow from Furnace to Condenser */
+    .lab-pipe-flow {
+      position: absolute;
+      left: 55.5%;
+      top: 24.5%;
+      width: 13.5%;
+      height: 38%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .pipe-steam-pulse {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(0, 229, 255, 0.75) 50%, transparent 100%);
+      transition: opacity 0.3s ease;
+    }
+
+    .lab-sim-overlay.extracting .pipe-steam-pulse {
+      opacity: 0.85;
+      animation: pipe-flow-anim 0.4s infinite linear;
+    }
+
+    @keyframes pipe-flow-anim {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100%); }
+    }
+
+    /* Condenser Column Vapor & Water Pool */
+    .lab-condenser-zone {
+      position: absolute;
+      left: 64.2%;
+      top: 31%;
+      width: 11.5%;
+      height: 42%;
+      border-radius: 12px;
+      cursor: pointer;
+      pointer-events: auto;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .lab-condenser-zone:hover {
+      outline: 1.5px dashed #00e5ff;
+    }
+
+    .condenser-vapor-swirl {
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(ellipse at center, rgba(0, 229, 255, 0.5) 0%, rgba(0, 160, 255, 0.25) 50%, transparent 75%);
+      opacity: 0.3;
+      transition: opacity 0.4s ease;
+      filter: blur(6px);
+      pointer-events: none;
+    }
+
+    .lab-sim-overlay.extracting .condenser-vapor-swirl {
+      opacity: 0.9;
+      animation: vapor-swirl-anim 1.2s infinite alternate ease-in-out;
+    }
+
+    @keyframes vapor-swirl-anim {
+      0% { transform: scale(0.92) rotate(-2deg); }
+      100% { transform: scale(1.1) rotate(2deg); filter: blur(9px); }
+    }
+
+    .condenser-water-pool {
+      position: absolute;
+      bottom: 6%;
+      left: 10%;
+      right: 10%;
+      height: 0%;
+      background: linear-gradient(180deg, rgba(0, 229, 255, 0.75) 0%, rgba(0, 100, 220, 0.9) 100%);
+      border-radius: 4px;
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.8);
+      transition: height 0.2s linear;
+      pointer-events: none;
+    }
+
+    .condenser-droplets-canvas-wrap {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    #labDropletsCanvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Floating Lab Dashboard Card */
+    .lab-dashboard-card {
+      position: absolute;
+      top: 9%;
+      right: 4%;
+      width: min(340px, 32vw);
+      background: linear-gradient(180deg, rgba(6, 18, 40, 0.94) 0%, rgba(2, 10, 24, 0.96) 100%);
+      border: 1.5px solid #00e5ff;
+      border-radius: 8px;
+      padding: clamp(8px, 1.2vw, 14px);
+      box-shadow: 0 0 24px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 229, 255, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      pointer-events: auto;
+      z-index: 20;
+    }
+
+    .lab-dash-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .lab-dash-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: clamp(0.72rem, 1vw, 1.05rem);
+      color: #00e5ff;
+      letter-spacing: 0.04em;
+    }
+
+    .lab-status-bulb {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fdcb0e;
+      box-shadow: 0 0 8px #fdcb0e;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .lab-sim-overlay.extracting .lab-status-bulb {
+      background: #ff5500;
+      box-shadow: 0 0 10px #ff5500;
+      animation: bulb-blink 0.2s infinite alternate;
+    }
+
+    .lab-sim-overlay.complete .lab-status-bulb {
+      background: #22ff88;
+      box-shadow: 0 0 12px #22ff88;
+      animation: none;
+    }
+
+    .lab-dash-temp {
+      font-size: clamp(0.75rem, 1vw, 1.05rem);
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 2px 7px;
+    }
+
+    .lab-sim-overlay.extracting .lab-dash-temp {
+      color: #ff6600;
+      border-color: rgba(255, 102, 0, 0.6);
+      text-shadow: 0 0 6px rgba(255, 102, 0, 0.7);
+    }
+
+    .lab-gauge-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .lab-gauge-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .lab-gauge-title {
+      font-size: clamp(0.65rem, 0.85vw, 0.85rem);
+      color: #94a3b8;
+      letter-spacing: 0.03em;
+    }
+
+    .lab-bar-track {
+      width: 100%;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.6);
+    }
+
+    .lab-bar-fill {
+      height: 100%;
+      transition: width 0.1s linear;
+    }
+
+    .lab-bar-fill.heat-bar {
+      background: linear-gradient(90deg, #fdcb0e, #ff6600, #ff1100);
+      box-shadow: 0 0 8px #ff5500;
+    }
+
+    .lab-bar-fill.water-bar {
+      background: linear-gradient(90deg, #0099ff, #00e5ff, #22ff88);
+      box-shadow: 0 0 8px #00e5ff;
+    }
+
+    .lab-yield-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: clamp(0.72rem, 0.95vw, 0.95rem);
+      color: #cbd5e1;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 5px;
+    }
+
+    .lab-yield-val {
+      color: #00e5ff;
+      font-size: clamp(0.8rem, 1.15vw, 1.15rem);
+    }
+
+    .lab-extract-btn {
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(180deg, #0077dd, #003388);
+      border: 1.5px solid #00e5ff;
+      border-radius: 5px;
+      padding: 6px 10px;
+      color: #ffffff;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.85rem, 1.15vw, 1.2rem);
+      cursor: pointer;
+      box-shadow: 0 3px 12px rgba(0, 150, 255, 0.35);
+      transition: all 0.15s ease;
+      letter-spacing: 0.04em;
+    }
+
+    .lab-extract-btn:hover {
+      background: linear-gradient(180deg, #0099ff, #0055bb);
+      transform: translateY(-1px);
+      box-shadow: 0 5px 16px rgba(0, 229, 255, 0.6);
+    }
+
+    .lab-extract-btn:active {
+      transform: translateY(1px);
+    }
+
+    
+    /* =========================================================================
+       Scene 18: Oxygen Ready High-Impact Display & Electrolysis Tank Visuals
+       ========================================================================= */
+    .oxygen-ready-banner {
+      position: absolute;
+      top: 9%;
+      left: 50%;
+      transform: translateX(-50%) scale(0.92);
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 24px;
+      background: linear-gradient(180deg, rgba(5, 25, 55, 0.95) 0%, rgba(2, 14, 32, 0.98) 100%);
+      border: 2px solid #00e5ff;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0, 229, 255, 0.65), 0 0 10px rgba(34, 255, 136, 0.4), inset 0 0 15px rgba(0, 229, 255, 0.25);
+      animation: oxy-banner-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      pointer-events: auto;
+      text-align: center;
+    }
+
+    @keyframes oxy-banner-pop {
+      0% { opacity: 0; transform: translateX(-50%) scale(0.7) translateY(-20px); }
+      70% { opacity: 1; transform: translateX(-50%) scale(1.04) translateY(0); }
+      100% { opacity: 1; transform: translateX(-50%) scale(1.0) translateY(0); }
+    }
+
+    .oxygen-badge-pulse {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: clamp(1.2rem, 1.8vw, 1.8rem);
+      font-weight: bold;
+      color: #00ffff;
+      text-shadow: 0 0 12px rgba(0, 255, 255, 0.9), 0 0 20px rgba(0, 229, 255, 0.6);
+      letter-spacing: 0.08em;
+      animation: oxy-title-glow 1.5s infinite alternate ease-in-out;
+    }
+
+    @keyframes oxy-title-glow {
+      from { text-shadow: 0 0 8px #00e5ff, 0 0 15px #00e5ff; }
+      to { text-shadow: 0 0 16px #00ffff, 0 0 28px #22ff88, 0 0 35px #00e5ff; }
+    }
+
+    .oxygen-stats-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 229, 255, 0.3);
+    }
+
+    .oxy-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .stat-lbl {
+      font-size: clamp(0.6rem, 0.8vw, 0.75rem);
+      color: #94a3b8;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-val {
+      font-size: clamp(0.75rem, 1.0vw, 1.0rem);
+      font-weight: bold;
+      letter-spacing: 0.04em;
+    }
+
+    .highlight-cyan {
+      color: #00e5ff;
+      text-shadow: 0 0 8px rgba(0, 229, 255, 0.8);
+    }
+
+    .highlight-green {
+      color: #22ff88;
+      text-shadow: 0 0 8px rgba(34, 255, 136, 0.8);
+    }
+
+    .highlight-gold {
+      color: #fdcb0e;
+      text-shadow: 0 0 8px rgba(253, 203, 14, 0.8);
+    }
+
+    .stat-sep {
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 0.8rem;
+    }
+
+    /* Electrolysis Tank Reaction Simulation Overlay */
+    .electrolysis-tank-zone {
+      position: absolute;
+      left: 45.2%;
+      top: 33.5%;
+      width: 12.5%;
+      height: 38%;
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 14;
+    }
+
+    .tank-glow-aura {
+      position: absolute;
+      inset: -10%;
+      border-radius: 12px;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.35) 0%, rgba(34, 255, 136, 0.15) 50%, transparent 75%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .electrolysis-tank-zone.active .tank-glow-aura {
+      opacity: 1;
+      animation: tank-pulse 2s infinite alternate ease-in-out;
+    }
+
+    @keyframes tank-pulse {
+      0% { opacity: 0.6; transform: scale(0.98); }
+      100% { opacity: 1.0; transform: scale(1.02); }
+    }
+
+    .electrolysis-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
     /* Lab Permission Prompt */
     .lab-prompt-backdrop {
       position: absolute;
@@ -1160,7 +1594,7 @@
       pointer-events: none;
     }
 
-    /* Map window = the inner picture area of Frame 2.png (x 90-1414, y 183-922 of 1504x970) */
+    /* Map window = the inner picture area of Frame_2.png (x 90-1414, y 183-922 of 1504x970) */
     .map-window {
       position: absolute;
       left: 5.98%;
@@ -1740,27 +2174,53 @@
 
     .coming-soon-toast.show { opacity: 1; }
   </style>
+  <link rel="stylesheet" href="astrobee/astrobee.css">
+  <link rel="stylesheet" href="missions-shared.css">
+  <link rel="stylesheet" href="responsive.css">
+  <script src="game-assets.js"></script>
+  <script src="responsive.js" defer></script>
 </head>
 
 <body>
-  <main class="isru-game-viewport" id="gameViewport" role="application" aria-label="ISRU Mission: Water and Oxygen">
+    <!-- Mobile Landscape Orientation Banner -->
+  <aside class="orientation-banner" id="orientationBanner" role="dialog" aria-modal="true">
+    <div class="orientation-card">
+      <div class="phone-rotate-icon" aria-hidden="true">&#8635;</div>
+      <div class="orientation-title">Landscape View Required</div>
+      <p class="orientation-desc">MoonFall plays best with your phone held horizontally.</p>
+      <div class="orientation-buttons">
+        <button class="orientation-btn btn-rotate-now" type="button" onclick="requestLandscape()">Rotate screen to play</button>
+      </div>
+    </div>
+  </aside>
+  <button class="quick-rotate-toggle" type="button" onclick="requestLandscape()" title="Rotate game screen" aria-label="Rotate game screen">🔄</button>
+
+  <main class="isru-game-viewport game-viewport" id="gameViewport" role="application" aria-label="Mission 3: ISRU Facility">
     <div class="isru-stage" id="isruStage">
 
       <!-- Top HUD -->
       <header class="top-hud">
-        <div class="hud-title-badge" id="hudTitle">💧 MISSION: ISRU</div>
+        <div class="hud-title-badge" id="hudMissionTitle">💧 MISSION 3: ISRU FACILITY</div>
         <div style="display:flex; gap:8px;">
-          <button class="hud-btn" id="soundBtn" onclick="toggleSound()">🔊 SOUND</button>
-          <button class="hud-btn" onclick="returnToBase()">🏠 MAIN BASE</button>
+          <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
+            <span id="soundText">SOUND</span>
+          </button>
+          <button class="hud-btn" id="restartBtn" onclick="restartMission()" title="Restart Mission">
+            <span>RESTART</span>
+          </button>
+          <a href="mainbase.html" class="hud-btn" id="homeBtn" title="Back to Main Base">
+            <span>MAIN BASE</span>
+          </a>
         </div>
       </header>
 
       <!-- Background: Lunar South Pole -->
+      <div id="astrobee" class="ab-root ab-in-stage"></div>
       <div class="isru-bg-layer" id="isruBgLayer" aria-hidden="true"></div>
 
       <!-- Character Stage (Left) -->
-      <div class="character-guide hidden" id="guideStage">
-        <img src="H2O assets/character/Guion_Bluford_PointUp.png" alt="Mission Guide" id="guideImg">
+      <div class="character-guide" id="guideStage">
+        <img src="assets/isru/character/Chiaki_Mukai_PointUp.png" alt="Mission Guide" id="guideImg">
       </div>
 
       <!-- Floating Diagram Card (used by later scenes) -->
@@ -1831,10 +2291,10 @@
       <!-- Interactive Map (Scene 2) -->
       <div class="map-container hidden" id="mapContainer">
         <div class="map-card">
-          <img class="map-frame-img" src="H2O assets/equipements/Frame 2.png" alt="Submersive Ice map frame">
+          <img class="map-frame-img" src="assets/isru/equipments/Frame_2.png" alt="Submersive Ice map frame">
           <div class="map-window show-water" id="mapWindow" aria-label="Interactive lunar ice map">
             <div class="map-pan" id="mapPan">
-              <img class="map-pan-img" src="H2O assets/equipements/Frame 2.png" alt="Submersive ice map">
+              <img class="map-pan-img" src="assets/isru/equipments/Frame_2.png" alt="Submersive ice map">
             </div>
           </div>
           <div class="map-hint" id="mapHint">Scroll / pinch to zoom · drag to move · tap a marker</div>
@@ -1858,12 +2318,12 @@
       <!-- Ice Scanner (Scenes 4 & 5) -->
       <div class="scan-container hidden" id="scanContainer">
         <div class="scan-card" id="scanCard">
-          <img class="scan-img" src="H2O assets/equipements/scan.png" alt="Scanning for Submersive Ice">
+          <img class="scan-img" src="assets/isru/equipments/scan.png" alt="Scanning for Submersive Ice">
           <div class="scan-window" id="scanWindow" aria-label="Lunar South Pole water ice map">
             <div class="scan-pan" id="scanPan">
               <div class="scan-inner" id="scanInner">
-                <img class="scan-img" src="H2O assets/equipements/scan.png" alt="">
-                <img class="scan-img scan-reveal" id="scanReveal" src="H2O assets/equipements/scan1.png" alt="">
+                <img class="scan-img" src="assets/isru/equipments/scan.png" alt="">
+                <img class="scan-img scan-reveal" id="scanReveal" src="assets/isru/equipments/scan1.png" alt="">
                 <div class="scan-beam hidden" id="scanBeam"></div>
               </div>
             </div>
@@ -1904,10 +2364,64 @@
       <div class="coming-soon-toast" id="comingSoonToast">MORE SCENES COMING SOON...</div>
 
       <!-- Dialogue Dock Footer -->
+      <!-- Scene 14: Lunar Water Extraction Lab Interactive Simulation -->
+      <div class="lab-sim-overlay hidden" id="labSimOverlay">
+        <div class="lab-coil-zone" id="labCoilZone" onclick="toggleWaterExtraction(event)" title="Click to heat regolith">
+          <div class="coil-thermal-glow"></div>
+        </div>
+
+        <div class="lab-pipe-flow" id="labPipeFlow">
+          <div class="pipe-steam-pulse"></div>
+        </div>
+
+        <div class="lab-condenser-zone" id="labCondenserZone" onclick="toggleWaterExtraction(event)" title="Condenser column">
+          <div class="condenser-vapor-swirl"></div>
+          <div class="condenser-water-pool" id="condenserWaterPool"></div>
+          <div class="condenser-droplets-canvas-wrap">
+            <canvas id="labDropletsCanvas"></canvas>
+          </div>
+        </div>
+
+        <div class="lab-dashboard-card" id="labDashboardCard">
+          <div class="lab-dash-row">
+            <div class="lab-dash-tag">
+              <span class="lab-status-bulb" id="labStatusBulb"></span>
+              <span id="labStatusText">SYSTEM: STANDBY · READY TO HEAT</span>
+            </div>
+            <div class="lab-dash-temp" id="labTempText">TEMP: 22°C</div>
+          </div>
+
+          <div class="lab-gauge-row">
+            <div class="lab-gauge-group">
+              <div class="lab-gauge-title">COIL HEATER</div>
+              <div class="lab-bar-track">
+                <div class="lab-bar-fill heat-bar" id="labHeatBar" style="width: 0%;"></div>
+              </div>
+            </div>
+            <div class="lab-gauge-group">
+              <div class="lab-gauge-title">WATER CONDENSED</div>
+              <div class="lab-bar-track">
+                <div class="lab-bar-fill water-bar" id="labWaterBar" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lab-yield-row">
+            <span>EXTRACTION YIELD:</span>
+            <strong class="lab-yield-val" id="labYieldVal">0.00 L / 1.00 L</strong>
+          </div>
+
+          <button class="lab-extract-btn" id="labExtractBtn" onclick="toggleWaterExtraction(event)">
+            <span class="btn-icon">🔥</span>
+            <span id="labExtractBtnLabel">START WATER EXTRACTION (HEAT REGOLITH)</span>
+          </button>
+        </div>
+      </div>
+
       <footer class="dialogue-wrapper hidden" id="dialogueWrapper">
         <div class="dialogue-box scene-1-box" id="dialogueBox" onclick="handleDialogueClick()">
           <div class="speaker-badge" id="speakerBadge">
-            <img src="1.1_power_mission_assest/Caption Text.webp" alt="Chiaki Mukai" class="speaker-badge-img">
+            <img src="assets/Caption Text.png" alt="Chiaki Mukai" class="speaker-badge-img">
           </div>
           <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene"
             aria-label="Skip to Next Scene">
@@ -1941,6 +2455,37 @@
       </footer>
 
       <!-- Lab Permission Prompt Modal (between Scoop Scene and Lab Scene) -->
+      
+      <!-- Scene 18: Oxygen Ready High-Impact Display & Tank Reaction -->
+      <div class="oxygen-ready-banner hidden" id="oxygenReadyBanner">
+        <div class="oxygen-badge-pulse">
+          <span class="oxygen-icon">✨ 💨</span>
+          <span class="oxygen-title">OXYGEN IS READY!</span>
+          <span class="oxygen-icon">💨 ✨</span>
+        </div>
+        <div class="oxygen-stats-bar">
+          <div class="oxy-stat">
+            <span class="stat-lbl">O₂ PURITY</span>
+            <span class="stat-val highlight-cyan">99.8% SECURED</span>
+          </div>
+          <div class="stat-sep">|</div>
+          <div class="oxy-stat">
+            <span class="stat-lbl">LIFE-SUPPORT</span>
+            <span class="stat-val highlight-green">PRESSURIZED</span>
+          </div>
+          <div class="stat-sep">|</div>
+          <div class="oxy-stat">
+            <span class="stat-lbl">H₂ COLLECTED</span>
+            <span class="stat-val highlight-gold">ROCKET PROPELLANT</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="electrolysis-tank-zone hidden" id="electrolysisTankZone" onclick="triggerOxygenFanfare()" title="Click to inspect Oxygen generation">
+        <div class="tank-glow-aura"></div>
+        <canvas class="electrolysis-canvas" id="electrolysisCanvas"></canvas>
+      </div>
+
       <div class="lab-prompt-backdrop hidden" id="labPromptBackdrop">
         <div class="lab-prompt-modal" id="labPromptModal">
           <div class="lab-prompt-header">
@@ -2058,6 +2603,67 @@
 
       playTypewriter() { this._blip('triangle', 740 + Math.random() * 120, 0.04, 0.028); }
       playClick() { this._blip('sine', 880, 0.08, 0.08); }
+      startHeaterSound() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          if (this.heaterOsc) return;
+          this.heaterOsc = this.ctx.createOscillator();
+          this.heaterGain = this.ctx.createGain();
+          this.heaterOsc.type = 'triangle';
+          this.heaterOsc.frequency.setValueAtTime(65, this.ctx.currentTime);
+          this.heaterGain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+          this.heaterOsc.connect(this.heaterGain);
+          this.heaterGain.connect(this.ctx.destination);
+          this.heaterOsc.start();
+
+          this.heaterInterval = setInterval(() => {
+            if (this.muted || !this.ctx) return;
+            this._blip('sine', 160 + Math.random() * 40, 0.02, 0.03);
+          }, 120);
+        } catch(e) {}
+      }
+
+      stopHeaterSound() {
+        try {
+          if (this.heaterInterval) { clearInterval(this.heaterInterval); this.heaterInterval = null; }
+          if (this.heaterGain && this.ctx) {
+            this.heaterGain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.15);
+          }
+          if (this.heaterOsc) {
+            const osc = this.heaterOsc;
+            setTimeout(() => { try { osc.stop(); osc.disconnect(); } catch(e) {} }, 160);
+            this.heaterOsc = null;
+            this.heaterGain = null;
+          }
+        } catch(e) {}
+      }
+
+      
+    playOxygenFanfare() {
+      if (!this.enabled) return;
+      this._resume();
+      // Triumphant 4-note ascending fanfare: C5 (523Hz), E5 (659Hz), G5 (784Hz), C6 (1046Hz)
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, idx) => {
+        setTimeout(() => {
+          this._blip('triangle', freq, 0.28, 0.35);
+          this._blip('sine', freq * 2, 0.22, 0.18);
+        }, idx * 160);
+      });
+    }
+
+    playWaterCompleteChime() {
+        if (this.muted) return;
+        const notes = [659.25, 783.99, 987.77, 1318.51];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            this._blip('sine', freq, 0.09, 0.28);
+          }, idx * 100);
+        });
+      }
+
       playAirlock() {
         if (this.muted) return;
         this.init();
@@ -2080,16 +2686,32 @@
 
     const sound = new SoundEngine();
 
-    function toggleSound() {
-      sound.muted = !sound.muted;
-      document.getElementById('soundBtn').textContent = sound.muted ? '🔇 MUTED' : '🔊 SOUND';
-      if (sound.muted) { sound.stopDrillSound(); }
+        function restartMission() {
+      sound.playClick();
+      if (typeof stopDrillSim === 'function') stopDrillSim();
+      if (typeof stopLabSim === 'function') stopLabSim();
+      if (typeof stopElectrolysisVisuals === 'function') stopElectrolysisVisuals();
+      renderScene(0);
     }
+
+    function toggleSound() {
+      sound.toggle();
+      const soundBtn = document.getElementById('soundBtn');
+      const soundText = document.getElementById('soundText');
+      if (soundText) soundText.textContent = sound.muted ? 'MUTED' : 'SOUND';
+      if (soundBtn) soundBtn.title = sound.muted ? 'Unmute Sound' : 'Mute Sound';
+      if (sound.muted) {
+        if (typeof sound.stopDrillSound === 'function') sound.stopDrillSound();
+        if (typeof sound.stopHeaterSound === 'function') sound.stopHeaterSound();
+      }
+    }
+
 
     // =========================================================================
     // Scene Definitions (add more scenes to this array as the mission grows)
     // =========================================================================
-    const GUIDE_POINT_UP = 'H2O assets/character/Guion_Bluford_PointUp.png';
+    const GUIDE_POINT_UP = 'assets/isru/character/Chiaki_Mukai_PointUp.png';
+    const GUIDE_WAVE = 'assets/isru/character/Chiaki_Mukai_PointUp.png';
 
     const SCENES = [
       // Scene 1: Lunar South Pole intro
@@ -2101,7 +2723,7 @@
         speaker: 'Chiaki Mukai',
         text: "Welcome to the lunar South Pole, Cadet! Over billions of years, water from comets, asteroids, and the solar wind may have accumulated on the Moon."
       },
-      // Scene 2: Submersive Ice (Frame 2.png card on the right)
+      // Scene 2: Submersive Ice (Frame_2.png card on the right)
       {
         id: 2,
         showGuide: true,
@@ -2139,7 +2761,7 @@
         id: 6,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        cardImg: 'H2O assets/equipements/scan2.png',
+        cardImg: 'assets/isru/equipments/scan2.png',
         cardClass: 'card-wide',
         speaker: 'Chiaki Mukai',
         text: "Great! We've identified some promising locations. Select one to choose our drilling site."
@@ -2148,7 +2770,7 @@
       {
         id: 7,
         showGuide: false,
-        cardImg: 'H2O assets/equipements/scan3.png',
+        cardImg: 'assets/isru/equipments/scan3.png',
         cardClass: 'card-wide',
         isSiteSelection: true,
         text: ""
@@ -2158,7 +2780,7 @@
         id: 8,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        cardImg: 'H2O assets/equipements/drill.png',
+        cardImg: 'assets/isru/equipments/drill.png',
         cardClass: 'card-wide',
         isDrillScene: true,
         speaker: 'Chiaki Mukai',
@@ -2178,7 +2800,7 @@
         id: 10,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        cardImg: 'H2O assets/equipements/drill 2.png',
+        cardImg: 'assets/isru/equipments/drill_2.png',
         cardClass: 'card-wide',
         speaker: 'Chiaki Mukai',
         text: "The drill hardware uses specialized auger flutes to deliver icy core cuttings to the surface for sealed heating and water extraction!"
@@ -2205,7 +2827,7 @@
         id: 13,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        cardImg: 'H2O assets/equipements/scoop.png',
+        cardImg: 'assets/isru/equipments/scoop.png',
         cardClass: 'card-wide',
         speaker: 'Chiaki Mukai',
         requiresLabPermission: true,
@@ -2216,10 +2838,54 @@
         id: 14,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        bgImg: 'H2O assets/bg/bg_of_oxy.png',
+        bgImg: 'assets/isru/bg/bg_of_oxy.png',
         cardImg: null,
+        isLabScene: true,
         speaker: 'Chiaki Mukai',
         text: "NASA has researched lunar water-extraction concepts that heat icy regolith and capture the released vapor. The condenser cools the vapor, turning it into liquid water."
+      },
+      // Scene 15: Water Electrolysis Lab Overview (User Picture 1)
+      {
+        id: 15,
+        showGuide: true,
+        guidePose: GUIDE_WAVE,
+        bgImg: 'assets/isru/bg/bg_of_oxy2.png',
+        cardImg: null,
+        speaker: 'Chiaki Mukai',
+        text: "Now we will use the purified water from your previous mission."
+      },
+      // Scene 16: Electrolysis of Water Card (User Picture 2)
+      {
+        id: 16,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        bgImg: 'assets/isru/bg/bg_of_oxy2.png',
+        cardImg: 'assets/isru/equipments/molecular.png',
+        cardClass: 'card-wide',
+        speaker: 'Chiaki Mukai',
+        text: "Transfer purified water into the electrolyser and activate it. It uses electricity to split water into hydrogen and oxygen."
+      },
+      // Scene 17: ISS ECLSS Card (User Picture 3)
+      {
+        id: 17,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        bgImg: 'assets/isru/bg/bg_of_oxy2.png',
+        cardImg: 'assets/isru/equipments/machine.png',
+        cardClass: 'card-wide',
+        speaker: 'Chiaki Mukai',
+        text: "The ISS uses an Oxygen Generation System (OGS) rack that houses the Oxygen Generation Assembly (OGA)."
+      },
+      // Scene 18: Oxygen is Ready! (User Picture 4 - Highly Highlighted)
+      {
+        id: 18,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        bgImg: 'assets/isru/bg/bg_of_oxy2.png',
+        cardImg: null,
+        isOxygenReady: true,
+        speaker: 'Chiaki Mukai',
+        text: "Oxygen is ready! Store it for the habitat’s life-support system. The collected hydrogen can also be used as rocket propellant."
       }
     ];
 
@@ -2318,43 +2984,235 @@
     }
 
     const dialogueWrapper = document.getElementById('dialogueWrapper');
+    const dialogueBox = document.getElementById('dialogueBox');
+    const dialogueBoxAstroBee = document.getElementById('dialogueBoxAstroBee');
     const dialogueText = document.getElementById('dialogueText');
+    const dialogueTextAstroBee = document.getElementById('dialogueTextAstroBee');
     const toastEl = document.getElementById('comingSoonToast');
 
-    function renderScene(idx) {
-      currentSceneIdx = idx;
-      const s = SCENES[idx];
-
-      if (s.showGuide) {
-        guideImg.src = s.guidePose || GUIDE_POINT_UP;
-        guideStage.classList.remove('hidden');
-      } else {
-        guideStage.classList.add('hidden');
-      }
-
-      mapContainer.classList.toggle('hidden', !s.interactiveMap);
-      if (s.interactiveMap) { mapContainer.style.animation = 'none'; void mapContainer.offsetWidth; mapContainer.style.animation = ''; resetMapView(); }
-
-      stopScan();
-      scanContainer.classList.toggle('hidden', !s.scanMode);
-      skipFloat.classList.toggle('hidden', !s.scanMode || s.scanMode === 'scanning');
-      if (s.scanMode === 'scanning') showScanPrompt();
-      else if (s.scanMode === 'done') showScanDone();
-
-      diagramCardContainer.classList.remove('card-right', 'card-wide');
-      if (s.cardImg) {
-        diagramCardImg.src = s.cardImg;
-        if (s.cardClass) diagramCardContainer.classList.add(s.cardClass);
-        // restart entrance animation
-        diagramCardContainer.classList.add('hidden');
-        void diagramCardContainer.offsetWidth;
-        diagramCardContainer.classList.remove('hidden');
-      } else {
-        diagramCardContainer.classList.add('hidden');
-      }
-
-      
+    
     // =========================================================================
+    // Scene 14: Lunar Water Extraction Lab Simulation & Permission Logic
+    // =========================================================================
+    const labSimOverlay = document.getElementById('labSimOverlay');
+    const labStatusBulb = document.getElementById('labStatusBulb');
+    const labStatusText = document.getElementById('labStatusText');
+    const labTempText = document.getElementById('labTempText');
+    const labHeatBar = document.getElementById('labHeatBar');
+    const labWaterBar = document.getElementById('labWaterBar');
+    const labYieldVal = document.getElementById('labYieldVal');
+    const labExtractBtn = document.getElementById('labExtractBtn');
+    const labExtractBtnLabel = document.getElementById('labExtractBtnLabel');
+    const condenserWaterPool = document.getElementById('condenserWaterPool');
+    const labDropletsCanvas = document.getElementById('labDropletsCanvas');
+    const labPromptBackdrop = document.getElementById('labPromptBackdrop');
+    const screenBlackout = document.getElementById('screenBlackout');
+
+    let isExtracting = false;
+    let extractProgress = 0.0;
+    let extractTimer = null;
+    let dropletRaf = null;
+    let droplets = [];
+
+    class WaterDroplet {
+      constructor(w, h) { this.reset(w, h, true); }
+      reset(w, h, initial = false) {
+        this.x = w * (0.2 + Math.random() * 0.6);
+        this.y = initial ? Math.random() * h * 0.7 : Math.random() * h * 0.15;
+        this.vy = 1.2 + Math.random() * 2.2;
+        this.radius = 1 + Math.random() * 2;
+        this.alpha = 0.4 + Math.random() * 0.5;
+      }
+      update(w, h) {
+        this.y += this.vy;
+        if (this.y > h * 0.9) this.reset(w, h);
+      }
+      draw(ctx) {
+        ctx.fillStyle = '#00e5ff';
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function initDroplets() {
+      if (!labDropletsCanvas) return;
+      const rect = labDropletsCanvas.getBoundingClientRect();
+      labDropletsCanvas.width = rect.width || 100;
+      labDropletsCanvas.height = rect.height || 220;
+      droplets = [];
+      for (let i = 0; i < 22; i++) {
+        droplets.push(new WaterDroplet(labDropletsCanvas.width, labDropletsCanvas.height));
+      }
+    }
+
+    function loopDroplets() {
+      if (!labDropletsCanvas || !labSimOverlay || labSimOverlay.classList.contains('hidden')) return;
+      const ctx = labDropletsCanvas.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, labDropletsCanvas.width, labDropletsCanvas.height);
+        if (isExtracting) {
+          droplets.forEach(d => {
+            d.update(labDropletsCanvas.width, labDropletsCanvas.height);
+            d.draw(ctx);
+          });
+        }
+      }
+      dropletRaf = requestAnimationFrame(loopDroplets);
+    }
+
+    function setupLabSim() {
+      stopLabSim();
+      extractProgress = 0.0;
+      isExtracting = false;
+      labSimOverlay.classList.remove('hidden', 'extracting', 'complete');
+      if (labStatusText) labStatusText.textContent = 'SYSTEM: STANDBY · READY TO HEAT';
+      if (labTempText) labTempText.textContent = 'TEMP: 22°C';
+      if (labHeatBar) labHeatBar.style.width = '0%';
+      if (labWaterBar) labWaterBar.style.width = '0%';
+      if (labYieldVal) labYieldVal.textContent = '0.00 L / 1.00 L';
+      if (condenserWaterPool) condenserWaterPool.style.height = '0%';
+      if (labExtractBtnLabel) labExtractBtnLabel.textContent = 'START WATER EXTRACTION (HEAT REGOLITH)';
+
+      initDroplets();
+      if (!dropletRaf) dropletRaf = requestAnimationFrame(loopDroplets);
+
+      // Auto start extraction action after briefing entrance
+      setTimeout(() => {
+        if (SCENES[currentSceneIdx]?.isLabScene && !isExtracting && extractProgress < 0.1) {
+          startWaterExtraction();
+        }
+      }, 750);
+    }
+
+    function startWaterExtraction() {
+      if (isExtracting) return;
+      isExtracting = true;
+      extractProgress = 0.0;
+      sound.playClick();
+      sound.startHeaterSound();
+
+      labSimOverlay.classList.remove('complete');
+      labSimOverlay.classList.add('extracting');
+      if (labStatusText) labStatusText.textContent = 'HEATING REGOLITH & VAPORIZING ICE...';
+      if (labExtractBtnLabel) labExtractBtnLabel.textContent = 'THERMAL EXTRACTION IN PROGRESS...';
+
+      const durationMs = 4200;
+      const startTime = performance.now();
+
+      function step(now) {
+        if (!isExtracting) return;
+        const elapsed = now - startTime;
+        const p = Math.min(1, elapsed / durationMs);
+        extractProgress = p;
+
+        const temp = Math.round(22 + p * 278); // 22°C to 300°C
+        if (labTempText) labTempText.textContent = 'TEMP: ' + temp + '°C';
+        if (labHeatBar) labHeatBar.style.width = (p * 100).toFixed(1) + '%';
+        if (labWaterBar) labWaterBar.style.width = (p * 100).toFixed(1) + '%';
+        if (condenserWaterPool) condenserWaterPool.style.height = (p * 32).toFixed(1) + '%';
+
+        const yieldVal = (p * 1.0).toFixed(2);
+        if (labYieldVal) labYieldVal.textContent = yieldVal + ' L / 1.00 L';
+
+        if (p < 0.3) {
+          if (labStatusText) labStatusText.textContent = 'HEATING REGOLITH TO 120°C (SUBLIMATION)...';
+        } else if (p < 0.7) {
+          if (labStatusText) labStatusText.textContent = 'STEAM FLOWING TO CONDENSER CYLINDER...';
+        } else if (p < 1.0) {
+          if (labStatusText) labStatusText.textContent = 'COOLING VAPOR INTO LIQUID WATER...';
+        } else {
+          finishWaterExtraction();
+          return;
+        }
+
+        extractTimer = requestAnimationFrame(step);
+      }
+
+      extractTimer = requestAnimationFrame(step);
+    }
+
+    function finishWaterExtraction() {
+      isExtracting = false;
+      extractProgress = 1.0;
+      sound.stopHeaterSound();
+      sound.playWaterCompleteChime();
+
+      labSimOverlay.classList.remove('extracting');
+      labSimOverlay.classList.add('complete');
+
+      if (labTempText) labTempText.textContent = 'TEMP: 300°C [STABILIZED]';
+      if (labHeatBar) labHeatBar.style.width = '100%';
+      if (labWaterBar) labWaterBar.style.width = '100%';
+      if (condenserWaterPool) condenserWaterPool.style.height = '32%';
+      if (labYieldVal) labYieldVal.textContent = '1.00 L / 1.00 L';
+      if (labStatusText) labStatusText.textContent = '✅ 1.00 L LIQUID WATER EXTRACTED! (98.4% YIELD)';
+      if (labExtractBtnLabel) labExtractBtnLabel.textContent = '💧 1.00 L EXTRACTED · RE-RUN PROCESS';
+    }
+
+    function toggleWaterExtraction(e) {
+      if (e) e.stopPropagation();
+      if (isExtracting) return;
+      startWaterExtraction();
+    }
+
+    function stopLabSim() {
+      isExtracting = false;
+      if (extractTimer) { cancelAnimationFrame(extractTimer); extractTimer = null; }
+      if (dropletRaf) { cancelAnimationFrame(dropletRaf); dropletRaf = null; }
+      sound.stopHeaterSound();
+      if (labSimOverlay) {
+        labSimOverlay.classList.add('hidden');
+        labSimOverlay.classList.remove('extracting', 'complete');
+      }
+    }
+
+    // Permission Prompt Modal
+    function showLabPrompt() {
+      sound.playClick();
+      if (labPromptBackdrop) {
+        labPromptBackdrop.classList.remove('hidden');
+        setTimeout(() => labPromptBackdrop.classList.add('active'), 20);
+      }
+    }
+
+    function closeLabPrompt() {
+      sound.playClick();
+      if (labPromptBackdrop) {
+        labPromptBackdrop.classList.remove('active');
+        setTimeout(() => labPromptBackdrop.classList.add('hidden'), 280);
+      }
+    }
+
+    function proceedToLab() {
+      sound.playClick();
+      sound.playAirlock();
+      if (labPromptBackdrop) {
+        labPromptBackdrop.classList.remove('active');
+        setTimeout(() => labPromptBackdrop.classList.add('hidden'), 280);
+      }
+
+      // Fullscreen Blackout Transition
+      if (screenBlackout) {
+        screenBlackout.classList.remove('hidden');
+        setTimeout(() => screenBlackout.classList.add('active'), 20);
+      }
+
+      setTimeout(() => {
+        // While screen is pitch black, switch to Scene 14 (Lab Scene - index 13)
+        renderScene(13);
+
+        setTimeout(() => {
+          if (screenBlackout) {
+            screenBlackout.classList.remove('active');
+            setTimeout(() => screenBlackout.classList.add('hidden'), 480);
+          }
+        }, 500);
+      }, 1200);
+    }
+
     // Trident Drill Rotary Percussive Simulation (Scene 8)
     // =========================================================================
     const drillSimOverlay = document.getElementById('drillSimOverlay');
@@ -2532,7 +3390,186 @@
       }
     }
 
-    if (s.isSiteSelection) {
+    
+    
+    // =========================================================================
+    // Scene 15-18: Electrolysis Lab Transition & Oxygen Bubble Animation
+    // =========================================================================
+    const oxygenReadyBanner = document.getElementById('oxygenReadyBanner');
+    const electrolysisTankZone = document.getElementById('electrolysisTankZone');
+    const electrolysisCanvas = document.getElementById('electrolysisCanvas');
+    let electrolysisRaf = null;
+    let electroBubbles = [];
+
+    class ElectroBubble {
+      constructor(w, h) { this.reset(w, h, true); }
+      reset(w, h, initial = false) {
+        this.x = w * (0.15 + Math.random() * 0.7);
+        this.y = initial ? Math.random() * h : h * 0.95;
+        this.vy = 0.8 + Math.random() * 1.6;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.radius = 1.2 + Math.random() * 2.8;
+        this.alpha = 0.3 + Math.random() * 0.6;
+        this.isO2 = Math.random() > 0.4; // 60% O2 (cyan), 40% H2 (white/blue)
+        this.color = this.isO2 ? '#00e5ff' : '#ffffff';
+      }
+      update(w, h) {
+        this.y -= this.vy;
+        this.x += this.vx;
+        if (this.y < h * 0.1) this.reset(w, h);
+      }
+      draw(ctx) {
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function initElectroBubbles() {
+      if (!electrolysisCanvas) return;
+      const rect = electrolysisCanvas.getBoundingClientRect();
+      electrolysisCanvas.width = rect.width || 120;
+      electrolysisCanvas.height = rect.height || 260;
+      electroBubbles = [];
+      for (let i = 0; i < 30; i++) {
+        electroBubbles.push(new ElectroBubble(electrolysisCanvas.width, electrolysisCanvas.height));
+      }
+    }
+
+    function loopElectroBubbles() {
+      if (!electrolysisCanvas || !electrolysisTankZone || electrolysisTankZone.classList.contains('hidden')) return;
+      const ctx = electrolysisCanvas.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, electrolysisCanvas.width, electrolysisCanvas.height);
+        electroBubbles.forEach(b => {
+          b.update(electrolysisCanvas.width, electrolysisCanvas.height);
+          b.draw(ctx);
+        });
+      }
+      electrolysisRaf = requestAnimationFrame(loopElectroBubbles);
+    }
+
+    function setupElectrolysisVisuals(showBanner = false) {
+      if (electrolysisTankZone) {
+        electrolysisTankZone.classList.remove('hidden');
+        electrolysisTankZone.classList.add('active');
+      }
+      initElectroBubbles();
+      if (!electrolysisRaf) electrolysisRaf = requestAnimationFrame(loopElectroBubbles);
+
+      if (oxygenReadyBanner) {
+        if (showBanner) {
+          oxygenReadyBanner.classList.remove('hidden');
+          sound.playOxygenFanfare();
+        } else {
+          oxygenReadyBanner.classList.add('hidden');
+        }
+      }
+    }
+
+    function stopElectrolysisVisuals() {
+      if (electrolysisRaf) { cancelAnimationFrame(electrolysisRaf); electrolysisRaf = null; }
+      if (electrolysisTankZone) {
+        electrolysisTankZone.classList.add('hidden');
+        electrolysisTankZone.classList.remove('active');
+      }
+      if (oxygenReadyBanner) oxygenReadyBanner.classList.add('hidden');
+    }
+
+    function triggerOxygenFanfare() {
+      sound.playClick();
+      sound.playOxygenFanfare();
+    }
+
+    // Transition from Scene 14 (Water Extraction Lab) to Scene 15 (Electrolysis Lab)
+    function transitionToElectrolysisLab() {
+      sound.playClick();
+      sound.playAirlock();
+
+      if (screenBlackout) {
+        const title = screenBlackout.querySelector('.blackout-title');
+        const desc = screenBlackout.querySelector('.blackout-desc');
+        if (title) title.textContent = "TRANSFERRING PURIFIED WATER (1.00 L)...";
+        if (desc) desc.textContent = "ENTERING OXYGEN ELECTROLYSIS FACILITY";
+        screenBlackout.classList.remove('hidden');
+        setTimeout(() => screenBlackout.classList.add('active'), 20);
+      }
+
+      setTimeout(() => {
+        // Switch to Scene 15 (index 14)
+        renderScene(14);
+
+        setTimeout(() => {
+          if (screenBlackout) {
+            screenBlackout.classList.remove('active');
+            setTimeout(() => screenBlackout.classList.add('hidden'), 480);
+          }
+        }, 500);
+      }, 1200);
+    }
+
+    function renderScene(idx) {
+      currentSceneIdx = idx;
+      const s = SCENES[idx];
+
+      // Dynamic Background: switch between Lunar South Pole and Extraction Lab
+      const isruBgLayer = document.getElementById('isruBgLayer');
+      if (isruBgLayer) {
+        if (s.bgImg) {
+          isruBgLayer.style.backgroundImage = "url('" + s.bgImg + "')";
+        } else {
+          isruBgLayer.style.backgroundImage = "url('assets/isru/bg/bg_of_water.png')";
+        }
+      }
+
+      guideImg.src = s.guidePose || GUIDE_POINT_UP;
+      guideStage.classList.remove('hidden');
+
+      mapContainer.classList.toggle('hidden', !s.interactiveMap);
+      if (s.interactiveMap) { mapContainer.style.animation = 'none'; void mapContainer.offsetWidth; mapContainer.style.animation = ''; resetMapView(); }
+
+      stopScan();
+      scanContainer.classList.toggle('hidden', !s.scanMode);
+      skipFloat.classList.toggle('hidden', !s.scanMode || s.scanMode === 'scanning');
+      if (s.scanMode === 'scanning') showScanPrompt();
+      else if (s.scanMode === 'done') showScanDone();
+
+      diagramCardContainer.classList.remove('card-right', 'card-wide');
+      if (s.cardImg) {
+        diagramCardImg.src = s.cardImg;
+        if (s.cardClass) diagramCardContainer.classList.add(s.cardClass);
+        diagramCardContainer.classList.remove('hidden');
+      } else {
+        diagramCardContainer.classList.add('hidden');
+      }
+
+      // Trident Drill Simulation
+      if (s.isDrillScene) {
+        setupDrillSim();
+      } else {
+        stopDrillSim();
+      }
+
+      // Water Extraction Lab Simulation
+      if (s.isLabScene) {
+        setupLabSim();
+      } else {
+        stopLabSim();
+      }
+
+      // Electrolysis Lab (Scenes 15-18) & Oxygen Ready Highlight (Scene 18)
+      if (s.isOxygenReady) {
+        setupElectrolysisVisuals(true);
+      } else if (s.bgImg && s.bgImg.includes('bg_of_oxy2')) {
+        setupElectrolysisVisuals(false);
+      } else {
+        stopElectrolysisVisuals();
+      }
+
+      if (s.isSiteSelection) {
         siteSelectOverlay.classList.remove('hidden');
         skipFloat.classList.remove('hidden');
         setupSiteSelection();
@@ -2542,9 +3579,18 @@
       }
 
       if (s.text) {
-        dialogueText.classList.toggle('long-text', s.text.length > 140);
         dialogueWrapper.classList.remove('hidden');
-        startTypewriter(s.text);
+        if (s.speaker === 'Astro Bee') {
+          if (dialogueBox) dialogueBox.classList.add('hidden');
+          if (dialogueBoxAstroBee) dialogueBoxAstroBee.classList.remove('hidden');
+          if (dialogueTextAstroBee) dialogueTextAstroBee.classList.toggle('long-text', s.text.length > 140);
+          startTypewriter(s.text, dialogueTextAstroBee);
+        } else {
+          if (dialogueBoxAstroBee) dialogueBoxAstroBee.classList.add('hidden');
+          if (dialogueBox) dialogueBox.classList.remove('hidden');
+          if (dialogueText) dialogueText.classList.toggle('long-text', s.text.length > 140);
+          startTypewriter(s.text, dialogueText);
+        }
       } else {
         if (typeTimer) clearTimeout(typeTimer);
         isTyping = false;
@@ -2809,17 +3855,21 @@
     // =========================================================================
     // Typewriter Engine
     // =========================================================================
-    function startTypewriter(str) {
+        let currentActiveTextEl = null;
+
+    function startTypewriter(str, targetEl) {
+      const el = targetEl || dialogueText;
       currentFullText = str;
+      currentActiveTextEl = el;
       if (typeTimer) clearTimeout(typeTimer);
       isTyping = true;
-      targetEl.textContent = '';
+      el.textContent = '';
       let i = 0;
 
       (function typeChar() {
         if (!isTyping) return;
         if (i < str.length) {
-          dialogueText.textContent += str.charAt(i);
+          el.textContent += str.charAt(i);
           if (i % 3 === 0) sound.playTypewriter();
           i++;
           typeTimer = setTimeout(typeChar, 18);
@@ -2833,7 +3883,8 @@
       if (!isTyping) return;
       isTyping = false;
       if (typeTimer) clearTimeout(typeTimer);
-      dialogueText.textContent = currentFullText;
+      if (currentActiveTextEl) currentActiveTextEl.textContent = currentFullText;
+      else if (dialogueText) dialogueText.textContent = currentFullText;
     }
 
     function handleDialogueClick() {
@@ -2849,6 +3900,18 @@
 
     function nextScene() {
       sound.playClick();
+      // Intercept Scene 13 (index 12: Robotic Scoop) to ask user permission before entering lab
+      if (currentSceneIdx === 12) {
+        showLabPrompt();
+        return;
+      }
+
+      // Show transition from Scene 14 (index 13: Water Extraction Lab) to Scene 15 (Electrolysis Lab)
+      if (currentSceneIdx === 13) {
+        transitionToElectrolysisLab();
+        return;
+      }
+
       if (currentSceneIdx < SCENES.length - 1) {
         renderScene(currentSceneIdx + 1);
       } else {
@@ -2866,7 +3929,7 @@
 
     // =========================================================================
     // Interactive Map: zoom / pan / labelled components / water probability
-    // Coordinates are pixels of Frame 2.png (1504x970); map window = x90-1414, y183-922
+    // Coordinates are pixels of Frame_2.png (1504x970); map window = x90-1414, y183-922
     // =========================================================================
     const MAP_COMPONENTS = [
       { x: 1110, y: 545, name: 'Permanently Shadowed Crater', prob: 95,
@@ -3041,6 +4104,11 @@
     // Boot
     renderScene(0);
   </script>
+  <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
+  <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev"
+    data-mount="#gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.png"
+    data-badge="assets/scene 3/Frame 7.png" defer></script>
+  <script src="astrobee/moonfall.js" defer></script>
 </body>
 
 </html>
