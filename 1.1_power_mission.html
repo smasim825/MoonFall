@@ -1634,8 +1634,10 @@
     let isTyping = false;
     let typeTimer = null;
     let autoAdvanceTimer = null;
+    let mcqAdvanceTimer = null;
     let correctAnswersCount = 0;
     let mcqAnswered = false;
+    const correctQuestionSet = new Set();
 
     // DOM Elements
     const chiakiStage = document.getElementById('chiakiStage');
@@ -1747,6 +1749,10 @@
     // MCQ Logic
     // =========================================================================
     function renderMcq(mcq) {
+      if (mcqAdvanceTimer) {
+        clearTimeout(mcqAdvanceTimer);
+        mcqAdvanceTimer = null;
+      }
       mcqAnswered = false;
       mcqQuestionTitle.textContent = mcq.question;
       mcqOptionsList.innerHTML = '';
@@ -1782,13 +1788,15 @@
       items.forEach(it => it.classList.add('locked'));
 
       const chosenItem = items[chosenIdx];
+      if (!chosenItem) return;
       const chosenCheck = chosenItem.querySelector('.mcq-checkbox');
-      chosenCheck.classList.add('checked');
+      if (chosenCheck) chosenCheck.classList.add('checked');
 
       if (chosenIdx === correctIdx) {
         // Correct Answer -> turns Green
         sound.playCorrect();
-        correctAnswersCount++;
+        correctQuestionSet.add(currentSceneIdx);
+        correctAnswersCount = correctQuestionSet.size;
         chosenItem.classList.add('state-correct');
       } else {
         // Wrong Answer -> chosen turns Red, correct turns Green
@@ -1801,7 +1809,9 @@
       }
 
       // Automatically advance to next question after 1.4s
-      setTimeout(() => {
+      if (mcqAdvanceTimer) clearTimeout(mcqAdvanceTimer);
+      mcqAdvanceTimer = setTimeout(() => {
+        mcqAdvanceTimer = null;
         nextScene();
       }, 1400);
     }
@@ -1818,8 +1828,8 @@
       diagramCardContainer.classList.add('hidden');
       mcqBox.classList.add('hidden');
 
-      // Calculate Percentage (20% per correct answer)
-      const percentage = Math.round((correctAnswersCount / 5) * 100);
+      // Calculate Percentage (20% per correct answer, strictly clamped 0-100%)
+      const percentage = Math.min(100, Math.max(0, Math.round((correctAnswersCount / 5) * 100)));
 
       // Animate Circular Progress (Circumference = 2 * PI * 50 ≈ 314.16)
       const circleProgress = document.getElementById('scoreCircleProgress');
@@ -1959,7 +1969,13 @@
 
     function restartMission() {
       sound.playClick();
+      if (mcqAdvanceTimer) {
+        clearTimeout(mcqAdvanceTimer);
+        mcqAdvanceTimer = null;
+      }
       correctAnswersCount = 0;
+      mcqAnswered = false;
+      correctQuestionSet.clear();
       missionCompleteOverlay.classList.add('hidden');
       renderScene(0);
       if (window.replayEntryTransition) {

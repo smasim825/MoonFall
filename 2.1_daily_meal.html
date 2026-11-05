@@ -628,6 +628,11 @@
       transform: translateX(4px);
     }
 
+    .mcq-option-item.locked {
+      pointer-events: none;
+      cursor: default;
+    }
+
     .mcq-checkbox {
       width: 22px;
       height: 22px;
@@ -1876,6 +1881,9 @@
     let currentFullText = '';
     let currentMcqIndex = -1; // -1 means in story mode
     let correctAnswersCount = 0;
+    let mcqLocked = false;
+    let mcqAdvanceTimer = null;
+    const correctQuestionSet = new Set();
     let activeDialogueTextEl = null;
 
     // DOM Elements
@@ -2181,8 +2189,14 @@
     // MCQ Verification Flow (5 Questions)
     // =========================================================================
     function startMcqFlow() {
+      if (mcqAdvanceTimer) {
+        clearTimeout(mcqAdvanceTimer);
+        mcqAdvanceTimer = null;
+      }
       currentMcqIndex = 0;
       correctAnswersCount = 0;
+      mcqLocked = false;
+      correctQuestionSet.clear();
 
       // Hide story stages
       sunitaStage.classList.add('hidden');
@@ -2200,6 +2214,12 @@
     }
 
     function renderMcqQuestion() {
+      if (mcqAdvanceTimer) {
+        clearTimeout(mcqAdvanceTimer);
+        mcqAdvanceTimer = null;
+      }
+      mcqLocked = false;
+
       if (currentMcqIndex >= MCQ_QUESTIONS.length) {
         showMissionComplete();
         return;
@@ -2232,7 +2252,11 @@
     }
 
     function handleOptionClick(selectedKey, selectedItemEl) {
+      if (mcqLocked || selectedItemEl.classList.contains('locked')) return;
+      mcqLocked = true;
+
       const q = MCQ_QUESTIONS[currentMcqIndex];
+      if (!q) return;
       const isCorrect = selectedKey === q.correct;
 
       // Lock options
@@ -2246,7 +2270,8 @@
       if (isCorrect) {
         selectedItemEl.classList.add('state-correct');
         sound.playOptionSelect(true);
-        correctAnswersCount++;
+        correctQuestionSet.add(currentMcqIndex);
+        correctAnswersCount = correctQuestionSet.size;
       } else {
         selectedItemEl.classList.add('state-wrong');
         sound.playOptionSelect(false);
@@ -2260,7 +2285,9 @@
       }
 
       // Next question delay
-      setTimeout(() => {
+      if (mcqAdvanceTimer) clearTimeout(mcqAdvanceTimer);
+      mcqAdvanceTimer = setTimeout(() => {
+        mcqAdvanceTimer = null;
         currentMcqIndex++;
         renderMcqQuestion();
       }, 950);
@@ -2345,8 +2372,8 @@
       darkBackdropOverlay.classList.add('hidden');
       mcqBox.classList.add('hidden');
 
-      // Calculate percentage score based on 5 MCQs (20% per correct answer)
-      const percentage = Math.round((correctAnswersCount / 5) * 100);
+      // Calculate percentage score based on 5 MCQs (20% per correct answer, strictly clamped 0-100%)
+      const percentage = Math.min(100, Math.max(0, Math.round((correctAnswersCount / MCQ_QUESTIONS.length) * 100)));
 
       const circleProgress = document.getElementById('scoreCircleProgress');
       const circleNum = document.getElementById('circleScoreNum');
@@ -2372,7 +2399,7 @@
       // Persist completion state for Mission 2.1 to unlock 2.2 Hydroponics
       try {
         localStorage.setItem('moonfall_mission_2_1_completed', 'true');
-        localStorage.setItem('moonfall_mission_2_1_score', scorePercent);
+        localStorage.setItem('moonfall_mission_2_1_score', percentage);
       } catch (e) { }
 
       // Show Mission Complete Overlay
@@ -2389,10 +2416,16 @@
     }
 
     function restartMission() {
+      if (mcqAdvanceTimer) {
+        clearTimeout(mcqAdvanceTimer);
+        mcqAdvanceTimer = null;
+      }
       selectedMealId = null;
       hoveredMealId = null;
       currentMcqIndex = -1;
       correctAnswersCount = 0;
+      mcqLocked = false;
+      correctQuestionSet.clear();
       [1, 2, 3].forEach(id => {
         const card = document.getElementById(`mealCard${id}`);
         if (card) {

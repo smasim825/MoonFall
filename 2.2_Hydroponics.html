@@ -1903,6 +1903,8 @@
     let totalQuestions = 4;
     let correctAnswersCount = 0;
     let questionLocked = false;
+    let questionAdvanceTimer = null;
+    const correctQuestionSet = new Set();
 
     // DOM References
     const bgLayer = document.getElementById('bgLayer');
@@ -2111,6 +2113,10 @@
        Astro Bee Interactive Questions
        ========================================================================== */
     function renderQuestion(q) {
+      if (questionAdvanceTimer) {
+        clearTimeout(questionAdvanceTimer);
+        questionAdvanceTimer = null;
+      }
       questionLocked = false;
       questionPrompt.textContent = q.prompt;
       questionOptionsGroup.innerHTML = "";
@@ -2131,16 +2137,22 @@
     }
 
     function handleOptionSelected(selectedIndex, correctIndex, rowEl) {
-      if (questionLocked) return;
+      if (questionLocked || rowEl.classList.contains('locked')) return;
       questionLocked = true;
+
+      const allItems = questionOptionsGroup.querySelectorAll('.mcq-option-item');
+      allItems.forEach(el => el.classList.add('locked'));
 
       const checkbox = rowEl.querySelector('.mcq-checkbox');
       if (checkbox) checkbox.classList.add('checked');
 
       rowEl.classList.add('state-correct');
       audio.playCorrect();
-      correctAnswersCount++;
-      setTimeout(() => {
+      correctQuestionSet.add(currentSceneIndex);
+      correctAnswersCount = correctQuestionSet.size;
+      if (questionAdvanceTimer) clearTimeout(questionAdvanceTimer);
+      questionAdvanceTimer = setTimeout(() => {
+        questionAdvanceTimer = null;
         proceedAfterQuestion();
       }, 950);
     }
@@ -2253,8 +2265,8 @@
     function showMissionComplete() {
       audio.playFanfare();
 
-      // Calculate score based on 4 questions
-      const finalScorePct = Math.round((correctAnswersCount / totalQuestions) * 100);
+      // Calculate score based on 4 questions (strictly clamped 0-100%)
+      const finalScorePct = Math.min(100, Math.max(0, Math.round((correctAnswersCount / totalQuestions) * 100)));
       circleScoreNum.textContent = `${finalScorePct}%`;
 
       const circumference = 314.16;
@@ -2294,9 +2306,14 @@
     }
 
     function restartMission() {
+      if (questionAdvanceTimer) {
+        clearTimeout(questionAdvanceTimer);
+        questionAdvanceTimer = null;
+      }
       currentSceneIndex = 0;
       correctAnswersCount = 0;
       questionLocked = false;
+      correctQuestionSet.clear();
       missionCompleteOverlay.classList.add('hidden');
       renderScene(0);
       if (window.replayEntryTransition) {
