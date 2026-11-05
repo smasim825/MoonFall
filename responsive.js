@@ -33,10 +33,107 @@
     }
   });
 
+  const TOOLBAR_TIP_STORAGE_KEY = 'moonfall_toolbar_tip_dismissed';
+
+  const isMobileDevice = () => {
+    const smallViewport = window.innerWidth <= 1024 && window.innerHeight <= 600;
+    const portraitPhone = window.innerWidth <= 600;
+    const touchCapable = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    return (smallViewport || portraitPhone) && (touchCapable || window.innerWidth <= 900);
+  };
+
+  const isCurrentlyLandscape = () => {
+    return window.matchMedia('(orientation: landscape)').matches ||
+      document.body.classList.contains('force-horizontal');
+  };
+
+  const isAlreadyFullscreen = () => {
+    return Boolean(
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      window.navigator.standalone ||
+      window.matchMedia('(display-mode: fullscreen)').matches ||
+      window.matchMedia('(display-mode: standalone)').matches
+    );
+  };
+
+  const ensureToolbarGuideModal = () => {
+    let modal = document.getElementById('toolbarGuideOverlay');
+    if (modal) return modal;
+
+    modal = document.createElement('aside');
+    modal.id = 'toolbarGuideOverlay';
+    modal.className = 'toolbar-guide-overlay';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Hide browser toolbar tip');
+    modal.innerHTML = `
+      <div class="toolbar-guide-card" onclick="event.stopPropagation()">
+        <div class="toolbar-guide-header">
+          <span class="toolbar-guide-badge">📱 STEP 2 // DISPLAY TIP</span>
+        </div>
+        <h3 class="toolbar-guide-title">HIDE TOOLBAR FOR FULLSCREEN VIEW</h3>
+        <p class="toolbar-guide-sub">For the best widescreen lunar mission experience, hide your browser's address bar:</p>
+        <div class="toolbar-guide-steps">
+          <div class="toolbar-step-box">
+            <div class="toolbar-step-label">🍎 Safari (iPhone)</div>
+            <div class="toolbar-step-desc">Tap <strong>AA</strong> or <strong>⊞</strong> in the address bar and select <strong>"Hide Toolbar"</strong>.</div>
+          </div>
+          <div class="toolbar-step-box">
+            <div class="toolbar-step-label">🤖 Chrome / Android</div>
+            <div class="toolbar-step-desc">Tap <strong>Full Screen</strong> below or open browser menu <strong>⋮ → Full screen</strong>.</div>
+          </div>
+        </div>
+        <div class="toolbar-guide-actions">
+          <button type="button" class="toolbar-btn-primary" onclick="acceptToolbarGuideFullscreen()">
+            ⛶ FULL SCREEN
+          </button>
+          <button type="button" class="toolbar-btn-secondary" onclick="dismissToolbarGuide()">
+            GOT IT ✓
+          </button>
+        </div>
+      </div>
+    `;
+    modal.addEventListener('click', () => window.dismissToolbarGuide());
+    document.body.appendChild(modal);
+    return modal;
+  };
+
+  window.showToolbarGuideIfNeeded = () => {
+    try {
+      if (sessionStorage.getItem(TOOLBAR_TIP_STORAGE_KEY) === 'true') return;
+    } catch (e) {}
+    if (!isMobileDevice() || !isCurrentlyLandscape() || isAlreadyFullscreen()) return;
+
+    const modal = ensureToolbarGuideModal();
+    modal.classList.add('active');
+  };
+
+  window.dismissToolbarGuide = () => {
+    try {
+      sessionStorage.setItem(TOOLBAR_TIP_STORAGE_KEY, 'true');
+    } catch (e) {}
+    const modal = document.getElementById('toolbarGuideOverlay');
+    if (modal) modal.classList.remove('active');
+    window.scrollTo(0, 1);
+  };
+
+  window.acceptToolbarGuideFullscreen = async () => {
+    try {
+      sessionStorage.setItem(TOOLBAR_TIP_STORAGE_KEY, 'true');
+    } catch (e) {}
+    const modal = document.getElementById('toolbarGuideOverlay');
+    if (modal) modal.classList.remove('active');
+    await window.toggleFullScreen();
+  };
+
   const setForceHorizontal = (enabled) => {
     document.body.classList.toggle('force-horizontal', enabled);
     if (typeof window.checkAndStartIntro === 'function') {
       window.checkAndStartIntro();
+    }
+    if (enabled) {
+      setTimeout(() => window.showToolbarGuideIfNeeded(), 220);
     }
   };
 
@@ -160,12 +257,28 @@
   window.addEventListener('orientationchange', () => {
     if (window.matchMedia('(orientation: landscape)').matches) {
       setForceHorizontal(false);
+      setTimeout(() => window.showToolbarGuideIfNeeded(), 260);
     }
   });
 
   screen.orientation?.addEventListener?.('change', () => {
     if (window.matchMedia('(orientation: landscape)').matches) {
       setForceHorizontal(false);
+      setTimeout(() => window.showToolbarGuideIfNeeded(), 260);
     }
   });
+
+  window.addEventListener('resize', () => {
+    if (isCurrentlyLandscape()) {
+      setTimeout(() => window.showToolbarGuideIfNeeded(), 200);
+    }
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => window.showToolbarGuideIfNeeded(), 300);
+    });
+  } else {
+    setTimeout(() => window.showToolbarGuideIfNeeded(), 300);
+  }
 })();
