@@ -15,6 +15,11 @@
 
   <!-- Preload Core Images -->
   <link rel="preload" href="H2O assets/bg/bg_of_water.png" as="image">
+  <link rel="preload" href="H2O assets/bg/bg_of_oxy.png" as="image">
+  <link rel="preload" href="H2O assets/equipements/scoop.png" as="image">
+  <link rel="preload" href="assets/scene 3/Pragyan_ShivShakti_Neutral.png" as="image">
+  <link rel="preload" href="assets/scene 3/Frame 6.png" as="image">
+  <link rel="preload" href="assets/scene 3/Frame 7.png" as="image">
   <link rel="preload" href="H2O assets/character/Guion_Bluford_PointUp.png" as="image">
 
   <style>
@@ -177,11 +182,28 @@
     }
 
     .diagram-card-inner > img {
+      height: 100%;
+      width: auto;
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
       filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.8));
       image-rendering: pixelated;
+    }
+
+    .diagram-card-container.card-wide .diagram-card-inner {
+      height: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .diagram-card-container.card-wide .diagram-card-inner > img {
+      height: 100%;
+      width: auto;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
     }
 
     /* Site Selection Interactive Overlay (Scene 7: Click any Location) */
@@ -315,12 +337,621 @@
       text-shadow: 0 0 8px rgba(34, 255, 136, 0.7);
     }
 
+        /* =========================================================================
+       Scene 8: Trident Drill Twist & Rotary Percussive Simulation
+       ========================================================================= */
+    .drill-sim-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    /* Drill Rig on surface vibrating during percussion */
+    .drill-rig-zone {
+      position: absolute;
+      left: 47%;
+      top: 24%;
+      width: 5.5%;
+      height: 18%;
+      pointer-events: none;
+      transition: filter 0.2s ease;
+    }
+
+    .drill-sim-overlay.drilling .drill-rig-zone {
+      animation: drill-rig-jitter 0.05s infinite alternate ease-in-out;
+      filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.6));
+    }
+
+    @keyframes drill-rig-jitter {
+      0% { transform: translateY(-0.8px) translateX(0); }
+      50% { transform: translateY(0.4px) translateX(-0.5px); }
+      100% { transform: translateY(0.8px) translateX(0.5px); }
+    }
+
+    /* Twisting Auger Shaft Overlay directly covering the drill shaft in drill.png */
+    .drill-shaft-zone {
+      position: absolute;
+      left: 48.6%;
+      top: 42.2%;
+      width: 2.1%;
+      height: 25.4%;
+      overflow: hidden;
+      border-radius: 2px;
+      pointer-events: auto;
+      cursor: pointer;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .drill-shaft-zone:hover {
+      outline: 1.5px dashed #00e5ff;
+    }
+
+    /* Animated spiral auger flutes showing high-speed twist / rotation */
+    .drill-flutes {
+      position: absolute;
+      left: -120%;
+      top: -120%;
+      width: 340%;
+      height: 340%;
+      opacity: 0.88;
+      background: repeating-linear-gradient(
+        -32deg,
+        rgba(255, 255, 255, 0.95) 0px,
+        rgba(200, 215, 235, 0.9) 3px,
+        rgba(70, 85, 105, 0.95) 6px,
+        rgba(15, 22, 32, 0.98) 9px,
+        rgba(0, 229, 255, 0.8) 12px
+      );
+      mix-blend-mode: overlay;
+    }
+
+    .drill-sim-overlay.drilling .drill-flutes {
+      animation: twist-spiral 0.09s infinite linear;
+    }
+
+    @keyframes twist-spiral {
+      from { transform: translateY(0); }
+      to { transform: translateY(12px); }
+    }
+
+    /* Rapid rotation reflection shimmer */
+    .drill-shimmer {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .drill-sim-overlay.drilling .drill-shimmer {
+      opacity: 0.75;
+      animation: flute-shimmer 0.16s infinite alternate ease-in-out;
+    }
+
+    @keyframes flute-shimmer {
+      from { transform: translateX(-70%); }
+      to { transform: translateX(70%); }
+    }
+
+    /* Flow of icy cuttings traveling upwards along the flutes to the surface */
+    .drill-cuttings-stream {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.5) 20%, transparent 70%);
+      background-size: 100% 16px;
+    }
+
+    .drill-sim-overlay.drilling .drill-cuttings-stream {
+      opacity: 1;
+      animation: cuttings-up 0.22s infinite linear;
+    }
+
+    @keyframes cuttings-up {
+      from { transform: translateY(16px); }
+      to { transform: translateY(-16px); }
+    }
+
+    /* Drill Bit Ice Contact Zone at the bottom tip in the ice deposit */
+    .drill-ice-tip {
+      position: absolute;
+      left: 47.2%;
+      top: 66.2%;
+      width: 4.8%;
+      height: 4.5%;
+      pointer-events: none;
+    }
+
+    .drill-tip-flash {
+      position: absolute;
+      inset: -40%;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0%, #00e5ff 40%, rgba(0, 160, 255, 0.25) 70%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      filter: blur(2px);
+    }
+
+    .drill-sim-overlay.drilling .drill-tip-flash {
+      opacity: 1;
+      animation: bit-flash 0.07s infinite alternate;
+    }
+
+    @keyframes bit-flash {
+      0% { transform: scale(0.85); opacity: 0.7; }
+      100% { transform: scale(1.35); opacity: 1; filter: blur(3px); }
+    }
+
+    .ice-deposit-glow {
+      position: absolute;
+      inset: -120% -180%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(0, 229, 255, 0.35) 0%, rgba(0, 150, 255, 0.15) 50%, transparent 80%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      filter: blur(6px);
+      pointer-events: none;
+    }
+
+    .drill-sim-overlay.drilling .ice-deposit-glow,
+    .drill-sim-overlay.extracted .ice-deposit-glow {
+      opacity: 1;
+      animation: ice-pulse 1.4s infinite alternate ease-in-out;
+    }
+
+    @keyframes ice-pulse {
+      0% { opacity: 0.6; transform: scale(0.96); }
+      100% { opacity: 1; transform: scale(1.08); }
+    }
+
+    /* Particle Canvas for flying ice crystals & dust */
+    .drill-particle-canvas {
+      position: absolute;
+      left: 42%;
+      top: 36%;
+      width: 15%;
+      height: 38%;
+      pointer-events: none;
+      z-index: 18;
+    }
+
+    /* Interactive Telemetry & Controls HUD on Card */
+    .drill-hud-overlay {
+      position: absolute;
+      top: 14.5%;
+      left: 3.8%;
+      right: 3.8%;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      pointer-events: auto;
+      z-index: 22;
+    }
+
+    .drill-hud-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .drill-hud-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(3, 14, 32, 0.88);
+      border: 1px solid rgba(0, 229, 255, 0.6);
+      border-radius: 4px;
+      padding: 3px 9px;
+      color: #00e5ff;
+      font-size: clamp(0.75rem, 1.1vw, 1.1rem);
+      letter-spacing: 0.05em;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .hud-status-bulb {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fdcb0e;
+      box-shadow: 0 0 8px #fdcb0e;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .drill-sim-overlay.drilling .hud-status-bulb {
+      background: #00e5ff;
+      box-shadow: 0 0 10px #00e5ff;
+      animation: bulb-blink 0.2s infinite alternate;
+    }
+
+    .drill-sim-overlay.extracted .hud-status-bulb {
+      background: #22ff88;
+      box-shadow: 0 0 12px #22ff88;
+      animation: none;
+    }
+
+    @keyframes bulb-blink {
+      from { opacity: 0.5; }
+      to { opacity: 1; }
+    }
+
+    .drill-hud-rpm {
+      font-size: clamp(0.75rem, 1.05vw, 1.05rem);
+      color: #94a3b8;
+      background: rgba(3, 14, 32, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+
+    .drill-sim-overlay.drilling .drill-hud-rpm {
+      color: #fdcb0e;
+      border-color: rgba(253, 203, 14, 0.5);
+      text-shadow: 0 0 6px rgba(253, 203, 14, 0.6);
+    }
+
+    /* Depth Gauge Progress */
+    .drill-depth-gauge {
+      background: rgba(3, 14, 32, 0.9);
+      border: 1px solid rgba(0, 229, 255, 0.45);
+      border-radius: 4px;
+      padding: 4px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .depth-gauge-track {
+      width: 100%;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+    }
+
+    .depth-gauge-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #0099ff, #00e5ff, #22ff88);
+      box-shadow: 0 0 8px #00e5ff;
+      transition: width 0.1s linear;
+    }
+
+    .depth-gauge-labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: clamp(0.65rem, 0.9vw, 0.9rem);
+      color: #94a3b8;
+      letter-spacing: 0.03em;
+    }
+
+    .depth-current-val {
+      color: #00e5ff;
+      font-weight: bold;
+      font-size: clamp(0.75rem, 1.05vw, 1.05rem);
+    }
+
+    /* Twist Drill Action Button */
+    .drill-twist-btn {
+      align-self: flex-end;
+      margin-top: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(180deg, #0055aa, #002255);
+      border: 1.5px solid #00e5ff;
+      border-radius: 5px;
+      padding: 4px 14px;
+      color: #ffffff;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.85rem, 1.25vw, 1.3rem);
+      cursor: pointer;
+      box-shadow: 0 3px 12px rgba(0, 150, 255, 0.35);
+      transition: all 0.15s ease;
+      letter-spacing: 0.04em;
+    }
+
+    .drill-twist-btn:hover {
+      background: linear-gradient(180deg, #0077dd, #003377);
+      border-color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0, 229, 255, 0.6);
+    }
+
+    .drill-twist-btn:active {
+      transform: translateY(1px);
+    }
+
+    .drill-twist-btn .twist-icon {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
+    .drill-sim-overlay.drilling .drill-twist-btn .twist-icon {
+      animation: icon-spin 0.4s infinite linear;
+    }
+
+    @keyframes icon-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     .diagram-card-container img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
       filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.8));
       image-rendering: pixelated;
+    }
+
+    /* Astro Bee Dialogue Box (Scene 11 / Picture 1) */
+    .dialogue-box.scene-2-box {
+      position: relative;
+      width: 81.4%;
+      max-width: 1300px;
+      aspect-ratio: 2610 / 248;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 0;
+      margin-left: 7%;
+      margin-right: 1.5%;
+    }
+
+    .scene-2-box .dialogue-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.65));
+    }
+
+    .robot-avatar-container {
+      position: absolute;
+      left: 0.5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14.5%;
+      aspect-ratio: 374 / 386;
+      z-index: 36;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      animation: robot-hover 3s ease-in-out infinite alternate;
+    }
+
+    .robot-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
+    }
+
+    @keyframes robot-hover {
+      0% { transform: translateY(-50%) rotate(0deg); }
+      50% { transform: translateY(calc(-50% - 5px)) rotate(-0.5deg); }
+      100% { transform: translateY(calc(-50% + 4px)) rotate(0.5deg); }
+    }
+
+    .scene-2-box .astro-bee-badge {
+      position: absolute;
+      top: -46%;
+      left: 13.5%;
+      width: 17.2%;
+      aspect-ratio: 449 / 134;
+      z-index: 35;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .astro-badge-img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      image-rendering: pixelated;
+    }
+
+    .scene-2-box .skip-btn {
+      position: absolute;
+      top: -26%;
+      right: 2.8%;
+      width: 14.4%;
+      aspect-ratio: 376 / 127;
+      display: block;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 50;
+      pointer-events: auto;
+      padding: 0;
+      outline: none;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .scene-2-box .dialogue-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      padding-left: 16%;
+      padding-right: 17%;
+    }
+
+    /* Lab Permission Prompt */
+    .lab-prompt-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 5, 16, 0.82);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lab-prompt-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lab-prompt-modal {
+      background: linear-gradient(180deg, rgba(8, 22, 45, 0.96) 0%, rgba(2, 10, 24, 0.98) 100%);
+      border: 2px solid #00e5ff;
+      border-radius: 12px;
+      padding: clamp(16px, 2.5vw, 28px);
+      width: min(90%, 540px);
+      box-shadow: 0 0 35px rgba(0, 229, 255, 0.4), inset 0 0 15px rgba(0, 229, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: center;
+      transform: scale(0.92);
+      transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .lab-prompt-backdrop.active .lab-prompt-modal {
+      transform: scale(1);
+    }
+
+    .lab-prompt-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #00e5ff;
+      font-size: clamp(1.2rem, 1.8vw, 1.7rem);
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+      padding-bottom: 10px;
+    }
+
+    .lab-prompt-body {
+      color: #e2e8f0;
+      font-size: clamp(1rem, 1.35vw, 1.35rem);
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .lab-prompt-body strong {
+      color: #fdcb0e;
+      display: block;
+      margin-top: 8px;
+    }
+
+    .lab-prompt-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 6px;
+    }
+
+    .lab-btn {
+      font-family: var(--font-pixel);
+      font-size: clamp(1rem, 1.3vw, 1.35rem);
+      padding: 8px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.15s ease;
+      outline: none;
+    }
+
+    .lab-btn-confirm {
+      background: linear-gradient(180deg, #0099ff, #0055bb);
+      color: #ffffff;
+      border: 1.5px solid #00e5ff;
+      box-shadow: 0 4px 14px rgba(0, 150, 255, 0.4);
+    }
+
+    .lab-btn-confirm:hover {
+      background: linear-gradient(180deg, #22bbff, #0077dd);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.7);
+    }
+
+    .lab-btn-cancel {
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .lab-btn-cancel:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    /* Blackout Transition */
+    .screen-blackout {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+      z-index: 150;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .screen-blackout.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .blackout-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      color: #00e5ff;
+      text-align: center;
+    }
+
+    .blackout-spinner {
+      width: 44px;
+      height: 44px;
+      border: 4px solid rgba(0, 229, 255, 0.2);
+      border-top-color: #00e5ff;
+      border-radius: 50%;
+      animation: spin-pulse 0.9s linear infinite;
+    }
+
+    @keyframes spin-pulse {
+      to { transform: rotate(360deg); }
+    }
+
+    .blackout-title {
+      font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+      letter-spacing: 0.1em;
+      color: #22ff88;
+      text-shadow: 0 0 12px rgba(34, 255, 136, 0.8);
+    }
+
+    .blackout-desc {
+      font-size: clamp(0.95rem, 1.4vw, 1.4rem);
+      color: #94a3b8;
+      letter-spacing: 0.06em;
     }
 
     /* Dialogue Dock Footer */
@@ -1137,6 +1768,50 @@
         <div class="diagram-card-inner" id="diagramCardInner">
           <img src="" alt="Diagram" id="diagramCardImg">
           <!-- Site selection interactive layer (Scene 7: Click any Location) -->
+          <!-- Scene 8: Trident Drill Twist & Rotary Percussive Simulation -->
+          <div class="drill-sim-overlay hidden" id="drillSimOverlay">
+            <div class="drill-rig-zone" id="drillRigZone"></div>
+
+            <div class="drill-shaft-zone" id="drillShaftZone" onclick="toggleDrillTwist(event)" title="Click to Twist & Drill">
+              <div class="drill-flutes" id="drillFlutes"></div>
+              <div class="drill-shimmer"></div>
+              <div class="drill-cuttings-stream" id="drillCuttingsStream"></div>
+            </div>
+
+            <div class="drill-ice-tip" id="drillIceTip">
+              <div class="drill-tip-flash"></div>
+              <div class="ice-deposit-glow"></div>
+            </div>
+
+            <canvas class="drill-particle-canvas" id="drillParticleCanvas"></canvas>
+
+            <div class="drill-hud-overlay" id="drillHudOverlay">
+              <div class="drill-hud-header">
+                <div class="drill-hud-status-badge">
+                  <span class="hud-status-bulb" id="drillStatusBulb"></span>
+                  <span id="drillStatusText">ROTARY PERCUSSIVE: READY</span>
+                </div>
+                <div class="drill-hud-rpm" id="drillRpmBadge">420 RPM · 1,200 BPM</div>
+              </div>
+
+              <div class="drill-depth-gauge">
+                <div class="depth-gauge-track">
+                  <div class="depth-gauge-fill" id="depthGaugeFill"></div>
+                </div>
+                <div class="depth-gauge-labels">
+                  <span>SURFACE (0.0 m)</span>
+                  <span class="depth-current-val" id="depthCurrentVal">0.00 m</span>
+                  <span>ICE CORE TARGET (1.0 m)</span>
+                </div>
+              </div>
+
+              <button class="drill-twist-btn" id="drillTwistBtn" onclick="toggleDrillTwist(event)">
+                <span class="twist-icon">🔄</span>
+                <span id="drillTwistBtnLabel">TWIST DRILL (START)</span>
+              </button>
+            </div>
+          </div>
+
           <div class="site-select-overlay hidden" id="siteSelectOverlay">
             <div class="site-select-hint">CLICK ANY WATER ICE LOCATION TO DEPLOY DRILL</div>
             <div class="site-lock-reticle hidden" id="siteLockReticle">
@@ -1244,7 +1919,57 @@
             <p class="dialogue-text" id="dialogueText"></p>
           </div>
         </div>
+      
+        <!-- Astro Bee Dialogue Box (Scene 11 / Picture 1) -->
+        <div class="dialogue-box scene-2-box hidden" id="dialogueBoxAstroBee" onclick="handleDialogueClick()">
+          <div class="robot-avatar-container">
+            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
+          </div>
+          <div class="astro-bee-badge">
+            <img src="assets/scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
+          </div>
+          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene"
+            aria-label="Skip to Next Scene">
+            <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
+            <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <img src="assets/scene 3/Frame 6.png" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
+          <div class="dialogue-content">
+            <p class="dialogue-text" id="dialogueTextAstroBee"></p>
+          </div>
+        </div>
       </footer>
+
+      <!-- Lab Permission Prompt Modal (between Scoop Scene and Lab Scene) -->
+      <div class="lab-prompt-backdrop hidden" id="labPromptBackdrop">
+        <div class="lab-prompt-modal" id="labPromptModal">
+          <div class="lab-prompt-header">
+            <span class="lab-prompt-icon">🧪</span>
+            <span class="lab-prompt-title">LABORATORY TRANSFER AUTHORIZATION</span>
+          </div>
+          <p class="lab-prompt-body">
+            Icy lunar regolith has been safely collected by the scoop into a sealed container.<br>
+            <strong>Now you have to go to the processing lab to extract water. Do you want to proceed?</strong>
+          </p>
+          <div class="lab-prompt-actions">
+            <button class="lab-btn lab-btn-confirm" id="labBtnConfirm" onclick="proceedToLab()">
+              🚀 YES, PROCEED TO LAB
+            </button>
+            <button class="lab-btn lab-btn-cancel" id="labBtnCancel" onclick="closeLabPrompt()">
+              STAY ON SITE
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fullscreen Blackout Transition -->
+      <div class="screen-blackout hidden" id="screenBlackout">
+        <div class="blackout-content">
+          <div class="blackout-spinner"></div>
+          <div class="blackout-title">CYCLING AIRLOCK...</div>
+          <div class="blackout-desc">TRANSFERRING TO LUNAR WATER EXTRACTION LAB</div>
+        </div>
+      </div>
 
     </div>
   </main>
@@ -1282,8 +2007,75 @@
         } catch (e) { }
       }
 
+      startDrillSound() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          if (this.drillOsc) return;
+          this.drillOsc = this.ctx.createOscillator();
+          this.drillGain = this.ctx.createGain();
+          this.drillOsc.type = 'sawtooth';
+          this.drillOsc.frequency.setValueAtTime(82, this.ctx.currentTime);
+          this.drillGain.gain.setValueAtTime(0.045, this.ctx.currentTime);
+          this.drillOsc.connect(this.drillGain);
+          this.drillGain.connect(this.ctx.destination);
+          this.drillOsc.start();
+
+          this.drillInterval = setInterval(() => {
+            if (this.muted || !this.ctx) return;
+            this._blip('square', 220 + Math.random() * 80, 0.035, 0.02);
+          }, 85);
+        } catch(e) {}
+      }
+
+      stopDrillSound() {
+        try {
+          if (this.drillInterval) { clearInterval(this.drillInterval); this.drillInterval = null; }
+          if (this.drillGain && this.ctx) {
+            this.drillGain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.12);
+          }
+          if (this.drillOsc) {
+            const osc = this.drillOsc;
+            setTimeout(() => {
+              try { osc.stop(); osc.disconnect(); } catch(e) {}
+            }, 140);
+            this.drillOsc = null;
+            this.drillGain = null;
+          }
+        } catch(e) {}
+      }
+
+      playIceExtractChime() {
+        if (this.muted) return;
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            this._blip('sine', freq, 0.1, 0.24);
+          }, idx * 85);
+        });
+      }
+
       playTypewriter() { this._blip('triangle', 740 + Math.random() * 120, 0.04, 0.028); }
       playClick() { this._blip('sine', 880, 0.08, 0.08); }
+      playAirlock() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(140, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(45, this.ctx.currentTime + 1.2);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 1.2);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 1.2);
+        } catch(e) {}
+      }
     }
 
     const sound = new SoundEngine();
@@ -1291,6 +2083,7 @@
     function toggleSound() {
       sound.muted = !sound.muted;
       document.getElementById('soundBtn').textContent = sound.muted ? '🔇 MUTED' : '🔊 SOUND';
+      if (sound.muted) { sound.stopDrillSound(); }
     }
 
     // =========================================================================
@@ -1367,18 +2160,66 @@
         guidePose: GUIDE_POINT_UP,
         cardImg: 'H2O assets/equipements/drill.png',
         cardClass: 'card-wide',
+        isDrillScene: true,
         speaker: 'Chiaki Mukai',
         text: "The Trident Drill is deployed at our chosen site! This rotary percussive drill penetrates up to 1 meter deep into the lunar regolith to extract frozen ice-core samples."
       },
-      // Scene 9: Trident Drill hardware close-up
+      // Scene 9: Sample Collected - Time to analyze
       {
         id: 9,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        cardImg: null,
+        speaker: 'Chiaki Mukai',
+        text: "Now that we've collected our sample, it's time to analyze it."
+      },
+      // Scene 10: Trident Drill hardware close-up
+      {
+        id: 10,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: 'H2O assets/equipements/drill 2.png',
         cardClass: 'card-wide',
         speaker: 'Chiaki Mukai',
         text: "The drill hardware uses specialized auger flutes to deliver icy core cuttings to the surface for sealed heating and water extraction!"
+      },
+      // Scene 11: Astro Bee analysis findings (User Picture 1)
+      {
+        id: 11,
+        showGuide: false,
+        cardImg: null,
+        speaker: 'Astro Bee',
+        text: "The analysis detected possible water-related substances! Further investigation will reveal how much water is present and if it can support future lunar missions."
+      },
+      // Scene 12: Chiaki Mukai - Collect icy soil (User Picture 2)
+      {
+        id: 12,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        cardImg: null,
+        speaker: 'Chiaki Mukai',
+        text: "Great work, cadet! We’ve found clues of water-related substances. Now, let’s collect the icy lunar soil and recover the water trapped inside."
+      },
+      // Scene 13: Robotic Lunar Regolith Scoop (User Picture 3)
+      {
+        id: 13,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        cardImg: 'H2O assets/equipements/scoop.png',
+        cardClass: 'card-wide',
+        speaker: 'Chiaki Mukai',
+        requiresLabPermission: true,
+        text: "Our “Robotic Lunar Regolith Scoop” collects ice-bearing regolith from the drilling area and transfers it into a sealed container for processing."
+      },
+      // Scene 14: NASA Lunar Water Extraction Lab (User Picture 4)
+      {
+        id: 14,
+        showGuide: true,
+        guidePose: GUIDE_POINT_UP,
+        bgImg: 'H2O assets/bg/bg_of_oxy.png',
+        cardImg: null,
+        speaker: 'Chiaki Mukai',
+        text: "NASA has researched lunar water-extraction concepts that heat icy regolith and capture the released vapor. The condenser cools the vapor, turning it into liquid water."
       }
     ];
 
@@ -1512,7 +2353,186 @@
         diagramCardContainer.classList.add('hidden');
       }
 
-      if (s.isSiteSelection) {
+      
+    // =========================================================================
+    // Trident Drill Rotary Percussive Simulation (Scene 8)
+    // =========================================================================
+    const drillSimOverlay = document.getElementById('drillSimOverlay');
+    const drillStatusBulb = document.getElementById('drillStatusBulb');
+    const drillStatusText = document.getElementById('drillStatusText');
+    const drillRpmBadge = document.getElementById('drillRpmBadge');
+    const depthGaugeFill = document.getElementById('depthGaugeFill');
+    const depthCurrentVal = document.getElementById('depthCurrentVal');
+    const drillTwistBtn = document.getElementById('drillTwistBtn');
+    const drillTwistBtnLabel = document.getElementById('drillTwistBtnLabel');
+    const drillParticleCanvas = document.getElementById('drillParticleCanvas');
+
+    let isDrilling = false;
+    let drillDepth = 0.0;
+    let drillAnimTimer = null;
+    let drillParticleRaf = null;
+    let drillParticles = [];
+
+    class DrillParticle {
+      constructor(w, h) {
+        this.reset(w, h, true);
+      }
+      reset(w, h, initial = false) {
+        this.x = w * (0.45 + Math.random() * 0.1);
+        this.y = h * (0.75 + Math.random() * 0.22);
+        const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.5;
+        const speed = 1.2 + Math.random() * 2.8;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.size = 1.5 + Math.random() * 2.6;
+        this.life = initial ? Math.random() * 30 : 30 + Math.random() * 25;
+        this.maxLife = this.life;
+        this.isIce = Math.random() > 0.35;
+        this.color = this.isIce
+          ? (Math.random() > 0.5 ? '#00e5ff' : '#ffffff')
+          : (Math.random() > 0.5 ? '#94a3b8' : '#475569');
+      }
+      update(w, h) {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.07;
+        this.life--;
+        if (this.life <= 0 && isDrilling) {
+          this.reset(w, h);
+        }
+      }
+      draw(ctx) {
+        if (this.life <= 0) return;
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = Math.max(0, this.life / this.maxLife);
+        ctx.fillRect(Math.round(this.x), Math.round(this.y), this.size, this.size);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function initDrillParticles() {
+      if (!drillParticleCanvas) return;
+      const rect = drillParticleCanvas.getBoundingClientRect();
+      drillParticleCanvas.width = rect.width || 120;
+      drillParticleCanvas.height = rect.height || 220;
+      drillParticles = [];
+      for (let i = 0; i < 35; i++) {
+        drillParticles.push(new DrillParticle(drillParticleCanvas.width, drillParticleCanvas.height));
+      }
+    }
+
+    function loopDrillParticles() {
+      if (!drillParticleCanvas || !drillSimOverlay || drillSimOverlay.classList.contains('hidden')) return;
+      const ctx = drillParticleCanvas.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, drillParticleCanvas.width, drillParticleCanvas.height);
+        if (isDrilling) {
+          drillParticles.forEach(p => {
+            p.update(drillParticleCanvas.width, drillParticleCanvas.height);
+            p.draw(ctx);
+          });
+        }
+      }
+      drillParticleRaf = requestAnimationFrame(loopDrillParticles);
+    }
+
+    function setupDrillSim() {
+      stopDrillSim();
+      drillDepth = 0.0;
+      isDrilling = false;
+      drillSimOverlay.classList.remove('hidden', 'drilling', 'extracted');
+      if (drillStatusText) drillStatusText.textContent = 'ROTARY PERCUSSIVE: READY';
+      if (drillRpmBadge) drillRpmBadge.textContent = '0 RPM · STANDBY';
+      if (depthGaugeFill) depthGaugeFill.style.width = '0%';
+      if (depthCurrentVal) depthCurrentVal.textContent = '0.00 m';
+      if (drillTwistBtnLabel) drillTwistBtnLabel.textContent = 'TWIST DRILL (START)';
+
+      initDrillParticles();
+      if (!drillParticleRaf) drillParticleRaf = requestAnimationFrame(loopDrillParticles);
+
+      setTimeout(() => {
+        if (SCENES[currentSceneIdx]?.isDrillScene && !isDrilling && drillDepth < 0.1) {
+          startDrillTwist();
+        }
+      }, 700);
+    }
+
+    function startDrillTwist() {
+      if (isDrilling) return;
+      isDrilling = true;
+      drillDepth = 0.0;
+      sound.playClick();
+      sound.startDrillSound();
+
+      drillSimOverlay.classList.remove('extracted');
+      drillSimOverlay.classList.add('drilling');
+      if (drillStatusText) drillStatusText.textContent = 'PENETRATING REGOLITH & ICE (420 RPM)...';
+      if (drillRpmBadge) drillRpmBadge.textContent = '420 RPM · 1,200 BPM';
+      if (drillTwistBtnLabel) drillTwistBtnLabel.textContent = 'TWISTING AUGER [ACTIVE]';
+
+      const durationMs = 3600;
+      const startTime = performance.now();
+
+      function step(now) {
+        if (!isDrilling) return;
+        const elapsed = now - startTime;
+        const p = Math.min(1, elapsed / durationMs);
+        drillDepth = p * 1.0;
+
+        if (depthGaugeFill) depthGaugeFill.style.width = (p * 100).toFixed(1) + '%';
+        if (depthCurrentVal) depthCurrentVal.textContent = drillDepth.toFixed(2) + ' m';
+
+        if (p < 0.35) {
+          if (drillStatusText) drillStatusText.textContent = 'PENETRATING UPPER REGOLITH (420 RPM)...';
+        } else if (p < 0.8) {
+          if (drillStatusText) drillStatusText.textContent = 'BORING INTO CRYOGENIC SUB-SURFACE...';
+        } else if (p < 1.0) {
+          if (drillStatusText) drillStatusText.textContent = 'CORING FROZEN WATER-ICE DEPOSIT...';
+        } else {
+          finishDrillExtraction();
+          return;
+        }
+
+        drillAnimTimer = requestAnimationFrame(step);
+      }
+
+      drillAnimTimer = requestAnimationFrame(step);
+    }
+
+    function finishDrillExtraction() {
+      isDrilling = false;
+      drillDepth = 1.0;
+      sound.stopDrillSound();
+      sound.playIceExtractChime();
+
+      drillSimOverlay.classList.remove('drilling');
+      drillSimOverlay.classList.add('extracted');
+
+      if (depthGaugeFill) depthGaugeFill.style.width = '100%';
+      if (depthCurrentVal) depthCurrentVal.textContent = '1.00 m';
+      if (drillStatusText) drillStatusText.textContent = '🎯 1.0m FROZEN ICE-CORE EXTRACTED!';
+      if (drillRpmBadge) drillRpmBadge.textContent = 'CORE SAMPLE RETRIEVED ❄️';
+      if (drillTwistBtnLabel) drillTwistBtnLabel.textContent = '❄️ 1.0m EXTRACTED (RE-TWIST)';
+    }
+
+    function toggleDrillTwist(e) {
+      if (e) e.stopPropagation();
+      if (isDrilling) return;
+      startDrillTwist();
+    }
+
+    function stopDrillSim() {
+      isDrilling = false;
+      if (drillAnimTimer) { cancelAnimationFrame(drillAnimTimer); drillAnimTimer = null; }
+      if (drillParticleRaf) { cancelAnimationFrame(drillParticleRaf); drillParticleRaf = null; }
+      sound.stopDrillSound();
+      if (drillSimOverlay) {
+        drillSimOverlay.classList.add('hidden');
+        drillSimOverlay.classList.remove('drilling', 'extracted');
+      }
+    }
+
+    if (s.isSiteSelection) {
         siteSelectOverlay.classList.remove('hidden');
         skipFloat.classList.remove('hidden');
         setupSiteSelection();
@@ -1793,7 +2813,7 @@
       currentFullText = str;
       if (typeTimer) clearTimeout(typeTimer);
       isTyping = true;
-      dialogueText.textContent = '';
+      targetEl.textContent = '';
       let i = 0;
 
       (function typeChar() {
