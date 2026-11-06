@@ -395,7 +395,7 @@
       display: none;
       flex-direction: column;
       justify-content: space-between;
-      padding: 3.5vh 3.5vw 3vh 3.5vw;
+      padding: clamp(68px, 9.5vh, 88px) 3.5vw 3vh 3.5vw;
       opacity: 0;
       transform: translateX(-24px);
       transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -416,6 +416,7 @@
       gap: 14px;
       z-index: 75;
       pointer-events: auto;
+      margin-top: clamp(4px, 1vh, 10px);
     }
 
     .missions-content-box {

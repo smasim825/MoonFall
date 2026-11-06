@@ -318,7 +318,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
 
   body.force-horizontal .missions-wrapper {
     left: 14px !important;
-    top: 48px !important;
+    top: max(64px, calc(env(safe-area-inset-top) + 52px)) !important;
   }
 
   body.force-horizontal .onboarding-guide-container:not(.step-3-power) {
@@ -642,7 +642,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   /* Item 3: Mission Sidebar & Play/Close Buttons */
   .missions-wrapper {
     position: relative !important;
-    top: 54px !important;
+    top: max(60px, calc(env(safe-area-inset-top) + 48px)) !important;
     left: max(8px, env(safe-area-inset-left)) !important;
     gap: 6px !important;
     padding-top: 0 !important;
