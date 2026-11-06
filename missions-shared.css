@@ -49,14 +49,18 @@
    ============================================================================= */
 .top-hud {
   position: absolute;
-  top: max(8px, env(safe-area-inset-top));
-  left: max(12px, env(safe-area-inset-left));
-  right: max(12px, env(safe-area-inset-right));
+  top: max(20px, calc(env(safe-area-inset-top) + 12px));
+  left: max(14px, env(safe-area-inset-left));
+  right: max(14px, env(safe-area-inset-right));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 50;
+  z-index: 1000;
   pointer-events: none;
+}
+
+.top-hud > * {
+  pointer-events: auto;
 }
 
 .hud-title-badge {
@@ -67,7 +71,8 @@
   background: rgba(0, 16, 40, 0.92);
   border: 2px solid var(--color-hud-cyan);
   border-radius: 6px;
-  padding: 4px 12px;
+  padding: 5px 12px;
+  min-height: 38px;
   letter-spacing: 0.05em;
   box-shadow: 0 0 14px rgba(0, 229, 255, 0.35);
   display: inline-flex;
@@ -89,7 +94,8 @@
   background: linear-gradient(180deg, #10243b 0%, #06101f 100%);
   border: 1.5px solid #00cfff;
   border-radius: 6px;
-  padding: 4px 10px;
+  padding: 6px 12px;
+  min-height: 38px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -98,7 +104,9 @@
   box-shadow: 0 2px 0 #000, 0 0 8px rgba(0, 207, 255, 0.3);
   transition: all 0.15s ease;
   user-select: none;
+  -webkit-user-select: none;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 229, 255, 0.3);
 }
 
 .hud-btn:hover {

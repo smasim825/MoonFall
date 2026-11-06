@@ -225,17 +225,19 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   body.force-horizontal .mobile-nav-menu {
-    top: 44px !important;
+    top: 54px !important;
     left: 16px !important;
   }
 
   body.force-horizontal .ab-root.ab-in-stage .ab-launch {
-    top: 8px !important;
+    top: max(20px, calc(env(safe-area-inset-top) + 12px)) !important;
     right: 16px !important;
     width: 48px !important;
     min-height: 48px !important;
     height: 48px !important;
     padding: 2px !important;
+    touch-action: manipulation !important;
+    z-index: 1000006 !important;
   }
 
   body.force-horizontal .ab-root.ab-in-stage .ab-launch img {
@@ -248,16 +250,17 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   body.force-horizontal .base-music-toggle {
-    top: 60px !important;
+    top: calc(max(20px, calc(env(safe-area-inset-top) + 12px)) + 54px) !important;
     right: 16px !important;
     width: 48px !important;
     min-width: 48px !important;
     font-size: 0.65rem !important;
     padding: 2px !important;
+    touch-action: manipulation !important;
   }
 
   body.force-horizontal .top-status-bar {
-    top: 8px !important;
+    top: max(16px, calc(env(safe-area-inset-top) + 8px)) !important;
     max-width: calc(var(--vv-h, 100svh) - 140px) !important;
     padding: 2px 6px !important;
     gap: 3px !important;
@@ -274,20 +277,34 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   body.force-horizontal .top-hud {
-    top: 8px !important;
-    left: 14px !important;
-    right: 68px !important;
+    top: max(20px, calc(env(safe-area-inset-top) + 12px)) !important;
+    left: max(14px, env(safe-area-inset-left)) !important;
+    right: max(76px, calc(68px + env(safe-area-inset-right))) !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
+  }
+
+  body.force-horizontal .top-hud > * {
+    pointer-events: auto !important;
   }
 
   body.force-horizontal .hud-title-badge {
     font-size: clamp(0.72rem, 1.85vh, 0.92rem) !important;
-    padding: 3px 8px !important;
+    padding: 4px 10px !important;
+    min-height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
   }
 
   body.force-horizontal .hud-btn {
     font-size: clamp(0.70rem, 1.75vh, 0.88rem) !important;
-    padding: 3px 8px !important;
-    gap: 4px !important;
+    padding: 6px 12px !important;
+    min-height: 38px !important;
+    gap: 5px !important;
+    touch-action: manipulation !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: rgba(0, 229, 255, 0.3) !important;
   }
 
   body.force-horizontal .dialogue-wrapper {
@@ -376,14 +393,14 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   .mobile-menu-toggle {
     display: inline-flex !important;
     position: absolute !important;
-    top: max(8px, env(safe-area-inset-top)) !important;
+    top: max(16px, calc(env(safe-area-inset-top) + 8px)) !important;
     left: max(8px, env(safe-area-inset-left)) !important;
     margin: 0 !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
     flex-shrink: 0 !important;
     padding: 0 !important;
     border: 2px solid #00cfff !important;
@@ -577,7 +594,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   /* Item 1: Astrobee Chatbot & Music Button (Top Right Stack) */
   .ab-root.ab-in-stage .ab-launch {
     position: absolute !important;
-    top: max(8px, env(safe-area-inset-top)) !important;
+    top: max(16px, calc(env(safe-area-inset-top) + 8px)) !important;
     right: max(8px, env(safe-area-inset-right)) !important;
     width: 56px !important;
     min-height: 56px !important;
@@ -587,6 +604,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     border-radius: 8px !important;
     box-shadow: 0 0 12px rgba(0, 229, 255, 0.4), 0 4px 12px rgba(0, 0, 0, 0.8) !important;
     gap: 0 !important;
+    touch-action: manipulation !important;
   }
 
   .ab-root.ab-in-stage .ab-launch img {
@@ -601,7 +619,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
 
   .base-music-toggle {
     position: absolute !important;
-    top: calc(max(8px, env(safe-area-inset-top)) + 60px) !important;
+    top: calc(max(16px, calc(env(safe-area-inset-top) + 8px)) + 60px) !important;
     right: max(8px, env(safe-area-inset-right)) !important;
     width: 56px !important;
     min-width: 56px !important;
@@ -1089,21 +1107,24 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
 /* Compact mobile landscape screens (e.g. Chrome/Safari with address/navigation bars visible, width <= 740px) */
 @media screen and (max-width: 740px) and (orientation: landscape) {
   .mobile-menu-toggle {
-    top: max(6px, env(safe-area-inset-top)) !important;
+    top: max(16px, calc(env(safe-area-inset-top) + 8px)) !important;
     left: max(12px, env(safe-area-inset-left)) !important;
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
     font-size: 19px !important;
+    touch-action: manipulation !important;
   }
 
   .ab-root.ab-in-stage .ab-launch {
-    top: max(6px, env(safe-area-inset-top)) !important;
+    top: max(18px, calc(env(safe-area-inset-top) + 10px)) !important;
     right: max(12px, env(safe-area-inset-right)) !important;
     width: 48px !important;
     min-height: 48px !important;
     height: 48px !important;
     padding: 2px !important;
+    touch-action: manipulation !important;
+    z-index: 1000006 !important;
   }
 
   .ab-root.ab-in-stage .ab-launch img {
@@ -1116,16 +1137,17 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   .base-music-toggle {
-    top: calc(max(6px, env(safe-area-inset-top)) + 52px) !important;
+    top: calc(max(18px, calc(env(safe-area-inset-top) + 10px)) + 52px) !important;
     right: max(12px, env(safe-area-inset-right)) !important;
     width: 48px !important;
     min-width: 48px !important;
     font-size: 0.65rem !important;
     padding: 2px !important;
+    touch-action: manipulation !important;
   }
 
   .top-status-bar {
-    top: max(6px, env(safe-area-inset-top)) !important;
+    top: max(16px, calc(env(safe-area-inset-top) + 8px)) !important;
     max-width: calc(100% - 126px) !important;
     padding: 2px 6px !important;
     gap: 3px !important;
@@ -1138,20 +1160,34 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 
   .top-hud {
-    top: 6px !important;
+    top: max(18px, calc(env(safe-area-inset-top) + 10px)) !important;
     left: max(12px, env(safe-area-inset-left)) !important;
-    right: max(66px, calc(58px + env(safe-area-inset-right))) !important;
+    right: max(68px, calc(60px + env(safe-area-inset-right))) !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
+  }
+
+  .top-hud > * {
+    pointer-events: auto !important;
   }
 
   .hud-title-badge {
     font-size: clamp(0.72rem, 1.85vw, 0.92rem) !important;
-    padding: 3px 8px !important;
+    padding: 4px 8px !important;
+    min-height: 36px !important;
+    display: inline-flex !important;
+    align-items: center !important;
   }
 
   .hud-btn {
     font-size: clamp(0.70rem, 1.75vw, 0.88rem) !important;
-    padding: 3px 8px !important;
+    padding: 6px 10px !important;
+    min-height: 36px !important;
     gap: 4px !important;
+    touch-action: manipulation !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    -webkit-tap-highlight-color: rgba(0, 229, 255, 0.3) !important;
   }
 }
 
@@ -1432,11 +1468,19 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
    Universal Top HUD & Mission Complete Safeguards (PC & Mobile)
    ========================================================================== */
 .top-hud {
+  top: max(20px, calc(env(safe-area-inset-top) + 12px)) !important;
   right: clamp(96px, 8.5vw, 116px) !important;
+  z-index: 1000 !important;
+  pointer-events: none !important;
+}
+
+.top-hud > * {
+  pointer-events: auto !important;
 }
 
 @media (max-width: 900px), (max-height: 500px) {
   .top-hud {
+    top: max(18px, calc(env(safe-area-inset-top) + 10px)) !important;
     right: max(72px, calc(64px + env(safe-area-inset-right))) !important;
   }
 }

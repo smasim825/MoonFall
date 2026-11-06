@@ -2172,14 +2172,38 @@
     }
 
     .onboarding-arrow-glyph {
-      font-size: 1.9rem;
-      color: #facc15;
-      text-shadow: 0 0 12px #facc15, 0 0 22px rgba(250, 204, 21, 0.8), 0 2px 4px rgba(0,0,0,0.9);
-      animation: bounce-arrow-vert 0.85s infinite ease-in-out alternate;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
       line-height: 1;
       user-select: none;
+      pointer-events: none;
       margin-left: 20px;
       margin-bottom: 3px;
+      animation: bounce-arrow-vert 0.85s infinite ease-in-out alternate;
+    }
+
+    .onboarding-arrow-svg {
+      width: 28px;
+      height: 28px;
+      display: block;
+      filter: drop-shadow(0 0 6px #facc15) drop-shadow(0 0 14px rgba(250, 204, 21, 0.85)) drop-shadow(0 2px 4px rgba(0,0,0,0.9));
+      transition: transform 0.2s ease;
+    }
+
+    .onboarding-arrow-glyph.arrow-up .onboarding-arrow-svg {
+      transform: rotate(0deg);
+    }
+    .onboarding-arrow-glyph.arrow-right .onboarding-arrow-svg {
+      transform: rotate(90deg);
+    }
+    .onboarding-arrow-glyph.arrow-down .onboarding-arrow-svg {
+      transform: rotate(180deg);
+    }
+    .onboarding-arrow-glyph.arrow-left .onboarding-arrow-svg {
+      transform: rotate(270deg);
     }
 
     /* Step 3 side-anchored layouts (card beside the Power Station badge) */
@@ -3457,7 +3481,11 @@
     <!-- Interactive Onboarding Guidance Overlay (Arrow & Directives) -->
     <div class="onboarding-guide-overlay hidden" id="onboardingGuideOverlay">
       <div class="onboarding-guide-container" id="onboardingGuideContainer">
-        <div class="onboarding-arrow-glyph" id="onboardingArrowGlyph">⬆</div>
+        <div class="onboarding-arrow-glyph arrow-up" id="onboardingArrowGlyph">
+          <svg class="onboarding-arrow-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2L4 13H10V26H18V13H24L14 2Z" fill="#ffea00" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <div class="onboarding-directive-card">
           <div class="onboarding-card-header">
             <span class="directive-badge" id="onboardingStepBadge">STEP 1 OF 3</span>
@@ -5725,6 +5753,13 @@
       return window.innerWidth <= 1024 || window.innerHeight <= 550 || ('ontouchstart' in window);
     }
 
+    function setOnboardingArrowDirection(dir) {
+      const glyph = document.getElementById('onboardingArrowGlyph');
+      if (!glyph) return;
+      glyph.className = 'onboarding-arrow-glyph arrow-' + dir;
+      glyph.innerHTML = '<svg class="onboarding-arrow-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2L4 13H10V26H18V13H24L14 2Z" fill="#ffea00" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+    }
+
     function positionForStep1() {
       const container = document.getElementById('onboardingGuideContainer');
       const glyph = document.getElementById('onboardingArrowGlyph');
@@ -5734,8 +5769,7 @@
       delete container.dataset.side;
       glyph.style.marginTop = '';
       glyph.style.alignSelf = '';
-      glyph.textContent = '⬆';
-      glyph.classList.remove('arrow-down');
+      setOnboardingArrowDirection('up');
 
       if (isMobileNavActive()) {
         glyph.style.marginLeft = '8px';
@@ -5764,8 +5798,7 @@
       delete container.dataset.side;
       glyph.style.marginTop = '';
       glyph.style.alignSelf = '';
-      glyph.textContent = '⬆';
-      glyph.classList.remove('arrow-down');
+      setOnboardingArrowDirection('up');
 
       if (isMobileNavActive()) {
         glyph.style.marginLeft = '8px';
@@ -5802,7 +5835,7 @@
 
       if (!overlay || !target) {
         container.dataset.side = 'right';
-        glyph.textContent = '⬅';
+        setOnboardingArrowDirection('left');
         container.style.top = '6%';
         container.style.left = '19%';
         return;
@@ -5840,7 +5873,7 @@
 
       // Try right side first (arrow points left at the badge)
       container.dataset.side = 'right';
-      glyph.textContent = '⬅';
+      setOnboardingArrowDirection('left');
       let c = getLocalBox(container);
       let left = b.right + gap;
       let top = (b.top + b.height / 2) - c.height / 2;
@@ -5848,14 +5881,14 @@
       if (left + c.width > o.width - pad) {
         // Not enough room on the right: try left side (arrow points right)
         container.dataset.side = 'left';
-        glyph.textContent = '➡';
+        setOnboardingArrowDirection('right');
         c = getLocalBox(container);
         left = b.left - c.width - gap;
         top = (b.top + b.height / 2) - c.height / 2;
         if (left < pad) {
           // Fallback: below the badge (arrow points up)
           container.dataset.side = 'below';
-          glyph.textContent = '⬆';
+          setOnboardingArrowDirection('up');
           c = getLocalBox(container);
           left = (b.left + b.width / 2) - c.width / 2;
           top = b.bottom + gap;

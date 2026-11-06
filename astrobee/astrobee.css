@@ -160,7 +160,8 @@
 }
 .ab-in-stage .ab-launch, .ab-in-stage .ab-panel { pointer-events: auto; }
 .ab-in-stage .ab-launch {
-  position: absolute; top: 12px; right: 14px;
+  position: absolute; top: max(20px, calc(env(safe-area-inset-top) + 12px)); right: 14px;
+  touch-action: manipulation;
   flex-direction: column; align-items: center; justify-content: center; gap: 1px;
   padding: 6px 7px 4px;
   width: clamp(76px, 6.2vw, 92px);
