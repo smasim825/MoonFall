@@ -1523,21 +1523,35 @@
     /* Top HUD / Controls */
     .top-hud {
       position: absolute;
-      top: 10px;
+      top: max(20px, calc(env(safe-area-inset-top) + 12px));
       left: 14px;
-      right: 14px;
-      z-index: 40;
+      right: clamp(96px, 8.5vw, 116px);
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       pointer-events: none;
     }
 
+    .top-hud > * {
+      pointer-events: auto;
+    }
+
+    @media (max-width: 900px), (max-height: 500px) {
+      .top-hud {
+        top: max(18px, calc(env(safe-area-inset-top) + 10px));
+        right: max(72px, calc(64px + env(safe-area-inset-right)));
+      }
+    }
+
     .hud-title-badge {
       background: rgba(0, 10, 30, 0.75);
       border: 1.5px solid var(--pixel-blue-border);
       border-radius: 6px;
-      padding: 3px 14px;
+      padding: 5px 14px;
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
       color: #ffffff;
       font-size: clamp(0.95rem, 1.6vw, 1.35rem);
       letter-spacing: 0.05em;
@@ -1548,13 +1562,22 @@
       background: rgba(0, 10, 30, 0.75);
       border: 1.5px solid var(--pixel-blue-border);
       border-radius: 6px;
-      padding: 4px 14px;
+      padding: 6px 14px;
+      min-height: 38px;
       color: #7dd3fc;
       font-family: var(--font-pixel);
       font-size: clamp(0.95rem, 1.6vw, 1.35rem);
       cursor: pointer;
       pointer-events: auto;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(0, 229, 255, 0.3);
+      user-select: none;
+      -webkit-user-select: none;
       transition: background 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     .hud-btn:hover { background: #0284c7; color: #ffffff; }
