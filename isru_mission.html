@@ -2930,7 +2930,7 @@
         dot.className = 'site-clickable-dot';
         dot.style.left = xPct + '%';
         dot.style.top = yPct + '%';
-        dot.title = `Site #${idx + 1} (${c}% Ice Chance)`;
+        dot.title = `Site ${idx + 1} (${c}% Ice Chance)`;
 
         dot.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -2961,7 +2961,7 @@
       if (reticle && label) {
         reticle.style.left = xPct + '%';
         reticle.style.top = yPct + '%';
-        label.textContent = `🎯 DRILL SITE #${siteNum} LOCKED (${chance}% ICE)`;
+        label.textContent = `🎯 DRILL SITE ${siteNum} LOCKED (${chance}% ICE)`;
         reticle.classList.remove('hidden');
       }
 
@@ -3784,7 +3784,7 @@
     function showSiteInfo(i) {
       const [x, y, c] = SCAN_SITES[i];
       scanTags.forEach((tg, k) => tg.classList.toggle('active', k === i));
-      scanInfoName.textContent = 'Ice Site #' + (i + 1);
+      scanInfoName.textContent = 'Ice Site ' + (i + 1);
       scanInfoDesc.textContent = c >= 85
         ? 'Deep, permanently shadowed crater - an ideal cold trap.'
         : c >= 70
