@@ -640,6 +640,13 @@
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
+    /* Dr. Chiaki Mukai: matches 1.1_power_mission.html (leg cut at mid-thigh, perfectly scaled) */
+    .scene-character-stand.char-chiaki {
+      height: clamp(230px, 53vh, 420px);
+      bottom: -1%;
+      left: 1.5%;
+    }
+
     /* =========================================================================
        M1 DECISION OVERLAY (Image 1 Mockup Match)
        Two choice cards: "Evacuate" vs "Secure Equip"
@@ -1247,7 +1254,8 @@
         speaker: 'chiaki',
         name: 'Dr. Chiaki Mukai',
         role: 'Power & Energy Lead',
-        avatar: 'assets/isru/character/Chiaki_Mukai_Wave.png',
+        avatar: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
+        charClass: 'char-chiaki',
         text: "Some external power equipment is still operating. If we disconnect everything without preparation, we could lose valuable infrastructure. What is your recommendation?",
         title: "⚠️ CREW ADVICE: DR. CHIAKI MUKAI",
         bg: "assets/BG2.png",
@@ -1366,6 +1374,11 @@
           characterStandEl.src = item.avatar;
           characterStandEl.alt = item.name;
           characterStandEl.classList.remove('hidden');
+          if (item.charClass) {
+            characterStandEl.classList.add(item.charClass);
+          } else {
+            characterStandEl.classList.remove('char-chiaki');
+          }
         }
         if (badgeHumanTextEl) {
           badgeHumanTextEl.textContent = item.name;
