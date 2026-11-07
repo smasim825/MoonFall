@@ -3573,7 +3573,7 @@
       }
 
       guideImg.src = s.guidePose || GUIDE_POINT_UP;
-      guideStage.classList.remove('hidden');
+      guideStage.classList.toggle('hidden', !s.showGuide);
 
       mapContainer.classList.toggle('hidden', !s.interactiveMap);
       if (s.interactiveMap) { mapContainer.style.animation = 'none'; void mapContainer.offsetWidth; mapContainer.style.animation = ''; resetMapView(); }
