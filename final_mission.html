@@ -2541,32 +2541,112 @@
       color: #34d399;
     }
 
-    /* M3 PDU Grid */
+    /* M3 Interactive PDU Terminal */
     .pdu-grid-wrap {
       display: grid;
-      grid-template-columns: 1fr 1.1fr 1.3fr;
-      gap: 14px;
+      grid-template-columns: 1fr 1.15fr 1.25fr;
+      gap: 12px;
       width: 100%;
+      align-items: stretch;
+    }
+
+    .pdu-node-card {
+      background: rgba(3, 16, 38, 0.85);
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .pdu-object-img {
+      height: clamp(75px, 11vh, 100px);
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7));
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+    .pdu-object-img.active-glow {
+      filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.85)) brightness(1.08);
+      transform: scale(1.02);
+    }
+    .pdu-object-img.overload-glow {
+      filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.9)) brightness(1.1);
+      animation: pulseOverload 1s infinite alternate;
+    }
+    @keyframes pulseOverload {
+      0% { filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.6)); }
+      100% { filter: drop-shadow(0 0 22px rgba(239, 68, 68, 1)); }
+    }
+
+    .pdu-cable-status-tag {
+      font-family: var(--font-pixel);
+      font-size: 0.62rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #334155;
+      color: #94a3b8;
+      text-align: center;
+    }
+    .pdu-cable-status-tag.online {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      text-shadow: 0 0 6px rgba(52, 211, 153, 0.6);
+    }
+
+    .pdu-connect-btn {
+      font-family: var(--font-pixel);
+      font-size: 0.68rem;
+      padding: 7px 12px;
+      background: rgba(14, 165, 233, 0.2);
+      border: 1.5px solid #0284c7;
+      border-radius: 6px;
+      color: #e0f2fe;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-sizing: border-box;
+    }
+    .pdu-connect-btn:hover {
+      background: #0284c7;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+    }
+    .pdu-connect-btn.connected {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.25);
+      color: #34d399;
     }
 
     .pdu-load-bar-wrap {
       width: 100%;
-      background: #0f172a;
-      border: 1px solid #334155;
+      background: #0b1329;
+      border: 1.5px solid #334155;
       border-radius: 6px;
-      height: 18px;
+      height: 16px;
       overflow: hidden;
       position: relative;
-      margin: 8px 0;
+      margin: 4px 0;
     }
     .pdu-load-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #10b981, #38bdf8);
+      background: linear-gradient(90deg, #10b981 0%, #38bdf8 80%);
       transition: width 0.3s ease, background 0.3s ease;
     }
     .pdu-load-fill.overload {
-      background: #ef4444 !important;
+      background: linear-gradient(90deg, #f97316, #ef4444) !important;
     }
 
     .pdu-breaker-btn {
@@ -2574,35 +2654,50 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(15, 23, 42, 0.8);
+      background: rgba(15, 23, 42, 0.85);
       border: 1.5px solid #334155;
       border-radius: 6px;
-      padding: 8px 10px;
+      padding: 7px 10px;
       cursor: pointer;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: #94a3b8;
       transition: all 0.15s ease;
       box-sizing: border-box;
     }
     .pdu-breaker-btn:hover {
       border-color: #0284c7;
+      background: rgba(14, 165, 233, 0.15);
     }
     .pdu-breaker-btn.active {
       border-color: #10b981;
       background: rgba(16, 185, 129, 0.2);
       color: #34d399;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
     }
     .pdu-breaker-btn.tripped {
       border-color: #ef4444;
       background: rgba(239, 68, 68, 0.2);
       color: #fca5a5;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
     }
 
     .overload-warning-banner {
       width: 100%;
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid #ef4444;
+      background: rgba(239, 68, 68, 0.25);
+      border: 1.5px solid #ef4444;
       color: #fca5a5;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      text-align: center;
+      box-sizing: border-box;
+      line-height: 1.3;
+      animation: alertPulse 1.2s infinite alternate;
+    }
+    @keyframes alertPulse {
+      0% { opacity: 0.85; }
+      100% { opacity: 1; box-shadow: 0 0 12px rgba(239, 68, 68, 0.6); }
+    }
       padding: 6px 10px;
       border-radius: 6px;
       font-size: 0.72rem;
@@ -2687,7 +2782,7 @@
   <!-- MOBILE LANDSCAPE ENFORCEMENT MODAL -->
   <aside class="orientation-banner" id="orientationBanner" role="dialog" aria-modal="true" aria-label="Rotate Device">
     <div class="orientation-card">
-      <div class="phone-rotate-icon">📱 ➔ 🔄</div>
+      <div class="phone-rotate-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm1 18H7V5h10v14z"/></svg> ➔ <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></div>
       <div class="orientation-title">Landscape View Required</div>
       <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to continue.</p>
       <button class="orientation-btn btn-rotate-now" onclick="forceRotateHorizontal()">
@@ -2708,7 +2803,8 @@
 
       <!-- Emergency Warning Banner across the top -->
       <div class="emergency-banner hidden" id="emergencyBanner">
-        <span>⚠️ SOLAR PARTICLE EVENT DETECTED // ETA: 30 MINUTES ⚠️</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="#ef4444" style="vertical-align:text-bottom; margin-right:6px;"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+        <span>SOLAR PARTICLE EVENT DETECTED // ETA: 30 MINUTES</span>
       </div>
 
       <!-- 1. MAIN BACKGROUND: COMMAND MODULE CONSOLE (assets/BG.png) -->
@@ -2796,7 +2892,7 @@
                 <span class="slot-val">—</span>
               </div>
             </div>
-            <span class="history-log-btn-hint" title="View Decision Log">LOG 📋</span>
+            <span class="history-log-btn-hint" title="View Decision Log">LOG</span>
           </div>
         </div>
 
@@ -3046,7 +3142,7 @@
         <div class="decision-modal-card" onclick="event.stopPropagation()">
           <div class="decision-modal-header">
             <div class="decision-modal-title">
-              <span>📋 COMMANDER DECISION LOG</span>
+              <span>COMMANDER DECISION LOG</span>
               <span class="sub-tag">// 18-HOUR CRISIS TIMELINE</span>
             </div>
             <button class="decision-modal-close" onclick="closeDecisionModal()" title="Close Log" aria-label="Close">✕</button>
@@ -3060,7 +3156,7 @@
           <!-- Footer with User-Requested Warning text -->
           <div class="decision-modal-footer">
             <div class="decision-warning-banner">
-              <span style="font-size:1.3rem;">⚠️</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="#f59e0b" style="vertical-align:middle; flex-shrink:0;"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
               <span class="decision-warning-text">your decision will effect your mission result</span>
             </div>
             <button class="decision-close-btn" onclick="closeDecisionModal()">CLOSE LOG</button>
@@ -3892,7 +3988,7 @@
         scene: 1,
         speaker: 'astrobee',
         text: "Commander, Our solar observatory has identified a major Solar Particle Event. Estimated arrival: 30 minutes. We must immediately activate the emergency protocol.",
-        title: "⚠️ SOLAR STORM WARNING",
+        title: "SOLAR STORM WARNING",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -3907,7 +4003,7 @@
         role: 'Crew Health & Shelter Specialist',
         avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
         text: "Commander, radiation levels are expected to increase rapidly. Anyone working outside must return to the protected habitat immediately.",
-        title: "⚠️ CREW ADVICE: RAKESH SHARMA",
+        title: "CREW ADVICE: RAKESH SHARMA",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -3923,7 +4019,7 @@
         avatar: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
         charClass: 'char-chiaki',
         text: "Some external power equipment is still operating. If we disconnect everything without preparation, we could lose valuable infrastructure. What is your recommendation?",
-        title: "⚠️ CREW ADVICE: DR. CHIAKI MUKAI",
+        title: "CREW ADVICE: DR. CHIAKI MUKAI",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -3964,7 +4060,7 @@
         role: 'Crew Health & Shelter Specialist',
         avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
         text: "Commander, reinforce the deepest habitat section with regolith or water barriers to reduce radiation, while conserving water for drinking and the greenhouse.",
-        title: "⚠️ CREW ADVICE: RAKESH SHARMA",
+        title: "CREW ADVICE: RAKESH SHARMA",
         bg: "assets/BG.png",
         alarm: false,
         showExterior: false
@@ -3978,7 +4074,7 @@
         role: 'Hydroponics & Nutrition Lead',
         avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
         text: "Remember that our stored water is essential for drinking and our greenhouse. If we use too much for shielding, we could create another problem.",
-        title: "⚠️ CREW ADVICE: SUNITA WILLIAMS",
+        title: "CREW ADVICE: SUNITA WILLIAMS",
         bg: "assets/BG.png",
         alarm: false,
         showExterior: false
@@ -4014,7 +4110,7 @@
         scene: 10,
         type: 'minitask',
         taskId: 'm2_lockdown',
-        title: "🛠️ CRISIS PROTOCOL: SHELTER LOCKDOWN",
+        title: "CRISIS PROTOCOL: SHELTER LOCKDOWN",
         bg: "assets/BG.png",
         alarm: false,
         showExterior: false
@@ -4044,7 +4140,7 @@
         avatar: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
         charClass: 'char-chiaki',
         text: "The main power supply is offline. Our emergency batteries can keep essential systems running, but we cannot operate everything. We need to make a decision quickly.",
-        title: "⚠️ CREW ADVICE: DR. CHIAKI MUKAI",
+        title: "CREW ADVICE: DR. CHIAKI MUKAI",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -4058,7 +4154,7 @@
         role: 'Hydroponics & Nutrition Lead',
         avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
         text: "The greenhouse depends on electricity for its grow lights and environmental controls. If we reduce its power for too long, our crops could suffer. But crew survival comes first.",
-        title: "⚠️ CREW ADVICE: SUNITA WILLIAMS",
+        title: "CREW ADVICE: SUNITA WILLIAMS",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -4095,7 +4191,7 @@
         scene: 16,
         type: 'minitask',
         taskId: 'm3_pdu',
-        title: "🛠️ CRISIS PROTOCOL: PDU BUS ROUTING",
+        title: "CRISIS PROTOCOL: PDU BUS ROUTING",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -4125,7 +4221,7 @@
         avatar: 'assets/isru/character/Guion_Bluford_PointUp.png',
         charClass: 'char-commando',
         text: "We can use our emergency oxygen cylinders, produce fresh oxygen through water electrolysis, or isolate unused habitat modules to reduce unnecessary oxygen loss. But each option has a cost.",
-        title: "⚠️ CREW ADVICE: O₂ COMMANDO",
+        title: "CREW ADVICE: O₂ COMMANDO",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -4140,7 +4236,7 @@
         avatar: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
         charClass: 'char-chiaki',
         text: "Remember, Commander. Electrolysis needs electricity. Our emergency power is already limited, so watch the power reserve.",
-        title: "⚠️ CREW ADVICE: DR. CHIAKI MUKAI",
+        title: "CREW ADVICE: DR. CHIAKI MUKAI",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -4177,7 +4273,7 @@
         scene: 22,
         type: 'minitask',
         taskId: 'm4_electrolysis',
-        title: "🛠️ CRISIS PROTOCOL: ELECTROLYSIS SEQUENCING",
+        title: "CRISIS PROTOCOL: ELECTROLYSIS SEQUENCING",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -4907,26 +5003,27 @@
       }
     }
 
-    // --- M3 Mini-Task: PDU Bus Routing ---
+    // --- M3 Mini-Task: PDU Bus Routing (Using real PDU.webp & BatteryStorageUnit.webp) ---
     function renderM3PduTask() {
       const body = document.getElementById('miniTaskBody');
       const hint = document.getElementById('miniTaskHint');
       if (!body) return;
 
       if (hint) {
-        hint.textContent = "Connect Battery to PDU, then route essential loads: Oxygen, Heating, Comms. Do NOT connect Decorative Lighting!";
+        hint.textContent = "Connect Emergency Battery → PDU, then route Oxygen, Heating, and Comms. Keep Decorative Lighting disconnected!";
       }
 
       let currentKw = 0;
-      if (m3TaskState.circuits.o2) currentKw += 1.0;
-      if (m3TaskState.circuits.heat) currentKw += 1.2;
-      if (m3TaskState.circuits.comms) currentKw += 0.8;
-      if (m3TaskState.circuits.lighting) currentKw += 1.5;
+      if (m3TaskState.batteryConnected) {
+        if (m3TaskState.circuits.o2) currentKw += 1.0;
+        if (m3TaskState.circuits.heat) currentKw += 1.2;
+        if (m3TaskState.circuits.comms) currentKw += 0.8;
+        if (m3TaskState.circuits.lighting) currentKw += 1.5;
+      }
 
       const maxSafeKw = 3.5;
       const isOverload = currentKw > maxSafeKw;
       const isComplete = m3TaskState.batteryConnected && m3TaskState.circuits.o2 && m3TaskState.circuits.heat && m3TaskState.circuits.comms && !m3TaskState.circuits.lighting;
-
       const fillPct = Math.min(100, (currentKw / maxSafeKw) * 100);
 
       body.innerHTML = `
@@ -4936,62 +5033,96 @@
           <div class="minitask-astrobee-content">
             <div class="minitask-astrobee-tag">ASTRO BEE // TACTICAL ADVISORY</div>
             <div class="minitask-astrobee-speech">
-              Commander! Connect the primary battery bus, then switch on critical circuits while keeping total draw under 3.5 kW.
+              Connect Emergency Battery → PDU, then route Oxygen (+1.0 kW), Heating (+1.2 kW), and Comms (+0.8 kW). Leave Decorative Lighting disconnected!
             </div>
           </div>
         </div>
 
         <div class="pdu-grid-wrap">
-          <!-- Column 1: Source -->
-          <div class="minitask-bay" style="align-items:center; justify-content:center;">
+          <!-- Column 1: Emergency Battery Storage -->
+          <div class="pdu-node-card">
             <div class="bay-title" style="width:100%;">1. Primary Source</div>
-            <svg viewBox="0 0 24 24" width="48" height="48" fill="${m3TaskState.batteryConnected ? '#10b981' : '#f59e0b'}">
-              <path d="M16 20H8V6h8v14zm1.5-16h-3V2h-5v2h-3C5.7 2 5 2.7 5 3.5v17c0 .8.7 1.5 1.5 1.5h11c.8 0 1.5-.7 1.5-1.5v-17c0-.8-.7-1.5-1.5-1.5z"/>
-            </svg>
-            <div style="font-size:0.75rem; text-align:center; color:#94a3b8;">
-              Emergency Battery Bank<br><span style="color:#38bdf8;">100 kWh Reserve</span>
+            <img src="assets/power/Objects/BatteryStorageUnit.webp" alt="Emergency Battery Bank" class="pdu-object-img ${m3TaskState.batteryConnected ? 'active-glow' : ''}">
+            <div style="font-size:0.75rem; text-align:center; color:#e0f2fe; font-weight:bold;">
+              Emergency Battery Unit
             </div>
-            <button class="stage-btn ${m3TaskState.batteryConnected ? 'online' : ''}" style="width:100%; margin-top:8px;" onclick="connectM3Battery()">
-              ${m3TaskState.batteryConnected ? '✓ CONNECTED TO PDU' : 'CONNECT TO PDU'}
+            <div style="font-size:0.68rem; text-align:center; color:#94a3b8;">
+              100 kWh Life-Support Reserve
+            </div>
+            <div class="pdu-cable-status-tag ${m3TaskState.batteryConnected ? 'online' : ''}">
+              ${m3TaskState.batteryConnected ? '✓ 400V BUS CONNECTED' : 'STANDBY // DISCONNECTED'}
+            </div>
+            <button class="pdu-connect-btn ${m3TaskState.batteryConnected ? 'connected' : ''}" onclick="connectM3Battery()">
+              ${m3TaskState.batteryConnected ? '✓ DISCONNECT BATTERY' : '⚡ CONNECT TO PDU ➔'}
             </button>
           </div>
 
-          <!-- Column 2: Central PDU Hub -->
-          <div class="minitask-bay">
-            <div class="bay-title">2. Central PDU Hub</div>
-            <div style="font-size:0.75rem; color:#94a3b8; display:flex; justify-content:space-between;">
-              <span>Bus Load Meter:</span>
-              <span style="color:${isOverload ? '#ef4444' : '#38bdf8'}; font-weight:bold;">${currentKw.toFixed(1)} / ${maxSafeKw} kW</span>
+          <!-- Column 2: Central PDU Hub (Using PDU.webp) -->
+          <div class="pdu-node-card">
+            <div class="bay-title" style="width:100%;">2. Central PDU Hub</div>
+            <img src="assets/power/Objects/PDU.webp" alt="Power Distribution Unit" class="pdu-object-img ${isOverload ? 'overload-glow' : (m3TaskState.batteryConnected ? 'active-glow' : '')}">
+            
+            <div style="width:100%; display:flex; justify-content:space-between; align-items:center; font-size:0.72rem;">
+              <span style="color:#94a3b8;">Bus Load Draw:</span>
+              <span style="font-family:var(--font-pixel); font-size:0.75rem; color:${isOverload ? '#ef4444' : (currentKw >= 3.0 ? '#34d399' : '#38bdf8')}; font-weight:bold;">
+                ${currentKw.toFixed(1)} / ${maxSafeKw} kW
+              </span>
             </div>
+
             <div class="pdu-load-bar-wrap">
               <div class="pdu-load-fill ${isOverload ? 'overload' : ''}" style="width:${fillPct}%;"></div>
             </div>
-            <div style="font-size:0.7rem; color:#64748b; line-height:1.4;">
-              PDU routes critical loads to habitat sub-systems. Non-essential loads exceed discharge limit.
+
+            <div style="font-size:0.68rem; color:#64748b; text-align:center; line-height:1.35;">
+              ${!m3TaskState.batteryConnected ? 'PDU is unpowered. Connect battery to energize bus.' : (isOverload ? '<span style="color:#ef4444; font-weight:bold;">CRITICAL OVERLOAD! Total draw exceeds 3.5 kW safe ceiling.</span>' : (isComplete ? '<span style="color:#34d399; font-weight:bold;">✓ Bus nominal at 3.0 kW. All essential life support routed.</span>' : 'Select essential breakers to route power.'))}
             </div>
-            <div class="overload-warning-banner" id="pduOverloadBanner" style="display:${isOverload ? 'block' : 'none'};">
-              ⚠️ OVERLOAD DETECTED! Disconnect decorative lighting to prevent battery damage!
-            </div>
+
+            ${isOverload ? `
+              <div class="overload-warning-banner">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:text-bottom; margin-right:4px;"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                CRITICAL BUS OVERLOAD! Disconnect Decorative Lighting immediately (3.5 kW limit exceeded)!
+              </div>
+            ` : ''}
           </div>
 
-          <!-- Column 3: Circuit Routing -->
-          <div class="minitask-bay">
-            <div class="bay-title">3. Circuit Breakers</div>
+          <!-- Column 3: Circuit Breakers (Subsystem Outputs) -->
+          <div class="pdu-node-card" style="align-items:stretch;">
+            <div class="bay-title" style="width:100%;">3. Subsystem Breakers</div>
+
+            <!-- Breaker 1: Oxygen -->
             <div class="pdu-breaker-btn ${m3TaskState.circuits.o2 ? 'active' : ''}" onclick="toggleM3Circuit('o2')">
-              <span>Oxygen Circulation (+1.0 kW)</span>
-              <span>${m3TaskState.circuits.o2 ? '✓ ROUTED' : 'OFF'}</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.8 10-10S17.52 2 12 2zm-1 15h2v2h-2v-2zm0-8h2v6h-2V9z"/></svg>
+                <span>Oxygen Circulation (+1.0 kW)</span>
+              </div>
+              <span>${m3TaskState.circuits.o2 ? '✓ ROUTED' : 'CONNECT'}</span>
             </div>
+
+            <!-- Breaker 2: Heating -->
             <div class="pdu-breaker-btn ${m3TaskState.circuits.heat ? 'active' : ''}" onclick="toggleM3Circuit('heat')">
-              <span>Habitat Heating (+1.2 kW)</span>
-              <span>${m3TaskState.circuits.heat ? '✓ ROUTED' : 'OFF'}</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 3a9 9 0 0 0-9 9c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61L12 3zm1 14h-2v-4h2v4zm0-6h-2V7h2v4z"/></svg>
+                <span>Habitat Heating (+1.2 kW)</span>
+              </div>
+              <span>${m3TaskState.circuits.heat ? '✓ ROUTED' : 'CONNECT'}</span>
             </div>
+
+            <!-- Breaker 3: Emergency Comms -->
             <div class="pdu-breaker-btn ${m3TaskState.circuits.comms ? 'active' : ''}" onclick="toggleM3Circuit('comms')">
-              <span>Emergency Comms (+0.8 kW)</span>
-              <span>${m3TaskState.circuits.comms ? '✓ ROUTED' : 'OFF'}</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.8 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 .88-.36 1.68-.93 2.25z"/></svg>
+                <span>Emergency Comms (+0.8 kW)</span>
+              </div>
+              <span>${m3TaskState.circuits.comms ? '✓ ROUTED' : 'CONNECT'}</span>
             </div>
+
+            <!-- Breaker 4: Decorative Lighting (Overload Trap) -->
             <div class="pdu-breaker-btn ${m3TaskState.circuits.lighting ? 'tripped' : ''}" onclick="toggleM3Circuit('lighting')">
-              <span>Decorative Lighting (+1.5 kW)</span>
-              <span style="color:${m3TaskState.circuits.lighting ? '#ef4444' : '#64748b'};">${m3TaskState.circuits.lighting ? '⚠️ OVERLOAD' : 'ISOLATED'}</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+                <span>Decorative Lighting (+1.5 kW)</span>
+              </div>
+              <span style="color:${m3TaskState.circuits.lighting ? '#ef4444' : '#64748b'};">${m3TaskState.circuits.lighting ? 'OVERLOAD' : 'ISOLATED'}</span>
             </div>
           </div>
         </div>
@@ -5001,26 +5132,27 @@
     }
 
     function connectM3Battery() {
-      sound.clickSound();
       m3TaskState.batteryConnected = !m3TaskState.batteryConnected;
+      if (m3TaskState.batteryConnected) {
+        sound.successChime();
+      } else {
+        sound.clickSound();
+      }
       renderM3PduTask();
     }
 
     function toggleM3Circuit(circuitKey) {
-      if (circuitKey === 'lighting') {
-        if (!m3TaskState.circuits.lighting) {
-          sound.errorBuzzer();
-          m3TaskState.circuits.lighting = true;
-          renderM3PduTask();
-          setTimeout(() => {
-            m3TaskState.circuits.lighting = false;
-            renderM3PduTask();
-          }, 1800);
-          return;
-        }
+      if (!m3TaskState.batteryConnected) {
+        sound.errorBuzzer();
+        return;
       }
-      sound.clickSound();
+
       m3TaskState.circuits[circuitKey] = !m3TaskState.circuits[circuitKey];
+      if (circuitKey === 'lighting' && m3TaskState.circuits.lighting) {
+        sound.errorBuzzer();
+      } else {
+        sound.clickSound();
+      }
       renderM3PduTask();
     }
 
@@ -5037,6 +5169,15 @@
         if (statusBadge) {
           statusBadge.className = 'minitask-status-badge complete';
           statusBadge.textContent = '✓ ESSENTIAL BUS STABILIZED';
+        }
+      } else {
+        if (confirmBtn) {
+          confirmBtn.disabled = true;
+          confirmBtn.textContent = m3TaskState.circuits.lighting ? "OVERLOAD DETECTED" : "ROUTING INCOMPLETE";
+        }
+        if (statusBadge) {
+          statusBadge.className = 'minitask-status-badge';
+          statusBadge.textContent = m3TaskState.circuits.lighting ? "BUS OVERLOAD" : "CONFIGURING BUS";
         }
       }
     }
@@ -5153,7 +5294,7 @@
     function routeM4Hydrogen(destination) {
       if (destination === 'cabin') {
         sound.errorBuzzer();
-        alert("⚠️ CRITICAL FLIGHT SAFETY WARNING:\n\nElectrolysis creates explosive Hydrogen gas! Hydrogen must NEVER enter the breathable air supply.\nRoute to the external vent line instead.");
+        alert("CRITICAL FLIGHT SAFETY WARNING:\n\nElectrolysis creates explosive Hydrogen gas! Hydrogen must NEVER enter the breathable air supply.\nRoute to the external vent line instead.");
         return;
       }
       sound.clickSound();
