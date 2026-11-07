@@ -1691,7 +1691,7 @@
       width: 100%;
       height: 100%;
       padding-left: 15.5%;
-      padding-right: 4.5%;
+      padding-right: clamp(15%, 17.5vw, 19%);
       padding-top: 6px;
       padding-bottom: 6px;
       display: flex;
@@ -1806,7 +1806,7 @@
       width: 100%;
       height: 100%;
       padding-left: 18%;
-      padding-right: 4%;
+      padding-right: clamp(15%, 17.5vw, 19%);
       padding-top: 10px;
       padding-bottom: 6px;
       display: flex;
@@ -4025,7 +4025,7 @@
         mission: 'M3',
         scene: 11,
         speaker: 'astrobee',
-        text: "Commander! Emergency alert! Our solar-array inverters have disconnected. The outpost is now running on emergency battery power. It's not safe to go outside and fix the solar array. We must manage our remaining electricity before the reserves run too low!",
+        text: "Commander! Solar-array inverters are offline, leaving us on emergency batteries. EVA repairs are unsafe, so conserve electricity before power runs out!",
         title: "⚡ MISSION 3: BLACKOUT DETECTED",
         bg: "assets/BG2.png",
         alarm: true,
