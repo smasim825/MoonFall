@@ -1,0 +1,291 @@
+{
+ "start": {
+  "O2": 75,
+  "Water": 65,
+  "Power": 75,
+  "Food": 90,
+  "Health": 65,
+  "Equip": 90,
+  "Greenhouse": 80
+ },
+ "stars": {
+  "3": 66,
+  "2": 60,
+  "1": 50
+ },
+ "missions": [
+  {
+   "id": "M1",
+   "title": "The 30-Minute Warning",
+   "time": "05:30",
+   "crisis": "Protons reach the Moon within tens of minutes of the flare; one astronaut is outside and external power gear is still switched on.",
+   "options": {
+    "A Evacuate": {
+     "Health": -1,
+     "Equip": -12
+    },
+    "B Secure Equip": {
+     "Power": -4,
+     "Health": -5,
+     "Equip": -2
+    }
+   },
+   "notes": {
+    "A Evacuate": {
+     "gain": "Crew is inside before the storm (only a short rover drive, ~10 mSv).",
+     "cost": "Outside power gear is left switched on and gets damaged (-12).",
+     "real": "Spacecraft are put in safe mode during radiation storms; in the Oct 2003 storms Mars Odyssey and Genesis went into safe mode."
+    },
+    "B Secure Equip": {
+     "gain": "Outside gear is shut down safely (only -2).",
+     "cost": "Two crew stay out ~20 min longer in suits (-5 = ~50 mSv); rover and shutdown use 4 kWh.",
+     "real": "A suit (~0.4 g/cm²) lets through about 2.5x the dose of habitat walls (Townsend 1988: 311 vs 125 rem behind 1 vs 5 g/cm²)."
+    }
+   }
+  },
+  {
+   "id": "M2",
+   "title": "The Shelter Problem",
+   "time": "06:00",
+   "crisis": "The storm arrives. Behind standard walls (~5 g/cm²) the crew would get ~150 mSv. Each option shows the dose that still gets through.",
+   "options": {
+    "A Deep Shelter": {
+     "Power": -1,
+     "Health": -6
+    },
+    "B Pile Regolith": {
+     "Power": -8,
+     "Health": -1,
+     "Equip": -8
+    },
+    "C Water Shield": {
+     "Water": -20,
+     "Power": -2,
+     "Health": -3
+    }
+   },
+   "notes": {
+    "A Deep Shelter": {
+     "gain": "Cheapest option: only the shelter fans (-1); no outside work, no hardware wear, no water.",
+     "cost": "Weakest protection: ~60 mSv gets through (-6).",
+     "real": "Inner module is about 10 g/cm² of shielding; dose-vs-shielding curve from Townsend 1988 (NASA TM-100620)."
+    },
+    "B Pile Regolith": {
+     "gain": "Best protection: only ~15 mSv gets through (-1).",
+     "cost": "Rover pushes regolith bags into place (8 kWh); abrasive dust wears seals and filters (-8).",
+     "real": "10 cm of regolith (1.5 g/cm³) adds 15 g/cm². Apollo dust clogged, scratched and broke seals (Gaier 2005, NASA TM-2005-213610)."
+    },
+    "C Water Shield": {
+     "gain": "Good protection (~30 mSv, -3) with no hardware wear.",
+     "cost": "100 kg of water is pumped into soft bags (2 kWh) and must be re-treated before drinking (-20).",
+     "real": "NASA-STD-3001 Vol 1: storm shelter of 10 g/cm² water-equivalent; 10 cm of water = 100 kg per m², about one layer over the crew's torsos."
+    }
+   }
+  },
+  {
+   "id": "M3",
+   "title": "Blackout",
+   "time": "08:00",
+   "crisis": "Inverters fail and the base runs on battery. Life support needs ~3 kW, the greenhouse another ~3 kW.",
+   "options": {
+    "A Greenhouse Off": {
+     "Power": -10,
+     "Greenhouse": -20
+    },
+    "B Backup Power": {
+     "Power": -15,
+     "Equip": -8
+    },
+    "C Brownout All": {
+     "Power": -13,
+     "Greenhouse": -8,
+     "Health": -2
+    }
+   },
+   "notes": {
+    "A Greenhouse Off": {
+     "gain": "Lowest battery use (-10): only life support runs.",
+     "cost": "Crops get no light or heat (-20).",
+     "real": "Lettuce needs 16 h of light a day; each lost light hour costs about 1.5 h of growth (NASA BVAD)."
+    },
+    "B Backup Power": {
+     "gain": "Everything stays on; crops are not hurt.",
+     "cost": "Uses the most energy (-15) and drains the emergency battery bank too deep (-8).",
+     "real": "NASA battery sizing caps discharge at 80%; deeper use shortens battery life (Kleinhenz & Paz 2021). CO₂ scrubber 1.0 kW, water recycler 0.74 kW."
+    },
+    "C Brownout All": {
+     "gain": "Middle path: crops keep half their light (only -8).",
+     "cost": "Still a big battery draw (-13); cabin cools to ~18 °C and the crew sleeps badly (-2).",
+     "real": "NASA's comfort zone is 20-25 °C. On Apollo 13 the powered-down cabin got so cold that sleep was hard."
+    }
+   }
+  },
+  {
+   "id": "M4",
+   "title": "Oxygen Countdown",
+   "time": "11:00",
+   "crisis": "The oxygen reserve is falling: 5 crew breathe about 4.5 kg of O₂ a day.",
+   "options": {
+    "A Bottled O2": {
+     "O2": -3,
+     "Equip": -8
+    },
+    "B Electrolysis": {
+     "O2": 5,
+     "Water": -1,
+     "Power": -14
+    }
+   },
+   "notes": {
+    "A Bottled O2": {
+     "gain": "No power or water used; O₂ almost holds (-3).",
+     "cost": "The emergency cylinders are used up, so nothing is left for the next emergency (-8).",
+     "real": "Each kg of O₂ in high-pressure tanks needs about 1.45 kg of tank (NASA BVAD)."
+    },
+    "B Electrolysis": {
+     "gain": "Makes ~2.7 kg of fresh O₂, so the bar rises (+5).",
+     "cost": "Splitting water needs ~5 kWh per kg of O₂ (-14). The water cost is small: 3 kg (-1).",
+     "real": "ISS oxygen generator makes up to 9.2 kg O₂/day; 1.13 kg water per kg O₂; 4.7-5.5 kWh per kg O₂ (Colozza 2020). Hydrogen comes out too and must never enter the air line."
+    }
+   }
+  },
+  {
+   "id": "M5",
+   "title": "The Water Trap",
+   "time": "13:00",
+   "crisis": "Water cleaning runs at 50% because sediment clogged the filter.",
+   "options": {
+    "A Stored Potable": {
+     "Water": -10,
+     "Equip": 3
+    },
+    "B Melt Crater Ice": {
+     "Water": 10,
+     "Power": -15,
+     "Equip": -5
+    },
+    "C Drink Priority": {
+     "Water": -3,
+     "Greenhouse": -10
+    }
+   },
+   "notes": {
+    "A Stored Potable": {
+     "gain": "No power used; the filter is cleaned properly while it rests (+3).",
+     "cost": "Uses 50 kg of stored water, 4 days of drinking for 5 crew (-10).",
+     "real": "Each astronaut needs at least 2.5 L of water a day for drinking and food (NASA OCHMO-TB-027)."
+    },
+    "B Melt Crater Ice": {
+     "gain": "The only option that adds water (+10, ~80 kg melted).",
+     "cost": "Melting very cold ice takes ~0.19 kWh per kg (-15); sediment hits the filter again (-5).",
+     "real": "Warm ice from about -170 °C, melt it (334 kJ/kg), warm to 20 °C: about 0.19 kWh per kg (our calculation)."
+    },
+    "C Drink Priority": {
+     "gain": "Crew water is safe at almost no cost (-3).",
+     "cost": "Crops get no water for the day (-10).",
+     "real": "Lettuce uses about 2.1 kg of water per m² per day (NASA BVAD), so 20 m² needs ~42 kg a day."
+    }
+   }
+  },
+  {
+   "id": "M6",
+   "title": "The Last Harvest",
+   "time": "16:00",
+   "crisis": "The nutrient pump has failed and the crops are wilting.",
+   "options": {
+    "A Restore Loop": {
+     "Water": -6,
+     "Power": -12,
+     "Food": 6,
+     "Greenhouse": 10
+    },
+    "B Abandon Crops": {
+     "Power": 8,
+     "Food": -8,
+     "Greenhouse": -35
+    }
+   },
+   "notes": {
+    "A Restore Loop": {
+     "gain": "Crops recover (+10) and the next harvest is saved (+6 food).",
+     "cost": "Pumps and lights need ~12 kWh; the loop needs 30 kg of water (-6).",
+     "real": "Grow lights for 20 m² of lettuce are about 3 kW (LED, ~0.15 kW/m², from NASA BVAD values)."
+    },
+    "B Abandon Crops": {
+     "gain": "Frees the greenhouse power for the night (+8).",
+     "cost": "Crops die (-35) and the next harvest is lost (-8 food).",
+     "real": "20 m² of lettuce gives about 73 kg of fresh food per 28-day cycle (NASA BVAD yield)."
+    }
+   }
+  },
+  {
+   "id": "M7",
+   "title": "The Critical Failure",
+   "time": "20:00",
+   "crisis": "Power Bus Junction 4 is overheating and arcing.",
+   "options": {
+    "A Isolate Bus": {
+     "Power": -3,
+     "Equip": -12
+    },
+    "B Manual Repair": {
+     "Power": -10,
+     "Health": -4,
+     "Equip": 10
+    },
+    "C Reroute Bus": {
+     "Power": -8,
+     "Greenhouse": -8,
+     "Equip": -3
+    }
+   },
+   "notes": {
+    "A Isolate Bus": {
+     "gain": "Fastest and safest; little power lost (-3).",
+     "cost": "Module 4 stays dead until a later repair (-12).",
+     "real": "In 2012 a failed ISS power box (MBSU-1) cut 2 of 8 power channels; the station ran on about 75% power until it was fixed."
+    },
+    "B Manual Repair": {
+     "gain": "The junction is fixed; hardware improves (+10).",
+     "cost": "Test and repair use 10 kWh; crew works near hot, smoking parts (-4).",
+     "real": "Sunita Williams and Akihiko Hoshide replaced that ISS power box on two spacewalks in Aug-Sep 2012, after a stuck bolt."
+    },
+    "C Reroute Bus": {
+     "gain": "Module 4 keeps working; little hardware loss (-3).",
+     "cost": "The other junction is overloaded and wastes power (-8); the greenhouse is cut first (-8).",
+     "real": "Real power systems shed the least important loads first to keep life support running."
+    }
+   }
+  },
+  {
+   "id": "M8",
+   "title": "The Final Decision",
+   "time": "after the storm",
+   "crisis": "The storm is passing, but proton levels can stay high for hours.",
+   "options": {
+    "A Hold Shelter": {
+     "Water": -2,
+     "Power": -6,
+     "Health": 3
+    },
+    "B Controlled Recovery": {
+     "Power": 15,
+     "Equip": 6,
+     "Health": -5
+    }
+   },
+   "notes": {
+    "A Hold Shelter": {
+     "gain": "Crew rests and avoids the storm's tail (+3).",
+     "cost": "Shelter life support keeps running on battery (-6) and uses water (-2).",
+     "real": "NOAA: a solar radiation storm can last from hours to days."
+    },
+    "B Controlled Recovery": {
+     "gain": "Crew resets the inverters: solar power comes back (+15) and systems are repaired (+6).",
+     "cost": "Crew gets some leftover radiation while working outside (-5).",
+     "real": "Same NOAA fact: leaving early means some extra dose."
+    }
+   }
+  }
+ ]
+}

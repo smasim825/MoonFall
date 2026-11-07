@@ -504,6 +504,362 @@
       transform: scale(0.98);
     }
 
+    /* =========================================================================
+       OUTPOST RESOURCE TELEMETRY SIDEBAR (Right side wall console)
+       Values from values_final.json (O2, Water, Power, Food, Health, Equip, Greenhouse)
+       ========================================================================= */
+    .resource-telemetry-sidebar {
+      position: absolute;
+      right: clamp(8px, 1.1vw, 16px);
+      top: clamp(86px, 12.8vh, 102px);
+      width: clamp(138px, 12.6vw, 162px);
+      background: rgba(4, 14, 32, 0.92);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 8px;
+      box-shadow: 0 0 22px rgba(0, 229, 255, 0.28), inset 0 0 14px rgba(0, 229, 255, 0.08);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 85;
+      pointer-events: auto;
+      font-family: var(--font-pixel);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      user-select: none;
+      -webkit-user-select: none;
+      box-sizing: border-box;
+      transition: all 0.25s ease;
+    }
+
+    .telemetry-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+      padding-bottom: 3px;
+      margin-bottom: 2px;
+    }
+
+    .telemetry-title {
+      font-size: clamp(0.7rem, 0.92vw, 0.86rem);
+      color: #38bdf8;
+      letter-spacing: 0.08em;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .telemetry-pulse-dot {
+      width: 6px;
+      height: 6px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #10b981;
+      animation: tele-pulse 1.6s infinite alternate;
+    }
+
+    @keyframes tele-pulse {
+      0% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+
+    .telemetry-row {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .telemetry-row-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: clamp(0.75rem, 0.98vw, 0.9rem);
+      line-height: 1;
+    }
+
+    .telemetry-label-grp {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #cbd5e1;
+    }
+
+    .telemetry-svg-icon {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+    }
+
+    .telemetry-val {
+      font-weight: bold;
+      color: #ffffff;
+      font-variant-numeric: tabular-nums;
+      transition: color 0.3s ease;
+    }
+
+    .telemetry-bar-track {
+      width: 100%;
+      height: 5px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 3px;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .telemetry-bar-fill {
+      height: 100%;
+      width: 75%;
+      border-radius: 2px;
+      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
+    }
+
+    .bar-healthy {
+      background: linear-gradient(90deg, #0284c7 0%, #00e5ff 100%);
+      box-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+    }
+    .bar-good {
+      background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+      box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+    }
+    .bar-warning {
+      background: linear-gradient(90deg, #d97706 0%, #f59e0b 100%);
+      box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
+    }
+    .bar-critical {
+      background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
+      box-shadow: 0 0 7px rgba(239, 68, 68, 0.7);
+      animation: crit-blink 1s infinite alternate;
+    }
+
+    .telemetry-delta-tag {
+      position: absolute;
+      right: 0;
+      top: -2px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border-radius: 3px;
+      padding: 0 3px;
+      pointer-events: none;
+      animation: delta-float 2s ease-out forwards;
+    }
+
+    .telemetry-delta-tag.loss {
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.25);
+      border: 1px solid #ef4444;
+    }
+
+    .telemetry-delta-tag.gain {
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.25);
+      border: 1px solid #10b981;
+    }
+
+    .telemetry-footer-stats {
+      border-top: 1px solid rgba(56, 189, 248, 0.25);
+      padding-top: 3px;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: clamp(0.68rem, 0.88vw, 0.8rem);
+      color: #94a3b8;
+    }
+    .telemetry-lsi-val {
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    /* Decision Trade-off Consequence Popup Modal */
+    .decision-consequence-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(12px, 3vh, 24px);
+    }
+
+    .consequence-card {
+      background: linear-gradient(180deg, rgba(10, 24, 52, 0.98) 0%, rgba(4, 10, 24, 0.99) 100%);
+      border: 2px solid #00e5ff;
+      box-shadow: 0 0 45px rgba(0, 229, 255, 0.4), inset 0 0 25px rgba(0, 229, 255, 0.1);
+      border-radius: 12px;
+      width: 94%;
+      max-width: 660px;
+      box-sizing: border-box;
+      padding: clamp(14px, 2.2vw, 22px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-family: var(--font-pixel);
+      color: #ffffff;
+      max-height: 94vh;
+      overflow-y: auto;
+    }
+
+    .consequence-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1.5px solid rgba(56, 189, 248, 0.35);
+      padding-bottom: 8px;
+    }
+
+    .consequence-title {
+      font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+      color: #38bdf8;
+      font-weight: bold;
+      letter-spacing: 0.06em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .consequence-choice-badge {
+      background: rgba(14, 165, 233, 0.25);
+      border: 1px solid #38bdf8;
+      color: #e0f2fe;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: clamp(0.85rem, 1.1vw, 1rem);
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+
+    .consequence-deltas-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+
+    .consequence-delta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: clamp(0.88rem, 1.2vw, 1.08rem);
+      font-weight: bold;
+      letter-spacing: 0.04em;
+    }
+    .consequence-delta-pill.loss {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+    }
+    .consequence-delta-pill.gain {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #6ee7b7;
+    }
+
+    .consequence-box-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .consequence-detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .consequence-detail-item.gain-box {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+    }
+
+    .consequence-detail-item.loss-box {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+    }
+
+    .consequence-detail-item.science-box {
+      background: rgba(14, 165, 233, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .detail-icon-wrap {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .gain-box .detail-icon-wrap { color: #34d399; }
+    .loss-box .detail-icon-wrap { color: #f87171; }
+    .science-box .detail-icon-wrap { color: #38bdf8; }
+
+    .detail-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .detail-heading {
+      font-size: clamp(0.78rem, 1vw, 0.92rem);
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .gain-box .detail-heading { color: #6ee7b7; }
+    .loss-box .detail-heading { color: #fca5a5; }
+    .science-box .detail-heading { color: #7dd3fc; }
+
+    .detail-text {
+      font-size: clamp(0.92rem, 1.22vw, 1.12rem);
+      color: #e2e8f0;
+      line-height: 1.35;
+    }
+
+    .consequence-btn-bar {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 4px;
+    }
+
+    .btn-proceed-consequence {
+      background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+      border: 2px solid #38bdf8;
+      box-shadow: 0 0 16px rgba(0, 229, 255, 0.45);
+      border-radius: 6px;
+      color: #ffffff;
+      font-family: var(--font-pixel);
+      font-size: clamp(1.05rem, 1.45vw, 1.3rem);
+      padding: 8px 24px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+    }
+    .btn-proceed-consequence:hover {
+      filter: brightness(1.18);
+      transform: scale(1.02);
+      box-shadow: 0 0 22px rgba(0, 229, 255, 0.65);
+    }
+    .btn-proceed-consequence:active {
+      transform: scale(0.98);
+    }
+
     .history-label {
       font-size: clamp(0.85rem, 1.15vw, 1.1rem);
       color: #7dd3fc;
@@ -1350,6 +1706,123 @@
         </div>
       </header>
 
+      <!-- OUTPOST RESOURCE TELEMETRY SIDEBAR (Right side wall console) -->
+      <aside class="resource-telemetry-sidebar" id="resourceTelemetrySidebar" aria-label="Outpost Resource Telemetry">
+        <div class="telemetry-header">
+          <div class="telemetry-title">
+            <svg class="telemetry-svg-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+            <span>TELEMETRY</span>
+          </div>
+          <div class="telemetry-pulse-dot" title="Telemetry live feed nominal"></div>
+        </div>
+
+        <!-- 1. O2 -->
+        <div class="telemetry-row" id="teleRowO2">
+          <div class="telemetry-row-info">
+            <span class="telemetry-label-grp">
+              <svg class="telemetry-svg-icon" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round"><path d="M7 3h10v3H7zM5 8h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2zM9 14h6M12 11v6"/></svg>
+              <span>O₂</span>
+            </span>
+            <span class="telemetry-val" id="valO2">75%</span>
+          </div>
+          <div class="telemetry-bar-track">
+            <div class="telemetry-bar-fill bar-healthy" id="barO2" style="width: 75%;"></div>
+          </div>
+        </div>
+
+        <!-- 2. Water -->
+        <div class="telemetry-row" id="teleRowWater">
+          <div class="telemetry-row-info">
+            <span class="telemetry-label-grp">
+              <svg class="telemetry-svg-icon" viewBox="0 0 24 24" fill="#38bdf8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              <span>WATER</span>
+            </span>
+            <span class="telemetry-val" id="valWater">65%</span>
+          </div>
+          <div class="telemetry-bar-track">
+            <div class="telemetry-bar-fill bar-good" id="barWater" style="width: 65%;"></div>
+          </div>
+        </div>
+
+        <!-- 3. Power -->
+        <div class="telemetry-row" id="teleRowPower">
+          <div class="telemetry-row-info">
+            <span class="telemetry-label-grp">
+              <svg class="telemetry-svg-icon" viewBox="0 0 24 24" fill="#facc15"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <span>POWER</span>
+            </span>
+            <span class="telemetry-val" id="valPower">75%</span>
+          </div>
+          <div class="telemetry-bar-track">
+            <div class="telemetry-bar-fill bar-healthy" id="barPower" style="width: 75%;"></div>
+          </div>
+        </div>
+
+        <!-- 4. Food -->
+        <div class="telemetry-row" id="teleRowFood">
+          <div class="telemetry-row-info">
+            <span class="telemetry-label-grp">
+              <svg class="telemetry-svg-icon" viewBox="0 0 24 24" fill="#fb923c"><path d="M18 2v12h1.5v8H16V2h2zm-7 0v7c0 1.66-1.34 3-3 3V22H5.5V12C3.84 12 2.5 10.66 2.5 9V2h2v7H6V2h1.5v7H9V2h2z"/></svg>
+              <span>FOOD</span>
+            </span>
+            <span class="telemetry-val" id="valFood">90%</span>
+          </div>
+          <div class="telemetry-bar-track">
+            <div class="telemetry-bar-fill bar-healthy" id="barFood" style="width: 90%;"></div>
+          </div>
+        </div>
+
+        <!-- 5. Health (Critical gate: 50) -->
+        <div class="telemetry-row" id="teleRowHealth">
+          <div class="telemetry-row-info">
+            <span class="telemetry-label-grp">
+              <svg class="telemetry-svg-icon" viewBox="0 0 24 24" fill="#f87171"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              <span>HEALTH</span>
+            </span>
+            <span class="telemetry-val" id="valHealth">65%</span>
+          </div>
+          <div class="telemetry-bar-track">
+            <div class="telemetry-bar-fill bar-good" id="barHealth" style="width: 65%;"></div>
+          </div>
+        </div>
+
+        <!-- 6. Equip (Critical gate: 50) -->
+        <div class="telemetry-row" id="teleRowEquip">
+          <div class="telemetry-row-info">
+            <span class="telemetry-label-grp">
+              <svg class="telemetry-svg-icon" viewBox="0 0 24 24" fill="#a78bfa"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+              <span>EQUIP</span>
+            </span>
+            <span class="telemetry-val" id="valEquip">90%</span>
+          </div>
+          <div class="telemetry-bar-track">
+            <div class="telemetry-bar-fill bar-healthy" id="barEquip" style="width: 90%;"></div>
+          </div>
+        </div>
+
+        <!-- 7. Greenhouse -->
+        <div class="telemetry-row" id="teleRowGreenhouse">
+          <div class="telemetry-row-info">
+            <span class="telemetry-label-grp">
+              <svg class="telemetry-svg-icon" viewBox="0 0 24 24" fill="#4ade80"><path d="M12 2a9 9 0 0 0-9 9c0 4.17 2.84 7.67 6.69 8.69L9 22h6l-.69-2.31C18.16 18.67 21 15.17 21 11a9 9 0 0 0-9-9zm-1 14.93c-2.83-.48-5-2.94-5-5.93 0-3.31 2.69-6 6-6s6 2.69 6 6c0 2.99-2.17 5.45-5 5.93V14h3v-2h-3V9h-2v3H8v2h3v2.93z"/></svg>
+              <span>GREEN</span>
+            </span>
+            <span class="telemetry-val" id="valGreenhouse">80%</span>
+          </div>
+          <div class="telemetry-bar-track">
+            <div class="telemetry-bar-fill bar-healthy" id="barGreenhouse" style="width: 80%;"></div>
+          </div>
+        </div>
+
+        <!-- Telemetry Footer: LSI Index -->
+        <div class="telemetry-footer-stats">
+          <span>LSI INDEX:</span>
+          <span class="telemetry-lsi-val" id="valLsi">76.7</span>
+        </div>
+      </aside>
+
       <!-- BOTTOM DIALOGUE OVERLAY AREA (Matching other missions) -->
       <footer class="dialogue-wrapper" id="dialogueWrapper">
 
@@ -1397,7 +1870,7 @@
 
       </footer>
 
-      <!-- M1 DECISION MODAL: EVACUATE VS SECURE EQUIP (Matching Image 1) -->
+      <!-- M1 DECISION MODAL: EVACUATE VS SECURE EQUIP (Matching Image 1 & values_final.json) -->
       <div class="m1-decision-overlay hidden" id="m1DecisionOverlay" role="dialog" aria-label="Mission 1 Decision">
         <div class="decision-cards-row">
           
@@ -1407,7 +1880,7 @@
             <div class="evacuate-icon-container">
               <img src="assets/image 2.png" alt="Evacuate Exit Sign" class="evacuate-sign-img">
             </div>
-            <p class="decision-card-stat">Health +10, Equip -15</p>
+            <p class="decision-card-stat">Health -1, Equip -12</p>
           </div>
 
           <!-- Card 2: Secure Equip -->
@@ -1420,7 +1893,7 @@
               </div>
               <img src="assets/tower.png" alt="Comms / Sensor Tower" class="equip-tower-img">
             </div>
-            <p class="decision-card-stat">Power -5, Health -12, Equip +10</p>
+            <p class="decision-card-stat">Power -4, Health -5, Equip -2</p>
           </div>
 
         </div>
@@ -1449,6 +1922,69 @@
               <span class="decision-warning-text">your decision will effect your mission result</span>
             </div>
             <button class="decision-close-btn" onclick="closeDecisionModal()">CLOSE LOG</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DECISION TRADE-OFF CONSEQUENCE POPUP (Values reduce / Gain / Cost / Real Science) -->
+      <div class="decision-consequence-modal hidden" id="decisionConsequenceModal" role="dialog" aria-modal="true" aria-label="Decision Impact Report">
+        <div class="consequence-card" onclick="event.stopPropagation()">
+          <div class="consequence-header">
+            <div class="consequence-title">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#00e5ff"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V18z"/></svg>
+              <span>MISSION 1: PROTOCOL CONSEQUENCE</span>
+            </div>
+            <span class="consequence-choice-badge" id="consequenceChoiceBadge">OPTION LOGGED</span>
+          </div>
+
+          <!-- Changed Values Grid (Custom Symbols, No Emojis) -->
+          <div class="consequence-deltas-grid" id="consequenceDeltasGrid">
+            <!-- Dynamically injected -->
+          </div>
+
+          <!-- What you gain / What you lose / Real science -->
+          <div class="consequence-box-section">
+            
+            <!-- What you gain -->
+            <div class="consequence-detail-item gain-box">
+              <div class="detail-icon-wrap">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+              </div>
+              <div class="detail-content">
+                <span class="detail-heading">WHAT YOU GAINED</span>
+                <span class="detail-text" id="consequenceGainText">Crew is inside before the storm (only a short rover drive, ~10 mSv).</span>
+              </div>
+            </div>
+
+            <!-- What you lose -->
+            <div class="consequence-detail-item loss-box">
+              <div class="detail-icon-wrap">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              </div>
+              <div class="detail-content">
+                <span class="detail-heading">WHAT YOU LOST</span>
+                <span class="detail-text" id="consequenceLossText">Outside power gear is left switched on and gets damaged (-12).</span>
+              </div>
+            </div>
+
+            <!-- Flight rule / real world science basis -->
+            <div class="consequence-detail-item science-box">
+              <div class="detail-icon-wrap">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.8 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              </div>
+              <div class="detail-content">
+                <span class="detail-heading">REAL-WORLD SCIENCE BASIS</span>
+                <span class="detail-text" id="consequenceScienceText">Spacecraft are put in safe mode during radiation storms; in the Oct 2003 storms Mars Odyssey and Genesis went into safe mode.</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Confirm Button -->
+          <div class="consequence-btn-bar">
+            <button class="btn-proceed-consequence" id="btnConfirmConsequence" onclick="confirmDecisionConsequence()">
+              CONFIRM &amp; UPDATE TELEMETRY ➔
+            </button>
           </div>
         </div>
       </div>
@@ -1536,6 +2072,9 @@
       m1ChosenDecision = null;
       sessionStorage.removeItem('moonfall_m1_decision');
       sessionStorage.removeItem('moonfall_decision_history');
+      sessionStorage.removeItem('moonfall_outpost_resources');
+      outpostResources = { ...START_RESOURCES };
+      updateTelemetryUI();
       for (const k in decisionHistory) decisionHistory[k] = null;
       updateDecisionHistoryUI();
       if (m1DecisionOverlayEl) {
@@ -1551,6 +2090,95 @@
         cardSecureEquipEl.style.opacity = '1';
       }
       renderCurrentStep();
+    }
+
+    // =========================================================================
+    // OUTPOST RESOURCES STATE (From values_final.json & VALUES.md)
+    // Start: O2: 75, Water: 65, Power: 75, Food: 90, Health: 65, Equip: 90, Greenhouse: 80
+    // Failure gates: O2 >= 20, Water >= 20, Health >= 50, Power > 0, Equip >= 50, LSI >= 50
+    // =========================================================================
+    const START_RESOURCES = {
+      O2: 75,
+      Water: 65,
+      Power: 75,
+      Food: 90,
+      Health: 65,
+      Equip: 90,
+      Greenhouse: 80
+    };
+
+    let outpostResources = { ...START_RESOURCES };
+
+    function initOutpostResources() {
+      const saved = sessionStorage.getItem('moonfall_outpost_resources');
+      if (saved) {
+        try {
+          outpostResources = JSON.parse(saved);
+        } catch (e) {
+          outpostResources = { ...START_RESOURCES };
+        }
+      } else {
+        outpostResources = { ...START_RESOURCES };
+      }
+      updateTelemetryUI();
+    }
+
+    function updateTelemetryUI(deltas = null) {
+      const r = outpostResources;
+      
+      const bars = [
+        { key: 'O2', elVal: 'valO2', elBar: 'barO2', row: 'teleRowO2', crit: 20 },
+        { key: 'Water', elVal: 'valWater', elBar: 'barWater', row: 'teleRowWater', crit: 20 },
+        { key: 'Power', elVal: 'valPower', elBar: 'barPower', row: 'teleRowPower', crit: 0 },
+        { key: 'Food', elVal: 'valFood', elBar: 'barFood', row: 'teleRowFood', crit: 30 },
+        { key: 'Health', elVal: 'valHealth', elBar: 'barHealth', row: 'teleRowHealth', crit: 50 },
+        { key: 'Equip', elVal: 'valEquip', elBar: 'barEquip', row: 'teleRowEquip', crit: 50 },
+        { key: 'Greenhouse', elVal: 'valGreenhouse', elBar: 'barGreenhouse', row: 'teleRowGreenhouse', crit: 20 }
+      ];
+
+      bars.forEach(b => {
+        const val = Math.max(0, Math.min(100, Math.round(r[b.key])));
+        const valEl = document.getElementById(b.elVal);
+        const barEl = document.getElementById(b.elBar);
+        const rowEl = document.getElementById(b.row);
+
+        if (valEl) valEl.textContent = `${val}%`;
+        if (barEl) {
+          barEl.style.width = `${val}%`;
+          barEl.className = 'telemetry-bar-fill';
+          if (val <= b.crit) {
+            barEl.classList.add('bar-critical');
+          } else if (val <= b.crit + 10) {
+            barEl.classList.add('bar-warning');
+          } else if (val >= 70) {
+            barEl.classList.add('bar-healthy');
+          } else {
+            barEl.classList.add('bar-good');
+          }
+        }
+
+        // Floating delta tag when value changed
+        if (deltas && deltas[b.key] && rowEl) {
+          const delta = deltas[b.key];
+          const tag = document.createElement('span');
+          tag.className = `telemetry-delta-tag ${delta > 0 ? 'gain' : 'loss'}`;
+          tag.textContent = delta > 0 ? `+${delta}` : `${delta}`;
+          rowEl.appendChild(tag);
+          setTimeout(() => tag.remove(), 2100);
+        }
+      });
+
+      // LSI Index = (O2 + Water + Food) / 3
+      const lsi = ((r.O2 + r.Water + r.Food) / 3).toFixed(1);
+      const lsiEl = document.getElementById('valLsi');
+      if (lsiEl) {
+        lsiEl.textContent = lsi;
+        if (lsi < 50) lsiEl.style.color = '#ef4444';
+        else if (lsi < 60) lsiEl.style.color = '#f59e0b';
+        else lsiEl.style.color = '#38bdf8';
+      }
+
+      sessionStorage.setItem('moonfall_outpost_resources', JSON.stringify(outpostResources));
     }
 
     // =========================================================================
@@ -1584,7 +2212,7 @@
           slotM1.classList.toggle('decided-evacuate', isEvac);
           slotM1.classList.toggle('decided-secure', !isEvac);
           slotM1.querySelector('.slot-val').textContent = isEvac ? 'EVAC' : 'EQUIP';
-          slotM1.title = `Mission 1 Decision: ${isEvac ? 'Evacuate (Health +10, Equip -15)' : 'Secure Equip (Power -5, Health -12, Equip +10)'}`;
+          slotM1.title = `Mission 1 Decision: ${isEvac ? 'Evacuate (Health -1, Equip -12)' : 'Secure Equip (Power -4, Health -5, Equip -2)'}`;
         } else {
           slotM1.classList.add('active');
           slotM1.classList.remove('decided-evacuate', 'decided-secure');
@@ -1608,9 +2236,9 @@
         time: "05:30 UTC",
         summary: "SPE solar storm alert. Crew recall vs securing external equipment.",
         evacLabel: "EVACUATE",
-        evacDesc: "Health +10, Equip -15 (Immediate shelter recall)",
+        evacDesc: "Health -1, Equip -12 (Immediate shelter recall)",
         secureLabel: "SECURE EQUIP",
-        secureDesc: "Power -5, Health -12, Equip +10 (Surface equipment secured)"
+        secureDesc: "Power -4, Health -5, Equip -2 (Surface equipment secured)"
       },
       {
         num: 2,
@@ -2003,9 +2631,28 @@
       renderCurrentStep();
     }
 
+    let pendingChoiceKey = null;
+    let pendingDeltas = null;
+
+    const M1_OPTIONS_DATA = {
+      'evacuate': {
+        label: "OPTION A: EVACUATE",
+        deltas: { Health: -1, Equip: -12 },
+        gain: "Crew is inside before the storm (only a short rover drive, ~10 mSv).",
+        cost: "Outside power gear is left switched on and gets damaged (-12).",
+        real: "Spacecraft are put in safe mode during radiation storms; in the Oct 2003 storms Mars Odyssey and Genesis went into safe mode."
+      },
+      'secure_equip': {
+        label: "OPTION B: SECURE EQUIP",
+        deltas: { Power: -4, Health: -5, Equip: -2 },
+        gain: "Outside gear is shut down safely (only -2).",
+        cost: "Two crew stay out ~20 min longer in suits (-5 = ~50 mSv); rover and shutdown use 4 kWh.",
+        real: "A suit (~0.4 g/cm²) lets through about 2.5x the dose of habitat walls (Townsend 1988: 311 vs 125 rem behind 1 vs 5 g/cm²)."
+      }
+    };
+
     function selectM1Decision(choice) {
       if (m1ChosenDecision) return;
-      m1ChosenDecision = choice;
       sound.clickSound();
 
       if (choice === 'evacuate') {
@@ -2016,10 +2663,71 @@
         if (cardEvacuateEl) cardEvacuateEl.style.opacity = '0.4';
       }
 
-      sessionStorage.setItem('moonfall_m1_decision', choice);
-      recordDecision('m1', choice === 'evacuate' ? 'EVAC' : 'EQUIP');
+      pendingChoiceKey = choice;
+      const data = M1_OPTIONS_DATA[choice];
+      pendingDeltas = data.deltas;
 
-      // Decision confirmed - transition smoothly past Mission 1
+      // Show the Trade-off Consequence Popup (what you gain, what you lose, values changed)
+      setTimeout(() => {
+        showDecisionConsequencePopup(choice, data);
+      }, 350);
+    }
+
+    function showDecisionConsequencePopup(choice, data) {
+      // Hide the choice cards overlay so the consequence report takes full center stage
+      if (m1DecisionOverlayEl) {
+        m1DecisionOverlayEl.classList.remove('active');
+        m1DecisionOverlayEl.classList.add('hidden');
+      }
+
+      const modal = document.getElementById('decisionConsequenceModal');
+      const badge = document.getElementById('consequenceChoiceBadge');
+      const deltasGrid = document.getElementById('consequenceDeltasGrid');
+      const gainText = document.getElementById('consequenceGainText');
+      const lossText = document.getElementById('consequenceLossText');
+      const scienceText = document.getElementById('consequenceScienceText');
+
+      if (badge) badge.textContent = data.label;
+      if (gainText) gainText.textContent = data.gain;
+      if (lossText) lossText.textContent = data.cost;
+      if (scienceText) scienceText.textContent = data.real;
+
+      // Custom SVG delta pills (NO EMOJIS!)
+      if (deltasGrid) {
+        deltasGrid.innerHTML = Object.entries(data.deltas).map(([k, v]) => {
+          const isGain = v > 0;
+          return `
+            <div class="consequence-delta-pill ${isGain ? 'gain' : 'loss'}">
+              <span>${k}:</span>
+              <span>${isGain ? '+' + v : v}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function confirmDecisionConsequence() {
+      sound.clickSound();
+      const modal = document.getElementById('decisionConsequenceModal');
+      if (modal) modal.classList.add('hidden');
+
+      m1ChosenDecision = pendingChoiceKey;
+      sessionStorage.setItem('moonfall_m1_decision', m1ChosenDecision);
+      recordDecision('m1', m1ChosenDecision === 'evacuate' ? 'EVAC' : 'EQUIP');
+
+      // Update telemetry state and trigger animated bar updates & floating delta tags
+      if (pendingDeltas) {
+        for (const [k, v] of Object.entries(pendingDeltas)) {
+          if (outpostResources[k] !== undefined) {
+            outpostResources[k] = Math.max(0, Math.min(100, outpostResources[k] + v));
+          }
+        }
+        updateTelemetryUI(pendingDeltas);
+      }
+
+      // Transition smoothly past Mission 1
       setTimeout(() => {
         if (m1DecisionOverlayEl) {
           m1DecisionOverlayEl.classList.remove('active');
@@ -2027,7 +2735,7 @@
         }
         currentStep++;
         renderCurrentStep();
-      }, 950);
+      }, 650);
     }
 
     function handleDialogueClick() {
@@ -2066,6 +2774,15 @@
       if (modal && !modal.classList.contains('hidden')) {
         return; // Don't advance dialogue while modal is open
       }
+      const consModal = document.getElementById('decisionConsequenceModal');
+      if (consModal && !consModal.classList.contains('hidden')) {
+        if (e.code === 'Enter' || e.code === 'Space') {
+          e.preventDefault();
+          confirmDecisionConsequence();
+          return;
+        }
+        return;
+      }
       if (e.code === 'Space' || e.code === 'Enter') {
         e.preventDefault();
         const currentItem = DIALOGUES[currentStep];
@@ -2093,10 +2810,16 @@
       } else if (urlParams.get('m1') === 'evac') {
         recordDecision('m1', 'EVAC');
       }
+      initOutpostResources();
       updateDecisionHistoryUI();
       renderCurrentStep();
       if (urlParams.get('openLog') === '1') {
         openDecisionModal();
+      }
+      if (urlParams.get('demoChoice')) {
+        setTimeout(() => {
+          selectM1Decision(urlParams.get('demoChoice'));
+        }, 120);
       }
     });
   </script>
