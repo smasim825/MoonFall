@@ -3352,28 +3352,213 @@
       100% { opacity: 1; box-shadow: 0 0 12px rgba(239, 68, 68, 0.6); }
     }
 
-    /* M4 Electrolysis Flow */
+    /* M4 Electrolysis Flow - Drag & Drop Sortable Sequencer */
     .m4-flow-sequence {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: clamp(8px, 1.1vh, 12px);
       width: 100%;
+      user-select: none;
     }
 
-    .manifold-stage-card {
-      background: rgba(3, 16, 38, 0.75);
-      border: 1.5px solid rgba(56, 189, 248, 0.3);
-      border-radius: 8px;
-      padding: 12px 18px;
+    .m4-reorder-banner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
-      transition: all 0.2s ease;
+      padding: clamp(6px, 0.9vh, 10px) clamp(12px, 1.4vw, 18px);
+      background: rgba(14, 165, 233, 0.12);
+      border: 1.5px dashed rgba(56, 189, 248, 0.45);
+      border-radius: 8px;
+      font-size: clamp(0.85rem, 1.1vw, 1.02rem);
+      color: #bae6fd;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 2px;
     }
-    .manifold-stage-card.online {
+
+    .manifold-stage-card {
+      background: rgba(4, 20, 48, 0.9);
+      border: 2px solid rgba(56, 189, 248, 0.35);
+      border-radius: 10px;
+      padding: clamp(10px, 1.3vh, 14px) clamp(14px, 1.6vw, 20px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(10px, 1.4vw, 18px);
+      cursor: grab;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .manifold-stage-card:hover {
+      border-color: #38bdf8;
+      background: rgba(6, 28, 64, 0.95);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(56, 189, 248, 0.35);
+    }
+
+    .manifold-stage-card.dragging {
+      opacity: 0.45;
+      border: 2px dashed #38bdf8;
+      cursor: grabbing;
+      transform: scale(0.98);
+    }
+
+    .manifold-stage-card.drag-over {
+      border: 2.5px dashed #f59e0b;
+      background: rgba(245, 158, 11, 0.22);
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.55);
+    }
+
+    .manifold-stage-card.selected-to-swap {
+      border: 2.5px solid #fbbf24;
+      background: rgba(251, 191, 36, 0.22);
+      box-shadow: 0 0 22px rgba(251, 191, 36, 0.7);
+      animation: swapPulse 1.2s infinite alternate;
+    }
+
+    @keyframes swapPulse {
+      0% { box-shadow: 0 0 12px rgba(251, 191, 36, 0.5); }
+      100% { box-shadow: 0 0 24px rgba(251, 191, 36, 0.9); }
+    }
+
+    .manifold-stage-card.aligned {
       border-color: #10b981;
-      background: rgba(16, 185, 129, 0.15);
+      background: rgba(16, 185, 129, 0.16);
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.3);
+    }
+
+    .manifold-stage-card.aligned:hover {
+      border-color: #34d399;
+      background: rgba(16, 185, 129, 0.24);
+    }
+
+    .m4-card-left {
+      display: flex;
+      align-items: center;
+      gap: clamp(10px, 1.4vw, 16px);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .m4-drag-grip {
+      color: #64748b;
+      font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+      line-height: 1;
+      cursor: grab;
+      user-select: none;
+      transition: color 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .manifold-stage-card:hover .m4-drag-grip {
+      color: #38bdf8;
+    }
+
+    .m4-slot-num-badge {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+      font-weight: bold;
+      color: #38bdf8;
+      background: rgba(14, 165, 233, 0.2);
+      border: 1.5px solid #0284c7;
+      width: clamp(32px, 2.5vw, 40px);
+      height: clamp(32px, 2.5vw, 40px);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      text-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+    }
+
+    .manifold-stage-card.aligned .m4-slot-num-badge {
+      color: #34d399;
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.25);
+      text-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
+    }
+
+    .m4-emoji-icon-badge {
+      font-size: clamp(1.5rem, 2.1vw, 2.0rem);
+      width: clamp(42px, 3.2vw, 50px);
+      height: clamp(42px, 3.2vw, 50px);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s ease;
+    }
+
+    .manifold-stage-card:hover .m4-emoji-icon-badge {
+      transform: scale(1.1);
+    }
+
+    .m4-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .m4-stage-title {
+      font-weight: 700;
+      font-size: clamp(1.08rem, 1.38vw, 1.28rem);
+      color: #ffffff;
+      letter-spacing: 0.02em;
+      line-height: 1.25;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .m4-stage-desc {
+      font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+      color: #cbd5e1;
+      line-height: 1.35;
+    }
+
+    .m4-status-pill {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.82rem, 1.05vw, 0.98rem);
+      font-weight: 600;
+      padding: clamp(7px, 1.0vh, 10px) clamp(12px, 1.4vw, 18px);
+      border-radius: 6px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      border: 1.5px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .m4-status-pill.aligned {
+      background: rgba(16, 185, 129, 0.22);
+      border-color: #10b981;
+      color: #6ee7b7;
+      text-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+    }
+
+    .m4-status-pill.misaligned {
+      background: rgba(14, 165, 233, 0.2);
+      border-color: #0284c7;
+      color: #e0f2fe;
+    }
+
+    .manifold-stage-card:hover .m4-status-pill.misaligned {
+      background: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(2, 132, 199, 0.6);
+    }
+
+    .m4-status-pill.selecting {
+      background: rgba(251, 191, 36, 0.25);
+      border-color: #fbbf24;
+      color: #fef08a;
+      text-shadow: 0 0 8px rgba(251, 191, 36, 0.8);
     }
 
     .stage-btn {
@@ -4226,6 +4411,11 @@
         m2TaskState.hatchLockedBolts = 0;
         m2TaskState.switches = { o2: false, cabin: false, co2: false };
         m2TaskState.shuffledOrder = null;
+      }
+      if (typeof m4TaskState !== 'undefined') {
+        m4TaskState.order = null;
+        m4TaskState.selectedSwapIndex = null;
+        m4TaskState.draggedIndex = null;
       }
       currentActiveMissionId = 'M1';
       missionClockSecondsCounter = 0;
@@ -5952,12 +6142,53 @@
     };
 
     const m4TaskState = {
-      waterFeed: false,
-      cellEnergized: false,
-      separatorEngaged: false,
-      o2TankConnected: false,
-      h2Routed: null
+      order: null, // [4, 5, 2, 1, 3]
+      selectedSwapIndex: null,
+      draggedIndex: null
     };
+
+    const M4_ELECTROLYSIS_STAGES = [
+      {
+        id: 1,
+        emoji: "💧",
+        emojiBg: "rgba(14, 165, 233, 0.25)",
+        emojiBorder: "#0284c7",
+        title: "Water Feed Line (H2O Tank)",
+        desc: "Supplies purified lunar ice filtrate to electrolysis core"
+      },
+      {
+        id: 2,
+        emoji: "⚡",
+        emojiBg: "rgba(234, 179, 8, 0.25)",
+        emojiBorder: "#ca8a04",
+        title: "Catalytic Electrolysis Splitter (2H2O → 2H2 + O2)",
+        desc: "Uses 4.8 kWh/kg to decompose water molecules"
+      },
+      {
+        id: 3,
+        emoji: "🫧",
+        emojiBg: "rgba(6, 182, 212, 0.25)",
+        emojiBorder: "#0891b2",
+        title: "Gas Separation Membrane",
+        desc: "Isolates pure O2 stream from combustible H2 byproduct"
+      },
+      {
+        id: 4,
+        emoji: "🫁",
+        emojiBg: "rgba(56, 189, 248, 0.25)",
+        emojiBorder: "#0284c7",
+        title: "O2 Tank → Shelter Breathable Air Line",
+        desc: "Pressurizes oxygen buffer and feeds habitat circulation"
+      },
+      {
+        id: 5,
+        emoji: "⚠️",
+        emojiBg: "rgba(245, 158, 11, 0.25)",
+        emojiBorder: "#d97706",
+        title: "Hydrogen (H2) Safety Routing",
+        desc: "Flammable byproduct routed to external vacuum vent line"
+      }
+    ];
 
     const m5TaskState = {
       purgeValve: false,
@@ -6818,118 +7049,183 @@
       }
     }
 
-    // --- M4 Mini-Task: Electrolysis Manifold ---
+    // --- M4 Mini-Task: ISRU Electrolysis Manifold (Drag & Drop Sortable Sequencer) ---
+    function initM4ElectrolysisOrder() {
+      // Shuffled out of order: 4th position takes 1st, 1st takes 4th as requested
+      // Default initial layout: [4, 5, 2, 1, 3]
+      return [4, 5, 2, 1, 3];
+    }
+
     function renderM4ElectrolysisTask() {
       const body = document.getElementById('miniTaskBody');
       const hint = document.getElementById('miniTaskHint');
       if (!body) return;
 
-      if (hint) {
-        hint.textContent = "Connect Water Storage → Electrolysis → Separator → O2 Tank → Air Supply. Route Hydrogen to EXTERNAL VENT, never air supply!";
+      if (!m4TaskState.order || !Array.isArray(m4TaskState.order) || m4TaskState.order.length !== 5) {
+        m4TaskState.order = initM4ElectrolysisOrder();
       }
+
+      if (hint) {
+        hint.innerHTML = "⇄ Drag &amp; drop cards (or click two cards to swap) into correct sequence: Water Feed (💧) → Electrolysis Splitter (⚡) → Gas Separator (🫧) → O2 Air Line (🫁) → H2 Vent (⚠️).";
+      }
+
+      const isAllSorted = m4TaskState.order.every((id, idx) => id === idx + 1);
 
       body.innerHTML = `
         <div class="m4-flow-sequence">
-          <!-- Stage 1 -->
-          <div class="manifold-stage-card ${m4TaskState.waterFeed ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Water Feed Line (H2O Tank)</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Supplies purified lunar ice filtrate to electrolysis core</div>
-              </div>
-            </div>
-            <button class="stage-btn ${m4TaskState.waterFeed ? 'online' : ''}" onclick="advanceM4ElectrolysisStage('waterFeed')">
-              ${m4TaskState.waterFeed ? '✓ FEED OPEN' : 'OPEN FEED VALVE'}
-            </button>
+          <div class="m4-reorder-banner">
+            <span>⇄ DRAG TO SWAP POSITIONS (OR CLICK ANY TWO CARDS)</span>
+            <span>${isAllSorted ? '✓ 5/5 CORRECTLY ORDERED' : `${m4TaskState.order.filter((id, idx) => id === idx + 1).length}/5 ALIGNED`}</span>
           </div>
+          ${m4TaskState.order.map((stageId, slotIdx) => {
+            const stage = M4_ELECTROLYSIS_STAGES.find(s => s.id === stageId);
+            const slotNum = slotIdx + 1;
+            const isAligned = (stage.id === slotNum);
+            const isSelected = (m4TaskState.selectedSwapIndex === slotIdx);
 
-          <!-- Stage 2 -->
-          <div class="manifold-stage-card ${m4TaskState.cellEnergized ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Catalytic Electrolysis Splitter (2H2O → 2H2 + O2)</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Uses 4.8 kWh/kg to decompose water molecules</div>
-              </div>
-            </div>
-            <button class="stage-btn ${m4TaskState.cellEnergized ? 'online' : ''}" ${!m4TaskState.waterFeed ? 'disabled' : ''} onclick="advanceM4ElectrolysisStage('cellEnergized')">
-              ${m4TaskState.cellEnergized ? '✓ CELL ENERGIZED' : 'ENERGIZE CELL'}
-            </button>
-          </div>
+            let cardClasses = ['manifold-stage-card'];
+            if (isAligned) cardClasses.push('aligned');
+            if (isSelected) cardClasses.push('selected-to-swap');
 
-          <!-- Stage 3 -->
-          <div class="manifold-stage-card ${m4TaskState.separatorEngaged ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Gas Separation Membrane</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Isolates pure O2 stream from combustible H2 byproduct</div>
-              </div>
-            </div>
-            <button class="stage-btn ${m4TaskState.separatorEngaged ? 'online' : ''}" ${!m4TaskState.cellEnergized ? 'disabled' : ''} onclick="advanceM4ElectrolysisStage('separatorEngaged')">
-              ${m4TaskState.separatorEngaged ? '✓ MEMBRANE ENGAGED' : 'ENGAGE MEMBRANE'}
-            </button>
-          </div>
+            let pillHtml = '';
+            if (isSelected) {
+              pillHtml = `<div class="m4-status-pill selecting">⚡ CLICK TARGET TO SWAP</div>`;
+            } else if (isAligned) {
+              pillHtml = `<div class="m4-status-pill aligned"><span class="m4-pill-icon">✓</span> STEP ${stage.id} ALIGNED</div>`;
+            } else {
+              pillHtml = `<div class="m4-status-pill misaligned"><span class="m4-pill-icon">↕</span> SWAP (TARGET: #${stage.id})</div>`;
+            }
 
-          <!-- Stage 4 -->
-          <div class="manifold-stage-card ${m4TaskState.o2TankConnected ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">O2 Tank → Shelter Breathable Air Line</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Pressurizes oxygen buffer and feeds habitat circulation</div>
+            return `
+              <div class="${cardClasses.join(' ')}"
+                   id="m4StageCard_${slotIdx}"
+                   draggable="true"
+                   ondragstart="handleM4DragStart(event, ${slotIdx})"
+                   ondragover="handleM4DragOver(event, ${slotIdx})"
+                   ondragenter="handleM4DragEnter(event, ${slotIdx})"
+                   ondragleave="handleM4DragLeave(event, ${slotIdx})"
+                   ondrop="handleM4Drop(event, ${slotIdx})"
+                   ondragend="handleM4DragEnd(event)"
+                   onclick="handleM4CardClick(${slotIdx})">
+                <div class="m4-card-left">
+                  <span class="m4-drag-grip" title="Drag to swap">⠿</span>
+                  <div class="m4-slot-num-badge" title="Slot ${slotNum}">${slotNum}</div>
+                  <div class="m4-emoji-icon-badge" style="background:${stage.emojiBg}; border:1.5px solid ${stage.emojiBorder};" title="${stage.title}">
+                    ${stage.emoji}
+                  </div>
+                  <div class="m4-info-col">
+                    <div class="m4-stage-title">${stage.title}</div>
+                    <div class="m4-stage-desc">${stage.desc}</div>
+                  </div>
+                </div>
+                ${pillHtml}
               </div>
-            </div>
-            <button class="stage-btn ${m4TaskState.o2TankConnected ? 'online' : ''}" ${!m4TaskState.separatorEngaged ? 'disabled' : ''} onclick="advanceM4ElectrolysisStage('o2TankConnected')">
-              ${m4TaskState.o2TankConnected ? '✓ AIR LINE ONLINE' : 'ROUTE TO AIR SUPPLY'}
-            </button>
-          </div>
-
-          <!-- Stage 5: Safety Handling of Hydrogen -->
-          <div class="manifold-stage-card ${m4TaskState.h2Routed === 'external' ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#f59e0b; background:rgba(245,158,11,0.18); border:1.5px solid #f59e0b; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">5</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Hydrogen (H2) Safety Routing</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Flammable byproduct must be isolated from crew compartments</div>
-              </div>
-            </div>
-            <div style="display:flex; gap:10px;">
-              <button class="stage-btn ${m4TaskState.h2Routed === 'cabin' ? 'online' : ''}" style="border-color:#ef4444; color:#fca5a5;" onclick="routeM4Hydrogen('cabin')">
-                Air Supply (Hazard)
-              </button>
-              <button class="stage-btn ${m4TaskState.h2Routed === 'external' ? 'online' : ''}" style="border-color:#10b981; color:#34d399;" onclick="routeM4Hydrogen('external')">
-                ✓ External Vent Line
-              </button>
-            </div>
-          </div>
+            `;
+          }).join('')}
         </div>
       `;
 
-      updateMinitaskAstrobee("Commander! Open the valves in sequence to channel water through the electrolysis splitter, and vent hazardous hydrogen outside.");
+      if (isAllSorted) {
+        updateMinitaskAstrobee("Brilliant sequencing, Commander! All 5 stages of the electrolysis manifold are correctly aligned. Water is splitting and oxygen is streaming safely to the habitat!");
+      } else if (m4TaskState.selectedSwapIndex !== null) {
+        updateMinitaskAstrobee(`Card #${m4TaskState.selectedSwapIndex + 1} selected! Click any other card to swap their positions.`);
+      } else {
+        updateMinitaskAstrobee("Commander! Drag and drop cards to reorder the gas manifold: Water Feed (💧) first, Electrolysis Splitter (⚡) second, Gas Separator (🫧) third, O2 Air Supply (🫁) fourth, and H2 Safety Vent (⚠️) fifth.");
+      }
+
       checkM4Completion();
     }
 
-    function advanceM4ElectrolysisStage(key) {
-      sound.clickSound();
-      m4TaskState[key] = true;
-      renderM4ElectrolysisTask();
+    function handleM4DragStart(e, idx) {
+      m4TaskState.draggedIndex = idx;
+      if (e.dataTransfer) {
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', String(idx));
+      }
+      const card = document.getElementById(`m4StageCard_${idx}`);
+      if (card) card.classList.add('dragging');
     }
 
-    function routeM4Hydrogen(destination) {
-      if (destination === 'cabin') {
-        sound.errorBuzzer();
-        alert("CRITICAL FLIGHT SAFETY WARNING:\n\nElectrolysis creates explosive Hydrogen gas! Hydrogen must NEVER enter the breathable air supply.\nRoute to the external vent line instead.");
-        return;
+    function handleM4DragOver(e, idx) {
+      e.preventDefault();
+      if (e.dataTransfer) {
+        e.dataTransfer.dropEffect = 'move';
       }
+    }
+
+    function handleM4DragEnter(e, idx) {
+      e.preventDefault();
+      const card = document.getElementById(`m4StageCard_${idx}`);
+      if (card && idx !== m4TaskState.draggedIndex) {
+        card.classList.add('drag-over');
+      }
+    }
+
+    function handleM4DragLeave(e, idx) {
+      const card = document.getElementById(`m4StageCard_${idx}`);
+      if (card) card.classList.remove('drag-over');
+    }
+
+    function handleM4Drop(e, targetIdx) {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = document.getElementById(`m4StageCard_${targetIdx}`);
+      if (card) card.classList.remove('drag-over');
+
+      let sourceIdx = m4TaskState.draggedIndex;
+      if (sourceIdx == null && e.dataTransfer) {
+        const raw = e.dataTransfer.getData('text/plain');
+        if (raw !== '') sourceIdx = parseInt(raw, 10);
+      }
+
+      if (sourceIdx != null && sourceIdx !== targetIdx) {
+        swapM4Stages(sourceIdx, targetIdx);
+      }
+      m4TaskState.draggedIndex = null;
+    }
+
+    function handleM4DragEnd(e) {
+      m4TaskState.draggedIndex = null;
+      document.querySelectorAll('.manifold-stage-card').forEach(el => {
+        el.classList.remove('dragging');
+        el.classList.remove('drag-over');
+      });
+    }
+
+    function handleM4CardClick(idx) {
+      if (m4TaskState.selectedSwapIndex === null) {
+        sound.clickSound();
+        m4TaskState.selectedSwapIndex = idx;
+        renderM4ElectrolysisTask();
+      } else if (m4TaskState.selectedSwapIndex === idx) {
+        sound.clickSound();
+        m4TaskState.selectedSwapIndex = null;
+        renderM4ElectrolysisTask();
+      } else {
+        swapM4Stages(m4TaskState.selectedSwapIndex, idx);
+      }
+    }
+
+    function swapM4Stages(fromIdx, toIdx) {
+      if (!m4TaskState.order || fromIdx == null || toIdx == null || fromIdx === toIdx) return;
       sound.clickSound();
-      m4TaskState.h2Routed = 'external';
+      const arr = [...m4TaskState.order];
+      const temp = arr[fromIdx];
+      arr[fromIdx] = arr[toIdx];
+      arr[toIdx] = temp;
+      m4TaskState.order = arr;
+      m4TaskState.selectedSwapIndex = null;
+      m4TaskState.draggedIndex = null;
+
+      const isAllSorted = arr.every((id, idx) => id === idx + 1);
+      if (isAllSorted) {
+        sound.successChime();
+      }
       renderM4ElectrolysisTask();
     }
 
     function checkM4Completion() {
-      const isComplete = m4TaskState.waterFeed && m4TaskState.cellEnergized && m4TaskState.separatorEngaged && m4TaskState.o2TankConnected && m4TaskState.h2Routed === 'external';
+      const isComplete = m4TaskState.order && m4TaskState.order.every((id, idx) => id === idx + 1);
       const confirmBtn = document.getElementById('miniTaskConfirmBtn');
       const statusBadge = document.getElementById('miniTaskStatusBadge');
 
@@ -6940,19 +7236,19 @@
           confirmBtn.textContent = "CONFIRM LIFE SUPPORT RECOVERY ➔";
         } else {
           confirmBtn.disabled = true;
-          confirmBtn.textContent = "MANIFOLD INCOMPLETE";
+          const alignedCount = m4TaskState.order ? m4TaskState.order.filter((id, idx) => id === idx + 1).length : 0;
+          confirmBtn.textContent = `MANIFOLD MISALIGNED (${alignedCount}/5)`;
         }
       }
 
-      if (isComplete) {
-        if (statusBadge) {
+      if (statusBadge) {
+        if (isComplete) {
           statusBadge.className = 'minitask-status-badge complete';
           statusBadge.textContent = '✓ O2 RECYCLER ACTIVE (99.8%)';
-        }
-      } else {
-        if (statusBadge) {
+        } else {
           statusBadge.className = 'minitask-status-badge';
-          statusBadge.textContent = 'INITIALIZING ISRU';
+          const alignedCount = m4TaskState.order ? m4TaskState.order.filter((id, idx) => id === idx + 1).length : 0;
+          statusBadge.textContent = `SEQUENCING MANIFOLD (${alignedCount}/5)`;
         }
       }
     }
@@ -7769,6 +8065,9 @@
       }
       if (urlParams.get('m2bolts')) {
         m2TaskState.hatchLockedBolts = parseInt(urlParams.get('m2bolts'), 10);
+      }
+      if (urlParams.get('m4order')) {
+        m4TaskState.order = urlParams.get('m4order').split(',').map(n => parseInt(n.trim(), 10));
       }
       if (urlParams.get('m2stow')) {
         urlParams.get('m2stow').split(',').forEach(k => { if (m2TaskState.supplies[k] !== undefined) m2TaskState.supplies[k] = true; });
