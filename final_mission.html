@@ -639,6 +639,168 @@
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
+    /* =========================================================================
+       M1 DECISION OVERLAY (Image 1 Mockup Match)
+       Two choice cards: "Evacuate" vs "Secure Equip"
+       ========================================================================= */
+    .m1-decision-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
+    .m1-decision-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .decision-cards-row {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: clamp(20px, 3.8vw, 52px);
+      width: 86%;
+      max-width: 960px;
+      margin-top: clamp(-30px, -4.5vh, -12px);
+    }
+
+    .decision-choice-card {
+      position: relative;
+      flex: 1;
+      max-width: clamp(280px, 35vw, 420px);
+      min-height: clamp(260px, 46vh, 380px);
+      background: rgba(3, 24, 56, 0.92);
+      border: 3.5px solid #0099ff;
+      border-radius: 12px;
+      box-shadow: 0 0 28px rgba(0, 153, 255, 0.5), inset 0 0 20px rgba(0, 153, 255, 0.2);
+      padding: clamp(14px, 2vw, 22px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      pointer-events: auto;
+      touch-action: manipulation;
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.18s ease,
+                  box-shadow 0.18s ease,
+                  background 0.18s ease;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    .decision-choice-card:hover {
+      transform: translateY(-5px) scale(1.03);
+      border-color: #38bdf8;
+      box-shadow: 0 0 36px rgba(56, 189, 248, 0.75), inset 0 0 24px rgba(56, 189, 248, 0.3);
+      background: rgba(4, 32, 74, 0.96);
+    }
+
+    .decision-choice-card:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .decision-choice-card.selected {
+      border-color: #22c55e;
+      box-shadow: 0 0 40px rgba(34, 197, 94, 0.85), inset 0 0 24px rgba(34, 197, 94, 0.35);
+      background: rgba(5, 48, 32, 0.96);
+    }
+
+    .decision-card-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.6rem, 2.6vw, 2.65rem);
+      font-weight: bold;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+      text-align: center;
+      text-shadow: 1px 1px 0 #000, 0 0 10px rgba(0, 153, 255, 0.6);
+      margin: 0;
+    }
+
+    /* Card 1: Evacuate Visual Container */
+    .evacuate-icon-container {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 0;
+    }
+
+    .evacuate-sign-img {
+      width: clamp(110px, 16vw, 175px);
+      height: clamp(110px, 16vw, 175px);
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.8));
+    }
+
+    /* Card 2: Secure Equip Visual Container */
+    .equip-group-container {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(12px, 1.8vw, 24px);
+      padding: 8px 0;
+    }
+
+    .equip-left-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(8px, 1.2vw, 16px);
+    }
+
+    .solar-rover-img {
+      width: clamp(70px, 10vw, 115px);
+      height: auto;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
+    }
+
+    .arm-rover-img {
+      width: clamp(65px, 9vw, 108px);
+      height: auto;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
+    }
+
+    .equip-tower-img {
+      height: clamp(100px, 18vh, 165px);
+      width: auto;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
+    }
+
+    /* Stat Impact Subtitle */
+    .decision-card-stat {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.15rem, 1.75vw, 1.75rem);
+      color: #ffffff;
+      letter-spacing: 0.02em;
+      text-align: center;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.95);
+      margin: 0;
+    }
+
     /* Specialist Badge Overlay when Rakesh / Chiaki is speaking (Exact match to Mockup) */
     .crew-speaker-badge {
       position: absolute;
@@ -882,6 +1044,35 @@
 
       </footer>
 
+      <!-- M1 DECISION MODAL: EVACUATE VS SECURE EQUIP (Matching Image 1) -->
+      <div class="m1-decision-overlay hidden" id="m1DecisionOverlay" role="dialog" aria-label="Mission 1 Decision">
+        <div class="decision-cards-row">
+          
+          <!-- Card 1: Evacuate -->
+          <div class="decision-choice-card" id="cardEvacuate" onclick="selectM1Decision('evacuate')">
+            <h2 class="decision-card-title">Evacuate</h2>
+            <div class="evacuate-icon-container">
+              <img src="assets/image 2.png" alt="Evacuate Exit Sign" class="evacuate-sign-img">
+            </div>
+            <p class="decision-card-stat">Health +10, Equip -15</p>
+          </div>
+
+          <!-- Card 2: Secure Equip -->
+          <div class="decision-choice-card" id="cardSecureEquip" onclick="selectM1Decision('secure_equip')">
+            <h2 class="decision-card-title">Secure Equip</h2>
+            <div class="equip-group-container">
+              <div class="equip-left-col">
+                <img src="assets/Solar_Powered_Rover.png" alt="Solar Powered Rover" class="solar-rover-img">
+                <img src="assets/Rover.png" alt="Robotic Arm Rover" class="arm-rover-img">
+              </div>
+              <img src="assets/tower.png" alt="Comms / Sensor Tower" class="equip-tower-img">
+            </div>
+            <p class="decision-card-stat">Power -5, Health -12, Equip +10</p>
+          </div>
+
+        </div>
+      </div>
+
       <!-- M1 RESCUE CHALLENGE PREP MODAL -->
       <div class="challenge-prep-overlay" id="challengePrepOverlay">
         <div class="prep-card">
@@ -982,6 +1173,20 @@
     function restartMission() {
       sound.clickSound();
       currentStep = 0;
+      m1ChosenDecision = null;
+      sessionStorage.removeItem('moonfall_m1_decision');
+      if (m1DecisionOverlayEl) {
+        m1DecisionOverlayEl.classList.remove('active');
+        m1DecisionOverlayEl.classList.add('hidden');
+      }
+      if (cardEvacuateEl) {
+        cardEvacuateEl.classList.remove('selected');
+        cardEvacuateEl.style.opacity = '1';
+      }
+      if (cardSecureEquipEl) {
+        cardSecureEquipEl.classList.remove('selected');
+        cardSecureEquipEl.style.opacity = '1';
+      }
       challengePrepOverlayEl.classList.remove('active');
       renderCurrentStep();
     }
@@ -1047,6 +1252,16 @@
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
+      },
+
+      // SCENE 4: M1 DECISION (Image 1: Evacuate vs Secure Equip)
+      {
+        scene: 4,
+        type: 'decision',
+        title: "⚡ DECISION 1: EVACUATE VS SECURE",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
       }
     ];
 
@@ -1054,6 +1269,7 @@
     let isTyping = false;
     let typingTimer = null;
     let activeDialogueTextEl = null;
+    let m1ChosenDecision = null;
 
     const bgConsoleEl = document.getElementById('bgConsole');
     const characterStandEl = document.getElementById('characterStand');
@@ -1067,6 +1283,9 @@
     const emergencyBannerEl = document.getElementById('emergencyBanner');
     const exteriorViewContainerEl = document.getElementById('exteriorViewContainer');
     const challengePrepOverlayEl = document.getElementById('challengePrepOverlay');
+    const m1DecisionOverlayEl = document.getElementById('m1DecisionOverlay');
+    const cardEvacuateEl = document.getElementById('cardEvacuate');
+    const cardSecureEquipEl = document.getElementById('cardSecureEquip');
 
     function renderCurrentStep() {
       if (currentStep >= DIALOGUES.length) {
@@ -1103,6 +1322,24 @@
         exteriorViewContainerEl.classList.remove('hidden');
       } else {
         exteriorViewContainerEl.classList.add('hidden');
+      }
+
+      // Check if this is a Decision Step (Image 1)
+      if (item.type === 'decision') {
+        if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
+        if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.add('hidden');
+        if (characterStandEl) characterStandEl.classList.add('hidden');
+
+        if (m1DecisionOverlayEl) {
+          m1DecisionOverlayEl.classList.remove('hidden');
+          m1DecisionOverlayEl.classList.add('active');
+        }
+        return;
+      } else {
+        if (m1DecisionOverlayEl) {
+          m1DecisionOverlayEl.classList.remove('active');
+          m1DecisionOverlayEl.classList.add('hidden');
+        }
       }
 
       // Switch between AstroBee Dialogue Box and Human Dialogue Box
@@ -1170,6 +1407,11 @@
     }
 
     function nextScene() {
+      const currentItem = DIALOGUES[currentStep];
+      if (currentItem && currentItem.type === 'decision' && !m1ChosenDecision) {
+        // Must choose one before proceeding
+        return;
+      }
       sound.clickSound();
       if (isTyping) {
         // Fast complete current text
@@ -1182,6 +1424,31 @@
       }
       currentStep++;
       renderCurrentStep();
+    }
+
+    function selectM1Decision(choice) {
+      if (m1ChosenDecision) return;
+      m1ChosenDecision = choice;
+      sound.clickSound();
+
+      if (choice === 'evacuate') {
+        if (cardEvacuateEl) cardEvacuateEl.classList.add('selected');
+        if (cardSecureEquipEl) cardSecureEquipEl.style.opacity = '0.4';
+      } else {
+        if (cardSecureEquipEl) cardSecureEquipEl.classList.add('selected');
+        if (cardEvacuateEl) cardEvacuateEl.style.opacity = '0.4';
+      }
+
+      sessionStorage.setItem('moonfall_m1_decision', choice);
+
+      // After user makes their required decision, proceed to the Rescue Challenge
+      setTimeout(() => {
+        if (m1DecisionOverlayEl) {
+          m1DecisionOverlayEl.classList.remove('active');
+          m1DecisionOverlayEl.classList.add('hidden');
+        }
+        showChallengePrompt();
+      }, 950);
     }
 
     function handleDialogueClick() {
@@ -1224,6 +1491,10 @@
     window.addEventListener('keydown', (e) => {
       if (e.code === 'Space' || e.code === 'Enter') {
         e.preventDefault();
+        const currentItem = DIALOGUES[currentStep];
+        if (currentItem && currentItem.type === 'decision' && !m1ChosenDecision) {
+          return; // Block advancement until choice is made
+        }
         handleDialogueClick();
       }
     });
