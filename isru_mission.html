@@ -135,13 +135,13 @@
     /* Floating diagram / equipment card (reserved for next scenes) */
     .diagram-card-container {
       position: absolute;
-      top: 8.5%;
-      height: 48% !important;
-      max-height: 480px;
+      top: 8%;
+      height: 52% !important;
+      max-height: 520px;
       left: 50%;
       transform: translateX(-50%);
-      width: 50%;
-      height: auto;
+      width: 66%;
+      max-width: 1040px;
       z-index: 15;
       display: flex;
       align-items: center;
@@ -151,16 +151,16 @@
 
     /* Right-aligned card variant (Scene 2: Submersive Ice) */
     .diagram-card-container.card-right {
-      top: 8.5%;
-      height: 48% !important;
-      max-height: 480px;
-      left: 45.5%;
-      transform: none;
-      width: 46.5%;
-      height: auto;
-      justify-content: flex-end;
-      align-items: flex-start;
-      animation: card-appear-right 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      top: 8%;
+      height: 52% !important;
+      max-height: 520px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 66%;
+      max-width: 1040px;
+      justify-content: center;
+      align-items: center;
+      animation: card-appear 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes card-appear-right {
@@ -172,12 +172,12 @@
     /* Wide centered card variant (Scenes 6, 7, 8: Found Submersive Ice, Click Location, Trident Drill) */
     .diagram-card-container.card-wide {
       top: 8%;
-      height: 48% !important;
+      height: 52% !important;
+      max-height: 520px;
       left: 50%;
       transform: translateX(-50%);
-      width: 68%;
-      max-width: 1120px;
-      height: auto;
+      width: 66%;
+      max-width: 1040px;
       justify-content: center;
       align-items: center;
       pointer-events: auto;
@@ -218,16 +218,40 @@
       object-fit: contain;
     }
 
-    /* Specific crop for Scoop card: hides ground, crates, and old dialogue box below card */
+    /* Precision framing for Robotic Lunar Regolith Scoop card - keeps picture unscaled, shows whole picture, removes bottom strip */
+    .card-scoop {
+      top: 8% !important;
+      height: 52% !important;
+      max-height: 520px !important;
+      width: 66% !important;
+      max-width: 1040px !important;
+      justify-content: center;
+      align-items: center;
+    }
+
     .card-scoop .diagram-card-inner {
+      position: relative;
       height: 100%;
-      max-height: 100%;
+      aspect-ratio: 640 / 773;
       overflow: hidden;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.8);
     }
 
     .card-scoop .diagram-card-inner > img {
-      clip-path: inset(0 0 18.4% 0);
-      margin-bottom: -18.4%;
+      position: absolute;
+      height: 110%;
+      width: auto;
+      max-width: none;
+      max-height: none;
+      top: -9.7%;
+      left: 50%;
+      transform: translateX(-50%);
+      object-fit: contain;
+      image-rendering: pixelated;
     }
 
     /* Site Selection Interactive Overlay (Scene 7: Click any Location) */
@@ -829,133 +853,99 @@
       z-index: 15;
     }
 
-    /* Thermal Heating Coil Glow Zone (Furnace lower section) */
-    .lab-coil-zone {
+    /* Clean ISRU Lab Telemetry HUD & Process Monitor (No intrusive overlays on artwork) */
+    .lab-stage-badge {
       position: absolute;
-      left: 45.8%;
-      top: 61.5%;
-      width: 10.5%;
-      height: 9.5%;
-      border-radius: 6px;
-      cursor: pointer;
-      pointer-events: auto;
-      transition: all 0.3s ease;
-    }
-
-    .lab-coil-zone:hover {
-      outline: 1.5px dashed #ff6600;
-    }
-
-    .coil-thermal-glow {
-      position: absolute;
-      inset: -20%;
-      border-radius: 8px;
-      background: radial-gradient(circle, rgba(255, 100, 0, 0.9) 0%, rgba(255, 50, 0, 0.5) 50%, transparent 80%);
-      opacity: 0;
-      filter: blur(8px);
-      transition: opacity 0.4s ease;
+      top: 2.2%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(3, 15, 35, 0.92);
+      border: 1.5px solid #00e5ff;
+      border-radius: 20px;
+      padding: 4px 18px;
+      color: #00e5ff;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.95rem, 1.3vw, 1.35rem);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 16px rgba(0, 229, 255, 0.4);
+      z-index: 25;
       pointer-events: none;
     }
 
-    .lab-sim-overlay.extracting .coil-thermal-glow {
-      opacity: 0.95;
-      animation: coil-pulse 0.22s infinite alternate ease-in-out;
+    .lab-stage-badge .stage-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00e5ff;
+      box-shadow: 0 0 8px #00e5ff;
+      animation: pulse-dot 1s infinite alternate;
     }
 
-    @keyframes coil-pulse {
-      0% { opacity: 0.75; transform: scale(0.96); filter: blur(6px); }
-      100% { opacity: 1; transform: scale(1.08); filter: blur(10px); }
+    @keyframes pulse-dot {
+      from { transform: scale(0.85); opacity: 0.7; }
+      to { transform: scale(1.2); opacity: 1; }
     }
 
-    /* Overhead Pipe Vapor Flow from Furnace to Condenser */
-    .lab-pipe-flow {
-      position: absolute;
-      left: 55.5%;
-      top: 24.5%;
-      width: 13.5%;
-      height: 38%;
-      pointer-events: none;
-      overflow: hidden;
+    .lab-steps-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      margin: 2px 0;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 5px;
+      padding: 5px 8px;
+      border: 1px solid rgba(0, 229, 255, 0.2);
     }
 
-    .pipe-steam-pulse {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(0, 229, 255, 0.75) 50%, transparent 100%);
-      transition: opacity 0.3s ease;
+    .lab-step-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: clamp(0.7rem, 0.88vw, 0.88rem);
+      color: #64748b;
+      transition: all 0.25s ease;
     }
 
-    .lab-sim-overlay.extracting .pipe-steam-pulse {
-      opacity: 0.85;
-      animation: pipe-flow-anim 0.4s infinite linear;
+    .lab-step-item .step-num {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
     }
 
-    @keyframes pipe-flow-anim {
-      from { transform: translateX(-100%); }
-      to { transform: translateX(100%); }
+    .lab-step-item.active {
+      color: #00e5ff;
+      text-shadow: 0 0 6px rgba(0, 229, 255, 0.6);
     }
 
-    /* Condenser Column Vapor & Water Pool */
-    .lab-condenser-zone {
-      position: absolute;
-      left: 64.2%;
-      top: 31%;
-      width: 11.5%;
-      height: 42%;
-      border-radius: 12px;
-      cursor: pointer;
-      pointer-events: auto;
-      overflow: hidden;
-      transition: all 0.2s ease;
+    .lab-step-item.active .step-num {
+      background: #00e5ff;
+      color: #001228;
+      box-shadow: 0 0 8px #00e5ff;
     }
 
-    .lab-condenser-zone:hover {
-      outline: 1.5px dashed #00e5ff;
+    .lab-step-item.done {
+      color: #22ff88;
     }
 
-    .condenser-vapor-swirl {
-      position: absolute;
-      inset: -20%;
-      background: radial-gradient(ellipse at center, rgba(0, 229, 255, 0.5) 0%, rgba(0, 160, 255, 0.25) 50%, transparent 75%);
-      opacity: 0.3;
-      transition: opacity 0.4s ease;
-      filter: blur(6px);
-      pointer-events: none;
+    .lab-step-item.done .step-num {
+      background: #22ff88;
+      color: #001228;
     }
 
-    .lab-sim-overlay.extracting .condenser-vapor-swirl {
-      opacity: 0.9;
-      animation: vapor-swirl-anim 1.2s infinite alternate ease-in-out;
-    }
-
-    @keyframes vapor-swirl-anim {
-      0% { transform: scale(0.92) rotate(-2deg); }
-      100% { transform: scale(1.1) rotate(2deg); filter: blur(9px); }
-    }
-
-    .condenser-water-pool {
-      position: absolute;
-      bottom: 6%;
-      left: 10%;
-      right: 10%;
-      height: 0%;
-      background: linear-gradient(180deg, rgba(0, 229, 255, 0.75) 0%, rgba(0, 100, 220, 0.9) 100%);
-      border-radius: 4px;
-      box-shadow: 0 0 12px rgba(0, 229, 255, 0.8);
-      transition: height 0.2s linear;
-      pointer-events: none;
-    }
-
-    .condenser-droplets-canvas-wrap {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    #labDropletsCanvas {
-      width: 100%;
-      height: 100%;
+    .lab-step-arrow {
+      color: #475569;
+      font-size: 0.8rem;
     }
 
     /* Floating Lab Dashboard Card */
@@ -1358,23 +1348,9 @@
       color: #ffffff;
     }
 
-    /* Blackout Transition */
+    /* Blackout Transition - Disabled for instant fast scene transitions */
     .screen-blackout {
-      position: absolute;
-      inset: 0;
-      background: #000000;
-      z-index: 150;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-    }
-
-    .screen-blackout.active {
-      opacity: 1;
-      pointer-events: auto;
+      display: none !important;
     }
 
     .blackout-content {
@@ -1609,18 +1585,19 @@
        ====================================================================== */
     .map-container {
       position: absolute;
-      top: 8.5%;
-      height: 48% !important;
-      max-height: 480px;
-      left: 45.5%;
-      width: 46.5%;
-      height: auto;
+      top: 8%;
+      height: 52% !important;
+      max-height: 520px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 66%;
+      max-width: 1040px;
       z-index: 16;
       display: flex;
-      justify-content: flex-end;
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
       pointer-events: none;
-      animation: card-appear-right 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: card-appear 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .map-card {
@@ -2411,22 +2388,11 @@
       <div class="coming-soon-toast" id="comingSoonToast">MORE SCENES COMING SOON...</div>
 
       <!-- Dialogue Dock Footer -->
-      <!-- Scene 14: Lunar Water Extraction Lab Interactive Simulation -->
+      <!-- Scene 14: Lunar Water Extraction Lab Interactive Telemetry Panel -->
       <div class="lab-sim-overlay hidden" id="labSimOverlay">
-        <div class="lab-coil-zone" id="labCoilZone" onclick="toggleWaterExtraction(event)" title="Click to heat regolith">
-          <div class="coil-thermal-glow"></div>
-        </div>
-
-        <div class="lab-pipe-flow" id="labPipeFlow">
-          <div class="pipe-steam-pulse"></div>
-        </div>
-
-        <div class="lab-condenser-zone" id="labCondenserZone" onclick="toggleWaterExtraction(event)" title="Condenser column">
-          <div class="condenser-vapor-swirl"></div>
-          <div class="condenser-water-pool" id="condenserWaterPool"></div>
-          <div class="condenser-droplets-canvas-wrap">
-            <canvas id="labDropletsCanvas"></canvas>
-          </div>
+        <div class="lab-stage-badge" id="labStageBadge">
+          <span class="stage-dot"></span>
+          <span id="labStageBadgeText">PHASE: THERMAL REGOLITH EXTRACTION</span>
         </div>
 
         <div class="lab-dashboard-card" id="labDashboardCard">
@@ -2438,9 +2404,26 @@
             <div class="lab-dash-temp" id="labTempText">TEMP: 22°C</div>
           </div>
 
+          <div class="lab-steps-row">
+            <div class="lab-step-item active" id="labStep1">
+              <span class="step-num">1</span>
+              <span class="step-lbl">HEAT (300°C)</span>
+            </div>
+            <div class="lab-step-arrow">➔</div>
+            <div class="lab-step-item" id="labStep2">
+              <span class="step-num">2</span>
+              <span class="step-lbl">CONDENSE</span>
+            </div>
+            <div class="lab-step-arrow">➔</div>
+            <div class="lab-step-item" id="labStep3">
+              <span class="step-num">3</span>
+              <span class="step-lbl">1.00 L WATER</span>
+            </div>
+          </div>
+
           <div class="lab-gauge-row">
             <div class="lab-gauge-group">
-              <div class="lab-gauge-title">COIL HEATER</div>
+              <div class="lab-gauge-title">COIL HEATER (THERMAL)</div>
               <div class="lab-bar-track">
                 <div class="lab-bar-fill heat-bar" id="labHeatBar" style="width: 0%;"></div>
               </div>
@@ -2454,7 +2437,7 @@
           </div>
 
           <div class="lab-yield-row">
-            <span>EXTRACTION YIELD:</span>
+            <span>WATER RECOVERED:</span>
             <strong class="lab-yield-val" id="labYieldVal">0.00 L / 1.00 L</strong>
           </div>
 
@@ -2809,7 +2792,7 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/scan2.png',
-        cardClass: 'card-wide card-scoop',
+        cardClass: 'card-wide',
         speaker: 'Guion Bluford',
         text: "Great! We've identified some promising locations. Select one to choose our drilling site."
       },
@@ -2818,7 +2801,7 @@
         id: 7,
         showGuide: false,
         cardImg: 'assets/isru/equipments/scan3.png',
-        cardClass: 'card-wide card-scoop',
+        cardClass: 'card-wide',
         isSiteSelection: true,
         text: ""
       },
@@ -2828,10 +2811,10 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/drill.png',
-        cardClass: 'card-wide card-scoop',
+        cardClass: 'card-wide',
         isDrillScene: true,
         speaker: 'Guion Bluford',
-        text: "The Trident Drill is deployed at our chosen site! This rotary percussive drill penetrates up to 1 meter deep into the lunar regolith to extract frozen ice-core samples."
+        text: "Excellent site, Cadet! Now, let's use the TRIDENT drill. It can drill through lunar regolith and bring samples from beneath the surface to the top, reaching depths of approximately one meter."
       },
       // Scene 9: Sample Collected - Time to analyze
       {
@@ -2848,9 +2831,9 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/drill_2.png',
-        cardClass: 'card-wide card-scoop',
+        cardClass: 'card-wide',
         speaker: 'Guion Bluford',
-        text: "The drill hardware uses specialized auger flutes to deliver icy core cuttings to the surface for sealed heating and water extraction!"
+        text: "This is MSOLO, a mass spectrometer from NASA's PRIME-1 mission. It analyzes gases released from lunar soil to help identify water and other volatile substances."
       },
       // Scene 11: Astro Bee analysis findings (User Picture 1)
       {
@@ -2874,7 +2857,7 @@
         id: 13,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        cardImg: 'assets/isru/equipments/scoop.png',
+        cardImg: 'assets/isru/equipments/scoop_hd.png',
         cardClass: 'card-wide card-scoop',
         speaker: 'Guion Bluford',
         requiresLabPermission: true,
@@ -2908,7 +2891,7 @@
         guidePose: GUIDE_POINT_UP,
         bgImg: 'assets/isru/bg/bg_of_oxy2.png',
         cardImg: 'assets/isru/equipments/molecular.png',
-        cardClass: 'card-wide card-scoop',
+        cardClass: 'card-wide',
         speaker: 'Guion Bluford',
         text: "Transfer purified water into the electrolyser and activate it. It uses electricity to split water into hydrogen and oxygen."
       },
@@ -2919,7 +2902,7 @@
         guidePose: GUIDE_POINT_UP,
         bgImg: 'assets/isru/bg/bg_of_oxy2.png',
         cardImg: 'assets/isru/equipments/machine.png',
-        cardClass: 'card-wide card-scoop',
+        cardClass: 'card-wide',
         speaker: 'Guion Bluford',
         text: "The ISS uses an Oxygen Generation System (OGS) rack that houses the Oxygen Generation Assembly (OGA)."
       },
@@ -3042,6 +3025,11 @@
     // Scene 14: Lunar Water Extraction Lab Simulation & Permission Logic
     // =========================================================================
     const labSimOverlay = document.getElementById('labSimOverlay');
+    const labStageBadge = document.getElementById('labStageBadge');
+    const labStageBadgeText = document.getElementById('labStageBadgeText');
+    const labStep1 = document.getElementById('labStep1');
+    const labStep2 = document.getElementById('labStep2');
+    const labStep3 = document.getElementById('labStep3');
     const labStatusBulb = document.getElementById('labStatusBulb');
     const labStatusText = document.getElementById('labStatusText');
     const labTempText = document.getElementById('labTempText');
@@ -3050,65 +3038,12 @@
     const labYieldVal = document.getElementById('labYieldVal');
     const labExtractBtn = document.getElementById('labExtractBtn');
     const labExtractBtnLabel = document.getElementById('labExtractBtnLabel');
-    const condenserWaterPool = document.getElementById('condenserWaterPool');
-    const labDropletsCanvas = document.getElementById('labDropletsCanvas');
     const labPromptBackdrop = document.getElementById('labPromptBackdrop');
     const screenBlackout = document.getElementById('screenBlackout');
 
     let isExtracting = false;
     let extractProgress = 0.0;
     let extractTimer = null;
-    let dropletRaf = null;
-    let droplets = [];
-
-    class WaterDroplet {
-      constructor(w, h) { this.reset(w, h, true); }
-      reset(w, h, initial = false) {
-        this.x = w * (0.2 + Math.random() * 0.6);
-        this.y = initial ? Math.random() * h * 0.7 : Math.random() * h * 0.15;
-        this.vy = 1.2 + Math.random() * 2.2;
-        this.radius = 1 + Math.random() * 2;
-        this.alpha = 0.4 + Math.random() * 0.5;
-      }
-      update(w, h) {
-        this.y += this.vy;
-        if (this.y > h * 0.9) this.reset(w, h);
-      }
-      draw(ctx) {
-        ctx.fillStyle = '#00e5ff';
-        ctx.globalAlpha = this.alpha;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-    }
-
-    function initDroplets() {
-      if (!labDropletsCanvas) return;
-      const rect = labDropletsCanvas.getBoundingClientRect();
-      labDropletsCanvas.width = rect.width || 100;
-      labDropletsCanvas.height = rect.height || 220;
-      droplets = [];
-      for (let i = 0; i < 22; i++) {
-        droplets.push(new WaterDroplet(labDropletsCanvas.width, labDropletsCanvas.height));
-      }
-    }
-
-    function loopDroplets() {
-      if (!labDropletsCanvas || !labSimOverlay || labSimOverlay.classList.contains('hidden')) return;
-      const ctx = labDropletsCanvas.getContext('2d');
-      if (ctx) {
-        ctx.clearRect(0, 0, labDropletsCanvas.width, labDropletsCanvas.height);
-        if (isExtracting) {
-          droplets.forEach(d => {
-            d.update(labDropletsCanvas.width, labDropletsCanvas.height);
-            d.draw(ctx);
-          });
-        }
-      }
-      dropletRaf = requestAnimationFrame(loopDroplets);
-    }
 
     function setupLabSim() {
       stopLabSim();
@@ -3120,18 +3055,18 @@
       if (labHeatBar) labHeatBar.style.width = '0%';
       if (labWaterBar) labWaterBar.style.width = '0%';
       if (labYieldVal) labYieldVal.textContent = '0.00 L / 1.00 L';
-      if (condenserWaterPool) condenserWaterPool.style.height = '0%';
       if (labExtractBtnLabel) labExtractBtnLabel.textContent = 'START WATER EXTRACTION (HEAT REGOLITH)';
+      if (labStep1) { labStep1.classList.add('active'); labStep1.classList.remove('done'); }
+      if (labStep2) { labStep2.classList.remove('active', 'done'); }
+      if (labStep3) { labStep3.classList.remove('active', 'done'); }
+      if (labStageBadgeText) labStageBadgeText.textContent = 'PHASE 1: READY TO HEAT REGOLITH';
 
-      initDroplets();
-      if (!dropletRaf) dropletRaf = requestAnimationFrame(loopDroplets);
-
-      // Auto start extraction action after briefing entrance
+      // Auto start extraction action quickly after briefing entrance
       setTimeout(() => {
         if (SCENES[currentSceneIdx]?.isLabScene && !isExtracting && extractProgress < 0.1) {
           startWaterExtraction();
         }
-      }, 750);
+      }, 400);
     }
 
     function startWaterExtraction() {
@@ -3143,10 +3078,9 @@
 
       labSimOverlay.classList.remove('complete');
       labSimOverlay.classList.add('extracting');
-      if (labStatusText) labStatusText.textContent = 'HEATING REGOLITH & VAPORIZING ICE...';
       if (labExtractBtnLabel) labExtractBtnLabel.textContent = 'THERMAL EXTRACTION IN PROGRESS...';
 
-      const durationMs = 4200;
+      const durationMs = 3600;
       const startTime = performance.now();
 
       function step(now) {
@@ -3159,17 +3093,28 @@
         if (labTempText) labTempText.textContent = 'TEMP: ' + temp + '°C';
         if (labHeatBar) labHeatBar.style.width = (p * 100).toFixed(1) + '%';
         if (labWaterBar) labWaterBar.style.width = (p * 100).toFixed(1) + '%';
-        if (condenserWaterPool) condenserWaterPool.style.height = (p * 32).toFixed(1) + '%';
 
         const yieldVal = (p * 1.0).toFixed(2);
         if (labYieldVal) labYieldVal.textContent = yieldVal + ' L / 1.00 L';
 
-        if (p < 0.3) {
+        if (p < 0.35) {
           if (labStatusText) labStatusText.textContent = 'HEATING REGOLITH TO 120°C (SUBLIMATION)...';
-        } else if (p < 0.7) {
-          if (labStatusText) labStatusText.textContent = 'STEAM FLOWING TO CONDENSER CYLINDER...';
+          if (labStageBadgeText) labStageBadgeText.textContent = 'PHASE 1: HEATING REGOLITH & VAPORIZING ICE (' + temp + '°C)';
+          if (labStep1) { labStep1.classList.add('active'); labStep1.classList.remove('done'); }
+          if (labStep2) { labStep2.classList.remove('active', 'done'); }
+          if (labStep3) { labStep3.classList.remove('active', 'done'); }
+        } else if (p < 0.75) {
+          if (labStatusText) labStatusText.textContent = 'STEAM FLOWING INTO CONDENSER COLUMN...';
+          if (labStageBadgeText) labStageBadgeText.textContent = 'PHASE 2: STEAM FLOWING INTO CONDENSER COLUMN';
+          if (labStep1) { labStep1.classList.remove('active'); labStep1.classList.add('done'); }
+          if (labStep2) { labStep2.classList.add('active'); labStep2.classList.remove('done'); }
+          if (labStep3) { labStep3.classList.remove('active', 'done'); }
         } else if (p < 1.0) {
           if (labStatusText) labStatusText.textContent = 'COOLING VAPOR INTO LIQUID WATER...';
+          if (labStageBadgeText) labStageBadgeText.textContent = 'PHASE 3: CONDENSING INTO LIQUID WATER (' + yieldVal + ' L)';
+          if (labStep1) { labStep1.classList.remove('active'); labStep1.classList.add('done'); }
+          if (labStep2) { labStep2.classList.remove('active'); labStep2.classList.add('done'); }
+          if (labStep3) { labStep3.classList.add('active'); labStep3.classList.remove('done'); }
         } else {
           finishWaterExtraction();
           return;
@@ -3193,8 +3138,11 @@
       if (labTempText) labTempText.textContent = 'TEMP: 300°C [STABILIZED]';
       if (labHeatBar) labHeatBar.style.width = '100%';
       if (labWaterBar) labWaterBar.style.width = '100%';
-      if (condenserWaterPool) condenserWaterPool.style.height = '32%';
       if (labYieldVal) labYieldVal.textContent = '1.00 L / 1.00 L';
+      if (labStep1) { labStep1.classList.remove('active'); labStep1.classList.add('done'); }
+      if (labStep2) { labStep2.classList.remove('active'); labStep2.classList.add('done'); }
+      if (labStep3) { labStep3.classList.remove('active'); labStep3.classList.add('done'); }
+      if (labStageBadgeText) labStageBadgeText.innerHTML = '<span style="color:#22ff88">✅ 1.00 L WATER RECOVERED & PURIFIED</span>';
       if (labStatusText) labStatusText.innerHTML = '<span class="custom-badge-ok"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="vertical-align:middle;margin-right:5px;"><rect width="16" height="16" rx="3" fill="#22ff88"/><path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="#001a10" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1.00 L LIQUID WATER EXTRACTED! (98.4% YIELD)';
       if (labExtractBtnLabel) labExtractBtnLabel.innerHTML = '<svg width="14" height="14" viewBox="0 0 16 16" fill="#00e5ff" style="vertical-align:middle;margin-right:5px;"><path d="M8 1.5C8 1.5 3 7.5 3 11a5 5 0 0 0 10 0c0-3.5-5-9.5-5-9.5z"/></svg>1.00 L EXTRACTED · RE-RUN PROCESS';
     }
@@ -3208,7 +3156,6 @@
     function stopLabSim() {
       isExtracting = false;
       if (extractTimer) { cancelAnimationFrame(extractTimer); extractTimer = null; }
-      if (dropletRaf) { cancelAnimationFrame(dropletRaf); dropletRaf = null; }
       sound.stopHeaterSound();
       if (labSimOverlay) {
         labSimOverlay.classList.add('hidden');
@@ -3238,26 +3185,14 @@
       sound.playAirlock();
       if (labPromptBackdrop) {
         labPromptBackdrop.classList.remove('active');
-        setTimeout(() => labPromptBackdrop.classList.add('hidden'), 280);
+        labPromptBackdrop.classList.add('hidden');
       }
-
-      // Fullscreen Blackout Transition
       if (screenBlackout) {
-        screenBlackout.classList.remove('hidden');
-        setTimeout(() => screenBlackout.classList.add('active'), 20);
+        screenBlackout.classList.remove('active');
+        screenBlackout.classList.add('hidden');
       }
-
-      setTimeout(() => {
-        // While screen is pitch black, switch to Scene 14 (Lab Scene - index 13)
-        renderScene(13);
-
-        setTimeout(() => {
-          if (screenBlackout) {
-            screenBlackout.classList.remove('active');
-            setTimeout(() => screenBlackout.classList.add('hidden'), 480);
-          }
-        }, 500);
-      }, 1200);
+      // Instant switch to Scene 14 (Lab Scene - index 13) - fast and snappy, no loading!
+      renderScene(13);
     }
 
     // Trident Drill Rotary Percussive Simulation (Scene 8)
@@ -3535,27 +3470,12 @@
     function transitionToElectrolysisLab() {
       sound.playClick();
       sound.playAirlock();
-
       if (screenBlackout) {
-        const title = screenBlackout.querySelector('.blackout-title');
-        const desc = screenBlackout.querySelector('.blackout-desc');
-        if (title) title.textContent = "TRANSFERRING PURIFIED WATER (1.00 L)...";
-        if (desc) desc.textContent = "ENTERING OXYGEN ELECTROLYSIS FACILITY";
-        screenBlackout.classList.remove('hidden');
-        setTimeout(() => screenBlackout.classList.add('active'), 20);
+        screenBlackout.classList.remove('active');
+        screenBlackout.classList.add('hidden');
       }
-
-      setTimeout(() => {
-        // Switch to Scene 15 (index 14)
-        renderScene(14);
-
-        setTimeout(() => {
-          if (screenBlackout) {
-            screenBlackout.classList.remove('active');
-            setTimeout(() => screenBlackout.classList.add('hidden'), 480);
-          }
-        }, 500);
-      }, 1200);
+      // Instant switch to Scene 15 (index 14) - fast and snappy, no loading screen!
+      renderScene(14);
     }
 
     function renderScene(idx) {
