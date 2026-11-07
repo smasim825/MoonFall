@@ -190,69 +190,184 @@
       flex-wrap: nowrap;
     }
 
-    /* Decision History Tracker Bar */
-    .decision-history-bar {
-      background: rgba(0, 10, 30, 0.82);
+    /* =========================================================================
+       DECISION HISTORY SIDEBAR (Left wall console: M1 to M8 in 8 vertical rows)
+       ========================================================================= */
+    .decision-history-sidebar {
+      position: absolute;
+      left: clamp(8px, 1.1vw, 16px);
+      top: clamp(124px, 17.5vh, 138px);
+      width: clamp(142px, 12.8vw, 168px);
+      background: rgba(4, 14, 32, 0.94);
       border: 1.5px solid var(--pixel-blue-border);
-      border-radius: 6px;
-      padding: 4px 10px;
-      min-height: 38px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      border-radius: 8px;
+      box-shadow: 0 0 22px rgba(0, 229, 255, 0.28), inset 0 0 14px rgba(0, 229, 255, 0.08);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 85;
       pointer-events: auto;
-      box-sizing: border-box;
-      box-shadow: 0 0 14px rgba(0, 229, 255, 0.25);
-      cursor: pointer;
+      font-family: var(--font-pixel);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       user-select: none;
       -webkit-user-select: none;
-      transition: all 0.2s ease;
+      box-sizing: border-box;
+      transition: all 0.25s ease;
     }
 
-    .decision-history-bar:hover {
-      border-color: #38bdf8;
-      box-shadow: 0 0 18px rgba(0, 229, 255, 0.55);
-      transform: translateY(-1px);
+    .decision-sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.35);
+      padding-bottom: 5px;
+      margin-bottom: 2px;
+      cursor: pointer;
     }
 
-    .decision-history-bar:active {
-      transform: translateY(0);
-    }
-
-    .history-log-btn-hint {
-      background: rgba(14, 165, 233, 0.25);
-      border: 1px solid rgba(56, 189, 248, 0.5);
-      border-radius: 4px;
-      color: #7dd3fc;
-      font-size: clamp(0.72rem, 0.95vw, 0.88rem);
+    .decision-sidebar-title {
+      font-size: clamp(0.74rem, 0.96vw, 0.9rem);
+      color: #38bdf8;
+      letter-spacing: 0.08em;
       font-weight: bold;
-      padding: 2px 6px;
-      letter-spacing: 0.05em;
       display: inline-flex;
       align-items: center;
-      gap: 3px;
-      margin-left: 2px;
-      transition: all 0.15s ease;
+      gap: 5px;
     }
 
-    .decision-history-bar:hover .history-log-btn-hint {
+    .decision-sidebar-log-btn {
+      background: rgba(14, 165, 233, 0.25);
+      border: 1px solid rgba(56, 189, 248, 0.55);
+      border-radius: 4px;
+      color: #7dd3fc;
+      font-size: clamp(0.7rem, 0.9vw, 0.84rem);
+      font-weight: bold;
+      padding: 2px 7px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: all 0.15s ease;
+      font-family: var(--font-pixel);
+    }
+
+    .decision-sidebar-log-btn:hover {
       background: #0284c7;
       color: #ffffff;
       border-color: #38bdf8;
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+    }
+
+    .decision-sidebar-slots {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .decision-sidebar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-size: clamp(0.74rem, 0.95vw, 0.88rem);
+      box-sizing: border-box;
+    }
+
+    .decision-sidebar-row:hover {
+      background: rgba(14, 165, 233, 0.2);
+      border-color: #38bdf8;
+      transform: translateX(2px);
+    }
+
+    .decision-sidebar-row .slot-num {
+      color: #94a3b8;
+      font-weight: bold;
+      font-size: 0.86em;
+      letter-spacing: 0.05em;
+    }
+
+    .decision-sidebar-row .slot-val {
+      color: #64748b;
+      font-weight: bold;
+      letter-spacing: 0.02em;
+      max-width: 95px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .decision-sidebar-row.active {
+      border-color: #facc15;
+      background: rgba(234, 179, 8, 0.2);
+      box-shadow: 0 0 8px rgba(250, 204, 21, 0.4);
+      animation: slot-pulse 1.8s infinite alternate;
+    }
+
+    .decision-sidebar-row.active .slot-num {
+      color: #fef08a;
+    }
+
+    .decision-sidebar-row.active .slot-val {
+      color: #facc15;
+    }
+
+    .decision-sidebar-row.decided-evacuate {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.18);
+    }
+    .decision-sidebar-row.decided-evacuate .slot-num {
+      color: #6ee7b7;
+    }
+    .decision-sidebar-row.decided-evacuate .slot-val {
+      color: #34d399;
+    }
+
+    .decision-sidebar-row.decided-secure {
+      border-color: #0284c7;
+      background: rgba(14, 165, 233, 0.18);
+    }
+    .decision-sidebar-row.decided-secure .slot-num {
+      color: #7dd3fc;
+    }
+    .decision-sidebar-row.decided-secure .slot-val {
+      color: #38bdf8;
+    }
+
+    .decision-sidebar-footer {
+      margin-top: 2px;
+      padding-top: 5px;
+      border-top: 1px dashed rgba(56, 189, 248, 0.3);
+      text-align: center;
+      font-size: clamp(0.7rem, 0.86vw, 0.82rem);
+      color: #7dd3fc;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: all 0.15s ease;
+      font-weight: bold;
+    }
+
+    .decision-sidebar-footer:hover {
+      color: #38bdf8;
+      text-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
     }
 
     /* Decision History 8-Row Modal Overlay */
     .decision-modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(2, 6, 23, 0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(2, 6, 23, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 1400;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: clamp(10px, 2.5vh, 24px);
+      padding: clamp(12px, 2.8vh, 28px);
     }
 
     @keyframes modal-fade-in {
@@ -261,12 +376,12 @@
     }
 
     .decision-modal-card {
-      background: linear-gradient(180deg, rgba(12, 24, 48, 0.98) 0%, rgba(5, 12, 28, 0.99) 100%);
+      background: linear-gradient(180deg, rgba(12, 24, 48, 0.99) 0%, rgba(5, 12, 28, 0.99) 100%);
       border: 2px solid var(--pixel-blue-border);
-      box-shadow: 0 0 40px rgba(0, 229, 255, 0.35), inset 0 0 25px rgba(0, 229, 255, 0.08);
-      border-radius: 10px;
+      box-shadow: 0 0 45px rgba(0, 229, 255, 0.38), inset 0 0 30px rgba(0, 229, 255, 0.1);
+      border-radius: 12px;
       width: 100%;
-      max-width: 860px;
+      max-width: 980px;
       max-height: 94vh;
       display: flex;
       flex-direction: column;
@@ -280,37 +395,37 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 18px;
-      background: rgba(0, 10, 30, 0.7);
-      border-bottom: 1.5px solid rgba(56, 189, 248, 0.35);
+      padding: 14px 22px;
+      background: rgba(0, 10, 30, 0.8);
+      border-bottom: 2px solid rgba(56, 189, 248, 0.4);
     }
 
     .decision-modal-title {
-      font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+      font-size: clamp(1.35rem, 1.95vw, 1.75rem);
       color: #38bdf8;
       letter-spacing: 0.06em;
       font-weight: bold;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .decision-modal-title .sub-tag {
       color: #94a3b8;
-      font-size: 0.88em;
+      font-size: 0.86em;
     }
 
     .decision-modal-close {
       background: transparent;
-      border: 1px solid rgba(56, 189, 248, 0.4);
+      border: 1.5px solid rgba(56, 189, 248, 0.5);
       color: #7dd3fc;
-      border-radius: 4px;
-      width: 32px;
-      height: 32px;
+      border-radius: 6px;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
+      font-size: 1.4rem;
       cursor: pointer;
       transition: all 0.15s ease;
     }
@@ -323,52 +438,52 @@
     .decision-rows-list {
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      padding: 8px 16px;
+      gap: 7px;
+      padding: 12px 20px;
       overflow-y: auto;
-      max-height: calc(90vh - 150px);
+      max-height: calc(90vh - 160px);
     }
 
     .decision-row-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 6px 14px;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(56, 189, 248, 0.22);
-      border-radius: 6px;
+      gap: 16px;
+      padding: 10px 18px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1.5px solid rgba(56, 189, 248, 0.25);
+      border-radius: 8px;
       transition: background 0.15s ease, border-color 0.15s ease;
       box-sizing: border-box;
     }
 
     .decision-row-item:hover {
-      background: rgba(15, 23, 42, 0.95);
-      border-color: rgba(56, 189, 248, 0.5);
+      background: rgba(15, 23, 42, 0.98);
+      border-color: rgba(56, 189, 248, 0.55);
     }
 
     .decision-row-item.current-active {
       border-color: #00e5ff;
-      background: rgba(14, 165, 233, 0.15);
-      box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+      background: rgba(14, 165, 233, 0.18);
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.3);
     }
 
     .decision-row-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       min-width: 0;
       flex: 1;
     }
 
     .decision-row-badge {
-      background: rgba(30, 41, 59, 0.9);
-      border: 1px solid #38bdf8;
+      background: rgba(30, 41, 59, 0.95);
+      border: 1.5px solid #38bdf8;
       color: #38bdf8;
       font-weight: bold;
-      border-radius: 4px;
-      padding: 3px 8px;
-      font-size: clamp(0.92rem, 1.25vw, 1.1rem);
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: clamp(1.05rem, 1.35vw, 1.25rem);
       letter-spacing: 0.05em;
       white-space: nowrap;
     }
@@ -377,39 +492,40 @@
       display: flex;
       flex-direction: column;
       min-width: 0;
-      gap: 2px;
+      gap: 3px;
     }
 
     .decision-row-title {
-      font-size: clamp(1.05rem, 1.45vw, 1.3rem);
-      color: #f1f5f9;
+      font-size: clamp(1.2rem, 1.55vw, 1.45rem);
+      color: #f8fafc;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.03em;
       font-weight: bold;
     }
 
     .decision-row-sub {
-      font-size: clamp(0.85rem, 1.1vw, 1rem);
-      color: #94a3b8;
+      font-size: clamp(0.95rem, 1.2vw, 1.12rem);
+      color: #cbd5e1;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      letter-spacing: 0.01em;
     }
 
     .decision-row-result {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       white-space: nowrap;
       flex-shrink: 0;
     }
 
     .result-badge {
-      border-radius: 4px;
-      padding: 4px 12px;
-      font-size: clamp(0.92rem, 1.25vw, 1.12rem);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: clamp(1.02rem, 1.32vw, 1.22rem);
       font-weight: bold;
       letter-spacing: 0.04em;
       display: inline-flex;
@@ -419,49 +535,49 @@
 
     .result-badge.badge-evac {
       background: rgba(16, 185, 129, 0.25);
-      border: 1px solid #10b981;
+      border: 1.5px solid #10b981;
       color: #34d399;
-      box-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.35);
     }
     .result-badge.badge-evac .result-desc {
-      font-size: 0.82em;
+      font-size: 0.85em;
       color: #a7f3d0;
       font-weight: normal;
     }
 
     .result-badge.badge-equip {
       background: rgba(14, 165, 233, 0.25);
-      border: 1px solid #0284c7;
+      border: 1.5px solid #0284c7;
       color: #38bdf8;
-      box-shadow: 0 0 8px rgba(14, 165, 233, 0.35);
+      box-shadow: 0 0 10px rgba(14, 165, 233, 0.35);
     }
     .result-badge.badge-equip .result-desc {
-      font-size: 0.82em;
+      font-size: 0.85em;
       color: #bae6fd;
       font-weight: normal;
     }
 
     .result-badge.badge-pending {
-      background: rgba(51, 65, 85, 0.4);
-      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(51, 65, 85, 0.45);
+      border: 1.5px solid rgba(148, 163, 184, 0.35);
       color: #94a3b8;
     }
 
     .result-badge.badge-inprogress {
-      background: rgba(234, 179, 8, 0.2);
-      border: 1px solid #eab308;
+      background: rgba(234, 179, 8, 0.22);
+      border: 1.5px solid #eab308;
       color: #fde047;
       animation: slot-pulse 1.8s infinite alternate;
     }
 
     .decision-modal-footer {
-      padding: 12px 18px 14px;
-      background: rgba(0, 10, 30, 0.85);
-      border-top: 1.5px solid rgba(56, 189, 248, 0.3);
+      padding: 14px 22px 16px;
+      background: rgba(0, 10, 30, 0.9);
+      border-top: 2px solid rgba(56, 189, 248, 0.35);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       text-align: center;
     }
 
@@ -469,32 +585,31 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      background: rgba(234, 179, 8, 0.12);
-      border: 1px dashed rgba(250, 204, 21, 0.6);
-      border-radius: 6px;
-      padding: 8px 16px;
+      gap: 10px;
+      background: rgba(234, 179, 8, 0.14);
+      border: 1.5px dashed rgba(250, 204, 21, 0.65);
+      border-radius: 8px;
+      padding: 10px 18px;
       width: 100%;
       box-sizing: border-box;
     }
 
     .decision-warning-text {
-      font-size: clamp(1.1rem, 1.55vw, 1.4rem);
-      color: #fde047;
-      letter-spacing: 0.05em;
-      text-shadow: 0 0 10px rgba(250, 204, 21, 0.6);
+      color: #fef08a;
+      font-size: clamp(1.1rem, 1.4vw, 1.28rem);
+      letter-spacing: 0.03em;
       font-weight: bold;
     }
 
     .decision-close-btn {
       background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
       border: 1.5px solid #38bdf8;
-      box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.45);
       border-radius: 6px;
       color: #ffffff;
       font-family: var(--font-pixel);
-      font-size: clamp(1.08rem, 1.5vw, 1.3rem);
-      padding: 7px 24px;
+      font-size: clamp(1.12rem, 1.5vw, 1.32rem);
+      padding: 9px 30px;
       cursor: pointer;
       transition: all 0.15s ease;
       touch-action: manipulation;
@@ -1834,11 +1949,12 @@
       width: 100%;
     }
 
-    /* Standing Crew Character on Left (Rakesh & Chiaki) */
+    /* Standing Crew Character on Left (Rakesh & Chiaki & Guion Bluford)
+       Positioned with clearance beside the left-side decision history sidebar */
     .scene-character-stand {
       position: absolute;
       bottom: 0;
-      left: 1.5%;
+      left: clamp(148px, 13.5vw, 178px);
       height: clamp(280px, 68vh, 530px);
       width: auto;
       object-fit: contain;
@@ -1853,14 +1969,14 @@
     .scene-character-stand.char-chiaki {
       height: clamp(330px, 68vh, 540px);
       bottom: -6.5vh;
-      left: 1.5%;
+      left: clamp(148px, 13.5vw, 178px);
     }
 
     /* Guion Bluford: ISRU & Oxygen Extraction Specialist */
     .scene-character-stand.char-bluford {
       height: clamp(280px, 68vh, 530px);
       bottom: 0;
-      left: 1.5%;
+      left: clamp(148px, 13.5vw, 178px);
     }
 
     /* =========================================================================
@@ -2834,7 +2950,7 @@
       <!-- TOP HUD: Title Badge on Left, Decision History Bar, Sound + Restart + Main Base on Right -->
       <header class="top-hud">
         <div class="top-hud-left">
-          <div class="hud-title-badge" id="hudTitle">⚡ MISSION 1: THE 30-MINUTE WARNING</div>
+          <div class="hud-title-badge" id="hudTitle">M1: 30-Minute Warning</div>
 
           <!-- CUSTOM INTERACTIVE MISSION CLOCK (Behind / next to Mission Name) -->
           <div class="hud-mission-clock" id="hudMissionClock" onclick="openCrisisClockModal()" title="Click to view 18-Hour Crisis Mission Chronometer" role="button" tabindex="0">
@@ -2853,46 +2969,6 @@
               </div>
             </div>
             <span class="clock-mission-chip" id="clockMissionChip">M1</span>
-          </div>
-
-          <!-- DECISION HISTORY BAR (Click to open 8-row Decision Log) -->
-          <div class="decision-history-bar" id="decisionHistoryBar" onclick="openDecisionModal()" title="Click to open Commander Decision History" role="button" tabindex="0">
-            <span class="history-label">DECISIONS:</span>
-            <div class="history-slots" id="historySlots">
-              <div class="history-slot active" id="slotM1" data-mission="1" title="Mission 1: The 30-Minute Warning">
-                <span class="slot-num">M1</span>
-                <span class="slot-val">—</span>
-              </div>
-              <div class="history-slot" id="slotM2" data-mission="2" title="Mission 2: The Shelter Problem">
-                <span class="slot-num">M2</span>
-                <span class="slot-val">—</span>
-              </div>
-              <div class="history-slot" id="slotM3" data-mission="3" title="Mission 3: BlackOut">
-                <span class="slot-num">M3</span>
-                <span class="slot-val">—</span>
-              </div>
-              <div class="history-slot" id="slotM4" data-mission="4" title="Mission 4: Oxygen Countdown">
-                <span class="slot-num">M4</span>
-                <span class="slot-val">—</span>
-              </div>
-              <div class="history-slot" id="slotM5" data-mission="5" title="Mission 5: Water Trap">
-                <span class="slot-num">M5</span>
-                <span class="slot-val">—</span>
-              </div>
-              <div class="history-slot" id="slotM6" data-mission="6" title="Mission 6: Last Harvest">
-                <span class="slot-num">M6</span>
-                <span class="slot-val">—</span>
-              </div>
-              <div class="history-slot" id="slotM7" data-mission="7" title="Mission 7: Critical Failure">
-                <span class="slot-num">M7</span>
-                <span class="slot-val">—</span>
-              </div>
-              <div class="history-slot" id="slotM8" data-mission="8" title="Mission 8: The Last Signal">
-                <span class="slot-num">M8</span>
-                <span class="slot-val">—</span>
-              </div>
-            </div>
-            <span class="history-log-btn-hint" title="View Decision Log">LOG</span>
           </div>
         </div>
 
@@ -2917,6 +2993,56 @@
           </button>
         </div>
       </header>
+
+      <!-- DECISION HISTORY SIDEBAR (Left wall console: M1 to M8 in 8 vertical rows) -->
+      <aside class="decision-history-sidebar" id="decisionHistorySidebar" aria-label="Commander Decision Tracker">
+        <div class="decision-sidebar-header" onclick="openDecisionModal()" title="Click to open Commander Decision Log">
+          <div class="decision-sidebar-title">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="#38bdf8"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            <span>DECISIONS</span>
+          </div>
+          <button class="decision-sidebar-log-btn" onclick="openDecisionModal()" title="View Decision Log">LOG</button>
+        </div>
+
+        <div class="decision-sidebar-slots" id="historySlots">
+          <div class="decision-sidebar-row active" id="slotM1" onclick="openDecisionModal()" data-mission="1" title="M1: 30-Minute Warning">
+            <span class="slot-num">M1</span>
+            <span class="slot-val">—</span>
+          </div>
+          <div class="decision-sidebar-row" id="slotM2" onclick="openDecisionModal()" data-mission="2" title="M2: The Shelter Problem">
+            <span class="slot-num">M2</span>
+            <span class="slot-val">—</span>
+          </div>
+          <div class="decision-sidebar-row" id="slotM3" onclick="openDecisionModal()" data-mission="3" title="M3: Blackout">
+            <span class="slot-num">M3</span>
+            <span class="slot-val">—</span>
+          </div>
+          <div class="decision-sidebar-row" id="slotM4" onclick="openDecisionModal()" data-mission="4" title="M4: Oxygen Countdown">
+            <span class="slot-num">M4</span>
+            <span class="slot-val">—</span>
+          </div>
+          <div class="decision-sidebar-row" id="slotM5" onclick="openDecisionModal()" data-mission="5" title="M5: The Water Trap">
+            <span class="slot-num">M5</span>
+            <span class="slot-val">—</span>
+          </div>
+          <div class="decision-sidebar-row" id="slotM6" onclick="openDecisionModal()" data-mission="6" title="M6: The Last Harvest">
+            <span class="slot-num">M6</span>
+            <span class="slot-val">—</span>
+          </div>
+          <div class="decision-sidebar-row" id="slotM7" onclick="openDecisionModal()" data-mission="7" title="M7: The Critical Failure">
+            <span class="slot-num">M7</span>
+            <span class="slot-val">—</span>
+          </div>
+          <div class="decision-sidebar-row" id="slotM8" onclick="openDecisionModal()" data-mission="8" title="M8: The Final Decision">
+            <span class="slot-num">M8</span>
+            <span class="slot-val">—</span>
+          </div>
+        </div>
+
+        <div class="decision-sidebar-footer" onclick="openDecisionModal()" title="Click to view Complete Decision Log">
+          <span>TIMELINE LOG ➔</span>
+        </div>
+      </aside>
 
       <!-- OUTPOST RESOURCE TELEMETRY SIDEBAR (Right side wall console) -->
       <aside class="resource-telemetry-sidebar" id="resourceTelemetrySidebar" aria-label="Outpost Resource Telemetry">
@@ -3170,7 +3296,7 @@
           <div class="consequence-header">
             <div class="consequence-title">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="#00e5ff"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V18z"/></svg>
-              <span>MISSION 1: PROTOCOL CONSEQUENCE</span>
+              <span id="consequenceTitleText">M1: Protocol Consequence</span>
             </div>
             <span class="consequence-choice-badge" id="consequenceChoiceBadge">OPTION LOGGED</span>
           </div>
@@ -3236,7 +3362,7 @@
                 <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
               </svg>
               <div>
-                <div class="minitask-headline" id="miniTaskHeadline">CRISIS PROTOCOL // MISSION 2</div>
+                <div class="minitask-headline" id="miniTaskHeadline">CRISIS PROTOCOL // M2</div>
                 <div class="minitask-subline" id="miniTaskSubline">SHELTER LOCKDOWN &amp; HATCH ALIGNMENT</div>
               </div>
             </div>
@@ -3587,7 +3713,7 @@
           slot.classList.toggle('decided-evacuate', isEvac);
           slot.classList.toggle('decided-secure', !isEvac);
           slot.querySelector('.slot-val').textContent = decision;
-          slot.title = `Mission ${i} Decision: ${decision}`;
+          slot.title = `M${i} Decision: ${decision}`;
         } else {
           slot.classList.remove('decided-evacuate', 'decided-secure');
           slot.querySelector('.slot-val').textContent = '—';
@@ -3611,7 +3737,7 @@
       {
         num: 1,
         key: 'm1',
-        title: "Mission 1: The 30-Minute Warning",
+        title: "M1: 30-Minute Warning",
         time: "05:30 UTC",
         summary: "SPE solar storm alert. Crew recall vs securing external equipment.",
         optionsList: {
@@ -3622,7 +3748,7 @@
       {
         num: 2,
         key: 'm2',
-        title: "Mission 2: The Shelter Problem",
+        title: "M2: The Shelter Problem",
         time: "06:00 UTC",
         summary: "Habitat shielding weakness. Construct emergency radiation barrier.",
         optionsList: {
@@ -3634,7 +3760,7 @@
       {
         num: 3,
         key: 'm3',
-        title: "Mission 3: BlackOut",
+        title: "M3: Blackout",
         time: "08:00 UTC",
         summary: "Main solar array disconnected. Strategic battery power allocation.",
         optionsList: {
@@ -3646,7 +3772,7 @@
       {
         num: 4,
         key: 'm4',
-        title: "Mission 4: Oxygen Countdown",
+        title: "M4: Oxygen Countdown",
         time: "11:00 UTC",
         summary: "Oxygen reserve falling. Emergency cylinders vs water electrolysis.",
         optionsList: {
@@ -3657,7 +3783,7 @@
       {
         num: 5,
         key: 'm5',
-        title: "Mission 5: Water Trap",
+        title: "M5: The Water Trap",
         time: "14:00 UTC",
         summary: "Hydraulic loop valve frozen in deep lunar shadow.",
         optionsList: {
@@ -3668,7 +3794,7 @@
       {
         num: 6,
         key: 'm6',
-        title: "Mission 6: Last Harvest",
+        title: "M6: The Last Harvest",
         time: "17:00 UTC",
         summary: "Hydroponics plant survival vs life support thermal power draw.",
         optionsList: {
@@ -3679,7 +3805,7 @@
       {
         num: 7,
         key: 'm7',
-        title: "Mission 7: Critical Failure",
+        title: "M7: The Critical Failure",
         time: "20:00 UTC",
         summary: "Emergency generator bus failure threatening total blackout.",
         optionsList: {
@@ -3690,7 +3816,7 @@
       {
         num: 8,
         key: 'm8',
-        title: "Mission 8: The Last Signal",
+        title: "M8: The Final Decision",
         time: "23:30 UTC",
         summary: "Final storm aftermath. High-gain antenna broadcast to Houston.",
         optionsList: {
@@ -3739,10 +3865,10 @@
         return `
           <div class="decision-row-item ${statusClass}">
             <div class="decision-row-left">
-              <span class="decision-row-badge">M${m.num}</span>
+              <span class="decision-row-badge">${m.time}</span>
               <div class="decision-row-details">
                 <span class="decision-row-title">${m.title}</span>
-                <span class="decision-row-sub">${m.time} // ${m.summary}</span>
+                <span class="decision-row-sub">${m.summary}</span>
               </div>
             </div>
             <div class="decision-row-result">
@@ -4038,7 +4164,7 @@
       },
 
       // =========================================================================
-      // MISSION 2: THE SHELTER PROBLEM (06:00 UTC)
+      // M2: The Shelter Problem (06:00 UTC)
       // =========================================================================
       // Step 6: AstroBee Shelter Alert
       {
@@ -4046,7 +4172,7 @@
         scene: 5,
         speaker: 'astrobee',
         text: "Commander! Habitat shielding is weak. Reinforce the crew shelter before the incoming solar storm exposes the crew to dangerous radiation.",
-        title: "⚡ MISSION 2: THE SHELTER PROBLEM",
+        title: "M2: The Shelter Problem",
         bg: "assets/BG.png",
         alarm: false,
         showExterior: false
@@ -4125,7 +4251,7 @@
         scene: 11,
         speaker: 'astrobee',
         text: "Commander! Solar-array inverters are offline, leaving us on emergency batteries. EVA repairs are unsafe, so conserve electricity before power runs out!",
-        title: "⚡ MISSION 3: BLACKOUT DETECTED",
+        title: "M3: Blackout",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -4198,7 +4324,7 @@
       },
 
       // =========================================================================
-      // MISSION 4: OXYGEN COUNTDOWN (11:00 UTC)
+      // M4: Oxygen Countdown (11:00 UTC)
       // =========================================================================
       // Step 18: AstroBee Oxygen Reserve Low Alert
       {
@@ -4206,7 +4332,7 @@
         scene: 17,
         speaker: 'astrobee',
         text: "Commander! Oxygen reserve is falling. Our current supply won't be enough unless we restore oxygen production or activate an alternative supply. We need to act quickly!",
-        title: "⚡ MISSION 4: OXYGEN COUNTDOWN",
+        title: "M4: Oxygen Countdown",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -4283,8 +4409,8 @@
         mission: 'M4',
         scene: 23,
         speaker: 'astrobee',
-        text: "Outstanding leadership, Commander! Oxygen levels are stabilizing and life support is secured through Mission 4. Stand by for the next operational window.",
-        title: "⚡ MISSION 4 ACCOMPLISHED // LIFE SUPPORT NOMINAL",
+        text: "Outstanding leadership, Commander! Oxygen levels are stabilizing and life support is secured through M4. Stand by for the next operational window.",
+        title: "M4: Oxygen Countdown // Life Support Nominal",
         bg: "assets/BG.png",
         alarm: false,
         showExterior: false
@@ -4511,12 +4637,14 @@
       }
 
       const modal = document.getElementById('decisionConsequenceModal');
+      const titleText = document.getElementById('consequenceTitleText');
       const badge = document.getElementById('consequenceChoiceBadge');
       const deltasGrid = document.getElementById('consequenceDeltasGrid');
       const gainText = document.getElementById('consequenceGainText');
       const lossText = document.getElementById('consequenceLossText');
       const scienceText = document.getElementById('consequenceScienceText');
 
+      if (titleText) titleText.textContent = `${missionKey.toUpperCase()}: Protocol Consequence`;
       if (badge) badge.textContent = data.label;
       if (gainText) gainText.textContent = data.gain;
       if (lossText) lossText.textContent = data.cost;
@@ -4617,15 +4745,15 @@
       }
 
       if (taskId === 'm2_lockdown') {
-        if (headline) headline.textContent = "CRISIS PROTOCOL // MISSION 2";
+        if (headline) headline.textContent = "CRISIS PROTOCOL // M2";
         if (subline) subline.textContent = "SHELTER LOCKDOWN & HATCH ALIGNMENT";
         renderM2LockdownTask();
       } else if (taskId === 'm3_pdu') {
-        if (headline) headline.textContent = "CRISIS PROTOCOL // MISSION 3";
+        if (headline) headline.textContent = "CRISIS PROTOCOL // M3";
         if (subline) subline.textContent = "PDU EMERGENCY BUS ROUTING";
         renderM3PduTask();
       } else if (taskId === 'm4_electrolysis') {
-        if (headline) headline.textContent = "CRISIS PROTOCOL // MISSION 4";
+        if (headline) headline.textContent = "CRISIS PROTOCOL // M4";
         if (subline) subline.textContent = "ISRU ELECTROLYSIS & GAS FLOW MANIFOLD";
         renderM4ElectrolysisTask();
       }
