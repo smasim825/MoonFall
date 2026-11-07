@@ -3077,15 +3077,30 @@
 
     const sound = new SoundEngine();
 
+    const SOUND_ON_SVG = `
+      <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+    `;
+
+    const SOUND_MUTED_SVG = `
+      <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3z"/>
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M15.5 8.5c.8.8 1.3 1.9 1.3 3.5s-.5 2.7-1.3 3.5"/>
+      <line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    `;
+
     function toggleSound() {
       sound.muted = !sound.muted;
+      const soundBtn = document.getElementById('soundBtn');
       const soundText = document.getElementById('soundText');
       const soundSvg = document.getElementById('soundSvg');
       if (soundText) {
         soundText.textContent = sound.muted ? 'MUTED' : 'SOUND';
       }
       if (soundSvg) {
-        soundSvg.style.color = sound.muted ? '#ef4444' : '#7dd3fc';
+        soundSvg.innerHTML = sound.muted ? SOUND_MUTED_SVG : SOUND_ON_SVG;
+        soundSvg.style.color = '#7dd3fc';
+      }
+      if (soundBtn) {
+        soundBtn.title = sound.muted ? 'Unmute Sound' : 'Mute Sound';
       }
     }
 
