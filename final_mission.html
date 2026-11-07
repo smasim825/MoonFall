@@ -2231,11 +2231,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       background: transparent;
       box-sizing: border-box;
-      padding-top: clamp(38px, 5.0vh, 50px);
-      padding-bottom: clamp(140px, 19vh, 165px);
+      padding-top: clamp(38px, 5.0vh, 48px);
+      padding-bottom: clamp(138px, 18.5vh, 165px);
       padding-left: clamp(12px, 1.8vw, 24px);
       padding-right: clamp(12px, 1.8vw, 24px);
       pointer-events: none;
@@ -2246,19 +2246,19 @@
     }
 
     .minitask-card {
-      width: clamp(400px, 60vw, 860px);
+      width: clamp(520px, 72vw, 980px);
       max-width: 95vw;
       height: auto;
-      max-height: calc(100vh - clamp(145px, 20vh, 175px));
-      background: rgba(8, 24, 48, 0.94);
+      max-height: calc(100vh - clamp(135px, 18vh, 160px));
+      background: rgba(8, 24, 48, 0.95);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 2px solid #00e5ff;
       border-radius: 12px;
-      box-shadow: 0 0 25px rgba(0, 229, 255, 0.35), inset 0 0 15px rgba(0, 229, 255, 0.08);
+      box-shadow: 0 0 30px rgba(0, 229, 255, 0.4), inset 0 0 15px rgba(0, 229, 255, 0.08);
       display: flex;
       flex-direction: column;
-      padding: clamp(6px, 0.8vh, 10px) clamp(12px, 1.6vw, 18px);
+      padding: clamp(8px, 1.2vh, 14px) clamp(14px, 1.8vw, 22px);
       box-sizing: border-box;
       color: #e0f2fe;
       position: relative;
@@ -2271,8 +2271,8 @@
       align-items: center;
       justify-content: center;
       border-bottom: 1.5px solid rgba(0, 229, 255, 0.3);
-      padding-bottom: 4px;
-      margin-bottom: 4px;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
       position: relative;
     }
 
@@ -2285,7 +2285,7 @@
 
     .minitask-headline {
       font-family: var(--font-pixel);
-      font-size: clamp(1.1rem, 1.5vw, 1.45rem);
+      font-size: clamp(1.2rem, 1.6vw, 1.6rem);
       color: #ffffff;
       letter-spacing: 0.04em;
       text-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
@@ -3129,10 +3129,21 @@
     }
 
     /* M3 Interactive PDU Terminal */
+    .bay-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.96rem, 1.25vw, 1.15rem);
+      color: #38bdf8;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+      margin-bottom: 6px;
+    }
+
     .pdu-grid-wrap {
       display: grid;
-      grid-template-columns: 1fr 1.15fr 1.25fr;
-      gap: 14px;
+      grid-template-columns: 1fr 1.15fr 1.3fr;
+      gap: clamp(10px, 1.5vw, 18px);
       width: 100%;
       align-items: stretch;
     }
@@ -3140,18 +3151,18 @@
     .pdu-node-card {
       background: rgba(3, 16, 38, 0.85);
       border: 1.5px solid rgba(56, 189, 248, 0.35);
-      border-radius: 8px;
-      padding: 12px 14px;
+      border-radius: 10px;
+      padding: clamp(12px, 1.5vh, 16px) clamp(12px, 1.4vw, 18px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: clamp(8px, 1.1vh, 12px);
       box-sizing: border-box;
       position: relative;
     }
 
     .pdu-object-img {
-      height: clamp(80px, 12vh, 110px);
+      height: clamp(88px, 13vh, 120px);
       width: auto;
       max-width: 100%;
       object-fit: contain;
@@ -3173,13 +3184,14 @@
 
     .pdu-cable-status-tag {
       font-family: var(--font-pixel);
-      font-size: clamp(0.74rem, 0.95vw, 0.86rem);
-      padding: 5px 10px;
-      border-radius: 4px;
+      font-size: clamp(0.85rem, 1.1vw, 0.98rem);
+      padding: 7px 12px;
+      border-radius: 6px;
       background: rgba(15, 23, 42, 0.8);
       border: 1px solid #334155;
       color: #cbd5e1;
       text-align: center;
+      letter-spacing: 0.03em;
     }
     .pdu-cable-status-tag.online {
       border-color: #10b981;
@@ -3190,8 +3202,8 @@
 
     .pdu-connect-btn {
       font-family: var(--font-pixel);
-      font-size: clamp(0.82rem, 1.05vw, 0.95rem);
-      padding: 9px 14px;
+      font-size: clamp(0.92rem, 1.2vw, 1.08rem);
+      padding: 10px 16px;
       background: rgba(14, 165, 233, 0.2);
       border: 1.5px solid #0284c7;
       border-radius: 6px;
@@ -3204,11 +3216,12 @@
       justify-content: center;
       gap: 8px;
       box-sizing: border-box;
+      letter-spacing: 0.04em;
     }
     .pdu-connect-btn:hover {
       background: #0284c7;
       color: #fff;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
     }
     .pdu-connect-btn.connected {
       border-color: #10b981;
@@ -3221,7 +3234,7 @@
       background: #0b1329;
       border: 1.5px solid #334155;
       border-radius: 6px;
-      height: 18px;
+      height: 22px;
       overflow: hidden;
       position: relative;
       margin: 6px 0;
@@ -3244,9 +3257,9 @@
       background: rgba(15, 23, 42, 0.85);
       border: 1.5px solid #334155;
       border-radius: 6px;
-      padding: 9px 12px;
+      padding: 11px 14px;
       cursor: pointer;
-      font-size: clamp(0.82rem, 1.05vw, 0.95rem);
+      font-size: clamp(0.9rem, 1.18vw, 1.05rem);
       color: #cbd5e1;
       transition: all 0.15s ease;
       box-sizing: border-box;
@@ -3268,16 +3281,26 @@
       box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
     }
 
+    .pdu-breaker-action {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.85rem, 1.1vw, 0.98rem);
+      font-weight: bold;
+      letter-spacing: 0.04em;
+    }
+
     .overload-warning-banner {
       width: 100%;
       background: rgba(239, 68, 68, 0.25);
       border: 1.5px solid #ef4444;
       color: #fca5a5;
-      padding: 8px 12px;
+      padding: 10px 14px;
       border-radius: 6px;
-      font-size: clamp(0.82rem, 1.05vw, 0.95rem);
+      font-size: clamp(0.88rem, 1.15vw, 1.02rem);
       text-align: center;
       box-sizing: border-box;
+      line-height: 1.35;
+      animation: alertPulse 1.2s infinite alternate;
+    }
       line-height: 1.35;
       animation: alertPulse 1.2s infinite alternate;
     }
@@ -6607,12 +6630,12 @@
         <div class="pdu-grid-wrap">
           <!-- Column 1: Emergency Battery Storage -->
           <div class="pdu-node-card">
-            <div class="bay-title" style="width:100%;">1. Primary Source</div>
+            <div class="bay-title" style="width:100%; text-align:center;">1. Primary Source</div>
             <img src="assets/power/Objects/BatteryStorageUnit.webp" alt="Emergency Battery Bank" class="pdu-object-img ${m3TaskState.batteryConnected ? 'active-glow' : ''}">
-            <div style="font-size:0.75rem; text-align:center; color:#e0f2fe; font-weight:bold;">
+            <div style="font-family:var(--font-pixel); font-size:clamp(0.92rem, 1.15vw, 1.05rem); text-align:center; color:#f0f9ff; font-weight:bold;">
               Emergency Battery Unit
             </div>
-            <div style="font-size:0.68rem; text-align:center; color:#94a3b8;">
+            <div style="font-size:clamp(0.82rem, 1.0vw, 0.92rem); text-align:center; color:#94a3b8;">
               100 kWh Life-Support Reserve
             </div>
             <div class="pdu-cable-status-tag ${m3TaskState.batteryConnected ? 'online' : ''}">
@@ -6625,12 +6648,12 @@
 
           <!-- Column 2: Central PDU Hub (Using PDU.webp) -->
           <div class="pdu-node-card">
-            <div class="bay-title" style="width:100%;">2. Central PDU Hub</div>
+            <div class="bay-title" style="width:100%; text-align:center;">2. Central PDU Hub</div>
             <img src="assets/power/Objects/PDU.webp" alt="Power Distribution Unit" class="pdu-object-img ${isOverload ? 'overload-glow' : (m3TaskState.batteryConnected ? 'active-glow' : '')}">
             
-            <div style="width:100%; display:flex; justify-content:space-between; align-items:center; font-size:0.72rem;">
+            <div style="width:100%; display:flex; justify-content:space-between; align-items:center; font-size:clamp(0.86rem, 1.08vw, 0.98rem);">
               <span style="color:#94a3b8;">Bus Load Draw:</span>
-              <span style="font-family:var(--font-pixel); font-size:0.75rem; color:${isOverload ? '#ef4444' : (currentKw >= 3.0 ? '#34d399' : '#38bdf8')}; font-weight:bold;">
+              <span style="font-family:var(--font-pixel); font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:${isOverload ? '#ef4444' : (currentKw >= 3.0 ? '#34d399' : '#38bdf8')}; font-weight:bold;">
                 ${currentKw.toFixed(1)} / ${maxSafeKw} kW
               </span>
             </div>
@@ -6639,13 +6662,13 @@
               <div class="pdu-load-fill ${isOverload ? 'overload' : ''}" style="width:${fillPct}%;"></div>
             </div>
 
-            <div style="font-size:0.68rem; color:#64748b; text-align:center; line-height:1.35;">
+            <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#94a3b8; text-align:center; line-height:1.35;">
               ${!m3TaskState.batteryConnected ? 'PDU is unpowered. Connect battery to energize bus.' : (isOverload ? '<span style="color:#ef4444; font-weight:bold;">CRITICAL OVERLOAD! Total draw exceeds 3.5 kW safe ceiling.</span>' : (isComplete ? '<span style="color:#34d399; font-weight:bold;">✓ Bus nominal at 3.0 kW. All essential life support routed.</span>' : 'Select essential breakers to route power.'))}
             </div>
 
             ${isOverload ? `
               <div class="overload-warning-banner">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:text-bottom; margin-right:4px;"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:text-bottom; margin-right:4px;"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
                 CRITICAL BUS OVERLOAD! Disconnect Decorative Lighting immediately (3.5 kW limit exceeded)!
               </div>
             ` : ''}
@@ -6653,42 +6676,42 @@
 
           <!-- Column 3: Circuit Breakers (Subsystem Outputs) -->
           <div class="pdu-node-card" style="align-items:stretch;">
-            <div class="bay-title" style="width:100%;">3. Subsystem Breakers</div>
+            <div class="bay-title" style="width:100%; text-align:center;">3. Subsystem Breakers</div>
 
             <!-- Breaker 1: Oxygen -->
             <div class="pdu-breaker-btn ${m3TaskState.circuits.o2 ? 'active' : ''}" onclick="toggleM3Circuit('o2')">
-              <div style="display:flex; align-items:center; gap:6px;">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.8 10-10S17.52 2 12 2zm-1 15h2v2h-2v-2zm0-8h2v6h-2V9z"/></svg>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.8 10-10S17.52 2 12 2zm-1 15h2v2h-2v-2zm0-8h2v6h-2V9z"/></svg>
                 <span>Oxygen Circulation (+1.0 kW)</span>
               </div>
-              <span>${m3TaskState.circuits.o2 ? '✓ ROUTED' : 'CONNECT'}</span>
+              <span class="pdu-breaker-action">${m3TaskState.circuits.o2 ? '✓ ROUTED' : 'CONNECT'}</span>
             </div>
 
             <!-- Breaker 2: Heating -->
             <div class="pdu-breaker-btn ${m3TaskState.circuits.heat ? 'active' : ''}" onclick="toggleM3Circuit('heat')">
-              <div style="display:flex; align-items:center; gap:6px;">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 3a9 9 0 0 0-9 9c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61L12 3zm1 14h-2v-4h2v4zm0-6h-2V7h2v4z"/></svg>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 3a9 9 0 0 0-9 9c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61L12 3zm1 14h-2v-4h2v4zm0-6h-2V7h2v4z"/></svg>
                 <span>Habitat Heating (+1.2 kW)</span>
               </div>
-              <span>${m3TaskState.circuits.heat ? '✓ ROUTED' : 'CONNECT'}</span>
+              <span class="pdu-breaker-action">${m3TaskState.circuits.heat ? '✓ ROUTED' : 'CONNECT'}</span>
             </div>
 
             <!-- Breaker 3: Emergency Comms -->
             <div class="pdu-breaker-btn ${m3TaskState.circuits.comms ? 'active' : ''}" onclick="toggleM3Circuit('comms')">
-              <div style="display:flex; align-items:center; gap:6px;">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.8 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 .88-.36 1.68-.93 2.25z"/></svg>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.8 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 .88-.36 1.68-.93 2.25z"/></svg>
                 <span>Emergency Comms (+0.8 kW)</span>
               </div>
-              <span>${m3TaskState.circuits.comms ? '✓ ROUTED' : 'CONNECT'}</span>
+              <span class="pdu-breaker-action">${m3TaskState.circuits.comms ? '✓ ROUTED' : 'CONNECT'}</span>
             </div>
 
             <!-- Breaker 4: Decorative Lighting (Overload Trap) -->
             <div class="pdu-breaker-btn ${m3TaskState.circuits.lighting ? 'tripped' : ''}" onclick="toggleM3Circuit('lighting')">
-              <div style="display:flex; align-items:center; gap:6px;">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
                 <span>Decorative Lighting (+1.5 kW)</span>
               </div>
-              <span style="color:${m3TaskState.circuits.lighting ? '#ef4444' : '#64748b'};">${m3TaskState.circuits.lighting ? 'OVERLOAD' : 'ISOLATED'}</span>
+              <span class="pdu-breaker-action" style="color:${m3TaskState.circuits.lighting ? '#ef4444' : '#64748b'};">${m3TaskState.circuits.lighting ? 'OVERLOAD' : 'ISOLATED'}</span>
             </div>
           </div>
         </div>
