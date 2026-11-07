@@ -170,14 +170,16 @@
       background: rgba(0, 10, 30, 0.75);
       border: 1.5px solid var(--pixel-blue-border);
       border-radius: 6px;
-      padding: 5px 14px;
+      padding: 4px 12px;
       min-height: 38px;
       display: inline-flex;
       align-items: center;
       color: #ffffff;
-      font-size: clamp(0.95rem, 1.6vw, 1.35rem);
+      font-size: clamp(0.85rem, 1.25vw, 1.15rem);
       letter-spacing: 0.05em;
       pointer-events: auto;
+      white-space: nowrap;
+      box-sizing: border-box;
     }
 
     .top-hud-left {
@@ -243,10 +245,10 @@
     .decision-modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(2, 6, 23, 0.88);
+      background: rgba(2, 6, 23, 0.92);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      z-index: 500;
+      z-index: 1400;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -502,6 +504,458 @@
     }
     .decision-close-btn:active {
       transform: scale(0.98);
+    }
+
+    /* =========================================================================
+       CUSTOM INTERACTIVE MISSION CLOCK (Behind / next to Mission Name)
+       Displays active mission time (05:30 for M1, etc.) with live ticking seconds
+       Clicks to open the interactive 18-Hour Crisis Chronometer Timeline
+       ========================================================================= */
+    .hud-mission-clock {
+      background: rgba(0, 10, 30, 0.82);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 3px 8px;
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      pointer-events: auto;
+      box-sizing: border-box;
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.28);
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: all 0.2s ease;
+      font-family: var(--font-pixel);
+      flex-shrink: 0;
+    }
+
+    .hud-mission-clock:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .hud-mission-clock:active {
+      transform: translateY(0);
+    }
+
+    .clock-icon-wrapper {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .clock-svg-icon {
+      width: 18px;
+      height: 18px;
+      filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.6));
+    }
+
+    .clock-radar-sweep {
+      position: absolute;
+      inset: 1px;
+      border-radius: 50%;
+      border-top: 2px solid #38bdf8;
+      opacity: 0.6;
+      animation: clock-sweep 3s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes clock-sweep {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .clock-time-display {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1.05;
+    }
+
+    .clock-label {
+      font-size: clamp(0.55rem, 0.68vw, 0.65rem);
+      color: #94a3b8;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .clock-digits-grp {
+      display: inline-flex;
+      align-items: baseline;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .clock-digits {
+      font-size: clamp(0.92rem, 1.25vw, 1.15rem);
+      font-weight: bold;
+      color: #38bdf8;
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+    }
+
+    .clock-seconds {
+      font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+      color: #7dd3fc;
+      opacity: 0.85;
+      margin-left: 1px;
+      font-weight: normal;
+    }
+
+    .clock-mission-chip {
+      background: rgba(14, 165, 233, 0.25);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      border-radius: 4px;
+      color: #38bdf8;
+      font-size: clamp(0.68rem, 0.85vw, 0.8rem);
+      font-weight: bold;
+      padding: 1px 5px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Crisis Chronometer Modal Overlay */
+    .crisis-clock-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 1400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(8px, 2vh, 20px);
+    }
+
+    .crisis-clock-modal.hidden {
+      display: none !important;
+    }
+
+    .crisis-clock-card {
+      background: linear-gradient(180deg, rgba(12, 24, 48, 0.98) 0%, rgba(5, 12, 28, 0.99) 100%);
+      border: 2px solid var(--pixel-blue-border);
+      box-shadow: 0 0 40px rgba(0, 229, 255, 0.35), inset 0 0 25px rgba(0, 229, 255, 0.08);
+      border-radius: 10px;
+      width: 100%;
+      max-width: 780px;
+      max-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      overflow: hidden;
+      font-family: var(--font-pixel);
+      color: #ffffff;
+    }
+
+    .crisis-clock-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      background: rgba(0, 10, 30, 0.7);
+      border-bottom: 1.5px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .crisis-clock-title-grp {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .crisis-clock-svg {
+      width: 24px;
+      height: 24px;
+      filter: drop-shadow(0 0 6px #00e5ff);
+      flex-shrink: 0;
+    }
+
+    .crisis-clock-title {
+      font-size: clamp(1rem, 1.45vw, 1.3rem);
+      color: #38bdf8;
+      letter-spacing: 0.06em;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .crisis-clock-sub {
+      font-size: clamp(0.68rem, 0.85vw, 0.78rem);
+      color: #94a3b8;
+      letter-spacing: 0.04em;
+    }
+
+    .crisis-clock-close-btn {
+      background: transparent;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #94a3b8;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .crisis-clock-close-btn:hover {
+      border-color: #f87171;
+      color: #f87171;
+    }
+
+    /* Active Mission Banner */
+    .crisis-active-banner {
+      background: rgba(14, 165, 233, 0.15);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .active-banner-label {
+      font-size: clamp(0.7rem, 0.88vw, 0.82rem);
+      color: #94a3b8;
+      font-weight: bold;
+      letter-spacing: 0.06em;
+    }
+
+    .active-banner-time {
+      font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+      color: #38bdf8;
+      font-weight: bold;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+
+    .active-banner-name {
+      font-size: clamp(0.82rem, 1.05vw, 0.95rem);
+      color: #f8fafc;
+      background: rgba(2, 132, 199, 0.25);
+      border: 1px solid #0284c7;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    /* Timeline Horizontal Visual Rail */
+    .crisis-timeline-rail {
+      padding: 10px 16px 8px;
+      background: rgba(0, 10, 25, 0.5);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+    }
+
+    .crisis-timeline-track {
+      position: relative;
+      width: 100%;
+      height: 5px;
+      background: rgba(30, 41, 59, 0.8);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+
+    .crisis-timeline-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981 0%, #06b6d4 50%, #38bdf8 100%);
+      border-radius: 3px;
+      box-shadow: 0 0 8px #38bdf8;
+      transition: width 0.3s ease;
+    }
+
+    .crisis-timeline-nodes {
+      display: flex;
+      justify-content: space-between;
+      font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+      color: #94a3b8;
+    }
+
+    .timeline-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .timeline-node.active {
+      color: #38bdf8;
+      font-weight: bold;
+    }
+    .timeline-node.active .node-dot {
+      background: #38bdf8;
+      box-shadow: 0 0 8px #38bdf8;
+      transform: scale(1.25);
+    }
+
+    .node-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #475569;
+      transition: all 0.2s ease;
+    }
+
+    /* Missions Scroll List */
+    .crisis-missions-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .crisis-mission-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 6px;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .crisis-mission-card:hover {
+      background: rgba(14, 165, 233, 0.12);
+      border-color: rgba(56, 189, 248, 0.6);
+      transform: translateX(2px);
+    }
+
+    .crisis-mission-card.active-card {
+      background: rgba(2, 132, 199, 0.22);
+      border: 1.5px solid #38bdf8;
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.25);
+    }
+
+    .card-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .card-time-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 10, 30, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      border-radius: 4px;
+      padding: 2px 5px;
+      min-width: 52px;
+    }
+
+    .card-time-val {
+      font-size: clamp(0.82rem, 1.05vw, 0.95rem);
+      font-weight: bold;
+      color: #38bdf8;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card-mission-tag {
+      font-size: 0.6rem;
+      color: #94a3b8;
+      letter-spacing: 0.05em;
+    }
+
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .card-title {
+      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
+      color: #f1f5f9;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+    }
+
+    .card-crisis {
+      font-size: clamp(0.72rem, 0.85vw, 0.8rem);
+      color: #cbd5e1;
+      line-height: 1.25;
+    }
+
+    .card-status-badge {
+      font-size: clamp(0.66rem, 0.8vw, 0.75rem);
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    .status-active {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #34d399;
+      animation: slot-pulse 1.8s infinite alternate;
+    }
+
+    .status-pending {
+      background: rgba(51, 65, 85, 0.3);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: #94a3b8;
+    }
+
+    .status-completed {
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid #0284c7;
+      color: #38bdf8;
+    }
+
+    /* Modal Footer */
+    .crisis-clock-footer {
+      padding: 8px 16px 12px;
+      background: rgba(0, 10, 30, 0.85);
+      border-top: 1.5px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .crisis-clock-science-note {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: clamp(0.7rem, 0.85vw, 0.8rem);
+      color: #94a3b8;
+      max-width: 68%;
+      line-height: 1.25;
+    }
+
+    .crisis-clock-science-note .note-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: #38bdf8;
+    }
+
+    @media (max-width: 1100px) {
+      .top-hud-left {
+        gap: 6px;
+      }
+      .clock-label {
+        display: none;
+      }
+      .hud-mission-clock {
+        padding: 3px 6px;
+      }
     }
 
     /* =========================================================================
@@ -1643,6 +2097,25 @@
         <div class="top-hud-left">
           <div class="hud-title-badge" id="hudTitle">⚡ MISSION 1: THE 30-MINUTE WARNING</div>
 
+          <!-- CUSTOM INTERACTIVE MISSION CLOCK (Behind / next to Mission Name) -->
+          <div class="hud-mission-clock" id="hudMissionClock" onclick="openCrisisClockModal()" title="Click to view 18-Hour Crisis Mission Chronometer" role="button" tabindex="0">
+            <div class="clock-icon-wrapper">
+              <svg class="clock-svg-icon" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="#38bdf8" stroke-width="1.8" />
+                <path d="M12 7v5l3 2" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="12" cy="12" r="1.5" fill="#38bdf8" />
+              </svg>
+              <div class="clock-radar-sweep"></div>
+            </div>
+            <div class="clock-time-display">
+              <span class="clock-label">TIME</span>
+              <div class="clock-digits-grp">
+                <span class="clock-digits" id="clockDigits">05:30</span><span class="clock-seconds" id="clockSeconds">:00</span>
+              </div>
+            </div>
+            <span class="clock-mission-chip" id="clockMissionChip">M1</span>
+          </div>
+
           <!-- DECISION HISTORY BAR (Click to open 8-row Decision Log) -->
           <div class="decision-history-bar" id="decisionHistoryBar" onclick="openDecisionModal()" title="Click to open Commander Decision History" role="button" tabindex="0">
             <span class="history-label">DECISIONS:</span>
@@ -1896,6 +2369,54 @@
             <p class="decision-card-stat">Power -4, Health -5, Equip -2</p>
           </div>
 
+        </div>
+      </div>
+
+      <!-- 18-HOUR CRISIS CHRONOMETER MODAL (Interactive Clock & Mission Timelines) -->
+      <div class="crisis-clock-modal hidden" id="crisisClockModal" onclick="closeCrisisClockModal(event)" role="dialog" aria-modal="true" aria-labelledby="clockModalTitle">
+        <div class="crisis-clock-card" onclick="event.stopPropagation()">
+          <div class="crisis-clock-header">
+            <div class="crisis-clock-title-grp">
+              <svg class="crisis-clock-svg" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+                <circle cx="12" cy="12" r="9" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <div>
+                <h3 class="crisis-clock-title" id="clockModalTitle">18-HOUR CRISIS CHRONOMETER</h3>
+                <span class="crisis-clock-sub">MISSION TIME SEQUENCER // SOLAR PARTICLE EVENT FLUX TIMELINE</span>
+              </div>
+            </div>
+            <button class="crisis-clock-close-btn" onclick="closeCrisisClockModal()" aria-label="Close Chronometer">✕</button>
+          </div>
+
+          <!-- Active Mission Banner -->
+          <div class="crisis-active-banner">
+            <div>
+              <div class="active-banner-label">ACTIVE MISSION CHRONOMETER:</div>
+              <div class="active-banner-name" id="activeClockBannerName">M1: THE 30-MINUTE WARNING</div>
+            </div>
+            <div class="active-banner-time" id="activeClockBannerTime">05:30:00</div>
+          </div>
+
+          <!-- Timeline Horizontal Rail -->
+          <div class="crisis-timeline-rail">
+            <div class="crisis-timeline-track">
+              <div class="crisis-timeline-fill" id="crisisTimelineFill" style="width: 12.5%;"></div>
+            </div>
+            <div class="crisis-timeline-nodes" id="crisisTimelineNodes"></div>
+          </div>
+
+          <!-- Missions Scroll List (8 Rows) -->
+          <div class="crisis-missions-scroll" id="crisisMissionsScroll"></div>
+
+          <!-- Footer -->
+          <div class="crisis-clock-footer">
+            <div class="crisis-clock-science-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" class="note-icon"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <span>Solar Particle Event proton flux reaches peak intensity between 06:00 and 16:00. Time advances with each crisis protocol.</span>
+            </div>
+            <button class="decision-close-btn" onclick="closeCrisisClockModal()">RESUME MISSION →</button>
+          </div>
         </div>
       </div>
 
@@ -2392,6 +2913,188 @@
     }
 
     // =========================================================================
+    // 18-HOUR CRISIS MISSION TIMELINE & INTERACTIVE CHRONOMETER
+    // Times and crisis data from values_final.json
+    // =========================================================================
+    const CRISIS_TIMELINE = [
+      {
+        id: 'M1',
+        time: '05:30',
+        title: "The 30-Minute Warning",
+        crisis: "Protons reach the Moon within tens of minutes of the flare; one astronaut is outside and external power gear is still switched on."
+      },
+      {
+        id: 'M2',
+        time: '06:00',
+        title: "The Shelter Problem",
+        crisis: "The storm arrives. Behind standard walls (~5 g/cm²) the crew would get ~150 mSv. Each option shows the dose that still gets through."
+      },
+      {
+        id: 'M3',
+        time: '08:00',
+        title: "Blackout",
+        crisis: "Inverters fail and the base runs on battery. Life support needs ~3 kW, the greenhouse another ~3 kW."
+      },
+      {
+        id: 'M4',
+        time: '11:00',
+        title: "Oxygen Countdown",
+        crisis: "The oxygen reserve is falling: 5 crew breathe about 4.5 kg of O₂ a day."
+      },
+      {
+        id: 'M5',
+        time: '13:00',
+        title: "The Water Trap",
+        crisis: "Water cleaning runs at 50% because sediment clogged the filter."
+      },
+      {
+        id: 'M6',
+        time: '16:00',
+        title: "The Last Harvest",
+        crisis: "The nutrient pump has failed and the crops are wilting."
+      },
+      {
+        id: 'M7',
+        time: '20:00',
+        title: "The Critical Failure",
+        crisis: "Power Bus Junction 4 is overheating and arcing."
+      },
+      {
+        id: 'M8',
+        time: '23:30',
+        title: "The Final Decision",
+        crisis: "The storm is passing, but proton levels can stay high for hours."
+      }
+    ];
+
+    let currentActiveMissionId = 'M1';
+    let missionClockSecondsCounter = 0;
+    let clockTickerInterval = null;
+
+    function initMissionClock() {
+      if (clockTickerInterval) clearInterval(clockTickerInterval);
+      updateClockDisplay();
+
+      clockTickerInterval = setInterval(() => {
+        missionClockSecondsCounter++;
+        const sec = String(missionClockSecondsCounter % 60).padStart(2, '0');
+        const secEl = document.getElementById('clockSeconds');
+        if (secEl) secEl.textContent = `:${sec}`;
+
+        const bannerTimeEl = document.getElementById('activeClockBannerTime');
+        const activeMission = CRISIS_TIMELINE.find(m => m.id === currentActiveMissionId) || CRISIS_TIMELINE[0];
+        if (bannerTimeEl) bannerTimeEl.textContent = `${activeMission.time}:${sec}`;
+      }, 1000);
+    }
+
+    function setActiveMissionTime(missionId) {
+      currentActiveMissionId = missionId;
+      missionClockSecondsCounter = 0;
+      updateClockDisplay();
+      const modal = document.getElementById('crisisClockModal');
+      if (modal && !modal.classList.contains('hidden')) {
+        renderCrisisClockModal();
+      }
+    }
+
+    function updateClockDisplay() {
+      const activeMission = CRISIS_TIMELINE.find(m => m.id === currentActiveMissionId) || CRISIS_TIMELINE[0];
+      const digitsEl = document.getElementById('clockDigits');
+      const chipEl = document.getElementById('clockMissionChip');
+      if (digitsEl) digitsEl.textContent = activeMission.time;
+      if (chipEl) chipEl.textContent = activeMission.id;
+    }
+
+    function openCrisisClockModal() {
+      sound.clickSound();
+      renderCrisisClockModal();
+      const modal = document.getElementById('crisisClockModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+      }
+    }
+
+    function closeCrisisClockModal(e) {
+      if (e && e.target && e.target.closest('.crisis-clock-card') && !e.target.classList.contains('crisis-clock-close-btn') && !e.target.classList.contains('decision-close-btn')) {
+        return;
+      }
+      sound.clickSound();
+      const modal = document.getElementById('crisisClockModal');
+      if (modal) {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function renderCrisisClockModal() {
+      const activeMission = CRISIS_TIMELINE.find(m => m.id === currentActiveMissionId) || CRISIS_TIMELINE[0];
+      const activeIndex = CRISIS_TIMELINE.findIndex(m => m.id === currentActiveMissionId);
+
+      const bannerTimeEl = document.getElementById('activeClockBannerTime');
+      const bannerNameEl = document.getElementById('activeClockBannerName');
+      const fillEl = document.getElementById('crisisTimelineFill');
+      const nodesContainer = document.getElementById('crisisTimelineNodes');
+      const scrollContainer = document.getElementById('crisisMissionsScroll');
+
+      const sec = String(missionClockSecondsCounter % 60).padStart(2, '0');
+      if (bannerTimeEl) bannerTimeEl.textContent = `${activeMission.time}:${sec}`;
+      if (bannerNameEl) bannerNameEl.textContent = `${activeMission.id}: ${activeMission.title.toUpperCase()}`;
+
+      const progressPercent = Math.max(12.5, ((activeIndex + 1) / CRISIS_TIMELINE.length) * 100);
+      if (fillEl) fillEl.style.width = `${progressPercent}%`;
+
+      if (nodesContainer) {
+        nodesContainer.innerHTML = CRISIS_TIMELINE.map((m, idx) => {
+          const isActive = m.id === currentActiveMissionId;
+          const isPassed = idx < activeIndex;
+          return `
+            <div class="timeline-node ${isActive ? 'active' : ''}" onclick="previewMissionFromClock('${m.id}')" title="${m.id}: ${m.title} (${m.time})">
+              <span class="node-dot" style="${isPassed ? 'background:#10b981;' : (isActive ? 'background:#38bdf8;' : '')}"></span>
+              <span>${m.time}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      if (scrollContainer) {
+        scrollContainer.innerHTML = CRISIS_TIMELINE.map((m, idx) => {
+          const isActive = m.id === currentActiveMissionId;
+          const isCompleted = idx < activeIndex;
+          let statusBadgeClass = 'status-pending';
+          let statusText = 'UPCOMING';
+
+          if (isActive) {
+            statusBadgeClass = 'status-active';
+            statusText = '⚡ ACTIVE NOW';
+          } else if (isCompleted) {
+            statusBadgeClass = 'status-completed';
+            statusText = '✓ COMPLETED';
+          }
+
+          return `
+            <div class="crisis-mission-card ${isActive ? 'active-card' : ''}" onclick="previewMissionFromClock('${m.id}')">
+              <div class="card-left">
+                <div class="card-time-badge">
+                  <span class="card-time-val">${m.time}</span>
+                  <span class="card-mission-tag">${m.id}</span>
+                </div>
+                <div class="card-info">
+                  <div class="card-title">${m.id}: ${m.title}</div>
+                  <div class="card-crisis">${m.crisis}</div>
+                </div>
+              </div>
+              <span class="card-status-badge ${statusBadgeClass}">${statusText}</span>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    function previewMissionFromClock(missionId) {
+      sound.clickSound();
+      setActiveMissionTime(missionId);
+    }
+
+    // =========================================================================
     // SCENE & DIALOGUE SEQUENCER
     // =========================================================================
     const DIALOGUES = [
@@ -2420,7 +3123,7 @@
         scene: 1,
         speaker: 'astrobee',
         text: "Commander, Our solar observatory has identified a major Solar Particle Event. Estimated arrival: 30 minutes. We must immediately activate the emergency protocol.",
-        title: "⚠️ SOLAR STORM WARNING (05:30)",
+        title: "⚠️ SOLAR STORM WARNING",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
@@ -2765,13 +3468,18 @@
     // Keyboard controls (Space / Enter to advance, Esc to close modal)
     window.addEventListener('keydown', (e) => {
       const modal = document.getElementById('decisionModalOverlay');
+      const clockModal = document.getElementById('crisisClockModal');
       if (e.code === 'Escape') {
+        if (clockModal && !clockModal.classList.contains('hidden')) {
+          closeCrisisClockModal();
+          return;
+        }
         if (modal && !modal.classList.contains('hidden')) {
           closeDecisionModal();
           return;
         }
       }
-      if (modal && !modal.classList.contains('hidden')) {
+      if ((modal && !modal.classList.contains('hidden')) || (clockModal && !clockModal.classList.contains('hidden'))) {
         return; // Don't advance dialogue while modal is open
       }
       const consModal = document.getElementById('decisionConsequenceModal');
@@ -2812,9 +3520,13 @@
       }
       initOutpostResources();
       updateDecisionHistoryUI();
+      initMissionClock();
       renderCurrentStep();
       if (urlParams.get('openLog') === '1') {
         openDecisionModal();
+      }
+      if (urlParams.get('openClock') === '1') {
+        openCrisisClockModal();
       }
       if (urlParams.get('demoChoice')) {
         setTimeout(() => {
