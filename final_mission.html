@@ -2219,7 +2219,7 @@
     }
 
     /* =========================================================================
-       CRISIS MINI-TASK INTERACTIVE TERMINAL
+       CRISIS MINI-TASK FLOATING CARD (Matches Game Educational/Diagram Card UI)
        ========================================================================= */
     .crisis-minitask-overlay {
       position: absolute;
@@ -2232,14 +2232,13 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      background: rgba(3, 8, 18, 0.92);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      background: transparent;
       box-sizing: border-box;
-      padding-top: clamp(50px, 7vh, 65px);
+      padding-top: clamp(48px, 6.8vh, 62px);
       padding-bottom: clamp(140px, 19vh, 175px);
       padding-left: clamp(12px, 1.8vw, 24px);
       padding-right: clamp(12px, 1.8vw, 24px);
+      pointer-events: none;
     }
 
     .crisis-minitask-overlay.hidden {
@@ -2247,57 +2246,57 @@
     }
 
     .minitask-card {
-      width: 100%;
-      max-width: 1060px;
+      width: clamp(380px, 54vw, 780px);
+      max-width: 92vw;
       height: auto;
-      max-height: 100%;
-      background: linear-gradient(180deg, rgba(8, 24, 48, 0.98) 0%, rgba(4, 12, 28, 0.99) 100%);
+      max-height: calc(100vh - clamp(155px, 21vh, 190px));
+      background: rgba(8, 24, 48, 0.90);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border: 2px solid #00e5ff;
       border-radius: 12px;
-      box-shadow: 0 0 35px rgba(0, 229, 255, 0.45), inset 0 0 25px rgba(0, 229, 255, 0.15);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.35), inset 0 0 15px rgba(0, 229, 255, 0.08);
       display: flex;
       flex-direction: column;
-      padding: clamp(8px, 1.2vh, 14px) clamp(12px, 1.6vw, 18px);
+      padding: clamp(10px, 1.5vh, 16px) clamp(14px, 1.8vw, 20px);
       box-sizing: border-box;
       color: #e0f2fe;
       position: relative;
       overflow-y: auto;
+      pointer-events: auto;
     }
 
     .minitask-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       border-bottom: 1.5px solid rgba(0, 229, 255, 0.3);
       padding-bottom: 6px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      position: relative;
     }
 
     .minitask-title-wrap {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 12px;
+      text-align: center;
     }
 
     .minitask-headline {
       font-family: var(--font-pixel);
-      font-size: clamp(1.15rem, 1.6vw, 1.55rem);
-      color: #00e5ff;
-      letter-spacing: 0.05em;
-      text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+      font-size: clamp(1.1rem, 1.5vw, 1.45rem);
+      color: #ffffff;
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
     }
 
     .minitask-subline {
-      font-size: clamp(0.85rem, 1.1vw, 1.02rem);
-      color: #cbd5e1;
-      letter-spacing: 0.04em;
-      margin-top: 3px;
+      display: none;
     }
 
     .minitask-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      display: none;
     }
 
     .minitask-status-badge {
@@ -2813,13 +2812,20 @@
     }
     .pixel-hatch-assembly {
       position: relative;
-      width: clamp(280px, 34vh, 380px);
-      aspect-ratio: 1512 / 1010;
+      width: clamp(190px, 24vh, 250px);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
       cursor: pointer;
       filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.45));
       transition: transform 0.2s ease, filter 0.3s ease;
       user-select: none;
       margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, #0c1829 60%, #030712 100%);
+      box-shadow: 0 0 24px rgba(0, 229, 255, 0.3), inset 0 0 16px rgba(0, 0, 0, 0.8);
+      border: 3px solid #1e293b;
     }
     .pixel-hatch-assembly:hover {
       filter: drop-shadow(0 0 28px rgba(0, 229, 255, 0.75));
@@ -2827,27 +2833,20 @@
     }
     .pixel-hatch-assembly.locked {
       filter: drop-shadow(0 0 24px rgba(16, 185, 129, 0.85));
-    }
-    .pixel-hatch-frame {
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
-      display: block;
-      image-rendering: pixelated;
+      border-color: #10b981;
+      box-shadow: 0 0 28px rgba(16, 185, 129, 0.4);
     }
     .pixel-hatch-wheel {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 60.185%;
-      height: 90.099%;
+      width: 100%;
+      height: 100%;
       transform-origin: center center;
-      object-fit: fill;
+      object-fit: contain;
       image-rendering: pixelated;
       transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: block;
     }
     .pixel-hatch-assembly.locked .pixel-hatch-wheel {
-      filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.9));
+      filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.95));
     }
     .scifi-hatch-svg {
       width: clamp(190px, 24vh, 235px);
@@ -5777,32 +5776,25 @@
       }
 
       if (taskId === 'm2_lockdown') {
-        if (headline) headline.textContent = "CRISIS PROTOCOL // M2";
-        if (subline) subline.textContent = "SHELTER LOCKDOWN & HATCH ALIGNMENT";
+        if (headline) headline.textContent = "Shelter Lockdown & Hatch Alignment";
         renderM2LockdownTask();
       } else if (taskId === 'm3_pdu') {
-        if (headline) headline.textContent = "CRISIS PROTOCOL // M3";
-        if (subline) subline.textContent = "PDU EMERGENCY BUS ROUTING";
+        if (headline) headline.textContent = "Emergency Power Bus Routing";
         renderM3PduTask();
       } else if (taskId === 'm4_electrolysis') {
-        if (headline) headline.textContent = "CRISIS PROTOCOL // M4";
-        if (subline) subline.textContent = "ISRU ELECTROLYSIS & GAS FLOW MANIFOLD";
+        if (headline) headline.textContent = "ISRU Electrolysis & Gas Flow Manifold";
         renderM4ElectrolysisTask();
       } else if (taskId === 'm5_watertrap') {
-        if (headline) headline.textContent = "CRISIS PROTOCOL // M5";
-        if (subline) subline.textContent = "SEDIMENT PURGE & WATER FILTRATION MANIFOLD";
+        if (headline) headline.textContent = "Sediment Purge & Water Filtration";
         renderM5WaterTrapTask();
       } else if (taskId === 'm6_hydroponics') {
-        if (headline) headline.textContent = "CRISIS PROTOCOL // M6";
-        if (subline) subline.textContent = "HYDROPONIC BIOLOOP & NUTRIENT BALANCING";
+        if (headline) headline.textContent = "Hydroponic Bioloop & Nutrient Balancing";
         renderM6HydroponicsTask();
       } else if (taskId === 'm7_busfault') {
-        if (headline) headline.textContent = "CRISIS PROTOCOL // M7";
-        if (subline) subline.textContent = "POWER BUS ARC FAULT ISOLATION";
+        if (headline) headline.textContent = "Power Bus Arc Fault Isolation";
         renderM7BusFaultTask();
       } else if (taskId === 'm8_finale') {
-        if (headline) headline.textContent = "CRISIS PROTOCOL // M8";
-        if (subline) subline.textContent = "FINAL OUTPOST SURVIVAL PROTOCOL";
+        if (headline) headline.textContent = "Final Outpost Normalization";
         renderM8FinaleTask();
       }
 
@@ -6136,8 +6128,7 @@
             <div class="m2-hatch-stage-wrap">
               <!-- Pixel Art Mechanical Airlock Hatch (Assets: assets/hatch.png) -->
               <div class="pixel-hatch-assembly ${hatchLocked ? 'locked' : ''}" onclick="rotateM2Hatch(60)" title="Click wheel to rotate and engage bolts">
-                <img src="assets/m2_hatch_frame_final.png" class="pixel-hatch-frame" alt="Bulkhead Airlock Frame">
-                <img src="assets/m2_hatch_wheel_final.png" class="pixel-hatch-wheel" style="transform: translate(-50%, -50%) rotate(${m2TaskState.hatchAngle}deg);" alt="Airlock Locking Wheel">
+                <img src="assets/m2_hatch_wheel_final.png" class="pixel-hatch-wheel" style="transform: rotate(${m2TaskState.hatchAngle}deg);" alt="Airlock Locking Wheel">
               </div>
 
               <!-- Hatch Status Bar -->
@@ -7469,6 +7460,12 @@
       }
       if (urlParams.get('m2stage')) {
         m2TaskState.stage = parseInt(urlParams.get('m2stage'), 10);
+      }
+      if (urlParams.get('m2angle')) {
+        m2TaskState.hatchAngle = parseInt(urlParams.get('m2angle'), 10);
+      }
+      if (urlParams.get('m2bolts')) {
+        m2TaskState.hatchLockedBolts = parseInt(urlParams.get('m2bolts'), 10);
       }
       if (urlParams.get('m2stow')) {
         urlParams.get('m2stow').split(',').forEach(k => { if (m2TaskState.supplies[k] !== undefined) m2TaskState.supplies[k] = true; });
