@@ -3742,6 +3742,238 @@
       box-shadow: 0 0 24px rgba(0, 229, 255, 0.5);
     }
 
+    /* CRITICAL MISSION FAILURE MODAL (Threshold Gate Breach) */
+    .mission-failure-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 18, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2500;
+      padding: clamp(14px, 2vh, 24px);
+      box-sizing: border-box;
+      opacity: 1;
+    }
+
+    .mission-failure-modal.hidden {
+      display: none !important;
+    }
+
+    .mission-failure-card {
+      width: clamp(520px, 68vw, 820px);
+      max-width: 95vw;
+      max-height: 92vh;
+      overflow-y: auto;
+      background: #0d1527;
+      border: 3.5px solid #ef4444;
+      border-radius: 14px;
+      box-shadow: 0 0 50px rgba(239, 68, 68, 0.65), inset 0 0 25px rgba(239, 68, 68, 0.2);
+      padding: clamp(20px, 3vh, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(14px, 2vh, 20px);
+      box-sizing: border-box;
+    }
+
+    .failure-header {
+      text-align: center;
+    }
+
+    .failure-alarm-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1.5px solid #ef4444;
+      border-radius: 20px;
+      color: #fca5a5;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.85rem, 1.1vw, 1.0rem);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      animation: alertPulse 1.2s infinite alternate;
+    }
+
+    .failure-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+      color: #ffffff;
+      margin: 0;
+      text-shadow: 0 0 16px rgba(239, 68, 68, 0.8), 2px 2px 0 #000;
+      letter-spacing: 0.04em;
+    }
+
+    .failure-subtitle {
+      font-size: clamp(0.92rem, 1.15vw, 1.05rem);
+      color: #f87171;
+      margin: 4px 0 0 0;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .failure-callout-box {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1.5px solid rgba(239, 68, 68, 0.5);
+      border-radius: 10px;
+      padding: clamp(12px, 1.6vh, 18px);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .failure-stat-display {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+      padding-bottom: 8px;
+    }
+
+    .failure-stat-label {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+      color: #fca5a5;
+      font-weight: bold;
+    }
+
+    .failure-stat-value {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.4rem, 2.0vw, 1.9rem);
+      color: #ffffff;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(239, 68, 68, 0.9);
+    }
+
+    .failure-threshold-badge {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.78rem, 0.95vw, 0.9rem);
+      color: #fecaca;
+      background: rgba(239, 68, 68, 0.3);
+      border: 1px solid #ef4444;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .failure-crit-msg {
+      font-size: clamp(0.95rem, 1.2vw, 1.12rem);
+      color: #ffffff;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .failure-flight-rule {
+      font-size: clamp(0.82rem, 1.0vw, 0.92rem);
+      color: #fca5a5;
+      line-height: 1.35;
+      font-style: italic;
+    }
+
+    .failure-astrobee-box {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 1.6vw, 18px);
+      background: rgba(3, 16, 38, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 10px;
+      padding: clamp(10px, 1.4vh, 14px) clamp(14px, 1.8vw, 20px);
+    }
+
+    .failure-astrobee-img {
+      width: clamp(50px, 4.5vw, 68px);
+      height: auto;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.6));
+    }
+
+    .failure-astrobee-text {
+      font-size: clamp(0.86rem, 1.05vw, 0.98rem);
+      color: #e0f2fe;
+      line-height: 1.35;
+    }
+
+    .failure-telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 8px;
+    }
+
+    .failure-tele-cell {
+      background: rgba(3, 14, 32, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 6px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .failure-tele-cell.breached {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.25);
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+    }
+
+    .failure-tele-label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .failure-tele-val {
+      font-family: var(--font-pixel);
+      font-size: 1.1rem;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .failure-tele-cell.breached .failure-tele-val {
+      color: #f87171;
+      text-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+    }
+
+    .failure-actions-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .failure-action-btn {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.92rem, 1.2vw, 1.1rem);
+      padding: 11px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .failure-action-btn.btn-restart-game {
+      background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+      border: 1.5px solid #f87171;
+      color: #ffffff;
+      box-shadow: 0 0 18px rgba(239, 68, 68, 0.6);
+    }
+
+    .failure-action-btn.btn-return-base {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid #64748b;
+      color: #cbd5e1;
+    }
+
+    .failure-action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(239, 68, 68, 0.8);
+    }
+
     /* Specialist Badge Overlay when Rakesh / Chiaki is speaking (Exact match to Mockup) */
     .crew-speaker-badge {
       position: absolute;
@@ -4294,6 +4526,59 @@
         </div>
       </div>
 
+      <!-- CRITICAL MISSION FAILURE MODAL (Threshold Gate Breach) -->
+      <div class="mission-failure-modal hidden" id="missionFailureModal" role="dialog" aria-modal="true" aria-label="Mission Failure Alert">
+        <div class="mission-failure-card">
+          <div class="failure-header">
+            <div class="failure-alarm-badge">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="#ef4444"><path d="M12 2L1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
+              <span>CRITICAL OUTPOST FAILURE // MISSION TERMINATED</span>
+            </div>
+            <h1 class="failure-title">OUTPOST INTEGRITY COLLAPSED</h1>
+            <p class="failure-subtitle" id="failureGateName">FLIGHT SAFETY THRESHOLD BREACHED</p>
+          </div>
+
+          <!-- Red Callout Box -->
+          <div class="failure-callout-box">
+            <div class="failure-stat-display">
+              <span class="failure-stat-label" id="failureStatLabel">WATER LEVEL</span>
+              <span class="failure-stat-value" id="failureStatValue">0%</span>
+              <span class="failure-threshold-badge" id="failureThresholdBadge">GATE: ≥ 20% MINIMUM</span>
+            </div>
+            <div class="failure-crit-msg" id="failureCritMsg">
+              Water reserve depleted below safety gate (20%). Human metabolic minimum breached.
+            </div>
+            <div class="failure-flight-rule" id="failureFlightRule">
+              NASA Flight Rule Life-02: Water reserve must remain ≥ 20%. 5-crew metabolic hydration minimum (2.5 L/day/person) cannot be sustained.
+            </div>
+          </div>
+
+          <!-- AstroBee Emergency Warning -->
+          <div class="failure-astrobee-box">
+            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="failure-astrobee-img">
+            <div class="failure-astrobee-text">
+              <strong>AstroBee Emergency Broadcast:</strong><br>
+              "Commander! Critical telemetry indicators have breached survival thresholds. Mission control has initiated automated outpost evacuation protocols. The mission is terminated."
+            </div>
+          </div>
+
+          <!-- Telemetry Snapshot at Failure -->
+          <div class="failure-telemetry-grid" id="failureTelemetryGrid"></div>
+
+          <!-- Action Buttons -->
+          <div class="failure-actions-row">
+            <button class="failure-action-btn btn-restart-game" onclick="restartMission()">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+              RESTART MISSION
+            </button>
+            <button class="failure-action-btn btn-return-base" onclick="returnToBase()">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              RETURN TO MAIN BASE
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
@@ -4454,6 +4739,8 @@
       if (miniTaskModal) miniTaskModal.classList.add('hidden');
       const consequenceModal = document.getElementById('decisionConsequenceModal');
       if (consequenceModal) consequenceModal.classList.add('hidden');
+      const failModal = document.getElementById('missionFailureModal');
+      if (failModal) failModal.classList.add('hidden');
       renderCurrentStep();
     }
 
@@ -4473,6 +4760,122 @@
     };
 
     let outpostResources = { ...START_RESOURCES };
+
+    const FAILURE_GATES = [
+      {
+        key: 'Water',
+        min: 20,
+        label: 'POTABLE WATER RESERVE',
+        flightRule: 'NASA Flight Rule Life-02: Water reserve must remain ≥ 20%. Human metabolic hydration minimum (2.5 L/day/person) cannot be sustained.',
+        critMsg: (val) => `Water reserve collapsed to ${val}% (Below 20% critical threshold). Severe outpost dehydration emergency.`
+      },
+      {
+        key: 'O2',
+        min: 20,
+        label: 'ATMOSPHERIC O₂ RESERVE',
+        flightRule: 'NASA Flight Rule Life-01: Habitat oxygen fraction must remain ≥ 20%. Partial pressure below limits causes crew hypoxia.',
+        critMsg: (val) => `Atmospheric O₂ collapsed to ${val}% (Below 20% critical threshold). Crew hypoxia emergency.`
+      },
+      {
+        key: 'Power',
+        min: 1, // must be > 0
+        label: 'MAIN BATTERY BUS',
+        flightRule: 'NASA Flight Rule Pwr-04: Outpost total blackout (0 kWh). Environmental Control and Life Support Systems (ECLSS) offline.',
+        critMsg: (val) => `Main battery bus depleted to 0% (Power reached 0). Outpost life support offline.`
+      },
+      {
+        key: 'Health',
+        min: 50,
+        label: 'CREW HEALTH & RADIATION TOLERANCE',
+        flightRule: 'NASA-STD-3001: Cumulative SPE radiation exposure exceeded 250 mSv storm threshold. Acute Radiation Syndrome (ARS).',
+        critMsg: (val) => `Crew health degraded to ${val}% (Below 50% health safety gate). Acute radiation sickness.`
+      },
+      {
+        key: 'Equip',
+        min: 50,
+        label: 'HARDWARE & STRUCTURAL INTEGRITY',
+        flightRule: 'NASA Flight Rule Struct-03: Habitat pressure shell or power infrastructure damage exceeds 50% threshold.',
+        critMsg: (val) => `Equipment integrity crashed to ${val}% (Below 50% structural safety gate). Cascading hardware failure.`
+      },
+      {
+        key: 'LSI',
+        min: 50,
+        label: 'LIFE SUPPORT INDEX (LSI)',
+        flightRule: 'Composite LSI = (O₂ + Water + Food) ÷ 3 breached critical habitability margin (50%).',
+        critMsg: (val) => `Composite Life Support Index dropped to ${val.toFixed(1)}% (Below 50% habitability gate).`
+      }
+    ];
+
+    function checkMissionFailureGates() {
+      const r = outpostResources;
+      const lsi = ((r.O2 || 0) + (r.Water || 0) + (r.Food || 0)) / 3.0;
+
+      for (const gate of FAILURE_GATES) {
+        let currentVal = (gate.key === 'LSI') ? lsi : (r[gate.key] !== undefined ? r[gate.key] : 100);
+        if (gate.key === 'Power') {
+          if (currentVal <= 0) {
+            return { gate, val: currentVal };
+          }
+        } else {
+          if (currentVal < gate.min) {
+            return { gate, val: currentVal };
+          }
+        }
+      }
+      return null;
+    }
+
+    function showMissionFailureModal(failureData) {
+      sound.errorBuzzer();
+      const modal = document.getElementById('missionFailureModal');
+      const gateNameEl = document.getElementById('failureGateName');
+      const statLabelEl = document.getElementById('failureStatLabel');
+      const statValueEl = document.getElementById('failureStatValue');
+      const thresholdBadgeEl = document.getElementById('failureThresholdBadge');
+      const critMsgEl = document.getElementById('failureCritMsg');
+      const flightRuleEl = document.getElementById('failureFlightRule');
+      const gridEl = document.getElementById('failureTelemetryGrid');
+
+      if (!modal || !failureData) return;
+
+      if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
+      if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.add('hidden');
+      if (characterStandEl) characterStandEl.classList.add('hidden');
+      if (m1DecisionOverlayEl) {
+        m1DecisionOverlayEl.classList.remove('active');
+        m1DecisionOverlayEl.classList.add('hidden');
+      }
+      closeCrisisMiniTask();
+
+      const { gate, val } = failureData;
+      if (gateNameEl) gateNameEl.textContent = `${gate.label} CRITICAL BREACH`;
+      if (statLabelEl) statLabelEl.textContent = gate.label;
+      if (statValueEl) statValueEl.textContent = (gate.key === 'LSI') ? `${val.toFixed(1)}%` : `${val}%`;
+      if (thresholdBadgeEl) thresholdBadgeEl.textContent = `SAFETY GATE: ≥ ${gate.min}% MINIMUM`;
+      if (critMsgEl) critMsgEl.textContent = gate.critMsg(val);
+      if (flightRuleEl) flightRuleEl.textContent = gate.flightRule;
+
+      if (gridEl) {
+        const stats = [
+          { key: 'O2', label: 'O2', val: `${outpostResources.O2}%`, breached: gate.key === 'O2' },
+          { key: 'Water', label: 'WATER', val: `${outpostResources.Water}%`, breached: gate.key === 'Water' },
+          { key: 'Power', label: 'POWER', val: `${outpostResources.Power}%`, breached: gate.key === 'Power' },
+          { key: 'Food', label: 'FOOD', val: `${outpostResources.Food}%`, breached: false },
+          { key: 'Health', label: 'HEALTH', val: `${outpostResources.Health}%`, breached: gate.key === 'Health' },
+          { key: 'Equip', label: 'EQUIP', val: `${outpostResources.Equip}%`, breached: gate.key === 'Equip' },
+          { key: 'Greenhouse', label: 'GREEN', val: `${outpostResources.Greenhouse}%`, breached: false }
+        ];
+
+        gridEl.innerHTML = stats.map(s => `
+          <div class="failure-tele-cell ${s.breached ? 'breached' : ''}">
+            <span class="failure-tele-label">${s.label}</span>
+            <span class="failure-tele-val">${s.val}</span>
+          </div>
+        `).join('');
+      }
+
+      modal.classList.remove('hidden');
+    }
 
     function initOutpostResources() {
       const saved = sessionStorage.getItem('moonfall_outpost_resources');
@@ -4734,9 +5137,9 @@
         time: "13:00 UTC",
         summary: "Sediment clogs water recycling filter. Choose water replenishment strategy.",
         optionsList: {
-          'STORED H2O': { label: "STORED POTABLE", desc: "Water -15, Equip +5 (Clean stored buffer consumed)" },
-          'MELT ICE': { label: "MELT CRATER ICE", desc: "Water +18, Power -15, Equip -5 (Thermal volatile extraction)" },
-          'DRINK PRIORITY': { label: "DRINK PRIORITY", desc: "Water -5, Power +3, Green -10 (Rations crew water, starves plants)" }
+          'STORED H2O': { label: "STORED POTABLE", desc: "Water -10, Equip +3 (Clean stored buffer consumed)" },
+          'MELT ICE': { label: "MELT CRATER ICE", desc: "Water +10, Power -15, Equip -5 (Thermal volatile extraction)" },
+          'DRINK PRIORITY': { label: "DRINK PRIORITY", desc: "Water -3, Green -10 (Rations crew water, starves plants)" }
         }
       },
       {
@@ -4746,8 +5149,8 @@
         time: "16:00 UTC",
         summary: "Greenhouse bioloop falters. Restore hydroponics or sacrifice crops to save power.",
         optionsList: {
-          'RESTORE LOOP': { label: "RESTORE LOOP", desc: "Water -10, Power -12, Food +10, Green +20 (Restores irrigation & grow lights)" },
-          'ABANDON CROPS': { label: "ABANDON CROPS", desc: "Water +5, Power +12, Green -35 (Sacrifices crops, recovers power & water)" }
+          'RESTORE LOOP': { label: "RESTORE LOOP", desc: "Water -6, Power -12, Food +6, Green +10 (Restores irrigation & grow lights)" },
+          'ABANDON CROPS': { label: "ABANDON CROPS", desc: "Power +8, Food -8, Green -35 (Frees power, sacrifices crops)" }
         }
       },
       {
@@ -4757,9 +5160,9 @@
         time: "20:00 UTC",
         summary: "Arc fault ruptures Module 4 bus. Manual repair vs isolation vs rerouting.",
         optionsList: {
-          'MANUAL REPAIR': { label: "MANUAL REPAIR", desc: "Power -12, Equip +15, Health -5 (EVA excursion replaces burnt bus)" },
-          'ISOLATE BUS': { label: "ISOLATE BUS", desc: "Power -8, Equip -5 (Safely disconnects damaged module)" },
-          'REROUTE BUS': { label: "REROUTE BUS", desc: "Power -10, Greenhouse -8 (Reroutes life support through secondary bus)" }
+          'ISOLATE BUS': { label: "ISOLATE BUS", desc: "Power -3, Equip -12 (Safely disconnects damaged module)" },
+          'MANUAL REPAIR': { label: "MANUAL REPAIR", desc: "Power -10, Health -4, Equip +10 (EVA excursion replaces burnt bus)" },
+          'REROUTE BUS': { label: "REROUTE BUS", desc: "Power -8, Equip -3, Green -8 (Reroutes life support through secondary bus)" }
         }
       },
       {
@@ -4769,8 +5172,8 @@
         time: "00:00 UTC",
         summary: "Solar storm passes Shackleton Outpost. Final survival & recovery protocol.",
         optionsList: {
-          'HOLD SHELTER': { label: "HOLD SHELTER", desc: "Water -2, Power -5, Health +8 (Stay sealed until regolith cools)" },
-          'CONTROLLED RECOVERY': { label: "CONTROLLED RECOVERY", desc: "Water -3, Power -12, Health -10, Equip +10 (Early surface sweep)" }
+          'HOLD SHELTER': { label: "HOLD SHELTER", desc: "Water -2, Power -6, Health +3 (Stay sealed until regolith cools)" },
+          'CONTROLLED RECOVERY': { label: "CONTROLLED RECOVERY", desc: "Power +15, Health -5, Equip +6 (Early surface inverter reset & salvage)" }
         }
       }
     ];
@@ -5870,35 +6273,35 @@
           'stored_potable': {
             title: "Stored Potable",
             image: "assets/m5_opt_stored_potable.png",
-            stat: "Water -15, Equip +5",
+            stat: "Water -10, Equip +3",
             badge: "STORED H2O",
             label: "OPTION A: STORED POTABLE",
-            deltas: { Water: -15, Equip: 5 },
-            gain: "Directly taps clean potable storage tanks without stressing damaged filtration loops.",
-            cost: "Depletes 15% of stored potable water buffer directly.",
-            real: "Apollo and ISS rely on sealed water potable storage bladders as primary emergency buffer when processing loops fail."
+            deltas: { Water: -10, Equip: 3 },
+            gain: "No power used; the filter is cleaned properly while it rests (+3 Equip).",
+            cost: "Uses 50 kg of stored water, 4 days of drinking for 5 crew (-10 Water).",
+            real: "Each astronaut needs at least 2.5 L of water a day for drinking and food (NASA OCHMO-TB-027)."
           },
           'melt_ice': {
             title: "Melt Crater Ice",
             image: "assets/m5_opt_melt_ice.png",
-            stat: "Water +18, Power -15, Equip -5",
+            stat: "Water +10, Power -15, Equip -5",
             badge: "MELT ICE",
             label: "OPTION B: MELT CRATER ICE",
-            deltas: { Water: 18, Power: -15, Equip: -5 },
-            gain: "Thermal ISRU extraction yields +18 fresh water, restoring habitat reserves.",
-            cost: "Consumes 15 kWh of vital battery power and strains thermal sublimation equipment (-5 Equip).",
-            real: "ISRU microwave or thermal sublimation of permanently shadowed crater ice requires ~2.8 kWh/kg of volatile extraction energy (Kleinhenz 2021)."
+            deltas: { Water: 10, Power: -15, Equip: -5 },
+            gain: "The only option that adds water (+10 Water, ~80 kg melted).",
+            cost: "Melting very cold ice takes ~0.19 kWh per kg (-15 Power); sediment hits filter again (-5 Equip).",
+            real: "Warm ice from about -170 °C, melt it (334 kJ/kg), warm to 20 °C: about 0.19 kWh per kg."
           },
           'drink_priority': {
             title: "Drink Priority",
             image: "assets/m5_opt_drink_priority.png",
-            stat: "Water -5, Power +3, Green -10",
+            stat: "Water -3, Green -10",
             badge: "DRINK PRIORITY",
             label: "OPTION C: DRINK PRIORITY",
-            deltas: { Water: -5, Power: 3, Greenhouse: -10 },
-            gain: "Saves base power (+3) and slows water consumption by strictly rationing hydration to crew only.",
-            cost: "Greenhouse irrigation is cut off, causing crops to wither (-10 Green).",
-            real: "In emergency triage, human crew metabolic water (2.5 L/day/person) takes precedence over crop irrigation."
+            deltas: { Water: -3, Greenhouse: -10 },
+            gain: "Crew water is safe at almost no cost (-3 Water).",
+            cost: "Crops get no water for the day (-10 Green).",
+            real: "Lettuce uses about 2.1 kg of water per m² per day (NASA BVAD), so 20 m² needs ~42 kg a day."
           }
         }
       },
@@ -5908,62 +6311,62 @@
           'restore_loop': {
             title: "Restore Loop",
             image: "assets/m6_opt_restore_loop.png",
-            stat: "Water -10, Power -12, Food +10, Green +20",
+            stat: "Water -6, Power -12, Food +6, Green +10",
             badge: "RESTORE LOOP",
             label: "OPTION A: RESTORE LOOP",
-            deltas: { Water: -10, Power: -12, Food: 10, Greenhouse: 20 },
-            gain: "Saves crop canopy (+20 Green, +10 Food) and keeps lunar bio-regenerative loop active.",
-            cost: "Consumes 10% water and heavy electrical load (-12 Power) from emergency battery.",
-            real: "Hydroponic root zones require continuous active nutrient-solution circulation and grow lights to prevent irreversible crop death (NASA BVAD)."
+            deltas: { Water: -6, Power: -12, Food: 6, Greenhouse: 10 },
+            gain: "Crops recover (+10 Green) and next harvest is saved (+6 Food).",
+            cost: "Pumps and lights need ~12 kWh (-12 Power); the loop needs 30 kg of water (-6 Water).",
+            real: "Grow lights for 20 m² of lettuce are about 3 kW (LED, ~0.15 kW/m², from NASA BVAD values)."
           },
           'abandon_crops': {
             title: "Abandon Crops",
             image: "assets/m6_opt_abandon_crops.png",
-            stat: "Water +5, Power +12, Green -35",
+            stat: "Power +8, Food -8, Green -35",
             badge: "ABANDON CROPS",
             label: "OPTION B: ABANDON CROPS",
-            deltas: { Water: 5, Power: 12, Greenhouse: -35 },
-            gain: "Recovers residual irrigation water (+5 Water) and conserves +12 emergency power for cabin life support.",
-            cost: "Greenhouse crops wilt completely (-35 Green), losing fresh food supply.",
-            real: "Isolating non-essential plant growth chambers is a standard emergency protocol to preserve core crew life support."
+            deltas: { Power: 8, Food: -8, Greenhouse: -35 },
+            gain: "Frees greenhouse power for the night (+8 Power).",
+            cost: "Crops die completely (-35 Green) and next harvest is lost (-8 Food).",
+            real: "20 m² of lettuce gives about 73 kg of fresh food per 28-day cycle (NASA BVAD yield)."
           }
         }
       },
       'm7': {
         title: "DECISION 7: THE CRITICAL FAILURE",
         options: {
-          'manual_repair': {
-            title: "Manual Repair",
-            image: "assets/m7_opt_manual_repair.png",
-            stat: "Power -12, Equip +15, Health -5",
-            badge: "MANUAL REPAIR",
-            label: "OPTION A: MANUAL REPAIR",
-            deltas: { Power: -12, Equip: 15, Health: -5 },
-            gain: "EVA suit excursion replaces scorched relay bus and secures heavy equipment (+15 Equip).",
-            cost: "Crew takes direct solar radiation dose (-5 Health) and suit tools consume 12 kWh.",
-            real: "Extravehicular activity in radiation storms requires specialized lead-lined suits and rapid tool deployment (NASA TM-100620)."
-          },
           'isolate_bus': {
             title: "Isolate Bus",
             image: "assets/m7_opt_isolate_bus.png",
-            stat: "Power -8, Equip -5",
+            stat: "Power -3, Equip -12",
             badge: "ISOLATE BUS",
-            label: "OPTION B: ISOLATE BUS",
-            deltas: { Power: -8, Equip: -5 },
-            gain: "Instantly isolates damaged circuit safely from within habitat without crew radiation exposure.",
-            cost: "Permanently loses Module 4 equipment junction (-5 Equip) and causes residual power loss (-8).",
-            real: "Circuit breaker isolation prevents electrical fires and cascading bus overloads across habitat compartments."
+            label: "OPTION A: ISOLATE BUS",
+            deltas: { Power: -3, Equip: -12 },
+            gain: "Fastest and safest; little power lost (-3 Power).",
+            cost: "Module 4 stays dead until a later repair (-12 Equip).",
+            real: "In 2012 a failed ISS power box (MBSU-1) cut 2 of 8 power channels; the station ran on ~75% power until repaired."
+          },
+          'manual_repair': {
+            title: "Manual Repair",
+            image: "assets/m7_opt_manual_repair.png",
+            stat: "Power -10, Health -4, Equip +10",
+            badge: "MANUAL REPAIR",
+            label: "OPTION B: MANUAL REPAIR",
+            deltas: { Power: -10, Health: -4, Equip: 10 },
+            gain: "The junction is fixed; hardware improves (+10 Equip).",
+            cost: "Test and repair use 10 kWh (-10 Power); crew works near hot, smoking parts (-4 Health).",
+            real: "Sunita Williams and Akihiko Hoshide replaced that ISS power box on two spacewalks in Aug-Sep 2012."
           },
           'reroute_bus': {
             title: "Reroute Bus",
             image: "assets/m7_opt_reroute_bus.png",
-            stat: "Power -10, Greenhouse -8",
+            stat: "Power -8, Equip -3, Green -8",
             badge: "REROUTE BUS",
             label: "OPTION C: REROUTE BUS",
-            deltas: { Power: -10, Greenhouse: -8 },
-            gain: "Reroutes critical life support electrical feed through secondary conduit loops.",
-            cost: "Diverts electricity from greenhouse subsystem (-8 Green) and draws 10 kWh from battery.",
-            real: "Secondary bus tie routing maintains cabin atmospheric pressure at the expense of non-critical science loads."
+            deltas: { Power: -8, Equip: -3, Greenhouse: -8 },
+            gain: "Module 4 keeps working; little hardware loss (-3 Equip).",
+            cost: "The other junction is overloaded and wastes power (-8 Power); greenhouse is cut (-8 Green).",
+            real: "Real power systems shed the least important loads first to keep life support running."
           }
         }
       },
@@ -5973,24 +6376,24 @@
           'hold_shelter': {
             title: "Hold Shelter",
             image: "assets/m8_opt_hold_shelter.png",
-            stat: "Water -2, Power -5, Health +8",
+            stat: "Water -2, Power -6, Health +3",
             badge: "HOLD SHELTER",
             label: "OPTION A: HOLD SHELTER",
-            deltas: { Water: -2, Power: -5, Health: 8 },
-            gain: "Crew stays safely sealed in deep regolith bunker until surface radioactivity completely subsides (+8 Health).",
-            cost: "Minor continuous cabin power and hydration draw (-5 Power, -2 Water).",
-            real: "Secondary neutron backscatter from lunar regolith can keep surface dose rates elevated for hours after the SPE peak passes."
+            deltas: { Water: -2, Power: -6, Health: 3 },
+            gain: "Crew rests and avoids the storm's tail (+3 Health).",
+            cost: "Shelter life support keeps running on battery (-6 Power) and uses water (-2 Water).",
+            real: "NOAA: a solar radiation storm can last from hours to days."
           },
           'controlled_recovery': {
             title: "Controlled Recovery",
             image: "assets/m8_opt_controlled_recovery.png",
-            stat: "Water -3, Power -12, Health -10, Equip +10",
+            stat: "Power +15, Health -5, Equip +6",
             badge: "CONTROLLED RECOVERY",
             label: "OPTION B: CONTROLLED RECOVERY",
-            deltas: { Water: -3, Power: -12, Health: -10, Equip: 10 },
-            gain: "Rapid surface sweep restarts solar arrays and salvages external scientific equipment (+10 Equip).",
-            cost: "Severe acute exposure to residual surface particles (-10 Health) and heavy power draw (-12 Power).",
-            real: "Early surface egress risks acute radiation exposure to secondary protons emitted by active regolith activation."
+            deltas: { Power: 15, Health: -5, Equip: 6 },
+            gain: "Crew resets inverters: solar power comes back (+15 Power) and systems are repaired (+6 Equip).",
+            cost: "Crew gets some leftover radiation while working outside (-5 Health).",
+            real: "NOAA: leaving early means some extra dose before active regolith activation fully decays."
           }
         }
       }
@@ -6109,6 +6512,19 @@
           }
         }
         updateTelemetryUI(pendingDeltas);
+      }
+
+      // Check failure gates immediately after decision impact
+      const failureReason = checkMissionFailureGates();
+      if (failureReason) {
+        setTimeout(() => {
+          if (m1DecisionOverlayEl) {
+            m1DecisionOverlayEl.classList.remove('active');
+            m1DecisionOverlayEl.classList.add('hidden');
+          }
+          showMissionFailureModal(failureReason);
+        }, 650);
+        return;
       }
 
       // Transition smoothly past decision
@@ -8087,6 +8503,19 @@
       }
       if (urlParams.get('debrief') === '1') {
         openFinalDebriefModal();
+      }
+      if (urlParams.get('fail') === 'water' || urlParams.get('fail') === '1') {
+        outpostResources.Water = 0;
+        updateTelemetryUI();
+        const failureReason = checkMissionFailureGates();
+        if (failureReason) {
+          showMissionFailureModal(failureReason);
+        }
+      } else if (currentStep > 0) {
+        const failureReason = checkMissionFailureGates();
+        if (failureReason) {
+          showMissionFailureModal(failureReason);
+        }
       }
       if (urlParams.get('demoChoice')) {
         setTimeout(() => {
