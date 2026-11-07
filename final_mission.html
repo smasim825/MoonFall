@@ -961,11 +961,12 @@
     /* =========================================================================
        OUTPOST RESOURCE TELEMETRY SIDEBAR (Right side wall console)
        Values from values_final.json (O2, Water, Power, Food, Health, Equip, Greenhouse)
+       Positioned with safe vertical clearance below the AstroBee ASK button
        ========================================================================= */
     .resource-telemetry-sidebar {
       position: absolute;
       right: clamp(8px, 1.1vw, 16px);
-      top: clamp(86px, 12.8vh, 102px);
+      top: clamp(124px, 17.5vh, 138px);
       width: clamp(138px, 12.6vw, 162px);
       background: rgba(4, 14, 32, 0.92);
       border: 1.5px solid var(--pixel-blue-border);
@@ -1051,7 +1052,20 @@
       font-weight: bold;
       color: #ffffff;
       font-variant-numeric: tabular-nums;
-      transition: color 0.3s ease;
+      transition: color 0.4s ease, transform 0.25s ease;
+      display: inline-block;
+    }
+
+    .telemetry-val.reducing {
+      color: #f87171 !important;
+      text-shadow: 0 0 8px rgba(248, 113, 113, 0.85);
+      transform: scale(1.15);
+    }
+
+    .telemetry-val.increasing {
+      color: #34d399 !important;
+      text-shadow: 0 0 8px rgba(52, 211, 153, 0.85);
+      transform: scale(1.15);
     }
 
     .telemetry-bar-track {
@@ -1062,13 +1076,25 @@
       border-radius: 3px;
       overflow: hidden;
       box-sizing: border-box;
+      position: relative;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .telemetry-bar-track.reducing {
+      border-color: rgba(239, 68, 68, 0.8);
+      box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+    }
+
+    .telemetry-bar-track.increasing {
+      border-color: rgba(16, 185, 129, 0.8);
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
     }
 
     .telemetry-bar-fill {
       height: 100%;
       width: 75%;
       border-radius: 2px;
-      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
+      transition: width 1s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease;
     }
 
     .bar-healthy {
@@ -1087,30 +1113,6 @@
       background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
       box-shadow: 0 0 7px rgba(239, 68, 68, 0.7);
       animation: crit-blink 1s infinite alternate;
-    }
-
-    .telemetry-delta-tag {
-      position: absolute;
-      right: 0;
-      top: -2px;
-      font-size: 0.75rem;
-      font-weight: bold;
-      border-radius: 3px;
-      padding: 0 3px;
-      pointer-events: none;
-      animation: delta-float 2s ease-out forwards;
-    }
-
-    .telemetry-delta-tag.loss {
-      color: #f87171;
-      background: rgba(239, 68, 68, 0.25);
-      border: 1px solid #ef4444;
-    }
-
-    .telemetry-delta-tag.gain {
-      color: #34d399;
-      background: rgba(16, 185, 129, 0.25);
-      border: 1px solid #10b981;
     }
 
     .telemetry-footer-stats {
@@ -1135,7 +1137,7 @@
       background: rgba(2, 6, 23, 0.92);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      z-index: 600;
+      z-index: 1500;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2644,6 +2646,84 @@
       updateTelemetryUI();
     }
 
+    function applyBarColor(barEl, val, crit) {
+      if (!barEl) return;
+      barEl.className = 'telemetry-bar-fill';
+      if (val <= crit) {
+        barEl.classList.add('bar-critical');
+      } else if (val <= crit + 10) {
+        barEl.classList.add('bar-warning');
+      } else if (val >= 70) {
+        barEl.classList.add('bar-healthy');
+      } else {
+        barEl.classList.add('bar-good');
+      }
+    }
+
+    function animateTelemetryBarAndNumber(valEl, barEl, trackEl, startVal, targetVal, crit, duration = 950) {
+      if (!valEl) return;
+      
+      if (startVal === targetVal) {
+        valEl.textContent = `${targetVal}%`;
+        if (barEl) barEl.style.width = `${targetVal}%`;
+        applyBarColor(barEl, targetVal, crit);
+        return;
+      }
+
+      const isReducing = targetVal < startVal;
+      valEl.classList.remove('reducing', 'increasing');
+      if (trackEl) trackEl.classList.remove('reducing', 'increasing');
+
+      valEl.classList.add(isReducing ? 'reducing' : 'increasing');
+      if (trackEl) trackEl.classList.add(isReducing ? 'reducing' : 'increasing');
+
+      // Update the bar width immediately; CSS transition: width 1s handles the smooth reduction
+      if (barEl) {
+        barEl.style.width = `${targetVal}%`;
+        applyBarColor(barEl, targetVal, crit);
+      }
+
+      const startTime = performance.now();
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const currentNum = Math.round(startVal + (targetVal - startVal) * ease);
+        valEl.textContent = `${currentNum}%`;
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          valEl.textContent = `${targetVal}%`;
+          valEl.classList.remove('reducing', 'increasing');
+          if (trackEl) trackEl.classList.remove('reducing', 'increasing');
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function animateLsiNumber(lsiEl, startVal, targetVal, duration = 950) {
+      if (!lsiEl) return;
+      if (startVal === targetVal) {
+        lsiEl.textContent = targetVal.toFixed(1);
+        return;
+      }
+      const startTime = performance.now();
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const currentNum = (startVal + (targetVal - startVal) * ease).toFixed(1);
+        lsiEl.textContent = currentNum;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          lsiEl.textContent = targetVal.toFixed(1);
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
     function updateTelemetryUI(deltas = null) {
       const r = outpostResources;
       
@@ -2658,44 +2738,38 @@
       ];
 
       bars.forEach(b => {
-        const val = Math.max(0, Math.min(100, Math.round(r[b.key])));
+        const targetVal = Math.max(0, Math.min(100, Math.round(r[b.key])));
         const valEl = document.getElementById(b.elVal);
         const barEl = document.getElementById(b.elBar);
         const rowEl = document.getElementById(b.row);
+        const trackEl = rowEl ? rowEl.querySelector('.telemetry-bar-track') : null;
 
-        if (valEl) valEl.textContent = `${val}%`;
-        if (barEl) {
-          barEl.style.width = `${val}%`;
-          barEl.className = 'telemetry-bar-fill';
-          if (val <= b.crit) {
-            barEl.classList.add('bar-critical');
-          } else if (val <= b.crit + 10) {
-            barEl.classList.add('bar-warning');
-          } else if (val >= 70) {
-            barEl.classList.add('bar-healthy');
-          } else {
-            barEl.classList.add('bar-good');
+        if (deltas && deltas[b.key]) {
+          // Smooth animation of reducing or increasing value & bar shrinking
+          const startVal = parseInt(valEl ? valEl.textContent : targetVal, 10) || targetVal;
+          animateTelemetryBarAndNumber(valEl, barEl, trackEl, startVal, targetVal, b.crit);
+        } else {
+          // Instant initial render
+          if (valEl) valEl.textContent = `${targetVal}%`;
+          if (barEl) {
+            barEl.style.width = `${targetVal}%`;
+            applyBarColor(barEl, targetVal, b.crit);
           }
-        }
-
-        // Floating delta tag when value changed
-        if (deltas && deltas[b.key] && rowEl) {
-          const delta = deltas[b.key];
-          const tag = document.createElement('span');
-          tag.className = `telemetry-delta-tag ${delta > 0 ? 'gain' : 'loss'}`;
-          tag.textContent = delta > 0 ? `+${delta}` : `${delta}`;
-          rowEl.appendChild(tag);
-          setTimeout(() => tag.remove(), 2100);
         }
       });
 
       // LSI Index = (O2 + Water + Food) / 3
-      const lsi = ((r.O2 + r.Water + r.Food) / 3).toFixed(1);
+      const targetLsi = parseFloat(((r.O2 + r.Water + r.Food) / 3).toFixed(1));
       const lsiEl = document.getElementById('valLsi');
       if (lsiEl) {
-        lsiEl.textContent = lsi;
-        if (lsi < 50) lsiEl.style.color = '#ef4444';
-        else if (lsi < 60) lsiEl.style.color = '#f59e0b';
+        if (deltas) {
+          const startLsi = parseFloat(lsiEl.textContent) || targetLsi;
+          animateLsiNumber(lsiEl, startLsi, targetLsi);
+        } else {
+          lsiEl.textContent = targetLsi.toFixed(1);
+        }
+        if (targetLsi < 50) lsiEl.style.color = '#ef4444';
+        else if (targetLsi < 60) lsiEl.style.color = '#f59e0b';
         else lsiEl.style.color = '#38bdf8';
       }
 
@@ -3531,6 +3605,14 @@
       if (urlParams.get('demoChoice')) {
         setTimeout(() => {
           selectM1Decision(urlParams.get('demoChoice'));
+        }, 120);
+      }
+      if (urlParams.get('demoConfirm')) {
+        setTimeout(() => {
+          selectM1Decision(urlParams.get('demoConfirm'));
+          setTimeout(() => {
+            confirmDecisionConsequence();
+          }, 750);
         }, 120);
       }
     });
