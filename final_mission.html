@@ -1083,15 +1083,15 @@
       position: absolute;
       right: clamp(8px, 1.1vw, 16px);
       top: clamp(124px, 17.5vh, 138px);
-      width: clamp(138px, 12.6vw, 162px);
-      background: rgba(4, 14, 32, 0.92);
+      width: clamp(172px, 15.2vw, 206px);
+      background: rgba(4, 14, 32, 0.94);
       border: 1.5px solid var(--pixel-blue-border);
       border-radius: 8px;
-      box-shadow: 0 0 22px rgba(0, 229, 255, 0.28), inset 0 0 14px rgba(0, 229, 255, 0.08);
-      padding: 8px 10px;
+      box-shadow: 0 0 24px rgba(0, 229, 255, 0.32), inset 0 0 14px rgba(0, 229, 255, 0.08);
+      padding: clamp(8px, 1.2vh, 12px) clamp(10px, 1.0vw, 14px);
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
       z-index: 85;
       pointer-events: auto;
       font-family: var(--font-pixel);
@@ -1107,27 +1107,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
-      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.35);
+      padding-bottom: 4px;
       margin-bottom: 2px;
     }
 
     .telemetry-title {
-      font-size: clamp(0.7rem, 0.92vw, 0.86rem);
+      font-size: clamp(0.82rem, 1.08vw, 0.98rem);
       color: #38bdf8;
       letter-spacing: 0.08em;
       font-weight: bold;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
 
     .telemetry-pulse-dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       background: #10b981;
       border-radius: 50%;
-      box-shadow: 0 0 6px #10b981;
+      box-shadow: 0 0 8px #10b981;
       animation: tele-pulse 1.6s infinite alternate;
     }
 
@@ -1140,27 +1140,27 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .telemetry-row-info {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: clamp(0.75rem, 0.98vw, 0.9rem);
+      font-size: clamp(0.84rem, 1.1vw, 1.02rem);
       line-height: 1;
     }
 
     .telemetry-label-grp {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       color: #cbd5e1;
     }
 
     .telemetry-svg-icon {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       flex-shrink: 0;
     }
 
@@ -1186,10 +1186,10 @@
 
     .telemetry-bar-track {
       width: 100%;
-      height: 5px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 3px;
+      height: clamp(10px, 1.4vh, 12px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      border-radius: 5px;
       overflow: hidden;
       box-sizing: border-box;
       position: relative;
@@ -1209,36 +1209,36 @@
     .telemetry-bar-fill {
       height: 100%;
       width: 75%;
-      border-radius: 2px;
+      border-radius: 4px;
       transition: width 1s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease;
     }
 
     .bar-healthy {
       background: linear-gradient(90deg, #0284c7 0%, #00e5ff 100%);
-      box-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+      box-shadow: 0 0 7px rgba(0, 229, 255, 0.65);
     }
     .bar-good {
       background: linear-gradient(90deg, #059669 0%, #10b981 100%);
-      box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 7px rgba(16, 185, 129, 0.65);
     }
     .bar-warning {
       background: linear-gradient(90deg, #d97706 0%, #f59e0b 100%);
-      box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
+      box-shadow: 0 0 7px rgba(245, 158, 11, 0.65);
     }
     .bar-critical {
       background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
-      box-shadow: 0 0 7px rgba(239, 68, 68, 0.7);
+      box-shadow: 0 0 9px rgba(239, 68, 68, 0.85);
       animation: crit-blink 1s infinite alternate;
     }
 
     .telemetry-footer-stats {
-      border-top: 1px solid rgba(56, 189, 248, 0.25);
-      padding-top: 3px;
+      border-top: 1px solid rgba(56, 189, 248, 0.3);
+      padding-top: 4px;
       margin-top: 2px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: clamp(0.68rem, 0.88vw, 0.8rem);
+      font-size: clamp(0.76rem, 0.98vw, 0.9rem);
       color: #94a3b8;
     }
     .telemetry-lsi-val {
