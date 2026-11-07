@@ -831,97 +831,6 @@
       pointer-events: none;
     }
 
-    /* Challenge Preparation Overlay (M1 Rescue Challenge Transition) */
-    .challenge-prep-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(3, 7, 18, 0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 150;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-    }
-
-    .challenge-prep-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .prep-card {
-      background: linear-gradient(180deg, rgba(15, 27, 52, 0.98), rgba(7, 13, 26, 0.98));
-      border: 2px solid #ef4444;
-      box-shadow: 0 0 35px rgba(239, 68, 68, 0.5);
-      border-radius: 12px;
-      max-width: 620px;
-      width: 90%;
-      padding: 24px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .prep-header {
-      font-size: clamp(1.4rem, 2.4vw, 2.1rem);
-      color: #f87171;
-      letter-spacing: 0.08em;
-      text-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
-    }
-
-    .prep-sub {
-      font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-      color: #cbd5e1;
-      line-height: 1.4;
-    }
-
-    .prep-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      text-align: left;
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
-      padding: 14px 18px;
-      font-size: clamp(0.95rem, 1.35vw, 1.2rem);
-      color: #fde047;
-    }
-
-    .prep-steps li {
-      margin-left: 20px;
-      color: #ffffff;
-    }
-
-    .prep-start-btn {
-      background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
-      border: 2px solid #fecaca;
-      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.6);
-      border-radius: 8px;
-      color: #ffffff;
-      font-family: var(--font-pixel);
-      font-size: clamp(1.15rem, 1.8vw, 1.5rem);
-      padding: 10px 24px;
-      cursor: pointer;
-      transition: transform 0.15s ease, filter 0.15s ease;
-      touch-action: manipulation;
-    }
-
-    .prep-start-btn:hover {
-      transform: scale(1.04);
-      filter: brightness(1.15);
-    }
-
-    .prep-start-btn:active {
-      transform: scale(0.97);
-    }
-
     .hidden {
       display: none !important;
     }
@@ -1081,26 +990,6 @@
         </div>
       </div>
 
-      <!-- M1 RESCUE CHALLENGE PREP MODAL -->
-      <div class="challenge-prep-overlay" id="challengePrepOverlay">
-        <div class="prep-card">
-          <div class="prep-header">⚡ MISSION 1: RESCUE CHALLENGE</div>
-          <div class="prep-sub">Solar particle event arriving in minutes! The astronauts inspecting water ice outside must be evacuated immediately.</div>
-          <div class="prep-steps">
-            <strong>📋 PROTOCOL TIMELINE (10-SECOND WINDOW):</strong>
-            <ul>
-              <li>1. Select the stranded astronaut near the ice deposit.</li>
-              <li>2. Load them securely onto the lunar rover.</li>
-              <li>3. Drag the rover into the radiation shelter airlock.</li>
-            </ul>
-            <div style="color: #f87171; font-size: 0.95rem; margin-top: 6px;">⚠️ Delay beyond 10 seconds results in severe radiation exposure (Crew Health -10).</div>
-          </div>
-          <button class="prep-start-btn" onclick="startM1RescueChallenge()">
-            START RESCUE (10s) 🚀
-          </button>
-        </div>
-      </div>
-
     </div>
   </main>
 
@@ -1195,7 +1084,6 @@
         cardSecureEquipEl.classList.remove('selected');
         cardSecureEquipEl.style.opacity = '1';
       }
-      challengePrepOverlayEl.classList.remove('active');
       renderCurrentStep();
     }
 
@@ -1291,14 +1179,13 @@
     const stormAlertOverlayEl = document.getElementById('stormAlertOverlay');
     const emergencyBannerEl = document.getElementById('emergencyBanner');
     const exteriorViewContainerEl = document.getElementById('exteriorViewContainer');
-    const challengePrepOverlayEl = document.getElementById('challengePrepOverlay');
     const m1DecisionOverlayEl = document.getElementById('m1DecisionOverlay');
     const cardEvacuateEl = document.getElementById('cardEvacuate');
     const cardSecureEquipEl = document.getElementById('cardSecureEquip');
 
     function renderCurrentStep() {
       if (currentStep >= DIALOGUES.length) {
-        showChallengePrompt();
+        if (hudTitleEl) hudTitleEl.textContent = "⚡ MISSION 1 COMPLETE // CREW RECALLED";
         return;
       }
 
@@ -1455,13 +1342,14 @@
 
       sessionStorage.setItem('moonfall_m1_decision', choice);
 
-      // After user makes their required decision, proceed to the Rescue Challenge
+      // Decision confirmed - transition smoothly past Mission 1
       setTimeout(() => {
         if (m1DecisionOverlayEl) {
           m1DecisionOverlayEl.classList.remove('active');
           m1DecisionOverlayEl.classList.add('hidden');
         }
-        showChallengePrompt();
+        currentStep++;
+        renderCurrentStep();
       }, 950);
     }
 
@@ -1471,18 +1359,6 @@
 
     function handleActionBtnClick() {
       nextScene();
-    }
-
-    function showChallengePrompt() {
-      sound.warnAlarm();
-      emergencyBannerEl.classList.remove('hidden');
-      stormAlertOverlayEl.classList.add('active');
-      challengePrepOverlayEl.classList.add('active');
-    }
-
-    function startM1RescueChallenge() {
-      sound.clickSound();
-      alert("Commander! 10-Second Rescue Challenge Initiating...");
     }
 
     function toggleExteriorZoom() {
