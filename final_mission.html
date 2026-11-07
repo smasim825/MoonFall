@@ -2987,6 +2987,147 @@
       color: #34d399;
     }
 
+    /* M2 Stage 3: Life Support & Environmental Grid */
+    .m2-life-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(8px, 1.3vw, 16px);
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .m2-life-card {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.75) 100%);
+      border: 1.5px solid #1e293b;
+      border-radius: 10px;
+      padding: clamp(8px, 1.2vh, 12px) clamp(8px, 1vw, 12px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      gap: clamp(4px, 0.6vh, 6px);
+      cursor: pointer;
+      transition: all 0.22s ease;
+      box-sizing: border-box;
+      position: relative;
+      user-select: none;
+      -webkit-user-select: none;
+      min-height: clamp(140px, 18vh, 168px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    .m2-life-card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 18px rgba(0, 229, 255, 0.35);
+    }
+
+    .m2-life-card.active {
+      border-color: #10b981;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.1) 100%);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), inset 0 0 12px rgba(16, 185, 129, 0.12);
+    }
+
+    .m2-life-img-wrap {
+      width: clamp(58px, 7.2vw, 76px);
+      height: clamp(58px, 7.2vw, 76px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .m2-life-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7)) brightness(0.72) grayscale(0.3);
+      transition: all 0.25s ease;
+    }
+
+    .m2-life-card:hover .m2-life-img {
+      filter: drop-shadow(0 4px 12px rgba(0, 229, 255, 0.6)) brightness(0.95) grayscale(0);
+      transform: scale(1.05);
+    }
+
+    .m2-life-card.active .m2-life-img {
+      filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.9)) brightness(1.1) grayscale(0);
+    }
+
+    .m2-life-card.active .m2-life-img.fan-spin {
+      animation: m2FanSpin 2.4s linear infinite;
+    }
+
+    @keyframes m2FanSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .m2-life-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.78rem, 0.98vw, 0.9rem);
+      font-weight: bold;
+      color: #f0f9ff;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .m2-life-sub {
+      font-size: clamp(0.66rem, 0.78vw, 0.72rem);
+      color: #94a3b8;
+      line-height: 1.15;
+    }
+
+    .m2-life-status-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.72rem, 0.88vw, 0.82rem);
+      padding: 3px 8px;
+      border-radius: 5px;
+      letter-spacing: 0.05em;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .m2-life-status-btn.offline {
+      background: rgba(100, 116, 139, 0.2);
+      border: 1px solid #475569;
+      color: #94a3b8;
+    }
+
+    .m2-life-status-btn.online {
+      background: rgba(16, 185, 129, 0.25);
+      border: 1.5px solid #10b981;
+      color: #34d399;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+    }
+
+    .m2-life-led {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .m2-life-status-btn.offline .m2-life-led {
+      background: #64748b;
+      box-shadow: none;
+    }
+
+    .m2-life-status-btn.online .m2-life-led {
+      background: #10b981;
+      box-shadow: 0 0 8px #34d399;
+    }
+
     /* M3 Interactive PDU Terminal */
     .pdu-grid-wrap {
       display: grid;
@@ -6052,8 +6193,13 @@
         astroBeeText = "Rotate the emergency hatch wheel to drive the 6 radial locking bolts outward into the sealed rim.";
         if (hint) hint.textContent = "Stage 2 of 3: Turn the hatch wheel to lock all 6 radial mechanical bolts.";
       } else {
-        astroBeeText = "Toggle all three life support switches to ON so our oxygen, circulation, and CO₂ scrubbers stay active.";
-        if (hint) hint.textContent = "Stage 3 of 3: Verify all 3 life support loops before finalizing lockdown.";
+        if (switchesAllOn && suppliesAllStowed && hatchLocked) {
+          astroBeeText = "All shelter lockdown systems are nominal! Click Engage Habitat Lockdown to secure the outpost.";
+          if (hint) hint.textContent = "All 3 stages complete: Habitat lockdown is ready for final authorization.";
+        } else {
+          astroBeeText = "Activate all 3 life support modules (O₂ Valve, Air Circulation, and CO₂ Scrubber) to ensure breathable air.";
+          if (hint) hint.textContent = "Stage 3 of 3: Verify all 3 life support modules before finalizing lockdown.";
+        }
       }
 
       let stageHtml = "";
@@ -6206,22 +6352,54 @@
       else {
         stageHtml = `
           <div class="m2-stage-panel">
-            <div class="minitask-bay" style="width:100%; max-width:620px;">
-              <div class="bay-title">Life Support &amp; Environmental Verification</div>
-              <div class="switch-row ${m2TaskState.switches.o2 ? 'active' : ''}" onclick="toggleM2Switch('o2')">
-                <span>Oxygen Supply Primary Valve</span>
-                <span>${m2TaskState.switches.o2 ? '✓ ONLINE' : 'OFFLINE'}</span>
+            <div style="width:100%; max-width:820px; margin:0 auto;">
+              <div class="bay-title" style="margin-bottom:clamp(6px, 1.0vh, 12px);">Life Support &amp; Environmental Verification</div>
+              <div class="m2-life-grid">
+                <!-- Module 1: Oxygen Supply Primary Valve -->
+                <div class="m2-life-card ${m2TaskState.switches.o2 ? 'active' : ''}" onclick="toggleM2Switch('o2')">
+                  <div class="m2-life-img-wrap">
+                    <img src="assets/m2_life_o2_valve.png" class="m2-life-img" alt="Oxygen Supply Primary Valve">
+                  </div>
+                  <div class="m2-life-title">Oxygen Supply Primary Valve</div>
+                  <div class="m2-life-sub">Pressurized O2 Flow &amp; Manifold</div>
+                  <div class="m2-life-status-btn ${m2TaskState.switches.o2 ? 'online' : 'offline'}">
+                    <span class="m2-life-led"></span>
+                    <span>${m2TaskState.switches.o2 ? '✓ ONLINE' : 'OFFLINE'}</span>
+                  </div>
+                </div>
+
+                <!-- Module 2: Cabin Air Circulation Loop -->
+                <div class="m2-life-card ${m2TaskState.switches.cabin ? 'active' : ''}" onclick="toggleM2Switch('cabin')">
+                  <div class="m2-life-img-wrap">
+                    <img src="assets/m2_life_air_circ.png" class="m2-life-img ${m2TaskState.switches.cabin ? 'fan-spin' : ''}" alt="Cabin Air Circulation Loop">
+                  </div>
+                  <div class="m2-life-title">Cabin Air Circulation Loop</div>
+                  <div class="m2-life-sub">Ventilation Fans &amp; Ducts</div>
+                  <div class="m2-life-status-btn ${m2TaskState.switches.cabin ? 'online' : 'offline'}">
+                    <span class="m2-life-led"></span>
+                    <span>${m2TaskState.switches.cabin ? '✓ ACTIVE' : 'OFFLINE'}</span>
+                  </div>
+                </div>
+
+                <!-- Module 3: CO2 Removal & Scrubbing Grid -->
+                <div class="m2-life-card ${m2TaskState.switches.co2 ? 'active' : ''}" onclick="toggleM2Switch('co2')">
+                  <div class="m2-life-img-wrap">
+                    <img src="assets/m2_life_co2_scrub.png" class="m2-life-img" alt="CO2 Removal & Scrubbing Grid">
+                  </div>
+                  <div class="m2-life-title">CO2 Removal &amp; Scrubbing Grid</div>
+                  <div class="m2-life-sub">Atmospheric Filter Matrix</div>
+                  <div class="m2-life-status-btn ${m2TaskState.switches.co2 ? 'online' : 'offline'}">
+                    <span class="m2-life-led"></span>
+                    <span>${m2TaskState.switches.co2 ? '✓ OPERATIONAL' : 'OFFLINE'}</span>
+                  </div>
+                </div>
               </div>
-              <div class="switch-row ${m2TaskState.switches.cabin ? 'active' : ''}" onclick="toggleM2Switch('cabin')">
-                <span>Cabin Air Circulation Loop</span>
-                <span>${m2TaskState.switches.cabin ? '✓ ACTIVE' : 'OFFLINE'}</span>
-              </div>
-              <div class="switch-row ${m2TaskState.switches.co2 ? 'active' : ''}" onclick="toggleM2Switch('co2')">
-                <span>CO2 Removal &amp; Scrubbing Grid</span>
-                <span>${m2TaskState.switches.co2 ? '✓ OPERATIONAL' : 'OFFLINE'}</span>
-              </div>
-              <div style="font-size:0.75rem; color:#64748b; text-align:center; margin-top:6px;">
-                ${switchesAllOn ? '<span style="color:#34d399; font-weight:bold;">✓ ALL CABIN LIFE-SUPPORT LOOPS NOMINAL</span>' : 'Click each switch to verify habitat atmospheric loops.'}
+
+              <div style="font-family:var(--font-pixel); font-size:clamp(0.72rem, 0.88vw, 0.82rem); text-align:center; margin-top:clamp(6px, 1.0vh, 10px);">
+                ${switchesAllOn
+                  ? '<span style="color:#34d399; font-weight:bold; text-shadow:0 0 8px rgba(52,211,153,0.7);">✓ ALL CABIN LIFE-SUPPORT LOOPS NOMINAL &amp; OPERATIONAL</span>'
+                  : '<span style="color:#7dd3fc;">Click each module switch to activate and verify habitat environmental systems.</span>'
+                }
               </div>
             </div>
           </div>
@@ -7528,6 +7706,9 @@
       }
       if (urlParams.get('m2stow')) {
         urlParams.get('m2stow').split(',').forEach(k => { if (m2TaskState.supplies[k] !== undefined) m2TaskState.supplies[k] = true; });
+      }
+      if (urlParams.get('m2switches')) {
+        urlParams.get('m2switches').split(',').forEach(k => { if (m2TaskState.switches[k] !== undefined) m2TaskState.switches[k] = true; });
       }
       initOutpostResources();
       updateDecisionHistoryUI();
