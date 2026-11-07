@@ -135,9 +135,9 @@
     /* Floating diagram / equipment card (reserved for next scenes) */
     .diagram-card-container {
       position: absolute;
-      top: 60px;
-      bottom: calc(clamp(150px, 22vh, 220px) + 38px);
-      max-height: calc(100vh - clamp(210px, 32vh, 300px));
+      top: 8.5%;
+      height: 48% !important;
+      max-height: 480px;
       left: 50%;
       transform: translateX(-50%);
       width: 50%;
@@ -151,9 +151,9 @@
 
     /* Right-aligned card variant (Scene 2: Submersive Ice) */
     .diagram-card-container.card-right {
-      top: 65px;
-      bottom: calc(clamp(150px, 22vh, 220px) + 38px);
-      max-height: calc(100vh - clamp(210px, 32vh, 300px));
+      top: 8.5%;
+      height: 48% !important;
+      max-height: 480px;
       left: 45.5%;
       transform: none;
       width: 46.5%;
@@ -171,8 +171,8 @@
     
     /* Wide centered card variant (Scenes 6, 7, 8: Found Submersive Ice, Click Location, Trident Drill) */
     .diagram-card-container.card-wide {
-      top: 55px;
-      bottom: calc(clamp(150px, 22vh, 220px) + 38px);
+      top: 8%;
+      height: 48% !important;
       left: 50%;
       transform: translateX(-50%);
       width: 68%;
@@ -216,6 +216,18 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
+    }
+
+    /* Specific crop for Scoop card: hides ground, crates, and old dialogue box below card */
+    .card-scoop .diagram-card-inner {
+      height: 100%;
+      max-height: 100%;
+      overflow: hidden;
+    }
+
+    .card-scoop .diagram-card-inner > img {
+      clip-path: inset(0 0 18.4% 0);
+      margin-bottom: -18.4%;
     }
 
     /* Site Selection Interactive Overlay (Scene 7: Click any Location) */
@@ -1597,9 +1609,9 @@
        ====================================================================== */
     .map-container {
       position: absolute;
-      top: 65px;
-      bottom: calc(clamp(150px, 22vh, 220px) + 38px);
-      max-height: calc(100vh - clamp(210px, 32vh, 300px));
+      top: 8.5%;
+      height: 48% !important;
+      max-height: 480px;
       left: 45.5%;
       width: 46.5%;
       height: auto;
@@ -2797,7 +2809,7 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/scan2.png',
-        cardClass: 'card-wide',
+        cardClass: 'card-wide card-scoop',
         speaker: 'Guion Bluford',
         text: "Great! We've identified some promising locations. Select one to choose our drilling site."
       },
@@ -2806,7 +2818,7 @@
         id: 7,
         showGuide: false,
         cardImg: 'assets/isru/equipments/scan3.png',
-        cardClass: 'card-wide',
+        cardClass: 'card-wide card-scoop',
         isSiteSelection: true,
         text: ""
       },
@@ -2816,7 +2828,7 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/drill.png',
-        cardClass: 'card-wide',
+        cardClass: 'card-wide card-scoop',
         isDrillScene: true,
         speaker: 'Guion Bluford',
         text: "The Trident Drill is deployed at our chosen site! This rotary percussive drill penetrates up to 1 meter deep into the lunar regolith to extract frozen ice-core samples."
@@ -2836,7 +2848,7 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/drill_2.png',
-        cardClass: 'card-wide',
+        cardClass: 'card-wide card-scoop',
         speaker: 'Guion Bluford',
         text: "The drill hardware uses specialized auger flutes to deliver icy core cuttings to the surface for sealed heating and water extraction!"
       },
@@ -2863,7 +2875,7 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/scoop.png',
-        cardClass: 'card-wide',
+        cardClass: 'card-wide card-scoop',
         speaker: 'Guion Bluford',
         requiresLabPermission: true,
         text: "Our “Robotic Lunar Regolith Scoop” collects ice-bearing regolith from the drilling area and transfers it into a sealed container for processing."
@@ -2896,7 +2908,7 @@
         guidePose: GUIDE_POINT_UP,
         bgImg: 'assets/isru/bg/bg_of_oxy2.png',
         cardImg: 'assets/isru/equipments/molecular.png',
-        cardClass: 'card-wide',
+        cardClass: 'card-wide card-scoop',
         speaker: 'Guion Bluford',
         text: "Transfer purified water into the electrolyser and activate it. It uses electricity to split water into hydrogen and oxygen."
       },
@@ -2907,7 +2919,7 @@
         guidePose: GUIDE_POINT_UP,
         bgImg: 'assets/isru/bg/bg_of_oxy2.png',
         cardImg: 'assets/isru/equipments/machine.png',
-        cardClass: 'card-wide',
+        cardClass: 'card-wide card-scoop',
         speaker: 'Guion Bluford',
         text: "The ISS uses an Oxygen Generation System (OGS) rack that houses the Oxygen Generation Assembly (OGA)."
       },
@@ -3572,10 +3584,10 @@
       if (s.scanMode === 'scanning') showScanPrompt();
       else if (s.scanMode === 'done') showScanDone();
 
-      diagramCardContainer.classList.remove('card-right', 'card-wide');
+      diagramCardContainer.className = 'diagram-card-container';
       if (s.cardImg) {
         diagramCardImg.src = s.cardImg;
-        if (s.cardClass) diagramCardContainer.classList.add(s.cardClass);
+        if (s.cardClass) s.cardClass.split(' ').forEach(c => c && diagramCardContainer.classList.add(c));
         diagramCardContainer.classList.remove('hidden');
       } else {
         diagramCardContainer.classList.add('hidden');
