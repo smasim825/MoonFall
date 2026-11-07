@@ -3120,7 +3120,163 @@
       border-color: #10b981;
       color: #000;
     }
+
+    /* FINAL MISSION DEBRIEFING & STAR RATING MODAL (Finale) */
+    .final-debrief-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 250;
+      padding: 16px;
     }
+    .final-debrief-card {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(3, 16, 38, 0.98) 100%);
+      border: 2px solid #00e5ff;
+      border-radius: 14px;
+      box-shadow: 0 0 40px rgba(0, 229, 255, 0.35), 0 20px 50px rgba(0, 0, 0, 0.8);
+      width: 100%;
+      max-width: 680px;
+      padding: clamp(16px, 2.4vh, 24px) clamp(20px, 3.0vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      box-sizing: border-box;
+      max-height: 94vh;
+      overflow-y: auto;
+    }
+    .debrief-badge {
+      font-family: var(--font-pixel);
+      font-size: 0.82rem;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #34d399;
+      padding: 3px 12px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      display: inline-block;
+    }
+    .debrief-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+      color: #f0f9ff;
+      margin: 4px 0 0 0;
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 16px rgba(0, 229, 255, 0.6);
+    }
+    .debrief-sub {
+      font-size: clamp(0.82rem, 1.0vw, 0.92rem);
+      color: #94a3b8;
+      margin: 2px 0 0 0;
+    }
+    .debrief-stars-row {
+      font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+      letter-spacing: 6px;
+      color: #fbbf24;
+      text-shadow: 0 0 16px rgba(251, 191, 36, 0.6);
+    }
+    .debrief-score-box {
+      background: rgba(14, 165, 233, 0.12);
+      border: 1.5px solid #0284c7;
+      border-radius: 8px;
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .debrief-score-label {
+      font-family: var(--font-pixel);
+      font-size: 0.82rem;
+      color: #7dd3fc;
+      letter-spacing: 0.05em;
+    }
+    .debrief-score-val {
+      font-family: var(--font-pixel);
+      font-size: clamp(2.0rem, 3.0vw, 2.8rem);
+      font-weight: bold;
+      color: #38bdf8;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.8);
+    }
+    .debrief-score-sub {
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #34d399;
+    }
+    .debrief-telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .debrief-tele-cell {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .debrief-tele-label {
+      font-size: 0.72rem;
+      color: #94a3b8;
+    }
+    .debrief-tele-val {
+      font-family: var(--font-pixel);
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+    .debrief-decisions-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+    }
+    .debrief-dec-pill {
+      font-family: var(--font-pixel);
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid #38bdf8;
+      color: #bae6fd;
+    }
+    .debrief-actions-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 6px;
+    }
+    .debrief-action-btn {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.92rem, 1.2vw, 1.1rem);
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      transition: all 0.2s ease;
+    }
+    .debrief-action-btn.primary {
+      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+      border: 1.5px solid #34d399;
+      color: #ffffff;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+    }
+    .debrief-action-btn.secondary {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1.5px solid #64748b;
+      color: #cbd5e1;
+    }
+    .debrief-action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(0, 229, 255, 0.5);
     }
 
     /* Specialist Badge Overlay when Rakesh / Chiaki is speaking (Exact match to Mockup) */
@@ -3652,6 +3808,42 @@
         </div>
       </div>
 
+      <!-- FINAL MISSION DEBRIEFING & STAR RATING MODAL (Finale) -->
+      <div class="final-debrief-modal hidden" id="finalDebriefModal" role="dialog" aria-modal="true" aria-label="Final Mission Debriefing">
+        <div class="final-debrief-card">
+          <div class="final-debrief-header">
+            <span class="debrief-badge">OUTPOST RECOVERY // 00:00 UTC</span>
+            <h1 class="debrief-title">MISSION ACCOMPLISHED</h1>
+            <p class="debrief-sub">Shackleton Outpost successfully survived the Solar Particle Event.</p>
+          </div>
+
+          <!-- Star Rating Banner -->
+          <div class="debrief-stars-row" id="debriefStarsRow"></div>
+
+          <!-- Final Score Display -->
+          <div class="debrief-score-box">
+            <div class="debrief-score-label">OUTPOST RESILIENCE SCORE</div>
+            <div class="debrief-score-val" id="debriefScoreVal">68.4</div>
+            <div class="debrief-score-sub" id="debriefScoreVerdict">OUTSTANDING COMMAND (ALL GATES PASSED)</div>
+          </div>
+
+          <!-- Telemetry Summary Grid (7 resources) -->
+          <div class="debrief-telemetry-grid" id="debriefTelemetryGrid">
+            <!-- Populated dynamically -->
+          </div>
+
+          <!-- Decisions Summary Row (M1 - M8) -->
+          <div class="debrief-decisions-summary" id="debriefDecisionsSummary">
+            <!-- Populated dynamically -->
+          </div>
+
+          <div class="debrief-actions-row">
+            <button class="debrief-action-btn primary" onclick="location.reload()">REPLAY CRISIS PROTOCOL</button>
+            <button class="debrief-action-btn secondary" onclick="window.location.href='mainbase.html'">RETURN TO MAIN BASE</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
@@ -4073,21 +4265,22 @@
         key: 'm7',
         title: "M7: The Critical Failure",
         time: "20:00 UTC",
-        summary: "Emergency generator bus failure threatening total blackout.",
+        summary: "Arc fault ruptures Module 4 bus. Manual repair vs isolation vs rerouting.",
         optionsList: {
-          'BYPASS': { label: "BYPASS SAFETY", desc: "Instant Repair, 20% Risk" },
-          'MANUAL': { label: "MANUAL EVA REPAIR", desc: "100% Fixed, Health -25%" }
+          'MANUAL REPAIR': { label: "MANUAL REPAIR", desc: "Power -12, Equip +15, Health -5 (EVA excursion replaces burnt bus)" },
+          'ISOLATE BUS': { label: "ISOLATE BUS", desc: "Power -8, Equip -5 (Safely disconnects damaged module)" },
+          'REROUTE BUS': { label: "REROUTE BUS", desc: "Power -10, Greenhouse -8 (Reroutes life support through secondary bus)" }
         }
       },
       {
         num: 8,
         key: 'm8',
         title: "M8: The Final Decision",
-        time: "23:30 UTC",
-        summary: "Final storm aftermath. High-gain antenna broadcast to Houston.",
+        time: "00:00 UTC",
+        summary: "Solar storm passes Shackleton Outpost. Final survival & recovery protocol.",
         optionsList: {
-          'RESERVE': { label: "SURVIVAL RESERVE", desc: "Outpost Survived, Silent" },
-          'TRANSMIT': { label: "FULL TRANSMISSION", desc: "Earth Contact, Power 0%" }
+          'HOLD SHELTER': { label: "HOLD SHELTER", desc: "Water -2, Power -5, Health +8 (Stay sealed until regolith cools)" },
+          'CONTROLLED RECOVERY': { label: "CONTROLLED RECOVERY", desc: "Water -3, Power -12, Health -10, Equip +10 (Early surface sweep)" }
         }
       }
     ];
@@ -4861,6 +5054,168 @@
         bg: "assets/BG.png",
         alarm: false,
         showExterior: false
+      },
+      // Step 39: M7 AstroBee Alert
+      {
+        mission: 'M7',
+        scene: 38,
+        speaker: 'astrobee',
+        text: "ALERT! High voltage arc fault detected in Module 4 main power distribution bus! Breakers tripped, critical circuits offline!",
+        title: "M7: ARC FAULT IN MODULE 4 // POWER BUS FAILURE",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 40: Dr. Chiaki Mukai Advice
+      {
+        mission: 'M7',
+        scene: 39,
+        name: "Dr. Chiaki Mukai",
+        avatar: "assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp",
+        charClass: "char-chiaki",
+        text: "If we isolate the bus completely, we safely contain the electrical hazard, but Module 4 systems will lose power until post-storm repairs.",
+        title: "M7: The Critical Failure // Power Distribution",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 41: Guion Bluford Advice
+      {
+        mission: 'M7',
+        scene: 40,
+        name: "Guion Bluford",
+        avatar: "assets/Guion_Bluford_Idle.png",
+        charClass: "char-bluford",
+        text: "I can suit up and perform an emergency manual bypass in the access crawlway. It carries personal risk and consumes battery reserves, but saves the hardware.",
+        title: "M7: The Critical Failure // Engineering Assessment",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 42: Dr. Chiaki Mukai Decision Prompt
+      {
+        mission: 'M7',
+        scene: 41,
+        name: "Dr. Chiaki Mukai",
+        avatar: "assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp",
+        charClass: "char-chiaki",
+        text: "Alternatively, we can reroute through the hydroponics grid—though running auxiliary loads may disrupt our crop climate control. What is your call, Commander?",
+        title: "M7: The Critical Failure // Commander's Decision",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 43: M7 Decision Cards
+      {
+        mission: 'M7',
+        scene: 42,
+        type: 'decision',
+        decisionKey: 'm7',
+        title: "DECISION 7: THE CRITICAL FAILURE",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 44: M7 Mini-Task: Power Bus Arc Fault Isolation
+      {
+        mission: 'M7',
+        scene: 43,
+        type: 'minitask',
+        taskId: 'm7_busfault',
+        title: "CRISIS PROTOCOL: POWER BUS RESTORATION",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 45: M7 Success / Summary
+      {
+        mission: 'M7',
+        scene: 44,
+        speaker: 'astrobee',
+        text: "Module 4 power distribution stabilized! Secondary safety breakers locked and vital habitat bus voltages are steady.",
+        title: "M7: Power Bus Nominal // Systems Stabilized",
+        bg: "assets/BG.png",
+        alarm: false,
+        showExterior: false
+      },
+      // Step 46: M8 AstroBee Alert
+      {
+        mission: 'M8',
+        scene: 45,
+        speaker: 'astrobee',
+        text: "ATTENTION ALL CREW! Lunar orbit satellite telemetry confirms the peak SPE solar particle shockfront has passed Shackleton Crater! Time to impact: 00:00:00.",
+        title: "M8: STORM PASSING // FINAL CRITICAL PROTOCOL",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 47: Rakesh Sharma Advice
+      {
+        mission: 'M8',
+        scene: 46,
+        name: "Rakesh Sharma",
+        avatar: "assets/scene 8/Rakesh_Sharma_Idle.png",
+        text: "Commander, background cosmic radiation is declining, but surface regolith remains hot with secondary neutron emission. We must decide whether to hold shelter.",
+        title: "M8: The Final Decision // Radiation Clearance",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 48: Sunita Williams Advice
+      {
+        mission: 'M8',
+        scene: 47,
+        name: "Sunita Williams",
+        avatar: "assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp",
+        text: "If we hold inside the regolith bunker, our crew stays completely safe while radiation settles. Alternatively, initiating controlled recovery immediately saves key exterior science rigs at a physical toll.",
+        title: "M8: The Final Decision // Recovery Strategy",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 49: Rakesh Sharma Decision Prompt
+      {
+        mission: 'M8',
+        scene: 48,
+        name: "Rakesh Sharma",
+        avatar: "assets/scene 8/Rakesh_Sharma_Idle.png",
+        text: "This is our decisive final command. The survival score of Shackleton Outpost depends on how we exit this solar storm. What is your order?",
+        title: "M8: The Final Decision // Commander's Final Order",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 50: M8 Decision Cards
+      {
+        mission: 'M8',
+        scene: 49,
+        type: 'decision',
+        decisionKey: 'm8',
+        title: "DECISION 8: THE FINAL DECISION",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 51: M8 Mini-Task: Final Outpost Survival Protocol
+      {
+        mission: 'M8',
+        scene: 50,
+        type: 'minitask',
+        taskId: 'm8_finale',
+        title: "CRISIS PROTOCOL: OUTPOST RECOVERY SEQUENCE",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 52: Final Debrief
+      {
+        mission: 'M8',
+        scene: 51,
+        type: 'final_debrief',
+        title: "MISSION COMPLETE // SHACKLETON OUTPOST SECURED",
+        bg: "assets/BG.png",
+        alarm: false,
+        showExterior: false
       }
     ];
 
@@ -4882,6 +5237,7 @@
     const exteriorViewContainerEl = document.getElementById('exteriorViewContainer');
     const m1DecisionOverlayEl = document.getElementById('m1DecisionOverlay');
     const decisionCardsRowEl = document.getElementById('decisionCardsRow');
+    const decisionHistorySidebarEl = document.getElementById('decisionHistorySidebar');
 
     // =========================================================================
     // CRISIS DECISIONS DATA (Missions 1 to 4 with real science & tuned deltas)
@@ -5082,6 +5438,71 @@
             real: "Isolating non-essential plant growth chambers is a standard emergency protocol to preserve core crew life support."
           }
         }
+      },
+      'm7': {
+        title: "DECISION 7: THE CRITICAL FAILURE",
+        options: {
+          'manual_repair': {
+            title: "Manual Repair",
+            image: "assets/m7_opt_manual_repair.png",
+            stat: "Power -12, Equip +15, Health -5",
+            badge: "MANUAL REPAIR",
+            label: "OPTION A: MANUAL REPAIR",
+            deltas: { Power: -12, Equip: 15, Health: -5 },
+            gain: "EVA suit excursion replaces scorched relay bus and secures heavy equipment (+15 Equip).",
+            cost: "Crew takes direct solar radiation dose (-5 Health) and suit tools consume 12 kWh.",
+            real: "Extravehicular activity in radiation storms requires specialized lead-lined suits and rapid tool deployment (NASA TM-100620)."
+          },
+          'isolate_bus': {
+            title: "Isolate Bus",
+            image: "assets/m7_opt_isolate_bus.png",
+            stat: "Power -8, Equip -5",
+            badge: "ISOLATE BUS",
+            label: "OPTION B: ISOLATE BUS",
+            deltas: { Power: -8, Equip: -5 },
+            gain: "Instantly isolates damaged circuit safely from within habitat without crew radiation exposure.",
+            cost: "Permanently loses Module 4 equipment junction (-5 Equip) and causes residual power loss (-8).",
+            real: "Circuit breaker isolation prevents electrical fires and cascading bus overloads across habitat compartments."
+          },
+          'reroute_bus': {
+            title: "Reroute Bus",
+            image: "assets/m7_opt_reroute_bus.png",
+            stat: "Power -10, Greenhouse -8",
+            badge: "REROUTE BUS",
+            label: "OPTION C: REROUTE BUS",
+            deltas: { Power: -10, Greenhouse: -8 },
+            gain: "Reroutes critical life support electrical feed through secondary conduit loops.",
+            cost: "Diverts electricity from greenhouse subsystem (-8 Green) and draws 10 kWh from battery.",
+            real: "Secondary bus tie routing maintains cabin atmospheric pressure at the expense of non-critical science loads."
+          }
+        }
+      },
+      'm8': {
+        title: "DECISION 8: THE FINAL DECISION",
+        options: {
+          'hold_shelter': {
+            title: "Hold Shelter",
+            image: "assets/m8_opt_hold_shelter.png",
+            stat: "Water -2, Power -5, Health +8",
+            badge: "HOLD SHELTER",
+            label: "OPTION A: HOLD SHELTER",
+            deltas: { Water: -2, Power: -5, Health: 8 },
+            gain: "Crew stays safely sealed in deep regolith bunker until surface radioactivity completely subsides (+8 Health).",
+            cost: "Minor continuous cabin power and hydration draw (-5 Power, -2 Water).",
+            real: "Secondary neutron backscatter from lunar regolith can keep surface dose rates elevated for hours after the SPE peak passes."
+          },
+          'controlled_recovery': {
+            title: "Controlled Recovery",
+            image: "assets/m8_opt_controlled_recovery.png",
+            stat: "Water -3, Power -12, Health -10, Equip +10",
+            badge: "CONTROLLED RECOVERY",
+            label: "OPTION B: CONTROLLED RECOVERY",
+            deltas: { Water: -3, Power: -12, Health: -10, Equip: 10 },
+            gain: "Rapid surface sweep restarts solar arrays and salvages external scientific equipment (+10 Equip).",
+            cost: "Severe acute exposure to residual surface particles (-10 Health) and heavy power draw (-12 Power).",
+            real: "Early surface egress risks acute radiation exposure to secondary protons emitted by active regolith activation."
+          }
+        }
       }
     };
 
@@ -5251,6 +5672,20 @@
       rootAeration: false
     };
 
+    const m7TaskState = {
+      arcShunt: false,
+      thermalBleed: false,
+      auxReroute: false,
+      dielectricScan: false
+    };
+
+    const m8TaskState = {
+      dosimetryScan: false,
+      sealVerify: false,
+      earthUplink: false,
+      normalization: false
+    };
+
     function openCrisisMiniTask(taskId, missionId) {
       activeMiniTaskId = taskId;
       const overlay = document.getElementById('crisisMiniTaskOverlay');
@@ -5290,6 +5725,14 @@
         if (headline) headline.textContent = "CRISIS PROTOCOL // M6";
         if (subline) subline.textContent = "HYDROPONIC BIOLOOP & NUTRIENT BALANCING";
         renderM6HydroponicsTask();
+      } else if (taskId === 'm7_busfault') {
+        if (headline) headline.textContent = "CRISIS PROTOCOL // M7";
+        if (subline) subline.textContent = "POWER BUS ARC FAULT ISOLATION";
+        renderM7BusFaultTask();
+      } else if (taskId === 'm8_finale') {
+        if (headline) headline.textContent = "CRISIS PROTOCOL // M8";
+        if (subline) subline.textContent = "FINAL OUTPOST SURVIVAL PROTOCOL";
+        renderM8FinaleTask();
       }
 
       overlay.classList.remove('hidden');
@@ -6342,6 +6785,313 @@
       }
     }
 
+    // --- M7 Power Bus Arc Fault Task ---
+    function renderM7BusFaultTask() {
+      const body = document.getElementById('miniTaskBody');
+      const hint = document.getElementById('miniTaskHint');
+      if (!body) return;
+
+      if (hint) {
+        hint.textContent = "Shunt Arc Sensors ➔ Bleed Relay Capacitance ➔ Engage Aux Bus Tie ➔ Verify Dielectric Insulation.";
+      }
+
+      body.innerHTML = `
+        <div class="m4-flow-sequence">
+          <!-- Stage 1 -->
+          <div class="manifold-stage-card ${m7TaskState.arcShunt ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Arc Detection Sensor Shunt</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Shunts high-frequency discharge spikes and isolates Module 4 arc fault</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m7TaskState.arcShunt ? 'online' : ''}" onclick="advanceM7BusStage('arcShunt')">
+              ${m7TaskState.arcShunt ? '✓ SENSOR SHUNT ENGAGED' : 'ENGAGE SENSOR SHUNT'}
+            </button>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="manifold-stage-card ${m7TaskState.thermalBleed ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Relay Contact Thermal Bleed</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Discharges residual 120V bus capacitance safely through resistive heat sinks</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m7TaskState.thermalBleed ? 'online' : ''}" onclick="advanceM7BusStage('thermalBleed')">
+              ${m7TaskState.thermalBleed ? '✓ CAPACITANCE DISCHARGED' : 'BLEED RESIDUAL BUS'}
+            </button>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="manifold-stage-card ${m7TaskState.auxReroute ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Auxiliary Bus Reroute Switch</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Bridges vital life support loads to backup solid-state circuit breaker tie</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m7TaskState.auxReroute ? 'online' : ''}" onclick="advanceM7BusStage('auxReroute')">
+              ${m7TaskState.auxReroute ? '✓ AUX BUS TIE ONLINE' : 'ENGAGE BUS TIE'}
+            </button>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="manifold-stage-card ${m7TaskState.dielectricScan ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Dielectric Insulation Scan</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Verifies ceramic insulator megohm resistance to prevent secondary flareups</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m7TaskState.dielectricScan ? 'online' : ''}" onclick="advanceM7BusStage('dielectricScan')">
+              ${m7TaskState.dielectricScan ? '✓ DIELECTRIC NOMINAL (>50MΩ)' : 'SCAN INSULATION BUS'}
+            </button>
+          </div>
+        </div>
+      `;
+
+      updateMinitaskAstrobee("Commander! Module 4 arc fault isolated. Verify bus impedance and bridge auxiliary lines!");
+      checkM7Completion();
+    }
+
+    function advanceM7BusStage(stageKey) {
+      sound.clickSound();
+      m7TaskState[stageKey] = !m7TaskState[stageKey];
+      const allDone = m7TaskState.arcShunt && m7TaskState.thermalBleed && m7TaskState.auxReroute && m7TaskState.dielectricScan;
+      if (allDone) {
+        sound.successChime();
+      }
+      renderM7BusFaultTask();
+    }
+
+    function checkM7Completion() {
+      const isComplete = m7TaskState.arcShunt && m7TaskState.thermalBleed && m7TaskState.auxReroute && m7TaskState.dielectricScan;
+      const confirmBtn = document.getElementById('miniTaskConfirmBtn');
+      const statusBadge = document.getElementById('miniTaskStatusBadge');
+
+      if (confirmBtn) {
+        confirmBtn.style.display = 'inline-block';
+        if (isComplete) {
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = "CONFIRM POWER BUS RESTORATION ➔";
+        } else {
+          confirmBtn.disabled = true;
+          confirmBtn.textContent = "BUS RESTORATION INCOMPLETE";
+        }
+      }
+
+      if (statusBadge) {
+        if (isComplete) {
+          statusBadge.className = 'minitask-status-badge complete';
+          statusBadge.textContent = '✓ POWER BUS ONLINE';
+        } else {
+          statusBadge.className = 'minitask-status-badge';
+          statusBadge.textContent = 'ISOLATING FAULT';
+        }
+      }
+    }
+
+    // --- M8 Finale Outpost Survival Task ---
+    function renderM8FinaleTask() {
+      const body = document.getElementById('miniTaskBody');
+      const hint = document.getElementById('miniTaskHint');
+      if (!body) return;
+
+      if (hint) {
+        hint.textContent = "Verify Dosimetry Level ➔ Re-engage Hermetic Seals ➔ Re-establish Earth Uplink ➔ Execute Habitat Normalization.";
+      }
+
+      body.innerHTML = `
+        <div class="m4-flow-sequence">
+          <!-- Stage 1 -->
+          <div class="manifold-stage-card ${m8TaskState.dosimetryScan ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Dosimetry & Surface Flux Verification</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Confirms exterior proton flux has dropped below safety threshold (< 10 mSv/h)</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m8TaskState.dosimetryScan ? 'online' : ''}" onclick="advanceM8FinaleStage('dosimetryScan')">
+              ${m8TaskState.dosimetryScan ? '✓ FLUX BELOW THRESHOLD' : 'SCAN SURFACE FLUX'}
+            </button>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="manifold-stage-card ${m8TaskState.sealVerify ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Atmospheric Hermetic Seal Lock</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Equalizes interconnecting module vestibules to nominal 101.3 kPa habitat pressure</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m8TaskState.sealVerify ? 'online' : ''}" onclick="advanceM8FinaleStage('sealVerify')">
+              ${m8TaskState.sealVerify ? '✓ PRESSURE EQUALIZED (101.3 kPa)' : 'EQUALIZE VESTIBULES'}
+            </button>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="manifold-stage-card ${m8TaskState.earthUplink ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">High-Gain Deep Space Uplink</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Re-establishes direct telemetry carrier with NASA Deep Space Network Goldstone array</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m8TaskState.earthUplink ? 'online' : ''}" onclick="advanceM8FinaleStage('earthUplink')">
+              ${m8TaskState.earthUplink ? '✓ DSN CARRIER LOCKED' : 'LOCK DSN UPLINK'}
+            </button>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="manifold-stage-card ${m8TaskState.normalization ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Habitat Normalization Protocol</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Releases storm shelter condition red and restores automated ECLSS scheduling</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m8TaskState.normalization ? 'online' : ''}" onclick="advanceM8FinaleStage('normalization')">
+              ${m8TaskState.normalization ? '✓ ECLSS AUTOMATION NOMINAL' : 'EXECUTE NORMALIZATION'}
+            </button>
+          </div>
+        </div>
+      `;
+
+      updateMinitaskAstrobee("Commander! All solar storm safety gates cleared. Execute outpost normalization to finalize our mission!");
+      checkM8Completion();
+    }
+
+    function advanceM8FinaleStage(stageKey) {
+      sound.clickSound();
+      m8TaskState[stageKey] = !m8TaskState[stageKey];
+      const allDone = m8TaskState.dosimetryScan && m8TaskState.sealVerify && m8TaskState.earthUplink && m8TaskState.normalization;
+      if (allDone) {
+        sound.successChime();
+      }
+      renderM8FinaleTask();
+    }
+
+    function checkM8Completion() {
+      const isComplete = m8TaskState.dosimetryScan && m8TaskState.sealVerify && m8TaskState.earthUplink && m8TaskState.normalization;
+      const confirmBtn = document.getElementById('miniTaskConfirmBtn');
+      const statusBadge = document.getElementById('miniTaskStatusBadge');
+
+      if (confirmBtn) {
+        confirmBtn.style.display = 'inline-block';
+        if (isComplete) {
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = "CONFIRM OUTPOST RECOVERY ➔";
+        } else {
+          confirmBtn.disabled = true;
+          confirmBtn.textContent = "SURVIVAL SEQUENCE INCOMPLETE";
+        }
+      }
+
+      if (statusBadge) {
+        if (isComplete) {
+          statusBadge.className = 'minitask-status-badge complete';
+          statusBadge.textContent = '✓ RECOVERY COMPLETE';
+        } else {
+          statusBadge.className = 'minitask-status-badge';
+          statusBadge.textContent = 'NORMALIZING OUTPOST';
+        }
+      }
+    }
+
+    // --- Final Debriefing & Star Rating Calculation ---
+    function calculateFinalScore() {
+      const r = outpostResources;
+      const sum = (r.O2 || 0) + (r.Water || 0) + (r.Power || 0) + (r.Food || 0) + (r.Health || 0) + (r.Equip || 0) + (r.Greenhouse || 0);
+      return (sum / 7.0);
+    }
+
+    function openFinalDebriefModal() {
+      sound.successChime();
+      closeCrisisMiniTask();
+
+      const modal = document.getElementById('finalDebriefModal');
+      const starsRow = document.getElementById('debriefStarsRow');
+      const scoreVal = document.getElementById('debriefScoreVal');
+      const scoreVerdict = document.getElementById('debriefScoreVerdict');
+      const teleGrid = document.getElementById('debriefTelemetryGrid');
+      const decSummary = document.getElementById('debriefDecisionsSummary');
+
+      if (!modal) return;
+
+      const finalScore = calculateFinalScore();
+      const scoreStr = finalScore.toFixed(1);
+
+      // Star Rating logic based on flowchart
+      let starCount = 1;
+      let verdictStr = "MARGINAL RECOVERY ACCOMPLISHED (SCORE >= 50.0)";
+      if (finalScore >= 66.0) {
+        starCount = 3;
+        verdictStr = "OUTSTANDING OUTPOST SURVIVAL // ALL GATES PASSED";
+      } else if (finalScore >= 60.0) {
+        starCount = 2;
+        verdictStr = "RESILIENT CRISIS MANAGEMENT (SCORE >= 60.0)";
+      } else if (finalScore >= 50.0) {
+        starCount = 1;
+        verdictStr = "MARGINAL RECOVERY ACCOMPLISHED (SCORE >= 50.0)";
+      } else {
+        starCount = 0;
+        verdictStr = "CRITICAL MARGINS SURVIVED // IMMEDIATE RESUPPLY REQUIRED";
+      }
+
+      if (scoreVal) scoreVal.textContent = `${scoreStr} / 100`;
+      if (scoreVerdict) scoreVerdict.textContent = verdictStr;
+
+      // Render stars (clean styled stars without emoji characters)
+      if (starsRow) {
+        let starsHtml = '';
+        for (let i = 1; i <= 3; i++) {
+          const filled = i <= starCount;
+          starsHtml += `<span style="display:inline-block; margin:0 6px; color:${filled ? '#fbbf24' : '#475569'}; text-shadow:${filled ? '0 0 16px rgba(251,191,36,0.85)' : 'none'}; font-size:clamp(2.2rem, 3.5vw, 3.0rem); font-family:sans-serif;">${filled ? '★' : '☆'}</span>`;
+        }
+        starsRow.innerHTML = starsHtml;
+      }
+
+      // Populate Telemetry summary
+      if (teleGrid) {
+        const stats = [
+          { key: 'O2', label: 'O2 LEVEL', val: outpostResources.O2 },
+          { key: 'Water', label: 'WATER', val: outpostResources.Water },
+          { key: 'Power', label: 'POWER BUS', val: outpostResources.Power },
+          { key: 'Food', label: 'FOOD RATION', val: outpostResources.Food },
+          { key: 'Health', label: 'CREW HEALTH', val: outpostResources.Health },
+          { key: 'Equip', label: 'EQUIPMENT', val: outpostResources.Equip },
+          { key: 'Greenhouse', label: 'GREENHOUSE', val: outpostResources.Greenhouse }
+        ];
+
+        teleGrid.innerHTML = stats.map(s => `
+          <div class="debrief-tele-cell">
+            <span class="debrief-tele-label">${s.label}</span>
+            <span class="debrief-tele-val">${Math.round(s.val)}%</span>
+          </div>
+        `).join('');
+      }
+
+      // Populate Decisions summary
+      if (decSummary) {
+        const missions = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'];
+        decSummary.innerHTML = missions.map(m => {
+          const choice = decisionHistory[m] || sessionStorage.getItem(`moonfall_${m}_decision`) || 'NOMINAL';
+          return `<span class="debrief-dec-pill">${m.toUpperCase()}: ${choice}</span>`;
+        }).join('');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
     // =========================================================================
     // STEP RENDERER & PROGRESSION
     // =========================================================================
@@ -6386,6 +7136,20 @@
         exteriorViewContainerEl.classList.add('hidden');
       }
 
+      // Handle Final Debrief
+      if (item.type === 'final_debrief') {
+        if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
+        if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.add('hidden');
+        if (characterStandEl) characterStandEl.classList.add('hidden');
+        if (m1DecisionOverlayEl) {
+          m1DecisionOverlayEl.classList.remove('active');
+          m1DecisionOverlayEl.classList.add('hidden');
+        }
+        closeCrisisMiniTask();
+        openFinalDebriefModal();
+        return;
+      }
+
       // Handle Interactive Mini-Tasks
       if (item.type === 'minitask') {
         if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
@@ -6426,6 +7190,7 @@
         if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
         if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.remove('hidden');
         if (characterStandEl) characterStandEl.classList.add('hidden');
+        if (decisionHistorySidebarEl) decisionHistorySidebarEl.classList.remove('hidden');
 
         activeDialogueTextEl = dialogueTextAstroBeeEl;
         if (activeDialogueTextEl) {
@@ -6439,6 +7204,7 @@
         // Human Astronauts (Rakesh Sharma, Dr. Chiaki Mukai, Sunita Williams, Guion Bluford)
         if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.add('hidden');
         if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.remove('hidden');
+        if (decisionHistorySidebarEl) decisionHistorySidebarEl.classList.add('hidden');
 
         if (characterStandEl) {
           characterStandEl.src = item.avatar;
@@ -6497,6 +7263,9 @@
       }
       if (currentItem && currentItem.type === 'minitask') {
         return; // Must complete or skip mini-task
+      }
+      if (currentItem && currentItem.type === 'final_debrief') {
+        return; // At debriefing screen
       }
       sound.clickSound();
       if (isTyping) {
@@ -6566,7 +7335,7 @@
       if (e.code === 'Space' || e.code === 'Enter') {
         e.preventDefault();
         const currentItem = DIALOGUES[currentStep];
-        if (currentItem && (currentItem.type === 'decision' || currentItem.type === 'minitask')) {
+        if (currentItem && (currentItem.type === 'decision' || currentItem.type === 'minitask' || currentItem.type === 'final_debrief')) {
           return; // Block advancement until choice/protocol is completed
         }
         handleDialogueClick();
@@ -6605,6 +7374,9 @@
       }
       if (urlParams.get('openClock') === '1') {
         openCrisisClockModal();
+      }
+      if (urlParams.get('debrief') === '1') {
+        openFinalDebriefModal();
       }
       if (urlParams.get('demoChoice')) {
         setTimeout(() => {
