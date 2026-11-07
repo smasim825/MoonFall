@@ -3741,10 +3741,10 @@
 
             <!-- Toggleable Info Drawer for Phase 2 Trade-Offs -->
             <div class="coc-card-info-drawer hidden" id="drawerPhase2">
-              <div class="coc-drawer-item" style="cursor:default;"><span><span class="yellow-bolt">⚡</span> Power Budgeting</span><span>Lunar Night</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>💧 Water vs. O₂</span><span>Life Support</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>🌱 Food &amp; Crops</span><span>3,035 kcal</span></div>
-              <div class="coc-drawer-item" style="cursor:default;"><span>🛡️ Solar Storm + Delay</span><span>NASA DONKI</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span><span class="yellow-bolt">⚡</span> M1: 30-Minute Warning</span><span>EVA Recall</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>💧 M2: Shelter Problem</span><span>Hydro Barrier</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🔋 M3: Blackout Alert</span><span>PDU Routing</span></div>
+              <div class="coc-drawer-item" style="cursor:default;"><span>🌬️ M4: Oxygen Countdown</span><span>ISRU Splitting</span></div>
             </div>
 
             <!-- Center Ranked Shield Crest (Like the Purple Dragon Crest '29') -->
@@ -4227,12 +4227,15 @@
               </div>
               <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.1_daily_meal.html'">PLAY</button>
             </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #ff4444; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="background: rgba(0, 15, 35, 0.9); border: 2px solid #38bdf8; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);">
               <div>
-                <div style="font-size: 1.25rem; color: #ff6666;">🏛️ Mission 4: Main Base Command Dome</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Atmospheric pressure, communications array, and habitat control.</div>
+                <div style="font-size: 1.25rem; color: #38bdf8; font-weight: bold;">⚡ Final Mission: 18-Hour Crisis Protocol</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Solar Particle Event emergency: Shelter lockdown, PDU power routing, and ISRU oxygen survival.</div>
               </div>
-              <button class="hud-terminal-btn" onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldMain', 'badgeMain');">VIEW</button>
+              <div style="display: flex; gap: 6px;">
+                <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.15rem; padding: 6px 14px; border-color: #38bdf8; color: #38bdf8; font-weight: bold;" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='final_mission.html'">PLAY ▶</button>
+                <button class="hud-terminal-btn" style="font-size: 1.15rem; padding: 6px 12px;" onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldMain', 'badgeMain');">VIEW</button>
+              </div>
             </div>
             <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #c084fc; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
               <div>
@@ -5185,14 +5188,14 @@
       bldMain: {
         missions: [
           {
-            icon: '🌑',
-            title: 'Phase 2: MoonFall LAST LIGHT',
+            icon: '⚡',
+            title: 'Final Mission: 18-Hour Crisis Protocol',
             subtasks: [
-              { id: 'last_light', label: 'MoonFall: LAST LIGHT', active: true, locked: false, dialogue: 'Final Outpost Survival Command! Balance Power, Water, Oxygen, Food, and Radiation Shielding through Lunar Nightfall.', url: 'final_mission.html' }
+              { id: 'crisis_protocol', label: '18-Hour Crisis Protocol', active: true, locked: false, dialogue: 'Commander! A severe Solar Particle Event is striking Shackleton Outpost. Balance shelter shielding, emergency PDU power routing, and ISRU oxygen through the 18-hour crisis!', url: 'final_mission.html' }
             ]
           }
         ],
-        dialogue: 'Final Outpost Survival Command! Balance Power, Water, Oxygen, Food, and Radiation Shielding through Lunar Nightfall.'
+        dialogue: 'Commander! A severe Solar Particle Event is striking Shackleton Outpost. Balance shelter shielding, emergency PDU power routing, and ISRU oxygen through the 18-hour crisis!'
       }
     };
 
