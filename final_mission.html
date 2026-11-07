@@ -1853,9 +1853,15 @@
       left: 1.5%;
     }
 
+    /* O2 Commando (Guion Bluford): ISRU & Oxygen Extraction Specialist */
+    .scene-character-stand.char-commando {
+      height: clamp(320px, 72vh, 560px);
+      bottom: 0;
+      left: 1.5%;
+    }
+
     /* =========================================================================
-       M1 DECISION OVERLAY (Image 1 Mockup Match)
-       Two choice cards: "Evacuate" vs "Secure Equip"
+       CRISIS DECISION OVERLAY (Dynamic 2-card & 3-card Support)
        ========================================================================= */
     .m1-decision-overlay {
       position: absolute;
@@ -1884,10 +1890,24 @@
       display: flex;
       align-items: stretch;
       justify-content: center;
-      gap: clamp(20px, 3.8vw, 52px);
-      width: 86%;
-      max-width: 960px;
-      margin-top: clamp(-30px, -4.5vh, -12px);
+      gap: clamp(14px, 2.5vw, 36px);
+      width: 92%;
+      max-width: 1040px;
+      margin-top: clamp(-20px, -3.2vh, -8px);
+    }
+
+    .decision-cards-row.cards-3 .decision-choice-card {
+      max-width: clamp(230px, 28vw, 320px);
+      min-height: clamp(240px, 42vh, 340px);
+      padding: clamp(10px, 1.4vw, 16px);
+    }
+
+    .decision-cards-row.cards-3 .decision-card-title {
+      font-size: clamp(0.92rem, 1.3vw, 1.25rem);
+    }
+
+    .decision-cards-row.cards-3 .decision-card-stat {
+      font-size: clamp(0.68rem, 0.9vw, 0.82rem);
     }
 
     .decision-choice-card {
@@ -1895,7 +1915,7 @@
       flex: 1;
       max-width: clamp(280px, 35vw, 420px);
       min-height: clamp(260px, 46vh, 380px);
-      background: rgba(3, 24, 56, 0.92);
+      background: rgba(3, 24, 56, 0.94);
       border: 3.5px solid #0099ff;
       border-radius: 12px;
       box-shadow: 0 0 28px rgba(0, 153, 255, 0.5), inset 0 0 20px rgba(0, 153, 255, 0.2);
@@ -1916,7 +1936,7 @@
     }
 
     .decision-choice-card:hover {
-      transform: translateY(-5px) scale(1.03);
+      transform: translateY(-5px) scale(1.02);
       border-color: #38bdf8;
       box-shadow: 0 0 36px rgba(56, 189, 248, 0.75), inset 0 0 24px rgba(56, 189, 248, 0.3);
       background: rgba(4, 32, 74, 0.96);
@@ -1934,13 +1954,30 @@
 
     .decision-card-title {
       font-family: var(--font-pixel);
-      font-size: clamp(1.6rem, 2.6vw, 2.65rem);
+      font-size: clamp(1.15rem, 1.8vw, 1.65rem);
       font-weight: bold;
       color: #ffffff;
       letter-spacing: 0.04em;
       text-align: center;
       text-shadow: 1px 1px 0 #000, 0 0 10px rgba(0, 153, 255, 0.6);
-      margin: 0;
+      margin: 0 0 6px 0;
+    }
+
+    .decision-card-img-container {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(6px, 1vh, 12px) 0;
+    }
+
+    .decision-pixel-img {
+      max-width: 86%;
+      max-height: clamp(80px, 14vh, 125px);
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75));
     }
 
     /* Card 1: Evacuate Visual Container */
@@ -2007,12 +2044,456 @@
     /* Stat Impact Subtitle */
     .decision-card-stat {
       font-family: var(--font-pixel);
-      font-size: clamp(1.15rem, 1.75vw, 1.75rem);
-      color: #ffffff;
+      font-size: clamp(0.75rem, 1.05vw, 1.05rem);
+      color: #7dd3fc;
       letter-spacing: 0.02em;
       text-align: center;
       text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.95);
-      margin: 0;
+      margin: 6px 0 0 0;
+      line-height: 1.35;
+    }
+
+    /* =========================================================================
+       CRISIS MINI-TASK INTERACTIVE TERMINAL
+       ========================================================================= */
+    .crisis-minitask-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 65;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(3, 8, 18, 0.9);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      box-sizing: border-box;
+      padding: clamp(10px, 2vh, 20px);
+    }
+
+    .crisis-minitask-overlay.hidden {
+      display: none !important;
+    }
+
+    .minitask-card {
+      width: 95%;
+      max-width: 960px;
+      max-height: 90vh;
+      background: linear-gradient(180deg, rgba(8, 24, 48, 0.98) 0%, rgba(4, 12, 28, 0.99) 100%);
+      border: 2px solid #00e5ff;
+      border-radius: 12px;
+      box-shadow: 0 0 35px rgba(0, 229, 255, 0.45), inset 0 0 25px rgba(0, 229, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+      padding: clamp(12px, 1.8vw, 20px);
+      box-sizing: border-box;
+      color: #e0f2fe;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .minitask-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1.5px solid rgba(0, 229, 255, 0.3);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .minitask-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .minitask-headline {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.88rem, 1.3vw, 1.25rem);
+      color: #00e5ff;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+    }
+
+    .minitask-subline {
+      font-size: clamp(0.72rem, 0.95vw, 0.85rem);
+      color: #94a3b8;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    .minitask-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .minitask-status-badge {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.65rem, 0.85vw, 0.75rem);
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-shadow: 0 0 6px rgba(56, 189, 248, 0.5);
+    }
+
+    .minitask-status-badge.complete {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: #10b981;
+      color: #34d399;
+      text-shadow: 0 0 8px rgba(52, 211, 153, 0.7);
+    }
+
+    .minitask-skip-btn {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.65rem, 0.85vw, 0.75rem);
+      background: rgba(245, 158, 11, 0.15);
+      border: 1.5px solid #f59e0b;
+      color: #fbbf24;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .minitask-skip-btn:hover {
+      background: #f59e0b;
+      color: #000;
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.6);
+    }
+
+    .minitask-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 2px 10px 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .minitask-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1.5px solid rgba(0, 229, 255, 0.3);
+      padding-top: 10px;
+      margin-top: auto;
+      gap: 16px;
+    }
+
+    .minitask-hint {
+      font-size: clamp(0.72rem, 0.92vw, 0.82rem);
+      color: #94a3b8;
+      flex: 1;
+    }
+
+    .minitask-confirm-btn {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.75rem, 1.05vw, 0.95rem);
+      background: linear-gradient(90deg, #0ea5e9, #0284c7);
+      border: 2px solid #38bdf8;
+      color: #ffffff;
+      padding: 9px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(14, 165, 233, 0.5);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .minitask-confirm-btn:not(:disabled):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(56, 189, 248, 0.8);
+      background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    }
+    .minitask-confirm-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      border-color: #475569;
+      background: #1e293b;
+      color: #64748b;
+      box-shadow: none;
+    }
+
+    /* M2 Specific Layout */
+    .m2-bays-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1fr;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .minitask-bay {
+      background: rgba(3, 16, 38, 0.75);
+      border: 1.5px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-sizing: border-box;
+    }
+
+    .bay-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.68rem, 0.9vw, 0.8rem);
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      padding-bottom: 6px;
+      text-align: center;
+    }
+
+    .bracket-slot {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1.5px dashed #475569;
+      border-radius: 6px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      transition: all 0.2s ease;
+    }
+    .bracket-slot.stowed {
+      border: 1.5px solid #10b981;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+
+    .supply-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .supply-item-btn {
+      background: rgba(14, 165, 233, 0.15);
+      border: 1px solid #0284c7;
+      border-radius: 6px;
+      padding: 7px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: #e2e8f0;
+      font-size: 0.75rem;
+      transition: all 0.15s ease;
+    }
+    .supply-item-btn:hover {
+      background: rgba(14, 165, 233, 0.35);
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+    }
+    .supply-item-btn.stowed {
+      display: none;
+    }
+
+    /* Hatch Rotary Wheel */
+    .hatch-wheel-bay {
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hatch-wheel-visual {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hatch-wheel-svg {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
+    }
+
+    .hatch-readout-box {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 6px;
+      text-align: center;
+      font-family: var(--font-pixel);
+      font-size: 0.7rem;
+      color: #38bdf8;
+    }
+    .hatch-readout-box.locked {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      text-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+    }
+
+    .hatch-btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .hatch-btn {
+      font-family: var(--font-pixel);
+      font-size: 0.62rem;
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid #0284c7;
+      color: #e0f2fe;
+      padding: 6px 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .hatch-btn:hover {
+      background: #0284c7;
+      color: #fff;
+    }
+
+    /* Switch Rows */
+    .switch-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1.5px solid #334155;
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-size: 0.74rem;
+      color: #94a3b8;
+      box-sizing: border-box;
+      transition: all 0.15s ease;
+    }
+    .switch-row:hover {
+      border-color: #0284c7;
+    }
+    .switch-row.active {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+
+    /* M3 PDU Grid */
+    .pdu-grid-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1.3fr;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .pdu-load-bar-wrap {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      height: 18px;
+      overflow: hidden;
+      position: relative;
+      margin: 8px 0;
+    }
+    .pdu-load-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #10b981, #38bdf8);
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+    .pdu-load-fill.overload {
+      background: #ef4444 !important;
+    }
+
+    .pdu-breaker-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1.5px solid #334155;
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-size: 0.74rem;
+      color: #94a3b8;
+      transition: all 0.15s ease;
+      box-sizing: border-box;
+    }
+    .pdu-breaker-btn:hover {
+      border-color: #0284c7;
+    }
+    .pdu-breaker-btn.active {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+    .pdu-breaker-btn.tripped {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+    }
+
+    .overload-warning-banner {
+      width: 100%;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      text-align: center;
+      display: none;
+    }
+
+    /* M4 Electrolysis Flow */
+    .m4-flow-sequence {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .manifold-stage-card {
+      background: rgba(3, 16, 38, 0.75);
+      border: 1.5px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .manifold-stage-card.online {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.15);
+    }
+
+    .stage-btn {
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid #0284c7;
+      color: #e0f2fe;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .stage-btn:hover {
+      background: #0284c7;
+      color: #fff;
+    }
+    .stage-btn.online {
+      background: #10b981;
+      border-color: #10b981;
+      color: #000;
+    }
     }
 
     /* Specialist Badge Overlay when Rakesh / Chiaki is speaking (Exact match to Mockup) */
@@ -2346,32 +2827,10 @@
 
       </footer>
 
-      <!-- M1 DECISION MODAL: EVACUATE VS SECURE EQUIP (Matching Image 1 & values_final.json) -->
-      <div class="m1-decision-overlay hidden" id="m1DecisionOverlay" role="dialog" aria-label="Mission 1 Decision">
-        <div class="decision-cards-row">
-          
-          <!-- Card 1: Evacuate -->
-          <div class="decision-choice-card" id="cardEvacuate" onclick="selectM1Decision('evacuate')">
-            <h2 class="decision-card-title">Evacuate</h2>
-            <div class="evacuate-icon-container">
-              <img src="assets/image 2.png" alt="Evacuate Exit Sign" class="evacuate-sign-img">
-            </div>
-            <p class="decision-card-stat">Health -1, Equip -12</p>
-          </div>
-
-          <!-- Card 2: Secure Equip -->
-          <div class="decision-choice-card" id="cardSecureEquip" onclick="selectM1Decision('secure_equip')">
-            <h2 class="decision-card-title">Secure Equip</h2>
-            <div class="equip-group-container">
-              <div class="equip-left-col">
-                <img src="assets/Solar_Powered_Rover.png" alt="Solar Powered Rover" class="solar-rover-img">
-                <img src="assets/Rover.png" alt="Robotic Arm Rover" class="arm-rover-img">
-              </div>
-              <img src="assets/tower.png" alt="Comms / Sensor Tower" class="equip-tower-img">
-            </div>
-            <p class="decision-card-stat">Power -4, Health -5, Equip -2</p>
-          </div>
-
+      <!-- CRISIS DECISION MODAL: DYNAMIC CHOICE CARDS (M1, M2, M3, M4) -->
+      <div class="m1-decision-overlay hidden" id="m1DecisionOverlay" role="dialog" aria-label="Crisis Protocol Decision">
+        <div class="decision-cards-row" id="decisionCardsRow">
+          <!-- Injected dynamically via renderDecisionCards(missionKey) -->
         </div>
       </div>
 
@@ -2513,6 +2972,40 @@
         </div>
       </div>
 
+      <!-- CRISIS MINI-TASK INTERACTIVE TERMINAL (M2, M3, M4 Interactive Protocols) -->
+      <div class="crisis-minitask-overlay hidden" id="crisisMiniTaskOverlay" role="dialog" aria-modal="true" aria-label="Interactive Crisis Protocol">
+        <div class="minitask-card" id="miniTaskCard">
+          <div class="minitask-header">
+            <div class="minitask-title-wrap">
+              <svg class="minitask-icon-svg" viewBox="0 0 24 24" width="22" height="22" fill="#38bdf8">
+                <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+              </svg>
+              <div>
+                <div class="minitask-headline" id="miniTaskHeadline">CRISIS PROTOCOL // MISSION 2</div>
+                <div class="minitask-subline" id="miniTaskSubline">SHELTER LOCKDOWN &amp; HATCH ALIGNMENT</div>
+              </div>
+            </div>
+            <div class="minitask-actions">
+              <span class="minitask-status-badge" id="miniTaskStatusBadge">PROTOCOL ACTIVE</span>
+              <button class="minitask-skip-btn" onclick="skipMiniTask()" title="Skip Protocol">SKIP &gt;&gt;</button>
+            </div>
+          </div>
+
+          <!-- Interactive Workspace Body (dynamically switched for m2_lockdown, m3_pdu, m4_electrolysis) -->
+          <div class="minitask-body" id="miniTaskBody">
+            <!-- Injected per task -->
+          </div>
+
+          <!-- Mini Task Footer -->
+          <div class="minitask-footer">
+            <div class="minitask-hint" id="miniTaskHint">Complete all terminal steps to verify system recovery.</div>
+            <button class="minitask-confirm-btn" id="miniTaskConfirmBtn" disabled onclick="completeMiniTask()">
+              CONFIRM &amp; ENGAGE PROTOCOL ➔
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
@@ -2568,6 +3061,17 @@
         this.init();
         this.playTone(600, 'sine', 0.08, 0.08);
         setTimeout(() => this.playTone(900, 'sine', 0.1, 0.09), 80);
+      }
+      successChime() {
+        this.init();
+        this.playTone(523.25, 'sine', 0.1, 0.1);
+        setTimeout(() => this.playTone(659.25, 'sine', 0.1, 0.1), 90);
+        setTimeout(() => this.playTone(783.99, 'sine', 0.18, 0.12), 180);
+      }
+      errorBuzzer() {
+        this.init();
+        this.playTone(180, 'sawtooth', 0.22, 0.2);
+        setTimeout(() => this.playTone(140, 'sawtooth', 0.25, 0.2), 120);
       }
     }
 
@@ -2840,10 +3344,10 @@
         title: "Mission 1: The 30-Minute Warning",
         time: "05:30 UTC",
         summary: "SPE solar storm alert. Crew recall vs securing external equipment.",
-        evacLabel: "EVACUATE",
-        evacDesc: "Health -1, Equip -12 (Immediate shelter recall)",
-        secureLabel: "SECURE EQUIP",
-        secureDesc: "Power -4, Health -5, Equip -2 (Surface equipment secured)"
+        optionsList: {
+          'EVAC': { label: "EVACUATE", desc: "Health -1, Equip -12 (Immediate shelter recall)" },
+          'EQUIP': { label: "SECURE EQUIP", desc: "Power -4, Health -5, Equip -2 (Surface equipment secured)" }
+        }
       },
       {
         num: 2,
@@ -2851,10 +3355,11 @@
         title: "Mission 2: The Shelter Problem",
         time: "06:00 UTC",
         summary: "Habitat shielding weakness. Construct emergency radiation barrier.",
-        evacLabel: "REGOLITH SHIELD",
-        evacDesc: "Power -15%, Equip -10% (Sandbag bunker)",
-        secureLabel: "WATER WALL",
-        secureDesc: "Radiation -50%, Water -20% (Hydro-shield)"
+        optionsList: {
+          'REGOLITH': { label: "PILE REGOLITH", desc: "Power -8, Health -1, Equip -8 (15 g/cm² regolith shielding)" },
+          'SHELTER': { label: "DEEP SHELTER", desc: "Power -1, Health -6 (Deep module 10 g/cm² shielding)" },
+          'WATER': { label: "WATER SHIELD", desc: "Water -20, Power -2, Health -3 (Water-wall hydro barrier)" }
+        }
       },
       {
         num: 3,
@@ -2862,21 +3367,22 @@
         title: "Mission 3: BlackOut",
         time: "08:00 UTC",
         summary: "Main solar array disconnected. Strategic battery power allocation.",
-        evacLabel: "BATTERY CONSERVE",
-        evacDesc: "Power +25%, Health -15% (Modules dark)",
-        secureLabel: "LIFE SUPPORT 100%",
-        secureDesc: "O2/Temp Safe, Comms Offline"
+        optionsList: {
+          'GREEN OFF': { label: "GREENHOUSE OFF", desc: "Power -10, Green -20 (Greenhouse lighting shut down)" },
+          'BACKUP PWR': { label: "BACKUP POWER", desc: "Power -15, Equip -8 (Emergency battery maximum draw)" },
+          'BROWNOUT': { label: "BROWNOUT ALL", desc: "Power -13, Green -8, Health -2 (Base-wide power reduction)" }
+        }
       },
       {
         num: 4,
         key: 'm4',
         title: "Mission 4: Oxygen Countdown",
         time: "11:00 UTC",
-        summary: "Airlock seal cycling and CO2 scrubber degradation.",
-        evacLabel: "RATION BREATHING",
-        evacDesc: "O2 Safe, Stamina -20%",
-        secureLabel: "SCRUBBER SURGE",
-        secureDesc: "O2 +30%, Power -25%"
+        summary: "Oxygen reserve falling. Emergency cylinders vs water electrolysis.",
+        optionsList: {
+          'BOTTLED O2': { label: "BOTTLED O2", desc: "O2 -3, Equip -8 (Emergency bottled O2 reserve consumed)" },
+          'ELECTROLYSIS': { label: "ELECTROLYSIS", desc: "O2 +5, Water -1, Power -14 (Fresh ISRU water electrolysis)" }
+        }
       },
       {
         num: 5,
@@ -2884,10 +3390,10 @@
         title: "Mission 5: Water Trap",
         time: "14:00 UTC",
         summary: "Hydraulic loop valve frozen in deep lunar shadow.",
-        evacLabel: "GRAYWATER RECYCLE",
-        evacDesc: "Power Safe, Filter -30%",
-        secureLabel: "MELT ICE RESERVE",
-        secureDesc: "Water +25%, Power -20%"
+        optionsList: {
+          'GRAYWATER': { label: "GRAYWATER RECYCLE", desc: "Power Safe, Filter -30%" },
+          'MELT ICE': { label: "MELT ICE RESERVE", desc: "Water +25%, Power -20%" }
+        }
       },
       {
         num: 6,
@@ -2895,10 +3401,10 @@
         title: "Mission 6: Last Harvest",
         time: "17:00 UTC",
         summary: "Hydroponics plant survival vs life support thermal power draw.",
-        evacLabel: "MAINTAIN CROPS",
-        evacDesc: "Power -20%, Harvest Intact",
-        secureLabel: "EMERGENCY HARVEST",
-        secureDesc: "Food +30%, Plants Lost"
+        optionsList: {
+          'MAINTAIN': { label: "MAINTAIN CROPS", desc: "Power -20%, Harvest Intact" },
+          'HARVEST': { label: "EMERGENCY HARVEST", desc: "Food +30%, Plants Lost" }
+        }
       },
       {
         num: 7,
@@ -2906,10 +3412,10 @@
         title: "Mission 7: Critical Failure",
         time: "20:00 UTC",
         summary: "Emergency generator bus failure threatening total blackout.",
-        evacLabel: "BYPASS SAFETY",
-        evacDesc: "Instant Repair, 20% Risk",
-        secureLabel: "MANUAL EVA REPAIR",
-        secureDesc: "100% Fixed, Health -25%"
+        optionsList: {
+          'BYPASS': { label: "BYPASS SAFETY", desc: "Instant Repair, 20% Risk" },
+          'MANUAL': { label: "MANUAL EVA REPAIR", desc: "100% Fixed, Health -25%" }
+        }
       },
       {
         num: 8,
@@ -2917,10 +3423,10 @@
         title: "Mission 8: The Last Signal",
         time: "23:30 UTC",
         summary: "Final storm aftermath. High-gain antenna broadcast to Houston.",
-        evacLabel: "SURVIVAL RESERVE",
-        evacDesc: "Outpost Survived, Silent",
-        secureLabel: "FULL TRANSMISSION",
-        secureDesc: "Earth Contact, Power 0%"
+        optionsList: {
+          'RESERVE': { label: "SURVIVAL RESERVE", desc: "Outpost Survived, Silent" },
+          'TRANSMIT': { label: "FULL TRANSMISSION", desc: "Earth Contact, Power 0%" }
+        }
       }
     ];
 
@@ -2934,27 +3440,28 @@
         let badgeHtml = '';
 
         if (decisionVal) {
-          const isEvac = decisionVal.toLowerCase().includes('evac');
-          statusClass = isEvac ? 'decided-evac' : 'decided-equip';
+          const opt = m.optionsList ? m.optionsList[decisionVal] : null;
+          statusClass = 'decided-option';
           badgeHtml = `
-            <div class="result-badge ${isEvac ? 'badge-evac' : 'badge-equip'}">
-              <span>${isEvac ? m.evacLabel : m.secureLabel}</span>
-              <span class="result-desc">${isEvac ? m.evacDesc : m.secureDesc}</span>
+            <div class="result-badge badge-decided" style="background:rgba(14, 165, 233, 0.2); border:1.5px solid #38bdf8; color:#7dd3fc;">
+              <span style="font-weight:bold;">${opt ? opt.label : decisionVal}</span>
+              <span class="result-desc" style="font-size:0.75em; color:#cbd5e1;">${opt ? opt.desc : (m.summary || 'Decision logged')}</span>
             </div>
           `;
-        } else if (m.num === 1) {
+        } else if (`M${m.num}` === currentActiveMissionId) {
           statusClass = 'current-active';
           badgeHtml = `
             <div class="result-badge badge-inprogress">
-              <span>⚡ IN PROGRESS</span>
-              <span style="font-size:0.75em; color:#fef08a;">Awaiting Commander</span>
+              <span>⚡ ACTIVE NOW</span>
+              <span style="font-size:0.75em; color:#fef08a;">Commander Action Pending</span>
             </div>
           `;
         } else {
+          statusClass = 'pending-locked';
           badgeHtml = `
-            <div class="result-badge badge-pending">
+            <div class="result-badge badge-locked">
               <span>STANDBY</span>
-              <span style="font-size:0.75em; color:#64748b;">Locked</span>
+              <span class="result-desc">Locked</span>
             </div>
           `;
         }
@@ -3253,13 +3760,17 @@
         mission: 'M1',
         scene: 4,
         type: 'decision',
+        decisionKey: 'm1',
         title: "⚡ DECISION 1: EVACUATE VS SECURE",
         bg: "assets/BG2.png",
         alarm: true,
         showExterior: false
       },
 
-      // SCENE 5: MISSION 2 - ASTROBEE SHELTER ALERT (BG.png)
+      // =========================================================================
+      // MISSION 2: THE SHELTER PROBLEM (06:00 UTC)
+      // =========================================================================
+      // Step 6: AstroBee Shelter Alert
       {
         mission: 'M2',
         scene: 5,
@@ -3270,8 +3781,7 @@
         alarm: false,
         showExterior: false
       },
-
-      // SCENE 6: MISSION 2 - RAKESH SHARMA ADVICE (BG.png)
+      // Step 7: Rakesh Sharma Advice
       {
         mission: 'M2',
         scene: 6,
@@ -3284,6 +3794,230 @@
         bg: "assets/BG.png",
         alarm: false,
         showExterior: false
+      },
+      // Step 8: Sunita Williams Advice
+      {
+        mission: 'M2',
+        scene: 7,
+        speaker: 'sunita',
+        name: 'Sunita Williams',
+        role: 'Hydroponics & Nutrition Lead',
+        avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
+        text: "Remember that our stored water is essential for drinking and our greenhouse. If we use too much for shielding, we could create another problem.",
+        title: "⚠️ CREW ADVICE: SUNITA WILLIAMS",
+        bg: "assets/BG.png",
+        alarm: false,
+        showExterior: false
+      },
+      // Step 9: Rakesh Sharma Call for Decision
+      {
+        mission: 'M2',
+        scene: 8,
+        speaker: 'rakesh',
+        name: 'Rakesh Sharma',
+        role: 'Crew Health & Shelter Specialist',
+        avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
+        text: "What is your recommendation, Commander?",
+        title: "⚡ DECISION 2: CHOOSE SHELTER DEFENSE",
+        bg: "assets/BG.png",
+        alarm: false,
+        showExterior: false
+      },
+      // Step 10: M2 Decision Cards (Pile Regolith, Deep Shelter, Water Shield)
+      {
+        mission: 'M2',
+        scene: 9,
+        type: 'decision',
+        decisionKey: 'm2',
+        title: "⚡ DECISION 2: CHOOSE SHELTER DEFENSE",
+        bg: "assets/BG.png",
+        alarm: false,
+        showExterior: false
+      },
+      // Step 11: M2 Mini Task (Shelter Lockdown & Hatch Security)
+      {
+        mission: 'M2',
+        scene: 10,
+        type: 'minitask',
+        taskId: 'm2_lockdown',
+        title: "🛠️ CRISIS PROTOCOL: SHELTER LOCKDOWN",
+        bg: "assets/BG.png",
+        alarm: false,
+        showExterior: false
+      },
+
+      // =========================================================================
+      // MISSION 3: BLACKOUT (08:00 UTC)
+      // =========================================================================
+      // Step 12: AstroBee Inverter Alarm
+      {
+        mission: 'M3',
+        scene: 11,
+        speaker: 'astrobee',
+        text: "Commander! Emergency alert! Our solar-array inverters have disconnected. The outpost is now running on emergency battery power. It's not safe to go outside and fix the solar array. We must manage our remaining electricity before the reserves run too low!",
+        title: "⚡ MISSION 3: BLACKOUT DETECTED",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 13: Dr. Chiaki Mukai Advice
+      {
+        mission: 'M3',
+        scene: 12,
+        speaker: 'chiaki',
+        name: 'Dr. Chiaki Mukai',
+        role: 'Power & Energy Lead',
+        avatar: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
+        charClass: 'char-chiaki',
+        text: "The main power supply is offline. Our emergency batteries can keep essential systems running, but we cannot operate everything. We need to make a decision quickly.",
+        title: "⚠️ CREW ADVICE: DR. CHIAKI MUKAI",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 14: Sunita Williams Advice
+      {
+        mission: 'M3',
+        scene: 13,
+        speaker: 'sunita',
+        name: 'Sunita Williams',
+        role: 'Hydroponics & Nutrition Lead',
+        avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
+        text: "The greenhouse depends on electricity for its grow lights and environmental controls. If we reduce its power for too long, our crops could suffer. But crew survival comes first.",
+        title: "⚠️ CREW ADVICE: SUNITA WILLIAMS",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 15: Dr. Chiaki Mukai Call for Decision
+      {
+        mission: 'M3',
+        scene: 14,
+        speaker: 'chiaki',
+        name: 'Dr. Chiaki Mukai',
+        role: 'Power & Energy Lead',
+        avatar: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
+        charClass: 'char-chiaki',
+        text: "What is your recommendation, Commander?",
+        title: "⚡ DECISION 3: EMERGENCY POWER ALLOCATION",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 16: M3 Decision Cards (Greenhouse Off, Backup Power, Brownout All)
+      {
+        mission: 'M3',
+        scene: 15,
+        type: 'decision',
+        decisionKey: 'm3',
+        title: "⚡ DECISION 3: EMERGENCY POWER ALLOCATION",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 17: M3 Mini Task (PDU Circuit Patch Matrix)
+      {
+        mission: 'M3',
+        scene: 16,
+        type: 'minitask',
+        taskId: 'm3_pdu',
+        title: "🛠️ CRISIS PROTOCOL: PDU BUS ROUTING",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+
+      // =========================================================================
+      // MISSION 4: OXYGEN COUNTDOWN (11:00 UTC)
+      // =========================================================================
+      // Step 18: AstroBee Oxygen Reserve Low Alert
+      {
+        mission: 'M4',
+        scene: 17,
+        speaker: 'astrobee',
+        text: "Commander! Oxygen reserve is falling. Our current supply won't be enough unless we restore oxygen production or activate an alternative supply. We need to act quickly!",
+        title: "⚡ MISSION 4: OXYGEN COUNTDOWN",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 19: O2 Commando Advice
+      {
+        mission: 'M4',
+        scene: 18,
+        speaker: 'commando',
+        name: 'O₂ Commando',
+        role: 'ISRU & Oxygen Extraction Specialist',
+        avatar: 'assets/isru/character/Guion_Bluford_PointUp.png',
+        charClass: 'char-commando',
+        text: "We can use our emergency oxygen cylinders, produce fresh oxygen through water electrolysis, or isolate unused habitat modules to reduce unnecessary oxygen loss. But each option has a cost.",
+        title: "⚠️ CREW ADVICE: O₂ COMMANDO",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 20: Dr. Chiaki Mukai Advice
+      {
+        mission: 'M4',
+        scene: 19,
+        speaker: 'chiaki',
+        name: 'Dr. Chiaki Mukai',
+        role: 'Power & Energy Lead',
+        avatar: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
+        charClass: 'char-chiaki',
+        text: "Remember, Commander. Electrolysis needs electricity. Our emergency power is already limited, so watch the power reserve.",
+        title: "⚠️ CREW ADVICE: DR. CHIAKI MUKAI",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 21: O2 Commando Call for Decision
+      {
+        mission: 'M4',
+        scene: 20,
+        speaker: 'commando',
+        name: 'O₂ Commando',
+        role: 'ISRU & Oxygen Extraction Specialist',
+        avatar: 'assets/isru/character/Guion_Bluford_PointUp.png',
+        charClass: 'char-commando',
+        text: "What is your recommendation, Commander?",
+        title: "⚡ DECISION 4: RESTORE OXYGEN PRODUCTION",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 22: M4 Decision Cards (Bottled O2, Electrolysis)
+      {
+        mission: 'M4',
+        scene: 21,
+        type: 'decision',
+        decisionKey: 'm4',
+        title: "⚡ DECISION 4: RESTORE OXYGEN PRODUCTION",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 23: M4 Mini Task (Electrolysis Manifold & Gas Flow Sequencer)
+      {
+        mission: 'M4',
+        scene: 22,
+        type: 'minitask',
+        taskId: 'm4_electrolysis',
+        title: "🛠️ CRISIS PROTOCOL: ELECTROLYSIS SEQUENCING",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 24: Mission 4 Success / Summary
+      {
+        mission: 'M4',
+        scene: 23,
+        speaker: 'astrobee',
+        text: "Outstanding leadership, Commander! Oxygen levels are stabilizing and life support is secured through Mission 4. Stand by for the next operational window.",
+        title: "⚡ MISSION 4 ACCOMPLISHED // LIFE SUPPORT NOMINAL",
+        bg: "assets/BG.png",
+        alarm: false,
+        showExterior: false
       }
     ];
 
@@ -3291,7 +4025,6 @@
     let isTyping = false;
     let typingTimer = null;
     let activeDialogueTextEl = null;
-    let m1ChosenDecision = null;
 
     const bgConsoleEl = document.getElementById('bgConsole');
     const characterStandEl = document.getElementById('characterStand');
@@ -3305,203 +4038,203 @@
     const emergencyBannerEl = document.getElementById('emergencyBanner');
     const exteriorViewContainerEl = document.getElementById('exteriorViewContainer');
     const m1DecisionOverlayEl = document.getElementById('m1DecisionOverlay');
-    const cardEvacuateEl = document.getElementById('cardEvacuate');
-    const cardSecureEquipEl = document.getElementById('cardSecureEquip');
+    const decisionCardsRowEl = document.getElementById('decisionCardsRow');
 
-    function renderCurrentStep() {
-      if (currentStep >= DIALOGUES.length) {
-        currentStep = DIALOGUES.length - 1;
-      }
-
-      const item = DIALOGUES[currentStep];
-
-      // Update Active Mission Clock & Timeline
-      if (item.mission && item.mission !== currentActiveMissionId) {
-        setActiveMissionTime(item.mission);
-      }
-
-      // Update Top HUD Title
-      if (hudTitleEl && item.title) {
-        hudTitleEl.textContent = item.title;
-      }
-
-      // Update Scene Background Layer (e.g. assets/BG.png -> assets/BG2.png)
-      if (bgConsoleEl && item.bg) {
-        if (!bgConsoleEl.src.endsWith(item.bg)) {
-          bgConsoleEl.src = item.bg;
-        }
-      }
-
-      // Update Alarm State
-      if (item.alarm) {
-        stormAlertOverlayEl.classList.add('active');
-        emergencyBannerEl.classList.remove('hidden');
-        sound.warnAlarm();
-      } else {
-        stormAlertOverlayEl.classList.remove('active');
-        emergencyBannerEl.classList.add('hidden');
-      }
-
-      // Update Exterior Water Ice View
-      if (item.showExterior) {
-        exteriorViewContainerEl.classList.remove('hidden');
-      } else {
-        exteriorViewContainerEl.classList.add('hidden');
-      }
-
-      // Check if this is a Decision Step (Image 1)
-      if (item.type === 'decision') {
-        if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
-        if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.add('hidden');
-        if (characterStandEl) characterStandEl.classList.add('hidden');
-
-        if (m1DecisionOverlayEl) {
-          m1DecisionOverlayEl.classList.remove('hidden');
-          m1DecisionOverlayEl.classList.add('active');
-        }
-        return;
-      } else {
-        if (m1DecisionOverlayEl) {
-          m1DecisionOverlayEl.classList.remove('active');
-          m1DecisionOverlayEl.classList.add('hidden');
-        }
-      }
-
-      // Switch between AstroBee Dialogue Box and Human Dialogue Box
-      if (item.speaker === 'astrobee') {
-        if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
-        if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.remove('hidden');
-        if (characterStandEl) characterStandEl.classList.add('hidden');
-
-        activeDialogueTextEl = dialogueTextAstroBeeEl;
-        if (activeDialogueTextEl) {
-          if (item.text.length > 85) {
-            activeDialogueTextEl.classList.add('text-long');
-          } else {
-            activeDialogueTextEl.classList.remove('text-long');
+    // =========================================================================
+    // CRISIS DECISIONS DATA (Missions 1 to 4 with real science & tuned deltas)
+    // =========================================================================
+    const MISSION_DECISIONS_DATA = {
+      'm1': {
+        title: "⚡ DECISION 1: EVACUATE VS SECURE",
+        options: {
+          'evacuate': {
+            title: "Evacuate",
+            image: "assets/image 2.png",
+            imgClass: "evacuate-sign-img",
+            stat: "Health -1, Equip -12",
+            badge: "EVAC",
+            label: "OPTION A: EVACUATE",
+            deltas: { Health: -1, Equip: -12 },
+            gain: "Crew is inside before the storm (only a short rover drive, ~10 mSv).",
+            cost: "Outside power gear is left switched on and gets damaged (-12).",
+            real: "Spacecraft are put in safe mode during radiation storms; in the Oct 2003 storms Mars Odyssey and Genesis went into safe mode."
+          },
+          'secure_equip': {
+            title: "Secure Equip",
+            image: "assets/image 45.png",
+            stat: "Power -4, Health -5, Equip -2",
+            badge: "EQUIP",
+            label: "OPTION B: SECURE EQUIP",
+            deltas: { Power: -4, Health: -5, Equip: -2 },
+            gain: "Outside gear is shut down safely (only -2).",
+            cost: "Two crew stay out ~20 min longer in suits (-5 = ~50 mSv); rover and shutdown use 4 kWh.",
+            real: "A suit (~0.4 g/cm²) lets through about 2.5x the dose of habitat walls (Townsend 1988: 311 vs 125 rem behind 1 vs 5 g/cm²)."
           }
         }
-      } else {
-        // Human Astronauts (Rakesh Sharma & Dr. Chiaki Mukai)
-        if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.add('hidden');
-        if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.remove('hidden');
-
-        if (characterStandEl) {
-          characterStandEl.src = item.avatar;
-          characterStandEl.alt = item.name;
-          characterStandEl.classList.remove('hidden');
-          if (item.charClass) {
-            characterStandEl.classList.add(item.charClass);
-          } else {
-            characterStandEl.classList.remove('char-chiaki');
-          }
-        }
-        if (badgeHumanTextEl) {
-          badgeHumanTextEl.textContent = item.name;
-        }
-
-        activeDialogueTextEl = dialogueTextHumanEl;
-        sound.commsChirp();
-      }
-
-      // Typewriter effect
-      typeText(item.text, activeDialogueTextEl);
-    }
-
-    let isInstant = false;
-
-    function typeText(fullText, targetEl) {
-      if (typingTimer) clearInterval(typingTimer);
-      if (!targetEl) return;
-      targetEl.textContent = '';
-
-      if (isInstant) {
-        targetEl.textContent = fullText;
-        isTyping = false;
-        return;
-      }
-
-      isTyping = true;
-      let idx = 0;
-
-      typingTimer = setInterval(() => {
-        if (idx < fullText.length) {
-          targetEl.textContent += fullText[idx];
-          if (idx % 3 === 0) sound.beepSound();
-          idx++;
-        } else {
-          clearInterval(typingTimer);
-          isTyping = false;
-        }
-      }, 20);
-    }
-
-    function nextScene() {
-      const currentItem = DIALOGUES[currentStep];
-      if (currentItem && currentItem.type === 'decision' && !m1ChosenDecision) {
-        // Must choose one before proceeding
-        return;
-      }
-      sound.clickSound();
-      if (isTyping) {
-        // Fast complete current text
-        clearInterval(typingTimer);
-        if (activeDialogueTextEl && DIALOGUES[currentStep]) {
-          activeDialogueTextEl.textContent = DIALOGUES[currentStep].text;
-        }
-        isTyping = false;
-        return;
-      }
-      if (currentStep < DIALOGUES.length - 1) {
-        currentStep++;
-        renderCurrentStep();
-      }
-    }
-
-    let pendingChoiceKey = null;
-    let pendingDeltas = null;
-
-    const M1_OPTIONS_DATA = {
-      'evacuate': {
-        label: "OPTION A: EVACUATE",
-        deltas: { Health: -1, Equip: -12 },
-        gain: "Crew is inside before the storm (only a short rover drive, ~10 mSv).",
-        cost: "Outside power gear is left switched on and gets damaged (-12).",
-        real: "Spacecraft are put in safe mode during radiation storms; in the Oct 2003 storms Mars Odyssey and Genesis went into safe mode."
       },
-      'secure_equip': {
-        label: "OPTION B: SECURE EQUIP",
-        deltas: { Power: -4, Health: -5, Equip: -2 },
-        gain: "Outside gear is shut down safely (only -2).",
-        cost: "Two crew stay out ~20 min longer in suits (-5 = ~50 mSv); rover and shutdown use 4 kWh.",
-        real: "A suit (~0.4 g/cm²) lets through about 2.5x the dose of habitat walls (Townsend 1988: 311 vs 125 rem behind 1 vs 5 g/cm²)."
+      'm2': {
+        title: "⚡ DECISION 2: CHOOSE SHELTER DEFENSE",
+        options: {
+          'deep_shelter': {
+            title: "Deep Shelter",
+            image: "assets/image 44.png",
+            stat: "Power -1, Health -6",
+            badge: "SHELTER",
+            label: "OPTION A: DEEP SHELTER",
+            deltas: { Power: -1, Health: -6 },
+            gain: "Cheapest option: only the shelter fans (-1); no outside work, no hardware wear, no water.",
+            cost: "Weakest protection: ~60 mSv gets through (-6).",
+            real: "Inner module is about 10 g/cm² of shielding; dose-vs-shielding curve from Townsend 1988 (NASA TM-100620)."
+          },
+          'pile_regolith': {
+            title: "Pile Regolith",
+            image: "assets/image 45.png",
+            stat: "Power -8, Health -1, Equip -8",
+            badge: "REGOLITH",
+            label: "OPTION B: PILE REGOLITH",
+            deltas: { Power: -8, Health: -1, Equip: -8 },
+            gain: "Best protection: only ~15 mSv gets through (-1).",
+            cost: "Rover pushes regolith bags into place (8 kWh); abrasive dust wears seals and filters (-8).",
+            real: "10 cm of regolith (1.5 g/cm³) adds 15 g/cm². Apollo dust clogged, scratched and broke seals (Gaier 2005, NASA TM-2005-213610)."
+          },
+          'water_shield': {
+            title: "Water Shield",
+            image: "assets/image 46.png",
+            stat: "Water -20, Power -2, Health -3",
+            badge: "WATER",
+            label: "OPTION C: WATER SHIELD",
+            deltas: { Water: -20, Power: -2, Health: -3 },
+            gain: "Good protection (~30 mSv, -3) with no hardware wear.",
+            cost: "100 kg of water is pumped into soft bags (2 kWh) and must be re-treated before drinking (-20).",
+            real: "NASA-STD-3001 Vol 1: storm shelter of 10 g/cm² water-equivalent; 10 cm of water = 100 kg per m²."
+          }
+        }
+      },
+      'm3': {
+        title: "⚡ DECISION 3: EMERGENCY POWER ALLOCATION",
+        options: {
+          'greenhouse_off': {
+            title: "Greenhouse Off",
+            image: "assets/image 48.png",
+            stat: "Power -10, Greenhouse -20",
+            badge: "GREEN OFF",
+            label: "OPTION A: GREENHOUSE OFF",
+            deltas: { Power: -10, Greenhouse: -20 },
+            gain: "Lowest battery use (-10): only life support runs.",
+            cost: "Crops get no light or heat (-20).",
+            real: "Lettuce needs 16 h of light a day; each lost light hour costs about 1.5 h of growth (NASA BVAD)."
+          },
+          'backup_power': {
+            title: "Backup Power",
+            image: "assets/image 49.png",
+            stat: "Power -15, Equip -8",
+            badge: "BACKUP PWR",
+            label: "OPTION B: BACKUP POWER",
+            deltas: { Power: -15, Equip: -8 },
+            gain: "Everything stays on; crops are not hurt.",
+            cost: "Uses the most energy (-15) and drains the emergency battery bank too deep (-8).",
+            real: "NASA battery sizing caps discharge at 80%; deeper use shortens battery life (Kleinhenz & Paz 2021)."
+          },
+          'brownout_all': {
+            title: "Brownout All",
+            image: "assets/image 47.png",
+            stat: "Power -13, Greenhouse -8, Health -2",
+            badge: "BROWNOUT",
+            label: "OPTION C: BROWNOUT ALL",
+            deltas: { Power: -13, Greenhouse: -8, Health: -2 },
+            gain: "Middle path: crops keep half their light (only -8).",
+            cost: "Still a big battery draw (-13); cabin cools to ~18 °C and the crew sleeps badly (-2).",
+            real: "NASA's comfort zone is 20-25 °C. On Apollo 13 the powered-down cabin got so cold that sleep was hard."
+          }
+        }
+      },
+      'm4': {
+        title: "⚡ DECISION 4: RESTORE OXYGEN PRODUCTION",
+        options: {
+          'bottled_o2': {
+            title: "Bottled O2",
+            image: "assets/image 50.png",
+            stat: "O2 -3, Equip -8",
+            badge: "BOTTLED O2",
+            label: "OPTION A: BOTTLED O2",
+            deltas: { O2: -3, Equip: -8 },
+            gain: "No power or water used; O₂ almost holds (-3).",
+            cost: "The emergency cylinders are used up, so nothing is left for the next emergency (-8).",
+            real: "Each kg of O₂ in high-pressure tanks needs about 1.45 kg of tank (NASA BVAD)."
+          },
+          'electrolysis': {
+            title: "Electrolysis",
+            image: "assets/image 51.png",
+            stat: "O2 +5, Water -1, Power -14",
+            badge: "ELECTROLYSIS",
+            label: "OPTION B: ELECTROLYSIS",
+            deltas: { O2: 5, Water: -1, Power: -14 },
+            gain: "Makes ~2.7 kg of fresh O₂, so the bar rises (+5).",
+            cost: "Splitting water needs ~5 kWh per kg of O₂ (-14). The water cost is small: 3 kg (-1).",
+            real: "ISS oxygen generator makes up to 9.2 kg O₂/day; 1.13 kg water per kg O₂; 4.7-5.5 kWh per kg O₂ (Colozza 2020)."
+          }
+        }
       }
     };
 
-    function selectM1Decision(choice) {
-      if (m1ChosenDecision) return;
+    let pendingMissionKey = 'm1';
+    let pendingChoiceKey = null;
+    let pendingDeltas = null;
+
+    function renderDecisionCards(missionKey) {
+      const config = MISSION_DECISIONS_DATA[missionKey];
+      const container = document.getElementById('decisionCardsRow');
+      if (!config || !container) return;
+
+      const keys = Object.keys(config.options);
+      container.className = `decision-cards-row ${keys.length === 3 ? 'cards-3' : 'cards-2'}`;
+
+      container.innerHTML = keys.map(k => {
+        const opt = config.options[k];
+        return `
+          <div class="decision-choice-card" id="card_${missionKey}_${k}" onclick="selectMissionDecision('${missionKey}', '${k}')">
+            <h2 class="decision-card-title">${opt.title}</h2>
+            <div class="decision-card-img-container">
+              <img src="${opt.image}" alt="${opt.title}" class="decision-pixel-img ${opt.imgClass || ''}">
+            </div>
+            <p class="decision-card-stat">${opt.stat}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectMissionDecision(missionKey, choiceKey) {
       sound.clickSound();
+      const config = MISSION_DECISIONS_DATA[missionKey];
+      if (!config) return;
+      const data = config.options[choiceKey];
 
-      if (choice === 'evacuate') {
-        if (cardEvacuateEl) cardEvacuateEl.classList.add('selected');
-        if (cardSecureEquipEl) cardSecureEquipEl.style.opacity = '0.4';
-      } else {
-        if (cardSecureEquipEl) cardSecureEquipEl.classList.add('selected');
-        if (cardEvacuateEl) cardEvacuateEl.style.opacity = '0.4';
-      }
+      // Visual selection on cards
+      const cards = document.querySelectorAll('.decision-choice-card');
+      cards.forEach(c => {
+        if (c.id === `card_${missionKey}_${choiceKey}`) {
+          c.classList.add('selected');
+          c.style.opacity = '1';
+        } else {
+          c.classList.remove('selected');
+          c.style.opacity = '0.4';
+        }
+      });
 
-      pendingChoiceKey = choice;
-      const data = M1_OPTIONS_DATA[choice];
+      pendingMissionKey = missionKey;
+      pendingChoiceKey = choiceKey;
       pendingDeltas = data.deltas;
 
-      // Show the Trade-off Consequence Popup (what you gain, what you lose, values changed)
       setTimeout(() => {
-        showDecisionConsequencePopup(choice, data);
+        showDecisionConsequencePopup(choiceKey, data, missionKey);
       }, 350);
     }
 
-    function showDecisionConsequencePopup(choice, data) {
-      // Hide the choice cards overlay so the consequence report takes full center stage
+    function selectM1Decision(choice) {
+      selectMissionDecision('m1', choice);
+    }
+
+    function showDecisionConsequencePopup(choice, data, missionKey = 'm1') {
       if (m1DecisionOverlayEl) {
         m1DecisionOverlayEl.classList.remove('active');
         m1DecisionOverlayEl.classList.add('hidden');
@@ -3540,11 +4273,14 @@
       const modal = document.getElementById('decisionConsequenceModal');
       if (modal) modal.classList.add('hidden');
 
-      m1ChosenDecision = pendingChoiceKey;
-      sessionStorage.setItem('moonfall_m1_decision', m1ChosenDecision);
-      recordDecision('m1', m1ChosenDecision === 'evacuate' ? 'EVAC' : 'EQUIP');
+      const config = MISSION_DECISIONS_DATA[pendingMissionKey];
+      const opt = config ? config.options[pendingChoiceKey] : null;
+      const shortBadge = opt ? opt.badge : pendingChoiceKey.toUpperCase();
 
-      // Update telemetry state and trigger animated bar updates & floating delta tags
+      sessionStorage.setItem(`moonfall_${pendingMissionKey}_decision`, pendingChoiceKey);
+      recordDecision(pendingMissionKey, shortBadge);
+
+      // Update telemetry state and trigger animated bar countdown
       if (pendingDeltas) {
         for (const [k, v] of Object.entries(pendingDeltas)) {
           if (outpostResources[k] !== undefined) {
@@ -3554,7 +4290,7 @@
         updateTelemetryUI(pendingDeltas);
       }
 
-      // Transition smoothly past Mission 1
+      // Transition smoothly past decision
       setTimeout(() => {
         if (m1DecisionOverlayEl) {
           m1DecisionOverlayEl.classList.remove('active');
@@ -3563,6 +4299,644 @@
         currentStep++;
         renderCurrentStep();
       }, 650);
+    }
+
+    // =========================================================================
+    // CRISIS INTERACTIVE MINI-TASKS (Missions 2 to 4)
+    // =========================================================================
+    let activeMiniTaskId = null;
+
+    const m2TaskState = {
+      supplies: { water: false, food: false, med: false },
+      hatchAngle: 0,
+      switches: { o2: false, cabin: false, co2: false }
+    };
+
+    const m3TaskState = {
+      batteryConnected: false,
+      circuits: { o2: false, heat: false, comms: false, lighting: false }
+    };
+
+    const m4TaskState = {
+      waterFeed: false,
+      cellEnergized: false,
+      separatorEngaged: false,
+      o2TankConnected: false,
+      h2Routed: null
+    };
+
+    function openCrisisMiniTask(taskId, missionId) {
+      activeMiniTaskId = taskId;
+      const overlay = document.getElementById('crisisMiniTaskOverlay');
+      const headline = document.getElementById('miniTaskHeadline');
+      const subline = document.getElementById('miniTaskSubline');
+      const statusBadge = document.getElementById('miniTaskStatusBadge');
+      const confirmBtn = document.getElementById('miniTaskConfirmBtn');
+
+      if (!overlay) return;
+
+      if (confirmBtn) {
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = "CONFIRM & ENGAGE PROTOCOL ➔";
+      }
+      if (statusBadge) {
+        statusBadge.className = 'minitask-status-badge';
+        statusBadge.textContent = 'PROTOCOL ACTIVE';
+      }
+
+      if (taskId === 'm2_lockdown') {
+        if (headline) headline.textContent = "CRISIS PROTOCOL // MISSION 2";
+        if (subline) subline.textContent = "SHELTER LOCKDOWN & HATCH ALIGNMENT";
+        renderM2LockdownTask();
+      } else if (taskId === 'm3_pdu') {
+        if (headline) headline.textContent = "CRISIS PROTOCOL // MISSION 3";
+        if (subline) subline.textContent = "PDU EMERGENCY BUS ROUTING";
+        renderM3PduTask();
+      } else if (taskId === 'm4_electrolysis') {
+        if (headline) headline.textContent = "CRISIS PROTOCOL // MISSION 4";
+        if (subline) subline.textContent = "ISRU ELECTROLYSIS & GAS FLOW MANIFOLD";
+        renderM4ElectrolysisTask();
+      }
+
+      overlay.classList.remove('hidden');
+    }
+
+    function closeCrisisMiniTask() {
+      const overlay = document.getElementById('crisisMiniTaskOverlay');
+      if (overlay) overlay.classList.add('hidden');
+      activeMiniTaskId = null;
+    }
+
+    function completeMiniTask() {
+      sound.successChime();
+      closeCrisisMiniTask();
+      currentStep++;
+      renderCurrentStep();
+    }
+
+    function skipMiniTask() {
+      sound.clickSound();
+      closeCrisisMiniTask();
+      currentStep++;
+      renderCurrentStep();
+    }
+
+    // --- M2 Mini-Task: Shelter Lockdown ---
+    function renderM2LockdownTask() {
+      const body = document.getElementById('miniTaskBody');
+      const hint = document.getElementById('miniTaskHint');
+      if (!body) return;
+
+      if (hint) {
+        hint.textContent = "1. Stow 3 loose supplies. 2. Rotate hatch 4 times & align to 75°. 3. Check life support status.";
+      }
+
+      const turns = Math.floor(m2TaskState.hatchAngle / 360);
+      const effectiveAngle = m2TaskState.hatchAngle % 360;
+      const hatchLocked = (turns >= 4 && effectiveAngle === 75);
+      const suppliesAllStowed = m2TaskState.supplies.water && m2TaskState.supplies.food && m2TaskState.supplies.med;
+      const switchesAllOn = m2TaskState.switches.o2 && m2TaskState.switches.cabin && m2TaskState.switches.co2;
+
+      body.innerHTML = `
+        <div class="m2-bays-grid">
+          <!-- Bay 1: Loose Supplies -->
+          <div class="minitask-bay">
+            <div class="bay-title">1. Stow Bulkhead Supplies</div>
+            <div class="bracket-slot ${m2TaskState.supplies.water ? 'stowed' : ''}">
+              <span>Wall Bracket [H2O Tank]</span>
+              <span>${m2TaskState.supplies.water ? '✓ STOWED' : 'EMPTY'}</span>
+            </div>
+            <div class="bracket-slot ${m2TaskState.supplies.food ? 'stowed' : ''}">
+              <span>Wall Bracket [Food Box]</span>
+              <span>${m2TaskState.supplies.food ? '✓ STOWED' : 'EMPTY'}</span>
+            </div>
+            <div class="bracket-slot ${m2TaskState.supplies.med ? 'stowed' : ''}">
+              <span>Wall Bracket [Medical Kit]</span>
+              <span>${m2TaskState.supplies.med ? '✓ STOWED' : 'EMPTY'}</span>
+            </div>
+            
+            <div class="supply-items-list">
+              <button class="supply-item-btn ${m2TaskState.supplies.water ? 'stowed' : ''}" onclick="stowM2Supply('water')">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#38bdf8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                <span>Pick Up Water Container</span>
+              </button>
+              <button class="supply-item-btn ${m2TaskState.supplies.food ? 'stowed' : ''}" onclick="stowM2Supply('food')">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#fbbf24"><path d="M18 4H6v2l6 3.5L18 6V4zm0 6l-6 3.5L6 10v10h12V10z"/></svg>
+                <span>Pick Up Emergency Food</span>
+              </button>
+              <button class="supply-item-btn ${m2TaskState.supplies.med ? 'stowed' : ''}" onclick="stowM2Supply('med')">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#f87171"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                <span>Pick Up Medical Kit</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bay 2: Rotary Hatch Wheel -->
+          <div class="minitask-bay hatch-wheel-bay">
+            <div class="bay-title">2. Rotate Hatch (4x at 75°)</div>
+            <div class="hatch-wheel-visual">
+              <svg class="hatch-wheel-svg" viewBox="0 0 100 100" style="transform: rotate(${m2TaskState.hatchAngle}deg);">
+                <circle cx="50" cy="50" r="44" fill="#0f172a" stroke="#0284c7" stroke-width="6"/>
+                <circle cx="50" cy="50" r="18" fill="#1e293b" stroke="#38bdf8" stroke-width="4"/>
+                <line x1="50" y1="6" x2="50" y2="94" stroke="#38bdf8" stroke-width="5"/>
+                <line x1="6" y1="50" x2="94" y2="50" stroke="#38bdf8" stroke-width="5"/>
+                <polygon points="50,12 44,24 56,24" fill="#f59e0b"/>
+              </svg>
+            </div>
+            <div class="hatch-readout-box ${hatchLocked ? 'locked' : ''}">
+              ${hatchLocked ? '✓ HATCH SEALED // 75° LOCKED' : `Turns: ${turns}/4 // Angle: ${effectiveAngle}°`}
+            </div>
+            <div class="hatch-btn-row">
+              <button class="hatch-btn" onclick="adjustM2Hatch(45)">+45° Rotate</button>
+              <button class="hatch-btn" onclick="adjustM2Hatch(15)">+15° Rotate</button>
+              <button class="hatch-btn" onclick="adjustM2Hatch(-15)">-15° Reverse</button>
+              <button class="hatch-btn" onclick="adjustM2Hatch(360)">+1 Turn (360°)</button>
+            </div>
+          </div>
+
+          <!-- Bay 3: Life Support Status -->
+          <div class="minitask-bay">
+            <div class="bay-title">3. Environmental Check</div>
+            <div class="switch-row ${m2TaskState.switches.o2 ? 'active' : ''}" onclick="toggleM2Switch('o2')">
+              <span>Oxygen Supply Valve</span>
+              <span>${m2TaskState.switches.o2 ? '✓ ONLINE' : 'OFFLINE'}</span>
+            </div>
+            <div class="switch-row ${m2TaskState.switches.cabin ? 'active' : ''}" onclick="toggleM2Switch('cabin')">
+              <span>Cabin Circulation</span>
+              <span>${m2TaskState.switches.cabin ? '✓ ACTIVE' : 'OFFLINE'}</span>
+            </div>
+            <div class="switch-row ${m2TaskState.switches.co2 ? 'active' : ''}" onclick="toggleM2Switch('co2')">
+              <span>CO2 Removal Scrubber</span>
+              <span>${m2TaskState.switches.co2 ? '✓ OPERATIONAL' : 'OFFLINE'}</span>
+            </div>
+            <div style="font-size:0.7rem; color:#64748b; margin-top:auto; text-align:center;">
+              ${switchesAllOn ? '<span style="color:#34d399;">All atmospheric loops nominal.</span>' : 'Click switches to verify cabin loops.'}
+            </div>
+          </div>
+        </div>
+      `;
+
+      checkM2Completion();
+    }
+
+    function stowM2Supply(itemKey) {
+      sound.clickSound();
+      m2TaskState.supplies[itemKey] = true;
+      renderM2LockdownTask();
+    }
+
+    function adjustM2Hatch(delta) {
+      sound.beepSound();
+      m2TaskState.hatchAngle = Math.max(0, m2TaskState.hatchAngle + delta);
+      renderM2LockdownTask();
+    }
+
+    function toggleM2Switch(key) {
+      sound.clickSound();
+      m2TaskState.switches[key] = !m2TaskState.switches[key];
+      renderM2LockdownTask();
+    }
+
+    function checkM2Completion() {
+      const turns = Math.floor(m2TaskState.hatchAngle / 360);
+      const effectiveAngle = m2TaskState.hatchAngle % 360;
+      const hatchLocked = (turns >= 4 && effectiveAngle === 75);
+      const suppliesAllStowed = m2TaskState.supplies.water && m2TaskState.supplies.food && m2TaskState.supplies.med;
+      const switchesAllOn = m2TaskState.switches.o2 && m2TaskState.switches.cabin && m2TaskState.switches.co2;
+
+      const confirmBtn = document.getElementById('miniTaskConfirmBtn');
+      const statusBadge = document.getElementById('miniTaskStatusBadge');
+
+      if (suppliesAllStowed && hatchLocked && switchesAllOn) {
+        if (confirmBtn) {
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = "ENGAGE HABITAT LOCKDOWN ➔";
+        }
+        if (statusBadge) {
+          statusBadge.className = 'minitask-status-badge complete';
+          statusBadge.textContent = '✓ LOCKDOWN READY';
+        }
+      }
+    }
+
+    // --- M3 Mini-Task: PDU Bus Routing ---
+    function renderM3PduTask() {
+      const body = document.getElementById('miniTaskBody');
+      const hint = document.getElementById('miniTaskHint');
+      if (!body) return;
+
+      if (hint) {
+        hint.textContent = "Connect Battery to PDU, then route essential loads: Oxygen, Heating, Comms. Do NOT connect Decorative Lighting!";
+      }
+
+      let currentKw = 0;
+      if (m3TaskState.circuits.o2) currentKw += 1.0;
+      if (m3TaskState.circuits.heat) currentKw += 1.2;
+      if (m3TaskState.circuits.comms) currentKw += 0.8;
+      if (m3TaskState.circuits.lighting) currentKw += 1.5;
+
+      const maxSafeKw = 3.5;
+      const isOverload = currentKw > maxSafeKw;
+      const isComplete = m3TaskState.batteryConnected && m3TaskState.circuits.o2 && m3TaskState.circuits.heat && m3TaskState.circuits.comms && !m3TaskState.circuits.lighting;
+
+      const fillPct = Math.min(100, (currentKw / maxSafeKw) * 100);
+
+      body.innerHTML = `
+        <div class="pdu-grid-wrap">
+          <!-- Column 1: Source -->
+          <div class="minitask-bay" style="align-items:center; justify-content:center;">
+            <div class="bay-title" style="width:100%;">1. Primary Source</div>
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="${m3TaskState.batteryConnected ? '#10b981' : '#f59e0b'}">
+              <path d="M16 20H8V6h8v14zm1.5-16h-3V2h-5v2h-3C5.7 2 5 2.7 5 3.5v17c0 .8.7 1.5 1.5 1.5h11c.8 0 1.5-.7 1.5-1.5v-17c0-.8-.7-1.5-1.5-1.5z"/>
+            </svg>
+            <div style="font-size:0.75rem; text-align:center; color:#94a3b8;">
+              Emergency Battery Bank<br><span style="color:#38bdf8;">100 kWh Reserve</span>
+            </div>
+            <button class="stage-btn ${m3TaskState.batteryConnected ? 'online' : ''}" style="width:100%; margin-top:8px;" onclick="connectM3Battery()">
+              ${m3TaskState.batteryConnected ? '✓ CONNECTED TO PDU' : 'CONNECT TO PDU'}
+            </button>
+          </div>
+
+          <!-- Column 2: Central PDU Hub -->
+          <div class="minitask-bay">
+            <div class="bay-title">2. Central PDU Hub</div>
+            <div style="font-size:0.75rem; color:#94a3b8; display:flex; justify-content:space-between;">
+              <span>Bus Load Meter:</span>
+              <span style="color:${isOverload ? '#ef4444' : '#38bdf8'}; font-weight:bold;">${currentKw.toFixed(1)} / ${maxSafeKw} kW</span>
+            </div>
+            <div class="pdu-load-bar-wrap">
+              <div class="pdu-load-fill ${isOverload ? 'overload' : ''}" style="width:${fillPct}%;"></div>
+            </div>
+            <div style="font-size:0.7rem; color:#64748b; line-height:1.4;">
+              PDU routes critical loads to habitat sub-systems. Non-essential loads exceed discharge limit.
+            </div>
+            <div class="overload-warning-banner" id="pduOverloadBanner" style="display:${isOverload ? 'block' : 'none'};">
+              ⚠️ OVERLOAD DETECTED! Disconnect decorative lighting to prevent battery damage!
+            </div>
+          </div>
+
+          <!-- Column 3: Circuit Routing -->
+          <div class="minitask-bay">
+            <div class="bay-title">3. Circuit Breakers</div>
+            <div class="pdu-breaker-btn ${m3TaskState.circuits.o2 ? 'active' : ''}" onclick="toggleM3Circuit('o2')">
+              <span>Oxygen Circulation (+1.0 kW)</span>
+              <span>${m3TaskState.circuits.o2 ? '✓ ROUTED' : 'OFF'}</span>
+            </div>
+            <div class="pdu-breaker-btn ${m3TaskState.circuits.heat ? 'active' : ''}" onclick="toggleM3Circuit('heat')">
+              <span>Habitat Heating (+1.2 kW)</span>
+              <span>${m3TaskState.circuits.heat ? '✓ ROUTED' : 'OFF'}</span>
+            </div>
+            <div class="pdu-breaker-btn ${m3TaskState.circuits.comms ? 'active' : ''}" onclick="toggleM3Circuit('comms')">
+              <span>Emergency Comms (+0.8 kW)</span>
+              <span>${m3TaskState.circuits.comms ? '✓ ROUTED' : 'OFF'}</span>
+            </div>
+            <div class="pdu-breaker-btn ${m3TaskState.circuits.lighting ? 'tripped' : ''}" onclick="toggleM3Circuit('lighting')">
+              <span>Decorative Lighting (+1.5 kW)</span>
+              <span style="color:${m3TaskState.circuits.lighting ? '#ef4444' : '#64748b'};">${m3TaskState.circuits.lighting ? '⚠️ OVERLOAD' : 'ISOLATED'}</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      checkM3Completion();
+    }
+
+    function connectM3Battery() {
+      sound.clickSound();
+      m3TaskState.batteryConnected = !m3TaskState.batteryConnected;
+      renderM3PduTask();
+    }
+
+    function toggleM3Circuit(circuitKey) {
+      if (circuitKey === 'lighting') {
+        if (!m3TaskState.circuits.lighting) {
+          sound.errorBuzzer();
+          m3TaskState.circuits.lighting = true;
+          renderM3PduTask();
+          setTimeout(() => {
+            m3TaskState.circuits.lighting = false;
+            renderM3PduTask();
+          }, 1800);
+          return;
+        }
+      }
+      sound.clickSound();
+      m3TaskState.circuits[circuitKey] = !m3TaskState.circuits[circuitKey];
+      renderM3PduTask();
+    }
+
+    function checkM3Completion() {
+      const isComplete = m3TaskState.batteryConnected && m3TaskState.circuits.o2 && m3TaskState.circuits.heat && m3TaskState.circuits.comms && !m3TaskState.circuits.lighting;
+      const confirmBtn = document.getElementById('miniTaskConfirmBtn');
+      const statusBadge = document.getElementById('miniTaskStatusBadge');
+
+      if (isComplete) {
+        if (confirmBtn) {
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = "LOCK POWER BUS CONFIGURATION ➔";
+        }
+        if (statusBadge) {
+          statusBadge.className = 'minitask-status-badge complete';
+          statusBadge.textContent = '✓ ESSENTIAL BUS STABILIZED';
+        }
+      }
+    }
+
+    // --- M4 Mini-Task: Electrolysis Manifold ---
+    function renderM4ElectrolysisTask() {
+      const body = document.getElementById('miniTaskBody');
+      const hint = document.getElementById('miniTaskHint');
+      if (!body) return;
+
+      if (hint) {
+        hint.textContent = "Connect Water Storage → Electrolysis → Separator → O2 Tank → Air Supply. Route Hydrogen to EXTERNAL VENT, never air supply!";
+      }
+
+      body.innerHTML = `
+        <div class="m4-flow-sequence">
+          <!-- Stage 1 -->
+          <div class="manifold-stage-card ${m4TaskState.waterFeed ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-family:var(--font-pixel); color:#38bdf8;">1</span>
+              <div>
+                <div style="font-weight:bold; font-size:0.8rem;">Water Feed Line (H2O Tank)</div>
+                <div style="font-size:0.7rem; color:#94a3b8;">Supplies purified lunar ice filtrate to electrolysis core</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m4TaskState.waterFeed ? 'online' : ''}" onclick="advanceM4ElectrolysisStage('waterFeed')">
+              ${m4TaskState.waterFeed ? '✓ FEED OPEN' : 'OPEN FEED VALVE'}
+            </button>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="manifold-stage-card ${m4TaskState.cellEnergized ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-family:var(--font-pixel); color:#38bdf8;">2</span>
+              <div>
+                <div style="font-weight:bold; font-size:0.8rem;">Catalytic Electrolysis Splitter (2H2O → 2H2 + O2)</div>
+                <div style="font-size:0.7rem; color:#94a3b8;">Uses 4.8 kWh/kg to decompose water molecules</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m4TaskState.cellEnergized ? 'online' : ''}" ${!m4TaskState.waterFeed ? 'disabled' : ''} onclick="advanceM4ElectrolysisStage('cellEnergized')">
+              ${m4TaskState.cellEnergized ? '✓ CELL ENERGIZED' : 'ENERGIZE CELL'}
+            </button>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="manifold-stage-card ${m4TaskState.separatorEngaged ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-family:var(--font-pixel); color:#38bdf8;">3</span>
+              <div>
+                <div style="font-weight:bold; font-size:0.8rem;">Gas Separation Membrane</div>
+                <div style="font-size:0.7rem; color:#94a3b8;">Isolates pure O2 stream from combustible H2 byproduct</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m4TaskState.separatorEngaged ? 'online' : ''}" ${!m4TaskState.cellEnergized ? 'disabled' : ''} onclick="advanceM4ElectrolysisStage('separatorEngaged')">
+              ${m4TaskState.separatorEngaged ? '✓ MEMBRANE ENGAGED' : 'ENGAGE MEMBRANE'}
+            </button>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="manifold-stage-card ${m4TaskState.o2TankConnected ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-family:var(--font-pixel); color:#38bdf8;">4</span>
+              <div>
+                <div style="font-weight:bold; font-size:0.8rem;">O2 Tank → Shelter Breathable Air Line</div>
+                <div style="font-size:0.7rem; color:#94a3b8;">Pressurizes oxygen buffer and feeds habitat circulation</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m4TaskState.o2TankConnected ? 'online' : ''}" ${!m4TaskState.separatorEngaged ? 'disabled' : ''} onclick="advanceM4ElectrolysisStage('o2TankConnected')">
+              ${m4TaskState.o2TankConnected ? '✓ AIR LINE ONLINE' : 'ROUTE TO AIR SUPPLY'}
+            </button>
+          </div>
+
+          <!-- Stage 5: Safety Handling of Hydrogen -->
+          <div class="manifold-stage-card ${m4TaskState.h2Routed === 'external' ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-family:var(--font-pixel); color:#f59e0b;">5</span>
+              <div>
+                <div style="font-weight:bold; font-size:0.8rem;">Hydrogen (H2) Safety Routing</div>
+                <div style="font-size:0.7rem; color:#94a3b8;">Flammable byproduct must be isolated from crew compartments</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="stage-btn ${m4TaskState.h2Routed === 'cabin' ? 'online' : ''}" style="border-color:#ef4444; color:#fca5a5;" onclick="routeM4Hydrogen('cabin')">
+                Air Supply (Hazard)
+              </button>
+              <button class="stage-btn ${m4TaskState.h2Routed === 'external' ? 'online' : ''}" style="border-color:#10b981; color:#34d399;" onclick="routeM4Hydrogen('external')">
+                ✓ External Vent Line
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      checkM4Completion();
+    }
+
+    function advanceM4ElectrolysisStage(key) {
+      sound.clickSound();
+      m4TaskState[key] = true;
+      renderM4ElectrolysisTask();
+    }
+
+    function routeM4Hydrogen(destination) {
+      if (destination === 'cabin') {
+        sound.errorBuzzer();
+        alert("⚠️ CRITICAL FLIGHT SAFETY WARNING:\n\nElectrolysis creates explosive Hydrogen gas! Hydrogen must NEVER enter the breathable air supply.\nRoute to the external vent line instead.");
+        return;
+      }
+      sound.clickSound();
+      m4TaskState.h2Routed = 'external';
+      renderM4ElectrolysisTask();
+    }
+
+    function checkM4Completion() {
+      const isComplete = m4TaskState.waterFeed && m4TaskState.cellEnergized && m4TaskState.separatorEngaged && m4TaskState.o2TankConnected && m4TaskState.h2Routed === 'external';
+      const confirmBtn = document.getElementById('miniTaskConfirmBtn');
+      const statusBadge = document.getElementById('miniTaskStatusBadge');
+
+      if (isComplete) {
+        if (confirmBtn) {
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = "CONFIRM LIFE SUPPORT RECOVERY ➔";
+        }
+        if (statusBadge) {
+          statusBadge.className = 'minitask-status-badge complete';
+          statusBadge.textContent = '✓ O2 RECYCLER ACTIVE (99.8%)';
+        }
+      }
+    }
+
+    // =========================================================================
+    // STEP RENDERER & PROGRESSION
+    // =========================================================================
+    function renderCurrentStep() {
+      if (currentStep >= DIALOGUES.length) {
+        currentStep = DIALOGUES.length - 1;
+      }
+
+      const item = DIALOGUES[currentStep];
+
+      // Update Active Mission Clock & Timeline
+      if (item.mission && item.mission !== currentActiveMissionId) {
+        setActiveMissionTime(item.mission);
+      }
+
+      // Update Top HUD Title
+      if (hudTitleEl && item.title) {
+        hudTitleEl.textContent = item.title;
+      }
+
+      // Update Scene Background Layer
+      if (bgConsoleEl && item.bg) {
+        if (!bgConsoleEl.src.endsWith(item.bg)) {
+          bgConsoleEl.src = item.bg;
+        }
+      }
+
+      // Update Alarm State
+      if (item.alarm) {
+        stormAlertOverlayEl.classList.add('active');
+        emergencyBannerEl.classList.remove('hidden');
+        sound.warnAlarm();
+      } else {
+        stormAlertOverlayEl.classList.remove('active');
+        emergencyBannerEl.classList.add('hidden');
+      }
+
+      // Update Exterior View
+      if (item.showExterior) {
+        exteriorViewContainerEl.classList.remove('hidden');
+      } else {
+        exteriorViewContainerEl.classList.add('hidden');
+      }
+
+      // Handle Interactive Mini-Tasks
+      if (item.type === 'minitask') {
+        if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
+        if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.add('hidden');
+        if (characterStandEl) characterStandEl.classList.add('hidden');
+        if (m1DecisionOverlayEl) {
+          m1DecisionOverlayEl.classList.remove('active');
+          m1DecisionOverlayEl.classList.add('hidden');
+        }
+        openCrisisMiniTask(item.taskId, item.mission);
+        return;
+      } else {
+        closeCrisisMiniTask();
+      }
+
+      // Handle Decision Cards
+      if (item.type === 'decision') {
+        if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
+        if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.add('hidden');
+        if (characterStandEl) characterStandEl.classList.add('hidden');
+
+        renderDecisionCards(item.decisionKey || item.mission.toLowerCase());
+
+        if (m1DecisionOverlayEl) {
+          m1DecisionOverlayEl.classList.remove('hidden');
+          m1DecisionOverlayEl.classList.add('active');
+        }
+        return;
+      } else {
+        if (m1DecisionOverlayEl) {
+          m1DecisionOverlayEl.classList.remove('active');
+          m1DecisionOverlayEl.classList.add('hidden');
+        }
+      }
+
+      // AstroBee vs Crew Human Dialogues
+      if (item.speaker === 'astrobee') {
+        if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
+        if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.remove('hidden');
+        if (characterStandEl) characterStandEl.classList.add('hidden');
+
+        activeDialogueTextEl = dialogueTextAstroBeeEl;
+        if (activeDialogueTextEl) {
+          if (item.text.length > 85) {
+            activeDialogueTextEl.classList.add('text-long');
+          } else {
+            activeDialogueTextEl.classList.remove('text-long');
+          }
+        }
+      } else {
+        // Human Astronauts (Rakesh Sharma, Dr. Chiaki Mukai, Sunita Williams, O2 Commando)
+        if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.add('hidden');
+        if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.remove('hidden');
+
+        if (characterStandEl) {
+          characterStandEl.src = item.avatar;
+          characterStandEl.alt = item.name;
+          characterStandEl.classList.remove('hidden');
+          
+          characterStandEl.classList.remove('char-chiaki', 'char-commando');
+          if (item.charClass) {
+            characterStandEl.classList.add(item.charClass);
+          }
+        }
+        if (badgeHumanTextEl) {
+          badgeHumanTextEl.textContent = item.name;
+        }
+
+        activeDialogueTextEl = dialogueTextHumanEl;
+        sound.commsChirp();
+      }
+
+      // Typewriter text animation
+      typeText(item.text, activeDialogueTextEl);
+    }
+
+    let isInstant = false;
+
+    function typeText(fullText, targetEl) {
+      if (typingTimer) clearInterval(typingTimer);
+      if (!targetEl) return;
+      targetEl.textContent = '';
+
+      if (isInstant) {
+        targetEl.textContent = fullText;
+        isTyping = false;
+        return;
+      }
+
+      isTyping = true;
+      let idx = 0;
+
+      typingTimer = setInterval(() => {
+        if (idx < fullText.length) {
+          targetEl.textContent += fullText[idx];
+          if (idx % 3 === 0) sound.beepSound();
+          idx++;
+        } else {
+          clearInterval(typingTimer);
+          isTyping = false;
+        }
+      }, 20);
+    }
+
+    function nextScene() {
+      const currentItem = DIALOGUES[currentStep];
+      if (currentItem && currentItem.type === 'decision') {
+        return; // Must select option first
+      }
+      if (currentItem && currentItem.type === 'minitask') {
+        return; // Must complete or skip mini-task
+      }
+      sound.clickSound();
+      if (isTyping) {
+        clearInterval(typingTimer);
+        if (activeDialogueTextEl && DIALOGUES[currentStep]) {
+          activeDialogueTextEl.textContent = DIALOGUES[currentStep].text;
+        }
+        isTyping = false;
+        return;
+      }
+      if (currentStep < DIALOGUES.length - 1) {
+        currentStep++;
+        renderCurrentStep();
+      }
     }
 
     function handleDialogueClick() {
@@ -3618,8 +4992,8 @@
       if (e.code === 'Space' || e.code === 'Enter') {
         e.preventDefault();
         const currentItem = DIALOGUES[currentStep];
-        if (currentItem && currentItem.type === 'decision' && !m1ChosenDecision) {
-          return; // Block advancement until choice is made
+        if (currentItem && (currentItem.type === 'decision' || currentItem.type === 'minitask')) {
+          return; // Block advancement until choice/protocol is completed
         }
         handleDialogueClick();
       }
