@@ -3786,6 +3786,535 @@
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     }
 
+    /* ========================================================
+       M8 MOONFALL — EARTH UPLINK MCQ FORM (Reference 2nd image)
+       ======================================================== */
+    .m8-uplink-container {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(8px, 1.2vh, 12px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .m8-uplink-header-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid rgba(0, 229, 255, 0.35);
+      border-radius: 8px;
+      padding: 8px 14px;
+      box-sizing: border-box;
+    }
+
+    .m8-uplink-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .m8-uplink-icon {
+      font-size: 1.4rem;
+      filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+    }
+
+    .m8-uplink-main-title {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+      font-weight: 700;
+      color: #00e5ff;
+      letter-spacing: 0.04em;
+    }
+
+    .m8-uplink-sub-title {
+      font-size: clamp(0.72rem, 0.85vw, 0.82rem);
+      color: #94a3b8;
+    }
+
+    .m8-uplink-progress-pill {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      white-space: nowrap;
+      background: rgba(14, 165, 233, 0.18);
+      border: 1.5px solid #0284c7;
+      color: #7dd3fc;
+    }
+
+    .m8-uplink-progress-pill.complete {
+      background: rgba(16, 185, 129, 0.22);
+      border-color: #10b981;
+      color: #34d399;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+    }
+
+    .m8-uplink-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(8px, 1.2vw, 12px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 680px) {
+      .m8-uplink-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .m8-section-card {
+      background: rgba(6, 18, 38, 0.85);
+      border: 1.5px solid rgba(56, 189, 248, 0.25);
+      border-radius: 10px;
+      padding: clamp(8px, 1.1vh, 12px) clamp(10px, 1.2vw, 14px);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .m8-section-card.has-selection {
+      border-color: rgba(0, 229, 255, 0.6);
+      background: rgba(8, 24, 48, 0.92);
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.15);
+    }
+
+    .m8-section-title {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .m8-sec-icon {
+      font-size: 1.0rem;
+    }
+
+    .m8-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .m8-option-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1.5px solid rgba(56, 189, 248, 0.18);
+      border-radius: 6px;
+      padding: clamp(6px, 0.9vh, 8px) 10px;
+      cursor: pointer;
+      transition: all 0.12s ease;
+      text-align: left;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    /* Neutral, pure blue/cyan selection and hover (NO red or green!) */
+    .m8-option-btn:hover {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      transform: translateX(2px);
+    }
+
+    .m8-option-btn.selected {
+      border-color: #00e5ff;
+      background: rgba(0, 229, 255, 0.16);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.35);
+    }
+
+    .m8-radio-circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid rgba(148, 163, 184, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+      box-sizing: border-box;
+      background: transparent;
+    }
+
+    .m8-option-btn.selected .m8-radio-circle {
+      border-color: #00e5ff;
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.7);
+    }
+
+    .m8-radio-inner-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00e5ff;
+      box-shadow: 0 0 6px #00e5ff;
+    }
+
+    .m8-option-label {
+      font-size: clamp(0.78rem, 0.95vw, 0.88rem);
+      color: #cbd5e1;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      line-height: 1.25;
+    }
+
+    .m8-option-btn.selected .m8-option-label {
+      color: #ffffff;
+      font-weight: 700;
+      text-shadow: 0 0 6px rgba(0, 229, 255, 0.5);
+    }
+
+    /* ========================================================
+       EARTH UPLINK TRANSMISSION DELAY MODAL (Speed of Light)
+       ======================================================== */
+    .earth-uplink-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 240;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+
+    .earth-uplink-card {
+      background: linear-gradient(180deg, rgba(10, 22, 45, 0.98) 0%, rgba(2, 10, 28, 0.98) 100%);
+      border: 2px solid #00e5ff;
+      border-radius: 14px;
+      box-shadow: 0 0 45px rgba(0, 229, 255, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.1);
+      width: 100%;
+      max-width: 660px;
+      padding: clamp(16px, 2.2vh, 22px) clamp(18px, 2.4vw, 26px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-sizing: border-box;
+      max-height: 94vh;
+      overflow-y: auto;
+    }
+
+    .earth-uplink-header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .uplink-badge {
+      font-family: var(--font-pixel, monospace);
+      font-size: 0.78rem;
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid #0284c7;
+      color: #38bdf8;
+      padding: 3px 12px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .uplink-title {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(1.4rem, 2.0vw, 1.85rem);
+      color: #ffffff;
+      margin: 4px 0 0 0;
+      letter-spacing: 0.03em;
+      text-shadow: 0 0 16px rgba(0, 229, 255, 0.6);
+    }
+
+    .uplink-sub {
+      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+      color: #94a3b8;
+      margin: 0;
+    }
+
+    .uplink-physics-box {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1.5px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 8px;
+    }
+
+    .uplink-stat-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      text-align: center;
+    }
+
+    .uplink-stat-label {
+      font-size: 0.68rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .uplink-stat-val {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.85rem, 1.05vw, 0.95rem);
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .uplink-stat-val.highlight {
+      color: #00e5ff;
+      text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+    }
+
+    .uplink-transit-display {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #020617;
+      border: 1.5px solid rgba(0, 229, 255, 0.25);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .uplink-wave-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .uplink-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      min-width: 75px;
+    }
+
+    .uplink-node .node-icon {
+      font-size: 1.4rem;
+    }
+
+    .uplink-node .node-label {
+      font-family: var(--font-pixel, monospace);
+      font-size: 0.7rem;
+      color: #38bdf8;
+      letter-spacing: 0.04em;
+    }
+
+    .uplink-beam-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .uplink-beam-pulse {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 35%;
+      background: linear-gradient(90deg, transparent, #00e5ff, #ffffff, #00e5ff, transparent);
+      box-shadow: 0 0 10px #00e5ff;
+      border-radius: 3px;
+      animation: beamTransit 2.6s linear forwards;
+    }
+
+    @keyframes beamTransit {
+      0% { left: -35%; }
+      50% { left: 50%; }
+      100% { left: 105%; }
+    }
+
+    .uplink-status-line {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.72rem, 0.88vw, 0.82rem);
+      color: #bae6fd;
+      text-align: center;
+      min-height: 20px;
+    }
+
+    .uplink-astrobee-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(14, 165, 233, 0.1);
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+
+    .uplink-astrobee-avatar {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+    }
+
+    .uplink-astrobee-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+    }
+
+    .uplink-astrobee-bubble {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .uplink-astrobee-name {
+      font-family: var(--font-pixel, monospace);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .uplink-astrobee-text {
+      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+      color: #e2e8f0;
+      line-height: 1.35;
+    }
+
+    .uplink-actions-bar {
+      display: flex;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .uplink-btn-proceed {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.85rem, 1.1vw, 1.02rem);
+      background: #1e293b;
+      border: 2px solid #475569;
+      color: #64748b;
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: not-allowed;
+      transition: all 0.2s ease;
+      letter-spacing: 0.03em;
+    }
+
+    .uplink-btn-proceed.ready {
+      background: linear-gradient(90deg, #0284c7, #0ea5e9);
+      border-color: #00e5ff;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+    }
+    .uplink-btn-proceed.ready:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 28px rgba(0, 229, 255, 0.9);
+      background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+    }
+
+    /* ========================================================
+       FINAL DEBRIEF EVALUATION SECTION (Best & Worst Decisions)
+       ======================================================== */
+    .debrief-evaluation-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 4px 0;
+      text-align: left;
+    }
+
+    .debrief-eval-title {
+      font-family: var(--font-pixel, monospace);
+      font-size: 0.82rem;
+      color: #38bdf8;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .debrief-eval-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .debrief-eval-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .debrief-eval-card {
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-sizing: border-box;
+    }
+
+    .debrief-eval-card.best {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1.5px solid #10b981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+    }
+
+    .debrief-eval-card.worst {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1.5px solid #f59e0b;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+    }
+
+    .debrief-eval-badge {
+      font-family: var(--font-pixel, monospace);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      display: inline-block;
+    }
+    .debrief-eval-badge.best {
+      color: #34d399;
+    }
+    .debrief-eval-badge.worst {
+      color: #fbbf24;
+    }
+
+    .debrief-eval-mission {
+      font-family: var(--font-pixel, monospace);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .debrief-eval-stat {
+      font-size: 0.75rem;
+      font-family: var(--font-pixel, monospace);
+      color: #7dd3fc;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .debrief-eval-desc {
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      line-height: 1.3;
+    }
+
     /* FINAL MISSION DEBRIEFING & STAR RATING MODAL (Finale) */
     .final-debrief-modal {
       position: fixed;
@@ -4692,6 +5221,77 @@
         </div>
       </div>
 
+      <!-- EARTH UPLINK TRANSMISSION DELAY MODAL (Speed of Light Propagation) -->
+      <div class="earth-uplink-modal hidden" id="earthUplinkTransmissionModal" role="dialog" aria-modal="true" aria-label="Earth Uplink Transmission">
+        <div class="earth-uplink-card">
+          <div class="earth-uplink-header">
+            <span class="uplink-badge">DEEP SPACE NETWORK // GOLDSTONE ARRAY</span>
+            <h1 class="uplink-title">TRANSMITTING REPORT TO EARTH</h1>
+            <p class="uplink-sub">Cislunar Beamforming // High-Gain Parabolic Telemetry Link</p>
+          </div>
+
+          <!-- Live Physics Telemetry -->
+          <div class="uplink-physics-box">
+            <div class="uplink-stat-col">
+              <span class="uplink-stat-label">CISLUNAR DISTANCE</span>
+              <span class="uplink-stat-val">384,400 km</span>
+            </div>
+            <div class="uplink-stat-col">
+              <span class="uplink-stat-label">CARRIER VELOCITY</span>
+              <span class="uplink-stat-val">c (299,792 km/s)</span>
+            </div>
+            <div class="uplink-stat-col">
+              <span class="uplink-stat-label">ONE-WAY TRANSIT</span>
+              <span class="uplink-stat-val">~1.28 s (1.3 s)</span>
+            </div>
+            <div class="uplink-stat-col">
+              <span class="uplink-stat-label">ROUND-TRIP (RTT)</span>
+              <span class="uplink-stat-val highlight">~2.56 s (2.6 s)</span>
+            </div>
+          </div>
+
+          <!-- Transmission Progress Wave & Terminal Log -->
+          <div class="uplink-transit-display">
+            <div class="uplink-wave-container">
+              <div class="uplink-node moon">
+                <span class="node-icon">🌑</span>
+                <span class="node-label">SHACKLETON</span>
+              </div>
+              <div class="uplink-beam-track">
+                <div class="uplink-beam-pulse" id="uplinkBeamPulse"></div>
+              </div>
+              <div class="uplink-node earth">
+                <span class="node-icon">🌍</span>
+                <span class="node-label">EARTH (DSN)</span>
+              </div>
+            </div>
+            <div class="uplink-status-line" id="uplinkStatusLine">
+              [UPLINK IN PROGRESS] Beaming compressed telemetry packets across cislunar space...
+            </div>
+          </div>
+
+          <!-- AstroBee Speed-of-Light Dialogue -->
+          <div class="uplink-astrobee-box">
+            <div class="uplink-astrobee-avatar">
+              <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
+            </div>
+            <div class="uplink-astrobee-bubble">
+              <div class="uplink-astrobee-name">Astro Bee</div>
+              <div class="uplink-astrobee-text" id="uplinkAstrobeeSpeech">
+                "Commander! Our recovery status report is currently in transit to Earth Mission Control. Because radio electromagnetic signals travel at the speed of light (c ≈ 299,792 km/s), across the 384,400 km distance, our transmission takes 1.3 seconds to reach Earth, and Ground Control's telemetry handshake requires another 1.3 seconds (2.6 seconds total round-trip time). Standing by for Earth confirmation..."
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="uplink-actions-bar">
+            <button class="uplink-btn-proceed" id="btnUplinkProceed" disabled onclick="finishEarthUplinkToDebrief()">
+              BEAMING TO EARTH (384,400 KM @ c)...
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- FINAL MISSION DEBRIEFING & STAR RATING MODAL (Finale) -->
       <div class="final-debrief-modal hidden" id="finalDebriefModal" role="dialog" aria-modal="true" aria-label="Final Mission Debriefing">
         <div class="final-debrief-card">
@@ -4714,6 +5314,14 @@
           <!-- Telemetry Summary Grid (7 resources) -->
           <div class="debrief-telemetry-grid" id="debriefTelemetryGrid">
             <!-- Populated dynamically -->
+          </div>
+
+          <!-- Best & Worst Command Decisions Evaluation -->
+          <div class="debrief-evaluation-section">
+            <div class="debrief-eval-title">COMMAND DECISIONS EVALUATION // FLIGHT LOG</div>
+            <div class="debrief-eval-grid" id="debriefEvalGrid">
+              <!-- Dynamically populated with Best Decision & Worst Decision -->
+            </div>
           </div>
 
           <!-- Decisions Summary Row (M1 - M8) -->
@@ -4907,6 +5515,11 @@
       if (typeof m6TaskState !== 'undefined') {
         m6TaskState.schedule = null;
         m6TaskState.isComplete = false;
+      }
+      if (typeof m8TaskState !== 'undefined') {
+        m8TaskState.selections = { crew: null, power: null, lifeSupport: null, radiation: null };
+        m8TaskState.isTransmitting = false;
+        m8TaskState.isReportSent = false;
       }
       currentActiveMissionId = 'M1';
       missionClockSecondsCounter = 0;
@@ -6836,11 +7449,59 @@
       dielectricScan: false
     };
 
+    // Mission 8 Earth Uplink MCQ Sections (Exact match to reference image)
+    const M8_UPLINK_SECTIONS = [
+      {
+        key: 'crew',
+        title: 'Crew Status',
+        icon: '👨‍🚀',
+        options: [
+          { id: 'safe', label: 'All five crew members safe' },
+          { id: 'medical', label: 'Crew requires medical assistance' },
+          { id: 'unknown', label: 'Crew status unknown' }
+        ]
+      },
+      {
+        key: 'power',
+        title: 'Power Status',
+        icon: '⚡',
+        options: [
+          { id: 'restored', label: 'Fully restored' },
+          { id: 'limited', label: 'Limited power available' },
+          { id: 'critical', label: 'Critical power failure' }
+        ]
+      },
+      {
+        key: 'lifeSupport',
+        title: 'Life Support',
+        icon: '🫧',
+        options: [
+          { id: 'operational', label: 'Operational' },
+          { id: 'partial', label: 'Partially operational' },
+          { id: 'failure', label: 'System failure' }
+        ]
+      },
+      {
+        key: 'radiation',
+        title: 'Radiation Status',
+        icon: '☢️',
+        options: [
+          { id: 'declining', label: 'Radiation levels declining' },
+          { id: 'unsafe', label: 'Still unsafe for EVA' },
+          { id: 'safe', label: 'Safe for EVA' }
+        ]
+      }
+    ];
+
     const m8TaskState = {
-      dosimetryScan: false,
-      sealVerify: false,
-      earthUplink: false,
-      normalization: false
+      selections: {
+        crew: null,
+        power: null,
+        lifeSupport: null,
+        radiation: null
+      },
+      isTransmitting: false,
+      isReportSent: false
     };
 
     function openCrisisMiniTask(taskId, missionId) {
@@ -6898,7 +7559,8 @@
         if (headline) headline.textContent = "Power Bus Arc Fault Isolation";
         renderM7BusFaultTask();
       } else if (taskId === 'm8_finale') {
-        if (headline) headline.textContent = "Final Outpost Normalization";
+        if (headline) headline.textContent = "MoonFall — Earth Uplink";
+        if (subline) subline.textContent = "TACTICAL TELEMETRY & RECOVERY REPORT TO NASA MISSION CONTROL";
         renderM8FinaleTask();
       }
 
@@ -6919,6 +7581,11 @@
 
     function completeMiniTask() {
       sound.successChime();
+      if (activeMiniTaskId === 'm8_finale') {
+        closeCrisisMiniTask();
+        startEarthUplinkTransmission();
+        return;
+      }
       closeCrisisMiniTask();
       currentStep++;
       renderCurrentStep();
@@ -8253,92 +8920,83 @@
       }
     }
 
-    // --- M8 Finale Outpost Survival Task ---
+    // --- M8 Earth Uplink MCQ Assessment (NASA Deep Space Network) ---
+    function selectM8UplinkOption(secKey, optId) {
+      sound.clickSound();
+      m8TaskState.selections[secKey] = optId;
+      renderM8FinaleTask();
+    }
+
     function renderM8FinaleTask() {
       const body = document.getElementById('miniTaskBody');
       const hint = document.getElementById('miniTaskHint');
       if (!body) return;
 
+      const selections = m8TaskState.selections;
+      const selectedCount = Object.values(selections).filter(Boolean).length;
+      const allSelected = (selectedCount === 4);
+
       if (hint) {
-        hint.textContent = "Verify Dosimetry Level ➔ Re-engage Hermetic Seals ➔ Re-establish Earth Uplink ➔ Execute Habitat Normalization.";
+        hint.textContent = "Select Outpost Status for NASA Deep Space Network Recovery Report across all 4 categories.";
       }
 
       body.innerHTML = `
-        <div class="m4-flow-sequence">
-          <!-- Stage 1 -->
-          <div class="manifold-stage-card ${m8TaskState.dosimetryScan ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
+        <div class="m8-uplink-container">
+          <div class="m8-uplink-header-card">
+            <div class="m8-uplink-title-row">
+              <span class="m8-uplink-icon">📡</span>
               <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Dosimetry & Surface Flux Verification</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Confirms exterior proton flux has dropped below safety threshold (< 10 mSv/h)</div>
+                <div class="m8-uplink-main-title">MOONFALL — EARTH UPLINK</div>
+                <div class="m8-uplink-sub-title">Select Outpost Status for NASA Deep Space Network Recovery Report</div>
               </div>
             </div>
-            <button class="stage-btn ${m8TaskState.dosimetryScan ? 'online' : ''}" onclick="advanceM8FinaleStage('dosimetryScan')">
-              ${m8TaskState.dosimetryScan ? '✓ FLUX BELOW THRESHOLD' : 'SCAN SURFACE FLUX'}
-            </button>
+            <div class="m8-uplink-progress-pill ${allSelected ? 'complete' : ''}">
+              ${allSelected ? '✓ 4/4 SECTIONS COMPLETE' : `${selectedCount}/4 SECTIONS SELECTED`}
+            </div>
           </div>
 
-          <!-- Stage 2 -->
-          <div class="manifold-stage-card ${m8TaskState.sealVerify ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Atmospheric Hermetic Seal Lock</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Equalizes interconnecting module vestibules to nominal 101.3 kPa habitat pressure</div>
-              </div>
-            </div>
-            <button class="stage-btn ${m8TaskState.sealVerify ? 'online' : ''}" onclick="advanceM8FinaleStage('sealVerify')">
-              ${m8TaskState.sealVerify ? '✓ PRESSURE EQUALIZED (101.3 kPa)' : 'EQUALIZE VESTIBULES'}
-            </button>
-          </div>
-
-          <!-- Stage 3 -->
-          <div class="manifold-stage-card ${m8TaskState.earthUplink ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">High-Gain Deep Space Uplink</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Re-establishes direct telemetry carrier with NASA Deep Space Network Goldstone array</div>
-              </div>
-            </div>
-            <button class="stage-btn ${m8TaskState.earthUplink ? 'online' : ''}" onclick="advanceM8FinaleStage('earthUplink')">
-              ${m8TaskState.earthUplink ? '✓ DSN CARRIER LOCKED' : 'LOCK DSN UPLINK'}
-            </button>
-          </div>
-
-          <!-- Stage 4 -->
-          <div class="manifold-stage-card ${m8TaskState.normalization ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Habitat Normalization Protocol</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Releases storm shelter condition red and restores automated ECLSS scheduling</div>
-              </div>
-            </div>
-            <button class="stage-btn ${m8TaskState.normalization ? 'online' : ''}" onclick="advanceM8FinaleStage('normalization')">
-              ${m8TaskState.normalization ? '✓ ECLSS AUTOMATION NOMINAL' : 'EXECUTE NORMALIZATION'}
-            </button>
+          <div class="m8-uplink-grid">
+            ${M8_UPLINK_SECTIONS.map(sec => {
+              const currentVal = selections[sec.key];
+              return `
+                <div class="m8-section-card ${currentVal ? 'has-selection' : ''}">
+                  <div class="m8-section-title">
+                    <span class="m8-sec-icon">${sec.icon}</span>
+                    <span>${sec.title}</span>
+                  </div>
+                  <div class="m8-options-list">
+                    ${sec.options.map(opt => {
+                      const isSelected = (currentVal === opt.id);
+                      return `
+                        <button type="button" class="m8-option-btn ${isSelected ? 'selected' : ''}" onclick="selectM8UplinkOption('${sec.key}', '${opt.id}')" aria-pressed="${isSelected}">
+                          <span class="m8-radio-circle ${isSelected ? 'selected' : ''}">
+                            ${isSelected ? '<span class="m8-radio-inner-dot"></span>' : ''}
+                          </span>
+                          <span class="m8-option-label">${opt.label}</span>
+                        </button>
+                      `;
+                    }).join('')}
+                  </div>
+                </div>
+              `;
+            }).join('')}
           </div>
         </div>
       `;
 
-      updateMinitaskAstrobee("Commander! All solar storm safety gates cleared. Execute outpost normalization to finalize our mission!");
+      if (allSelected) {
+        updateMinitaskAstrobee("All four telemetry status reports compiled! Confirm to transmit carrier to NASA Deep Space Network.");
+      } else {
+        updateMinitaskAstrobee(`Commander, select all 4 status reports (${selectedCount}/4 chosen) to compile our recovery telemetry.`);
+      }
+
       checkM8Completion();
     }
 
-    function advanceM8FinaleStage(stageKey) {
-      sound.clickSound();
-      m8TaskState[stageKey] = !m8TaskState[stageKey];
-      const allDone = m8TaskState.dosimetryScan && m8TaskState.sealVerify && m8TaskState.earthUplink && m8TaskState.normalization;
-      if (allDone) {
-        sound.successChime();
-      }
-      renderM8FinaleTask();
-    }
-
     function checkM8Completion() {
-      const isComplete = m8TaskState.dosimetryScan && m8TaskState.sealVerify && m8TaskState.earthUplink && m8TaskState.normalization;
+      const selections = m8TaskState.selections;
+      const selectedCount = Object.values(selections).filter(Boolean).length;
+      const isComplete = (selectedCount === 4);
       const confirmBtn = document.getElementById('miniTaskConfirmBtn');
       const statusBadge = document.getElementById('miniTaskStatusBadge');
 
@@ -8346,22 +9004,132 @@
         confirmBtn.style.display = 'inline-block';
         if (isComplete) {
           confirmBtn.disabled = false;
-          confirmBtn.textContent = "CONFIRM OUTPOST RECOVERY ➔";
+          confirmBtn.textContent = "TRANSMIT REPORT TO EARTH ➔";
         } else {
           confirmBtn.disabled = true;
-          confirmBtn.textContent = "SURVIVAL SEQUENCE INCOMPLETE";
+          confirmBtn.textContent = `SELECT ALL 4 REPORTS (${selectedCount}/4)`;
         }
       }
 
       if (statusBadge) {
         if (isComplete) {
           statusBadge.className = 'minitask-status-badge complete';
-          statusBadge.textContent = '✓ RECOVERY COMPLETE';
+          statusBadge.textContent = '✓ REPORT COMPILED';
         } else {
           statusBadge.className = 'minitask-status-badge';
-          statusBadge.textContent = 'NORMALIZING OUTPOST';
+          statusBadge.textContent = `COMPILING (${selectedCount}/4)`;
         }
       }
+    }
+
+    // --- Earth Uplink Speed-of-Light Transmission Popup ---
+    function startEarthUplinkTransmission() {
+      const modal = document.getElementById('earthUplinkTransmissionModal');
+      const pulse = document.getElementById('uplinkBeamPulse');
+      const statusLine = document.getElementById('uplinkStatusLine');
+      const proceedBtn = document.getElementById('btnUplinkProceed');
+      const speech = document.getElementById('uplinkAstrobeeSpeech');
+
+      if (!modal) {
+        openFinalDebriefModal();
+        return;
+      }
+
+      modal.classList.remove('hidden');
+      if (proceedBtn) {
+        proceedBtn.disabled = true;
+        proceedBtn.textContent = "BEAMING TO EARTH (384,400 KM @ c)...";
+        proceedBtn.classList.remove('ready');
+      }
+
+      if (statusLine) {
+        statusLine.textContent = "[0.0s] Beaming compressed telemetry packets from Shackleton Outpost across cislunar space (384,400 km)...";
+      }
+
+      if (pulse) {
+        pulse.style.animation = 'none';
+        void pulse.offsetWidth;
+        pulse.style.animation = 'beamTransit 2.6s linear forwards';
+      }
+
+      if (speech) {
+        speech.textContent = "Commander! Our recovery status report is currently in transit to Earth Mission Control. Because radio electromagnetic signals travel at the speed of light (c ≈ 299,792 km/s), across the 384,400 km distance, our transmission takes 1.3 seconds to reach Earth, and Ground Control's telemetry handshake requires another 1.3 seconds (2.6 seconds total round-trip time). Standing by for Earth confirmation...";
+      }
+
+      // 1.3 seconds: one-way transit arrival at Earth
+      setTimeout(() => {
+        if (statusLine) {
+          statusLine.textContent = "[1.3s] Signal reached Earth (NASA Goldstone DSN Station). Flight Director decoding telemetry packet handshake...";
+        }
+      }, 1300);
+
+      // 2.6 seconds: two-way round-trip confirmation
+      setTimeout(() => {
+        sound.successChime();
+        if (statusLine) {
+          statusLine.innerHTML = "<span style='color:#34d399;'>[2.6s] ✓ TWO-WAY HANDSHAKE CONFIRMED // EARTH MISSION CONTROL ACKNOWLEDGED RECEIPT!</span>";
+        }
+        if (speech) {
+          speech.innerHTML = "<strong>Transmission confirmed!</strong> Earth Ground Control has verified our telemetry packets. Shackleton Outpost survival has been officially recorded in NASA flight logs. Excellent leadership, Commander!";
+        }
+        if (proceedBtn) {
+          proceedBtn.disabled = false;
+          proceedBtn.textContent = "VIEW FINAL OUTPOST SCORE & DEBRIEF ➔";
+          proceedBtn.classList.add('ready');
+        }
+      }, 2600);
+    }
+
+    function finishEarthUplinkToDebrief() {
+      sound.clickSound();
+      const modal = document.getElementById('earthUplinkTransmissionModal');
+      if (modal) modal.classList.add('hidden');
+      openFinalDebriefModal();
+    }
+
+    // --- Command Decisions Evaluation (Best vs Heaviest Trade-Off) ---
+    function getBestAndWorstDecisions() {
+      const missions = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'];
+      const evaluations = [];
+
+      missions.forEach(m => {
+        const choiceKey = sessionStorage.getItem(`moonfall_${m}_decision`) || (decisionHistory[m] ? decisionHistory[m].toLowerCase() : null);
+        const missionConfig = MISSION_DECISIONS_DATA[m];
+        if (missionConfig && missionConfig.options) {
+          let opt = null;
+          if (choiceKey && missionConfig.options[choiceKey]) {
+            opt = missionConfig.options[choiceKey];
+          } else {
+            const keys = Object.keys(missionConfig.options);
+            opt = missionConfig.options[keys[0]];
+          }
+
+          if (opt && opt.deltas) {
+            let netDelta = 0;
+            for (const [res, val] of Object.entries(opt.deltas)) {
+              const weight = (res === 'O2' || res === 'Water' || res === 'Health') ? 1.5 : 1.0;
+              netDelta += val * weight;
+            }
+            evaluations.push({
+              missionKey: m.toUpperCase(),
+              missionTitle: missionConfig.title || m.toUpperCase(),
+              choiceTitle: opt.title || opt.label,
+              badge: opt.badge || choiceKey,
+              stat: opt.stat,
+              gain: opt.gain || "Safeguarded vital mission telemetry margins.",
+              cost: opt.cost || "Standard operational depletion.",
+              netDelta: netDelta
+            });
+          }
+        }
+      });
+
+      if (evaluations.length === 0) return { best: null, worst: null };
+
+      evaluations.sort((a, b) => b.netDelta - a.netDelta);
+      const best = evaluations[0];
+      const worst = evaluations[evaluations.length - 1];
+      return { best, worst };
     }
 
     // --- Final Debriefing & Star Rating Calculation ---
@@ -8381,6 +9149,7 @@
       const scoreVerdict = document.getElementById('debriefScoreVerdict');
       const teleGrid = document.getElementById('debriefTelemetryGrid');
       const decSummary = document.getElementById('debriefDecisionsSummary');
+      const evalGrid = document.getElementById('debriefEvalGrid');
 
       if (!modal) return;
 
@@ -8435,6 +9204,27 @@
             <span class="debrief-tele-val">${Math.round(s.val)}%</span>
           </div>
         `).join('');
+      }
+
+      // Populate Best & Worst Command Decisions Evaluation
+      if (evalGrid) {
+        const { best, worst } = getBestAndWorstDecisions();
+        if (best && worst) {
+          evalGrid.innerHTML = `
+            <div class="debrief-eval-card best">
+              <div class="debrief-eval-badge best">★ BEST COMMAND DECISION</div>
+              <div class="debrief-eval-mission">${best.missionKey}: ${best.choiceTitle}</div>
+              <div class="debrief-eval-stat">${best.stat}</div>
+              <div class="debrief-eval-desc">${best.gain}</div>
+            </div>
+            <div class="debrief-eval-card worst">
+              <div class="debrief-eval-badge worst">⚠️ HEAVIEST RESOURCE TRADE-OFF</div>
+              <div class="debrief-eval-mission">${worst.missionKey}: ${worst.choiceTitle}</div>
+              <div class="debrief-eval-stat">${worst.stat}</div>
+              <div class="debrief-eval-desc">${worst.cost}</div>
+            </div>
+          `;
+        }
       }
 
       // Populate Decisions summary
@@ -8754,10 +9544,32 @@
       if (urlParams.get('m2switches')) {
         urlParams.get('m2switches').split(',').forEach(k => { if (m2TaskState.switches[k] !== undefined) m2TaskState.switches[k] = true; });
       }
+      if (urlParams.get('m8all') === '1') {
+        m8TaskState.selections = { crew: 'safe', power: 'limited', lifeSupport: 'operational', radiation: 'declining' };
+      }
       initOutpostResources();
       updateDecisionHistoryUI();
       initMissionClock();
       renderCurrentStep();
+      if (urlParams.get('uplink') === '1') {
+        startEarthUplinkTransmission();
+      } else if (urlParams.get('uplink') === 'done') {
+        startEarthUplinkTransmission();
+        const statusLine = document.getElementById('uplinkStatusLine');
+        const proceedBtn = document.getElementById('btnUplinkProceed');
+        const speech = document.getElementById('uplinkAstrobeeSpeech');
+        if (statusLine) {
+          statusLine.innerHTML = "<span style='color:#34d399;'>[2.6s] ✓ TWO-WAY HANDSHAKE CONFIRMED // EARTH MISSION CONTROL ACKNOWLEDGED RECEIPT!</span>";
+        }
+        if (speech) {
+          speech.innerHTML = "<strong>Transmission confirmed!</strong> Earth Ground Control has verified our telemetry packets. Shackleton Outpost survival has been officially recorded in NASA flight logs. Excellent leadership, Commander!";
+        }
+        if (proceedBtn) {
+          proceedBtn.disabled = false;
+          proceedBtn.textContent = "VIEW FINAL OUTPOST SCORE & DEBRIEF ➔";
+          proceedBtn.classList.add('ready');
+        }
+      }
       if (urlParams.get('openLog') === '1') {
         openDecisionModal();
       }
