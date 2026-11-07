@@ -180,6 +180,98 @@
       pointer-events: auto;
     }
 
+    .top-hud-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      pointer-events: auto;
+      flex-wrap: nowrap;
+    }
+
+    /* Decision History Tracker Bar */
+    .decision-history-bar {
+      background: rgba(0, 10, 30, 0.82);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: auto;
+      box-sizing: border-box;
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.25);
+    }
+
+    .history-label {
+      font-size: clamp(0.85rem, 1.15vw, 1.1rem);
+      color: #7dd3fc;
+      letter-spacing: 0.05em;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .history-slots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .history-slot {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 4px;
+      padding: 2px 6px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: clamp(0.75rem, 1vw, 0.95rem);
+      color: #94a3b8;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .history-slot .slot-num {
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    .history-slot.active {
+      border-color: #00e5ff;
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.55);
+      color: #ffffff;
+      animation: slot-pulse 1.8s infinite alternate;
+    }
+
+    @keyframes slot-pulse {
+      0% { border-color: #00e5ff; box-shadow: 0 0 4px rgba(0, 229, 255, 0.4); }
+      100% { border-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.7); }
+    }
+
+    .history-slot.decided-evacuate {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: #10b981;
+      color: #34d399;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+    }
+    .history-slot.decided-evacuate .slot-num {
+      color: #6ee7b7;
+    }
+
+    .history-slot.decided-secure {
+      background: rgba(14, 165, 233, 0.25);
+      border-color: #0284c7;
+      color: #38bdf8;
+      box-shadow: 0 0 6px rgba(14, 165, 233, 0.4);
+    }
+    .history-slot.decided-secure .slot-num {
+      color: #7dd3fc;
+    }
+
     .hud-btn {
       background: rgba(0, 10, 30, 0.75);
       border: 1.5px solid var(--pixel-blue-border);
@@ -889,9 +981,51 @@
         </div>
       </div>
 
-      <!-- TOP HUD: Title Badge on Left, Sound + Restart + Main Base on Right -->
+      <!-- TOP HUD: Title Badge on Left, Decision History Bar, Sound + Restart + Main Base on Right -->
       <header class="top-hud">
-        <div class="hud-title-badge" id="hudTitle">⚡ MISSION 1: THE 30-MINUTE WARNING</div>
+        <div class="top-hud-left">
+          <div class="hud-title-badge" id="hudTitle">⚡ MISSION 1: THE 30-MINUTE WARNING</div>
+
+          <!-- DECISION HISTORY BAR -->
+          <div class="decision-history-bar" id="decisionHistoryBar" title="Commander Decision History (Missions 1-8)">
+            <span class="history-label">DECISIONS:</span>
+            <div class="history-slots" id="historySlots">
+              <div class="history-slot active" id="slotM1" data-mission="1" title="Mission 1: The 30-Minute Warning">
+                <span class="slot-num">M1</span>
+                <span class="slot-val">—</span>
+              </div>
+              <div class="history-slot" id="slotM2" data-mission="2" title="Mission 2: The Shelter Problem">
+                <span class="slot-num">M2</span>
+                <span class="slot-val">—</span>
+              </div>
+              <div class="history-slot" id="slotM3" data-mission="3" title="Mission 3: BlackOut">
+                <span class="slot-num">M3</span>
+                <span class="slot-val">—</span>
+              </div>
+              <div class="history-slot" id="slotM4" data-mission="4" title="Mission 4: Oxygen Countdown">
+                <span class="slot-num">M4</span>
+                <span class="slot-val">—</span>
+              </div>
+              <div class="history-slot" id="slotM5" data-mission="5" title="Mission 5: Water Trap">
+                <span class="slot-num">M5</span>
+                <span class="slot-val">—</span>
+              </div>
+              <div class="history-slot" id="slotM6" data-mission="6" title="Mission 6: Last Harvest">
+                <span class="slot-num">M6</span>
+                <span class="slot-val">—</span>
+              </div>
+              <div class="history-slot" id="slotM7" data-mission="7" title="Mission 7: Critical Failure">
+                <span class="slot-num">M7</span>
+                <span class="slot-val">—</span>
+              </div>
+              <div class="history-slot" id="slotM8" data-mission="8" title="Mission 8: The Last Signal">
+                <span class="slot-num">M8</span>
+                <span class="slot-val">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div style="display:flex; gap:8px;">
           <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
             <svg class="hud-svg-icon" id="soundSvg" viewBox="0 0 24 24" aria-hidden="true">
@@ -1072,6 +1206,9 @@
       currentStep = 0;
       m1ChosenDecision = null;
       sessionStorage.removeItem('moonfall_m1_decision');
+      sessionStorage.removeItem('moonfall_decision_history');
+      for (const k in decisionHistory) decisionHistory[k] = null;
+      updateDecisionHistoryUI();
       if (m1DecisionOverlayEl) {
         m1DecisionOverlayEl.classList.remove('active');
         m1DecisionOverlayEl.classList.add('hidden');
@@ -1085,6 +1222,52 @@
         cardSecureEquipEl.style.opacity = '1';
       }
       renderCurrentStep();
+    }
+
+    // =========================================================================
+    // DECISION HISTORY MANAGER (Tracks & displays M1 - M8 choices)
+    // =========================================================================
+    const decisionHistory = {
+      m1: null,
+      m2: null,
+      m3: null,
+      m4: null,
+      m5: null,
+      m6: null,
+      m7: null,
+      m8: null
+    };
+
+    function updateDecisionHistoryUI() {
+      const saved = sessionStorage.getItem('moonfall_decision_history');
+      if (saved) {
+        try {
+          Object.assign(decisionHistory, JSON.parse(saved));
+        } catch (e) {}
+      }
+
+      // Mission 1 slot
+      const slotM1 = document.getElementById('slotM1');
+      if (slotM1) {
+        if (decisionHistory.m1) {
+          slotM1.classList.remove('active');
+          const isEvac = decisionHistory.m1.toLowerCase().includes('evac');
+          slotM1.classList.toggle('decided-evacuate', isEvac);
+          slotM1.classList.toggle('decided-secure', !isEvac);
+          slotM1.querySelector('.slot-val').textContent = isEvac ? 'EVAC' : 'EQUIP';
+          slotM1.title = `Mission 1 Decision: ${isEvac ? 'Evacuate (Health +10, Equip -15)' : 'Secure Equip (Power -5, Health -12, Equip +10)'}`;
+        } else {
+          slotM1.classList.add('active');
+          slotM1.classList.remove('decided-evacuate', 'decided-secure');
+          slotM1.querySelector('.slot-val').textContent = '—';
+        }
+      }
+    }
+
+    function recordDecision(missionKey, choiceLabel) {
+      decisionHistory[missionKey] = choiceLabel;
+      sessionStorage.setItem('moonfall_decision_history', JSON.stringify(decisionHistory));
+      updateDecisionHistoryUI();
     }
 
     // =========================================================================
@@ -1341,6 +1524,7 @@
       }
 
       sessionStorage.setItem('moonfall_m1_decision', choice);
+      recordDecision('m1', choice === 'evacuate' ? 'EVAC' : 'EQUIP');
 
       // Decision confirmed - transition smoothly past Mission 1
       setTimeout(() => {
@@ -1401,6 +1585,7 @@
           currentStep = stepNum;
         }
       }
+      updateDecisionHistoryUI();
       renderCurrentStep();
     });
   </script>
