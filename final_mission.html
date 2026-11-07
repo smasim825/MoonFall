@@ -201,6 +201,307 @@
       pointer-events: auto;
       box-sizing: border-box;
       box-shadow: 0 0 14px rgba(0, 229, 255, 0.25);
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    .decision-history-bar:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 18px rgba(0, 229, 255, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .decision-history-bar:active {
+      transform: translateY(0);
+    }
+
+    .history-log-btn-hint {
+      background: rgba(14, 165, 233, 0.25);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      border-radius: 4px;
+      color: #7dd3fc;
+      font-size: clamp(0.72rem, 0.95vw, 0.88rem);
+      font-weight: bold;
+      padding: 2px 6px;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-left: 2px;
+      transition: all 0.15s ease;
+    }
+
+    .decision-history-bar:hover .history-log-btn-hint {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+    }
+
+    /* Decision History 8-Row Modal Overlay */
+    .decision-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(10px, 2.5vh, 24px);
+      animation: modal-fade-in 0.2s ease forwards;
+    }
+
+    @keyframes modal-fade-in {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .decision-modal-card {
+      background: linear-gradient(180deg, rgba(12, 24, 48, 0.98) 0%, rgba(5, 12, 28, 0.99) 100%);
+      border: 2px solid var(--pixel-blue-border);
+      box-shadow: 0 0 40px rgba(0, 229, 255, 0.35), inset 0 0 25px rgba(0, 229, 255, 0.08);
+      border-radius: 10px;
+      width: 100%;
+      max-width: 740px;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      overflow: hidden;
+      font-family: var(--font-pixel);
+      color: #ffffff;
+    }
+
+    .decision-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: rgba(0, 10, 30, 0.7);
+      border-bottom: 1.5px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .decision-modal-title {
+      font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+      color: #38bdf8;
+      letter-spacing: 0.06em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .decision-modal-title .sub-tag {
+      color: #94a3b8;
+      font-size: 0.85em;
+    }
+
+    .decision-modal-close {
+      background: transparent;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #7dd3fc;
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .decision-modal-close:hover {
+      background: rgba(239, 68, 68, 0.3);
+      border-color: #ef4444;
+      color: #fca5a5;
+    }
+
+    .decision-rows-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px 16px;
+      overflow-y: auto;
+      max-height: calc(88vh - 160px);
+    }
+
+    .decision-row-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 12px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      border-radius: 6px;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      box-sizing: border-box;
+    }
+
+    .decision-row-item:hover {
+      background: rgba(15, 23, 42, 0.95);
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+
+    .decision-row-item.current-active {
+      border-color: #00e5ff;
+      background: rgba(14, 165, 233, 0.15);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+    }
+
+    .decision-row-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .decision-row-badge {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .decision-row-details {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .decision-row-title {
+      font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.02em;
+    }
+
+    .decision-row-sub {
+      font-size: clamp(0.75rem, 0.95vw, 0.88rem);
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .decision-row-result {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .result-badge {
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: clamp(0.82rem, 1.1vw, 0.98rem);
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .result-badge.badge-evac {
+      background: rgba(16, 185, 129, 0.25);
+      border: 1px solid #10b981;
+      color: #34d399;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
+    }
+    .result-badge.badge-evac .result-desc {
+      font-size: 0.76em;
+      color: #a7f3d0;
+      font-weight: normal;
+    }
+
+    .result-badge.badge-equip {
+      background: rgba(14, 165, 233, 0.25);
+      border: 1px solid #0284c7;
+      color: #38bdf8;
+      box-shadow: 0 0 8px rgba(14, 165, 233, 0.35);
+    }
+    .result-badge.badge-equip .result-desc {
+      font-size: 0.76em;
+      color: #bae6fd;
+      font-weight: normal;
+    }
+
+    .result-badge.badge-pending {
+      background: rgba(51, 65, 85, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: #94a3b8;
+    }
+
+    .result-badge.badge-inprogress {
+      background: rgba(234, 179, 8, 0.2);
+      border: 1px solid #eab308;
+      color: #fde047;
+      animation: slot-pulse 1.8s infinite alternate;
+    }
+
+    .decision-modal-footer {
+      padding: 10px 16px 12px;
+      background: rgba(0, 10, 30, 0.85);
+      border-top: 1.5px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .decision-warning-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(234, 179, 8, 0.12);
+      border: 1px dashed rgba(250, 204, 21, 0.6);
+      border-radius: 6px;
+      padding: 6px 14px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .decision-warning-text {
+      font-size: clamp(0.95rem, 1.35vw, 1.25rem);
+      color: #fde047;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 10px rgba(250, 204, 21, 0.6);
+      font-weight: bold;
+    }
+
+    .decision-close-btn {
+      background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+      border: 1.5px solid #38bdf8;
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+      border-radius: 6px;
+      color: #ffffff;
+      font-family: var(--font-pixel);
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      padding: 6px 20px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+    }
+    .decision-close-btn:hover {
+      filter: brightness(1.15);
+      transform: scale(1.02);
+    }
+    .decision-close-btn:active {
+      transform: scale(0.98);
     }
 
     .history-label {
@@ -986,8 +1287,8 @@
         <div class="top-hud-left">
           <div class="hud-title-badge" id="hudTitle">⚡ MISSION 1: THE 30-MINUTE WARNING</div>
 
-          <!-- DECISION HISTORY BAR -->
-          <div class="decision-history-bar" id="decisionHistoryBar" title="Commander Decision History (Missions 1-8)">
+          <!-- DECISION HISTORY BAR (Click to open 8-row Decision Log) -->
+          <div class="decision-history-bar" id="decisionHistoryBar" onclick="openDecisionModal()" title="Click to open Commander Decision History" role="button" tabindex="0">
             <span class="history-label">DECISIONS:</span>
             <div class="history-slots" id="historySlots">
               <div class="history-slot active" id="slotM1" data-mission="1" title="Mission 1: The 30-Minute Warning">
@@ -1023,6 +1324,7 @@
                 <span class="slot-val">—</span>
               </div>
             </div>
+            <span class="history-log-btn-hint" title="View Decision Log">LOG 📋</span>
           </div>
         </div>
 
@@ -1121,6 +1423,33 @@
             <p class="decision-card-stat">Power -5, Health -12, Equip +10</p>
           </div>
 
+        </div>
+      </div>
+
+      <!-- 8-ROW COMMANDER DECISION HISTORY MODAL -->
+      <div class="decision-modal-overlay hidden" id="decisionModalOverlay" onclick="closeDecisionModal(event)" role="dialog" aria-modal="true" aria-label="Commander Decision Log">
+        <div class="decision-modal-card" onclick="event.stopPropagation()">
+          <div class="decision-modal-header">
+            <div class="decision-modal-title">
+              <span>📋 COMMANDER DECISION LOG</span>
+              <span class="sub-tag">// 18-HOUR CRISIS TIMELINE</span>
+            </div>
+            <button class="decision-modal-close" onclick="closeDecisionModal()" title="Close Log" aria-label="Close">✕</button>
+          </div>
+
+          <!-- 8 Rows Container -->
+          <div class="decision-rows-list" id="decisionRowsList">
+            <!-- Dynamically populated by renderDecisionModalRows() -->
+          </div>
+
+          <!-- Footer with User-Requested Warning text -->
+          <div class="decision-modal-footer">
+            <div class="decision-warning-banner">
+              <span style="font-size:1.3rem;">⚠️</span>
+              <span class="decision-warning-text">your decision will effect your mission result</span>
+            </div>
+            <button class="decision-close-btn" onclick="closeDecisionModal()">CLOSE LOG</button>
+          </div>
         </div>
       </div>
 
@@ -1268,6 +1597,170 @@
       decisionHistory[missionKey] = choiceLabel;
       sessionStorage.setItem('moonfall_decision_history', JSON.stringify(decisionHistory));
       updateDecisionHistoryUI();
+      renderDecisionModalRows();
+    }
+
+    const CRISIS_MISSION_LOGS = [
+      {
+        num: 1,
+        key: 'm1',
+        title: "Mission 1: The 30-Minute Warning",
+        time: "05:30 UTC",
+        summary: "SPE solar storm alert. Crew recall vs securing external equipment.",
+        evacLabel: "EVACUATE",
+        evacDesc: "Health +10, Equip -15 (Immediate shelter recall)",
+        secureLabel: "SECURE EQUIP",
+        secureDesc: "Power -5, Health -12, Equip +10 (Surface equipment secured)"
+      },
+      {
+        num: 2,
+        key: 'm2',
+        title: "Mission 2: The Shelter Problem",
+        time: "06:00 UTC",
+        summary: "Habitat shielding weakness. Construct emergency radiation barrier.",
+        evacLabel: "REGOLITH SHIELD",
+        evacDesc: "Power -15%, Equip -10% (Sandbag bunker)",
+        secureLabel: "WATER WALL",
+        secureDesc: "Radiation -50%, Water -20% (Hydro-shield)"
+      },
+      {
+        num: 3,
+        key: 'm3',
+        title: "Mission 3: BlackOut",
+        time: "08:00 UTC",
+        summary: "Main solar array disconnected. Strategic battery power allocation.",
+        evacLabel: "BATTERY CONSERVE",
+        evacDesc: "Power +25%, Health -15% (Modules dark)",
+        secureLabel: "LIFE SUPPORT 100%",
+        secureDesc: "O2/Temp Safe, Comms Offline"
+      },
+      {
+        num: 4,
+        key: 'm4',
+        title: "Mission 4: Oxygen Countdown",
+        time: "11:00 UTC",
+        summary: "Airlock seal cycling and CO2 scrubber degradation.",
+        evacLabel: "RATION BREATHING",
+        evacDesc: "O2 Safe, Stamina -20%",
+        secureLabel: "SCRUBBER SURGE",
+        secureDesc: "O2 +30%, Power -25%"
+      },
+      {
+        num: 5,
+        key: 'm5',
+        title: "Mission 5: Water Trap",
+        time: "14:00 UTC",
+        summary: "Hydraulic loop valve frozen in deep lunar shadow.",
+        evacLabel: "GRAYWATER RECYCLE",
+        evacDesc: "Power Safe, Filter -30%",
+        secureLabel: "MELT ICE RESERVE",
+        secureDesc: "Water +25%, Power -20%"
+      },
+      {
+        num: 6,
+        key: 'm6',
+        title: "Mission 6: Last Harvest",
+        time: "17:00 UTC",
+        summary: "Hydroponics plant survival vs life support thermal power draw.",
+        evacLabel: "MAINTAIN CROPS",
+        evacDesc: "Power -20%, Harvest Intact",
+        secureLabel: "EMERGENCY HARVEST",
+        secureDesc: "Food +30%, Plants Lost"
+      },
+      {
+        num: 7,
+        key: 'm7',
+        title: "Mission 7: Critical Failure",
+        time: "20:00 UTC",
+        summary: "Emergency generator bus failure threatening total blackout.",
+        evacLabel: "BYPASS SAFETY",
+        evacDesc: "Instant Repair, 20% Risk",
+        secureLabel: "MANUAL EVA REPAIR",
+        secureDesc: "100% Fixed, Health -25%"
+      },
+      {
+        num: 8,
+        key: 'm8',
+        title: "Mission 8: The Last Signal",
+        time: "23:30 UTC",
+        summary: "Final storm aftermath. High-gain antenna broadcast to Houston.",
+        evacLabel: "SURVIVAL RESERVE",
+        evacDesc: "Outpost Survived, Silent",
+        secureLabel: "FULL TRANSMISSION",
+        secureDesc: "Earth Contact, Power 0%"
+      }
+    ];
+
+    function renderDecisionModalRows() {
+      const container = document.getElementById('decisionRowsList');
+      if (!container) return;
+
+      container.innerHTML = CRISIS_MISSION_LOGS.map(m => {
+        const decisionVal = decisionHistory[m.key];
+        let statusClass = '';
+        let badgeHtml = '';
+
+        if (decisionVal) {
+          const isEvac = decisionVal.toLowerCase().includes('evac');
+          statusClass = isEvac ? 'decided-evac' : 'decided-equip';
+          badgeHtml = `
+            <div class="result-badge ${isEvac ? 'badge-evac' : 'badge-equip'}">
+              <span>${isEvac ? m.evacLabel : m.secureLabel}</span>
+              <span class="result-desc">${isEvac ? m.evacDesc : m.secureDesc}</span>
+            </div>
+          `;
+        } else if (m.num === 1) {
+          statusClass = 'current-active';
+          badgeHtml = `
+            <div class="result-badge badge-inprogress">
+              <span>⚡ IN PROGRESS</span>
+              <span style="font-size:0.75em; color:#fef08a;">Awaiting Commander</span>
+            </div>
+          `;
+        } else {
+          badgeHtml = `
+            <div class="result-badge badge-pending">
+              <span>STANDBY</span>
+              <span style="font-size:0.75em; color:#64748b;">Locked</span>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="decision-row-item ${statusClass}">
+            <div class="decision-row-left">
+              <span class="decision-row-badge">M${m.num}</span>
+              <div class="decision-row-details">
+                <span class="decision-row-title">${m.title}</span>
+                <span class="decision-row-sub">${m.time} // ${m.summary}</span>
+              </div>
+            </div>
+            <div class="decision-row-result">
+              ${badgeHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openDecisionModal() {
+      sound.clickSound();
+      renderDecisionModalRows();
+      const modal = document.getElementById('decisionModalOverlay');
+      if (modal) {
+        modal.classList.remove('hidden');
+      }
+    }
+
+    function closeDecisionModal(e) {
+      if (e && e.target && e.target.closest('.decision-modal-card') && !e.target.classList.contains('decision-modal-close') && !e.target.classList.contains('decision-close-btn')) {
+        return;
+      }
+      sound.clickSound();
+      const modal = document.getElementById('decisionModalOverlay');
+      if (modal) {
+        modal.classList.add('hidden');
+      }
     }
 
     // =========================================================================
@@ -1561,8 +2054,18 @@
       }
     }
 
-    // Keyboard controls (Space / Enter to advance)
+    // Keyboard controls (Space / Enter to advance, Esc to close modal)
     window.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('decisionModalOverlay');
+      if (e.code === 'Escape') {
+        if (modal && !modal.classList.contains('hidden')) {
+          closeDecisionModal();
+          return;
+        }
+      }
+      if (modal && !modal.classList.contains('hidden')) {
+        return; // Don't advance dialogue while modal is open
+      }
       if (e.code === 'Space' || e.code === 'Enter') {
         e.preventDefault();
         const currentItem = DIALOGUES[currentStep];
@@ -1585,8 +2088,16 @@
           currentStep = stepNum;
         }
       }
+      if (urlParams.get('m1') === 'equip') {
+        recordDecision('m1', 'EQUIP');
+      } else if (urlParams.get('m1') === 'evac') {
+        recordDecision('m1', 'EVAC');
+      }
       updateDecisionHistoryUI();
       renderCurrentStep();
+      if (urlParams.get('openLog') === '1') {
+        openDecisionModal();
+      }
     });
   </script>
 
