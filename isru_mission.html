@@ -20,7 +20,8 @@
   <link rel="preload" href="assets/scene 3/Pragyan_ShivShakti_Neutral.png" as="image">
   <link rel="preload" href="assets/scene 3/Frame 6.png" as="image">
   <link rel="preload" href="assets/scene 3/Frame 7.png" as="image">
-  <link rel="preload" href="assets/isru/character/Chiaki_Mukai_PointUp.png" as="image">
+  <link rel="preload" href="assets/isru/character/Guion_Bluford_PointUp.png" as="image">
+  <link rel="preload" href="assets/isru/character/Guion_Bluford_Badge.svg" as="image">
 
   <style>
     /* ==========================================================================
@@ -2220,7 +2221,7 @@
 
       <!-- Character Stage (Left) -->
       <div class="character-guide" id="guideStage">
-        <img src="assets/isru/character/Chiaki_Mukai_PointUp.png" alt="Mission Guide" id="guideImg">
+        <img src="assets/isru/character/Guion_Bluford_PointUp.png" alt="Guion Bluford" id="guideImg">
       </div>
 
       <!-- Floating Diagram Card (used by later scenes) -->
@@ -2421,7 +2422,7 @@
       <footer class="dialogue-wrapper hidden" id="dialogueWrapper">
         <div class="dialogue-box scene-1-box" id="dialogueBox" onclick="handleDialogueClick()">
           <div class="speaker-badge" id="speakerBadge">
-            <img src="assets/Caption Text.png" alt="Chiaki Mukai" class="speaker-badge-img">
+            <img src="assets/isru/character/Guion_Bluford_Badge.svg" alt="Guion Bluford" class="speaker-badge-img" id="speakerBadgeImg">
           </div>
           <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene"
             aria-label="Skip to Next Scene">
@@ -2710,8 +2711,8 @@
     // =========================================================================
     // Scene Definitions (add more scenes to this array as the mission grows)
     // =========================================================================
-    const GUIDE_POINT_UP = 'assets/isru/character/Chiaki_Mukai_PointUp.png';
-    const GUIDE_WAVE = 'assets/isru/character/Chiaki_Mukai_PointUp.png';
+    const GUIDE_POINT_UP = 'assets/isru/character/Guion_Bluford_PointUp.png';
+    const GUIDE_WAVE = 'assets/isru/character/Guion_Bluford_PointUp.png';
 
     const SCENES = [
       // Scene 1: Lunar South Pole intro
@@ -2720,7 +2721,7 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: null,
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "Welcome to the lunar South Pole, Cadet! Over billions of years, water from comets, asteroids, and the solar wind may have accumulated on the Moon."
       },
       // Scene 2: Submersive Ice (Frame_2.png card on the right)
@@ -2730,7 +2731,7 @@
         guidePose: GUIDE_POINT_UP,
         cardImg: null,
         interactiveMap: true,
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "Permanently shadowed craters act as natural ‘cold traps’ where sunlight never reaches the floor, allowing water ice to survive. Some of this ice may also be hidden beneath the surface!"
       },
       // Scene 3: Start exploring
@@ -2739,7 +2740,7 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: null,
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "Let's explore the area and find where water ice might be present."
       },
       // Scene 4: Scanning for Submersive Ice (cyan scanner sweeps the map, then auto-advances)
@@ -2763,7 +2764,7 @@
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/scan2.png',
         cardClass: 'card-wide',
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "Great! We've identified some promising locations. Select one to choose our drilling site."
       },
       // Scene 7: Click any Location to select site for drilling (User Image 2)
@@ -2783,7 +2784,7 @@
         cardImg: 'assets/isru/equipments/drill.png',
         cardClass: 'card-wide',
         isDrillScene: true,
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "The Trident Drill is deployed at our chosen site! This rotary percussive drill penetrates up to 1 meter deep into the lunar regolith to extract frozen ice-core samples."
       },
       // Scene 9: Sample Collected - Time to analyze
@@ -2792,7 +2793,7 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: null,
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "Now that we've collected our sample, it's time to analyze it."
       },
       // Scene 10: Trident Drill hardware close-up
@@ -2802,7 +2803,7 @@
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/drill_2.png',
         cardClass: 'card-wide',
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "The drill hardware uses specialized auger flutes to deliver icy core cuttings to the surface for sealed heating and water extraction!"
       },
       // Scene 11: Astro Bee analysis findings (User Picture 1)
@@ -2813,13 +2814,13 @@
         speaker: 'Astro Bee',
         text: "The analysis detected possible water-related substances! Further investigation will reveal how much water is present and if it can support future lunar missions."
       },
-      // Scene 12: Chiaki Mukai - Collect icy soil (User Picture 2)
+      // Scene 12: Guion Bluford - Collect icy soil (User Picture 2)
       {
         id: 12,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: null,
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "Great work, cadet! We’ve found clues of water-related substances. Now, let’s collect the icy lunar soil and recover the water trapped inside."
       },
       // Scene 13: Robotic Lunar Regolith Scoop (User Picture 3)
@@ -2829,7 +2830,7 @@
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/scoop.png',
         cardClass: 'card-wide',
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         requiresLabPermission: true,
         text: "Our “Robotic Lunar Regolith Scoop” collects ice-bearing regolith from the drilling area and transfers it into a sealed container for processing."
       },
@@ -2841,7 +2842,7 @@
         bgImg: 'assets/isru/bg/bg_of_oxy.png',
         cardImg: null,
         isLabScene: true,
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "NASA has researched lunar water-extraction concepts that heat icy regolith and capture the released vapor. The condenser cools the vapor, turning it into liquid water."
       },
       // Scene 15: Water Electrolysis Lab Overview (User Picture 1)
@@ -2851,7 +2852,7 @@
         guidePose: GUIDE_WAVE,
         bgImg: 'assets/isru/bg/bg_of_oxy2.png',
         cardImg: null,
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "Now we will use the purified water from your previous mission."
       },
       // Scene 16: Electrolysis of Water Card (User Picture 2)
@@ -2862,7 +2863,7 @@
         bgImg: 'assets/isru/bg/bg_of_oxy2.png',
         cardImg: 'assets/isru/equipments/molecular.png',
         cardClass: 'card-wide',
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "Transfer purified water into the electrolyser and activate it. It uses electricity to split water into hydrogen and oxygen."
       },
       // Scene 17: ISS ECLSS Card (User Picture 3)
@@ -2873,7 +2874,7 @@
         bgImg: 'assets/isru/bg/bg_of_oxy2.png',
         cardImg: 'assets/isru/equipments/machine.png',
         cardClass: 'card-wide',
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "The ISS uses an Oxygen Generation System (OGS) rack that houses the Oxygen Generation Assembly (OGA)."
       },
       // Scene 18: Oxygen is Ready! (User Picture 4 - Highly Highlighted)
@@ -2884,7 +2885,7 @@
         bgImg: 'assets/isru/bg/bg_of_oxy2.png',
         cardImg: null,
         isOxygenReady: true,
-        speaker: 'Chiaki Mukai',
+        speaker: 'Guion Bluford',
         text: "Oxygen is ready! Store it for the habitat’s life-support system. The collected hydrogen can also be used as rocket propellant."
       }
     ];
