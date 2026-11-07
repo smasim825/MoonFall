@@ -2217,12 +2217,125 @@
       box-shadow: none;
     }
 
-    /* M2 Specific Layout */
-    .m2-bays-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr 1fr;
-      gap: 14px;
+    /* AstroBee Guidance Banner inside Mini-Tasks */
+    .minitask-astrobee-banner {
+      display: flex;
+      align-items: center;
+      gap: clamp(10px, 1.5vw, 16px);
+      background: rgba(3, 16, 38, 0.85);
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      border-radius: 8px;
+      padding: clamp(8px, 1.1vh, 12px) clamp(12px, 1.5vw, 18px);
+      margin-bottom: clamp(10px, 1.4vh, 14px);
+      box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.1);
       width: 100%;
+      box-sizing: border-box;
+    }
+    .minitask-astrobee-img {
+      width: clamp(38px, 4.5vw, 52px);
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
+      flex-shrink: 0;
+      animation: miniBeeFloat 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes miniBeeFloat {
+      0% { transform: translateY(-2px); }
+      100% { transform: translateY(2px); }
+    }
+    .minitask-astrobee-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .minitask-astrobee-tag {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.58rem, 0.75vw, 0.7rem);
+      color: #38bdf8;
+      letter-spacing: 0.05em;
+    }
+    .minitask-astrobee-speech {
+      font-family: var(--font-readable);
+      font-size: clamp(0.85rem, 1.1vw, 1.02rem);
+      color: #f0f9ff;
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
+    /* M2 Sequential Stage Tracker */
+    .m2-stage-tracker {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(8px, 1.2vw, 14px);
+      margin-bottom: clamp(10px, 1.4vh, 14px);
+      width: 100%;
+    }
+    .stage-step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #334155;
+      border-radius: 20px;
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .stage-step-pill.active {
+      border-color: #38bdf8;
+      background: rgba(14, 165, 233, 0.25);
+      color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    }
+    .stage-step-pill.done {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+    .stage-step-pill .step-idx {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+    }
+    .stage-step-line {
+      flex: 0 0 clamp(16px, 2.5vw, 28px);
+      height: 2px;
+      background: #334155;
+      transition: all 0.2s ease;
+    }
+    .stage-step-line.done {
+      background: #10b981;
+    }
+
+    /* M2 Single Stage Container */
+    .m2-stage-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      align-items: center;
+      animation: fadeInStage 0.25s ease-out;
+    }
+    @keyframes fadeInStage {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .m2-supplies-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      max-width: 680px;
     }
 
     .minitask-bay {
@@ -2294,44 +2407,87 @@
       display: none;
     }
 
-    /* Hatch Rotary Wheel */
-    .hatch-wheel-bay {
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .hatch-wheel-visual {
-      width: 100px;
-      height: 100px;
-      position: relative;
+    /* M2 Stage 2: Heavy Mechanical Airlock Hatch */
+    .m2-hatch-stage-wrap {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 580px;
+    }
+    .scifi-hatch-svg {
+      max-width: 100%;
+      height: auto;
+      max-height: 240px;
+      cursor: pointer;
+      filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.45));
+      user-select: none;
+      transition: filter 0.3s ease;
+    }
+    .scifi-hatch-svg:hover {
+      filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.75));
+    }
+    .hatch-controls-row {
+      display: flex;
+      gap: 10px;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
     }
-
-    .hatch-wheel-svg {
-      width: 100%;
-      height: 100%;
-      transition: transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
-    }
-
-    .hatch-readout-box {
-      width: 100%;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid #334155;
-      border-radius: 6px;
-      padding: 6px;
-      text-align: center;
+    .hatch-ctrl-btn {
       font-family: var(--font-pixel);
-      font-size: 0.7rem;
-      color: #38bdf8;
+      font-size: 0.72rem;
+      background: rgba(14, 165, 233, 0.2);
+      border: 1.5px solid #0284c7;
+      color: #e0f2fe;
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .hatch-readout-box.locked {
+    .hatch-ctrl-btn:hover {
+      background: #0284c7;
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+    }
+    .hatch-status-strip {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px solid #334155;
+      border-radius: 6px;
+      padding: 7px 18px;
+      font-family: var(--font-pixel);
+      font-size: 0.72rem;
+      color: #38bdf8;
+      text-align: center;
+      min-width: 280px;
+      transition: all 0.2s ease;
+    }
+    .hatch-status-strip.locked {
       border-color: #10b981;
       background: rgba(16, 185, 129, 0.2);
       color: #34d399;
-      text-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+      text-shadow: 0 0 10px rgba(52, 211, 153, 0.7);
+    }
+    .m2-stage-advance-btn {
+      font-family: var(--font-pixel);
+      font-size: 0.75rem;
+      background: linear-gradient(90deg, #10b981, #059669);
+      border: 1.5px solid #34d399;
+      color: #ffffff;
+      padding: 9px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+      transition: all 0.2s ease;
+    }
+    .m2-stage-advance-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(52, 211, 153, 0.8);
     }
 
     .hatch-btn-row {
@@ -4322,8 +4478,10 @@
     let activeMiniTaskId = null;
 
     const m2TaskState = {
+      stage: 1, // 1: supplies, 2: hatch, 3: switches
       supplies: { water: false, food: false, med: false },
       hatchAngle: 0,
+      hatchLockedBolts: 0,
       switches: { o2: false, cabin: false, co2: false }
     };
 
@@ -4396,99 +4554,283 @@
       renderCurrentStep();
     }
 
-    // --- M2 Mini-Task: Shelter Lockdown ---
+    // --- M2 High-Fidelity Sci-Fi Airlock Hatch Generator (Reference: signalvoidgame) ---
+    function buildScifiHatchSvg(angleDeg, lockedBolts) {
+      const size = 280;
+      const cx = 140, cy = 140;
+      const lockedRatio = Math.min(1.0, lockedBolts / 6.0);
+      const isFullyLocked = (lockedBolts >= 6);
+
+      let svg = `<svg class="scifi-hatch-svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" onclick="rotateM2Hatch(60)" title="Click to rotate wheel and engage bolts">`;
+      svg += `<defs>
+        <radialGradient id="hatchMetalBg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#1e293b"/>
+          <stop offset="70%" stop-color="#0f172a"/>
+          <stop offset="100%" stop-color="#020617"/>
+        </radialGradient>
+        <linearGradient id="steelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#64748b"/>
+          <stop offset="50%" stop-color="#334155"/>
+          <stop offset="100%" stop-color="#1e293b"/>
+        </linearGradient>
+        <linearGradient id="boltGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#94a3b8"/>
+          <stop offset="50%" stop-color="#475569"/>
+          <stop offset="100%" stop-color="#1e293b"/>
+        </linearGradient>
+      </defs>`;
+
+      // 1. Static Bulkhead Frame & Perimeter Collars
+      svg += `<circle cx="${cx}" cy="${cy}" r="134" fill="#070d18" stroke="#1e293b" stroke-width="4"/>`;
+      svg += `<circle cx="${cx}" cy="${cy}" r="126" fill="url(#hatchMetalBg)" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.75"/>`;
+      svg += `<circle cx="${cx}" cy="${cy}" r="118" fill="none" stroke="#334155" stroke-width="10"/>`;
+
+      // 16 Hex Screws around rim
+      for (let i = 0; i < 16; i++) {
+        const rad = i * (2 * Math.PI / 16);
+        const bx = cx + 118 * Math.cos(rad);
+        const by = cy + 118 * Math.sin(rad);
+        svg += `<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="3.5" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/>`;
+        svg += `<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="1.2" fill="#94a3b8"/>`;
+      }
+
+      // 6 Peripheral Locking Socket Collars
+      for (let i = 0; i < 6; i++) {
+        const rad = i * (2 * Math.PI / 6);
+        const sx = cx + 104 * Math.cos(rad);
+        const sy = cy + 104 * Math.sin(rad);
+        const deg = i * 60;
+        const isLocked = (i < lockedBolts);
+        const socketStroke = isLocked ? '#10b981' : '#f59e0b';
+        const socketFill = isLocked ? 'rgba(16, 185, 129, 0.3)' : '#111c2e';
+        svg += `<g transform="translate(${sx.toFixed(1)},${sy.toFixed(1)}) rotate(${deg})">
+          <rect x="-12" y="-9" width="24" height="18" rx="3" fill="${socketFill}" stroke="${socketStroke}" stroke-width="2"/>
+          <circle cx="0" cy="0" r="2.5" fill="${socketStroke}"/>
+        </g>`;
+      }
+
+      // 2. Concentric Guideway Track
+      svg += `<circle cx="${cx}" cy="${cy}" r="92" fill="none" stroke="#1e293b" stroke-width="5"/>`;
+      svg += `<circle cx="${cx}" cy="${cy}" r="84" fill="none" stroke="#0f172a" stroke-width="2.5"/>`;
+
+      // 3. Rotating Central Mechanism Group
+      svg += `<g class="hatch-rotating-core" style="transform-origin: ${cx}px ${cy}px; transform: rotate(${angleDeg}deg); transition: transform 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);">`;
+
+      // Intermediate rotating structural ring
+      svg += `<circle cx="${cx}" cy="${cy}" r="72" fill="none" stroke="url(#steelGrad)" stroke-width="12"/>`;
+      for (let i = 0; i < 12; i++) {
+        const rad = i * (2 * Math.PI / 12);
+        const rx = cx + 72 * Math.cos(rad);
+        const ry = cy + 72 * Math.sin(rad);
+        svg += `<circle cx="${rx.toFixed(1)}" cy="${ry.toFixed(1)}" r="2.5" fill="#1e293b" stroke="#64748b" stroke-width="1"/>`;
+      }
+
+      // 6 Radial Locking Spokes & Sliding Bolt Assemblies
+      for (let i = 0; i < 6; i++) {
+        const deg = i * 60;
+        const isBoltLocked = (i < lockedBolts);
+        const boltExtend = isBoltLocked ? 15 : (lockedRatio * 15);
+        const arrowColor = isBoltLocked ? '#10b981' : '#f97316';
+        const boltY = (cy - 75) - boltExtend;
+
+        svg += `<g transform="rotate(${deg} ${cx} ${cy})">
+          <!-- Piston housing / Guide sleeve -->
+          <rect x="${cx - 9}" y="${cy - 75}" width="18" height="46" rx="2" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+          <line x1="${cx}" y1="${cy - 75}" x2="${cx}" y2="${cy - 30}" stroke="#0f172a" stroke-width="2"/>
+          
+          <!-- Sliding Heavy Bolt -->
+          <rect x="${cx - 7}" y="${boltY}" width="14" height="28" rx="2" fill="url(#boltGrad)" stroke="#94a3b8" stroke-width="1.5"/>
+          <path d="M${cx - 5} ${boltY} L${cx} ${boltY - 5} L${cx + 5} ${boltY} Z" fill="${arrowColor}"/>
+          
+          <!-- Directional Locking Arrow -->
+          <polygon points="${cx},${boltY + 8} ${cx - 4},${boltY + 15} ${cx + 4},${boltY + 15}" fill="${arrowColor}"/>
+          <rect x="${cx - 2}" y="${boltY + 15}" width="4" height="5" fill="${arrowColor}"/>
+        </g>`;
+      }
+
+      // Central Wheel Hub
+      svg += `<circle cx="${cx}" cy="${cy}" r="38" fill="#0f172a" stroke="#334155" stroke-width="3.5"/>`;
+      svg += `<circle cx="${cx}" cy="${cy}" r="30" fill="url(#steelGrad)" stroke="#64748b" stroke-width="2"/>`;
+
+      // Center Cap with 6 Hub Bolts
+      svg += `<circle cx="${cx}" cy="${cy}" r="16" fill="#1e293b" stroke="#0284c7" stroke-width="2"/>`;
+      for (let i = 0; i < 6; i++) {
+        const rad = i * (2 * Math.PI / 6);
+        const hx = cx + 24 * Math.cos(rad);
+        const hy = cy + 24 * Math.sin(rad);
+        svg += `<circle cx="${hx.toFixed(1)}" cy="${hy.toFixed(1)}" r="2.2" fill="#0f172a" stroke="#94a3b8" stroke-width="1"/>`;
+      }
+
+      // Center Status LED
+      const statusFill = isFullyLocked ? '#10b981' : '#f59e0b';
+      svg += `<circle cx="${cx}" cy="${cy}" r="7" fill="${statusFill}" stroke="#ffffff" stroke-width="1.2"/>`;
+
+      svg += `</g>`; // End rotating core
+      svg += `</svg>`;
+      return svg;
+    }
+
+    // --- M2 Mini-Task: Shelter Lockdown (One-By-One Sequential Stages) ---
     function renderM2LockdownTask() {
       const body = document.getElementById('miniTaskBody');
       const hint = document.getElementById('miniTaskHint');
       if (!body) return;
 
-      if (hint) {
-        hint.textContent = "1. Stow 3 loose supplies. 2. Rotate hatch 4 times & align to 75°. 3. Check life support status.";
-      }
-
-      const turns = Math.floor(m2TaskState.hatchAngle / 360);
-      const effectiveAngle = m2TaskState.hatchAngle % 360;
-      const hatchLocked = (turns >= 4 && effectiveAngle === 75);
       const suppliesAllStowed = m2TaskState.supplies.water && m2TaskState.supplies.food && m2TaskState.supplies.med;
+      const hatchLocked = (m2TaskState.hatchLockedBolts >= 6);
       const switchesAllOn = m2TaskState.switches.o2 && m2TaskState.switches.cabin && m2TaskState.switches.co2;
 
+      // 1-line AstroBee instructions per stage
+      let astroBeeText = "";
+      if (m2TaskState.stage === 1) {
+        astroBeeText = "Commander! Click each emergency supply container to secure it safely into the bulkhead brackets.";
+        if (hint) hint.textContent = "Stage 1 of 3: Stow 3 loose supplies to clear the airlock bulkhead.";
+      } else if (m2TaskState.stage === 2) {
+        astroBeeText = "Rotate the emergency hatch wheel to drive the 6 radial locking bolts outward into the sealed rim.";
+        if (hint) hint.textContent = "Stage 2 of 3: Turn the hatch wheel to lock all 6 radial mechanical bolts.";
+      } else {
+        astroBeeText = "Toggle all three life support switches to ON so our oxygen, circulation, and CO₂ scrubbers stay active.";
+        if (hint) hint.textContent = "Stage 3 of 3: Verify all 3 life support loops before finalizing lockdown.";
+      }
+
+      let stageHtml = "";
+
+      // STAGE 1: STOW SUPPLIES
+      if (m2TaskState.stage === 1) {
+        stageHtml = `
+          <div class="m2-stage-panel">
+            <div class="m2-supplies-grid">
+              <!-- Left: Wall Brackets -->
+              <div class="minitask-bay">
+                <div class="bay-title">Bulkhead Storage Brackets</div>
+                <div class="bracket-slot ${m2TaskState.supplies.water ? 'stowed' : ''}">
+                  <span>Bracket 1 [H2O Supply Tank]</span>
+                  <span>${m2TaskState.supplies.water ? '✓ SECURED' : 'EMPTY'}</span>
+                </div>
+                <div class="bracket-slot ${m2TaskState.supplies.food ? 'stowed' : ''}">
+                  <span>Bracket 2 [Food Ration Box]</span>
+                  <span>${m2TaskState.supplies.food ? '✓ SECURED' : 'EMPTY'}</span>
+                </div>
+                <div class="bracket-slot ${m2TaskState.supplies.med ? 'stowed' : ''}">
+                  <span>Bracket 3 [Trauma Medical Kit]</span>
+                  <span>${m2TaskState.supplies.med ? '✓ SECURED' : 'EMPTY'}</span>
+                </div>
+              </div>
+
+              <!-- Right: Loose Supplies to Pick Up -->
+              <div class="minitask-bay">
+                <div class="bay-title">Loose Emergency Items</div>
+                <div class="supply-items-list">
+                  <button class="supply-item-btn ${m2TaskState.supplies.water ? 'stowed' : ''}" onclick="stowM2Supply('water')">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="#38bdf8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                    <span>Stow Water Container</span>
+                  </button>
+                  <button class="supply-item-btn ${m2TaskState.supplies.food ? 'stowed' : ''}" onclick="stowM2Supply('food')">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="#fbbf24"><path d="M18 4H6v2l6 3.5L18 6V4zm0 6l-6 3.5L6 10v10h12V10z"/></svg>
+                    <span>Stow Emergency Food Box</span>
+                  </button>
+                  <button class="supply-item-btn ${m2TaskState.supplies.med ? 'stowed' : ''}" onclick="stowM2Supply('med')">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="#f87171"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                    <span>Stow Trauma Medical Kit</span>
+                  </button>
+                </div>
+                ${suppliesAllStowed ? '<div style="font-size:0.75rem; color:#34d399; text-align:center; font-family:var(--font-pixel);">✓ ALL BULKHEAD SUPPLIES SECURED</div>' : '<div style="font-size:0.7rem; color:#64748b; text-align:center;">Click each container to place it on its bracket.</div>'}
+              </div>
+            </div>
+
+            ${suppliesAllStowed ? `
+              <button class="m2-stage-advance-btn" onclick="proceedToM2Stage(2)">
+                PROCEED TO HATCH LOCKDOWN (STAGE 2) ➔
+              </button>
+            ` : ''}
+          </div>
+        `;
+      }
+      // STAGE 2: LOCK THE SHELTER HATCH
+      else if (m2TaskState.stage === 2) {
+        stageHtml = `
+          <div class="m2-stage-panel">
+            <div class="m2-hatch-stage-wrap">
+              <!-- High-Fidelity SVG Hatch Wheel -->
+              ${buildScifiHatchSvg(m2TaskState.hatchAngle, m2TaskState.hatchLockedBolts)}
+
+              <!-- Hatch Status Bar -->
+              <div class="hatch-status-strip ${hatchLocked ? 'locked' : ''}">
+                ${hatchLocked ? '✓ HATCH HERMETICALLY SEALED // 6/6 BOLTS ENGAGED' : `LOCK ENGAGEMENT: ${m2TaskState.hatchLockedBolts}/6 BOLTS // CLICK WHEEL TO ROTATE`}
+              </div>
+
+              <!-- Controls Row -->
+              <div class="hatch-controls-row">
+                <button class="hatch-ctrl-btn" onclick="rotateM2Hatch(60)">↻ ROTATE WHEEL (+60°)</button>
+                <button class="hatch-ctrl-btn" onclick="rotateM2Hatch(-60)">↺ REVERSE (-60°)</button>
+                <button class="hatch-ctrl-btn" onclick="autoLockM2Hatch()">⚡ AUTO-SEAL (ALL BOLTS)</button>
+              </div>
+
+              ${hatchLocked ? `
+                <button class="m2-stage-advance-btn" onclick="proceedToM2Stage(3)">
+                  PROCEED TO ENVIRONMENTAL CHECK (STAGE 3) ➔
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }
+      // STAGE 3: ENVIRONMENTAL / LIFE SUPPORT CHECK
+      else {
+        stageHtml = `
+          <div class="m2-stage-panel">
+            <div class="minitask-bay" style="width:100%; max-width:620px;">
+              <div class="bay-title">Life Support &amp; Environmental Verification</div>
+              <div class="switch-row ${m2TaskState.switches.o2 ? 'active' : ''}" onclick="toggleM2Switch('o2')">
+                <span>Oxygen Supply Primary Valve</span>
+                <span>${m2TaskState.switches.o2 ? '✓ ONLINE' : 'OFFLINE'}</span>
+              </div>
+              <div class="switch-row ${m2TaskState.switches.cabin ? 'active' : ''}" onclick="toggleM2Switch('cabin')">
+                <span>Cabin Air Circulation Loop</span>
+                <span>${m2TaskState.switches.cabin ? '✓ ACTIVE' : 'OFFLINE'}</span>
+              </div>
+              <div class="switch-row ${m2TaskState.switches.co2 ? 'active' : ''}" onclick="toggleM2Switch('co2')">
+                <span>CO2 Removal &amp; Scrubbing Grid</span>
+                <span>${m2TaskState.switches.co2 ? '✓ OPERATIONAL' : 'OFFLINE'}</span>
+              </div>
+              <div style="font-size:0.75rem; color:#64748b; text-align:center; margin-top:6px;">
+                ${switchesAllOn ? '<span style="color:#34d399; font-weight:bold;">✓ ALL CABIN LIFE-SUPPORT LOOPS NOMINAL</span>' : 'Click each switch to verify habitat atmospheric loops.'}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
       body.innerHTML = `
-        <div class="m2-bays-grid">
-          <!-- Bay 1: Loose Supplies -->
-          <div class="minitask-bay">
-            <div class="bay-title">1. Stow Bulkhead Supplies</div>
-            <div class="bracket-slot ${m2TaskState.supplies.water ? 'stowed' : ''}">
-              <span>Wall Bracket [H2O Tank]</span>
-              <span>${m2TaskState.supplies.water ? '✓ STOWED' : 'EMPTY'}</span>
-            </div>
-            <div class="bracket-slot ${m2TaskState.supplies.food ? 'stowed' : ''}">
-              <span>Wall Bracket [Food Box]</span>
-              <span>${m2TaskState.supplies.food ? '✓ STOWED' : 'EMPTY'}</span>
-            </div>
-            <div class="bracket-slot ${m2TaskState.supplies.med ? 'stowed' : ''}">
-              <span>Wall Bracket [Medical Kit]</span>
-              <span>${m2TaskState.supplies.med ? '✓ STOWED' : 'EMPTY'}</span>
-            </div>
-            
-            <div class="supply-items-list">
-              <button class="supply-item-btn ${m2TaskState.supplies.water ? 'stowed' : ''}" onclick="stowM2Supply('water')">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="#38bdf8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-                <span>Pick Up Water Container</span>
-              </button>
-              <button class="supply-item-btn ${m2TaskState.supplies.food ? 'stowed' : ''}" onclick="stowM2Supply('food')">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="#fbbf24"><path d="M18 4H6v2l6 3.5L18 6V4zm0 6l-6 3.5L6 10v10h12V10z"/></svg>
-                <span>Pick Up Emergency Food</span>
-              </button>
-              <button class="supply-item-btn ${m2TaskState.supplies.med ? 'stowed' : ''}" onclick="stowM2Supply('med')">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="#f87171"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-                <span>Pick Up Medical Kit</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Bay 2: Rotary Hatch Wheel -->
-          <div class="minitask-bay hatch-wheel-bay">
-            <div class="bay-title">2. Rotate Hatch (4x at 75°)</div>
-            <div class="hatch-wheel-visual">
-              <svg class="hatch-wheel-svg" viewBox="0 0 100 100" style="transform: rotate(${m2TaskState.hatchAngle}deg);">
-                <circle cx="50" cy="50" r="44" fill="#0f172a" stroke="#0284c7" stroke-width="6"/>
-                <circle cx="50" cy="50" r="18" fill="#1e293b" stroke="#38bdf8" stroke-width="4"/>
-                <line x1="50" y1="6" x2="50" y2="94" stroke="#38bdf8" stroke-width="5"/>
-                <line x1="6" y1="50" x2="94" y2="50" stroke="#38bdf8" stroke-width="5"/>
-                <polygon points="50,12 44,24 56,24" fill="#f59e0b"/>
-              </svg>
-            </div>
-            <div class="hatch-readout-box ${hatchLocked ? 'locked' : ''}">
-              ${hatchLocked ? '✓ HATCH SEALED // 75° LOCKED' : `Turns: ${turns}/4 // Angle: ${effectiveAngle}°`}
-            </div>
-            <div class="hatch-btn-row">
-              <button class="hatch-btn" onclick="adjustM2Hatch(45)">+45° Rotate</button>
-              <button class="hatch-btn" onclick="adjustM2Hatch(15)">+15° Rotate</button>
-              <button class="hatch-btn" onclick="adjustM2Hatch(-15)">-15° Reverse</button>
-              <button class="hatch-btn" onclick="adjustM2Hatch(360)">+1 Turn (360°)</button>
-            </div>
-          </div>
-
-          <!-- Bay 3: Life Support Status -->
-          <div class="minitask-bay">
-            <div class="bay-title">3. Environmental Check</div>
-            <div class="switch-row ${m2TaskState.switches.o2 ? 'active' : ''}" onclick="toggleM2Switch('o2')">
-              <span>Oxygen Supply Valve</span>
-              <span>${m2TaskState.switches.o2 ? '✓ ONLINE' : 'OFFLINE'}</span>
-            </div>
-            <div class="switch-row ${m2TaskState.switches.cabin ? 'active' : ''}" onclick="toggleM2Switch('cabin')">
-              <span>Cabin Circulation</span>
-              <span>${m2TaskState.switches.cabin ? '✓ ACTIVE' : 'OFFLINE'}</span>
-            </div>
-            <div class="switch-row ${m2TaskState.switches.co2 ? 'active' : ''}" onclick="toggleM2Switch('co2')">
-              <span>CO2 Removal Scrubber</span>
-              <span>${m2TaskState.switches.co2 ? '✓ OPERATIONAL' : 'OFFLINE'}</span>
-            </div>
-            <div style="font-size:0.7rem; color:#64748b; margin-top:auto; text-align:center;">
-              ${switchesAllOn ? '<span style="color:#34d399;">All atmospheric loops nominal.</span>' : 'Click switches to verify cabin loops.'}
-            </div>
+        <!-- AstroBee Guidance Banner -->
+        <div class="minitask-astrobee-banner">
+          <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="AstroBee" class="minitask-astrobee-img">
+          <div class="minitask-astrobee-content">
+            <div class="minitask-astrobee-tag">ASTRO BEE // TACTICAL ADVISORY</div>
+            <div class="minitask-astrobee-speech" id="m2AstroBeeSpeech">${astroBeeText}</div>
           </div>
         </div>
+
+        <!-- Stage Tracker Bar (1 by 1) -->
+        <div class="m2-stage-tracker">
+          <div class="stage-step-pill ${m2TaskState.stage === 1 ? 'active' : (suppliesAllStowed ? 'done' : '')}" onclick="proceedToM2Stage(1)">
+            <span class="step-idx">1</span>
+            <span class="step-label">STOW SUPPLIES</span>
+          </div>
+          <div class="stage-step-line ${suppliesAllStowed ? 'done' : ''}"></div>
+          <div class="stage-step-pill ${m2TaskState.stage === 2 ? 'active' : (hatchLocked ? 'done' : '')}" onclick="${suppliesAllStowed ? 'proceedToM2Stage(2)' : ''}">
+            <span class="step-idx">2</span>
+            <span class="step-label">LOCK HATCH</span>
+          </div>
+          <div class="stage-step-line ${hatchLocked ? 'done' : ''}"></div>
+          <div class="stage-step-pill ${m2TaskState.stage === 3 ? 'active' : (switchesAllOn ? 'done' : '')}" onclick="${hatchLocked ? 'proceedToM2Stage(3)' : ''}">
+            <span class="step-idx">3</span>
+            <span class="step-label">LIFE SUPPORT</span>
+          </div>
+        </div>
+
+        <!-- Active Stage View -->
+        ${stageHtml}
       `;
 
       checkM2Completion();
@@ -4497,12 +4839,37 @@
     function stowM2Supply(itemKey) {
       sound.clickSound();
       m2TaskState.supplies[itemKey] = true;
+      const allDone = m2TaskState.supplies.water && m2TaskState.supplies.food && m2TaskState.supplies.med;
+      if (allDone) {
+        sound.successChime();
+      }
       renderM2LockdownTask();
     }
 
-    function adjustM2Hatch(delta) {
+    function proceedToM2Stage(stageNum) {
+      sound.clickSound();
+      m2TaskState.stage = stageNum;
+      renderM2LockdownTask();
+    }
+
+    function rotateM2Hatch(delta) {
       sound.beepSound();
-      m2TaskState.hatchAngle = Math.max(0, m2TaskState.hatchAngle + delta);
+      m2TaskState.hatchAngle += delta;
+      if (delta > 0) {
+        m2TaskState.hatchLockedBolts = Math.min(6, m2TaskState.hatchLockedBolts + 1);
+      } else {
+        m2TaskState.hatchLockedBolts = Math.max(0, m2TaskState.hatchLockedBolts - 1);
+      }
+      if (m2TaskState.hatchLockedBolts === 6) {
+        sound.successChime();
+      }
+      renderM2LockdownTask();
+    }
+
+    function autoLockM2Hatch() {
+      sound.successChime();
+      m2TaskState.hatchAngle += 360;
+      m2TaskState.hatchLockedBolts = 6;
       renderM2LockdownTask();
     }
 
@@ -4513,10 +4880,8 @@
     }
 
     function checkM2Completion() {
-      const turns = Math.floor(m2TaskState.hatchAngle / 360);
-      const effectiveAngle = m2TaskState.hatchAngle % 360;
-      const hatchLocked = (turns >= 4 && effectiveAngle === 75);
       const suppliesAllStowed = m2TaskState.supplies.water && m2TaskState.supplies.food && m2TaskState.supplies.med;
+      const hatchLocked = (m2TaskState.hatchLockedBolts >= 6);
       const switchesAllOn = m2TaskState.switches.o2 && m2TaskState.switches.cabin && m2TaskState.switches.co2;
 
       const confirmBtn = document.getElementById('miniTaskConfirmBtn');
@@ -4528,8 +4893,13 @@
           confirmBtn.textContent = "ENGAGE HABITAT LOCKDOWN ➔";
         }
         if (statusBadge) {
-          statusBadge.className = 'minitask-status-badge complete';
-          statusBadge.textContent = '✓ LOCKDOWN READY';
+          statusBadge.className = 'minitask-status-badge status-nominal';
+          statusBadge.textContent = 'LOCKDOWN READY';
+        }
+      } else {
+        if (confirmBtn) {
+          confirmBtn.disabled = true;
+          confirmBtn.textContent = "COMPLETE ALL 3 STAGES ➔";
         }
       }
     }
@@ -4557,6 +4927,17 @@
       const fillPct = Math.min(100, (currentKw / maxSafeKw) * 100);
 
       body.innerHTML = `
+        <!-- AstroBee Guidance Banner -->
+        <div class="minitask-astrobee-banner">
+          <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="AstroBee" class="minitask-astrobee-img">
+          <div class="minitask-astrobee-content">
+            <div class="minitask-astrobee-tag">ASTRO BEE // TACTICAL ADVISORY</div>
+            <div class="minitask-astrobee-speech">
+              Commander! Connect the primary battery bus, then switch on critical circuits while keeping total draw under 3.5 kW.
+            </div>
+          </div>
+        </div>
+
         <div class="pdu-grid-wrap">
           <!-- Column 1: Source -->
           <div class="minitask-bay" style="align-items:center; justify-content:center;">
@@ -4668,6 +5049,17 @@
       }
 
       body.innerHTML = `
+        <!-- AstroBee Guidance Banner -->
+        <div class="minitask-astrobee-banner">
+          <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="AstroBee" class="minitask-astrobee-img">
+          <div class="minitask-astrobee-content">
+            <div class="minitask-astrobee-tag">ASTRO BEE // TACTICAL ADVISORY</div>
+            <div class="minitask-astrobee-speech">
+              Commander! Click the valves in sequence to channel water through the electrolysis splitter, and route hazardous hydrogen to the vent.
+            </div>
+          </div>
+        </div>
+
         <div class="m4-flow-sequence">
           <!-- Stage 1 -->
           <div class="manifold-stage-card ${m4TaskState.waterFeed ? 'online' : ''}">
