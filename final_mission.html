@@ -1661,7 +1661,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 30;
+      z-index: 180;
       pointer-events: none;
     }
 
@@ -1835,6 +1835,43 @@
     .scene-2-box .dialogue-text.text-long {
       font-size: clamp(0.98rem, 1.48vw, 1.55rem);
       line-height: 1.14;
+    }
+
+    .scene-2-box .minitask-confirm-btn {
+      position: absolute;
+      right: 2.8%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-pixel);
+      font-size: clamp(0.85rem, 1.18vw, 1.05rem);
+      background: linear-gradient(90deg, #10b981, #059669);
+      border: 1.5px solid #34d399;
+      color: #ffffff;
+      padding: clamp(8px, 1.1vh, 12px) clamp(16px, 1.8vw, 24px);
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.65);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      z-index: 55;
+      pointer-events: auto;
+    }
+    .scene-2-box .minitask-confirm-btn:not(:disabled):hover {
+      background: #10b981;
+      box-shadow: 0 0 24px rgba(52, 211, 153, 0.95);
+      transform: translateY(-50%) scale(1.03);
+    }
+    .scene-2-box .minitask-confirm-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      border-color: #475569;
+      background: #1e293b;
+      color: #64748b;
+      box-shadow: none;
+      transform: translateY(-50%);
+    }
+    .scene-2-box.has-minitask-btn .dialogue-content {
+      padding-right: clamp(190px, 24vw, 290px);
     }
 
     /* =========================================================================
@@ -2192,13 +2229,17 @@
       height: 100%;
       z-index: 150;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       background: rgba(3, 8, 18, 0.92);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
       box-sizing: border-box;
-      padding: clamp(10px, 2vh, 20px);
+      padding-top: clamp(50px, 7vh, 65px);
+      padding-bottom: clamp(140px, 19vh, 175px);
+      padding-left: clamp(12px, 1.8vw, 24px);
+      padding-right: clamp(12px, 1.8vw, 24px);
     }
 
     .crisis-minitask-overlay.hidden {
@@ -2206,21 +2247,21 @@
     }
 
     .minitask-card {
-      width: 96%;
-      max-width: 1040px;
-      height: clamp(520px, 86vh, 660px);
-      max-height: 92vh;
+      width: 100%;
+      max-width: 1060px;
+      height: auto;
+      max-height: 100%;
       background: linear-gradient(180deg, rgba(8, 24, 48, 0.98) 0%, rgba(4, 12, 28, 0.99) 100%);
       border: 2px solid #00e5ff;
       border-radius: 12px;
       box-shadow: 0 0 35px rgba(0, 229, 255, 0.45), inset 0 0 25px rgba(0, 229, 255, 0.15);
       display: flex;
       flex-direction: column;
-      padding: clamp(8px, 1.4vh, 14px) clamp(12px, 1.8vw, 18px);
+      padding: clamp(8px, 1.2vh, 14px) clamp(12px, 1.6vw, 18px);
       box-sizing: border-box;
       color: #e0f2fe;
       position: relative;
-      overflow: hidden;
+      overflow-y: auto;
     }
 
     .minitask-header {
@@ -2541,196 +2582,223 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .m2-supplies-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      width: 100%;
-      max-width: 740px;
-      margin: 0 auto;
-    }
-
-    .minitask-bay {
-      background: rgba(3, 16, 38, 0.8);
-      border: 1.5px solid rgba(56, 189, 248, 0.35);
-      border-radius: 8px;
-      padding: clamp(8px, 1.2vh, 12px);
+    /* =========================================================================
+       M2 DRAG & DROP WORKSPACE: 2 HORIZONTAL ROWS (Row 1: Drop Spaces, Row 2: Items)
+       ========================================================================= */
+    .m2-dragdrop-workspace {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: clamp(12px, 1.8vh, 18px);
+      width: 100%;
+      max-width: 980px;
+      margin: clamp(4px, 1vh, 10px) auto 0;
       box-sizing: border-box;
-      box-shadow: inset 0 0 16px rgba(0, 229, 255, 0.05);
     }
 
-    .bay-title {
+    .m2-row-heading {
       font-family: var(--font-pixel);
-      font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+      font-size: clamp(0.85rem, 1.1vw, 1.02rem);
       color: #38bdf8;
-      text-transform: uppercase;
       letter-spacing: 0.05em;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
-      padding-bottom: 5px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .bracket-slot {
-      background: rgba(15, 23, 42, 0.75);
-      border: 1.5px dashed #475569;
-      border-radius: 8px;
-      padding: 6px 10px;
-      min-height: 56px;
+      text-transform: uppercase;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      color: #cbd5e1;
-      transition: all 0.2s ease;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    /* TOP ROW: 3 Drop Spaces (Row 1) */
+    .m2-drop-zones-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(12px, 1.8vw, 20px);
+      width: 100%;
       box-sizing: border-box;
     }
-    .bracket-slot.drag-over {
-      border: 2px dashed #00e5ff !important;
+
+    .m2-drop-target-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 2px dashed #0284c7;
+      border-radius: 10px;
+      min-height: clamp(120px, 17vh, 155px);
+      padding: clamp(10px, 1.4vh, 14px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 6px;
+      transition: all 0.22s ease;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .m2-drop-target-card.drag-over {
+      border: 2.5px dashed #00e5ff !important;
       background: rgba(14, 165, 233, 0.25) !important;
-      box-shadow: 0 0 16px rgba(0, 229, 255, 0.6) !important;
-      transform: scale(1.02);
+      box-shadow: 0 0 24px rgba(0, 229, 255, 0.75) !important;
+      transform: scale(1.03);
     }
-    .bracket-slot.stowed {
-      border: 1.5px solid #10b981;
-      background: rgba(16, 185, 129, 0.18);
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+    .m2-drop-target-card.stowed {
+      border: 2px solid #10b981;
+      background: rgba(16, 185, 129, 0.16);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.35);
     }
-    .bracket-slot.slot-mismatch-shake {
+    .m2-drop-target-card.slot-mismatch-shake {
       animation: slotShake 0.35s ease-in-out;
       border-color: #ef4444 !important;
     }
-    @keyframes slotShake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-6px); }
-      40%, 80% { transform: translateX(6px); }
-    }
 
-    .slot-empty-icon {
+    .drop-here-badge {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.92rem, 1.2vw, 1.08rem);
+      padding: 5px 16px;
+      background: rgba(14, 165, 233, 0.3);
+      border: 2px solid #38bdf8;
+      border-radius: 6px;
+      color: #38bdf8;
+      letter-spacing: 0.06em;
+      margin-top: 3px;
+      font-weight: 800;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+    }
+    .drop-target-icon {
       width: 46px;
       height: 46px;
-      border-radius: 6px;
-      border: 1.5px dashed #475569;
-      background: rgba(30, 41, 59, 0.5);
+      border-radius: 8px;
+      background: rgba(30, 41, 59, 0.65);
+      border: 1.5px dashed rgba(56, 189, 248, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.84rem;
-      font-weight: bold;
-      color: #94a3b8;
-      flex-shrink: 0;
+      margin-bottom: 2px;
     }
-    .slot-secured-img {
-      width: 46px;
-      height: 46px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.75));
-      flex-shrink: 0;
-      image-rendering: pixelated;
-    }
-    .slot-status-pill {
+    .drop-target-title {
       font-family: var(--font-pixel);
-      font-size: 0.78rem;
-      padding: 3px 8px;
-      border-radius: 4px;
+      font-size: clamp(0.92rem, 1.2vw, 1.08rem);
       font-weight: bold;
-      letter-spacing: 0.04em;
+      color: #f0f9ff;
+      letter-spacing: 0.02em;
     }
-    .slot-status-pill.empty {
-      background: rgba(51, 65, 85, 0.5);
+    .drop-target-sub {
+      font-size: clamp(0.78rem, 1.0vw, 0.88rem);
       color: #94a3b8;
-      border: 1px solid rgba(148, 163, 184, 0.3);
     }
-    .slot-status-pill.secured {
+    .drop-target-secured-img {
+      width: clamp(54px, 7vw, 70px);
+      height: clamp(54px, 7vw, 70px);
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.85));
+      margin-bottom: 2px;
+    }
+    .drop-secured-pill {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.82rem, 1.05vw, 0.95rem);
       background: rgba(16, 185, 129, 0.25);
+      border: 1.5px solid #10b981;
       color: #34d399;
-      border: 1px solid #10b981;
+      padding: 5px 14px;
+      border-radius: 5px;
+      font-weight: bold;
+      letter-spacing: 0.05em;
     }
 
-    .supply-items-list {
+    /* 2ND ROW: 3 Loose Draggable Sections (Row 2) */
+    .m2-items-dock-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(12px, 1.8vw, 20px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .m2-drag-item-card {
+      background: linear-gradient(180deg, rgba(14, 165, 233, 0.16) 0%, rgba(3, 105, 161, 0.12) 100%);
+      border: 1.5px solid #0284c7;
+      border-radius: 10px;
+      min-height: clamp(120px, 16vh, 150px);
+      padding: clamp(8px, 1.3vh, 12px);
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-top: 2px;
-    }
-
-    .supply-item-drag-card {
-      background: linear-gradient(90deg, rgba(14, 165, 233, 0.2) 0%, rgba(2, 132, 199, 0.15) 100%);
-      border: 1.5px solid #0284c7;
-      border-radius: 8px;
-      padding: 5px 10px;
-      min-height: 58px;
-      display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+      justify-content: center;
+      text-align: center;
+      gap: 5px;
       cursor: grab;
       user-select: none;
       -webkit-user-select: none;
-      transition: all 0.18s ease;
+      transition: all 0.2s ease;
       box-sizing: border-box;
-      touch-action: manipulation;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     }
-    .supply-item-drag-card:hover {
-      background: linear-gradient(90deg, rgba(14, 165, 233, 0.35) 0%, rgba(2, 132, 199, 0.3) 100%);
+    .m2-drag-item-card:hover {
+      background: linear-gradient(180deg, rgba(14, 165, 233, 0.28) 0%, rgba(3, 105, 161, 0.22) 100%);
       border-color: #38bdf8;
-      box-shadow: 0 0 14px rgba(0, 229, 255, 0.4);
-      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+      transform: translateY(-2px);
     }
-    .supply-item-drag-card:active {
+    .m2-drag-item-card:active {
       cursor: grabbing;
+      transform: scale(0.98);
     }
-    .supply-item-drag-card.is-dragging {
-      opacity: 0.45;
-      transform: scale(0.96);
+    .m2-drag-item-card.is-dragging {
+      opacity: 0.35;
+      transform: scale(0.95);
     }
-    .supply-item-drag-card.stowed {
-      display: none;
+    .m2-drag-item-card.stowed-placeholder {
+      background: rgba(15, 23, 42, 0.35);
+      border: 1.5px dashed #334155;
+      color: #64748b;
+      cursor: default;
+      box-shadow: none;
     }
-
-    .supply-thumb-img {
-      width: 46px;
-      height: 46px;
+    .m2-drag-item-img {
+      width: clamp(54px, 7vw, 72px);
+      height: clamp(54px, 7vw, 72px);
       object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
-      flex-shrink: 0;
       image-rendering: pixelated;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7));
     }
-    .supply-info-col {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      flex: 1;
-      gap: 2px;
-    }
-    .supply-name {
+    .m2-drag-item-name {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.92rem, 1.2vw, 1.08rem);
       font-weight: bold;
       color: #f0f9ff;
-      font-size: clamp(0.86rem, 1.1vw, 1.0rem);
       letter-spacing: 0.02em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
-    .supply-sub {
-      font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+    .m2-drag-item-sub {
+      font-size: clamp(0.76rem, 0.95vw, 0.86rem);
       color: #94a3b8;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
-    .supply-drag-pill {
+    .m2-drag-cue-pill {
       font-family: var(--font-pixel);
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: rgba(14, 165, 233, 0.25);
-      border: 1px solid rgba(56, 189, 248, 0.5);
+      font-size: clamp(0.8rem, 1.0vw, 0.92rem);
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid #0284c7;
       color: #7dd3fc;
-      white-space: nowrap;
+      padding: 4px 12px;
+      border-radius: 4px;
       letter-spacing: 0.04em;
+    }
+
+    .m2-proceed-btn {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.92rem, 1.25vw, 1.15rem);
+      background: linear-gradient(90deg, #10b981, #059669);
+      border: 1.5px solid #34d399;
+      color: #ffffff;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+      margin: 10px auto 0;
+      display: inline-block;
+      transition: all 0.2s ease;
+    }
+    .m2-proceed-btn:hover {
+      background: #10b981;
+      box-shadow: 0 0 28px rgba(52, 211, 153, 0.9);
+      transform: scale(1.02);
     }
 
     /* M2 Stage 2: Heavy Mechanical Airlock Hatch (Assets: assets/hatch.png) */
@@ -3608,10 +3676,14 @@
             <img src="assets/scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
           </div>
           <!-- Skip Button (Caption Text-1.png contains "SKIP", Vector 6.png is ">>") -->
-          <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next"
+          <button class="skip-btn" id="astroBeeSkipBtn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next"
             aria-label="Skip to Next Scene">
             <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
             <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+          </button>
+          <!-- Minitask Action Confirm Button -->
+          <button class="minitask-confirm-btn hidden" id="miniTaskConfirmBtn" disabled onclick="completeMiniTask()">
+            CONFIRM PROTOCOL ➔
           </button>
           <img src="assets/scene 3/Frame 6.png" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
           <div class="dialogue-content" id="dialogueContentAstroBee">
@@ -3787,23 +3859,6 @@
           <!-- Interactive Workspace Body (dynamically switched for m2_lockdown, m3_pdu, m4_electrolysis) -->
           <div class="minitask-body" id="miniTaskBody">
             <!-- Injected per task -->
-          </div>
-
-          <!-- Bottom AstroBee Guidance Dialogue (Matching in-game Astrobee dialogues) -->
-          <div class="minitask-bottom-astrobee" id="minitaskBottomAstrobee">
-            <div class="robot-avatar-container">
-              <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
-            </div>
-            <div class="speaker-badge astro-bee-badge">
-              <img src="assets/scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
-            </div>
-            <img src="assets/scene 3/Frame 6.png" alt="" class="dialogue-bg-img" aria-hidden="true">
-            <div class="dialogue-content">
-              <p class="dialogue-text" id="minitaskAstrobeeText">Tactical advisory loading...</p>
-            </div>
-            <button class="minitask-confirm-btn" id="miniTaskConfirmBtn" disabled onclick="completeMiniTask()">
-              CONFIRM &amp; ENGAGE PROTOCOL ➔
-            </button>
           </div>
         </div>
       </div>
@@ -5693,13 +5748,29 @@
       const subline = document.getElementById('miniTaskSubline');
       const statusBadge = document.getElementById('miniTaskStatusBadge');
       const confirmBtn = document.getElementById('miniTaskConfirmBtn');
+      const astroBox = document.getElementById('dialogueBoxAstroBee');
+      const skipBtn = document.getElementById('astroBeeSkipBtn');
 
       if (!overlay) return;
 
+      // Hide human dialogue and character stand
+      if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
+      if (characterStandEl) characterStandEl.classList.add('hidden');
+
+      // Present AstroBee dialogue box at bottom of screen outside the modal
+      if (astroBox) {
+        astroBox.classList.remove('hidden');
+        astroBox.classList.add('has-minitask-btn');
+      }
+      if (skipBtn) {
+        skipBtn.style.display = 'none';
+      }
       if (confirmBtn) {
+        confirmBtn.classList.remove('hidden');
         confirmBtn.disabled = true;
         confirmBtn.textContent = "CONFIRM & ENGAGE PROTOCOL ➔";
       }
+
       if (statusBadge) {
         statusBadge.className = 'minitask-status-badge';
         statusBadge.textContent = 'PROTOCOL ACTIVE';
@@ -5741,6 +5812,12 @@
     function closeCrisisMiniTask() {
       const overlay = document.getElementById('crisisMiniTaskOverlay');
       if (overlay) overlay.classList.add('hidden');
+      const confirmBtn = document.getElementById('miniTaskConfirmBtn');
+      const skipBtn = document.getElementById('astroBeeSkipBtn');
+      const astroBox = document.getElementById('dialogueBoxAstroBee');
+      if (confirmBtn) confirmBtn.classList.add('hidden');
+      if (skipBtn) skipBtn.style.display = '';
+      if (astroBox) astroBox.classList.remove('has-minitask-btn');
       activeMiniTaskId = null;
     }
 
@@ -5759,8 +5836,16 @@
     }
 
     function updateMinitaskAstrobee(text) {
-      const el = document.getElementById('minitaskAstrobeeText');
-      if (el) el.textContent = text;
+      if (dialogueTextAstroBeeEl) {
+        dialogueTextAstroBeeEl.textContent = text;
+        if (text.length > 85) {
+          dialogueTextAstroBeeEl.classList.add('text-long');
+        } else {
+          dialogueTextAstroBeeEl.classList.remove('text-long');
+        }
+      }
+      const legacyEl = document.getElementById('minitaskAstrobeeText');
+      if (legacyEl) legacyEl.textContent = text;
     }
 
     // --- M2 High-Fidelity Sci-Fi Airlock Hatch Generator (Reference: signalvoidgame) ---
@@ -5904,128 +5989,143 @@
 
       let stageHtml = "";
 
-      // STAGE 1: STOW SUPPLIES (DRAG & DROP WITH ASSETS)
+      // STAGE 1: STOW SUPPLIES (2 HORIZONTAL ROWS: ROW 1 DROP SPACES, ROW 2 DRAGGABLE ITEMS)
       if (m2TaskState.stage === 1) {
         stageHtml = `
           <div class="m2-stage-panel">
-            <div class="m2-supplies-grid">
-              <!-- Left: Wall Brackets -->
-              <div class="minitask-bay">
-                <div class="bay-title">Bulkhead Storage Brackets</div>
-
-                <!-- Bracket 1: Water Container -->
-                <div id="bracketSlotWater" class="bracket-slot ${m2TaskState.supplies.water ? 'stowed' : ''}"
-                     ondragover="handleM2SupplyDragOver(event, 'water')"
-                     ondragleave="handleM2SupplyDragLeave(event, 'water')"
-                     ondrop="handleM2SupplyDrop(event, 'water')">
-                  <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-                    ${m2TaskState.supplies.water
-                      ? `<img src="assets/m2_supply_water.png" class="slot-secured-img" alt="Water Container">`
-                      : `<div class="slot-empty-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="#38bdf8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>`
-                    }
-                    <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                      <span style="font-weight:bold; color:#f0f9ff; font-size:clamp(0.85rem, 1.05vw, 0.95rem);">Bracket 1 [H2O Tank]</span>
-                      <span style="font-size:0.75rem; color:#94a3b8;">${m2TaskState.supplies.water ? 'Water Container Docked' : 'Drop Water Tank Here'}</span>
-                    </div>
-                  </div>
-                  <span class="slot-status-pill ${m2TaskState.supplies.water ? 'secured' : 'empty'}">${m2TaskState.supplies.water ? '✓ SECURED' : 'EMPTY'}</span>
+            <div class="m2-dragdrop-workspace">
+              <!-- ROW 1: 3 DROP SPACES (TOP ROW) -->
+              <div>
+                <div class="m2-row-heading">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="#38bdf8"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  <span>1. Bulkhead Storage Lockers (Target Drop Zones)</span>
                 </div>
-
-                <!-- Bracket 2: Food Box -->
-                <div id="bracketSlotFood" class="bracket-slot ${m2TaskState.supplies.food ? 'stowed' : ''}"
-                     ondragover="handleM2SupplyDragOver(event, 'food')"
-                     ondragleave="handleM2SupplyDragLeave(event, 'food')"
-                     ondrop="handleM2SupplyDrop(event, 'food')">
-                  <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-                    ${m2TaskState.supplies.food
-                      ? `<img src="assets/m2_supply_food.png" class="slot-secured-img" alt="Food Box">`
-                      : `<div class="slot-empty-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fbbf24"><path d="M18 4H6v2l6 3.5L18 6V4zm0 6l-6 3.5L6 10v10h12V10z"/></svg></div>`
-                    }
-                    <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                      <span style="font-weight:bold; color:#f0f9ff; font-size:clamp(0.85rem, 1.05vw, 0.95rem);">Bracket 2 [Food Box]</span>
-                      <span style="font-size:0.75rem; color:#94a3b8;">${m2TaskState.supplies.food ? 'Emergency Food Docked' : 'Drop Food Box Here'}</span>
-                    </div>
+                <div class="m2-drop-zones-row">
+                  <!-- Bracket 1: Water Tank -->
+                  <div id="bracketSlotWater" class="m2-drop-target-card ${m2TaskState.supplies.water ? 'stowed' : ''}"
+                       ondragover="handleM2SupplyDragOver(event, 'water')"
+                       ondragleave="handleM2SupplyDragLeave(event, 'water')"
+                       ondrop="handleM2SupplyDrop(event, 'water')">
+                    ${m2TaskState.supplies.water ? `
+                      <img src="assets/m2_supply_water.png" class="drop-target-secured-img" alt="Water Tank">
+                      <span class="drop-target-title">Bracket 1 [H2O Tank]</span>
+                      <span class="drop-secured-pill">✓ SECURED IN DOCK</span>
+                    ` : `
+                      <div class="drop-target-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="#38bdf8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+                      <span class="drop-target-title">Bracket 1 [H2O Tank]</span>
+                      <span class="drop-here-badge">DROP HERE</span>
+                      <span class="drop-target-sub">Water Reservoir Dock</span>
+                    `}
                   </div>
-                  <span class="slot-status-pill ${m2TaskState.supplies.food ? 'secured' : 'empty'}">${m2TaskState.supplies.food ? '✓ SECURED' : 'EMPTY'}</span>
-                </div>
 
-                <!-- Bracket 3: Trauma Medical Kit -->
-                <div id="bracketSlotMed" class="bracket-slot ${m2TaskState.supplies.med ? 'stowed' : ''}"
-                     ondragover="handleM2SupplyDragOver(event, 'med')"
-                     ondragleave="handleM2SupplyDragLeave(event, 'med')"
-                     ondrop="handleM2SupplyDrop(event, 'med')">
-                  <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-                    ${m2TaskState.supplies.med
-                      ? `<img src="assets/m2_supply_med.png" class="slot-secured-img" alt="Medical Kit">`
-                      : `<div class="slot-empty-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="#f87171"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg></div>`
-                    }
-                    <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                      <span style="font-weight:bold; color:#f0f9ff; font-size:clamp(0.85rem, 1.05vw, 0.95rem);">Bracket 3 [Med Kit]</span>
-                      <span style="font-size:0.75rem; color:#94a3b8;">${m2TaskState.supplies.med ? 'Trauma Kit Docked' : 'Drop Med Kit Here'}</span>
-                    </div>
+                  <!-- Bracket 2: Food Box -->
+                  <div id="bracketSlotFood" class="m2-drop-target-card ${m2TaskState.supplies.food ? 'stowed' : ''}"
+                       ondragover="handleM2SupplyDragOver(event, 'food')"
+                       ondragleave="handleM2SupplyDragLeave(event, 'food')"
+                       ondrop="handleM2SupplyDrop(event, 'food')">
+                    ${m2TaskState.supplies.food ? `
+                      <img src="assets/m2_supply_food.png" class="drop-target-secured-img" alt="Food Box">
+                      <span class="drop-target-title">Bracket 2 [Food Box]</span>
+                      <span class="drop-secured-pill">✓ SECURED IN DOCK</span>
+                    ` : `
+                      <div class="drop-target-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="#fbbf24"><path d="M18 4H6v2l6 3.5L18 6V4zm0 6l-6 3.5L6 10v10h12V10z"/></svg></div>
+                      <span class="drop-target-title">Bracket 2 [Food Box]</span>
+                      <span class="drop-here-badge">DROP HERE</span>
+                      <span class="drop-target-sub">Field Rations Dock</span>
+                    `}
                   </div>
-                  <span class="slot-status-pill ${m2TaskState.supplies.med ? 'secured' : 'empty'}">${m2TaskState.supplies.med ? '✓ SECURED' : 'EMPTY'}</span>
+
+                  <!-- Bracket 3: Medical Kit -->
+                  <div id="bracketSlotMed" class="m2-drop-target-card ${m2TaskState.supplies.med ? 'stowed' : ''}"
+                       ondragover="handleM2SupplyDragOver(event, 'med')"
+                       ondragleave="handleM2SupplyDragLeave(event, 'med')"
+                       ondrop="handleM2SupplyDrop(event, 'med')">
+                    ${m2TaskState.supplies.med ? `
+                      <img src="assets/m2_supply_med.png" class="drop-target-secured-img" alt="Medical Kit">
+                      <span class="drop-target-title">Bracket 3 [Med Kit]</span>
+                      <span class="drop-secured-pill">✓ SECURED IN DOCK</span>
+                    ` : `
+                      <div class="drop-target-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="#f87171"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg></div>
+                      <span class="drop-target-title">Bracket 3 [Med Kit]</span>
+                      <span class="drop-here-badge">DROP HERE</span>
+                      <span class="drop-target-sub">Trauma Med Kit Dock</span>
+                    `}
+                  </div>
                 </div>
               </div>
 
-              <!-- Right: Loose Supplies to Pick Up (Draggable & Clickable) -->
-              <div class="minitask-bay">
-                <div class="bay-title">Loose Emergency Items</div>
-                <div class="supply-items-list">
+              <!-- ROW 2: 3 LOOSE EMERGENCY ITEMS (BOTTOM ROW) -->
+              <div>
+                <div class="m2-row-heading">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="#38bdf8"><path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6v4H3l5 5 5-5h-3v-4zm10 0h-3v4h-4v2h4v3l5-5-5-5v3z"/></svg>
+                  <span>2. Loose Emergency Supplies (Drag to Matching Bracket)</span>
+                </div>
+                <div class="m2-items-dock-row">
+                  <!-- Item 1: Water Tank -->
                   ${!m2TaskState.supplies.water ? `
-                    <div class="supply-item-drag-card" id="dragSupplyWater" draggable="true"
+                    <div class="m2-drag-item-card" id="dragSupplyWater" draggable="true"
                          ondragstart="handleM2SupplyDragStart(event, 'water')"
                          ondragend="handleM2SupplyDragEnd(event)"
-                         onclick="stowM2Supply('water')">
-                      <img src="assets/m2_supply_water.png" class="supply-thumb-img" alt="Water Container">
-                      <div class="supply-info-col">
-                        <span class="supply-name">Water Reservoir Tank</span>
-                        <span class="supply-sub">Purified H2O Container</span>
-                      </div>
-                      <span class="supply-drag-pill">DRAG TO DOCK</span>
+                         onclick="handleM2SupplyClick('water')">
+                      <img src="assets/m2_supply_water.png" class="m2-drag-item-img" alt="Water Tank">
+                      <span class="m2-drag-item-name">Water Reservoir Tank</span>
+                      <span class="m2-drag-item-sub">Purified H2O Container</span>
+                      <span class="m2-drag-cue-pill">DRAG TO DOCK ➔</span>
                     </div>
-                  ` : ''}
+                  ` : `
+                    <div class="m2-drag-item-card stowed-placeholder">
+                      <span style="font-family:var(--font-pixel); font-size:clamp(0.78rem, 1vw, 0.9rem); color:#34d399;">✓ DOCKED IN BRACKET 1</span>
+                    </div>
+                  `}
 
+                  <!-- Item 2: Food Box -->
                   ${!m2TaskState.supplies.food ? `
-                    <div class="supply-item-drag-card" id="dragSupplyFood" draggable="true"
+                    <div class="m2-drag-item-card" id="dragSupplyFood" draggable="true"
                          ondragstart="handleM2SupplyDragStart(event, 'food')"
                          ondragend="handleM2SupplyDragEnd(event)"
-                         onclick="stowM2Supply('food')">
-                      <img src="assets/m2_supply_food.png" class="supply-thumb-img" alt="Emergency Food">
-                      <div class="supply-info-col">
-                        <span class="supply-name">Emergency Food Box</span>
-                        <span class="supply-sub">High-Calorie Field Rations</span>
-                      </div>
-                      <span class="supply-drag-pill">DRAG TO DOCK</span>
+                         onclick="handleM2SupplyClick('food')">
+                      <img src="assets/m2_supply_food.png" class="m2-drag-item-img" alt="Food Box">
+                      <span class="m2-drag-item-name">Emergency Food Box</span>
+                      <span class="m2-drag-item-sub">High-Calorie Rations</span>
+                      <span class="m2-drag-cue-pill">DRAG TO DOCK ➔</span>
                     </div>
-                  ` : ''}
+                  ` : `
+                    <div class="m2-drag-item-card stowed-placeholder">
+                      <span style="font-family:var(--font-pixel); font-size:clamp(0.78rem, 1vw, 0.9rem); color:#34d399;">✓ DOCKED IN BRACKET 2</span>
+                    </div>
+                  `}
 
+                  <!-- Item 3: Medical Kit -->
                   ${!m2TaskState.supplies.med ? `
-                    <div class="supply-item-drag-card" id="dragSupplyMed" draggable="true"
+                    <div class="m2-drag-item-card" id="dragSupplyMed" draggable="true"
                          ondragstart="handleM2SupplyDragStart(event, 'med')"
                          ondragend="handleM2SupplyDragEnd(event)"
-                         onclick="stowM2Supply('med')">
-                      <img src="assets/m2_supply_med.png" class="supply-thumb-img" alt="Trauma Med Kit">
-                      <div class="supply-info-col">
-                        <span class="supply-name">Trauma Medical Kit</span>
-                        <span class="supply-sub">Emergency Critical Meds</span>
-                      </div>
-                      <span class="supply-drag-pill">DRAG TO DOCK</span>
+                         onclick="handleM2SupplyClick('med')">
+                      <img src="assets/m2_supply_med.png" class="m2-drag-item-img" alt="Medical Kit">
+                      <span class="m2-drag-item-name">Trauma Medical Kit</span>
+                      <span class="m2-drag-item-sub">Emergency Critical Meds</span>
+                      <span class="m2-drag-cue-pill">DRAG TO DOCK ➔</span>
                     </div>
-                  ` : ''}
+                  ` : `
+                    <div class="m2-drag-item-card stowed-placeholder">
+                      <span style="font-family:var(--font-pixel); font-size:clamp(0.78rem, 1vw, 0.9rem); color:#34d399;">✓ DOCKED IN BRACKET 3</span>
+                    </div>
+                  `}
                 </div>
-                ${suppliesAllStowed
-                  ? '<div style="font-size:0.78rem; color:#34d399; text-align:center; font-family:var(--font-pixel); margin-top:6px;">✓ ALL BULKHEAD SUPPLIES SECURED</div>'
-                  : '<div style="font-size:0.72rem; color:#94a3b8; text-align:center; margin-top:4px;">Drag container to its bracket on left, or click to stow.</div>'
-                }
               </div>
-            </div>
 
-            ${suppliesAllStowed ? `
-              <button class="m2-stage-advance-btn" onclick="proceedToM2Stage(2)">
-                PROCEED TO HATCH LOCKDOWN (STAGE 2) ➔
-              </button>
-            ` : ''}
+              ${suppliesAllStowed ? `
+                <div style="text-align:center; width:100%; margin-top:6px;">
+                  <button class="m2-proceed-btn" onclick="proceedToM2Stage(2)">
+                    PROCEED TO HATCH LOCK (STAGE 2) ➔
+                  </button>
+                </div>
+              ` : `
+                <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">
+                  Drag each loose supply above to its designated bracket space. Click indicates target without auto-docking.
+                </div>
+              `}
+            </div>
           </div>
         `;
       }
@@ -6126,10 +6226,19 @@
       if (el) el.classList.add('is-dragging');
     }
 
+    function handleM2SupplyClick(key) {
+      sound.beepSound();
+      const slot = document.getElementById(key === 'water' ? 'bracketSlotWater' : (key === 'food' ? 'bracketSlotFood' : 'bracketSlotMed'));
+      if (slot) {
+        slot.classList.add('drag-over');
+        setTimeout(() => slot.classList.remove('drag-over'), 650);
+      }
+    }
+
     function handleM2SupplyDragEnd(e) {
       const el = e.currentTarget;
       if (el) el.classList.remove('is-dragging');
-      document.querySelectorAll('.bracket-slot.drag-over').forEach(el => el.classList.remove('drag-over'));
+      document.querySelectorAll('.bracket-slot.drag-over, .m2-drop-target-card.drag-over').forEach(el => el.classList.remove('drag-over'));
     }
 
     function handleM2SupplyDragOver(e, targetKey) {
@@ -7153,7 +7262,6 @@
       // Handle Interactive Mini-Tasks
       if (item.type === 'minitask') {
         if (dialogueBoxHumanEl) dialogueBoxHumanEl.classList.add('hidden');
-        if (dialogueBoxAstroBeeEl) dialogueBoxAstroBeeEl.classList.add('hidden');
         if (characterStandEl) characterStandEl.classList.add('hidden');
         if (m1DecisionOverlayEl) {
           m1DecisionOverlayEl.classList.remove('active');
