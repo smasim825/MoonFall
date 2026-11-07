@@ -3996,21 +3996,45 @@
       }
     }
 
+    function clearSessionMissionData() {
+      sessionStorage.removeItem('moonfall_decision_history');
+      sessionStorage.removeItem('moonfall_outpost_resources');
+      sessionStorage.removeItem('moonfall_m1_decision');
+      for (let i = 1; i <= 8; i++) {
+        sessionStorage.removeItem(`moonfall_m${i}_decision`);
+      }
+      for (const k in decisionHistory) {
+        decisionHistory[k] = null;
+      }
+      outpostResources = { ...START_RESOURCES };
+      m1ChosenDecision = null;
+      if (typeof m2TaskState !== 'undefined') {
+        m2TaskState.stage = 1;
+        m2TaskState.supplies = { water: false, food: false, med: false };
+        m2TaskState.hatchAngle = 0;
+        m2TaskState.hatchLockedBolts = 0;
+        m2TaskState.switches = { o2: false, cabin: false, co2: false };
+      }
+      currentActiveMissionId = 'M1';
+      missionClockSecondsCounter = 0;
+    }
+
     function returnToBase() {
       sound.clickSound();
+      clearSessionMissionData();
       window.location.href = 'mainbase.html';
     }
 
     function restartMission() {
       sound.clickSound();
       currentStep = 0;
-      m1ChosenDecision = null;
-      sessionStorage.removeItem('moonfall_m1_decision');
-      sessionStorage.removeItem('moonfall_decision_history');
-      sessionStorage.removeItem('moonfall_outpost_resources');
-      outpostResources = { ...START_RESOURCES };
+      clearSessionMissionData();
+      try {
+        const url = new URL(window.location.href);
+        url.search = '';
+        window.history.replaceState({}, '', url.pathname);
+      } catch (e) {}
       updateTelemetryUI();
-      for (const k in decisionHistory) decisionHistory[k] = null;
       updateDecisionHistoryUI();
       if (m1DecisionOverlayEl) {
         m1DecisionOverlayEl.classList.remove('active');
@@ -4024,6 +4048,10 @@
         cardSecureEquipEl.classList.remove('selected');
         cardSecureEquipEl.style.opacity = '1';
       }
+      const miniTaskModal = document.getElementById('crisisMiniTaskModal');
+      if (miniTaskModal) miniTaskModal.classList.add('hidden');
+      const consequenceModal = document.getElementById('decisionConsequenceModal');
+      if (consequenceModal) consequenceModal.classList.add('hidden');
       renderCurrentStep();
     }
 
@@ -4046,7 +4074,7 @@
 
     function initOutpostResources() {
       const saved = sessionStorage.getItem('moonfall_outpost_resources');
-      if (saved) {
+      if (saved && currentStep > 0) {
         try {
           outpostResources = JSON.parse(saved);
         } catch (e) {
@@ -4203,11 +4231,17 @@
     };
 
     function updateDecisionHistoryUI() {
-      const saved = sessionStorage.getItem('moonfall_decision_history');
-      if (saved) {
-        try {
-          Object.assign(decisionHistory, JSON.parse(saved));
-        } catch (e) {}
+      if (currentStep > 0) {
+        const saved = sessionStorage.getItem('moonfall_decision_history');
+        if (saved) {
+          try {
+            Object.assign(decisionHistory, JSON.parse(saved));
+          } catch (e) {}
+        }
+      } else {
+        for (const k in decisionHistory) {
+          decisionHistory[k] = null;
+        }
       }
 
       // Update all mission slots M1 to M8
@@ -7447,12 +7481,21 @@
       if (urlParams.get('instant') === '1') {
         isInstant = true;
       }
+      let isExplicitStep = false;
       if (urlParams.has('step')) {
         const stepNum = parseInt(urlParams.get('step'), 10);
         if (!isNaN(stepNum) && stepNum >= 0 && stepNum < DIALOGUES.length) {
           currentStep = stepNum;
+          if (stepNum > 0) isExplicitStep = true;
         }
       }
+
+      // If starting fresh (step 0 or no step param), wipe any stale decisions / degraded stats
+      if (!isExplicitStep) {
+        clearSessionMissionData();
+        currentStep = 0;
+      }
+
       if (urlParams.get('m1') === 'equip') {
         recordDecision('m1', 'EQUIP');
       } else if (urlParams.get('m1') === 'evac') {
