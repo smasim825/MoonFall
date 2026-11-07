@@ -8,7 +8,7 @@ You are **Commander Rookie**, the newly appointed Commander of **MoonFall Outpos
   1. **Rakesh Sharma**: Crew Health & Radiation Shelter Specialist
   2. **Dr. Chiaki Mukai**: Power & Energy Lead
   3. **Sunita Williams**: Hydroponics & Nutrition Lead
-  4. **O₂ Commando**: ISRU & Oxygen Extraction Specialist
+  4. **Guion Bluford**: ISRU & Oxygen Extraction Specialist
 
 ---
 
@@ -98,11 +98,11 @@ The Commander must choose between crew safety or critical infrastructure preserv
 
 * **AstroBee**:  
   > *"Commander! Oxygen reserve is falling. Our current supply won't be enough unless we restore oxygen production or activate an alternative supply. We need to act quickly!"*
-* **O₂ Commando**:  
+* **Guion Bluford**:  
   > *"We can use our emergency oxygen cylinders, produce fresh oxygen through water electrolysis, or isolate unused habitat modules to reduce unnecessary oxygen loss. But each option has a cost."*
 * **Dr. Chiaki Mukai**:  
   > *"Remember, Commander. Electrolysis needs electricity. Our emergency power is already limited, so watch the power reserve."*
-* **O₂ Commando**:  
+* **Guion Bluford**:  
   > *"What is your recommendation?"*
 
 ### M4 Interactive Decision & Challenge
@@ -123,9 +123,9 @@ The Commander must choose between crew safety or critical infrastructure preserv
 
 * **AstroBee**:  
   > *"Commander! Our clean-water production has dropped to 50%. We must secure enough water to keep the crew and greenhouse operating."*
-* **O₂ Commando**:  
+* **Guion Bluford**:  
   > *"We have three possible strategies. Each one has a different impact on our resources."*
-* **O₂ Commando**:  
+* **Guion Bluford**:  
   > *"What is your recommendation?"*
 
 ### M5 Interactive Decision & Challenge
@@ -164,7 +164,7 @@ The Commander must choose between crew safety or critical infrastructure preserv
   > *"Commander! Emergency alert! Power Bus Junction 4 is experiencing an electrical fault. The temperature is rising rapidly, and the power distribution network is becoming unstable!"*
 * **Dr. Chiaki Mukai**:  
   > *"We must isolate the damaged junction before the fault spreads. But be careful: disconnecting the wrong bus could shut down essential life-support systems."*
-* **O₂ Commando**:  
+* **Guion Bluford**:  
   > *"Our oxygen circulation and environmental systems depend on stable electrical power. We cannot afford to lose those circuits."*
 * **Dr. Chiaki Mukai**:  
   > *"What is your recommendation?"*

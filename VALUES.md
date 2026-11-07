@@ -16,7 +16,7 @@ Files: `values_final.json` (numbers + reasons, for the developer), `check_values
 
 ## 2. What 1 point means in real life
 
-Five crew: Rookie, Rakesh Sharma, Chiaki Mukai, Sunita Williams, O₂ Commando.
+Five crew: Rookie, Rakesh Sharma, Chiaki Mukai, Sunita Williams, Guion Bluford.
 
 | Bar | Start | 100 points = | 1 point = | Source of the scale |
 |---|---|---|---|---|
