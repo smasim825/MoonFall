@@ -2799,20 +2799,29 @@
         } catch (e) {}
       }
 
-      // Mission 1 slot
-      const slotM1 = document.getElementById('slotM1');
-      if (slotM1) {
-        if (decisionHistory.m1) {
-          slotM1.classList.remove('active');
-          const isEvac = decisionHistory.m1.toLowerCase().includes('evac');
-          slotM1.classList.toggle('decided-evacuate', isEvac);
-          slotM1.classList.toggle('decided-secure', !isEvac);
-          slotM1.querySelector('.slot-val').textContent = isEvac ? 'EVAC' : 'EQUIP';
-          slotM1.title = `Mission 1 Decision: ${isEvac ? 'Evacuate (Health -1, Equip -12)' : 'Secure Equip (Power -4, Health -5, Equip -2)'}`;
+      // Update all mission slots M1 to M8
+      for (let i = 1; i <= 8; i++) {
+        const slot = document.getElementById(`slotM${i}`);
+        if (!slot) continue;
+        const key = `m${i}`;
+        const missionId = `M${i}`;
+        const decision = decisionHistory[key];
+
+        if (decision) {
+          slot.classList.remove('active');
+          const isEvac = decision.toLowerCase().includes('evac');
+          slot.classList.toggle('decided-evacuate', isEvac);
+          slot.classList.toggle('decided-secure', !isEvac);
+          slot.querySelector('.slot-val').textContent = decision;
+          slot.title = `Mission ${i} Decision: ${decision}`;
         } else {
-          slotM1.classList.add('active');
-          slotM1.classList.remove('decided-evacuate', 'decided-secure');
-          slotM1.querySelector('.slot-val').textContent = '—';
+          slot.classList.remove('decided-evacuate', 'decided-secure');
+          slot.querySelector('.slot-val').textContent = '—';
+          if (currentActiveMissionId === missionId) {
+            slot.classList.add('active');
+          } else {
+            slot.classList.remove('active');
+          }
         }
       }
     }
@@ -3066,6 +3075,7 @@
       currentActiveMissionId = missionId;
       missionClockSecondsCounter = 0;
       updateClockDisplay();
+      updateDecisionHistoryUI();
       const modal = document.getElementById('crisisClockModal');
       if (modal && !modal.classList.contains('hidden')) {
         renderCrisisClockModal();
@@ -3175,6 +3185,7 @@
     const DIALOGUES = [
       // SCENE 0: INTRO AT THE CONSOLE (BG.png)
       {
+        mission: 'M1',
         scene: 0,
         speaker: 'astrobee',
         text: "Hello Rookie ! You are the newly appointed commander of MoonFall Outpost, located on the elevated rim of Shackleton Crater near the lunar south pole.",
@@ -3184,6 +3195,7 @@
         showExterior: false
       },
       {
+        mission: 'M1',
         scene: 0,
         speaker: 'astrobee',
         text: "You’re responsible for every final decision. The four crew members provide technical knowledge, report problems, and assist with tasks, but they never make the final decision.",
@@ -3195,6 +3207,7 @@
 
       // SCENE 1: SOLAR PARTICLE EVENT ALERT (BG2.png)
       {
+        mission: 'M1',
         scene: 1,
         speaker: 'astrobee',
         text: "Commander, Our solar observatory has identified a major Solar Particle Event. Estimated arrival: 30 minutes. We must immediately activate the emergency protocol.",
@@ -3206,6 +3219,7 @@
 
       // SCENE 2: RAKESH SHARMA ADVICE (BG2.png)
       {
+        mission: 'M1',
         scene: 2,
         speaker: 'rakesh',
         name: 'Rakesh Sharma',
@@ -3220,6 +3234,7 @@
 
       // SCENE 3: DR. CHIAKI MUKAI ADVICE (BG2.png)
       {
+        mission: 'M1',
         scene: 3,
         speaker: 'chiaki',
         name: 'Dr. Chiaki Mukai',
@@ -3235,11 +3250,39 @@
 
       // SCENE 4: M1 DECISION (Image 1: Evacuate vs Secure Equip)
       {
+        mission: 'M1',
         scene: 4,
         type: 'decision',
         title: "⚡ DECISION 1: EVACUATE VS SECURE",
         bg: "assets/BG2.png",
         alarm: true,
+        showExterior: false
+      },
+
+      // SCENE 5: MISSION 2 - ASTROBEE SHELTER ALERT (BG.png)
+      {
+        mission: 'M2',
+        scene: 5,
+        speaker: 'astrobee',
+        text: "Commander! Habitat shielding is weak. Reinforce the crew shelter before the incoming solar storm exposes the crew to dangerous radiation.",
+        title: "⚡ MISSION 2: THE SHELTER PROBLEM",
+        bg: "assets/BG.png",
+        alarm: false,
+        showExterior: false
+      },
+
+      // SCENE 6: MISSION 2 - RAKESH SHARMA ADVICE (BG.png)
+      {
+        mission: 'M2',
+        scene: 6,
+        speaker: 'rakesh',
+        name: 'Rakesh Sharma',
+        role: 'Crew Health & Shelter Specialist',
+        avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
+        text: "Commander, reinforce the deepest habitat section with regolith or water barriers to reduce radiation, while conserving water for drinking and the greenhouse.",
+        title: "⚠️ CREW ADVICE: RAKESH SHARMA",
+        bg: "assets/BG.png",
+        alarm: false,
         showExterior: false
       }
     ];
@@ -3267,11 +3310,15 @@
 
     function renderCurrentStep() {
       if (currentStep >= DIALOGUES.length) {
-        if (hudTitleEl) hudTitleEl.textContent = "⚡ MISSION 1 COMPLETE // CREW RECALLED";
-        return;
+        currentStep = DIALOGUES.length - 1;
       }
 
       const item = DIALOGUES[currentStep];
+
+      // Update Active Mission Clock & Timeline
+      if (item.mission && item.mission !== currentActiveMissionId) {
+        setActiveMissionTime(item.mission);
+      }
 
       // Update Top HUD Title
       if (hudTitleEl && item.title) {
@@ -3405,8 +3452,10 @@
         isTyping = false;
         return;
       }
-      currentStep++;
-      renderCurrentStep();
+      if (currentStep < DIALOGUES.length - 1) {
+        currentStep++;
+        renderCurrentStep();
+      }
     }
 
     let pendingChoiceKey = null;
