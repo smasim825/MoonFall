@@ -2009,24 +2009,30 @@
       display: flex;
       align-items: stretch;
       justify-content: center;
-      gap: clamp(16px, 2.8vw, 40px);
-      width: 94%;
-      max-width: 1180px;
-      margin-top: clamp(-20px, -3.2vh, -8px);
+      gap: clamp(12px, 1.8vw, 28px);
+      width: auto;
+      max-width: clamp(680px, 66vw, 860px);
+      margin: clamp(-20px, -3.2vh, -8px) auto 0 auto;
+      z-index: 95;
+    }
+
+    .decision-cards-row.cards-3 {
+      gap: clamp(8px, 1.4vw, 16px);
+      max-width: clamp(660px, 64vw, 820px);
     }
 
     .decision-cards-row.cards-3 .decision-choice-card {
-      max-width: clamp(260px, 30vw, 360px);
-      min-height: clamp(260px, 44vh, 370px);
-      padding: clamp(12px, 1.6vw, 18px);
+      max-width: clamp(200px, 20vw, 260px);
+      min-height: clamp(240px, 40vh, 340px);
+      padding: clamp(10px, 1.2vw, 14px);
     }
 
     .decision-cards-row.cards-3 .decision-card-title {
-      font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+      font-size: clamp(1.1rem, 1.4vw, 1.4rem);
     }
 
     .decision-cards-row.cards-3 .decision-card-stat {
-      font-size: clamp(0.98rem, 1.35vw, 1.25rem);
+      font-size: clamp(0.85rem, 1.1vw, 1.05rem);
       font-weight: bold;
       color: #bae6fd;
     }
@@ -2727,7 +2733,7 @@
       letter-spacing: 0.04em;
     }
 
-    /* M2 Stage 2: Heavy Mechanical Airlock Hatch */
+    /* M2 Stage 2: Heavy Mechanical Airlock Hatch (Assets: assets/hatch.png) */
     .m2-hatch-stage-wrap {
       display: flex;
       flex-direction: column;
@@ -2736,6 +2742,44 @@
       width: 100%;
       max-width: 720px;
       margin: 0 auto;
+    }
+    .pixel-hatch-assembly {
+      position: relative;
+      width: clamp(280px, 34vh, 380px);
+      aspect-ratio: 1512 / 1010;
+      cursor: pointer;
+      filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.45));
+      transition: transform 0.2s ease, filter 0.3s ease;
+      user-select: none;
+      margin: 0 auto;
+    }
+    .pixel-hatch-assembly:hover {
+      filter: drop-shadow(0 0 28px rgba(0, 229, 255, 0.75));
+      transform: scale(1.02);
+    }
+    .pixel-hatch-assembly.locked {
+      filter: drop-shadow(0 0 24px rgba(16, 185, 129, 0.85));
+    }
+    .pixel-hatch-frame {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      image-rendering: pixelated;
+    }
+    .pixel-hatch-wheel {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 60.185%;
+      height: 90.099%;
+      transform-origin: center center;
+      object-fit: fill;
+      image-rendering: pixelated;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .pixel-hatch-assembly.locked .pixel-hatch-wheel {
+      filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.9));
     }
     .scifi-hatch-svg {
       width: clamp(190px, 24vh, 235px);
@@ -4005,22 +4049,23 @@
         num: 5,
         key: 'm5',
         title: "M5: The Water Trap",
-        time: "14:00 UTC",
-        summary: "Hydraulic loop valve frozen in deep lunar shadow.",
+        time: "13:00 UTC",
+        summary: "Sediment clogs water recycling filter. Choose water replenishment strategy.",
         optionsList: {
-          'GRAYWATER': { label: "GRAYWATER RECYCLE", desc: "Power Safe, Filter -30%" },
-          'MELT ICE': { label: "MELT ICE RESERVE", desc: "Water +25%, Power -20%" }
+          'STORED H2O': { label: "STORED POTABLE", desc: "Water -15, Equip +5 (Clean stored buffer consumed)" },
+          'MELT ICE': { label: "MELT CRATER ICE", desc: "Water +18, Power -15, Equip -5 (Thermal volatile extraction)" },
+          'DRINK PRIORITY': { label: "DRINK PRIORITY", desc: "Water -5, Power +3, Green -10 (Rations crew water, starves plants)" }
         }
       },
       {
         num: 6,
         key: 'm6',
         title: "M6: The Last Harvest",
-        time: "17:00 UTC",
-        summary: "Hydroponics plant survival vs life support thermal power draw.",
+        time: "16:00 UTC",
+        summary: "Greenhouse bioloop falters. Restore hydroponics or sacrifice crops to save power.",
         optionsList: {
-          'MAINTAIN': { label: "MAINTAIN CROPS", desc: "Power -20%, Harvest Intact" },
-          'HARVEST': { label: "EMERGENCY HARVEST", desc: "Food +30%, Plants Lost" }
+          'RESTORE LOOP': { label: "RESTORE LOOP", desc: "Water -10, Power -12, Food +10, Green +20 (Restores irrigation & grow lights)" },
+          'ABANDON CROPS': { label: "ABANDON CROPS", desc: "Water +5, Power +12, Green -35 (Sacrifices crops, recovers power & water)" }
         }
       },
       {
@@ -4635,6 +4680,187 @@
         bg: "assets/BG.png",
         alarm: false,
         showExterior: false
+      },
+
+      // =======================================================================
+      // MISSION 5: THE WATER TRAP (13:00 UTC)
+      // =======================================================================
+      // Step 25: Mission 5 Intro Alert (AstroBee)
+      {
+        mission: 'M5',
+        scene: 24,
+        speaker: 'astrobee',
+        text: "Commander! Water recycling efficiency has plummeted to 50%! Fine lunar sediment has penetrated the filtration membrane and clogged the recirculation manifold!",
+        title: "M5: The Water Trap",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 26: Rakesh Sharma Advice
+      {
+        mission: 'M5',
+        scene: 25,
+        speaker: 'rakesh',
+        name: 'Rakesh Sharma',
+        role: 'Life Support Systems Engineer',
+        avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
+        text: "The primary ceramic filters are choked with abrasive regolith dust. If we draw directly from stored potable reserves, we burn our buffer. Alternatively, we can melt polar crater ice, but heating it takes massive electrical power!",
+        title: "CREW ADVICE: RAKESH SHARMA",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 27: Sunita Williams Advice
+      {
+        mission: 'M5',
+        scene: 26,
+        speaker: 'sunita',
+        name: 'Sunita Williams',
+        role: 'Hydroponics & Food Systems Lead',
+        avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
+        text: "Or we prioritize drinking water for the crew only and cut water to the hydroponics loop. But without water, our fresh crops will begin to wither.",
+        title: "CREW ADVICE: SUNITA WILLIAMS",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 28: Rakesh Sharma Call for Decision
+      {
+        mission: 'M5',
+        scene: 27,
+        speaker: 'rakesh',
+        name: 'Rakesh Sharma',
+        role: 'Life Support Systems Engineer',
+        avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
+        text: "What is your recommendation, Commander?",
+        title: "⚡ DECISION 5: THE WATER TRAP",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 29: M5 Decision Cards
+      {
+        mission: 'M5',
+        scene: 28,
+        type: 'decision',
+        decisionKey: 'm5',
+        title: "⚡ DECISION 5: THE WATER TRAP",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 30: M5 Mini-Task: Water Filtration & Sediment Trap
+      {
+        mission: 'M5',
+        scene: 29,
+        type: 'minitask',
+        taskId: 'm5_watertrap',
+        title: "CRISIS PROTOCOL: WATER RECOVERY SEQUENCING",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 31: M5 Success / Summary
+      {
+        mission: 'M5',
+        scene: 30,
+        speaker: 'astrobee',
+        text: "Water filtration restored, Commander! Clean H₂O is circulating through the habitat buffer and sediment purge is complete. Prepare for the afternoon cycle.",
+        title: "M5: The Water Trap // Water Recovery Nominal",
+        bg: "assets/BG.png",
+        alarm: false,
+        showExterior: false
+      },
+
+      // =======================================================================
+      // MISSION 6: THE LAST HARVEST (16:00 UTC)
+      // =======================================================================
+      // Step 32: Mission 6 Intro Alert (AstroBee)
+      {
+        mission: 'M6',
+        scene: 31,
+        speaker: 'astrobee',
+        text: "Warning! The greenhouse bioloop is failing. Nutrient solution delivery and crop canopy climate control have dropped below critical thresholds!",
+        title: "M6: The Last Harvest",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 33: Sunita Williams Advice
+      {
+        mission: 'M6',
+        scene: 32,
+        speaker: 'sunita',
+        name: 'Sunita Williams',
+        role: 'Hydroponics & Food Systems Lead',
+        avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
+        text: "Commander! Our hydroponic growth chambers are in severe distress. Without active nutrient circulation and full-spectrum LED lighting, our entire crop will be lost!",
+        title: "CREW ADVICE: SUNITA WILLIAMS",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 34: Dr. Chiaki Mukai Advice
+      {
+        mission: 'M6',
+        scene: 33,
+        speaker: 'chiaki',
+        name: 'Dr. Chiaki Mukai',
+        role: 'Power & Energy Lead',
+        avatar: 'assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp',
+        charClass: 'char-chiaki',
+        text: "Power demands for the grow lamps and heaters are enormous. If we restore the bioloop, we drain 12 kWh of power and 10% water. If we abandon the crops, we preserve power and reclaim 5% water for the crew.",
+        title: "CREW ADVICE: DR. CHIAKI MUKAI",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 35: Sunita Williams Call for Decision
+      {
+        mission: 'M6',
+        scene: 34,
+        speaker: 'sunita',
+        name: 'Sunita Williams',
+        role: 'Hydroponics & Food Systems Lead',
+        avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
+        text: "What is your recommendation, Commander?",
+        title: "⚡ DECISION 6: THE LAST HARVEST",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 36: M6 Decision Cards
+      {
+        mission: 'M6',
+        scene: 35,
+        type: 'decision',
+        decisionKey: 'm6',
+        title: "⚡ DECISION 6: THE LAST HARVEST",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 37: M6 Mini-Task: Hydroponic Bioloop Balance
+      {
+        mission: 'M6',
+        scene: 36,
+        type: 'minitask',
+        taskId: 'm6_hydroponics',
+        title: "CRISIS PROTOCOL: HYDROPONIC BIOLOOP SEQUENCING",
+        bg: "assets/BG2.png",
+        alarm: true,
+        showExterior: false
+      },
+      // Step 38: M6 Success / Summary
+      {
+        mission: 'M6',
+        scene: 37,
+        speaker: 'astrobee',
+        text: "Excellent leadership, Commander. The greenhouse bioloop status has been stabilized and habitat environmental telemetry is re-balanced for Mission 6!",
+        title: "M6: The Last Harvest // Bioloop Nominal",
+        bg: "assets/BG.png",
+        alarm: false,
+        showExterior: false
       }
     ];
 
@@ -4789,6 +5015,71 @@
             gain: "Makes ~2.7 kg of fresh O₂, so the bar rises (+5).",
             cost: "Splitting water needs ~5 kWh per kg of O₂ (-14). The water cost is small: 3 kg (-1).",
             real: "ISS oxygen generator makes up to 9.2 kg O₂/day; 1.13 kg water per kg O₂; 4.7-5.5 kWh per kg O₂ (Colozza 2020)."
+          }
+        }
+      },
+      'm5': {
+        title: "⚡ DECISION 5: THE WATER TRAP",
+        options: {
+          'stored_potable': {
+            title: "Stored Potable",
+            image: "assets/m5_opt_stored_potable.png",
+            stat: "Water -15, Equip +5",
+            badge: "STORED H2O",
+            label: "OPTION A: STORED POTABLE",
+            deltas: { Water: -15, Equip: 5 },
+            gain: "Directly taps clean potable storage tanks without stressing damaged filtration loops.",
+            cost: "Depletes 15% of stored potable water buffer directly.",
+            real: "Apollo and ISS rely on sealed water potable storage bladders as primary emergency buffer when processing loops fail."
+          },
+          'melt_ice': {
+            title: "Melt Crater Ice",
+            image: "assets/m5_opt_melt_ice.png",
+            stat: "Water +18, Power -15, Equip -5",
+            badge: "MELT ICE",
+            label: "OPTION B: MELT CRATER ICE",
+            deltas: { Water: 18, Power: -15, Equip: -5 },
+            gain: "Thermal ISRU extraction yields +18 fresh water, restoring habitat reserves.",
+            cost: "Consumes 15 kWh of vital battery power and strains thermal sublimation equipment (-5 Equip).",
+            real: "ISRU microwave or thermal sublimation of permanently shadowed crater ice requires ~2.8 kWh/kg of volatile extraction energy (Kleinhenz 2021)."
+          },
+          'drink_priority': {
+            title: "Drink Priority",
+            image: "assets/m5_opt_drink_priority.png",
+            stat: "Water -5, Power +3, Green -10",
+            badge: "DRINK PRIORITY",
+            label: "OPTION C: DRINK PRIORITY",
+            deltas: { Water: -5, Power: 3, Greenhouse: -10 },
+            gain: "Saves base power (+3) and slows water consumption by strictly rationing hydration to crew only.",
+            cost: "Greenhouse irrigation is cut off, causing crops to wither (-10 Green).",
+            real: "In emergency triage, human crew metabolic water (2.5 L/day/person) takes precedence over crop irrigation."
+          }
+        }
+      },
+      'm6': {
+        title: "⚡ DECISION 6: THE LAST HARVEST",
+        options: {
+          'restore_loop': {
+            title: "Restore Loop",
+            image: "assets/m6_opt_restore_loop.png",
+            stat: "Water -10, Power -12, Food +10, Green +20",
+            badge: "RESTORE LOOP",
+            label: "OPTION A: RESTORE LOOP",
+            deltas: { Water: -10, Power: -12, Food: 10, Greenhouse: 20 },
+            gain: "Saves crop canopy (+20 Green, +10 Food) and keeps lunar bio-regenerative loop active.",
+            cost: "Consumes 10% water and heavy electrical load (-12 Power) from emergency battery.",
+            real: "Hydroponic root zones require continuous active nutrient-solution circulation and grow lights to prevent irreversible crop death (NASA BVAD)."
+          },
+          'abandon_crops': {
+            title: "Abandon Crops",
+            image: "assets/m6_opt_abandon_crops.png",
+            stat: "Water +5, Power +12, Green -35",
+            badge: "ABANDON CROPS",
+            label: "OPTION B: ABANDON CROPS",
+            deltas: { Water: 5, Power: 12, Greenhouse: -35 },
+            gain: "Recovers residual irrigation water (+5 Water) and conserves +12 emergency power for cabin life support.",
+            cost: "Greenhouse crops wilt completely (-35 Green), losing fresh food supply.",
+            real: "Isolating non-essential plant growth chambers is a standard emergency protocol to preserve core crew life support."
           }
         }
       }
@@ -4946,6 +5237,20 @@
       h2Routed: null
     };
 
+    const m5TaskState = {
+      purgeValve: false,
+      ultrasonicClean: false,
+      potableBuffer: false,
+      qualityVerify: false
+    };
+
+    const m6TaskState = {
+      nutrientPump: false,
+      co2Canopy: false,
+      spectrumLights: false,
+      rootAeration: false
+    };
+
     function openCrisisMiniTask(taskId, missionId) {
       activeMiniTaskId = taskId;
       const overlay = document.getElementById('crisisMiniTaskOverlay');
@@ -4977,6 +5282,14 @@
         if (headline) headline.textContent = "CRISIS PROTOCOL // M4";
         if (subline) subline.textContent = "ISRU ELECTROLYSIS & GAS FLOW MANIFOLD";
         renderM4ElectrolysisTask();
+      } else if (taskId === 'm5_watertrap') {
+        if (headline) headline.textContent = "CRISIS PROTOCOL // M5";
+        if (subline) subline.textContent = "SEDIMENT PURGE & WATER FILTRATION MANIFOLD";
+        renderM5WaterTrapTask();
+      } else if (taskId === 'm6_hydroponics') {
+        if (headline) headline.textContent = "CRISIS PROTOCOL // M6";
+        if (subline) subline.textContent = "HYDROPONIC BIOLOOP & NUTRIENT BALANCING";
+        renderM6HydroponicsTask();
       }
 
       overlay.classList.remove('hidden');
@@ -5273,13 +5586,16 @@
           </div>
         `;
       }
-      // STAGE 2: LOCK THE SHELTER HATCH
+      // STAGE 2: LOCK THE SHELTER HATCH (hatch.png pixel art assembly)
       else if (m2TaskState.stage === 2) {
         stageHtml = `
           <div class="m2-stage-panel">
             <div class="m2-hatch-stage-wrap">
-              <!-- High-Fidelity SVG Hatch Wheel -->
-              ${buildScifiHatchSvg(m2TaskState.hatchAngle, m2TaskState.hatchLockedBolts)}
+              <!-- Pixel Art Mechanical Airlock Hatch (Assets: assets/hatch.png) -->
+              <div class="pixel-hatch-assembly ${hatchLocked ? 'locked' : ''}" onclick="rotateM2Hatch(60)" title="Click wheel to rotate and engage bolts">
+                <img src="assets/m2_hatch_frame_final.png" class="pixel-hatch-frame" alt="Bulkhead Airlock Frame">
+                <img src="assets/m2_hatch_wheel_final.png" class="pixel-hatch-wheel" style="transform: translate(-50%, -50%) rotate(${m2TaskState.hatchAngle}deg);" alt="Airlock Locking Wheel">
+              </div>
 
               <!-- Hatch Status Bar -->
               <div class="hatch-status-strip ${hatchLocked ? 'locked' : ''}">
@@ -5800,6 +6116,228 @@
         if (statusBadge) {
           statusBadge.className = 'minitask-status-badge';
           statusBadge.textContent = 'INITIALIZING ISRU';
+        }
+      }
+    }
+
+    // --- M5 Mini-Task: Water Filtration & Sediment Trap ---
+    function renderM5WaterTrapTask() {
+      const body = document.getElementById('miniTaskBody');
+      const hint = document.getElementById('miniTaskHint');
+      if (!body) return;
+
+      if (hint) {
+        hint.textContent = "Flush Sediment Purge → Energize Ultrasonic Clean → Open Potable Buffer → Verify Water Purity.";
+      }
+
+      body.innerHTML = `
+        <div class="m4-flow-sequence">
+          <!-- Stage 1 -->
+          <div class="manifold-stage-card ${m5TaskState.purgeValve ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Primary Cyclone Sediment Purge</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Flushes abrasive lunar regolith sediment out of the pre-filter trap</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m5TaskState.purgeValve ? 'online' : ''}" onclick="advanceM5WaterStage('purgeValve')">
+              ${m5TaskState.purgeValve ? '✓ SEDIMENT FLUSHED' : 'OPEN PURGE VALVE'}
+            </button>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="manifold-stage-card ${m5TaskState.ultrasonicClean ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Ultrasonic Ceramic Core De-clogger (40 kHz)</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">High-frequency acoustic cavitation dislodges sub-micron fines</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m5TaskState.ultrasonicClean ? 'online' : ''}" onclick="advanceM5WaterStage('ultrasonicClean')">
+              ${m5TaskState.ultrasonicClean ? '✓ TRANSDUCER ACTIVE' : 'ENERGIZE 40 KHZ'}
+            </button>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="manifold-stage-card ${m5TaskState.potableBuffer ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Habitat Potable Buffer Routing</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Directs purified water stream into pressurized crew drinking reservoir</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m5TaskState.potableBuffer ? 'online' : ''}" onclick="advanceM5WaterStage('potableBuffer')">
+              ${m5TaskState.potableBuffer ? '✓ BUFFER ROUTED' : 'ENGAGE BUFFER LINE'}
+            </button>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="manifold-stage-card ${m5TaskState.qualityVerify ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Spectrometry Purity Verification</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Total Dissolved Solids &lt; 15 ppm, zero toxic lunar heavy metals</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m5TaskState.qualityVerify ? 'online' : ''}" onclick="advanceM5WaterStage('qualityVerify')">
+              ${m5TaskState.qualityVerify ? '✓ TDS 11 PPM (NOMINAL)' : 'RUN PURITY SCAN'}
+            </button>
+          </div>
+        </div>
+      `;
+
+      updateMinitaskAstrobee("Commander! Flush the sediment trap and restore potable water filtration for the habitat.");
+      checkM5Completion();
+    }
+
+    function advanceM5WaterStage(stageKey) {
+      sound.clickSound();
+      m5TaskState[stageKey] = !m5TaskState[stageKey];
+      const allDone = m5TaskState.purgeValve && m5TaskState.ultrasonicClean && m5TaskState.potableBuffer && m5TaskState.qualityVerify;
+      if (allDone) {
+        sound.successChime();
+      }
+      renderM5WaterTrapTask();
+    }
+
+    function checkM5Completion() {
+      const isComplete = m5TaskState.purgeValve && m5TaskState.ultrasonicClean && m5TaskState.potableBuffer && m5TaskState.qualityVerify;
+      const confirmBtn = document.getElementById('miniTaskConfirmBtn');
+      const statusBadge = document.getElementById('miniTaskStatusBadge');
+
+      if (confirmBtn) {
+        confirmBtn.style.display = 'inline-block';
+        if (isComplete) {
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = "CONFIRM WATER RECOVERY ➔";
+        } else {
+          confirmBtn.disabled = true;
+          confirmBtn.textContent = "SEQUENCE INCOMPLETE";
+        }
+      }
+
+      if (statusBadge) {
+        if (isComplete) {
+          statusBadge.className = 'minitask-status-badge complete';
+          statusBadge.textContent = '✓ WATER SYSTEM NOMINAL';
+        } else {
+          statusBadge.className = 'minitask-status-badge';
+          statusBadge.textContent = 'PURGING SEDIMENT';
+        }
+      }
+    }
+
+    // --- M6 Mini-Task: Hydroponic Bioloop & Nutrient Balancing ---
+    function renderM6HydroponicsTask() {
+      const body = document.getElementById('miniTaskBody');
+      const hint = document.getElementById('miniTaskHint');
+      if (!body) return;
+
+      if (hint) {
+        hint.textContent = "Engage Nutrient Dosing → Inject Canopy CO2 → Ignite Grow LEDs → Circulate Root Aeration.";
+      }
+
+      body.innerHTML = `
+        <div class="m4-flow-sequence">
+          <!-- Stage 1 -->
+          <div class="manifold-stage-card ${m6TaskState.nutrientPump ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Peristaltic Nutrient Dosing Pump</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Injects balanced nitrogen, phosphorus, and potassium into crop trays</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m6TaskState.nutrientPump ? 'online' : ''}" onclick="advanceM6HydroStage('nutrientPump')">
+              ${m6TaskState.nutrientPump ? '✓ DOSING ACTIVE' : 'ENGAGE DOSING PUMP'}
+            </button>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="manifold-stage-card ${m6TaskState.co2Canopy ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Canopy CO2 Gas Injection</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Maintains 1200 ppm carbon dioxide to sustain crop photosynthesis</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m6TaskState.co2Canopy ? 'online' : ''}" onclick="advanceM6HydroStage('co2Canopy')">
+              ${m6TaskState.co2Canopy ? '✓ CO2 ACTIVE (1200 PPM)' : 'OPEN CO2 INJECTOR'}
+            </button>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="manifold-stage-card ${m6TaskState.spectrumLights ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Photosynthetic LED Grow Array</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Energizes 450nm deep blue and 660nm hyper red vegetative diodes</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m6TaskState.spectrumLights ? 'online' : ''}" onclick="advanceM6HydroStage('spectrumLights')">
+              ${m6TaskState.spectrumLights ? '✓ CANOPY ILLUMINATED' : 'IGNITE GROW LIGHTS'}
+            </button>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="manifold-stage-card ${m6TaskState.rootAeration ? 'online' : ''}">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
+              <div>
+                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Root Zone Aeration Circulator</div>
+                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Maintains dissolved oxygen at 8.2 mg/L to prevent anaerobic root rot</div>
+              </div>
+            </div>
+            <button class="stage-btn ${m6TaskState.rootAeration ? 'online' : ''}" onclick="advanceM6HydroStage('rootAeration')">
+              ${m6TaskState.rootAeration ? '✓ DISSOLVED O2 8.2 MG/L' : 'START AERATION PUMP'}
+            </button>
+          </div>
+        </div>
+      `;
+
+      updateMinitaskAstrobee("Commander! Balance the hydroponic bioloop to safeguard our food crops.");
+      checkM6Completion();
+    }
+
+    function advanceM6HydroStage(stageKey) {
+      sound.clickSound();
+      m6TaskState[stageKey] = !m6TaskState[stageKey];
+      const allDone = m6TaskState.nutrientPump && m6TaskState.co2Canopy && m6TaskState.spectrumLights && m6TaskState.rootAeration;
+      if (allDone) {
+        sound.successChime();
+      }
+      renderM6HydroponicsTask();
+    }
+
+    function checkM6Completion() {
+      const isComplete = m6TaskState.nutrientPump && m6TaskState.co2Canopy && m6TaskState.spectrumLights && m6TaskState.rootAeration;
+      const confirmBtn = document.getElementById('miniTaskConfirmBtn');
+      const statusBadge = document.getElementById('miniTaskStatusBadge');
+
+      if (confirmBtn) {
+        confirmBtn.style.display = 'inline-block';
+        if (isComplete) {
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = "LOCK HYDROPONIC LOOP ➔";
+        } else {
+          confirmBtn.disabled = true;
+          confirmBtn.textContent = "BIOLOOP INCOMPLETE";
+        }
+      }
+
+      if (statusBadge) {
+        if (isComplete) {
+          statusBadge.className = 'minitask-status-badge complete';
+          statusBadge.textContent = '✓ BIOLOOP NOMINAL';
+        } else {
+          statusBadge.className = 'minitask-status-badge';
+          statusBadge.textContent = 'BALANCING LOOP';
         }
       }
     }
