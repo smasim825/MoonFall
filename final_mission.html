@@ -3584,6 +3584,208 @@
       color: #000;
     }
 
+    /* ========================================================
+       M6 24-HOUR PHOTOPERIOD SCHEDULE MATRIX (NASA BVAD)
+       ======================================================== */
+    .m6-photoperiod-container {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(8px, 1.2vh, 12px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .m6-status-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      border-radius: 8px;
+      padding: 8px 14px;
+      box-sizing: border-box;
+    }
+
+    .m6-status-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .m6-status-title {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.85rem, 1.1vw, 1rem);
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 0.03em;
+    }
+
+    .m6-status-subtitle {
+      font-size: clamp(0.72rem, 0.85vw, 0.82rem);
+      color: #cbd5e1;
+      line-height: 1.3;
+    }
+
+    .m6-status-pills {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .m6-pill {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.75rem, 0.95vw, 0.88rem);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .m6-pill.pill-warning {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1.5px solid #f59e0b;
+      color: #fbbf24;
+      text-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+    }
+
+    .m6-pill.pill-success {
+      background: rgba(16, 185, 129, 0.25);
+      border: 1.5px solid #10b981;
+      color: #34d399;
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
+    }
+
+    .m6-btn-reset {
+      font-family: var(--font-pixel, monospace);
+      font-size: 0.75rem;
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-weight: 700;
+    }
+    .m6-btn-reset:hover {
+      background: rgba(51, 65, 85, 1);
+      color: #ffffff;
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    }
+
+    .m6-schedule-matrix {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: clamp(8px, 1.1vw, 12px);
+      background: #020617;
+      border: 2px solid rgba(56, 189, 248, 0.35);
+      border-radius: 12px;
+      padding: clamp(10px, 1.4vw, 16px);
+      box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.85);
+      box-sizing: border-box;
+    }
+
+    .m6-hour-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(8px, 1.2vh, 12px) 6px;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      min-height: clamp(58px, 7.5vh, 76px);
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .m6-hour-block:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.12);
+    }
+
+    .m6-hour-block:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    /* OFF / Night State */
+    .m6-hour-block.off {
+      background: #182844;
+      border: 1.5px solid #233a61;
+      color: #94a3b8;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+    .m6-hour-block.off:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    .m6-hour-block.off .m6-block-icon {
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .m6-hour-block.off .m6-block-time {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.95rem, 1.25vw, 1.18rem);
+      font-weight: 700;
+      color: #ffffff;
+      margin: 3px 0 1px 0;
+      letter-spacing: 0.04em;
+    }
+    .m6-hour-block.off .m6-block-state {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+      font-weight: 700;
+      color: #7994b5;
+      letter-spacing: 0.05em;
+    }
+
+    /* ON / Day State */
+    .m6-hour-block.on {
+      background: linear-gradient(145deg, #e5a72c, #cb8a1b);
+      border: 1.5px solid #fbbf24;
+      color: #ffffff;
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+    .m6-hour-block.on:hover {
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    }
+    .m6-hour-block.on .m6-block-icon {
+      color: #ffffff;
+      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .m6-hour-block.on .m6-block-time {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.95rem, 1.25vw, 1.18rem);
+      font-weight: 700;
+      color: #ffffff;
+      margin: 3px 0 1px 0;
+      letter-spacing: 0.04em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+    .m6-hour-block.on .m6-block-state {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+
     /* FINAL MISSION DEBRIEFING & STAR RATING MODAL (Finale) */
     .final-debrief-modal {
       position: fixed;
@@ -4701,6 +4903,10 @@
         m4TaskState.order = null;
         m4TaskState.selectedSwapIndex = null;
         m4TaskState.draggedIndex = null;
+      }
+      if (typeof m6TaskState !== 'undefined') {
+        m6TaskState.schedule = null;
+        m6TaskState.isComplete = false;
       }
       currentActiveMissionId = 'M1';
       missionClockSecondsCounter = 0;
@@ -6613,12 +6819,26 @@
       qualityVerify: false
     };
 
+    // Initial 24-hour photoperiod schedule matching reference layout:
+    // Row 0 (00-05): OFF, ON, OFF, ON, ON, OFF
+    // Row 1 (06-11): ON, OFF, OFF, ON, OFF, ON
+    // Row 2 (12-17): ON, OFF, ON, OFF, OFF, ON
+    // Row 3 (18-23): OFF, OFF, ON, OFF, OFF, ON
+    const initialM6Schedule = [
+      false, true, false, true, true, false,
+      true, false, false, true, false, true,
+      true, false, true, false, false, true,
+      false, false, true, false, false, true
+    ];
+
     const m6TaskState = {
-      nutrientPump: false,
-      co2Canopy: false,
-      spectrumLights: false,
-      rootAeration: false
+      schedule: null,
+      isComplete: false
     };
+
+    function initM6HydroponicsSchedule() {
+      return [...initialM6Schedule];
+    }
 
     const m7TaskState = {
       arcShunt: false,
@@ -6682,7 +6902,8 @@
         if (headline) headline.textContent = "Sediment Purge & Water Filtration";
         renderM5WaterTrapTask();
       } else if (taskId === 'm6_hydroponics') {
-        if (headline) headline.textContent = "Hydroponic Bioloop & Nutrient Balancing";
+        if (headline) headline.textContent = "Hydroponic Photoperiod Lighting Schedule";
+        if (subline) subline.textContent = "CALIBRATE 16H CONSECUTIVE VEGETATIVE DAYLIGHT";
         renderM6HydroponicsTask();
       } else if (taskId === 'm7_busfault') {
         if (headline) headline.textContent = "Power Bus Arc Fault Isolation";
@@ -7780,92 +8001,130 @@
       }
     }
 
-    // --- M6 Mini-Task: Hydroponic Bioloop & Nutrient Balancing ---
+    // --- M6 Mini-Task: Hydroponic Photoperiod 24-Hour Schedule Matrix (NASA BVAD) ---
+    const M6_SUN_SVG = `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4.5" fill="currentColor"/>
+      <line x1="12" y1="1.5" x2="12" y2="3.8"/>
+      <line x1="12" y1="20.2" x2="12" y2="22.5"/>
+      <line x1="4.5" y1="4.5" x2="6.2" y2="6.2"/>
+      <line x1="17.8" y1="17.8" x2="19.5" y2="19.5"/>
+      <line x1="1.5" y1="12" x2="3.8" y2="12"/>
+      <line x1="20.2" y1="12" x2="22.5" y2="12"/>
+      <line x1="4.5" y1="19.5" x2="6.2" y2="17.8"/>
+      <line x1="17.8" y1="6.2" x2="19.5" y2="4.5"/>
+    </svg>`;
+
+    const M6_MOON_SVG = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>`;
+
+    function getM6ScheduleStats(schedule) {
+      if (!schedule || schedule.length !== 24) return { totalOn: 0, maxConsec: 0, isComplete: false };
+      const totalOn = schedule.filter(Boolean).length;
+      const doubled = schedule.concat(schedule);
+      let maxConsec = 0;
+      let currConsec = 0;
+      for (let i = 0; i < doubled.length; i++) {
+        if (doubled[i]) {
+          currConsec++;
+          if (currConsec > maxConsec) maxConsec = currConsec;
+        } else {
+          currConsec = 0;
+        }
+      }
+      maxConsec = Math.min(maxConsec, totalOn);
+      const isComplete = (totalOn === 16 && maxConsec === 16);
+      return { totalOn, maxConsec, isComplete };
+    }
+
     function renderM6HydroponicsTask() {
       const body = document.getElementById('miniTaskBody');
       const hint = document.getElementById('miniTaskHint');
       if (!body) return;
 
+      if (!m6TaskState.schedule || !Array.isArray(m6TaskState.schedule) || m6TaskState.schedule.length !== 24) {
+        m6TaskState.schedule = initM6HydroponicsSchedule();
+      }
+
+      const stats = getM6ScheduleStats(m6TaskState.schedule);
+      m6TaskState.isComplete = stats.isComplete;
+
       if (hint) {
-        hint.textContent = "Engage Nutrient Dosing → Inject Canopy CO2 → Ignite Grow LEDs → Circulate Root Aeration.";
+        hint.textContent = "Calibrate 24-hour cycle: 16 consecutive hours light (☀️ ON) and 8 hours dark (🌙 OFF). Midnight wrap (23:00 → 00:00) is valid.";
+      }
+
+      let gridBlocksHtml = '';
+      for (let h = 0; h < 24; h++) {
+        const isOn = !!m6TaskState.schedule[h];
+        const timeStr = String(h).padStart(2, '0') + ':00';
+        gridBlocksHtml += `
+          <button class="m6-hour-block ${isOn ? 'on' : 'off'}" onclick="toggleM6Hour(${h})" aria-label="Hour ${timeStr}: ${isOn ? 'ON (Day)' : 'OFF (Night)'}">
+            <div class="m6-block-icon">${isOn ? M6_SUN_SVG : M6_MOON_SVG}</div>
+            <div class="m6-block-time">${timeStr}</div>
+            <div class="m6-block-state">${isOn ? 'ON' : 'OFF'}</div>
+          </button>
+        `;
       }
 
       body.innerHTML = `
-        <div class="m4-flow-sequence">
-          <!-- Stage 1 -->
-          <div class="manifold-stage-card ${m6TaskState.nutrientPump ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Peristaltic Nutrient Dosing Pump</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Injects balanced nitrogen, phosphorus, and potassium into crop trays</div>
-              </div>
+        <div class="m6-photoperiod-container">
+          <div class="m6-status-banner">
+            <div class="m6-status-info">
+              <div class="m6-status-title">🌱 HYDROPONIC PHOTOPERIOD MATRIX</div>
+              <div class="m6-status-subtitle">NASA BVAD: Set exactly 16 consecutive hours daylight (☀️ ON) &amp; 8 hours dark (🌙 OFF). Midnight wrap (23:00 → 00:00) is valid.</div>
             </div>
-            <button class="stage-btn ${m6TaskState.nutrientPump ? 'online' : ''}" onclick="advanceM6HydroStage('nutrientPump')">
-              ${m6TaskState.nutrientPump ? '✓ DOSING ACTIVE' : 'ENGAGE DOSING PUMP'}
-            </button>
+            <div class="m6-status-pills">
+              <div class="m6-pill ${stats.isComplete ? 'pill-success' : 'pill-warning'}">
+                <span>${stats.isComplete ? '✓' : '⚡'}</span>
+                <span>${stats.isComplete ? '16H PHOTOPERIOD NOMINAL' : `${stats.totalOn}/16H DAYLIGHT (${stats.maxConsec}H STREAK)`}</span>
+              </div>
+              <button class="m6-btn-reset" onclick="resetM6Schedule()" title="Reset to initial schedule">↺ RESET</button>
+            </div>
           </div>
 
-          <!-- Stage 2 -->
-          <div class="manifold-stage-card ${m6TaskState.co2Canopy ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Canopy CO2 Gas Injection</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Maintains 1200 ppm carbon dioxide to sustain crop photosynthesis</div>
-              </div>
-            </div>
-            <button class="stage-btn ${m6TaskState.co2Canopy ? 'online' : ''}" onclick="advanceM6HydroStage('co2Canopy')">
-              ${m6TaskState.co2Canopy ? '✓ CO2 ACTIVE (1200 PPM)' : 'OPEN CO2 INJECTOR'}
-            </button>
-          </div>
-
-          <!-- Stage 3 -->
-          <div class="manifold-stage-card ${m6TaskState.spectrumLights ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Photosynthetic LED Grow Array</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Energizes 450nm deep blue and 660nm hyper red vegetative diodes</div>
-              </div>
-            </div>
-            <button class="stage-btn ${m6TaskState.spectrumLights ? 'online' : ''}" onclick="advanceM6HydroStage('spectrumLights')">
-              ${m6TaskState.spectrumLights ? '✓ CANOPY ILLUMINATED' : 'IGNITE GROW LIGHTS'}
-            </button>
-          </div>
-
-          <!-- Stage 4 -->
-          <div class="manifold-stage-card ${m6TaskState.rootAeration ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Root Zone Aeration Circulator</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Maintains dissolved oxygen at 8.2 mg/L to prevent anaerobic root rot</div>
-              </div>
-            </div>
-            <button class="stage-btn ${m6TaskState.rootAeration ? 'online' : ''}" onclick="advanceM6HydroStage('rootAeration')">
-              ${m6TaskState.rootAeration ? '✓ DISSOLVED O2 8.2 MG/L' : 'START AERATION PUMP'}
-            </button>
+          <div class="m6-schedule-matrix">
+            ${gridBlocksHtml}
           </div>
         </div>
       `;
 
-      updateMinitaskAstrobee("Commander! Balance the hydroponic bioloop to safeguard our food crops.");
+      if (stats.isComplete) {
+        updateMinitaskAstrobee("Outstanding, Commander! Exactly 16 consecutive hours of illumination scheduled. Vegetative photosynthesis and night respiration are in nominal balance!");
+      } else if (stats.totalOn === 16 && stats.maxConsec < 16) {
+        updateMinitaskAstrobee(`Total daylight is 16 hours, but scattered! Current longest continuous block is ${stats.maxConsec}h. All 16 daylight hours must be consecutive (circular wrap across midnight is supported).`);
+      } else if (stats.totalOn < 16) {
+        updateMinitaskAstrobee(`Commander, crops need 16 consecutive hours of light. Currently ${stats.totalOn}/16 hours are ON. Click dark blocks to illuminate.`);
+      } else {
+        updateMinitaskAstrobee(`Outpost power overload: ${stats.totalOn} hours illuminated (${stats.totalOn - 16} too many). Turn OFF ${stats.totalOn - 16} hours to reach exactly 16 consecutive hours.`);
+      }
+
       checkM6Completion();
     }
 
-    function advanceM6HydroStage(stageKey) {
+    function toggleM6Hour(hour) {
+      if (!m6TaskState.schedule || m6TaskState.schedule.length !== 24) {
+        m6TaskState.schedule = initM6HydroponicsSchedule();
+      }
       sound.clickSound();
-      m6TaskState[stageKey] = !m6TaskState[stageKey];
-      const allDone = m6TaskState.nutrientPump && m6TaskState.co2Canopy && m6TaskState.spectrumLights && m6TaskState.rootAeration;
-      if (allDone) {
+      const wasComplete = m6TaskState.isComplete;
+      m6TaskState.schedule[hour] = !m6TaskState.schedule[hour];
+      const stats = getM6ScheduleStats(m6TaskState.schedule);
+      if (!wasComplete && stats.isComplete) {
         sound.successChime();
       }
       renderM6HydroponicsTask();
     }
 
+    function resetM6Schedule() {
+      sound.clickSound();
+      m6TaskState.schedule = initM6HydroponicsSchedule();
+      m6TaskState.isComplete = false;
+      renderM6HydroponicsTask();
+    }
+
     function checkM6Completion() {
-      const isComplete = m6TaskState.nutrientPump && m6TaskState.co2Canopy && m6TaskState.spectrumLights && m6TaskState.rootAeration;
+      const stats = getM6ScheduleStats(m6TaskState.schedule);
+      const isComplete = stats.isComplete;
       const confirmBtn = document.getElementById('miniTaskConfirmBtn');
       const statusBadge = document.getElementById('miniTaskStatusBadge');
 
@@ -7873,20 +8132,23 @@
         confirmBtn.style.display = 'inline-block';
         if (isComplete) {
           confirmBtn.disabled = false;
-          confirmBtn.textContent = "LOCK HYDROPONIC LOOP ➔";
+          confirmBtn.textContent = "CONFIRM HYDROPONIC BIOLOOP ➔";
+        } else if (stats.totalOn !== 16) {
+          confirmBtn.disabled = true;
+          confirmBtn.textContent = `ILLUMINATE 16H (${stats.totalOn}/16)`;
         } else {
           confirmBtn.disabled = true;
-          confirmBtn.textContent = "BIOLOOP INCOMPLETE";
+          confirmBtn.textContent = `MAKE 16H CONSECUTIVE (${stats.maxConsec}/16)`;
         }
       }
 
       if (statusBadge) {
         if (isComplete) {
           statusBadge.className = 'minitask-status-badge complete';
-          statusBadge.textContent = '✓ BIOLOOP NOMINAL';
+          statusBadge.textContent = '✓ 16H PHOTOPERIOD NOMINAL';
         } else {
           statusBadge.className = 'minitask-status-badge';
-          statusBadge.textContent = 'BALANCING LOOP';
+          statusBadge.textContent = 'CALIBRATING PHOTOPERIOD';
         }
       }
     }
@@ -8484,6 +8746,18 @@
       }
       if (urlParams.get('m4order')) {
         m4TaskState.order = urlParams.get('m4order').split(',').map(n => parseInt(n.trim(), 10));
+      }
+      if (urlParams.get('m6complete') === '1') {
+        // Preset to 16 consecutive hours linear (06:00 to 21:00)
+        m6TaskState.schedule = Array(24).fill(false);
+        for (let i = 6; i <= 21; i++) m6TaskState.schedule[i] = true;
+      } else if (urlParams.get('m6wrap') === '1') {
+        // Preset to circular wrap: 14:00 to 23:00 (10h) + 00:00 to 05:00 (6h)
+        m6TaskState.schedule = Array(24).fill(false);
+        for (let i = 0; i <= 5; i++) m6TaskState.schedule[i] = true;
+        for (let i = 14; i <= 23; i++) m6TaskState.schedule[i] = true;
+      } else if (urlParams.get('m6schedule')) {
+        m6TaskState.schedule = urlParams.get('m6schedule').split(',').map(n => n.trim() === '1' || n.trim() === 'true');
       }
       if (urlParams.get('m2stow')) {
         urlParams.get('m2stow').split(',').forEach(k => { if (m2TaskState.supplies[k] !== undefined) m2TaskState.supplies[k] = true; });
