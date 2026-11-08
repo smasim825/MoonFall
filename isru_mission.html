@@ -2202,6 +2202,380 @@
     }
 
     .coming-soon-toast.show { opacity: 1; }
+
+    /* ==========================================================================
+       Mission Entry Transition (Sci-Fi Airlock Reveal)
+       ========================================================================== */
+    .mission-entry-transition {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 120;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      pointer-events: auto;
+      user-select: none;
+      cursor: pointer;
+      transition: opacity 0.35s ease;
+    }
+
+    .mission-entry-transition.dismissed {
+      display: none !important;
+      pointer-events: none !important;
+    }
+
+    /* Blast Doors (Left & Right Halves) */
+    .entry-door {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50.5%;
+      height: 100%;
+      background: radial-gradient(circle at center, #111e33 0%, #070d18 85%);
+      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.95);
+      will-change: transform;
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .entry-door-left {
+      left: 0;
+      transform: translateX(0);
+      border-right: 3px solid #00e5ff;
+      box-shadow: inset -6px 0 25px rgba(0, 229, 255, 0.35);
+    }
+
+    .entry-door-right {
+      right: 0;
+      transform: translateX(0);
+      border-left: 3px solid #00e5ff;
+      box-shadow: inset 6px 0 25px rgba(0, 229, 255, 0.35);
+    }
+
+    /* Caution Stripes on Seam Edges */
+    .entry-hazard-stripe {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 14px;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(253, 203, 14, 0.4) 0px,
+        rgba(253, 203, 14, 0.4) 8px,
+        rgba(10, 15, 25, 0.8) 8px,
+        rgba(10, 15, 25, 0.8) 16px
+      );
+    }
+
+    .entry-door-left .entry-hazard-stripe {
+      right: 0;
+    }
+
+    .entry-door-right .entry-hazard-stripe {
+      left: 0;
+    }
+
+    /* High-Tech Grid & Decal Texture */
+    .entry-door-panel {
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      border-radius: 4px;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                  linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .entry-door-decal {
+      position: absolute;
+      bottom: 18px;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.55rem, 1vw, 0.75rem);
+      color: rgba(0, 229, 255, 0.45);
+      letter-spacing: 0.1em;
+    }
+
+    .entry-door-left .entry-door-decal {
+      left: 24px;
+    }
+
+    .entry-door-right .entry-door-decal {
+      right: 24px;
+      text-align: right;
+    }
+
+    /* Open Animations */
+    .mission-entry-transition.doors-open .entry-door-left {
+      transform: translateX(-102%);
+    }
+
+    .mission-entry-transition.doors-open .entry-door-right {
+      transform: translateX(102%);
+    }
+
+    /* Center Tactical HUD Badge */
+    .entry-hud-badge {
+      position: relative;
+      z-index: 125;
+      background: rgba(6, 12, 24, 0.94);
+      border: 2px solid #00e5ff;
+      border-radius: 10px;
+      padding: clamp(12px, 2.2vw, 20px) clamp(16px, 3.2vw, 32px);
+      text-align: center;
+      box-shadow: 0 0 35px rgba(0, 229, 255, 0.45), inset 0 0 20px rgba(0, 229, 255, 0.12);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mission-entry-transition.doors-open .entry-hud-badge {
+      opacity: 0;
+      transform: scale(0.85);
+      pointer-events: none;
+    }
+
+    .entry-badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+      color: #94a3b8;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .entry-pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00e5ff;
+      box-shadow: 0 0 10px #00e5ff;
+      animation: entry-pulse 1s infinite alternate ease-in-out;
+    }
+
+    @keyframes entry-pulse {
+      from { transform: scale(0.8); opacity: 0.6; }
+      to { transform: scale(1.3); opacity: 1; }
+    }
+
+    .entry-badge-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.95rem, 2.2vw, 1.6rem);
+      color: #fdcb0e;
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 14px rgba(253, 203, 14, 0.6);
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .entry-badge-sub {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.7rem, 1.3vw, 0.95rem);
+      color: #00e5ff;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Scanning Progress Bar */
+    .entry-scan-bar {
+      width: 100%;
+      max-width: 280px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+      margin-top: 4px;
+    }
+
+    .entry-scan-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0284c7, #00e5ff);
+      box-shadow: 0 0 10px #00e5ff;
+      animation: entry-fill 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes entry-fill {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    .entry-skip-hint {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+      color: #94a3b8;
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+      opacity: 0.9;
+    }
+
+    /* ==========================================================================
+       Mission Complete Overlay
+       ========================================================================== */
+    .mission-complete-overlay {
+      position: absolute;
+      top: 9%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 82%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 110;
+      pointer-events: auto;
+      animation: mission-pop-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes mission-pop-in {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -20px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+      }
+    }
+
+    .mission-complete-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2vw;
+    }
+
+    .mission-complete-title {
+      width: 76%;
+      max-width: 820px;
+      height: auto;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.85));
+    }
+
+    /* Circular Verification Score Box (Circle Box) */
+    .circle-score-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 8px 0 6px 0;
+    }
+
+    .circle-score-box {
+      position: relative;
+      width: clamp(150px, 16.5vw, 215px);
+      height: clamp(150px, 16.5vw, 215px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-circular-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+      filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.75));
+    }
+
+    .score-circle-bg {
+      fill: rgba(2, 24, 55, 0.92);
+      stroke: rgba(0, 153, 255, 0.22);
+      stroke-width: 9.5;
+    }
+
+    .score-circle-progress {
+      fill: none;
+      stroke: #00e5ff;
+      stroke-width: 9.5;
+      stroke-linecap: round;
+      stroke-dasharray: 314.16;
+      stroke-dashoffset: 314.16;
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
+      filter: drop-shadow(0 0 14px rgba(0, 229, 255, 0.85));
+    }
+
+    .circle-score-content {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .circle-score-num {
+      font-family: var(--font-pixel);
+      font-size: clamp(2.5rem, 4.6vw, 4.8rem);
+      font-weight: 400;
+      color: #00e5ff;
+      line-height: 1;
+      text-shadow: 0 0 14px rgba(0, 229, 255, 0.85);
+    }
+
+    .circle-score-sub {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.95rem, 1.45vw, 1.45rem);
+      color: #94a3b8;
+      letter-spacing: 0.12em;
+      line-height: 1;
+      margin-top: 4px;
+    }
+
+    .mission-complete-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5vw;
+      width: 88%;
+      margin-top: 4px;
+    }
+
+    .mission-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      outline: none;
+    }
+
+    .mission-btn img {
+      height: clamp(34px, 5vw, 62px);
+      width: auto;
+      object-fit: contain;
+      display: block;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6));
+    }
+
+    .mission-btn:hover {
+      transform: translateY(-3px) scale(1.04);
+      filter: brightness(1.15) drop-shadow(0 0 14px rgba(3, 143, 243, 0.7));
+    }
+
+    .mission-btn:active {
+      transform: scale(0.96);
+    }
+
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css">
   <link rel="stylesheet" href="missions-shared.css">
@@ -2226,6 +2600,30 @@
 
   <main class="isru-game-viewport game-viewport" id="gameViewport" role="application" aria-label="Mission 3: ISRU Facility">
     <div class="isru-stage" id="isruStage">
+
+      <!-- Mission Entry Sci-Fi Transition Overlay -->
+      <div class="mission-entry-transition" id="entryTransition" onclick="dismissEntryTransition()" role="dialog" aria-label="Mission Entry Transition" title="Click anywhere to enter">
+        <div class="entry-door entry-door-left">
+          <div class="entry-door-panel"></div>
+          <div class="entry-door-decal">SECTOR 03 // AIRLOCK L-3</div>
+          <div class="entry-hazard-stripe"></div>
+        </div>
+        <div class="entry-door entry-door-right">
+          <div class="entry-door-panel"></div>
+          <div class="entry-door-decal">LUNAR OUTPOST // ISRU FACILITY</div>
+          <div class="entry-hazard-stripe"></div>
+        </div>
+        <div class="entry-hud-badge" id="entryBadge">
+          <div class="entry-badge-status">
+            <span class="entry-pulse-dot"></span>
+            <span>PRESSURIZING AIRLOCK // SYS-NOMINAL</span>
+          </div>
+          <h2 class="entry-badge-title"><svg width="18" height="18" viewBox="0 0 16 16" fill="#00e5ff" style="vertical-align:middle;margin-right:6px;"><path d="M8 1.5C8 1.5 3 7.5 3 11a5 5 0 0 0 10 0c0-3.5-5-9.5-5-9.5z"/></svg>MISSION 3: ISRU FACILITY</h2>
+          <div class="entry-badge-sub">WATER EXTRACTION &amp; OXYGEN GENERATION</div>
+          <div class="entry-scan-bar"><div class="entry-scan-fill"></div></div>
+          <div class="entry-skip-hint">TAP ANYWHERE TO ENTER &#10140;</div>
+        </div>
+      </div>
 
       <!-- Top HUD -->
       <header class="top-hud">
@@ -2552,6 +2950,36 @@
       </div>
 
     </div>
+      <!-- Mission Complete Overlay -->
+      <div class="mission-complete-overlay hidden" id="missionCompleteOverlay">
+        <div class="mission-complete-container">
+          <img src="assets/Mission Complete.png" alt="Mission Complete" class="mission-complete-title">
+
+          <!-- Circular Verification Score Box (Circle Box) -->
+          <div class="circle-score-wrapper">
+            <div class="circle-score-box">
+              <svg class="score-circular-svg" viewBox="0 0 120 120">
+                <circle class="score-circle-bg" cx="60" cy="60" r="50"></circle>
+                <circle class="score-circle-progress" id="scoreCircleProgress" cx="60" cy="60" r="50"></circle>
+              </svg>
+              <div class="circle-score-content">
+                <span class="circle-score-num" id="circleScoreNum">100%</span>
+                <span class="circle-score-sub">SCORE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons: Try Again & Return to Base -->
+          <div class="mission-complete-buttons">
+            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again" aria-label="Try Again">
+              <img src="assets/Frame 25.png" alt="Try Again">
+            </button>
+            <button class="mission-btn btn-home" onclick="returnToBase()" title="Home" aria-label="Home">
+              <img src="assets/Frame 26.png" alt="Home">
+            </button>
+          </div>
+        </div>
+      </div>
   </main>
 
   <script>
@@ -2699,6 +3127,71 @@
         });
       }
 
+      playAirlockOpen() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const now = this.ctx.currentTime;
+          const bufferSize = Math.floor(this.ctx.sampleRate * 0.22);
+          const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            data[i] = Math.random() * 2 - 1;
+          }
+          const noise = this.ctx.createBufferSource();
+          noise.buffer = buffer;
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = "bandpass";
+          filter.frequency.setValueAtTime(900, now);
+          filter.frequency.exponentialRampToValueAtTime(250, now + 0.22);
+          const noiseGain = this.ctx.createGain();
+          noiseGain.gain.setValueAtTime(0.06, now);
+          noiseGain.gain.linearRampToValueAtTime(0.0001, now + 0.22);
+          noise.connect(filter);
+          filter.connect(noiseGain);
+          noiseGain.connect(this.ctx.destination);
+          noise.start(now);
+
+          const notes = [440, 554.37, 659.25, 880];
+          notes.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = "sine";
+            const t = now + 0.05 + idx * 0.07;
+            osc.frequency.setValueAtTime(freq, t);
+            gain.gain.setValueAtTime(0.045, t);
+            gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.28);
+          });
+        } catch (e) { }
+      }
+
+      playSuccessFanfare() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+          notes.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            const startTime = this.ctx.currentTime + idx * 0.085;
+            osc.frequency.setValueAtTime(freq, startTime);
+            gain.gain.setValueAtTime(0.14, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.35);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(startTime);
+            osc.stop(startTime + 0.35);
+          });
+        } catch (e) { }
+      }
+
       playAirlock() {
         if (this.muted) return;
         this.init();
@@ -2721,8 +3214,125 @@
 
     const sound = new SoundEngine();
 
-        function restartMission() {
+    
+    // =========================================================================
+    // Mission Entry Transition Logic
+    // =========================================================================
+    let entryTransitionTimer = null;
+    let entryTransitionDone = false;
+
+    function initEntryTransition() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('state') === 'closed') return;
+      if (params.get('state') === 'opening') {
+        const trans = document.getElementById("entryTransition");
+        if (trans) {
+          trans.querySelector('.entry-door-left').style.transform = 'translateX(-50%)';
+          trans.querySelector('.entry-door-right').style.transform = 'translateX(50%)';
+          const badge = trans.querySelector('.entry-hud-badge');
+          if (badge) { badge.style.opacity = '0.35'; badge.style.transform = 'scale(0.92)'; }
+        }
+        return;
+      }
+      if (params.get('state') === 'opened' || params.has('complete') || params.has('skipIntro') || params.has('scene')) {
+        const trans = document.getElementById("entryTransition");
+        if (trans) trans.classList.add("dismissed");
+        entryTransitionDone = true;
+        if (params.has('complete')) {
+          showMissionComplete();
+        }
+        return;
+      }
+      // Auto-open after countdown/scan
+      entryTransitionTimer = setTimeout(() => {
+        openEntryTransition();
+      }, 700);
+    }
+
+    function openEntryTransition() {
+      const trans = document.getElementById("entryTransition");
+      if (!trans || entryTransitionDone) return;
+
+      if (typeof sound !== "undefined" && sound && sound.playAirlockOpen) {
+        sound.playAirlockOpen();
+      }
+
+      trans.classList.add("doors-open");
+      entryTransitionTimer = setTimeout(() => {
+        trans.classList.add("dismissed");
+        entryTransitionDone = true;
+      }, 800);
+    }
+
+    function dismissEntryTransition() {
+      if (entryTransitionTimer) clearTimeout(entryTransitionTimer);
+      openEntryTransition();
+    }
+
+    window.replayEntryTransition = function() {
+      const trans = document.getElementById("entryTransition");
+      if (!trans) return;
+      entryTransitionDone = false;
+      trans.classList.remove("doors-open", "dismissed");
+      const bar = trans.querySelector(".entry-scan-fill");
+      if (bar) {
+        bar.style.animation = "none";
+        void bar.offsetWidth;
+        bar.style.animation = "";
+      }
+      initEntryTransition();
+    };
+
+    function showMissionComplete() {
+      if (typeof sound !== 'undefined' && sound && sound.playSuccessFanfare) {
+        sound.playSuccessFanfare();
+      }
+
+      // Hide all dialogue boxes and stages
+      const speakerBox = document.getElementById('dialogueBox');
+      const astroBox = document.getElementById('dialogueBoxAstroBee');
+      const guideStage = document.getElementById('guideStage');
+      const diagramCardContainer = document.getElementById('diagramCardContainer');
+      const oxyBanner = document.getElementById('oxygenReadyBanner');
+      const electrolysisTank = document.getElementById('electrolysisTankZone');
+      const skipFloat = document.getElementById('skipFloat');
+      const toastEl = document.getElementById('comingSoonToast');
+
+      if (speakerBox) speakerBox.classList.add('hidden');
+      if (astroBox) astroBox.classList.add('hidden');
+      if (guideStage) guideStage.classList.add('hidden');
+      if (diagramCardContainer) diagramCardContainer.classList.add('hidden');
+      if (oxyBanner) oxyBanner.classList.add('hidden');
+      if (electrolysisTank) electrolysisTank.classList.add('hidden');
+      if (skipFloat) skipFloat.classList.add('hidden');
+      if (toastEl) toastEl.classList.remove('show');
+
+      const overlay = document.getElementById('missionCompleteOverlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+      }
+
+      const circleProgress = document.getElementById('scoreCircleProgress');
+      const circleNum = document.getElementById('circleScoreNum');
+      if (circleProgress) {
+        circleProgress.style.strokeDasharray = '314.16';
+        circleProgress.style.strokeDashoffset = '314.16';
+        setTimeout(() => {
+          circleProgress.style.strokeDashoffset = '0';
+          circleProgress.style.stroke = '#22c55e';
+        }, 50);
+      }
+      if (circleNum) {
+        circleNum.textContent = '100%';
+        circleNum.style.color = '#22c55e';
+        circleNum.style.textShadow = '0 0 14px rgba(34, 197, 94, 0.85)';
+      }
+    }
+
+    function restartMission() {
       sound.playClick();
+      const completeOverlay = document.getElementById('missionCompleteOverlay');
+      if (completeOverlay) completeOverlay.classList.add('hidden');
       if (typeof stopDrillSim === 'function') stopDrillSim();
       if (typeof stopLabSim === 'function') stopLabSim();
       if (typeof stopElectrolysisVisuals === 'function') stopElectrolysisVisuals();
@@ -3485,6 +4095,8 @@
 
     function renderScene(idx) {
       currentSceneIdx = idx;
+      const completeOverlay = document.getElementById('missionCompleteOverlay');
+      if (completeOverlay) completeOverlay.classList.add('hidden');
       const s = SCENES[idx];
 
       // Dynamic Background: switch between Lunar South Pole and Extraction Lab
@@ -3889,9 +4501,7 @@
       if (currentSceneIdx < SCENES.length - 1) {
         renderScene(currentSceneIdx + 1);
       } else {
-        toastEl.classList.add('show');
-        if (toastTimer) clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1800);
+        showMissionComplete();
       }
     }
 
@@ -4079,6 +4689,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const initialScene = urlParams.has('scene') ? parseInt(urlParams.get('scene'), 10) : 0;
     renderScene(isNaN(initialScene) ? 0 : initialScene);
+    initEntryTransition();
   </script>
   <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
   <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev"
