@@ -11,7 +11,7 @@
   <link rel="preload" href="assets/scene 3/Frame 6.webp" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Pixel+Operator:wght@400;700&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Orbitron:wght@500;600;700;800;900&family=Pixel+Operator:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="missions-shared.css">
@@ -5066,304 +5066,540 @@
     .final-debrief-modal {
       position: fixed;
       inset: 0;
-      background: rgba(2, 6, 23, 0.94);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(2, 6, 20, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 250;
-      padding: 10px;
+      z-index: 2500;
+      padding: clamp(8px, 1.5vh, 16px);
+      box-sizing: border-box;
     }
 
     .final-debrief-card {
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(3, 16, 38, 0.98) 100%);
-      border: 2px solid #00e5ff;
-      border-radius: 12px;
-      box-shadow: 0 0 45px rgba(0, 229, 255, 0.4), 0 20px 50px rgba(0, 0, 0, 0.85);
+      position: relative;
+      background: linear-gradient(180deg, #07192f 0%, #030d1b 100%);
+      border: 3px solid #00c2ff;
+      border-radius: 18px;
+      box-shadow: 0 0 35px rgba(0, 194, 255, 0.45), 0 25px 60px rgba(0, 0, 0, 0.95), inset 0 0 30px rgba(0, 50, 110, 0.55);
       width: 100%;
-      max-width: 860px;
-      padding: clamp(10px, 1.8vh, 18px) clamp(16px, 2.5vw, 28px);
+      max-width: 920px;
+      padding: clamp(10px, 1.6vh, 16px) clamp(16px, 2.5vw, 26px);
       display: flex;
       flex-direction: column;
       gap: 7px;
-      text-align: center;
       box-sizing: border-box;
       max-height: 96vh;
       overflow-y: auto;
+      text-align: center;
     }
 
+    /* Top Cyber Bracket & Green Badge */
+    .debrief-top-bracket {
+      display: flex;
+      justify-content: center;
+      margin-top: -2px;
+      margin-bottom: 1px;
+    }
+
+    .debrief-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(4, 38, 22, 0.95);
+      border: 1.8px solid #10b981;
+      border-radius: 9999px;
+      padding: 3px 20px;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.5), inset 0 0 8px rgba(16, 185, 129, 0.25);
+    }
+
+    .debrief-badge-arrows {
+      color: #10b981;
+      font-family: 'Orbitron', monospace;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+    }
+
+    .debrief-badge-text {
+      color: #34d399;
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(10.5px, 1.1vw, 12px);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    /* Header Title with Glowing Wings */
     .final-debrief-header {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 1px;
     }
 
-    .debrief-badge {
-      font-family: var(--font-pixel);
-      font-size: clamp(0.85rem, 1.1vw, 1.02rem);
-      background: rgba(16, 185, 129, 0.2);
-      border: 1px solid #10b981;
-      color: #34d399;
-      padding: 2px 14px;
-      border-radius: 5px;
-      letter-spacing: 0.08em;
-      display: inline-block;
+    .debrief-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
     }
+
+    .debrief-wings {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5px;
+      width: clamp(28px, 3.2vw, 42px);
+    }
+
+    .debrief-wings span {
+      display: block;
+      height: 2.8px;
+      background: #00e5ff;
+      box-shadow: 0 0 8px #00e5ff;
+      border-radius: 2px;
+    }
+
+    .debrief-wings.left span:nth-child(1) { width: 100%; }
+    .debrief-wings.left span:nth-child(2) { width: 75%; align-self: flex-end; }
+    .debrief-wings.left span:nth-child(3) { width: 50%; align-self: flex-end; }
+
+    .debrief-wings.right span:nth-child(1) { width: 100%; }
+    .debrief-wings.right span:nth-child(2) { width: 75%; align-self: flex-start; }
+    .debrief-wings.right span:nth-child(3) { width: 50%; align-self: flex-start; }
 
     .debrief-title {
-      font-family: var(--font-pixel);
-      font-size: clamp(1.9rem, 2.6vw, 2.5rem);
-      color: #f0f9ff;
-      margin: 2px 0 0 0;
-      letter-spacing: 0.05em;
-      text-shadow: 0 0 16px rgba(0, 229, 255, 0.65);
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(22px, 2.7vw, 32px);
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 20px rgba(0, 229, 255, 0.85);
+      margin: 0;
       line-height: 1.1;
     }
 
     .debrief-sub {
-      font-size: clamp(0.92rem, 1.15vw, 1.08rem);
-      color: #cbd5e1;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(12.5px, 1.2vw, 14.5px);
+      font-weight: 600;
+      color: #94a3b8;
       margin: 1px 0 0 0;
-      line-height: 1.25;
+      letter-spacing: 0.02em;
     }
 
+    /* Star Rating Row */
     .debrief-stars-row {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0;
+      gap: 12px;
+      margin: 1px 0;
       line-height: 1;
     }
 
     .debrief-stars-row svg {
       width: clamp(34px, 3.8vw, 44px);
       height: clamp(34px, 3.8vw, 44px);
-      margin: 0 6px;
     }
 
+    /* Score Box with Diagonal Caution Stripes */
     .debrief-score-box {
-      background: rgba(14, 165, 233, 0.12);
-      border: 1.5px solid #0284c7;
-      border-radius: 8px;
-      padding: 6px 14px;
+      position: relative;
+      background: rgba(4, 22, 45, 0.85);
+      border: 1.8px solid #00a8ff;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(0, 168, 255, 0.35), inset 0 0 20px rgba(0, 60, 120, 0.4);
+      padding: 7px 18px 9px;
       display: flex;
-      flex-direction: column;
-      gap: 1px;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 1px 0;
     }
 
-    .debrief-score-label {
-      font-family: var(--font-pixel);
-      font-size: clamp(0.92rem, 1.15vw, 1.05rem);
-      color: #7dd3fc;
-      letter-spacing: 0.08em;
-      line-height: 1.1;
+    .debrief-score-stripes {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: clamp(60px, 9vw, 100px);
+      opacity: 0.35;
+      pointer-events: none;
     }
 
-    .debrief-score-val {
-      font-family: var(--font-pixel);
-      font-size: clamp(2.2rem, 3.2vw, 2.9rem);
-      font-weight: bold;
-      color: #38bdf8;
-      text-shadow: 0 0 20px rgba(56, 189, 248, 0.85);
-      line-height: 1.05;
+    .debrief-score-stripes.left {
+      left: 0;
+      background: repeating-linear-gradient(135deg, #00a8ff 0px, #00a8ff 8px, transparent 8px, transparent 18px);
     }
 
-    .debrief-score-sub {
-      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
-      font-weight: bold;
-      color: #34d399;
-      letter-spacing: 0.04em;
-      line-height: 1.1;
+    .debrief-score-stripes.right {
+      right: 0;
+      background: repeating-linear-gradient(-135deg, #00a8ff 0px, #00a8ff 8px, transparent 8px, transparent 18px);
     }
 
-    .debrief-telemetry-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 7px;
-    }
-
-    .debrief-tele-cell {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1.5px solid #334155;
-      border-radius: 6px;
-      padding: 5px 8px;
+    .debrief-score-center {
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 2px;
+      z-index: 1;
+    }
+
+    .debrief-score-label {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(11.5px, 1.15vw, 13px);
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 0.12em;
+    }
+
+    .debrief-score-val {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(32px, 3.8vw, 44px);
+      font-weight: 900;
+      color: #38bdf8;
+      text-shadow: 0 0 25px rgba(56, 189, 248, 0.95);
+      line-height: 1.05;
+    }
+
+    .debrief-verdict-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(6, 44, 26, 0.95);
+      border: 1.5px solid #10b981;
+      border-radius: 9999px;
+      padding: 3px 18px;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+      margin-top: 1px;
+    }
+
+    .debrief-verdict-pill span {
+      font-family: 'Orbitron', 'Rajdhani', monospace;
+      font-size: clamp(10px, 1.0vw, 11.5px);
+      font-weight: 700;
+      color: #34d399;
+      letter-spacing: 0.05em;
+    }
+
+    /* Telemetry 7-Resource Grid (Row 1: 4 items, Row 2: 3 items) */
+    .debrief-telemetry-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .debrief-tele-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .debrief-tele-cell {
+      background: rgba(5, 23, 47, 0.85);
+      border: 1.6px solid #00a8ff;
+      border-radius: 8px;
+      box-shadow: inset 0 0 12px rgba(0, 168, 255, 0.18);
+      padding: 5px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 130px;
+      box-sizing: border-box;
+    }
+
+    .debrief-tele-row.row-3 {
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .debrief-tele-row.row-3 .debrief-tele-cell {
+      max-width: 31%;
+    }
+
+    .debrief-tele-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    .debrief-tele-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       gap: 1px;
     }
 
     .debrief-tele-label {
-      font-size: clamp(0.78rem, 0.95vw, 0.88rem);
-      font-weight: 600;
-      color: #94a3b8;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(9px, 0.95vw, 10.5px);
+      font-weight: 700;
+      color: #7dd3fc;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .debrief-tele-val {
-      font-family: var(--font-pixel);
-      font-size: clamp(1.12rem, 1.35vw, 1.32rem);
-      font-weight: bold;
-      color: #38bdf8;
-      text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
       line-height: 1.1;
     }
 
+    .debrief-tele-val {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(17px, 1.7vw, 21px);
+      font-weight: 800;
+      color: #38bdf8;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+      line-height: 1.1;
+    }
+
+    /* Evaluation Section: Best Decision & Worst Decision Cards */
     .debrief-evaluation-section {
       display: flex;
       flex-direction: column;
       gap: 4px;
-      margin: 0;
-      text-align: left;
+      width: 100%;
+    }
+
+    .debrief-eval-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .debrief-eval-title-wrap::before,
+    .debrief-eval-title-wrap::after {
+      content: "";
+      flex: 1;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, #00c2ff);
+      opacity: 0.7;
+    }
+
+    .debrief-eval-title-wrap::after {
+      background: linear-gradient(90deg, #00c2ff, transparent);
     }
 
     .debrief-eval-title {
-      font-family: var(--font-pixel, monospace);
-      font-size: clamp(0.92rem, 1.15vw, 1.08rem);
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(10.5px, 1.05vw, 12px);
+      font-weight: 700;
       color: #38bdf8;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.1em;
       text-align: center;
-      margin: 0;
       line-height: 1.1;
+      white-space: nowrap;
     }
 
     .debrief-eval-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
-    }
-
-    @media (max-width: 600px) {
-      .debrief-eval-grid {
-        grid-template-columns: 1fr;
-      }
+      width: 100%;
     }
 
     .debrief-eval-card {
-      border-radius: 7px;
-      padding: 8px 11px;
+      border-radius: 9px;
+      padding: 7px 12px;
       display: flex;
-      flex-direction: column;
-      gap: 3px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
       box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
     }
 
     .debrief-eval-card.best {
-      background: rgba(16, 185, 129, 0.12);
-      border: 1.5px solid #10b981;
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.22);
+      background: linear-gradient(135deg, rgba(4, 38, 24, 0.9) 0%, rgba(2, 22, 16, 0.9) 100%);
+      border: 2px solid #10b981;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
     }
 
     .debrief-eval-card.worst {
-      background: rgba(245, 158, 11, 0.12);
-      border: 1.5px solid #f59e0b;
-      box-shadow: 0 0 12px rgba(245, 158, 11, 0.22);
+      background: linear-gradient(135deg, rgba(48, 26, 4, 0.9) 0%, rgba(28, 14, 2, 0.9) 100%);
+      border: 2px solid #f59e0b;
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
+    }
+
+    .debrief-eval-card.worst::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 110px;
+      height: 100%;
+      background: repeating-linear-gradient(-45deg, rgba(245, 158, 11, 0.18) 0 6px, transparent 6px 14px);
+      pointer-events: none;
+    }
+
+    .debrief-eval-card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+      z-index: 1;
+      flex: 1;
     }
 
     .debrief-eval-badge {
-      font-family: var(--font-pixel, monospace);
-      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
-      font-weight: 700;
-      letter-spacing: 0.04em;
       display: inline-flex;
       align-items: center;
+      gap: 5px;
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(9.5px, 0.95vw, 11px);
+      font-weight: 800;
+      letter-spacing: 0.05em;
       line-height: 1.1;
     }
 
-    .debrief-eval-badge.best {
-      color: #34d399;
-    }
-
-    .debrief-eval-badge.worst {
-      color: #fbbf24;
-    }
+    .debrief-eval-badge.best { color: #34d399; }
+    .debrief-eval-badge.worst { color: #fbbf24; }
 
     .debrief-eval-mission {
-      font-family: var(--font-pixel, monospace);
-      font-size: clamp(1.0rem, 1.25vw, 1.2rem);
-      font-weight: 700;
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(12.5px, 1.2vw, 14px);
+      font-weight: 800;
       color: #ffffff;
       line-height: 1.15;
     }
 
     .debrief-eval-stat {
-      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
-      font-family: var(--font-pixel, monospace);
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(9.5px, 0.95vw, 11px);
+      font-weight: 700;
       color: #7dd3fc;
-      background: rgba(15, 23, 42, 0.7);
-      padding: 2px 7px;
-      border-radius: 4px;
-      display: inline-block;
-      width: fit-content;
       line-height: 1.15;
     }
 
-    .debrief-eval-desc {
-      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
-      color: #cbd5e1;
-      line-height: 1.25;
+    .debrief-eval-card.worst .debrief-eval-stat {
+      color: #fde68a;
     }
 
+    .debrief-eval-desc {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(11px, 1.0vw, 12px);
+      font-weight: 600;
+      color: #cbd5e1;
+      line-height: 1.2;
+    }
+
+    .debrief-eval-emblem {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    /* Decisions Summary Row (M1 - M8) */
     .debrief-decisions-summary {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+      margin: 1px 0;
+    }
+
+    .debrief-dec-row {
+      display: flex;
       flex-wrap: wrap;
-      gap: 6px;
       justify-content: center;
-      margin: 0;
+      gap: 5px;
     }
 
     .debrief-dec-pill {
-      font-family: var(--font-pixel);
-      font-size: clamp(0.82rem, 1.0vw, 0.95rem);
-      padding: 3px 9px;
-      border-radius: 5px;
-      background: rgba(14, 165, 233, 0.2);
-      border: 1px solid #38bdf8;
-      color: #bae6fd;
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(8.5px, 0.85vw, 10px);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(4, 25, 52, 0.85);
+      border: 1px solid #00c2ff;
+      color: #7dd3fc;
       line-height: 1.1;
+      letter-spacing: 0.04em;
     }
 
+    /* Bottom Action Buttons in Cyber Dock */
     .debrief-actions-row {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1.6vw;
       width: 100%;
-      margin-top: 3px;
+      margin-top: 2px;
     }
 
-    .debrief-action-btn-img {
-      background: transparent;
-      border: none;
-      padding: 0;
-      margin: 0;
-      cursor: pointer;
+    .debrief-actions-dock {
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.15s ease, filter 0.15s ease;
+      gap: 16px;
+      padding: 4px 20px;
+      background: rgba(3, 16, 36, 0.95);
+      border: 2px solid #00a8ff;
+      border-radius: 9999px;
+      box-shadow: 0 0 22px rgba(0, 168, 255, 0.4), inset 0 0 12px rgba(0, 50, 100, 0.55);
+      width: fit-content;
+    }
+
+    .debrief-cyber-btn {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: linear-gradient(180deg, #071e3d 0%, #031024 100%);
+      border: 1.8px solid #00c2ff;
+      border-radius: 9999px;
+      padding: 7px 22px;
+      color: #ffffff;
+      font-family: 'Orbitron', 'Rajdhani', sans-serif;
+      font-size: clamp(13px, 1.25vw, 15px);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      box-shadow: 0 0 14px rgba(0, 194, 255, 0.35);
       outline: none;
     }
 
-    .debrief-action-btn-img img {
-      height: clamp(38px, 4.4vw, 48px);
-      width: auto;
-      object-fit: contain;
-      display: block;
-      image-rendering: pixelated;
-      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6));
+    .debrief-cyber-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.2);
+      box-shadow: 0 0 24px rgba(0, 229, 255, 0.8);
     }
 
-    .debrief-action-btn-img:hover {
-      transform: translateY(-2px) scale(1.05);
-      filter: brightness(1.15) drop-shadow(0 0 16px rgba(3, 143, 243, 0.75));
-    }
-
-    .debrief-action-btn-img:active {
+    .debrief-cyber-btn:active {
       transform: scale(0.96);
+    }
+
+    .debrief-cyber-btn.btn-try-again:hover {
+      border-color: #ef4444;
+      box-shadow: 0 0 24px rgba(239, 68, 68, 0.65);
+    }
+
+    .debrief-cyber-btn.btn-home:hover {
+      border-color: #00e5ff;
+      box-shadow: 0 0 24px rgba(0, 229, 255, 0.85);
+    }
+
+    @media (max-width: 768px) {
+      .debrief-eval-grid {
+        grid-template-columns: 1fr;
+      }
+      .debrief-tele-row {
+        flex-wrap: wrap;
+      }
+      .debrief-tele-row.row-3 .debrief-tele-cell,
+      .debrief-tele-cell {
+        max-width: none;
+        flex: 1 1 45%;
+      }
     }
 
     /* CRITICAL MISSION FAILURE MODAL (Threshold Gate Breach) */
@@ -6296,30 +6532,59 @@
       <div class="final-debrief-modal hidden" id="finalDebriefModal" role="dialog" aria-modal="true"
         aria-label="Final Mission Debriefing">
         <div class="final-debrief-card">
+          <!-- Top Cyber Bracket & Green Badge -->
+          <div class="debrief-top-bracket">
+            <div class="debrief-badge">
+              <span class="debrief-badge-arrows">&lt;&lt;&lt;</span>
+              <span class="debrief-badge-text">OUTPOST RECOVERY // 00:00 UTC</span>
+              <span class="debrief-badge-arrows">&gt;&gt;&gt;</span>
+            </div>
+          </div>
+
+          <!-- Main Title with Glowing Wings -->
           <div class="final-debrief-header">
-            <span class="debrief-badge">OUTPOST RECOVERY // 00:00 UTC</span>
-            <h1 class="debrief-title">MISSION ACCOMPLISHED</h1>
+            <div class="debrief-title-row">
+              <div class="debrief-wings left">
+                <span></span><span></span><span></span>
+              </div>
+              <h1 class="debrief-title">MISSION ACCOMPLISHED</h1>
+              <div class="debrief-wings right">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
             <p class="debrief-sub">Shackleton Outpost successfully survived the Solar Particle Event.</p>
           </div>
 
           <!-- Star Rating Banner -->
           <div class="debrief-stars-row" id="debriefStarsRow"></div>
 
-          <!-- Final Score Display -->
+          <!-- Final Score Display with Diagonal Hazard Stripes -->
           <div class="debrief-score-box">
-            <div class="debrief-score-label">OUTPOST RESILIENCE SCORE</div>
-            <div class="debrief-score-val" id="debriefScoreVal">68.4</div>
-            <div class="debrief-score-sub" id="debriefScoreVerdict">OUTSTANDING COMMAND (ALL GATES PASSED)</div>
+            <div class="debrief-score-stripes left"></div>
+            <div class="debrief-score-center">
+              <div class="debrief-score-label">OUTPOST RESILIENCE SCORE</div>
+              <div class="debrief-score-val" id="debriefScoreVal">80.0 / 100</div>
+              <div class="debrief-verdict-pill">
+                <svg viewBox="0 0 20 20" width="16" height="16" fill="none">
+                  <circle cx="10" cy="10" r="9" fill="#10b981"/>
+                  <path d="M6 10L9 13L14 7" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span id="debriefScoreVerdict">RESILIENT CRISIS MANAGEMENT (SCORE &gt;= 60.0)</span>
+              </div>
+            </div>
+            <div class="debrief-score-stripes right"></div>
           </div>
 
-          <!-- Telemetry Summary Grid (7 resources) -->
+          <!-- Telemetry Summary Grid (7 resources: 4 top row, 3 bottom row) -->
           <div class="debrief-telemetry-grid" id="debriefTelemetryGrid">
             <!-- Populated dynamically -->
           </div>
 
           <!-- Best & Worst Command Decisions Evaluation -->
           <div class="debrief-evaluation-section">
-            <div class="debrief-eval-title">COMMAND DECISIONS EVALUATION // FLIGHT LOG</div>
+            <div class="debrief-eval-title-wrap">
+              <span class="debrief-eval-title">COMMAND DECISIONS EVALUATION // FLIGHT LOG</span>
+            </div>
             <div class="debrief-eval-grid" id="debriefEvalGrid">
               <!-- Dynamically populated with Best Decision & Worst Decision -->
             </div>
@@ -6330,15 +6595,22 @@
             <!-- Populated dynamically -->
           </div>
 
+          <!-- Bottom Action Buttons in Cyber Dock -->
           <div class="debrief-actions-row">
-            <button class="debrief-action-btn-img btn-try-again" onclick="restartMission()" title="Try Again"
-              aria-label="Try Again">
-              <img src="assets/Frame 25.webp" alt="Try Again">
-            </button>
-            <button class="debrief-action-btn-img btn-home" onclick="returnToBase()" title="Main Base"
-              aria-label="Main Base">
-              <img src="assets/Frame 26.webp" alt="Main Base">
-            </button>
+            <div class="debrief-actions-dock">
+              <button class="debrief-cyber-btn btn-try-again" onclick="restartMission()" title="Try Again">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" style="flex-shrink:0;">
+                  <path d="M12 4V1L8 5L12 9V6C15.31 6 18 8.69 18 12C18 13.01 17.75 13.97 17.3 14.8L18.8 16.3C19.56 15.05 20 13.58 20 12C20 7.58 16.42 4 12 4ZM12 18C8.69 18 6 15.31 6 12C6 10.99 6.25 10.03 6.7 9.2L5.2 7.7C4.44 8.95 4 10.42 4 12C4 16.42 7.58 20 12 20V23L16 19L12 15V18Z" fill="#ef4444"/>
+                </svg>
+                <span>Try Again</span>
+              </button>
+              <button class="debrief-cyber-btn btn-home" onclick="returnToBase()" title="Home">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="#00e5ff" style="flex-shrink:0;">
+                  <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z"/>
+                </svg>
+                <span>Home</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -10220,38 +10492,112 @@
       if (scoreVal) scoreVal.textContent = `${scoreStr} / 100`;
       if (scoreVerdict) scoreVerdict.textContent = verdictStr;
 
-      // Render stars (clean styled SVG stars without emoji or system font quirks)
+      // Render stars (clean styled SVG stars matching exact mockup)
       if (starsRow) {
         let starsHtml = '';
         for (let i = 1; i <= 3; i++) {
           const filled = i <= starCount;
           if (filled) {
-            starsHtml += `<svg viewBox="0 0 24 24" width="46" height="46" fill="#fbbf24" style="margin:0 8px; filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.9));"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+            starsHtml += `<svg viewBox="0 0 24 24" width="44" height="44" fill="#fbbf24" style="filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.9));"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
           } else {
-            starsHtml += `<svg viewBox="0 0 24 24" width="46" height="46" fill="rgba(30, 41, 59, 0.7)" stroke="#475569" stroke-width="1.6" style="margin:0 8px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+            starsHtml += `<svg viewBox="0 0 24 24" width="44" height="44" fill="rgba(30, 41, 59, 0.7)" stroke="#475569" stroke-width="1.6"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
           }
         }
         starsRow.innerHTML = starsHtml;
       }
 
-      // Populate Telemetry summary
+      // Populate Telemetry summary (Row 1: 4 items, Row 2: 3 items)
       if (teleGrid) {
-        const stats = [
-          { key: 'O2', label: 'O2 LEVEL', val: outpostResources.O2 },
-          { key: 'Water', label: 'WATER', val: outpostResources.Water },
-          { key: 'Power', label: 'POWER BUS', val: outpostResources.Power },
-          { key: 'Food', label: 'FOOD RATION', val: outpostResources.Food },
-          { key: 'Health', label: 'CREW HEALTH', val: outpostResources.Health },
-          { key: 'Equip', label: 'EQUIPMENT', val: outpostResources.Equip },
-          { key: 'Greenhouse', label: 'GREENHOUSE', val: outpostResources.Greenhouse }
+        const statsRow1 = [
+          {
+            key: 'O2',
+            label: 'O2 LEVEL',
+            val: outpostResources.O2,
+            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
+              <rect x="12" y="3" width="8" height="3" rx="1.5" fill="#38bdf8"/>
+              <rect x="9" y="6" width="14" height="23" rx="5" fill="#0369a1" stroke="#38bdf8" stroke-width="1.8"/>
+              <text x="16" y="21" font-family="'Orbitron', sans-serif" font-size="8" font-weight="900" fill="#f0f9ff" text-anchor="middle">O₂</text>
+            </svg>`
+          },
+          {
+            key: 'Water',
+            label: 'WATER',
+            val: outpostResources.Water,
+            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
+              <path d="M16 4C16 4 8 15 8 20.5C8 25 11.5 28 16 28C20.5 28 24 25 24 20.5C24 15 16 4 16 4Z" fill="#38bdf8"/>
+              <ellipse cx="13.5" cy="18" rx="2" ry="4" transform="rotate(-30 13.5 18)" fill="#bae6fd" opacity="0.8"/>
+            </svg>`
+          },
+          {
+            key: 'Power',
+            label: 'POWER BUS',
+            val: outpostResources.Power,
+            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
+              <path d="M18 3L7 17H16L14 29L25 15H16L18 3Z" fill="#eab308" filter="drop-shadow(0 0 4px #facc15)"/>
+            </svg>`
+          },
+          {
+            key: 'Food',
+            label: 'FOOD RATION',
+            val: outpostResources.Food,
+            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
+              <rect x="8" y="7" width="16" height="18" rx="3" fill="#0369a1" stroke="#38bdf8" stroke-width="1.8"/>
+              <line x1="8" y1="12" x2="24" y2="12" stroke="#38bdf8" stroke-width="1.2"/>
+              <line x1="8" y1="20" x2="24" y2="20" stroke="#38bdf8" stroke-width="1.2"/>
+              <ellipse cx="16" cy="16" rx="3.5" ry="2" fill="#38bdf8"/>
+            </svg>`
+          }
         ];
 
-        teleGrid.innerHTML = stats.map(s => `
+        const statsRow2 = [
+          {
+            key: 'Health',
+            label: 'CREW HEALTH',
+            val: outpostResources.Health,
+            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
+              <path d="M7 17C7 11.5 11 7 16 7C21 7 25 11.5 25 17C25 22.5 21 26 16 26C11 26 7 22.5 7 17Z" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+              <rect x="10" y="12" width="12" height="9" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+              <path d="M12 14C14 13 18 13 20 14" stroke="#bae6fd" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>`
+          },
+          {
+            key: 'Equip',
+            label: 'EQUIPMENT',
+            val: outpostResources.Equip,
+            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
+              <path d="M24 8C22.5 6.5 20 6.5 18.5 7.8L13 13.3L15.7 16L18 13.7L19.5 15.2L17.2 17.5L19 19.3C20.5 17.8 20.5 15.3 19 13.8L21.2 11.6C22.7 13.1 25.2 13.1 26.7 11.6C28.2 10.1 25.5 9.5 24 8ZM7 22L10 25L15 20L12 17L7 22Z" fill="#38bdf8"/>
+            </svg>`
+          },
+          {
+            key: 'Greenhouse',
+            label: 'GREENHOUSE',
+            val: outpostResources.Greenhouse,
+            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
+              <path d="M16 6L6 14V26H26V14L16 6Z" fill="#064e3b" stroke="#10b981" stroke-width="1.8"/>
+              <path d="M16 14C16 14 13 17 13 20C13 22 14.5 23 16 23C17.5 23 19 22 19 20C19 17 16 14 16 14Z" fill="#34d399"/>
+              <path d="M16 17V23" stroke="#064e3b" stroke-width="1.5"/>
+            </svg>`
+          }
+        ];
+
+        const renderCell = s => `
           <div class="debrief-tele-cell">
-            <span class="debrief-tele-label">${s.label}</span>
-            <span class="debrief-tele-val">${Math.round(s.val)}%</span>
+            <div class="debrief-tele-icon">${s.icon}</div>
+            <div class="debrief-tele-text">
+              <span class="debrief-tele-label">${s.label}</span>
+              <span class="debrief-tele-val">${Math.round(s.val)}%</span>
+            </div>
           </div>
-        `).join('');
+        `;
+
+        teleGrid.innerHTML = `
+          <div class="debrief-tele-row row-4">
+            ${statsRow1.map(renderCell).join('')}
+          </div>
+          <div class="debrief-tele-row row-3">
+            ${statsRow2.map(renderCell).join('')}
+          </div>
+        `;
       }
 
       // Populate Best & Worst Command Decisions Evaluation
@@ -10260,34 +10606,64 @@
         if (best && worst) {
           evalGrid.innerHTML = `
             <div class="debrief-eval-card best">
-              <div class="debrief-eval-badge best">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="#34d399" style="vertical-align:-1px; margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                BEST COMMAND DECISION
+              <div class="debrief-eval-card-content">
+                <div class="debrief-eval-badge best">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="#34d399"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span>BEST COMMAND DECISION</span>
+                </div>
+                <div class="debrief-eval-mission">${best.missionKey}. ${best.choiceTitle}</div>
+                <div class="debrief-eval-stat">${best.stat}</div>
+                <div class="debrief-eval-desc">${best.gain}</div>
               </div>
-              <div class="debrief-eval-mission">${best.missionKey}: ${best.choiceTitle}</div>
-              <div class="debrief-eval-stat">${best.stat}</div>
-              <div class="debrief-eval-desc">${best.gain}</div>
+              <div class="debrief-eval-emblem best">
+                <svg viewBox="0 0 54 54" width="46" height="46" fill="none">
+                  <circle cx="27" cy="27" r="22" stroke="#10b981" stroke-width="2.5" fill="rgba(16, 185, 129, 0.25)"/>
+                  <path d="M18 27L24 33L36 21" stroke="#34d399" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 27C12 33 16 38 21 40M42 27C42 33 38 38 33 40" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                </svg>
+              </div>
             </div>
             <div class="debrief-eval-card worst">
-              <div class="debrief-eval-badge worst">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="#f59e0b" style="vertical-align:-1px; margin-right:4px;"><path d="M12 2L1 21h22L12 2zm0 3.8L20.2 19H3.8L12 5.8zM11 10h2v4h-2zm0 6h2v2h-2z"/></svg>
-                HEAVIEST RESOURCE TRADE-OFF
+              <div class="debrief-eval-card-content">
+                <div class="debrief-eval-badge worst">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="#f59e0b"><path d="M12 2L1 21h22L12 2zm0 3.8L20.2 19H3.8L12 5.8zM11 10h2v4h-2zm0 6h2v2h-2z"/></svg>
+                  <span>HEAVIEST RESOURCE TRADE-OFF</span>
+                </div>
+                <div class="debrief-eval-mission">${worst.missionKey}. ${worst.choiceTitle}</div>
+                <div class="debrief-eval-stat">${worst.stat}</div>
+                <div class="debrief-eval-desc">${worst.cost}</div>
               </div>
-              <div class="debrief-eval-mission">${worst.missionKey}: ${worst.choiceTitle}</div>
-              <div class="debrief-eval-stat">${worst.stat}</div>
-              <div class="debrief-eval-desc">${worst.cost}</div>
+              <div class="debrief-eval-emblem worst">
+                <svg viewBox="0 0 54 54" width="46" height="46" fill="none">
+                  <path d="M27 9C27 9 17 23 17 30C17 36 21.5 40 27 40C32.5 40 37 36 37 30C37 23 27 9 27 9Z" fill="#f59e0b" opacity="0.9"/>
+                  <ellipse cx="24" cy="27" rx="1.8" ry="3.5" transform="rotate(-30 24 27)" fill="#fef08a" opacity="0.8"/>
+                </svg>
+              </div>
             </div>
           `;
         }
       }
 
-      // Populate Decisions summary
+      // Populate Decisions summary (Row 1: M1 to M7, Row 2: M8)
       if (decSummary) {
         const missions = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'];
-        decSummary.innerHTML = missions.map(m => {
-          const choice = decisionHistory[m] || sessionStorage.getItem(`moonfall_${m}_decision`) || 'NOMINAL';
-          return `<span class="debrief-dec-pill">${m.toUpperCase()}: ${choice}</span>`;
-        }).join('');
+        const formatPill = m => {
+          let choice = decisionHistory[m] || sessionStorage.getItem(`moonfall_${m}_decision`) || 'NOMINAL';
+          const cfg = MISSION_DECISIONS_DATA[m];
+          if (cfg && cfg.options) {
+            const optKey = (sessionStorage.getItem(`moonfall_${m}_decision`) || decisionHistory[m] || '').toLowerCase();
+            if (cfg.options[optKey] && cfg.options[optKey].badge) {
+              choice = cfg.options[optKey].badge;
+            }
+          }
+          return `<span class="debrief-dec-pill">${m.toUpperCase()}. ${choice.toUpperCase()}</span>`;
+        };
+        const row1Pills = missions.slice(0, 7).map(formatPill).join('');
+        const row2Pills = missions.slice(7).map(formatPill).join('');
+        decSummary.innerHTML = `
+          <div class="debrief-dec-row row-1">${row1Pills}</div>
+          <div class="debrief-dec-row row-2">${row2Pills}</div>
+        `;
       }
 
       modal.classList.remove('hidden');
