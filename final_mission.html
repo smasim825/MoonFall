@@ -1837,6 +1837,11 @@
       line-height: 1.14;
     }
 
+    .scene-2-box .dialogue-text.text-extra-long {
+      font-size: clamp(0.78rem, 1.05vw, 1.12rem);
+      line-height: 1.18;
+    }
+
     .scene-2-box .minitask-confirm-btn {
       position: absolute;
       right: 2.8%;
@@ -3481,8 +3486,8 @@
       text-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
     }
 
-    .m4-emoji-icon-badge {
-      font-size: clamp(1.5rem, 2.1vw, 2.0rem);
+    .m4-emoji-icon-badge,
+    .m4-custom-icon-badge {
       width: clamp(42px, 3.2vw, 50px);
       height: clamp(42px, 3.2vw, 50px);
       border-radius: 10px;
@@ -3494,8 +3499,16 @@
       transition: transform 0.2s ease;
     }
 
-    .manifold-stage-card:hover .m4-emoji-icon-badge {
-      transform: scale(1.1);
+    .manifold-stage-card:hover .m4-emoji-icon-badge,
+    .manifold-stage-card:hover .m4-custom-icon-badge {
+      transform: scale(1.08);
+    }
+
+    .m4-custom-icon-badge svg {
+      display: block;
+      width: clamp(26px, 2.0vw, 30px);
+      height: clamp(26px, 2.0vw, 30px);
+      filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.4));
     }
 
     .m4-info-col {
@@ -3816,8 +3829,19 @@
     }
 
     .m8-uplink-icon {
-      font-size: 1.4rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
       filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+    }
+
+    .m8-uplink-icon svg {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
     .m8-uplink-main-title {
@@ -3898,7 +3922,19 @@
     }
 
     .m8-sec-icon {
-      font-size: 1.0rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .m8-sec-icon svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.5));
     }
 
     .m8-options-list {
@@ -4105,7 +4141,18 @@
     }
 
     .uplink-node .node-icon {
-      font-size: 1.4rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+    }
+
+    .uplink-node .node-icon svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
     }
 
     .uplink-node .node-label {
@@ -5254,14 +5301,29 @@
           <div class="uplink-transit-display">
             <div class="uplink-wave-container">
               <div class="uplink-node moon">
-                <span class="node-icon">🌑</span>
+                <span class="node-icon">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+                    <circle cx="12" cy="12" r="9" fill="#334155" stroke="#94a3b8" stroke-width="1.6"/>
+                    <circle cx="8.5" cy="9.5" r="1.8" fill="#475569"/>
+                    <circle cx="15.5" cy="14" r="2.2" fill="#475569"/>
+                    <circle cx="14" cy="8" r="1.2" fill="#475569"/>
+                    <circle cx="9" cy="15" r="1.4" fill="#475569"/>
+                  </svg>
+                </span>
                 <span class="node-label">SHACKLETON</span>
               </div>
               <div class="uplink-beam-track">
                 <div class="uplink-beam-pulse" id="uplinkBeamPulse"></div>
               </div>
               <div class="uplink-node earth">
-                <span class="node-icon">🌍</span>
+                <span class="node-icon">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+                    <circle cx="12" cy="12" r="9" fill="#0284c7" stroke="#38bdf8" stroke-width="1.6"/>
+                    <path d="M6 10c1.2 1 3 0 4 1s1 3 3 3 2-2 3-1 2 2 3 1" stroke="#34d399" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    <path d="M7 16c2 0 3-1 4-1s2 1 4 1" stroke="#34d399" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+                  </svg>
+                </span>
                 <span class="node-label">EARTH (DSN)</span>
               </div>
             </div>
@@ -7374,41 +7436,41 @@
     const M4_ELECTROLYSIS_STAGES = [
       {
         id: 1,
-        emoji: "💧",
-        emojiBg: "rgba(14, 165, 233, 0.25)",
-        emojiBorder: "#0284c7",
+        iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none"><path d="M12 3C12 3 6.5 9.8 6.5 14.5C6.5 17.5 8.9 20 12 20C15.1 20 17.5 17.5 17.5 14.5C17.5 9.8 12 3 12 3Z" fill="rgba(56, 189, 248, 0.25)" stroke="#38bdf8" stroke-width="2" stroke-linejoin="round"/><path d="M9.5 14C9.5 12.5 10.5 11 12 10" stroke="#e0f2fe" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1.5" fill="#bae6fd"/></svg>`,
+        iconBg: "rgba(14, 165, 233, 0.25)",
+        iconBorder: "#0284c7",
         title: "Water Feed Line (H2O Tank)",
         desc: "Supplies purified lunar ice filtrate to electrolysis core"
       },
       {
         id: 2,
-        emoji: "⚡",
-        emojiBg: "rgba(234, 179, 8, 0.25)",
-        emojiBorder: "#ca8a04",
+        iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none"><rect x="3.5" y="6" width="17" height="15" rx="3" stroke="#f59e0b" stroke-width="2" fill="rgba(245, 158, 11, 0.18)"/><path d="M7 3v4M17 3v4" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/><path d="M13 8.5l-3 5h4l-2 5" stroke="#fef08a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="14" r="1.5" fill="#fde047"/><circle cx="16" cy="12" r="1.5" fill="#fde047"/></svg>`,
+        iconBg: "rgba(234, 179, 8, 0.25)",
+        iconBorder: "#ca8a04",
         title: "Catalytic Electrolysis Splitter (2H2O → 2H2 + O2)",
         desc: "Uses 4.8 kWh/kg to decompose water molecules"
       },
       {
         id: 3,
-        emoji: "🫧",
-        emojiBg: "rgba(6, 182, 212, 0.25)",
-        emojiBorder: "#0891b2",
+        iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none"><rect x="3" y="4" width="18" height="16" rx="3" stroke="#06b6d4" stroke-width="2" fill="rgba(6, 182, 212, 0.18)"/><line x1="12" y1="4" x2="12" y2="20" stroke="#67e8f9" stroke-width="2" stroke-dasharray="2 2.5"/><circle cx="7" cy="8.5" r="1.6" fill="#a5f3fc"/><circle cx="7.5" cy="15" r="2.2" stroke="#a5f3fc" stroke-width="1.4"/><circle cx="16.5" cy="9" r="2.2" stroke="#67e8f9" stroke-width="1.6"/><circle cx="16" cy="15" r="1.5" fill="#67e8f9"/></svg>`,
+        iconBg: "rgba(6, 182, 212, 0.25)",
+        iconBorder: "#0891b2",
         title: "Gas Separation Membrane",
         desc: "Isolates pure O2 stream from combustible H2 byproduct"
       },
       {
         id: 4,
-        emoji: "🫁",
-        emojiBg: "rgba(56, 189, 248, 0.25)",
-        emojiBorder: "#0284c7",
+        iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none"><rect x="6" y="7" width="12" height="14" rx="4" stroke="#38bdf8" stroke-width="2" fill="rgba(56, 189, 248, 0.18)"/><path d="M10 3h4v4h-4z" stroke="#38bdf8" stroke-width="1.8" fill="#0284c7"/><path d="M7.5 3h9" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round"/><path d="M12 11v6M9 14h6" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="14" r="3.5" stroke="#7dd3fc" stroke-width="1.5"/></svg>`,
+        iconBg: "rgba(56, 189, 248, 0.25)",
+        iconBorder: "#0284c7",
         title: "O2 Tank → Shelter Breathable Air Line",
         desc: "Pressurizes oxygen buffer and feeds habitat circulation"
       },
       {
         id: 5,
-        emoji: "⚠️",
-        emojiBg: "rgba(245, 158, 11, 0.25)",
-        emojiBorder: "#d97706",
+        iconSvg: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none"><path d="M12 3L2.5 20h19L12 3z" stroke="#f59e0b" stroke-width="2" stroke-linejoin="round" fill="rgba(245, 158, 11, 0.2)"/><line x1="12" y1="9" x2="12" y2="14" stroke="#fef08a" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.2" fill="#fef08a"/></svg>`,
+        iconBg: "rgba(245, 158, 11, 0.25)",
+        iconBorder: "#d97706",
         title: "Hydrogen (H2) Safety Routing",
         desc: "Flammable byproduct routed to external vacuum vent line"
       }
@@ -7454,7 +7516,7 @@
       {
         key: 'crew',
         title: 'Crew Status',
-        icon: '👨‍🚀',
+        iconSvg: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a9 9 0 0 0-9 9c0 4.2 2.8 7.7 6.8 8.7L9 22h6l-.8-2.3c4-.9 6.8-4.5 6.8-8.7a9 9 0 0 0-9-9z"/><path d="M8 11a4 4 0 0 0 8 0" stroke="#bae6fd" stroke-width="1.8"/></svg>`,
         options: [
           { id: 'safe', label: 'All five crew members safe' },
           { id: 'medical', label: 'Crew requires medical assistance' },
@@ -7464,7 +7526,7 @@
       {
         key: 'power',
         title: 'Power Status',
-        icon: '⚡',
+        iconSvg: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="10" rx="2" stroke="#38bdf8"/><line x1="20" y1="10" x2="20" y2="14" stroke="#38bdf8" stroke-width="2"/><path d="M9 10l-2 2h3l-1 2" stroke="#bae6fd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
         options: [
           { id: 'restored', label: 'Fully restored' },
           { id: 'limited', label: 'Limited power available' },
@@ -7474,7 +7536,7 @@
       {
         key: 'lifeSupport',
         title: 'Life Support',
-        icon: '🫧',
+        iconSvg: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8" stroke="#38bdf8"/><path d="M12 7v5l3 3" stroke="#bae6fd" stroke-width="1.8"/><circle cx="12" cy="12" r="2.5" fill="rgba(56,189,248,0.3)"/></svg>`,
         options: [
           { id: 'operational', label: 'Operational' },
           { id: 'partial', label: 'Partially operational' },
@@ -7484,7 +7546,7 @@
       {
         key: 'radiation',
         title: 'Radiation Status',
-        icon: '☢️',
+        iconSvg: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5" fill="#38bdf8"/><path d="M12 9.5V3M7.5 14.5L2 17.5M16.5 14.5L22 17.5" stroke="#38bdf8" stroke-width="2"/><circle cx="12" cy="12" r="8.5" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 3"/></svg>`,
         options: [
           { id: 'declining', label: 'Radiation levels declining' },
           { id: 'unsafe', label: 'Still unsafe for EVA' },
@@ -7601,10 +7663,11 @@
     function updateMinitaskAstrobee(text) {
       if (dialogueTextAstroBeeEl) {
         dialogueTextAstroBeeEl.textContent = text;
-        if (text.length > 85) {
+        dialogueTextAstroBeeEl.classList.remove('text-long', 'text-extra-long');
+        if (text.length > 160) {
+          dialogueTextAstroBeeEl.classList.add('text-extra-long');
+        } else if (text.length > 85) {
           dialogueTextAstroBeeEl.classList.add('text-long');
-        } else {
-          dialogueTextAstroBeeEl.classList.remove('text-long');
         }
       }
       const legacyEl = document.getElementById('minitaskAstrobeeText');
@@ -8359,7 +8422,7 @@
       }
 
       if (hint) {
-        hint.innerHTML = "⇄ Drag &amp; drop cards (or click two cards to swap) into correct sequence: Water Feed (💧) → Electrolysis Splitter (⚡) → Gas Separator (🫧) → O2 Air Line (🫁) → H2 Vent (⚠️).";
+        hint.innerHTML = "⇄ Drag &amp; drop cards (or click any two cards) to align the chemical reaction and gas-flow pipeline into logical order.";
       }
 
       const isAllSorted = m4TaskState.order.every((id, idx) => id === idx + 1);
@@ -8382,11 +8445,11 @@
 
             let pillHtml = '';
             if (isSelected) {
-              pillHtml = `<div class="m4-status-pill selecting">⚡ CLICK TARGET TO SWAP</div>`;
+              pillHtml = `<div class="m4-status-pill selecting"><span class="m4-pill-icon">⇄</span> CLICK TARGET TO SWAP</div>`;
             } else if (isAligned) {
               pillHtml = `<div class="m4-status-pill aligned"><span class="m4-pill-icon">✓</span> STEP ${stage.id} ALIGNED</div>`;
             } else {
-              pillHtml = `<div class="m4-status-pill misaligned"><span class="m4-pill-icon">↕</span> SWAP (TARGET: #${stage.id})</div>`;
+              pillHtml = `<div class="m4-status-pill misaligned"><span class="m4-pill-icon">⇄</span> SWAP POSITION</div>`;
             }
 
             return `
@@ -8403,8 +8466,8 @@
                 <div class="m4-card-left">
                   <span class="m4-drag-grip" title="Drag to swap">⠿</span>
                   <div class="m4-slot-num-badge" title="Slot ${slotNum}">${slotNum}</div>
-                  <div class="m4-emoji-icon-badge" style="background:${stage.emojiBg}; border:1.5px solid ${stage.emojiBorder};" title="${stage.title}">
-                    ${stage.emoji}
+                  <div class="m4-custom-icon-badge" style="background:${stage.iconBg}; border:1.5px solid ${stage.iconBorder};" title="${stage.title}">
+                    ${stage.iconSvg}
                   </div>
                   <div class="m4-info-col">
                     <div class="m4-stage-title">${stage.title}</div>
@@ -8421,9 +8484,9 @@
       if (isAllSorted) {
         updateMinitaskAstrobee("Brilliant sequencing, Commander! All 5 stages of the electrolysis manifold are correctly aligned. Water is splitting and oxygen is streaming safely to the habitat!");
       } else if (m4TaskState.selectedSwapIndex !== null) {
-        updateMinitaskAstrobee(`Card #${m4TaskState.selectedSwapIndex + 1} selected! Click any other card to swap their positions.`);
+        updateMinitaskAstrobee(`Card #${m4TaskState.selectedSwapIndex + 1} selected! Click any other card to swap their pipeline positions.`);
       } else {
-        updateMinitaskAstrobee("Commander! Drag and drop cards to reorder the gas manifold: Water Feed (💧) first, Electrolysis Splitter (⚡) second, Gas Separator (🫧) third, O2 Air Supply (🫁) fourth, and H2 Safety Vent (⚠️) fifth.");
+        updateMinitaskAstrobee("Commander! The ISRU electrolysis manifold is offline and out of order. Drag and drop the cards (or tap any two to swap) to reconstruct the operational gas pipeline. Align the flow logically from raw fluid intake to molecular splitting, gas filtration, breathable life-support delivery, and hazardous byproduct disposal!");
       }
 
       checkM4Completion();
@@ -8706,7 +8769,7 @@
       m6TaskState.isComplete = stats.isComplete;
 
       if (hint) {
-        hint.textContent = "Calibrate 24-hour cycle: 16 consecutive hours light (☀️ ON) and 8 hours dark (🌙 OFF). Midnight wrap (23:00 → 00:00) is valid.";
+        hint.textContent = "Calibrate 24-hour cycle: 16 consecutive hours light (DAY / ON) and 8 hours dark (NIGHT / OFF). Midnight wrap (23:00 → 00:00) is valid.";
       }
 
       let gridBlocksHtml = '';
@@ -8726,12 +8789,19 @@
         <div class="m6-photoperiod-container">
           <div class="m6-status-banner">
             <div class="m6-status-info">
-              <div class="m6-status-title">🌱 HYDROPONIC PHOTOPERIOD MATRIX</div>
-              <div class="m6-status-subtitle">NASA BVAD: Set exactly 16 consecutive hours daylight (☀️ ON) &amp; 8 hours dark (🌙 OFF). Midnight wrap (23:00 → 00:00) is valid.</div>
+              <div class="m6-status-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px; margin-right:4px;">
+                  <path d="M7 20h10M12 20v-8M12 12c0-4-3-6-7-6 0 4 2 7 7 6zm0 0c0-4 3-6 7-6 0 4-2 7-7 6z"/>
+                </svg>
+                HYDROPONIC PHOTOPERIOD MATRIX
+              </div>
+              <div class="m6-status-subtitle">NASA BVAD: Set exactly 16 consecutive hours daylight (DAY / ON) &amp; 8 hours dark (NIGHT / OFF). Midnight wrap (23:00 → 00:00) is valid.</div>
             </div>
             <div class="m6-status-pills">
               <div class="m6-pill ${stats.isComplete ? 'pill-success' : 'pill-warning'}">
-                <span>${stats.isComplete ? '✓' : '⚡'}</span>
+                <span>
+                  ${stats.isComplete ? '✓' : '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'}
+                </span>
                 <span>${stats.isComplete ? '16H PHOTOPERIOD NOMINAL' : `${stats.totalOn}/16H DAYLIGHT (${stats.maxConsec}H STREAK)`}</span>
               </div>
               <button class="m6-btn-reset" onclick="resetM6Schedule()" title="Reset to initial schedule">↺ RESET</button>
@@ -8944,7 +9014,14 @@
         <div class="m8-uplink-container">
           <div class="m8-uplink-header-card">
             <div class="m8-uplink-title-row">
-              <span class="m8-uplink-icon">📡</span>
+              <span class="m8-uplink-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 10a10 10 0 0 1 10-10"/>
+                  <path d="M4 14a14 14 0 0 1 14-14"/>
+                  <path d="M7 17l-3 4M17 7l4-3"/>
+                  <circle cx="12" cy="12" r="3" stroke="#38bdf8" fill="rgba(0, 229, 255, 0.2)"/>
+                </svg>
+              </span>
               <div>
                 <div class="m8-uplink-main-title">MOONFALL — EARTH UPLINK</div>
                 <div class="m8-uplink-sub-title">Select Outpost Status for NASA Deep Space Network Recovery Report</div>
@@ -8961,7 +9038,7 @@
               return `
                 <div class="m8-section-card ${currentVal ? 'has-selection' : ''}">
                   <div class="m8-section-title">
-                    <span class="m8-sec-icon">${sec.icon}</span>
+                    <span class="m8-sec-icon">${sec.iconSvg}</span>
                     <span>${sec.title}</span>
                   </div>
                   <div class="m8-options-list">
@@ -9212,13 +9289,19 @@
         if (best && worst) {
           evalGrid.innerHTML = `
             <div class="debrief-eval-card best">
-              <div class="debrief-eval-badge best">★ BEST COMMAND DECISION</div>
+              <div class="debrief-eval-badge best">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="#34d399" style="vertical-align:-1px; margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                BEST COMMAND DECISION
+              </div>
               <div class="debrief-eval-mission">${best.missionKey}: ${best.choiceTitle}</div>
               <div class="debrief-eval-stat">${best.stat}</div>
               <div class="debrief-eval-desc">${best.gain}</div>
             </div>
             <div class="debrief-eval-card worst">
-              <div class="debrief-eval-badge worst">⚠️ HEAVIEST RESOURCE TRADE-OFF</div>
+              <div class="debrief-eval-badge worst">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="#f59e0b" style="vertical-align:-1px; margin-right:4px;"><path d="M12 2L1 21h22L12 2zm0 3.8L20.2 19H3.8L12 5.8zM11 10h2v4h-2zm0 6h2v2h-2z"/></svg>
+                HEAVIEST RESOURCE TRADE-OFF
+              </div>
               <div class="debrief-eval-mission">${worst.missionKey}: ${worst.choiceTitle}</div>
               <div class="debrief-eval-stat">${worst.stat}</div>
               <div class="debrief-eval-desc">${worst.cost}</div>
