@@ -7354,8 +7354,8 @@
         time: "05:30 UTC",
         summary: "SPE solar storm alert. Crew recall vs securing external equipment.",
         optionsList: {
-          'EVAC': { label: "EVACUATE", desc: "Health -1, Equip -12 (Immediate shelter recall)" },
-          'EQUIP': { label: "SECURE EQUIP", desc: "Power -4, Health -5, Equip -2 (Surface equipment secured)" }
+          'EVAC': { label: "EVACUATE", desc: "Health +10, Equip -15 (Immediate shelter recall)" },
+          'EQUIP': { label: "SECURE EQUIP", desc: "Power -5, Health -12, Equip +10 (Surface equipment secured)" }
         }
       },
       {
@@ -7365,9 +7365,9 @@
         time: "06:00 UTC",
         summary: "Habitat shielding weakness. Construct emergency radiation barrier.",
         optionsList: {
-          'REGOLITH': { label: "PILE REGOLITH", desc: "Power -8, Health -1, Equip -8 (15 g/cm² regolith shielding)" },
-          'SHELTER': { label: "DEEP SHELTER", desc: "Power -1, Health -6 (Deep module 10 g/cm² shielding)" },
-          'WATER': { label: "WATER SHIELD", desc: "Water -20, Power -2, Health -3 (Water-wall hydro barrier)" }
+          'SHELTER': { label: "DEEP SHELTER", desc: "Power -3, Health +18, Equip -5 (Deep module 10 g/cm² shielding)" },
+          'REGOLITH': { label: "PILE REGOLITH", desc: "Power -8, Health +12, Equip +5 (15 g/cm² regolith shielding)" },
+          'WATER': { label: "WATER SHIELD", desc: "Water -15, Health +20 (Water-wall hydro barrier)" }
         }
       },
       {
@@ -7377,9 +7377,9 @@
         time: "08:00 UTC",
         summary: "Main solar array disconnected. Strategic battery power allocation.",
         optionsList: {
-          'GREEN OFF': { label: "GREENHOUSE OFF", desc: "Power -10, Green -20 (Greenhouse lighting shut down)" },
-          'BACKUP PWR': { label: "BACKUP POWER", desc: "Power -15, Equip -8 (Emergency battery maximum draw)" },
-          'BROWNOUT': { label: "BROWNOUT ALL", desc: "Power -13, Green -8, Health -2 (Base-wide power reduction)" }
+          'GREEN OFF': { label: "GREENHOUSE OFF", desc: "Power +15, Greenhouse -20 (Greenhouse lighting shut down)" },
+          'BACKUP PWR': { label: "BACKUP POWER", desc: "Power -10, Green +5, Equip +8 (Emergency battery maximum draw)" },
+          'BROWNOUT': { label: "BROWNOUT ALL", desc: "Power -5, Greenhouse -5 (Base-wide power reduction)" }
         }
       },
       {
@@ -7389,8 +7389,8 @@
         time: "11:00 UTC",
         summary: "Oxygen reserve falling. Emergency cylinders vs water electrolysis.",
         optionsList: {
-          'BOTTLED O2': { label: "BOTTLED O2", desc: "O2 -3, Equip -8 (Emergency bottled O2 reserve consumed)" },
-          'ELECTROLYSIS': { label: "ELECTROLYSIS", desc: "O2 +5, Water -1, Power -14 (Fresh ISRU water electrolysis)" }
+          'BOTTLED O2': { label: "BOTTLED O2", desc: "Oxygen -10 (Emergency bottled O2 reserve consumed)" },
+          'ELECTROLYSIS': { label: "ELECTROLYSIS", desc: "O2 +20, Water -15, Power -20 (Fresh ISRU water electrolysis)" }
         }
       },
       {
@@ -7400,9 +7400,9 @@
         time: "13:00 UTC",
         summary: "Sediment clogs water recycling filter. Choose water replenishment strategy.",
         optionsList: {
-          'STORED H2O': { label: "STORED POTABLE", desc: "Water -10, Equip +3 (Clean stored buffer consumed)" },
-          'MELT ICE': { label: "MELT CRATER ICE", desc: "Water +10, Power -15, Equip -5 (Thermal volatile extraction)" },
-          'DRINK PRIORITY': { label: "DRINK PRIORITY", desc: "Water -3, Green -10 (Rations crew water, starves plants)" }
+          'STORED H2O': { label: "STORED POTABLE", desc: "Water -15, Equip +5 (Clean stored buffer consumed)" },
+          'MELT ICE': { label: "MELT CRATER ICE", desc: "Water +18, Power -15, Equip -5 (Thermal volatile extraction)" },
+          'DRINK PRIORITY': { label: "DRINK PRIORITY", desc: "Water -5, Power +3, Green -10 (Rations crew water, starves plants)" }
         }
       },
       {
@@ -7412,8 +7412,8 @@
         time: "16:00 UTC",
         summary: "Greenhouse bioloop falters. Restore hydroponics or sacrifice crops to save power.",
         optionsList: {
-          'RESTORE LOOP': { label: "RESTORE LOOP", desc: "Water -6, Power -12, Food +6, Green +10 (Restores irrigation & grow lights)" },
-          'ABANDON CROPS': { label: "ABANDON CROPS", desc: "Power +8, Food -8, Green -35 (Frees power, sacrifices crops)" }
+          'RESTORE LOOP': { label: "RESTORE LOOP", desc: "Water -10, Power -12, Food +10, Green +20 (Restores irrigation & grow lights)" },
+          'ABANDON CROPS': { label: "ABANDON CROPS", desc: "Water +5, Power +12, Green -35 (Frees power, sacrifices crops)" }
         }
       },
       {
@@ -7423,9 +7423,9 @@
         time: "20:00 UTC",
         summary: "Arc fault ruptures Module 4 bus. Manual repair vs isolation vs rerouting.",
         optionsList: {
-          'ISOLATE BUS': { label: "ISOLATE BUS", desc: "Power -3, Equip -12 (Safely disconnects damaged module)" },
-          'MANUAL REPAIR': { label: "MANUAL REPAIR", desc: "Power -10, Health -4, Equip +10 (EVA excursion replaces burnt bus)" },
-          'REROUTE BUS': { label: "REROUTE BUS", desc: "Power -8, Equip -3, Green -8 (Reroutes life support through secondary bus)" }
+          'MANUAL REPAIR': { label: "MANUAL REPAIR", desc: "Power -12, Equip +15, Health -5 (EVA excursion replaces burnt bus)" },
+          'ISOLATE BUS': { label: "ISOLATE BUS", desc: "Power -8, Equip -5 (Safely disconnects damaged module)" },
+          'REROUTE BUS': { label: "REROUTE BUS", desc: "Power -10, Greenhouse -8 (Reroutes life support through secondary bus)" }
         }
       },
       {
@@ -7435,8 +7435,8 @@
         time: "00:00 UTC",
         summary: "Solar storm passes Shackleton Outpost. Final survival & recovery protocol.",
         optionsList: {
-          'HOLD SHELTER': { label: "HOLD SHELTER", desc: "Water -2, Power -6, Health +3 (Stay sealed until regolith cools)" },
-          'CONTROLLED RECOVERY': { label: "CONTROLLED RECOVERY", desc: "Power +15, Health -5, Equip +6 (Early surface inverter reset & salvage)" }
+          'HOLD SHELTER': { label: "HOLD SHELTER", desc: "Water -2, Power -5, Health +8 (Stay sealed until regolith cools)" },
+          'CONTROLLED RECOVERY': { label: "CONTROLLED RECOVERY", desc: "Water -3, Power -12, Health -10, Equip +10 (Early surface inverter reset & salvage)" }
         }
       }
     ];
@@ -8395,23 +8395,23 @@
             title: "Evacuate",
             image: "assets/m1_opt_evacuate.webp",
             imgClass: "evacuate-sign-img",
-            stat: "Health -1, Equip -12",
+            stat: "Health +10, Equip -15",
             badge: "EVAC",
             label: "OPTION A: EVACUATE",
-            deltas: { Health: -1, Equip: -12 },
-            gain: "Crew is inside before the storm (only a short rover drive, ~10 mSv).",
-            cost: "Outside power gear is left switched on and gets damaged (-12).",
+            deltas: { Health: 10, Equip: -15 },
+            gain: "Crew is safely inside before the storm hits (+10 Health).",
+            cost: "Outside power equipment is left running and sustains damage (-15 Equip).",
             real: "Spacecraft are put in safe mode during radiation storms; in the Oct 2003 storms Mars Odyssey and Genesis went into safe mode."
           },
           'secure_equip': {
             title: "Secure Equip",
             image: "assets/m1_opt_secure_equip.webp",
-            stat: "Power -4, Health -5, Equip -2",
+            stat: "Power -5, Health -12, Equip +10",
             badge: "EQUIP",
             label: "OPTION B: SECURE EQUIP",
-            deltas: { Power: -4, Health: -5, Equip: -2 },
-            gain: "Outside gear is shut down safely (only -2).",
-            cost: "Two crew stay out ~20 min longer in suits (-5 = ~50 mSv); rover and shutdown use 4 kWh.",
+            deltas: { Power: -5, Health: -12, Equip: 10 },
+            gain: "Outside gear is shut down safely (+10 Equip).",
+            cost: "Crew stays out longer in suits (-12 Health); rover and shutdown use power (-5 Power).",
             real: "A suit (~0.4 g/cm²) lets through about 2.5x the dose of habitat walls (Townsend 1988: 311 vs 125 rem behind 1 vs 5 g/cm²)."
           }
         }
@@ -8422,34 +8422,34 @@
           'deep_shelter': {
             title: "Deep Shelter",
             image: "assets/m2_opt_deep_shelter.webp",
-            stat: "Power -1, Health -6",
+            stat: "Power -3, Health +18, Equip -5",
             badge: "SHELTER",
             label: "OPTION A: DEEP SHELTER",
-            deltas: { Power: -1, Health: -6 },
-            gain: "Cheapest option: only the shelter fans (-1); no outside work, no hardware wear, no water.",
-            cost: "Weakest protection: ~60 mSv gets through (-6).",
+            deltas: { Power: -3, Health: 18, Equip: -5 },
+            gain: "Deep interior module provides substantial radiation shielding (+18 Health).",
+            cost: "Auxiliary shelter fans consume power (-3 Power); air scrubber filters wear (-5 Equip).",
             real: "Inner module is about 10 g/cm² of shielding; dose-vs-shielding curve from Townsend 1988 (NASA TM-100620)."
           },
           'pile_regolith': {
             title: "Pile Regolith",
             image: "assets/m1_opt_secure_equip.webp",
-            stat: "Power -8, Health -1, Equip -8",
+            stat: "Power -8, Health +12, Equip +5",
             badge: "REGOLITH",
             label: "OPTION B: PILE REGOLITH",
-            deltas: { Power: -8, Health: -1, Equip: -8 },
-            gain: "Best protection: only ~15 mSv gets through (-1).",
-            cost: "Rover pushes regolith bags into place (8 kWh); abrasive dust wears seals and filters (-8).",
+            deltas: { Power: -8, Health: 12, Equip: 5 },
+            gain: "Regolith bulk strengthens outer module shielding (+12 Health, +5 Equip).",
+            cost: "Excavation and loader operations consume battery power (-8 Power).",
             real: "10 cm of regolith (1.5 g/cm³) adds 15 g/cm². Apollo dust clogged, scratched and broke seals (Gaier 2005, NASA TM-2005-213610)."
           },
           'water_shield': {
             title: "Water Shield",
             image: "assets/m2_opt_water_shield.webp",
-            stat: "Water -20, Power -2, Health -3",
+            stat: "Water -15, Health +20",
             badge: "WATER",
             label: "OPTION C: WATER SHIELD",
-            deltas: { Water: -20, Power: -2, Health: -3 },
-            gain: "Good protection (~30 mSv, -3) with no hardware wear.",
-            cost: "100 kg of water is pumped into soft bags (2 kWh) and must be re-treated before drinking (-20).",
+            deltas: { Water: -15, Health: 20 },
+            gain: "Hydrogen-rich water jacket provides maximum biological protection (+20 Health).",
+            cost: "Water is diverted into structural radiation bladders (-15 Water).",
             real: "NASA-STD-3001 Vol 1: storm shelter of 10 g/cm² water-equivalent; 10 cm of water = 100 kg per m²."
           }
         }
@@ -8460,62 +8460,62 @@
           'greenhouse_off': {
             title: "Greenhouse Off",
             image: "assets/m3_opt_greenhouse_off.webp",
-            stat: "Power -10, Greenhouse -20",
+            stat: "Power +15, Greenhouse -20",
             badge: "GREEN OFF",
             label: "OPTION A: GREENHOUSE OFF",
-            deltas: { Power: -10, Greenhouse: -20 },
-            gain: "Lowest battery use (-10): only life support runs.",
-            cost: "Crops get no light or heat (-20).",
+            deltas: { Power: 15, Greenhouse: -20 },
+            gain: "Saves maximum energy for life support and habitat subsystems (+15 Power).",
+            cost: "Crops lose grow lighting and temperature regulation (-20 Greenhouse).",
             real: "Lettuce needs 16 h of light a day; each lost light hour costs about 1.5 h of growth (NASA BVAD)."
           },
           'backup_power': {
             title: "Backup Power",
             image: "assets/m3_opt_backup_power.webp",
-            stat: "Power -15, Equip -8",
+            stat: "Power -10, Green +5, Equip +8",
             badge: "BACKUP PWR",
             label: "OPTION B: BACKUP POWER",
-            deltas: { Power: -15, Equip: -8 },
-            gain: "Everything stays on; crops are not hurt.",
-            cost: "Uses the most energy (-15) and drains the emergency battery bank too deep (-8).",
+            deltas: { Power: -10, Greenhouse: 5, Equip: 8 },
+            gain: "Maintains environmental controls (+5 Green) and secondary bus integrity (+8 Equip).",
+            cost: "Draws from auxiliary fuel cell reserves (-10 Power).",
             real: "NASA battery sizing caps discharge at 80%; deeper use shortens battery life (Kleinhenz & Paz 2021)."
           },
           'brownout_all': {
             title: "Brownout All",
             image: "assets/m3_opt_brownout_all.webp",
-            stat: "Power -13, Greenhouse -8, Health -2",
+            stat: "Power -5, Greenhouse -5",
             badge: "BROWNOUT",
             label: "OPTION C: BROWNOUT ALL",
-            deltas: { Power: -13, Greenhouse: -8, Health: -2 },
-            gain: "Middle path: crops keep half their light (only -8).",
-            cost: "Still a big battery draw (-13); cabin cools to ~18 °C and the crew sleeps badly (-2).",
-            real: "NASA's comfort zone is 20-25 °C. On Apollo 13 the powered-down cabin got so cold that sleep was hard."
+            deltas: { Power: -5, Greenhouse: -5 },
+            gain: "Balanced non-critical system load-shedding (-5 Power).",
+            cost: "Slight biological stress on vegetative growth (-5 Greenhouse).",
+            real: "NASA ECLSS trade studies: dimming lights to 40% saves ~400 W across a module."
           }
         }
       },
       'm4': {
-        title: "⚡ DECISION 4: RESTORE OXYGEN PRODUCTION",
+        title: "⚡ DECISION 4: OXYGEN MANAGEMENT",
         options: {
           'bottled_o2': {
             title: "Bottled O2",
             image: "assets/m4_opt_bottled_o2.webp",
-            stat: "O2 -3, Equip -8",
+            stat: "Oxygen -10",
             badge: "BOTTLED O2",
             label: "OPTION A: BOTTLED O2",
-            deltas: { O2: -3, Equip: -8 },
-            gain: "No power or water used; O₂ almost holds (-3).",
-            cost: "The emergency cylinders are used up, so nothing is left for the next emergency (-8).",
+            deltas: { O2: -10 },
+            gain: "Immediate pure oxygen supply with zero electrical draw or water consumption.",
+            cost: "Emergency high-pressure cylinders depleted (-10 Oxygen).",
             real: "Each kg of O₂ in high-pressure tanks needs about 1.45 kg of tank (NASA BVAD)."
           },
           'electrolysis': {
             title: "Electrolysis",
             image: "assets/m4_opt_electrolysis.webp",
-            stat: "O2 +5, Water -1, Power -14",
+            stat: "O2 +20, Water -15, Power -20",
             badge: "ELECTROLYSIS",
             label: "OPTION B: ELECTROLYSIS",
-            deltas: { O2: 5, Water: -1, Power: -14 },
-            gain: "Makes ~2.7 kg of fresh O₂, so the bar rises (+5).",
-            cost: "Splitting water needs ~5 kWh per kg of O₂ (-14). The water cost is small: 3 kg (-1).",
-            real: "ISS oxygen generator makes up to 9.2 kg O₂/day; 1.13 kg water per kg O₂; 4.7-5.5 kWh per kg O₂ (Colozza 2020)."
+            deltas: { O2: 20, Water: -15, Power: -20 },
+            gain: "High-yield electrochemical conversion produces abundant fresh oxygen (+20 O2).",
+            cost: "Consumes significant water feedstock (-15 Water) and power bus capacity (-20 Power).",
+            real: "Splitting 1 kg H₂O yields 0.89 kg O₂ and uses ~4.4 kWh (OGS on ISS, NASA TM-2008-215172)."
           }
         }
       },
@@ -8525,34 +8525,34 @@
           'stored_potable': {
             title: "Stored Potable",
             image: "assets/m5_opt_stored_potable.webp",
-            stat: "Water -10, Equip +3",
+            stat: "Water -15, Equip +5",
             badge: "STORED H2O",
             label: "OPTION A: STORED POTABLE",
-            deltas: { Water: -10, Equip: 3 },
-            gain: "No power used; the filter is cleaned properly while it rests (+3 Equip).",
-            cost: "Uses 50 kg of stored water, 4 days of drinking for 5 crew (-10 Water).",
+            deltas: { Water: -15, Equip: 5 },
+            gain: "Allows primary recycling membrane to backflush and recover (+5 Equip).",
+            cost: "Depletes clean potable water storage reserves (-15 Water).",
             real: "Each astronaut needs at least 2.5 L of water a day for drinking and food (NASA OCHMO-TB-027)."
           },
           'melt_ice': {
             title: "Melt Crater Ice",
             image: "assets/m5_opt_melt_ice.webp",
-            stat: "Water +10, Power -15, Equip -5",
+            stat: "Water +18, Power -15, Equip -5",
             badge: "MELT ICE",
             label: "OPTION B: MELT CRATER ICE",
-            deltas: { Water: 10, Power: -15, Equip: -5 },
-            gain: "The only option that adds water (+10 Water, ~80 kg melted).",
-            cost: "Melting very cold ice takes ~0.19 kWh per kg (-15 Power); sediment hits filter again (-5 Equip).",
+            deltas: { Water: 18, Power: -15, Equip: -5 },
+            gain: "Thermal sublimation of permanently shadowed crater ice adds fresh water (+18 Water).",
+            cost: "Heating elements consume high power (-15 Power); regolith fines foul intake filter (-5 Equip).",
             real: "Warm ice from about -170 °C, melt it (334 kJ/kg), warm to 20 °C: about 0.19 kWh per kg."
           },
           'drink_priority': {
             title: "Drink Priority",
             image: "assets/m5_opt_drink_priority.webp",
-            stat: "Water -3, Green -10",
+            stat: "Water -5, Power +3, Green -10",
             badge: "DRINK PRIORITY",
             label: "OPTION C: DRINK PRIORITY",
-            deltas: { Water: -3, Greenhouse: -10 },
-            gain: "Crew water is safe at almost no cost (-3 Water).",
-            cost: "Crops get no water for the day (-10 Green).",
+            deltas: { Water: -5, Power: 3, Greenhouse: -10 },
+            gain: "Conserves drinking water (-5 Water); cuts hydroponic pump power (+3 Power).",
+            cost: "Crops are deprived of moisture (-10 Green).",
             real: "Lettuce uses about 2.1 kg of water per m² per day (NASA BVAD), so 20 m² needs ~42 kg a day."
           }
         }
@@ -8563,23 +8563,23 @@
           'restore_loop': {
             title: "Restore Loop",
             image: "assets/m6_opt_restore_loop.webp",
-            stat: "Water -6, Power -12, Food +6, Green +10",
+            stat: "Water -10, Power -12, Food +10, Green +20",
             badge: "RESTORE LOOP",
             label: "OPTION A: RESTORE LOOP",
-            deltas: { Water: -6, Power: -12, Food: 6, Greenhouse: 10 },
-            gain: "Crops recover (+10 Green) and next harvest is saved (+6 Food).",
-            cost: "Pumps and lights need ~12 kWh (-12 Power); the loop needs 30 kg of water (-6 Water).",
+            deltas: { Water: -10, Power: -12, Food: 10, Greenhouse: 20 },
+            gain: "Revitalizes greenhouse bio-canopy (+20 Green) and secures food production (+10 Food).",
+            cost: "Hydroponic pumps and grow lights demand water (-10 Water) and electrical power (-12 Power).",
             real: "Grow lights for 20 m² of lettuce are about 3 kW (LED, ~0.15 kW/m², from NASA BVAD values)."
           },
           'abandon_crops': {
             title: "Abandon Crops",
             image: "assets/m6_opt_abandon_crops.webp",
-            stat: "Power +8, Food -8, Green -35",
+            stat: "Water +5, Power +12, Green -35",
             badge: "ABANDON CROPS",
             label: "OPTION B: ABANDON CROPS",
-            deltas: { Power: 8, Food: -8, Greenhouse: -35 },
-            gain: "Frees greenhouse power for the night (+8 Power).",
-            cost: "Crops die completely (-35 Green) and next harvest is lost (-8 Food).",
+            deltas: { Water: 5, Power: 12, Greenhouse: -35 },
+            gain: "Diverts valuable power (+12 Power) and reclaims irrigation moisture (+5 Water).",
+            cost: "Greenhouse crops perish entirely (-35 Green).",
             real: "20 m² of lettuce gives about 73 kg of fresh food per 28-day cycle (NASA BVAD yield)."
           }
         }
@@ -8587,37 +8587,37 @@
       'm7': {
         title: "DECISION 7: THE CRITICAL FAILURE",
         options: {
-          'isolate_bus': {
-            title: "Isolate Bus",
-            image: "assets/m7_opt_isolate_bus.webp",
-            stat: "Power -3, Equip -12",
-            badge: "ISOLATE BUS",
-            label: "OPTION A: ISOLATE BUS",
-            deltas: { Power: -3, Equip: -12 },
-            gain: "Fastest and safest; little power lost (-3 Power).",
-            cost: "Module 4 stays dead until a later repair (-12 Equip).",
-            real: "In 2012 a failed ISS power box (MBSU-1) cut 2 of 8 power channels; the station ran on ~75% power until repaired."
-          },
           'manual_repair': {
             title: "Manual Repair",
             image: "assets/m7_opt_manual_repair.webp",
-            stat: "Power -10, Health -4, Equip +10",
+            stat: "Power -12, Equip +15, Health -5",
             badge: "MANUAL REPAIR",
-            label: "OPTION B: MANUAL REPAIR",
-            deltas: { Power: -10, Health: -4, Equip: 10 },
-            gain: "The junction is fixed; hardware improves (+10 Equip).",
-            cost: "Test and repair use 10 kWh (-10 Power); crew works near hot, smoking parts (-4 Health).",
+            label: "OPTION A: MANUAL REPAIR",
+            deltas: { Power: -12, Equip: 15, Health: -5 },
+            gain: "Damaged bus junction replaced and calibrated (+15 Equip).",
+            cost: "EVA power tools draw power (-12 Power); astronaut faces physical stress and radiation (-5 Health).",
             real: "Sunita Williams and Akihiko Hoshide replaced that ISS power box on two spacewalks in Aug-Sep 2012."
+          },
+          'isolate_bus': {
+            title: "Isolate Bus",
+            image: "assets/m7_opt_isolate_bus.webp",
+            stat: "Power -8, Equip -5",
+            badge: "ISOLATE BUS",
+            label: "OPTION B: ISOLATE BUS",
+            deltas: { Power: -8, Equip: -5 },
+            gain: "Safely confines electrical short circuit to prevent catastrophic cascade.",
+            cost: "Module 4 power bus stays disabled (-5 Equip) with line resistance loss (-8 Power).",
+            real: "In 2012 a failed ISS power box (MBSU-1) cut 2 of 8 power channels; the station ran on ~75% power until repaired."
           },
           'reroute_bus': {
             title: "Reroute Bus",
             image: "assets/m7_opt_reroute_bus.webp",
-            stat: "Power -8, Equip -3, Green -8",
+            stat: "Power -10, Greenhouse -8",
             badge: "REROUTE BUS",
             label: "OPTION C: REROUTE BUS",
-            deltas: { Power: -8, Equip: -3, Greenhouse: -8 },
-            gain: "Module 4 keeps working; little hardware loss (-3 Equip).",
-            cost: "The other junction is overloaded and wastes power (-8 Power); greenhouse is cut (-8 Green).",
+            deltas: { Power: -10, Greenhouse: -8 },
+            gain: "Maintains habitat and telemetry systems without physical module loss.",
+            cost: "Circuit overload wastes transmission power (-10 Power); greenhouse power shed (-8 Green).",
             real: "Real power systems shed the least important loads first to keep life support running."
           }
         }
@@ -8628,23 +8628,23 @@
           'hold_shelter': {
             title: "Hold Shelter",
             image: "assets/m8_opt_hold_shelter.webp",
-            stat: "Water -2, Power -6, Health +3",
+            stat: "Water -2, Power -5, Health +8",
             badge: "HOLD SHELTER",
             label: "OPTION A: HOLD SHELTER",
-            deltas: { Water: -2, Power: -6, Health: 3 },
-            gain: "Crew rests and avoids the storm's tail (+3 Health).",
-            cost: "Shelter life support keeps running on battery (-6 Power) and uses water (-2 Water).",
+            deltas: { Water: -2, Power: -5, Health: 8 },
+            gain: "Crew remains shielded while surface radiation decays, regaining stamina (+8 Health).",
+            cost: "Continued shelter life support expends water (-2 Water) and battery reserves (-5 Power).",
             real: "NOAA: a solar radiation storm can last from hours to days."
           },
           'controlled_recovery': {
             title: "Controlled Recovery",
             image: "assets/m8_opt_controlled_recovery.webp",
-            stat: "Power +15, Health -5, Equip +6",
+            stat: "Water -3, Power -12, Health -10, Equip +10",
             badge: "CONTROLLED RECOVERY",
             label: "OPTION B: CONTROLLED RECOVERY",
-            deltas: { Power: 15, Health: -5, Equip: 6 },
-            gain: "Crew resets inverters: solar power comes back (+15 Power) and systems are repaired (+6 Equip).",
-            cost: "Crew gets some leftover radiation while working outside (-5 Health).",
+            deltas: { Water: -3, Power: -12, Health: -10, Equip: 10 },
+            gain: "Immediate EVA resets solar inverters and repairs habitat infrastructure (+10 Equip).",
+            cost: "High resource consumption (-3 Water, -12 Power) and elevated crew radiation exposure (-10 Health).",
             real: "NOAA: leaving early means some extra dose before active regolith activation fully decays."
           }
         }
