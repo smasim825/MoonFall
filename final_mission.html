@@ -10332,10 +10332,16 @@
       // Update Alarm State
       if (item.alarm) {
         stormAlertOverlayEl.classList.add('active');
-        emergencyBannerEl.classList.remove('hidden');
         sound.warnAlarm();
       } else {
         stormAlertOverlayEl.classList.remove('active');
+      }
+
+      // Emergency 30-Minute Warning Banner: Only on first 2 warning scenes (Scene 1 & Scene 2 of M1)
+      const show30MinWarning = (item.mission === 'M1' && (item.scene === 1 || item.scene === 2));
+      if (show30MinWarning) {
+        emergencyBannerEl.classList.remove('hidden');
+      } else {
         emergencyBannerEl.classList.add('hidden');
       }
 
