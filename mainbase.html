@@ -3619,48 +3619,64 @@
     /* Floating Pull-Tab Toggle Button pinned to left edge */
     .sidebar-pull-tab {
       position: absolute;
-      left: -48px;
+      left: -52px;
       top: 220px;
-      width: 48px;
-      height: 54px;
-      background: linear-gradient(135deg, #091224 0%, #034875 100%);
-      border: 2px solid #38bdf8;
+      width: 52px;
+      height: 128px;
+      background: linear-gradient(180deg, #0b1a38 0%, #034875 50%, #08162e 100%);
+      border: 2.5px solid #00e5ff;
       border-right: none;
-      border-radius: 10px 0 0 10px;
-      color: #38bdf8;
-      box-shadow: -8px 4px 20px rgba(0, 0, 0, 0.85), 0 0 14px rgba(56, 189, 248, 0.45);
+      border-radius: 14px 0 0 14px;
+      color: #00e5ff;
+      box-shadow: -8px 6px 24px rgba(0, 0, 0, 0.9), 0 0 18px rgba(0, 229, 255, 0.55);
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2px;
-      padding: 4px;
-      transition: all 0.2s ease;
+      gap: 6px;
+      padding: 8px 4px;
+      transition: all 0.22s ease;
       z-index: 255;
+      animation: tab-cyber-pulse 2.8s infinite ease-in-out;
     }
 
     .sidebar-pull-tab:hover {
-      background: linear-gradient(135deg, #1e293b 0%, #0284c7 100%);
+      background: linear-gradient(180deg, #16366f 0%, #0284c7 50%, #0f2752 100%);
       color: #ffffff;
-      border-color: #7dd3fc;
-      box-shadow: -10px 4px 24px rgba(56, 189, 248, 0.7);
-      transform: translateX(-3px);
+      border-color: #ffea00;
+      box-shadow: -10px 6px 28px rgba(0, 229, 255, 0.8), 0 0 20px rgba(255, 234, 0, 0.6);
+      transform: translateX(-4px);
     }
 
     .sidebar-tab-icon {
-      font-size: 1.2rem;
+      font-size: 1.45rem;
       line-height: 1;
       transition: transform 0.25s ease;
+      filter: drop-shadow(0 0 6px #00e5ff);
     }
 
     .sidebar-tab-label {
       font-family: 'Jersey 10', 'Pixel Operator', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
+      font-size: 1.05rem;
+      letter-spacing: 0.16em;
       font-weight: bold;
       text-transform: uppercase;
-      color: #facc15;
+      color: #ffea00;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-shadow: 0 0 8px rgba(255, 234, 0, 0.65), 1px 1px 0 #000;
+    }
+
+    @keyframes tab-cyber-pulse {
+      0%, 100% {
+        box-shadow: -8px 6px 20px rgba(0, 0, 0, 0.9), 0 0 14px rgba(0, 229, 255, 0.45);
+        border-color: #00e5ff;
+      }
+      50% {
+        box-shadow: -10px 6px 28px rgba(0, 229, 255, 0.75), 0 0 22px rgba(255, 234, 0, 0.55);
+        border-color: #38bdf8;
+      }
     }
 
     /* Sidebar Top Header Bar */
@@ -3966,10 +3982,14 @@
         width: min(88vw, 340px);
       }
       .sidebar-pull-tab {
-        top: 200px;
-        width: 42px;
-        height: 48px;
-        left: -42px;
+        top: 205px;
+        width: 44px;
+        height: 110px;
+        left: -44px;
+      }
+      .sidebar-tab-label {
+        font-size: 0.92rem;
+        letter-spacing: 0.12em;
       }
       .sidebar-explore-btn {
         font-size: 0.95rem;
@@ -3979,7 +3999,8 @@
 
     @media (max-height: 520px) {
       .sidebar-pull-tab {
-        top: 180px;
+        top: 175px;
+        height: 105px;
       }
     }
   </style>
@@ -5150,7 +5171,7 @@
             <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPower', 'badgePower');" title="Zoom to Power Station">
               <span>🔍 View on Map</span>
             </button>
-            <a class="card-action-btn" href="https://www.nasa.gov/directorates/stmd/technology-demonstration-missions-program/fission-surface-power-project/" target="_blank" rel="noopener noreferrer">
+            <a class="card-action-btn" href="https://www.nasa.gov/general/nasas-fission-surface-power-project-energizes-lunar-exploration/" target="_blank" rel="noopener noreferrer">
               <span>NASA Power Tech</span>
             </a>
           </div>
@@ -5182,7 +5203,7 @@
             <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
               <span>🔍 View on Map</span>
             </button>
-            <a class="card-action-btn" href="https://www.nasa.gov/general/growing-plants-in-space/" target="_blank" rel="noopener noreferrer">
+            <a class="card-action-btn" href="https://www.nasa.gov/missions/station/growing-plants-in-space/" target="_blank" rel="noopener noreferrer">
               <span>NASA Plant Biology</span>
             </a>
           </div>
@@ -5214,7 +5235,7 @@
             <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldIsru', 'badgeIsru');" title="Zoom to ISRU Facility">
               <span>🔍 View on Map</span>
             </button>
-            <a class="card-action-btn" href="https://www.nasa.gov/isru/" target="_blank" rel="noopener noreferrer">
+            <a class="card-action-btn" href="https://www.nasa.gov/directorates/stmd/lunar-surface-innovation-initiative/" target="_blank" rel="noopener noreferrer">
               <span>NASA ISRU Details</span>
             </a>
           </div>
@@ -5246,7 +5267,7 @@
             <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
               <span>🔍 View on Map</span>
             </button>
-            <a class="card-action-btn" href="https://www.nasa.gov/stem-content/deep-space-radiation/" target="_blank" rel="noopener noreferrer">
+            <a class="card-action-btn" href="https://science.nasa.gov/heliophysics/space-weather/" target="_blank" rel="noopener noreferrer">
               <span>NASA Radiation Shielding</span>
             </a>
           </div>
