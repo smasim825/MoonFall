@@ -3943,6 +3943,53 @@
       transform: translateY(-1px);
     }
 
+    /* Reference Style Clean Text Links */
+    .card-text-link {
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.95rem;
+      color: #c084fc;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s ease, text-shadow 0.15s ease;
+      cursor: pointer;
+      line-height: 1.35;
+    }
+
+    .card-text-link:hover {
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(192, 132, 252, 0.7);
+    }
+
+    .card-text-link::after {
+      content: '↗';
+      font-size: 1.05rem;
+      text-decoration: none;
+      color: #e9d5ff;
+    }
+
+    .card-source-link {
+      color: #c084fc;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: color 0.15s ease;
+    }
+
+    .card-source-link:hover {
+      color: #ffffff;
+    }
+
+    .card-source-dots {
+      margin-left: auto;
+      color: #64748b;
+      letter-spacing: 3px;
+      font-size: 0.75rem;
+    }
+
     /* Facility Themed Cards matching the 4 base sections */
     .sidebar-card.card-power {
       border-color: rgba(250, 204, 21, 0.35);
@@ -5190,27 +5237,27 @@
             </iframe>
           </div>
           <div class="card-source-row">
-            <span>Source:</span>
-            <span class="card-source-tag">NASA // Spacecraft &amp; Surface Power</span>
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
           </div>
           <p class="card-desc">
             Deploying a 40-kilowatt nuclear fission reactor and vertical bifacial solar array masts to deliver uninterrupted baseload electrical power through the 14-day freezing lunar night.
           </p>
-          <div class="card-actions-row" style="flex-wrap: wrap; gap: 8px;">
-            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPower', 'badgePower');" title="Zoom to Power Station">
-              <span>🔍 View on Map</span>
-            </button>
-            <a class="card-action-btn" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">
-              <span>Watch Video ▶</span>
+          <div class="card-links-col" style="display: flex; flex-direction: column; gap: 7px; margin-top: 4px;">
+            <a class="card-text-link" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer">
+              <span>What Powers a Spacecraft? (NASA Space Place)</span>
+            </a>
+            <a class="card-text-link" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer">
+              <span>Power &amp; Energy for the Lunar Surface (NASA PDF)</span>
+            </a>
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">
+              <span>Watch Power Tech on YouTube</span>
             </a>
           </div>
-          <div class="card-sub-links" style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
-            <a class="card-action-btn" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer">
-              <span>🚀 NASA Space Place: What Powers a Spacecraft?</span>
-            </a>
-            <a class="card-action-btn" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer">
-              <span>📄 NASA NTRS: Power &amp; Energy for Lunar Surface (PDF)</span>
-            </a>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPower', 'badgePower');" title="Zoom to Power Station">
+              <span>🔍 View on Base Map</span>
+            </button>
           </div>
         </article>
 
@@ -5230,19 +5277,30 @@
             </iframe>
           </div>
           <div class="card-source-row">
-            <span>Source:</span>
-            <span class="card-source-tag">NASA Kennedy // Biological Sciences</span>
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=s2c36gC964Q" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
           </div>
           <p class="card-desc">
             Cultivating fresh microgreens, Arabidopsis, and dwarf crops using automated nutrient solution cycles and LED spectrum recipes to sustain long-duration astronaut nutrition.
           </p>
-          <div class="card-actions-row">
-            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
-              <span>🔍 View on Map</span>
-            </button>
-            <a class="card-action-btn" href="https://science.nasa.gov/biological-physical-sciences/space-crops/" target="_blank" rel="noopener noreferrer">
-              <span>NASA Space Crops</span>
+          <div class="card-links-col" style="display: flex; flex-direction: column; gap: 7px; margin-top: 4px;">
+            <a class="card-text-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">
+              <span>NASA Food &amp; Nutrition Technical Brief (PDF)</span>
             </a>
+            <a class="card-text-link" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer">
+              <span>Gravity Assist: How to Grow Food on the Moon (Podcast)</span>
+            </a>
+            <a class="card-text-link" href="https://www.nasa.gov/humans-in-space/scientists-grow-plants-in-lunar-soil/" target="_blank" rel="noopener noreferrer">
+              <span>Scientists Grow Plants in Lunar Soil (NASA Feature)</span>
+            </a>
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=s2c36gC964Q" target="_blank" rel="noopener noreferrer">
+              <span>Watch Space Crop Production on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
+              <span>🔍 View on Base Map</span>
+            </button>
           </div>
         </article>
 
@@ -5262,19 +5320,24 @@
             </iframe>
           </div>
           <div class="card-source-row">
-            <span>Source:</span>
-            <span class="card-source-tag">NASA Technology // STMD ISRU</span>
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=jZ8W7a2X5mE" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
           </div>
           <p class="card-desc">
             Excavating cryogenic volatiles and ice trapped in permanently shadowed craters at the South Pole, utilizing carbothermal reduction to yield potable water, oxygen, and rocket propellant.
           </p>
-          <div class="card-actions-row">
-            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldIsru', 'badgeIsru');" title="Zoom to ISRU Facility">
-              <span>🔍 View on Map</span>
-            </button>
-            <a class="card-action-btn" href="https://www.nasa.gov/directorates/stmd/lunar-surface-innovation-initiative/" target="_blank" rel="noopener noreferrer">
-              <span>NASA ISRU Details</span>
+          <div class="card-links-col" style="display: flex; flex-direction: column; gap: 7px; margin-top: 4px;">
+            <a class="card-text-link" href="https://www.nasa.gov/directorates/stmd/lunar-surface-innovation-initiative/" target="_blank" rel="noopener noreferrer">
+              <span>Learn about Lunar Surface Innovation &amp; ISRU</span>
             </a>
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=jZ8W7a2X5mE" target="_blank" rel="noopener noreferrer">
+              <span>Watch VIPER &amp; TRIDENT Drill on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldIsru', 'badgeIsru');" title="Zoom to ISRU Facility">
+              <span>🔍 View on Base Map</span>
+            </button>
           </div>
         </article>
 
@@ -5294,19 +5357,24 @@
             </iframe>
           </div>
           <div class="card-source-row">
-            <span>Source:</span>
-            <span class="card-source-tag">NASA Science // Space Radiation</span>
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=6AKn8j_zIqk" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
           </div>
           <p class="card-desc">
             Engineered subterranean habitats with 3-meter sintered regolith berms and dual-layer water walls designed to shield expedition crews from Solar Particle Events (SPE) and cosmic rays.
           </p>
-          <div class="card-actions-row">
-            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
-              <span>🔍 View on Map</span>
-            </button>
-            <a class="card-action-btn" href="https://science.nasa.gov/heliophysics/space-weather/" target="_blank" rel="noopener noreferrer">
-              <span>NASA Radiation Shielding</span>
+          <div class="card-links-col" style="display: flex; flex-direction: column; gap: 7px; margin-top: 4px;">
+            <a class="card-text-link" href="https://science.nasa.gov/heliophysics/space-weather/" target="_blank" rel="noopener noreferrer">
+              <span>Learn about space weather &amp; radiation</span>
             </a>
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=6AKn8j_zIqk" target="_blank" rel="noopener noreferrer">
+              <span>Watch Space Radiation Protection on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
+              <span>🔍 View on Base Map</span>
+            </button>
           </div>
         </article>
 
