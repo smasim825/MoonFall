@@ -14,13 +14,13 @@
   <link rel="preload" href="assets/fonts/Jersey10.ttf" as="font" type="font/ttf" crossorigin>
 
   <!-- Preload Core Images -->
-  <link rel="preload" href="assets/isru/bg/bg_of_water.png" as="image">
-  <link rel="preload" href="assets/isru/bg/bg_of_oxy.png" as="image">
-  <link rel="preload" href="assets/isru/equipments/scoop_hd.png" as="image">
+  <link rel="preload" href="assets/isru/bg/bg_of_water.webp" as="image">
+  <link rel="preload" href="assets/isru/bg/bg_of_oxy.webp" as="image">
+  <link rel="preload" href="assets/isru/equipments/scoop_hd.webp" as="image">
   <link rel="preload" href="assets/scene 3/Pragyan_ShivShakti_Neutral.png" as="image">
   <link rel="preload" href="assets/scene 3/Frame 6.png" as="image">
   <link rel="preload" href="assets/scene 3/Frame 7.png" as="image">
-  <link rel="preload" href="assets/isru/character/Guion_Bluford_PointUp.png" as="image">
+  <link rel="preload" href="assets/isru/character/Guion_Bluford_PointUp.webp" as="image">
 
   <style>
     /* ==========================================================================
@@ -81,7 +81,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      background-image: url('assets/isru/bg/bg_of_water.png');
+      background-image: url('assets/isru/bg/bg_of_water.webp');
       background-size: cover;
       background-position: center;
       image-rendering: pixelated;
@@ -2267,7 +2267,7 @@
 
       <!-- Character Stage (Left) -->
       <div class="character-guide" id="guideStage">
-        <img src="assets/isru/character/Guion_Bluford_PointUp.png" alt="Guion Bluford" id="guideImg">
+        <img src="assets/isru/character/Guion_Bluford_PointUp.webp" alt="Guion Bluford" id="guideImg">
       </div>
 
       <!-- Floating Diagram Card (used by later scenes) -->
@@ -2338,10 +2338,10 @@
       <!-- Interactive Map (Scene 2) -->
       <div class="map-container hidden" id="mapContainer">
         <div class="map-card">
-          <img class="map-frame-img" src="assets/isru/equipments/Frame_2.png" alt="Submersive Ice map frame">
+          <img class="map-frame-img" src="assets/isru/equipments/Frame_2.webp" alt="Submersive Ice map frame">
           <div class="map-window show-water" id="mapWindow" aria-label="Interactive lunar ice map">
             <div class="map-pan" id="mapPan">
-              <img class="map-pan-img" src="assets/isru/equipments/Frame_2.png" alt="Submersive ice map">
+              <img class="map-pan-img" src="assets/isru/equipments/Frame_2.webp" alt="Submersive ice map">
             </div>
           </div>
           <div class="map-hint" id="mapHint">Scroll / pinch to zoom · drag to move · tap a marker</div>
@@ -2365,12 +2365,12 @@
       <!-- Ice Scanner (Scenes 4 & 5) -->
       <div class="scan-container hidden" id="scanContainer">
         <div class="scan-card" id="scanCard">
-          <img class="scan-img" src="assets/isru/equipments/scan.png" alt="Scanning for Submersive Ice">
+          <img class="scan-img" src="assets/isru/equipments/scan.webp" alt="Scanning for Submersive Ice">
           <div class="scan-window" id="scanWindow" aria-label="Lunar South Pole water ice map">
             <div class="scan-pan" id="scanPan">
               <div class="scan-inner" id="scanInner">
-                <img class="scan-img" src="assets/isru/equipments/scan.png" alt="">
-                <img class="scan-img scan-reveal" id="scanReveal" src="assets/isru/equipments/scan1.png" alt="">
+                <img class="scan-img" src="assets/isru/equipments/scan.webp" alt="">
+                <img class="scan-img scan-reveal" id="scanReveal" src="assets/isru/equipments/scan1.webp" alt="">
                 <div class="scan-beam hidden" id="scanBeam"></div>
               </div>
             </div>
@@ -2763,8 +2763,8 @@
     // =========================================================================
     // Scene Definitions (add more scenes to this array as the mission grows)
     // =========================================================================
-    const GUIDE_POINT_UP = 'assets/isru/character/Guion_Bluford_PointUp.png';
-    const GUIDE_WAVE = 'assets/isru/character/Guion_Bluford_PointUp.png';
+    const GUIDE_POINT_UP = 'assets/isru/character/Guion_Bluford_PointUp.webp';
+    const GUIDE_WAVE = 'assets/isru/character/Guion_Bluford_PointUp.webp';
 
     const SCENES = [
       // Scene 1: Lunar South Pole intro
@@ -2814,7 +2814,7 @@
         id: 6,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        cardImg: 'assets/isru/equipments/scan2.png',
+        cardImg: 'assets/isru/equipments/scan2.webp',
         cardClass: 'card-wide',
         speaker: 'Guion Bluford',
         text: "Great! We've identified some promising locations. Select one to choose our drilling site."
@@ -2823,7 +2823,7 @@
       {
         id: 7,
         showGuide: false,
-        cardImg: 'assets/isru/equipments/scan3.png',
+        cardImg: 'assets/isru/equipments/scan3.webp',
         cardClass: 'card-wide',
         isSiteSelection: true,
         text: ""
@@ -2833,7 +2833,7 @@
         id: 8,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        cardImg: 'assets/isru/equipments/drill.png',
+        cardImg: 'assets/isru/equipments/drill.webp',
         cardClass: 'card-wide',
         isDrillScene: true,
         speaker: 'Guion Bluford',
@@ -2853,7 +2853,7 @@
         id: 10,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        cardImg: 'assets/isru/equipments/drill_2.png',
+        cardImg: 'assets/isru/equipments/drill_2.webp',
         cardClass: 'card-wide',
         speaker: 'Guion Bluford',
         text: "This is MSOLO, a mass spectrometer from NASA's PRIME-1 mission. It analyzes gases released from lunar soil to help identify water and other volatile substances."
@@ -2880,7 +2880,7 @@
         id: 13,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        cardImg: 'assets/isru/equipments/scoop_hd.png',
+        cardImg: 'assets/isru/equipments/scoop_hd.webp',
         cardClass: 'card-wide card-scoop',
         speaker: 'Guion Bluford',
         requiresLabPermission: true,
@@ -2891,7 +2891,7 @@
         id: 14,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        bgImg: 'assets/isru/bg/bg_of_oxy.png',
+        bgImg: 'assets/isru/bg/bg_of_oxy.webp',
         cardImg: null,
         isLabScene: true,
         speaker: 'Guion Bluford',
@@ -2902,7 +2902,7 @@
         id: 15,
         showGuide: true,
         guidePose: GUIDE_WAVE,
-        bgImg: 'assets/isru/bg/bg_of_oxy2.png',
+        bgImg: 'assets/isru/bg/bg_of_oxy2.webp',
         cardImg: null,
         speaker: 'Guion Bluford',
         text: "Now we will use the purified water from your previous mission."
@@ -2912,8 +2912,8 @@
         id: 16,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        bgImg: 'assets/isru/bg/bg_of_oxy2.png',
-        cardImg: 'assets/isru/equipments/molecular.png',
+        bgImg: 'assets/isru/bg/bg_of_oxy2.webp',
+        cardImg: 'assets/isru/equipments/molecular.webp',
         cardClass: 'card-wide',
         speaker: 'Guion Bluford',
         text: "Transfer purified water into the electrolyser and activate it. It uses electricity to split water into hydrogen and oxygen."
@@ -2923,8 +2923,8 @@
         id: 17,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        bgImg: 'assets/isru/bg/bg_of_oxy2.png',
-        cardImg: 'assets/isru/equipments/machine.png',
+        bgImg: 'assets/isru/bg/bg_of_oxy2.webp',
+        cardImg: 'assets/isru/equipments/machine.webp',
         cardClass: 'card-wide',
         speaker: 'Guion Bluford',
         text: "The ISS uses an Oxygen Generation System (OGS) rack that houses the Oxygen Generation Assembly (OGA)."
@@ -2934,7 +2934,7 @@
         id: 18,
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
-        bgImg: 'assets/isru/bg/bg_of_oxy2.png',
+        bgImg: 'assets/isru/bg/bg_of_oxy2.webp',
         cardImg: null,
         isOxygenReady: true,
         speaker: 'Guion Bluford',
@@ -3511,7 +3511,7 @@
         if (s.bgImg) {
           isruBgLayer.style.backgroundImage = "url('" + s.bgImg + "')";
         } else {
-          isruBgLayer.style.backgroundImage = "url('assets/isru/bg/bg_of_water.png')";
+          isruBgLayer.style.backgroundImage = "url('assets/isru/bg/bg_of_water.webp')";
         }
       }
 
