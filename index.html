@@ -2855,19 +2855,31 @@
       filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.85));
     }
 
-    .coc-crew-char.char-left {
-      transform: translateX(18px) scale(0.92);
+    .coc-crew-char.char-left,
+    .coc-crew-char.char-1 {
+      height: clamp(105px, 22vh, 175px);
+      transform: translateX(18px) scale(0.9);
       z-index: 1;
     }
 
-    .coc-crew-char.char-center {
-      height: clamp(130px, 27vh, 215px);
-      z-index: 3;
+    .coc-crew-char.char-center,
+    .coc-crew-char.char-2 {
+      height: clamp(125px, 26vh, 210px);
+      transform: translateX(6px) scale(1.0);
+      z-index: 4;
       filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.55)) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.95));
     }
 
-    .coc-crew-char.char-right {
-      transform: translateX(-18px) scale(0.92);
+    .coc-crew-char.char-3 {
+      height: clamp(118px, 24vh, 195px);
+      transform: translateX(-6px) scale(0.95);
+      z-index: 3;
+    }
+
+    .coc-crew-char.char-right,
+    .coc-crew-char.char-4 {
+      height: clamp(105px, 22vh, 175px);
+      transform: translateX(-18px) scale(0.9);
       z-index: 2;
     }
 
@@ -3918,12 +3930,13 @@
               </div>
             </div>
 
-            <!-- Center Pixel Astronaut Crew Collage -->
+            <!-- Center Pixel Astronaut Crew Collage (4 Astronauts with Full Body & Legs) -->
             <div class="coc-card-art-stage">
               <div class="coc-crew-collage">
-                <img src="assets/power/CharacterPoses/Chiaki_Mukai_Wave.webp" alt="Chiaki Mukai" class="coc-crew-char char-left">
-                <img src="assets/scene 8/Rakesh_Sharma_Idle.webp" alt="Rakesh Sharma" class="coc-crew-char char-center">
-                <img src="assets/meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" class="coc-crew-char char-right">
+                <img src="assets/power/Chiaki_Mukai_Wave.webp" alt="Chiaki Mukai" class="coc-crew-char char-1" title="Chiaki Mukai">
+                <img src="assets/scene 8/Rakesh_Sharma_Idle.webp" alt="Rakesh Sharma" class="coc-crew-char char-2" title="Rakesh Sharma">
+                <img src="assets/power/Neil_Armstrong_Idle.webp" alt="Neil Armstrong" class="coc-crew-char char-3" title="Neil Armstrong">
+                <img src="assets/meal/CharacterPoses/Sunita_Williams_Wave.webp" alt="Sunita Williams" class="coc-crew-char char-4" title="Sunita Williams">
               </div>
             </div>
 
@@ -4013,7 +4026,7 @@
 
             <div class="coc-card-art-stage">
               <div class="coc-npc-stage">
-                <img src="assets/power/CharacterPoses/Chiaki_Mukai_PointUp.webp" alt="Dr. Chiaki Mukai" class="coc-npc-img">
+                <img src="assets/power/Chiaki_Mukai_PointUp.webp" alt="Dr. Chiaki Mukai" class="coc-npc-img">
                 <div class="coc-symbol-medallion" style="border-color: #fbbf24;">
                   <svg class="bolt-svg-icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M13.5 2L4.5 13.5H11.5L10.5 22L19.5 10.5H12.5L13.5 2Z" fill="#ffea00" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round"/>
@@ -6514,6 +6527,8 @@
         else if (testParam === 'onboard1') setOnboardingStep(1);
         else if (testParam === 'onboard2') setOnboardingStep(2);
         else if (testParam === 'onboard3') setOnboardingStep(3);
+        else if (testParam === 'phases') openPhaseDashboard();
+        else if (testParam === 'phases4') { openPhaseDashboard(); openPhase1MissionsWindow(); }
         else if (testParam === 'crew') openCrewManifestModal();
       } catch(e) {}
     })();
