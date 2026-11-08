@@ -2238,9 +2238,10 @@
       transform: rotate(270deg);
     }
 
-    /* Step 3 side-anchored layouts (card beside the Power Station badge) */
+    /* Step 3 & 4 side-anchored layouts (card beside targets) */
     .onboarding-guide-container.step-3-power[data-side="right"],
-    .onboarding-guide-container.step-3-power[data-side="left"] {
+    .onboarding-guide-container.step-3-power[data-side="left"],
+    .onboarding-guide-container.step-4-sidebar {
       flex-direction: row;
     }
     .onboarding-guide-container.step-3-power[data-side="right"] .onboarding-arrow-glyph {
@@ -2248,7 +2249,8 @@
       margin-right: 6px !important; margin-left: 0 !important; margin-bottom: 0 !important;
       animation: bounce-arrow-horiz-left 0.85s infinite ease-in-out alternate;
     }
-    .onboarding-guide-container.step-3-power[data-side="left"] .onboarding-arrow-glyph {
+    .onboarding-guide-container.step-3-power[data-side="left"] .onboarding-arrow-glyph,
+    .onboarding-guide-container.step-4-sidebar .onboarding-arrow-glyph {
       order: 2;
       margin-left: 6px !important; margin-right: 0 !important; margin-bottom: 0 !important;
       animation: bounce-arrow-horiz-right 0.85s infinite ease-in-out alternate;
@@ -2349,7 +2351,32 @@
 
     .onboarding-card-footer {
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .onboarding-action-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(250, 204, 21, 0.6);
+      color: #fde047;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 5px 9px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .onboarding-action-btn:hover {
+      background: rgba(250, 204, 21, 0.22);
+      border-color: #facc15;
+      color: #ffffff;
+      transform: translateY(-1px);
     }
 
     .onboarding-proceed-btn {
@@ -4538,7 +4565,7 @@
         </div>
         <div class="onboarding-directive-card">
           <div class="onboarding-card-header">
-            <span class="directive-badge" id="onboardingStepBadge">STEP 1 OF 3</span>
+            <span class="directive-badge" id="onboardingStepBadge">STEP 1 OF 4</span>
             <button type="button" class="directive-skip-btn" onclick="dismissOnboardingGuide()" title="Skip Walkthrough">SKIP ✕</button>
           </div>
           <div class="onboarding-card-body">
@@ -4546,8 +4573,11 @@
             <p class="onboarding-card-text" id="onboardingDesc">Tap <strong>☰ MENU</strong> or <strong>OPEN PHASES</strong> to view outpost construction objectives &amp; milestones.</p>
           </div>
           <div class="onboarding-card-footer">
-            <button type="button" class="onboarding-proceed-btn" id="onboardingProceedBtn" onclick="onboardingProceedAction()">
+            <button type="button" class="onboarding-action-btn" id="onboardingActionBtn" onclick="onboardingActionClick()">
               OPEN PHASES ⚔️
+            </button>
+            <button type="button" class="onboarding-proceed-btn" id="onboardingProceedBtn" onclick="onboardingProceedAction()">
+              NEXT ▶
             </button>
           </div>
         </div>
@@ -5549,10 +5579,10 @@
     </div>
 
     <!-- 12. SCENE 1 RIGHT RESOURCE & EXPLORE SIDEBAR (EXO-VISIONARIES STYLE) -->
-    <aside class="base-resource-sidebar" id="baseResourceSidebar" aria-label="Lunar Mission Explore Resources">
+    <aside class="base-resource-sidebar sidebar-collapsed" id="baseResourceSidebar" aria-label="Lunar Mission Explore Resources">
       <!-- Left Edge Floating Pull-Tab Toggle Button -->
-      <button class="sidebar-pull-tab" id="sidebarPullTab" onclick="toggleResourceSidebar()" title="Toggle Explore Sidebar" aria-label="Toggle Explore Sidebar">
-        <span class="sidebar-tab-icon" id="sidebarTabIcon">▶</span>
+      <button class="sidebar-pull-tab" id="sidebarPullTab" onclick="toggleResourceSidebar()" title="Open Explore Sidebar" aria-label="Open Explore Sidebar" aria-expanded="false">
+        <span class="sidebar-tab-icon" id="sidebarTabIcon">◀</span>
         <span class="sidebar-tab-label">EXPLORE</span>
         <span class="sidebar-tab-dot"></span>
       </button>
@@ -7796,7 +7826,7 @@
       const glyph = document.getElementById('onboardingArrowGlyph');
       const burger = document.getElementById('mobileMenuToggle');
       if (!container || !glyph) return;
-      container.classList.remove('step-3-power');
+      container.classList.remove('step-3-power', 'step-4-sidebar');
       delete container.dataset.side;
       glyph.style.marginTop = '';
       glyph.style.alignSelf = '';
@@ -7825,7 +7855,7 @@
       const glyph = document.getElementById('onboardingArrowGlyph');
       const burger = document.getElementById('mobileMenuToggle');
       if (!container || !glyph) return;
-      container.classList.remove('step-3-power');
+      container.classList.remove('step-3-power', 'step-4-sidebar');
       delete container.dataset.side;
       glyph.style.marginTop = '';
       glyph.style.alignSelf = '';
@@ -7857,6 +7887,7 @@
       const overlay = document.getElementById('onboardingGuideOverlay');
       const target = document.getElementById('badgePower') || document.getElementById('bldPower');
       if (!container || !glyph) return;
+      container.classList.remove('step-4-sidebar');
       container.classList.add('step-3-power');
       glyph.classList.remove('arrow-down');
       glyph.style.marginLeft = '';
@@ -7949,12 +7980,86 @@
       }
     }
 
+    // Step 4: anchor the card to the left of the Explore Sidebar pull-tab
+    function positionForStep4() {
+      const container = document.getElementById('onboardingGuideContainer');
+      const glyph = document.getElementById('onboardingArrowGlyph');
+      const overlay = document.getElementById('onboardingGuideOverlay');
+      const pullTab = document.getElementById('sidebarPullTab');
+      if (!container || !glyph) return;
+
+      container.classList.remove('step-3-power');
+      container.classList.add('step-4-sidebar');
+      container.dataset.side = 'left';
+      setOnboardingArrowDirection('right');
+      glyph.style.marginTop = '';
+      glyph.style.alignSelf = 'center';
+      glyph.style.marginLeft = '6px';
+      container.style.right = 'auto';
+      container.style.bottom = 'auto';
+      container.style.alignItems = 'center';
+
+      if (!overlay || !pullTab) {
+        container.style.top = '40%';
+        container.style.left = 'auto';
+        container.style.right = '60px';
+        return;
+      }
+
+      const isRotated = document.body.classList.contains('force-horizontal') &&
+        window.matchMedia('(orientation: portrait)').matches;
+      const oRaw = overlay.getBoundingClientRect();
+      const getLocalBox = (el) => {
+        const r = el.getBoundingClientRect();
+        if (!isRotated) {
+          return {
+            left: r.left - oRaw.left,
+            top: r.top - oRaw.top,
+            right: r.right - oRaw.left,
+            bottom: r.bottom - oRaw.top,
+            width: r.width,
+            height: r.height
+          };
+        }
+        return {
+          left: r.top - oRaw.top,
+          top: oRaw.right - r.right,
+          right: r.bottom - oRaw.top,
+          bottom: oRaw.right - r.left,
+          width: r.height,
+          height: r.width
+        };
+      };
+
+      const o = { width: isRotated ? oRaw.height : oRaw.width, height: isRotated ? oRaw.width : oRaw.height };
+      const b = getLocalBox(pullTab);
+      const c = getLocalBox(container);
+      const pad = 8;
+      const gap = 8;
+
+      let left = b.left - c.width - gap;
+      let top = (b.top + b.height / 2) - c.height / 2;
+
+      // Keep within bounds
+      left = Math.max(pad, Math.min(left, o.width - c.width - pad));
+      top = Math.max(pad, Math.min(top, o.height - c.height - pad));
+
+      container.style.left = left + 'px';
+      container.style.top = top + 'px';
+    }
+
     window.addEventListener('resize', () => {
-      if (typeof onboardingStep !== 'undefined' && onboardingStep === 3) positionForStep3();
+      if (typeof onboardingStep !== 'undefined') {
+        if (onboardingStep === 3) positionForStep3();
+        else if (onboardingStep === 4) positionForStep4();
+      }
     });
     window.addEventListener('orientationchange', () => {
       setTimeout(() => {
-        if (typeof onboardingStep !== 'undefined' && onboardingStep === 3) positionForStep3();
+        if (typeof onboardingStep !== 'undefined') {
+          if (onboardingStep === 3) positionForStep3();
+          else if (onboardingStep === 4) positionForStep4();
+        }
       }, 250);
     });
 
@@ -7964,10 +8069,12 @@
       const btnPhases = document.getElementById('phaseDashboardToggleBtn');
       const btnCrew = document.getElementById('crewIntroToggleBtn');
       const badgePower = document.getElementById('badgePower');
+      const pullTab = document.getElementById('sidebarPullTab');
       const badge = document.getElementById('onboardingStepBadge');
       const title = document.getElementById('onboardingTitle');
       const desc = document.getElementById('onboardingDesc');
       const proceedBtn = document.getElementById('onboardingProceedBtn');
+      const actionBtn = document.getElementById('onboardingActionBtn');
 
       if (!overlay) return;
 
@@ -7975,6 +8082,7 @@
       if (btnPhases) btnPhases.classList.remove('onboarding-target-pulse');
       if (btnCrew) btnCrew.classList.remove('onboarding-target-pulse');
       if (badgePower) badgePower.classList.remove('onboarding-target-pulse');
+      if (pullTab) pullTab.classList.remove('onboarding-target-pulse');
 
       const burger = document.getElementById('mobileMenuToggle');
       if (burger) burger.classList.remove('onboarding-target-pulse');
@@ -7989,9 +8097,10 @@
           if (btnPhases) btnPhases.classList.add('onboarding-target-pulse');
           if (desc) desc.innerHTML = 'Click <strong>⚔️ PHASES</strong> to view outpost construction objectives &amp; milestones.';
         }
-        if (badge) badge.textContent = 'STEP 1 OF 3';
+        if (badge) badge.textContent = 'STEP 1 OF 4';
         if (title) title.textContent = 'INSPECT MISSION PHASES';
-        if (proceedBtn) proceedBtn.innerHTML = 'OPEN PHASES ⚔️';
+        if (actionBtn) { actionBtn.style.display = 'inline-block'; actionBtn.innerHTML = 'OPEN PHASES ⚔️'; }
+        if (proceedBtn) proceedBtn.innerHTML = 'NEXT ▶';
       } else if (step === 2) {
         overlay.classList.remove('hidden');
         positionForStep2();
@@ -8002,17 +8111,28 @@
           if (btnCrew) btnCrew.classList.add('onboarding-target-pulse');
           if (desc) desc.innerHTML = 'Click <strong>👨‍🚀 MEET THE CREW</strong> to consult Commander Wiseman &amp; specialists.';
         }
-        if (badge) badge.textContent = 'STEP 2 OF 3';
+        if (badge) badge.textContent = 'STEP 2 OF 4';
         if (title) title.textContent = 'MEET EXPEDITION CREW';
-        if (proceedBtn) proceedBtn.innerHTML = 'MEET CREW 👨‍🚀';
+        if (actionBtn) { actionBtn.style.display = 'inline-block'; actionBtn.innerHTML = 'MEET CREW 👨‍🚀'; }
+        if (proceedBtn) proceedBtn.innerHTML = 'NEXT ▶';
       } else if (step === 3) {
         overlay.classList.remove('hidden');
         positionForStep3();
         if (badgePower) badgePower.classList.add('onboarding-target-pulse');
-        if (badge) badge.textContent = 'STEP 3 OF 3';
-        if (title) title.textContent = 'COMMENCE EXPEDITION // LEAVE BASE';
+        if (badge) badge.textContent = 'STEP 3 OF 4';
+        if (title) title.textContent = 'COMMENCE EXPEDITION // MISSION 1';
         if (desc) desc.innerHTML = 'Click the <strong>⚡ POWER STATION</strong> on the base to deploy for Mission 1.1!';
-        if (proceedBtn) proceedBtn.innerHTML = 'POWER STATION ⚡';
+        if (actionBtn) { actionBtn.style.display = 'inline-block'; actionBtn.innerHTML = 'POWER STATION ⚡'; }
+        if (proceedBtn) proceedBtn.innerHTML = 'NEXT ▶';
+      } else if (step === 4) {
+        overlay.classList.remove('hidden');
+        positionForStep4();
+        if (pullTab) pullTab.classList.add('onboarding-target-pulse');
+        if (badge) badge.textContent = 'STEP 4 OF 4';
+        if (title) title.textContent = 'NASA RESEARCH & INTEL';
+        if (desc) desc.innerHTML = 'Click the <strong>EXPLORE TAB</strong> on the right to open NASA mission data, papers &amp; research!';
+        if (actionBtn) { actionBtn.style.display = 'inline-block'; actionBtn.innerHTML = 'OPEN SIDEBAR 📖'; }
+        if (proceedBtn) proceedBtn.innerHTML = 'FINISH ✓';
       } else {
         dismissOnboardingGuide();
       }
@@ -8021,11 +8141,27 @@
     function onboardingProceedAction() {
       if (sound && sound.clickSound) sound.clickSound();
       if (onboardingStep === 1) {
+        setOnboardingStep(2);
+      } else if (onboardingStep === 2) {
+        setOnboardingStep(3);
+      } else if (onboardingStep === 3) {
+        setOnboardingStep(4);
+      } else if (onboardingStep === 4) {
+        dismissOnboardingGuide();
+      }
+    }
+
+    function onboardingActionClick() {
+      if (sound && sound.clickSound) sound.clickSound();
+      if (onboardingStep === 1) {
         openPhaseDashboard();
       } else if (onboardingStep === 2) {
         openCrewManifestModal();
       } else if (onboardingStep === 3) {
         zoomBuilding('bldPower', 'badgePower');
+        dismissOnboardingGuide();
+      } else if (onboardingStep === 4) {
+        toggleResourceSidebar(true);
         dismissOnboardingGuide();
       }
     }
@@ -8048,13 +8184,19 @@
       const btnPhases = document.getElementById('phaseDashboardToggleBtn');
       const btnCrew = document.getElementById('crewIntroToggleBtn');
       const badgePower = document.getElementById('badgePower');
+      const pullTab = document.getElementById('sidebarPullTab');
+      const container = document.getElementById('onboardingGuideContainer');
 
       const burger = document.getElementById('mobileMenuToggle');
       if (overlay) overlay.classList.add('hidden');
       if (btnPhases) btnPhases.classList.remove('onboarding-target-pulse');
       if (btnCrew) btnCrew.classList.remove('onboarding-target-pulse');
       if (badgePower) badgePower.classList.remove('onboarding-target-pulse');
+      if (pullTab) pullTab.classList.remove('onboarding-target-pulse');
       if (burger) burger.classList.remove('onboarding-target-pulse');
+      if (container) {
+        container.classList.remove('step-3-power', 'step-4-sidebar');
+      }
 
       try { sessionStorage.setItem('moonfall_onboarded', 'true'); } catch(e) {}
     }
@@ -8194,6 +8336,10 @@
         pullTab.setAttribute('title', isCollapsed ? 'Open Explore Sidebar' : 'Hide Sidebar');
         pullTab.setAttribute('aria-expanded', !isCollapsed);
       }
+
+      if (!isCollapsed && typeof onboardingStep !== 'undefined' && onboardingStep === 4) {
+        dismissOnboardingGuide();
+      }
     }
 
     function exploreMainPageAction() {
@@ -8239,6 +8385,7 @@
         else if (testParam === 'onboard1') setOnboardingStep(1);
         else if (testParam === 'onboard2') setOnboardingStep(2);
         else if (testParam === 'onboard3') setOnboardingStep(3);
+        else if (testParam === 'onboard4') setOnboardingStep(4);
         else if (testParam === 'phases') openPhaseDashboard();
         else if (testParam === 'phases4') { openPhaseDashboard(); openPhase1MissionsWindow(); }
         else if (testParam === 'crew') openCrewManifestModal();

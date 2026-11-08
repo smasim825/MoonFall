@@ -155,7 +155,7 @@
    so story text, SKIP and the mission panel stay visible. Sizes follow the stage, so force-horizontal rotation works. */
 .ab-root.ab-in-stage {
   position: absolute; inset: 0; right: auto; bottom: auto; width: 100%; height: 100%;
-  z-index: 220; pointer-events: none;
+  z-index: 9999; pointer-events: none;
   container-type: size; container-name: ab-stage;
 }
 .ab-in-stage .ab-launch, .ab-in-stage .ab-panel { pointer-events: auto; }
@@ -211,7 +211,7 @@
   top: 12px; right: 14px; bottom: auto;
   width: clamp(300px, 30vw, 420px);
   height: min(560px, calc(72% - 12px)); /* highest dialogue edge (SKIP button) measured at 72.3% of the stage */
-  z-index: 250;
+  z-index: 10000;
 }
 /* phones in landscape: the stage is short, so use the right half at full height */
 @container ab-stage (max-height: 480px) {
