@@ -3848,25 +3848,44 @@
     .sidebar-nav-links {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 2px 0;
+    }
+    .sidebar-nav-links::-webkit-scrollbar {
+      display: none;
     }
 
     .sidebar-nav-tab {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-size: 0.85rem;
-      font-weight: 500;
+      font-size: 0.78rem;
+      font-weight: 600;
       color: #94a3b8;
-      background: transparent;
-      border: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
       cursor: pointer;
-      padding: 4px 2px;
-      transition: color 0.15s ease;
+      padding: 4px 10px;
+      transition: all 0.18s ease;
       text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
-    .sidebar-nav-tab:hover,
-    .sidebar-nav-tab.active {
+    .sidebar-nav-tab:hover {
       color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .sidebar-nav-tab.active {
+      color: #000000;
+      background: #00e5ff;
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+      font-weight: 700;
     }
 
     .sidebar-start-journey-btn {
@@ -4367,7 +4386,7 @@
       font-size: 0.72rem;
     }
 
-    /* Facility Themed Cards matching the 4 base sections */
+    /* Facility Themed Cards matching the 5 base sections */
     .sidebar-card.card-power {
       border-color: rgba(250, 204, 21, 0.35);
     }
@@ -4379,6 +4398,19 @@
       background: rgba(250, 204, 21, 0.15);
       border-color: #facc15;
       color: #fde047;
+    }
+
+    .sidebar-card.card-meal {
+      border-color: rgba(251, 146, 60, 0.35);
+    }
+    .sidebar-card.card-meal:hover {
+      border-color: rgba(251, 146, 60, 0.85);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(251, 146, 60, 0.35);
+    }
+    .sidebar-card.card-meal .card-badge {
+      background: rgba(251, 146, 60, 0.15);
+      border-color: #fb923c;
+      color: #fdba74;
     }
 
     .sidebar-card.card-plant {
@@ -4405,6 +4437,71 @@
       background: rgba(56, 189, 248, 0.15);
       border-color: #38bdf8;
       color: #7dd3fc;
+    }
+
+    .sidebar-card.card-shelter {
+      border-color: rgba(192, 132, 252, 0.35);
+    }
+    .sidebar-card.card-shelter:hover {
+      border-color: rgba(192, 132, 252, 0.75);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(192, 132, 252, 0.25);
+    }
+    .sidebar-card.card-shelter .card-badge {
+      background: rgba(192, 132, 252, 0.15);
+      border-color: #c084fc;
+      color: #d8b4fe;
+    }
+
+    /* Section Category Banners */
+    .sidebar-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 14px;
+      margin: 16px 0 10px 0;
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(2, 132, 199, 0.22) 0%, rgba(15, 23, 42, 0.7) 100%);
+      border-left: 4px solid #00e5ff;
+      color: #ffffff;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+      scroll-margin-top: 10px;
+    }
+
+    .sidebar-section-header.sec-power {
+      border-left-color: #facc15;
+      background: linear-gradient(90deg, rgba(234, 179, 8, 0.22) 0%, rgba(15, 23, 42, 0.7) 100%);
+    }
+    .sidebar-section-header.sec-meal {
+      border-left-color: #fb923c;
+      background: linear-gradient(90deg, rgba(251, 146, 60, 0.22) 0%, rgba(15, 23, 42, 0.7) 100%);
+    }
+    .sidebar-section-header.sec-hydro {
+      border-left-color: #4ade80;
+      background: linear-gradient(90deg, rgba(74, 222, 128, 0.22) 0%, rgba(15, 23, 42, 0.7) 100%);
+    }
+    .sidebar-section-header.sec-water {
+      border-left-color: #38bdf8;
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.22) 0%, rgba(15, 23, 42, 0.7) 100%);
+    }
+    .sidebar-section-header.sec-rad {
+      border-left-color: #c084fc;
+      background: linear-gradient(90deg, rgba(192, 132, 252, 0.22) 0%, rgba(15, 23, 42, 0.7) 100%);
+    }
+
+    .section-header-tag {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 2px 7px;
+      border-radius: 4px;
     }
 
     .sidebar-card.card-shelter {
@@ -5587,12 +5684,15 @@
         <span class="sidebar-tab-dot"></span>
       </button>
 
-      <!-- Sidebar Top Navigation Tabs (matching reference UI) -->
+      <!-- Sidebar Top Navigation Tabs -->
       <div class="sidebar-top-nav">
         <div class="sidebar-nav-links">
-          <button class="sidebar-nav-tab active" type="button" onclick="exploreMainPageAction()">Data</button>
-          <button class="sidebar-nav-tab" type="button" onclick="openPhaseDashboard()">Quiz</button>
-          <button class="sidebar-nav-tab" type="button" onclick="openPhaseDashboard()">Aurora Lab</button>
+          <button class="sidebar-nav-tab active" type="button" onclick="filterSidebarSection('all', this)">All</button>
+          <button class="sidebar-nav-tab" type="button" onclick="filterSidebarSection('power', this)">Power</button>
+          <button class="sidebar-nav-tab" type="button" onclick="filterSidebarSection('dailymeal', this)">Daily Meal</button>
+          <button class="sidebar-nav-tab" type="button" onclick="filterSidebarSection('hydroponics', this)">Hydroponics</button>
+          <button class="sidebar-nav-tab" type="button" onclick="filterSidebarSection('wateroxygen', this)">Water &amp; Oxygen</button>
+          <button class="sidebar-nav-tab" type="button" onclick="filterSidebarSection('radiation', this)">Radiation</button>
         </div>
         <button class="sidebar-start-journey-btn" type="button" onclick="launchGame()">Start Journey</button>
       </div>
@@ -5617,7 +5717,13 @@
       <!-- Scrollable Resource Cards Feed with YouTube Videos and NASA Resources -->
       <div class="sidebar-feed" id="sidebarFeed">
 
-        <!-- SECTION 1: POWER STATION (VIDEO CARD) -->
+        <!-- SECTION 1: POWER -->
+        <div class="sidebar-section-header sec-power" id="sec_power">
+          <span>⚡ Power Station &amp; Lunar Energy</span>
+          <span class="section-header-tag">MISSION 1</span>
+        </div>
+
+        <!-- POWER: VIDEO CARD -->
         <article class="sidebar-card card-power">
           <div class="card-title-row">
             <h4 class="card-title">⚡ Power Station</h4>
@@ -5648,7 +5754,7 @@
           </div>
         </article>
 
-        <!-- POWER STATION RESOURCE CARD 1: NASA SPACE PLACE -->
+        <!-- POWER: WHAT POWERS A SPACECRAFT -->
         <article class="sidebar-card card-power">
           <div class="card-title-row">
             <h4 class="card-title">🚀 What Powers a Spacecraft?</h4>
@@ -5678,7 +5784,7 @@
           </div>
         </article>
 
-        <!-- POWER STATION RESOURCE CARD 2: NASA NTRS TECHNICAL REPORT (PDF) -->
+        <!-- POWER: NTRS TECHNICAL REPORT (PDF) -->
         <article class="sidebar-card card-power">
           <div class="card-title-row">
             <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Power &amp; Energy for Lunar Surface</h4>
@@ -5708,10 +5814,112 @@
           </div>
         </article>
 
-        <!-- SECTION 2: PLANT GROWTH LAB -->
+        <!-- SECTION 2: DAILY MEAL -->
+        <div class="sidebar-section-header sec-meal" id="sec_dailymeal">
+          <span>🍱 Daily Meal &amp; Astronaut Nutrition</span>
+          <span class="section-header-tag">MISSION 2.1</span>
+        </div>
+
+        <!-- DAILY MEAL: SPACE FOOD SYSTEMS -->
+        <article class="sidebar-card card-meal">
+          <div class="card-title-row">
+            <h4 class="card-title">🍱 Space Food Systems &amp; Daily Meals</h4>
+            <span class="card-badge">FOOD SYSTEMS</span>
+          </div>
+          <a class="card-banner-wrap" href="https://www.nasa.gov/humans-in-space/space-food-systems/" target="_blank" rel="noopener noreferrer" title="Explore NASA Space Food Systems">
+            <img class="card-banner-img" src="assets/meal/Group 1.webp" alt="Astronaut Daily Meals and Rations" loading="lazy">
+            <span class="card-banner-tag">NASA JSC // FOOD LAB</span>
+            <span class="card-banner-badge-rt">EXPLORE ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.nasa.gov/humans-in-space/space-food-systems/" target="_blank" rel="noopener noreferrer">NASA Space Food Systems Laboratory</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Planning daily astronaut rations with rehydratable pouches, thermostabilized foods, and macronutrient targets while carefully rationing water volume and electrical heating power.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.nasa.gov/humans-in-space/space-food-systems/" target="_blank" rel="noopener noreferrer">
+              <span>Explore NASA Space Food Systems</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
+              <span>🔍 View Daily Meal on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- DAILY MEAL: GRAVITY ASSIST PODCAST -->
+        <article class="sidebar-card card-meal">
+          <div class="card-title-row">
+            <h4 class="card-title">🎙️ Gravity Assist: Food on the Moon</h4>
+            <span class="card-badge">NASA PODCAST</span>
+          </div>
+          <a class="card-banner-wrap" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer" title="Listen to NASA Gravity Assist Podcast: How to Grow Food on the Moon">
+            <img class="card-banner-img" src="assets/hydroponics/gravity_assist_food_moon.jpg" alt="NASA Gravity Assist Food on the Moon Seedling Sample" loading="lazy">
+            <span class="card-banner-tag">NASA PODCAST // LUNAR CROPS</span>
+            <span class="card-banner-badge-rt">LISTEN ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer">NASA Podcasts</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            NASA Chief Scientist Dr. Jim Green discusses the science of lunar farming, nutrient chemistry, and growing fresh produce for long-duration Artemis missions.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer">
+              <span>Listen to Gravity Assist Podcast (NASA)</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
+              <span>🔍 View Daily Meal on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- DAILY MEAL: NASA FOOD & NUTRITION BRIEF -->
+        <article class="sidebar-card card-meal">
+          <div class="card-title-row">
+            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> NASA Food &amp; Nutrition Brief</h4>
+            <span class="card-badge">NASA OCHMO</span>
+          </div>
+          <a class="card-banner-wrap" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer" title="Download NASA Food and Nutrition Technical Brief">
+            <img class="card-banner-img" src="assets/hydroponics/Food_Plant.webp" alt="NASA Food and Nutrition Technical Brief" loading="lazy">
+            <span class="card-banner-tag">NASA OCHMO // NUTRITION BRIEF</span>
+            <span class="card-banner-badge-rt"><img src="assets/nasa_logo.svg" alt="NASA" style="width:12px; height:12px; vertical-align:middle; margin-right:3px; border-radius:50%;">PDF ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">NASA OCHMO</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            NASA Office of the Chief Health and Medical Officer technical guidance on spaceflight dietary stability, nutrient shelf-life, and hydroponic bio-regenerative counter-measures.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">
+              <span>Download NASA Food &amp; Nutrition Technical Brief (PDF)</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
+              <span>🔍 View Daily Meal on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- SECTION 3: HYDROPONICS -->
+        <div class="sidebar-section-header sec-hydro" id="sec_hydroponics">
+          <span>🌱 Plant Growth &amp; Hydroponics Lab</span>
+          <span class="section-header-tag">MISSION 2.2</span>
+        </div>
+
+        <!-- HYDROPONICS: SPACE CROP VIDEO -->
         <article class="sidebar-card card-plant">
           <div class="card-title-row">
-            <h4 class="card-title">🌱 Plant Growth Lab</h4>
+            <h4 class="card-title">🌱 Plant Growth &amp; Space Agriculture</h4>
             <span class="card-badge">HYDROPONICS</span>
           </div>
           <div class="card-video-wrap">
@@ -5739,7 +5947,7 @@
           </div>
         </article>
 
-        <!-- PLANT GROWTH LAB RESOURCE CARD 1: SCIENTISTS GROW PLANTS IN LUNAR SOIL -->
+        <!-- HYDROPONICS: SCIENTISTS GROW PLANTS IN LUNAR SOIL -->
         <article class="sidebar-card card-plant">
           <div class="card-title-row">
             <h4 class="card-title">🌱 Scientists Grow Plants in Lunar Soil</h4>
@@ -5769,27 +5977,27 @@
           </div>
         </article>
 
-        <!-- PLANT GROWTH LAB RESOURCE CARD 2: GRAVITY ASSIST PODCAST -->
+        <!-- HYDROPONICS: PLANT HEALTH & SPACE BIOLOGY -->
         <article class="sidebar-card card-plant">
           <div class="card-title-row">
-            <h4 class="card-title">🎙️ Gravity Assist: Food on the Moon</h4>
-            <span class="card-badge">NASA PODCAST</span>
+            <h4 class="card-title">🔬 Lunar Plant Health &amp; Diagnostics</h4>
+            <span class="card-badge">SPACE BIOLOGY</span>
           </div>
-          <a class="card-banner-wrap" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer" title="Listen to NASA Gravity Assist Podcast: How to Grow Food on the Moon">
-            <img class="card-banner-img" src="assets/hydroponics/gravity_assist_food_moon.jpg" alt="NASA Gravity Assist Food on the Moon Seedling Sample" loading="lazy">
-            <span class="card-banner-tag">NASA PODCAST // LUNAR CROPS</span>
-            <span class="card-banner-badge-rt">LISTEN ↗</span>
+          <a class="card-banner-wrap" href="https://science.nasa.gov/biological-physical/space-biology/" target="_blank" rel="noopener noreferrer" title="Explore NASA Space Biology Research">
+            <img class="card-banner-img" src="assets/hydroponics/Astronaut Tending Hydroponic Garden.webp" alt="Astronaut Tending Space Garden" loading="lazy">
+            <span class="card-banner-tag">NASA SCIENCE // SPACE BIOLOGY</span>
+            <span class="card-banner-badge-rt">EXPLORE ↗</span>
           </a>
           <div class="card-source-row">
-            <span>Source: <a class="card-source-link" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer">NASA Podcasts</a></span>
+            <span>Source: <a class="card-source-link" href="https://science.nasa.gov/biological-physical/space-biology/" target="_blank" rel="noopener noreferrer">NASA Biological &amp; Physical Sciences</a></span>
             <span class="card-source-dots">● ● ●</span>
           </div>
           <p class="card-desc">
-            NASA Chief Scientist Dr. Jim Green discusses the science of lunar farming, nutrient chemistry, and growing fresh produce for long-duration Artemis missions.
+            Investigating microbiological plant health, hydroponic root zone aeration, and automated pathogen diagnostics inside closed lunar greenhouses.
           </p>
           <div class="card-links-col">
-            <a class="card-text-link" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer">
-              <span>Listen to Gravity Assist Podcast (NASA)</span>
+            <a class="card-text-link" href="https://science.nasa.gov/biological-physical/space-biology/" target="_blank" rel="noopener noreferrer">
+              <span>Explore NASA Space Biology Program</span>
             </a>
           </div>
           <div style="margin-top: 6px;">
@@ -5799,49 +6007,16 @@
           </div>
         </article>
 
-        <!-- PLANT GROWTH LAB RESOURCE CARD 3: NASA FOOD & NUTRITION BRIEF -->
-        <article class="sidebar-card card-plant">
-          <div class="card-title-row">
-            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> NASA Food &amp; Nutrition Brief</h4>
-            <span class="card-badge">NASA OCHMO</span>
-          </div>
-          <a class="card-banner-wrap" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer" title="Download NASA Food and Nutrition Technical Brief">
-            <img class="card-banner-img" src="assets/hydroponics/Food_Plant.webp" alt="NASA Food and Nutrition Technical Brief" loading="lazy">
-            <span class="card-banner-tag">NASA OCHMO // NUTRITION BRIEF</span>
-            <span class="card-banner-badge-rt"><img src="assets/nasa_logo.svg" alt="NASA" style="width:12px; height:12px; vertical-align:middle; margin-right:3px; border-radius:50%;">PDF ↗</span>
-          </a>
-          <div class="card-source-row">
-            <span>Source: <a class="card-source-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">NASA OCHMO</a></span>
-            <span class="card-source-dots">● ● ●</span>
-          </div>
-          <p class="card-desc">
-            NASA Office of the Chief Health and Medical Officer technical guidance on spaceflight dietary stability, nutrient shelf-life, and hydroponic bio-regenerative counter-measures.
-          </p>
-          <div class="card-links-col">
-            <a class="card-text-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">
-              <span>Download NASA Food &amp; Nutrition Technical Brief (PDF)</span>
-            </a>
-          </div>
-          <div style="margin-top: 6px;">
-            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
-              <span>🔍 View Plant Growth Lab on Map</span>
-            </button>
-          </div>
-        </article>
-
-        <!-- SECTION 3: ISRU PROCESSING FACILITY - NASA REFERENCES ARCHIVE -->
-        <div class="sidebar-section-header" style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: rgba(56, 189, 248, 0.12); border: 1.5px solid rgba(56, 189, 248, 0.45); border-radius: 12px; margin-top: 6px; margin-bottom: 2px;">
-          <span style="font-size: 1.35rem;">💧</span>
-          <div>
-            <div style="font-family: 'Jersey 10', 'Pixel Operator', monospace; font-size: 1.25rem; color: #38bdf8; letter-spacing: 0.04em; line-height: 1.1;">ISRU FACILITY // NASA REFERENCES</div>
-            <div style="font-size: 0.76rem; color: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">17 Official NASA Technical Sources for Lunar Water &amp; O₂</div>
-          </div>
+        <!-- SECTION 4: WATER & OXYGEN -->
+        <div class="sidebar-section-header sec-water" id="sec_wateroxygen">
+          <span>💧 Water &amp; Oxygen In-Situ Extraction</span>
+          <span class="section-header-tag">MISSIONS 3 &amp; 4</span>
         </div>
 
-        <!-- [1] NASA's LRO: Lunar Ice Deposits are Widespread -->
+        <!-- NASA's LRO: Lunar Ice Deposits are Widespread -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">💧 [1] Lunar Ice Deposits are Widespread</h4>
+            <h4 class="card-title">💧 Lunar Ice Deposits are Widespread</h4>
             <span class="card-badge">NASA SCIENCE</span>
           </div>
           <a class="card-banner-wrap" href="https://science.nasa.gov/solar-system/moon/nasas-lro-lunar-ice-deposits-are-widespread/" target="_blank" rel="noopener noreferrer" title="Read on NASA Science: Lunar Ice Deposits are Widespread">
@@ -5868,10 +6043,10 @@
           </div>
         </article>
 
-        <!-- [2] Water on the Moon, NASA Goddard (video) -->
+        <!-- Water on the Moon, NASA Goddard (video) -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">🎥 [2] Water on the Moon</h4>
+            <h4 class="card-title">🎥 Water on the Moon</h4>
             <span class="card-badge">NASA GODDARD SVS</span>
           </div>
           <div class="card-source-row">
@@ -5893,10 +6068,10 @@
           </div>
         </article>
 
-        <!-- [3] The Moon's South Pole & Permanent Shadows, NASA Goddard SVS -->
+        <!-- The Moon's South Pole & Permanent Shadows, NASA Goddard SVS -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">🎥 [3] South Pole &amp; Permanent Shadows</h4>
+            <h4 class="card-title">🎥 South Pole &amp; Permanent Shadows</h4>
             <span class="card-badge">NASA SVS GALLERY</span>
           </div>
           <div class="card-source-row">
@@ -5918,10 +6093,10 @@
           </div>
         </article>
 
-        <!-- [4] Is There Water on the Moon? We Asked a NASA Scientist (Episode 27) -->
+        <!-- Is There Water on the Moon? We Asked a NASA Scientist (Episode 27) -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">🎥 [4] Is There Water on the Moon?</h4>
+            <h4 class="card-title">🎥 Is There Water on the Moon?</h4>
             <span class="card-badge">NASA VIDEO // EP. 27</span>
           </div>
           <div class="card-source-row">
@@ -5943,10 +6118,10 @@
           </div>
         </article>
 
-        <!-- [5] Apollo to Artemis: Drilling on the Moon, NASA -->
+        <!-- Apollo to Artemis: Drilling on the Moon, NASA -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">💧 [5] Apollo to Artemis: Drilling on the Moon</h4>
+            <h4 class="card-title">💧 Apollo to Artemis: Drilling on the Moon</h4>
             <span class="card-badge">NASA KSC</span>
           </div>
           <div class="card-source-row">
@@ -5968,10 +6143,10 @@
           </div>
         </article>
 
-        <!-- [6] PRIME-1 Science & Technology (TRIDENT and MSolo), NASA Science -->
+        <!-- PRIME-1 Science & Technology (TRIDENT and MSolo), NASA Science -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">💧 [6] PRIME-1: TRIDENT Drill &amp; MSolo</h4>
+            <h4 class="card-title">💧 PRIME-1: TRIDENT Drill &amp; MSolo</h4>
             <span class="card-badge">NASA CLPS</span>
           </div>
           <a class="card-banner-wrap" href="https://science.nasa.gov/lunar-science/clps-deliveries/prime-1aiintuitive-machines/" target="_blank" rel="noopener noreferrer" title="Explore NASA PRIME-1 Science & Technology">
@@ -5998,10 +6173,10 @@
           </div>
         </article>
 
-        <!-- [7] NASA's Lunar Drill Technology Passes Tests on the Moon, NASA -->
+        <!-- NASA's Lunar Drill Technology Passes Tests on the Moon, NASA -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">💧 [7] NASA Lunar Drill Passes Tests</h4>
+            <h4 class="card-title">💧 NASA Lunar Drill Passes Tests on Moon</h4>
             <span class="card-badge">NASA ARTEMIS</span>
           </div>
           <div class="card-source-row">
@@ -6023,10 +6198,10 @@
           </div>
         </article>
 
-        <!-- [8] 🎥 PRIME-1 video, NASA -->
+        <!-- PRIME-1 video, NASA -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">🎥 [8] PRIME-1 Mission Video</h4>
+            <h4 class="card-title">🎥 PRIME-1 Mission Video</h4>
             <span class="card-badge">NASA VIDEO</span>
           </div>
           <div class="card-source-row">
@@ -6048,10 +6223,10 @@
           </div>
         </article>
 
-        <!-- [9] Overview: In-Situ Resource Utilization, NASA -->
+        <!-- Overview: In-Situ Resource Utilization, NASA -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">💧 [9] Overview: In-Situ Resource Utilization</h4>
+            <h4 class="card-title">💧 Overview: In-Situ Resource Utilization</h4>
             <span class="card-badge">NASA STMD</span>
           </div>
           <a class="card-banner-wrap" href="https://www.nasa.gov/overview-in-situ-resource-utilization/" target="_blank" rel="noopener noreferrer" title="Read NASA Overview: In-Situ Resource Utilization">
@@ -6078,10 +6253,10 @@
           </div>
         </article>
 
-        <!-- [10] NASA Glenn Excavation Laboratory -->
+        <!-- NASA Glenn Excavation Laboratory -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">💧 [10] Glenn Excavation Laboratory</h4>
+            <h4 class="card-title">💧 Glenn Excavation Laboratory</h4>
             <span class="card-badge">NASA GLENN</span>
           </div>
           <div class="card-source-row">
@@ -6103,10 +6278,10 @@
           </div>
         </article>
 
-        <!-- [11] Integration of ISRU Into Lunar/Mars Exploration Through Field Analogs (PDF) -->
+        <!-- Integration of ISRU Into Lunar/Mars Exploration Through Field Analogs (PDF) -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> [11] Integration of ISRU Field Analogs</h4>
+            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Integration of ISRU Field Analogs</h4>
             <span class="card-badge">NASA PDF</span>
           </div>
           <div class="card-source-row">
@@ -6128,10 +6303,10 @@
           </div>
         </article>
 
-        <!-- [12] Low Pressure Frost Formation for Lunar Polar Water Capture -->
+        <!-- Low Pressure Frost Formation for Lunar Polar Water Capture -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> [12] Low Pressure Frost Formation Study</h4>
+            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Low Pressure Frost Formation Study</h4>
             <span class="card-badge">NASA NTRS</span>
           </div>
           <div class="card-source-row">
@@ -6153,10 +6328,10 @@
           </div>
         </article>
 
-        <!-- [13] Microwave Extraction of Water from Lunar Regolith Simulant (PDF) -->
+        <!-- Microwave Extraction of Water from Lunar Regolith Simulant (PDF) -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> [13] Microwave Water Extraction Study</h4>
+            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Microwave Water Extraction Study</h4>
             <span class="card-badge">NASA PDF</span>
           </div>
           <div class="card-source-row">
@@ -6178,10 +6353,10 @@
           </div>
         </article>
 
-        <!-- [14] 🎥 How Will We Extract Water on the Moon? We Asked a NASA Technologist (Episode 47) -->
+        <!-- How Will We Extract Water on the Moon? We Asked a NASA Technologist (Episode 47) -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">🎥 [14] How Will We Extract Water?</h4>
+            <h4 class="card-title">🎥 How Will We Extract Water on Moon?</h4>
             <span class="card-badge">NASA VIDEO // EP. 47</span>
           </div>
           <div class="card-source-row">
@@ -6203,10 +6378,10 @@
           </div>
         </article>
 
-        <!-- [15] Environmental Control and Life Support Systems (ECLSS), NASA -->
+        <!-- Environmental Control and Life Support Systems (ECLSS), NASA -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title">💧 [15] ECLSS Life Support Systems</h4>
+            <h4 class="card-title">💧 ECLSS Life Support Systems</h4>
             <span class="card-badge">NASA ECLSS</span>
           </div>
           <a class="card-banner-wrap" href="https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss" target="_blank" rel="noopener noreferrer" title="Read NASA ECLSS Overview">
@@ -6233,10 +6408,10 @@
           </div>
         </article>
 
-        <!-- [16] Electrochemical Solutions for Advanced Life Support (ISS OGA electrolysis) -->
+        <!-- Electrochemical Solutions for Advanced Life Support (ISS OGA electrolysis) -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> [16] Electrochemical Solutions (OGA)</h4>
+            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Electrochemical Solutions (OGA)</h4>
             <span class="card-badge">NASA NTRS</span>
           </div>
           <div class="card-source-row">
@@ -6258,10 +6433,10 @@
           </div>
         </article>
 
-        <!-- [17] ISS Environmental Control and Life Support System fact sheet (PDF) -->
+        <!-- ISS Environmental Control and Life Support System fact sheet (PDF) -->
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
-            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> [17] ISS ECLSS Fact Sheet</h4>
+            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> ISS ECLSS Fact Sheet</h4>
             <span class="card-badge">NASA PDF</span>
           </div>
           <div class="card-source-row">
@@ -6279,6 +6454,104 @@
           <div style="margin-top: 6px;">
             <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldIsru', 'badgeIsru');" title="Zoom to ISRU Facility">
               <span>🔍 View ISRU Facility on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- SECTION 5: RADIATION -->
+        <div class="sidebar-section-header sec-rad" id="sec_radiation">
+          <span>🛡️ Radiation Shielding &amp; Space Weather</span>
+          <span class="section-header-tag">MISSION 5</span>
+        </div>
+
+        <!-- RADIATION: SPACE RADIATION SHIELDING -->
+        <article class="sidebar-card card-shelter">
+          <div class="card-title-row">
+            <h4 class="card-title">🛡️ Space Radiation Shielding</h4>
+            <span class="card-badge">DEFENSE // VIDEO</span>
+          </div>
+          <div class="card-video-wrap">
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer" title="Watch NASA Space Radiation Shielding on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/vpNa4u997xA/hqdefault.jpg" alt="NASA Space Radiation Shielding Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
+          </div>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Engineered subterranean habitats with sintered regolith berms and dual-layer water walls designed to shield expedition crews from Solar Particle Events (SPE) and cosmic rays.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer">
+              <span>Watch Space Radiation Shielding on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
+              <span>🔍 View Radiation Shelter on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- RADIATION: LUNAR RADIATION DEFENSE -->
+        <article class="sidebar-card card-shelter">
+          <div class="card-title-row">
+            <h4 class="card-title">🛡️ Lunar Radiation Defense</h4>
+            <span class="card-badge">RESEARCH // VIDEO</span>
+          </div>
+          <div class="card-video-wrap">
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer" title="Watch Lunar Radiation Defense on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/mn60n3jdI_8/hqdefault.jpg" alt="Lunar Radiation Defense Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
+          </div>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Analyzing deep space ionizing radiation, galactic cosmic rays, and passive shielding materials essential for long-duration astronaut survival on the Moon.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer">
+              <span>Watch Lunar Radiation Defense on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
+              <span>🔍 View Radiation Shelter on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- RADIATION: NASA SPACE WEATHER -->
+        <article class="sidebar-card card-shelter">
+          <div class="card-title-row">
+            <h4 class="card-title">☀️ NASA Space Weather Research</h4>
+            <span class="card-badge">HELIOPHYSICS</span>
+          </div>
+          <a class="card-banner-wrap" href="https://science.nasa.gov/heliophysics/focus-areas/space-weather/" target="_blank" rel="noopener noreferrer" title="Explore NASA Space Weather Focus Area">
+            <img class="card-banner-img" src="assets/space_weather_solar_flare.jpg" alt="NASA Space Weather Solar Flare and CME Eruption" loading="lazy">
+            <span class="card-banner-tag">NASA SCIENCE // HELIOPHYSICS</span>
+            <span class="card-banner-badge-rt">EXPLORE ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://science.nasa.gov/heliophysics/focus-areas/space-weather/" target="_blank" rel="noopener noreferrer">NASA Heliophysics</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Conditions in space caused by the Sun's activity, solar flares, and coronal mass ejections that affect lunar surface systems, communications, and astronaut safety.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://science.nasa.gov/heliophysics/focus-areas/space-weather/" target="_blank" rel="noopener noreferrer">
+              <span>Explore NASA Space Weather Focus Area</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
+              <span>🔍 View Radiation Shelter on Map</span>
             </button>
           </div>
         </article>
@@ -8376,6 +8649,27 @@
       }
     }
 
+    function filterSidebarSection(sectionKey, btn) {
+      if (typeof sound !== 'undefined' && sound && sound.clickSound) {
+        sound.clickSound();
+      }
+      document.querySelectorAll('.sidebar-nav-tab').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const feed = document.getElementById('sidebarFeed');
+      if (!feed) return;
+
+      if (sectionKey === 'all') {
+        feed.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const targetEl = document.getElementById('sec_' + sectionKey);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
     // URL parameter testing helper (for automated CI/CD and verification)
     (function checkTestParams() {
       try {
@@ -8391,6 +8685,8 @@
         else if (testParam === 'crew') openCrewManifestModal();
         else if (testParam === 'sidebar_hide') toggleResourceSidebar(false);
         else if (testParam === 'sidebar_show') toggleResourceSidebar(true);
+        else if (testParam === 'sec_meal') { toggleResourceSidebar(true); setTimeout(() => filterSidebarSection('dailymeal'), 150); }
+        else if (testParam === 'sec_water') { toggleResourceSidebar(true); setTimeout(() => filterSidebarSection('wateroxygen'), 150); }
       } catch(e) {}
     })();
   </script>
