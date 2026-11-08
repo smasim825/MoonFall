@@ -5742,7 +5742,11 @@
       if (gateNameEl) gateNameEl.textContent = `${gate.label} CRITICAL BREACH`;
       if (statLabelEl) statLabelEl.textContent = gate.label;
       if (statValueEl) statValueEl.textContent = (gate.key === 'LSI') ? `${val.toFixed(1)}%` : `${val}%`;
-      if (thresholdBadgeEl) thresholdBadgeEl.textContent = `SAFETY GATE: ≥ ${gate.min}% MINIMUM`;
+      if (thresholdBadgeEl) {
+        thresholdBadgeEl.textContent = (gate.key === 'Power')
+          ? `SAFETY GATE: > 0% (TOTAL BLACKOUT PREVENTED)`
+          : `SAFETY GATE: ≥ ${gate.min}% MINIMUM`;
+      }
       if (critMsgEl) critMsgEl.textContent = gate.critMsg(val);
       if (flightRuleEl) flightRuleEl.textContent = gate.flightRule;
 
@@ -9263,12 +9267,16 @@
       if (scoreVal) scoreVal.textContent = `${scoreStr} / 100`;
       if (scoreVerdict) scoreVerdict.textContent = verdictStr;
 
-      // Render stars (clean styled stars without emoji characters)
+      // Render stars (clean styled SVG stars without emoji or system font quirks)
       if (starsRow) {
         let starsHtml = '';
         for (let i = 1; i <= 3; i++) {
           const filled = i <= starCount;
-          starsHtml += `<span style="display:inline-block; margin:0 6px; color:${filled ? '#fbbf24' : '#475569'}; text-shadow:${filled ? '0 0 16px rgba(251,191,36,0.85)' : 'none'}; font-size:clamp(2.2rem, 3.5vw, 3.0rem); font-family:sans-serif;">${filled ? '★' : '☆'}</span>`;
+          if (filled) {
+            starsHtml += `<svg viewBox="0 0 24 24" width="46" height="46" fill="#fbbf24" style="margin:0 8px; filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.9));"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+          } else {
+            starsHtml += `<svg viewBox="0 0 24 24" width="46" height="46" fill="rgba(30, 41, 59, 0.7)" stroke="#475569" stroke-width="1.6" style="margin:0 8px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+          }
         }
         starsRow.innerHTML = starsHtml;
       }
@@ -9341,6 +9349,15 @@
       }
 
       const item = DIALOGUES[currentStep];
+
+      // Immediate Game Over check if any resource breached a safety gate
+      if (currentStep > 0 && item.type !== 'final_debrief') {
+        const failureReason = checkMissionFailureGates();
+        if (failureReason) {
+          showMissionFailureModal(failureReason);
+          return;
+        }
+      }
 
       // Update Active Mission Clock & Timeline
       if (item.mission && item.mission !== currentActiveMissionId) {
@@ -9669,17 +9686,55 @@
       if (urlParams.get('openClock') === '1') {
         openCrisisClockModal();
       }
-      if (urlParams.get('debrief') === '1') {
+      if (urlParams.get('star') === '3') {
+        outpostResources = { O2: 80, Water: 48, Power: 27, Food: 96, Health: 50, Equip: 91, Greenhouse: 90 };
+        updateTelemetryUI();
+        openFinalDebriefModal();
+      } else if (urlParams.get('star') === '2') {
+        outpostResources = { O2: 72, Water: 27, Power: 39, Food: 96, Health: 62, Equip: 61, Greenhouse: 82 };
+        updateTelemetryUI();
+        openFinalDebriefModal();
+      } else if (urlParams.get('star') === '1') {
+        outpostResources = { O2: 80, Water: 52, Power: 38, Food: 82, Health: 62, Equip: 71, Greenhouse: 25 };
+        updateTelemetryUI();
+        openFinalDebriefModal();
+      } else if (urlParams.get('debrief') === '1') {
         openFinalDebriefModal();
       }
+
       if (urlParams.get('fail') === 'water' || urlParams.get('fail') === '1') {
         outpostResources.Water = 0;
         updateTelemetryUI();
         const failureReason = checkMissionFailureGates();
-        if (failureReason) {
-          showMissionFailureModal(failureReason);
-        }
-      } else if (currentStep > 0) {
+        if (failureReason) showMissionFailureModal(failureReason);
+      } else if (urlParams.get('fail') === 'health') {
+        outpostResources.Health = 42;
+        updateTelemetryUI();
+        const failureReason = checkMissionFailureGates();
+        if (failureReason) showMissionFailureModal(failureReason);
+      } else if (urlParams.get('fail') === 'power') {
+        outpostResources.Power = 0;
+        updateTelemetryUI();
+        const failureReason = checkMissionFailureGates();
+        if (failureReason) showMissionFailureModal(failureReason);
+      } else if (urlParams.get('fail') === 'equip') {
+        outpostResources.Equip = 40;
+        updateTelemetryUI();
+        const failureReason = checkMissionFailureGates();
+        if (failureReason) showMissionFailureModal(failureReason);
+      } else if (urlParams.get('fail') === 'o2') {
+        outpostResources.O2 = 14;
+        updateTelemetryUI();
+        const failureReason = checkMissionFailureGates();
+        if (failureReason) showMissionFailureModal(failureReason);
+      } else if (urlParams.get('fail') === 'lsi') {
+        outpostResources.O2 = 25;
+        outpostResources.Water = 25;
+        outpostResources.Food = 50;
+        updateTelemetryUI();
+        const failureReason = checkMissionFailureGates();
+        if (failureReason) showMissionFailureModal(failureReason);
+      } else if (currentStep > 0 && currentStep < DIALOGUES.length - 1) {
         const failureReason = checkMissionFailureGates();
         if (failureReason) {
           showMissionFailureModal(failureReason);
