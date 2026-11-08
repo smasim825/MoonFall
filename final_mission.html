@@ -1952,9 +1952,9 @@
 
     .scene-2-box .dialogue-text {
       font-family: var(--font-pixel);
-      font-size: clamp(1.05rem, 1.62vw, 1.75rem);
+      font-size: clamp(1.18rem, 1.82vw, 2.05rem);
       font-weight: 400;
-      line-height: 1.15;
+      line-height: 1.2;
       color: #fdcb0e !important;
       letter-spacing: 0.02em;
       white-space: normal;
@@ -1964,16 +1964,20 @@
       image-rendering: pixelated;
       margin: 0;
       width: 100%;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
       transition: font-size 0.12s ease;
     }
 
     .scene-2-box .dialogue-text.text-long {
-      font-size: clamp(0.98rem, 1.48vw, 1.55rem);
-      line-height: 1.14;
+      font-size: clamp(1.1rem, 1.68vw, 1.85rem);
+      line-height: 1.18;
     }
 
     .scene-2-box .dialogue-text.text-extra-long {
-      font-size: clamp(0.78rem, 1.05vw, 1.12rem);
+      font-size: clamp(1.05rem, 1.55vw, 1.7rem);
       line-height: 1.18;
     }
 
@@ -6644,10 +6648,7 @@
             <div class="uplink-astrobee-bubble">
               <div class="uplink-astrobee-name">Astro Bee</div>
               <div class="uplink-astrobee-text" id="uplinkAstrobeeSpeech">
-                "Commander! Our recovery status report is currently in transit to Earth Mission Control. Because radio
-                electromagnetic signals travel at the speed of light (c ≈ 299,792 km/s), across the 384,400 km distance,
-                our transmission takes 1.3 seconds to reach Earth, and Ground Control's telemetry handshake requires
-                another 1.3 seconds (2.6 seconds total round-trip time). Standing by for Earth confirmation..."
+                "Commander! Outpost status report beaming to Earth (384,400 km @ c = 1.3s delay). Standing by for Earth handshake..."
               </div>
             </div>
           </div>
@@ -7702,7 +7703,7 @@
         mission: 'M1',
         scene: 0,
         speaker: 'astrobee',
-        text: "Hello Rookie ! You are the newly appointed commander of MoonFall Outpost, located on the elevated rim of Shackleton Crater near the lunar south pole.",
+        text: "Welcome Commander! You lead MoonFall Outpost on Shackleton Crater's elevated rim.",
         title: "⚡ COMMAND MODULE: BRIEFING",
         bg: "assets/BG.webp",
         alarm: false,
@@ -7712,7 +7713,7 @@
         mission: 'M1',
         scene: 0,
         speaker: 'astrobee',
-        text: "You’re responsible for every final decision. The four crew members provide technical knowledge, report problems, and assist with tasks, but they never make the final decision.",
+        text: "You make every final call. Your four crew specialists advise, but the decision is yours!",
         title: "⚡ COMMAND MODULE: BRIEFING",
         bg: "assets/BG.webp",
         alarm: false,
@@ -7724,7 +7725,7 @@
         mission: 'M1',
         scene: 1,
         speaker: 'astrobee',
-        text: "Commander, Our solar observatory has identified a major Solar Particle Event. Estimated arrival: 30 minutes. We must immediately activate the emergency protocol.",
+        text: "ALERT: Solar Particle Event detected! Impact in 30 minutes. Emergency protocol engaged!",
         title: "SOLAR STORM WARNING",
         bg: "assets/BG2.webp",
         alarm: true,
@@ -7782,7 +7783,7 @@
         mission: 'M2',
         scene: 5,
         speaker: 'astrobee',
-        text: "Commander! Habitat shielding is weak. Reinforce the crew shelter before the incoming solar storm exposes the crew to dangerous radiation.",
+        text: "Commander! Habitat shielding is weak. Reinforce shelter before radiation peaks!",
         title: "M2: The Shelter Problem",
         bg: "assets/BG.webp",
         alarm: false,
@@ -7861,7 +7862,7 @@
         mission: 'M3',
         scene: 11,
         speaker: 'astrobee',
-        text: "Commander! Solar-array inverters are offline, leaving us on emergency batteries. EVA repairs are unsafe, so conserve electricity before power runs out!",
+        text: "Solar inverters are blown! We are on emergency batteries—shed non-critical loads now!",
         title: "M3: Blackout",
         bg: "assets/BG2.webp",
         alarm: true,
@@ -7942,7 +7943,7 @@
         mission: 'M4',
         scene: 17,
         speaker: 'astrobee',
-        text: "Commander! Oxygen reserve is falling. Our current supply won't be enough unless we restore oxygen production or activate an alternative supply. We need to act quickly!",
+        text: "Commander! Oxygen is draining fast. Tap bottled reserves or start electrolysis now!",
         title: "M4: Oxygen Countdown",
         bg: "assets/BG2.webp",
         alarm: true,
@@ -8020,7 +8021,7 @@
         mission: 'M4',
         scene: 23,
         speaker: 'astrobee',
-        text: "Outstanding leadership, Commander! Oxygen levels are stabilizing and life support is secured through M4. Stand by for the next operational window.",
+        text: "Outstanding work! Oxygen levels stabilized. Outpost life support secured for M4.",
         title: "M4: Oxygen Countdown // Life Support Nominal",
         bg: "assets/BG.webp",
         alarm: false,
@@ -8035,7 +8036,7 @@
         mission: 'M5',
         scene: 24,
         speaker: 'astrobee',
-        text: "Commander! Water recycling efficiency has plummeted to 50%! Fine lunar sediment has penetrated the filtration membrane and clogged the recirculation manifold!",
+        text: "Commander! Water recycling dropped to 50%! Lunar dust has clogged the filtration loop!",
         title: "M5: The Water Trap",
         bg: "assets/BG2.webp",
         alarm: true,
@@ -8110,7 +8111,7 @@
         mission: 'M5',
         scene: 30,
         speaker: 'astrobee',
-        text: "Water filtration restored, Commander! Clean H₂O is circulating through the habitat buffer and sediment purge is complete. Prepare for the afternoon cycle.",
+        text: "Water loop restored, Commander! Clean H₂O is circulating through the habitat buffer.",
         title: "M5: The Water Trap // Water Recovery Nominal",
         bg: "assets/BG.webp",
         alarm: false,
@@ -8125,7 +8126,7 @@
         mission: 'M6',
         scene: 31,
         speaker: 'astrobee',
-        text: "Warning! The greenhouse bioloop is failing. Nutrient solution delivery and crop canopy climate control have dropped below critical thresholds!",
+        text: "Warning! Greenhouse bioloop is failing. Hydroponic feeds have dropped to critical!",
         title: "M6: The Last Harvest",
         bg: "assets/BG2.webp",
         alarm: true,
@@ -8201,7 +8202,7 @@
         mission: 'M6',
         scene: 37,
         speaker: 'astrobee',
-        text: "Excellent leadership, Commander. The greenhouse bioloop status has been stabilized and habitat environmental telemetry is re-balanced for Mission 6!",
+        text: "Excellent work, Commander! Greenhouse loop stabilized and telemetry re-balanced.",
         title: "M6: The Last Harvest // Bioloop Nominal",
         bg: "assets/BG.webp",
         alarm: false,
@@ -8212,7 +8213,7 @@
         mission: 'M7',
         scene: 38,
         speaker: 'astrobee',
-        text: "ALERT! High voltage arc fault detected in Module 4 main power distribution bus! Breakers tripped, critical circuits offline!",
+        text: "ALERT! Module 4 main power bus arc fault detected! Critical breakers have tripped!",
         title: "M7: ARC FAULT IN MODULE 4 // POWER BUS FAILURE",
         bg: "assets/BG2.webp",
         alarm: true,
@@ -8273,7 +8274,7 @@
         mission: 'M7',
         scene: 43,
         speaker: 'astrobee',
-        text: "Module 4 power distribution stabilized! Secondary safety breakers locked and vital habitat bus voltages are steady.",
+        text: "Module 4 power bus stabilized! Safety breakers locked and habitat voltage steady.",
         title: "M7: Power Bus Nominal // Systems Stabilized",
         bg: "assets/BG.webp",
         alarm: false,
@@ -8284,7 +8285,7 @@
         mission: 'M8',
         scene: 45,
         speaker: 'astrobee',
-        text: "ATTENTION ALL CREW! Lunar orbit satellite telemetry confirms the peak SPE solar particle shockfront has passed Shackleton Crater! Time to impact: 00:00:00.",
+        text: "ALL CREW ATTENTION! The peak solar particle shockfront has passed Shackleton Outpost!",
         title: "M8: STORM PASSING // FINAL CRITICAL PROTOCOL",
         bg: "assets/BG2.webp",
         alarm: true,
@@ -9219,17 +9220,17 @@
       // 1-line AstroBee instructions per stage
       let astroBeeText = "";
       if (m2TaskState.stage === 1) {
-        astroBeeText = "Commander! Drag and drop the 3 emergency containers into their matching bulkhead storage brackets.";
+        astroBeeText = "Commander! Stow all 3 emergency crates into their bulkhead brackets.";
         if (hint) hint.textContent = "Stage 1 of 3: Drag & drop 3 loose supplies to secure the airlock bulkhead.";
       } else if (m2TaskState.stage === 2) {
-        astroBeeText = "Rotate the emergency hatch wheel in 360 degrees to engage all 6 radial locking bolts and hermetically seal the shelter!";
+        astroBeeText = "Turn the hatch wheel 360° to engage all 6 bolts and seal the shelter!";
         if (hint) hint.textContent = "Stage 2 of 3: Rotate the hatch 360° (+60° each turn) to engage all 6 mechanical bolts.";
       } else {
         if (switchesAllOn && suppliesAllStowed && hatchLocked) {
-          astroBeeText = "All shelter lockdown systems are nominal! Click Engage Habitat Lockdown to secure the outpost.";
+          astroBeeText = "Shelter lockdown nominal! Click Engage Lockdown to secure the outpost.";
           if (hint) hint.textContent = "All 3 stages complete: Habitat lockdown is ready for final authorization.";
         } else {
-          astroBeeText = "Activate all 3 life support modules (O₂ Valve, Air Circulation, and CO₂ Scrubber) to ensure breathable air.";
+          astroBeeText = "Activate all 3 life-support switches: O₂, Air Circulation, and CO₂ Scrubber!";
           if (hint) hint.textContent = "Stage 3 of 3: Verify all 3 life support modules before finalizing lockdown.";
         }
       }
@@ -9726,7 +9727,7 @@
         </div>
       `;
 
-      updateMinitaskAstrobee("Connect Emergency Battery → PDU, then route Oxygen, Heating, and Comms. Keep Decorative Lighting disconnected!");
+      updateMinitaskAstrobee("Connect Battery to PDU, then route O₂, Heat, and Comms. Shed lighting!");
       checkM3Completion();
     }
 
@@ -9861,11 +9862,11 @@
       `;
 
       if (isAllSorted) {
-        updateMinitaskAstrobee("Brilliant sequencing, Commander! All 5 stages of the electrolysis manifold are correctly aligned. Water is splitting and oxygen is streaming safely to the habitat!");
+        updateMinitaskAstrobee("Brilliant sequencing! All 5 electrolysis stages aligned. O₂ is streaming safely!");
       } else if (m4TaskState.selectedSwapIndex !== null) {
-        updateMinitaskAstrobee(`Card #${m4TaskState.selectedSwapIndex + 1} selected! Click any other card to swap their pipeline positions.`);
+        updateMinitaskAstrobee(`Card #${m4TaskState.selectedSwapIndex + 1} selected! Tap any other card to swap positions.`);
       } else {
-        updateMinitaskAstrobee("Commander! The ISRU electrolysis manifold is offline and out of order. Drag and drop the cards (or tap any two to swap) to reconstruct the operational gas pipeline. Align the flow logically from raw fluid intake to molecular splitting, gas filtration, breathable life-support delivery, and hazardous byproduct disposal!");
+        updateMinitaskAstrobee("Commander! Reorder the electrolysis stages from raw water intake to oxygen output.");
       }
 
       checkM4Completion();
@@ -10060,9 +10061,9 @@
 
       const completedCount = (m5TaskState.purgeValve ? 1 : 0) + (m5TaskState.ultrasonicClean ? 1 : 0) + (m5TaskState.potableBuffer ? 1 : 0) + (m5TaskState.qualityVerify ? 1 : 0);
       if (completedCount === 4) {
-        updateMinitaskAstrobee("Excellent work! All water filtration and purge stages are active. Confirm water recovery now!");
+        updateMinitaskAstrobee("Excellent work! All 4 filtration stages active. Confirm water recovery now!");
       } else {
-        updateMinitaskAstrobee(`Commander! Select all 4 filtration stages (${completedCount}/4 active) to clear regolith silt and restore drinking water.`);
+        updateMinitaskAstrobee(`Commander! Select all 4 filtration stages (${completedCount}/4 ready) to restore water.`);
       }
 
       checkM5Completion();
@@ -10200,13 +10201,13 @@
       `;
 
       if (stats.isComplete) {
-        updateMinitaskAstrobee("Outstanding, Commander! Exactly 16 consecutive hours of illumination scheduled. Vegetative photosynthesis and night respiration are in nominal balance!");
+        updateMinitaskAstrobee("Outstanding! Exactly 16 consecutive hours scheduled. Crop bioloop is balanced!");
       } else if (stats.totalOn === 16 && stats.maxConsec < 16) {
-        updateMinitaskAstrobee(`Total daylight is 16 hours, but scattered! Current longest continuous block is ${stats.maxConsec}h. All 16 daylight hours must be consecutive (circular wrap across midnight is supported).`);
+        updateMinitaskAstrobee(`16 hours selected, but scattered (${stats.maxConsec}h block). Connect into 16 continuous hours.`);
       } else if (stats.totalOn < 16) {
-        updateMinitaskAstrobee(`Commander, crops need 16 consecutive hours of light. Currently ${stats.totalOn}/16 hours are ON. Click dark blocks to illuminate.`);
+        updateMinitaskAstrobee(`Crops need 16 continuous hours of light (${stats.totalOn}/16 ON). Tap dark blocks to add.`);
       } else {
-        updateMinitaskAstrobee(`Outpost power overload: ${stats.totalOn} hours illuminated (${stats.totalOn - 16} too many). Turn OFF ${stats.totalOn - 16} hours to reach exactly 16 consecutive hours.`);
+        updateMinitaskAstrobee(`Overload: ${stats.totalOn} hours ON (${stats.totalOn - 16} too many). Turn OFF ${stats.totalOn - 16} blocks.`);
       }
 
       checkM6Completion();
@@ -10334,7 +10335,7 @@
         </div>
       `;
 
-      updateMinitaskAstrobee("Commander! Module 4 arc fault isolated. Verify bus impedance and bridge auxiliary lines!");
+      updateMinitaskAstrobee("Module 4 arc fault isolated! Bridge auxiliary lines to complete the bypass.");
       checkM7Completion();
     }
 
@@ -10447,9 +10448,9 @@
       `;
 
       if (allSelected) {
-        updateMinitaskAstrobee("All four telemetry status reports compiled! Confirm to transmit carrier to NASA Deep Space Network.");
+        updateMinitaskAstrobee("All 4 status reports compiled! Confirm to transmit carrier signal to Earth.");
       } else {
-        updateMinitaskAstrobee(`Commander, select all 4 status reports (${selectedCount}/4 chosen) to compile our recovery telemetry.`);
+        updateMinitaskAstrobee(`Commander, select all 4 status reports (${selectedCount}/4 ready) to transmit.`);
       }
 
       checkM8Completion();
@@ -10532,7 +10533,7 @@
           statusLine.innerHTML = "<span style='color:#34d399;'>[2.6s] ✓ TWO-WAY HANDSHAKE CONFIRMED // EARTH MISSION CONTROL ACKNOWLEDGED RECEIPT!</span>";
         }
         if (speech) {
-          speech.innerHTML = "<strong>Transmission confirmed!</strong> Earth Ground Control has verified our telemetry packets. Shackleton Outpost survival has been officially recorded in NASA flight logs. Excellent leadership, Commander!";
+          speech.innerHTML = "<strong>Transmission confirmed!</strong> Earth verified our telemetry. Shackleton Outpost survival is officially logged!";
         }
         if (proceedBtn) {
           proceedBtn.disabled = false;
@@ -11201,7 +11202,7 @@
           statusLine.innerHTML = "<span style='color:#34d399;'>[2.6s] ✓ TWO-WAY HANDSHAKE CONFIRMED // EARTH MISSION CONTROL ACKNOWLEDGED RECEIPT!</span>";
         }
         if (speech) {
-          speech.innerHTML = "<strong>Transmission confirmed!</strong> Earth Ground Control has verified our telemetry packets. Shackleton Outpost survival has been officially recorded in NASA flight logs. Excellent leadership, Commander!";
+          speech.innerHTML = "<strong>Transmission confirmed!</strong> Earth verified our telemetry. Shackleton Outpost survival is officially logged!";
         }
         if (proceedBtn) {
           proceedBtn.disabled = false;
