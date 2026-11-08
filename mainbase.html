@@ -3616,11 +3616,12 @@
       box-shadow: none;
     }
 
-    /* Floating Pull-Tab Toggle Button pinned to left edge */
+    /* Floating Pull-Tab Toggle Button pinned to left edge - Vertically Centered */
     .sidebar-pull-tab {
       position: absolute;
       left: -50px;
-      top: 180px;
+      top: 50%;
+      transform: translateY(-50%);
       width: 50px;
       height: 200px;
       background: linear-gradient(180deg, #07152d 0%, #033c64 50%, #07152d 100%);
@@ -3636,7 +3637,7 @@
       justify-content: space-between;
       gap: 6px;
       padding: 12px 4px;
-      transition: all 0.22s ease;
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
       z-index: 255;
       animation: tab-cyber-pulse 2.8s infinite ease-in-out;
     }
@@ -3646,7 +3647,11 @@
       color: #ffffff;
       border-color: #ffea00;
       box-shadow: -10px 6px 28px rgba(0, 229, 255, 0.85), 0 0 22px rgba(255, 234, 0, 0.65);
-      transform: translateX(-4px);
+      transform: translateY(-50%) translateX(-4px);
+    }
+
+    .sidebar-pull-tab:active {
+      transform: translateY(-50%) translateX(-2px);
     }
 
     .sidebar-tab-icon {
@@ -3996,11 +4001,18 @@
         width: min(88vw, 340px);
       }
       .sidebar-pull-tab {
-        top: 175px;
+        top: 50%;
+        transform: translateY(-50%);
         width: 44px;
         height: 170px;
         left: -44px;
         padding: 8px 3px;
+      }
+      .sidebar-pull-tab:hover {
+        transform: translateY(-50%) translateX(-3px);
+      }
+      .sidebar-pull-tab:active {
+        transform: translateY(-50%) translateX(-1px);
       }
       .sidebar-tab-label {
         font-size: 1rem;
@@ -4014,7 +4026,8 @@
 
     @media (max-height: 520px) {
       .sidebar-pull-tab {
-        top: 150px;
+        top: 50%;
+        transform: translateY(-50%);
         height: 155px;
       }
     }
