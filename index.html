@@ -1789,15 +1789,40 @@
       transition: transform 0.12s ease, filter 0.12s ease;
     }
 
-    .crew-intro-btn:hover,
-    .phase-dashboard-btn:hover {
-      filter: brightness(1.12);
+    .crew-intro-btn:hover {
+      filter: brightness(1.18);
       transform: translateY(-2px);
+      outline: 2px solid #38bdf8;
+      box-shadow: inset 0 3px 0 #bae6fd, inset 0 -3px 0 #0369a1, 0 5px 0 #000000, 0 0 16px rgba(56, 189, 248, 0.85);
     }
 
-    .crew-intro-btn:active,
+    .phase-dashboard-btn:hover {
+      filter: brightness(1.18);
+      transform: translateY(-2px);
+      outline: 2px solid #ffd54f;
+      box-shadow: inset 0 3px 0 #fff3bf, inset 0 -3px 0 #b45309, 0 5px 0 #000000, 0 0 16px rgba(255, 213, 79, 0.85);
+    }
+
+    .crew-intro-btn:active {
+      transform: translateY(2px);
+      box-shadow: inset 0 3px 0 #0369a1, 0 2px 0 #000000;
+    }
+
     .phase-dashboard-btn:active {
       transform: translateY(2px);
+      box-shadow: inset 0 3px 0 #b45309, 0 2px 0 #000000;
+    }
+
+    .phase-dashboard-btn.active-tab-highlight {
+      transform: translateY(2px);
+      box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.5), inset 0 -3px 0 rgba(0, 0, 0, 0.5), 0 2px 0 #000000, 0 0 18px rgba(255, 213, 79, 0.95) !important;
+      outline: 2px solid #ffd54f !important;
+    }
+
+    .crew-intro-btn.active-tab-highlight {
+      transform: translateY(2px);
+      box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.5), inset 0 -3px 0 rgba(0, 0, 0, 0.5), 0 2px 0 #000000, 0 0 18px rgba(0, 229, 255, 0.95) !important;
+      outline: 2px solid #00e5ff !important;
     }
 
     /* =========================================================================
@@ -1893,8 +1918,10 @@
     }
 
     .top-nav-btn:hover {
-      filter: brightness(1.12);
+      filter: brightness(1.18);
       transform: translateY(-2px);
+      outline: 2px solid #38bdf8;
+      box-shadow: inset 0 3px 0 #7dd3fc, inset 0 -3px 0 #0369a1, 0 5px 0 #000000, 0 0 16px rgba(56, 189, 248, 0.85);
     }
 
     .top-nav-btn:active {
@@ -3668,6 +3695,739 @@
       background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
       box-shadow: inset 0 2px 0 #bae6fd, inset 0 -2px 0 #0c4a6e, 0 3px 0 #000000;
     }
+
+    /* =========================================================================
+       SCENE 1: COLLAPSIBLE RIGHT EXPLORE & RESOURCE SIDEBAR (EXO-VISIONARIES STYLE)
+       ========================================================================= */
+    .base-resource-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: clamp(320px, 28vw, 420px);
+      max-width: 92vw;
+      background: rgba(11, 16, 28, 0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-left: 2px solid rgba(56, 189, 248, 0.35);
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.88), inset 1px 0 0 rgba(255, 255, 255, 0.08);
+      z-index: 250;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(0);
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.38s ease;
+      user-select: none;
+    }
+
+    .base-resource-sidebar.sidebar-collapsed {
+      transform: translateX(100%);
+      box-shadow: none;
+    }
+
+    /* Floating Pull-Tab Toggle Button pinned to left edge - Vertically Centered */
+    .sidebar-pull-tab {
+      position: absolute;
+      left: -50px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 200px;
+      background: linear-gradient(180deg, #07152d 0%, #033c64 50%, #07152d 100%);
+      border: 2.5px solid #00e5ff;
+      border-right: none;
+      border-radius: 14px 0 0 14px;
+      color: #00e5ff;
+      box-shadow: -8px 6px 24px rgba(0, 0, 0, 0.9), 0 0 18px rgba(0, 229, 255, 0.55);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 12px 4px;
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      z-index: 255;
+      animation: tab-cyber-pulse 2.8s infinite ease-in-out;
+    }
+
+    .sidebar-pull-tab:hover {
+      background: linear-gradient(180deg, #0e2752 0%, #0284c7 50%, #0c234a 100%);
+      color: #ffffff;
+      border-color: #ffea00;
+      box-shadow: -10px 6px 28px rgba(0, 229, 255, 0.85), 0 0 22px rgba(255, 234, 0, 0.65);
+      transform: translateY(-50%) translateX(-4px);
+    }
+
+    .sidebar-pull-tab:active {
+      transform: translateY(-50%) translateX(-2px);
+    }
+
+    .sidebar-tab-icon {
+      font-size: 1.45rem;
+      line-height: 1;
+      transition: transform 0.25s ease;
+      filter: drop-shadow(0 0 6px #00e5ff);
+      flex-shrink: 0;
+    }
+
+    .sidebar-tab-label {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: 1.15rem;
+      letter-spacing: 0.22em;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #ffea00;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-shadow: 0 0 8px rgba(255, 234, 0, 0.65), 1px 1px 0 #000;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-tab-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00e5ff;
+      box-shadow: 0 0 8px #00e5ff;
+      flex-shrink: 0;
+    }
+
+    @keyframes tab-cyber-pulse {
+      0%, 100% {
+        box-shadow: -8px 6px 20px rgba(0, 0, 0, 0.9), 0 0 14px rgba(0, 229, 255, 0.45);
+        border-color: #00e5ff;
+      }
+      50% {
+        box-shadow: -10px 6px 28px rgba(0, 229, 255, 0.75), 0 0 22px rgba(255, 234, 0, 0.55);
+        border-color: #38bdf8;
+      }
+    }
+
+    /* Sidebar Top Navigation Row (Data, Quiz, Aurora Lab, Start Journey) */
+    .sidebar-top-nav {
+      padding: 12px 16px 10px 16px;
+      background: #111222;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .sidebar-nav-tab {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 4px 2px;
+      transition: color 0.15s ease;
+      text-decoration: none;
+    }
+
+    .sidebar-nav-tab:hover,
+    .sidebar-nav-tab.active {
+      color: #ffffff;
+    }
+
+    .sidebar-start-journey-btn {
+      background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+      border: none;
+      border-radius: 9999px;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(168, 85, 247, 0.45);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .sidebar-start-journey-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.7);
+    }
+
+    .sidebar-start-journey-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* Sidebar Top Header Bar (Matching Reference Image: Know More ⚡ | Split View ✕) */
+    .sidebar-header {
+      padding: 10px 16px;
+      background: #141628;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-know-more-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.15s ease;
+    }
+
+    .sidebar-know-more-btn:hover {
+      color: #c084fc;
+    }
+
+    .sidebar-header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-split-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .sidebar-split-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .sidebar-icon-btn {
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: #94a3b8;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1.15rem;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .sidebar-icon-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+
+    .sidebar-explore-btn {
+      background: linear-gradient(180deg, #1e3a8a 0%, #0f172a 100%);
+      border: 2px solid #38bdf8;
+      border-radius: 8px;
+      color: #ffffff;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1rem, 1.25vw, 1.22rem);
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 10px rgba(56, 189, 248, 0.25);
+      transition: all 0.18s ease;
+    }
+
+    .sidebar-explore-btn:hover {
+      background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+      border-color: #60a5fa;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+      transform: translateY(-1px);
+    }
+
+    /* Scrollable Cards Feed */
+    .sidebar-feed {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      user-select: text;
+    }
+
+    /* Custom Scrollbar for Sidebar Feed */
+    .sidebar-feed::-webkit-scrollbar {
+      width: 6px;
+    }
+    .sidebar-feed::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    .sidebar-feed::-webkit-scrollbar-thumb {
+      background: #0284c7;
+      border-radius: 4px;
+    }
+    .sidebar-feed::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
+    }
+
+    /* Individual Content Card (Dark Theme UI, Rounded Corners) */
+    .sidebar-card {
+      background: #171828;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .sidebar-card:hover {
+      border-color: rgba(192, 132, 252, 0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8), 0 0 14px rgba(192, 132, 252, 0.15);
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+
+    .card-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.01em;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-nasa-icon {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(11, 61, 145, 0.7);
+    }
+
+    .card-badge {
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.72rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    /* 16:9 Responsive Video Container */
+    .card-video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      background: #000000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.8);
+    }
+
+    .card-video-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .card-video-thumb-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      overflow: hidden;
+      background: #000000;
+      cursor: pointer;
+    }
+
+    .card-video-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.28s ease, filter 0.28s ease;
+      display: block;
+    }
+
+    .card-video-thumb-link:hover .card-video-thumb-img {
+      transform: scale(1.06);
+      filter: brightness(1.1);
+    }
+
+    .card-video-play-btn {
+      position: absolute;
+      width: 58px;
+      height: 40px;
+      background: #ef4444;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.75), 0 0 12px rgba(239, 68, 68, 0.5);
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      pointer-events: none;
+    }
+
+    .card-video-play-btn::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 8px 0 8px 14px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 3px;
+    }
+
+    .card-video-thumb-link:hover .card-video-play-btn {
+      transform: scale(1.14);
+      background: #dc2626;
+      box-shadow: 0 6px 22px rgba(239, 68, 68, 0.8);
+    }
+
+    /* Banner container for Article / Document / Website resource cards */
+    .card-banner-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #0d1527 0%, #171d36 100%);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .card-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.92;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .card-banner-wrap:hover .card-banner-img {
+      transform: scale(1.04);
+      opacity: 1;
+    }
+
+    .card-banner-tag {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 0.04em;
+    }
+
+    .card-banner-badge-rt {
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
+      background: rgba(168, 85, 247, 0.25);
+      border: 1px solid #c084fc;
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #e9d5ff;
+    }
+
+    .card-banner-icon {
+      font-size: 2.8rem;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
+    }
+
+    .card-source-row {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.76rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .card-source-tag {
+      color: #fdcb0e;
+      font-weight: bold;
+    }
+
+    .card-desc {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.84rem;
+      line-height: 1.45;
+      color: #cbd5e1;
+      margin: 2px 0 4px 0;
+    }
+
+    .card-links-col {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-top: 2px;
+    }
+
+    .card-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: rgba(30, 58, 138, 0.35);
+      border: 1.5px solid #2563eb;
+      border-radius: 6px;
+      padding: 7px 12px;
+      color: #38bdf8;
+      text-decoration: none;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.92rem;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .card-action-btn:hover {
+      background: rgba(37, 99, 235, 0.55);
+      border-color: #60a5fa;
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+    .card-action-btn::after {
+      content: '↗';
+      font-size: 1.1rem;
+      color: #93c5fd;
+    }
+
+    .card-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-inspect-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(180deg, #1e3a8a 0%, #0f172a 100%);
+      border: 1.5px solid #38bdf8;
+      border-radius: 6px;
+      padding: 6px 10px;
+      color: #38bdf8;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .card-inspect-btn:hover {
+      background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+      color: #ffffff;
+      border-color: #60a5fa;
+      transform: translateY(-1px);
+    }
+
+    /* Reference Style Clean Text Links */
+    .card-text-link {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.84rem;
+      color: #c084fc;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s ease, text-shadow 0.15s ease;
+      cursor: pointer;
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
+    .card-text-link:hover {
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(192, 132, 252, 0.7);
+    }
+
+    .card-text-link::after {
+      content: '↗';
+      font-size: 0.95rem;
+      text-decoration: none;
+      color: #e9d5ff;
+    }
+
+    .card-source-link {
+      color: #c084fc;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: color 0.15s ease;
+    }
+
+    .card-source-link:hover {
+      color: #ffffff;
+    }
+
+    .card-source-dots {
+      margin-left: auto;
+      color: #64748b;
+      letter-spacing: 3px;
+      font-size: 0.72rem;
+    }
+
+    /* Facility Themed Cards matching the 4 base sections */
+    .sidebar-card.card-power {
+      border-color: rgba(250, 204, 21, 0.35);
+    }
+    .sidebar-card.card-power:hover {
+      border-color: rgba(250, 204, 21, 0.75);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(250, 204, 21, 0.25);
+    }
+    .sidebar-card.card-power .card-badge {
+      background: rgba(250, 204, 21, 0.15);
+      border-color: #facc15;
+      color: #fde047;
+    }
+
+    .sidebar-card.card-plant {
+      border-color: rgba(74, 222, 128, 0.35);
+    }
+    .sidebar-card.card-plant:hover {
+      border-color: rgba(74, 222, 128, 0.75);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(74, 222, 128, 0.25);
+    }
+    .sidebar-card.card-plant .card-badge {
+      background: rgba(74, 222, 128, 0.15);
+      border-color: #4ade80;
+      color: #86efac;
+    }
+
+    .sidebar-card.card-isru {
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+    .sidebar-card.card-isru:hover {
+      border-color: rgba(56, 189, 248, 0.75);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(56, 189, 248, 0.25);
+    }
+    .sidebar-card.card-isru .card-badge {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38bdf8;
+      color: #7dd3fc;
+    }
+
+    .sidebar-card.card-shelter {
+      border-color: rgba(192, 132, 252, 0.35);
+    }
+    .sidebar-card.card-shelter:hover {
+      border-color: rgba(192, 132, 252, 0.75);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(192, 132, 252, 0.25);
+    }
+    .sidebar-card.card-shelter .card-badge {
+      background: rgba(192, 132, 252, 0.15);
+      border-color: #c084fc;
+      color: #d8b4fe;
+    }
+
+    @media (max-width: 600px) {
+      .base-resource-sidebar {
+        width: min(88vw, 340px);
+      }
+      .sidebar-pull-tab {
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 170px;
+        left: -44px;
+        padding: 8px 3px;
+      }
+      .sidebar-pull-tab:hover {
+        transform: translateY(-50%) translateX(-3px);
+      }
+      .sidebar-pull-tab:active {
+        transform: translateY(-50%) translateX(-1px);
+      }
+      .sidebar-tab-label {
+        font-size: 1rem;
+        letter-spacing: 0.16em;
+      }
+      .sidebar-explore-btn {
+        font-size: 0.95rem;
+        padding: 5px 10px;
+      }
+    }
+
+    @media (max-height: 520px) {
+      .sidebar-pull-tab {
+        top: 50%;
+        transform: translateY(-50%);
+        height: 155px;
+      }
+    }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
   <link rel="stylesheet" href="responsive.css?v=20261105e">
@@ -4214,7 +4974,6 @@
                 🛡️ Radiation Shelter
               </div>
             </div>
-            </div>
           </div>
 
         </div>
@@ -4631,16 +5390,21 @@
         <div class="crew-dossier-container">
           <!-- 1. Left Column: 4 Astronaut Avatars Rail -->
           <div class="crew-avatar-rail" role="tablist" aria-label="Crew Members">
-            <button class="crew-avatar-tab active avatar-sunita" id="crewTab0" onclick="selectCrewMember(0)" role="tab" aria-selected="true" title="Sunita Williams">
-              <img src="assets/meal/CharacterPoses/Sunita_Williams_Present2.webp" alt="Sunita Williams" class="crew-face-sunita">
+            <button class="crew-avatar-tab active avatar-sunita" id="crewTab0" onclick="selectCrewMember(0)" role="tab"
+              aria-selected="true" title="Sunita Williams">
+              <img src="assets/meal/CharacterPoses/Sunita_Williams_Present2.webp" alt="Sunita Williams"
+                class="crew-face-sunita">
             </button>
-            <button class="crew-avatar-tab avatar-chiaki" id="crewTab1" onclick="selectCrewMember(1)" role="tab" aria-selected="false" title="Chiaki Mukai">
+            <button class="crew-avatar-tab avatar-chiaki" id="crewTab1" onclick="selectCrewMember(1)" role="tab"
+              aria-selected="false" title="Chiaki Mukai">
               <img src="assets/power/CharacterPoses/Chiaki_Mukai_Idle.webp" alt="Chiaki Mukai" class="crew-face-chiaki">
             </button>
-            <button class="crew-avatar-tab avatar-guion" id="crewTab2" onclick="selectCrewMember(2)" role="tab" aria-selected="false" title="Guion Bluford">
+            <button class="crew-avatar-tab avatar-guion" id="crewTab2" onclick="selectCrewMember(2)" role="tab"
+              aria-selected="false" title="Guion Bluford">
               <img src="assets/isru/character/Guion_Bluford_Idle.webp" alt="Guion Bluford" class="crew-face-guion">
             </button>
-            <button class="crew-avatar-tab avatar-rakesh" id="crewTab3" onclick="selectCrewMember(3)" role="tab" aria-selected="false" title="Rakesh Sharma">
+            <button class="crew-avatar-tab avatar-rakesh" id="crewTab3" onclick="selectCrewMember(3)" role="tab"
+              aria-selected="false" title="Rakesh Sharma">
               <img src="assets/scene 8/Rakesh_Sharma_Idle.webp" alt="Rakesh Sharma" class="crew-face-rakesh">
             </button>
           </div>
@@ -4783,6 +5547,444 @@
         </div>
       </div>
     </div>
+
+    <!-- 12. SCENE 1 RIGHT RESOURCE & EXPLORE SIDEBAR (EXO-VISIONARIES STYLE) -->
+    <aside class="base-resource-sidebar" id="baseResourceSidebar" aria-label="Lunar Mission Explore Resources">
+      <!-- Left Edge Floating Pull-Tab Toggle Button -->
+      <button class="sidebar-pull-tab" id="sidebarPullTab" onclick="toggleResourceSidebar()" title="Toggle Explore Sidebar" aria-label="Toggle Explore Sidebar">
+        <span class="sidebar-tab-icon" id="sidebarTabIcon">▶</span>
+        <span class="sidebar-tab-label">EXPLORE</span>
+        <span class="sidebar-tab-dot"></span>
+      </button>
+
+      <!-- Sidebar Top Navigation Tabs (matching reference UI) -->
+      <div class="sidebar-top-nav">
+        <div class="sidebar-nav-links">
+          <button class="sidebar-nav-tab active" type="button" onclick="exploreMainPageAction()">Data</button>
+          <button class="sidebar-nav-tab" type="button" onclick="openPhaseDashboard()">Quiz</button>
+          <button class="sidebar-nav-tab" type="button" onclick="openPhaseDashboard()">Aurora Lab</button>
+        </div>
+        <button class="sidebar-start-journey-btn" type="button" onclick="launchGame()">Start Journey</button>
+      </div>
+
+      <!-- Sidebar Subheader (📖 Know More ⚡ | 🗗 Split View ✕) -->
+      <div class="sidebar-header">
+        <button class="sidebar-know-more-btn" type="button" onclick="exploreMainPageAction()" title="Know More about Lunar Base &amp; Space Weather">
+          <span>📖</span>
+          <span>Know More</span>
+          <span style="color: #facc15;">⚡</span>
+        </button>
+
+        <div class="sidebar-header-controls">
+          <button class="sidebar-split-btn" type="button" onclick="exploreMainPageAction()" title="Split View Mode">
+            <span>🗗</span>
+            <span>Split View</span>
+          </button>
+          <button class="sidebar-icon-btn" type="button" onclick="toggleResourceSidebar(false)" title="Close Sidebar" aria-label="Close Sidebar">✕</button>
+        </div>
+      </div>
+
+      <!-- Scrollable Resource Cards Feed with YouTube Videos and NASA Resources -->
+      <div class="sidebar-feed" id="sidebarFeed">
+
+        <!-- SECTION 1: POWER STATION (VIDEO CARD) -->
+        <article class="sidebar-card card-power">
+          <div class="card-title-row">
+            <h4 class="card-title">⚡ Power Station</h4>
+            <span class="card-badge">ENERGY &amp; VIDEO</span>
+          </div>
+          <div class="card-video-wrap">
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer" title="Watch NASA Spacecraft &amp; Lunar Surface Power on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/TbVIMSVuEFU/hqdefault.jpg" alt="NASA Power Tech Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
+          </div>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Deploying a 40-kilowatt nuclear fission reactor and vertical bifacial solar array masts to deliver uninterrupted baseload electrical power through the 14-day freezing lunar night.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">
+              <span>Watch Power Tech on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPower', 'badgePower');" title="Zoom to Power Station">
+              <span>🔍 View on Base Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- POWER STATION RESOURCE CARD 1: NASA SPACE PLACE -->
+        <article class="sidebar-card card-power">
+          <div class="card-title-row">
+            <h4 class="card-title">🚀 What Powers a Spacecraft?</h4>
+            <span class="card-badge">SPACE PLACE</span>
+          </div>
+          <a class="card-banner-wrap" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer" title="Read on NASA Space Place">
+            <img class="card-banner-img" src="assets/power/Power.webp" alt="NASA Spacecraft Power Tech" loading="lazy">
+            <span class="card-banner-tag">NASA SPACE PLACE // ARTICLE</span>
+            <span class="card-banner-badge-rt">EXPLORE ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer">NASA Space Place</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Learn how solar panels, RTG nuclear batteries, and fuel cell generators provide vital electricity to rovers, probes, and lunar stations in deep space.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer">
+              <span>Read on NASA Space Place website</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPower', 'badgePower');" title="Zoom to Power Station">
+              <span>🔍 View on Base Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- POWER STATION RESOURCE CARD 2: NASA NTRS TECHNICAL REPORT (PDF) -->
+        <article class="sidebar-card card-power">
+          <div class="card-title-row">
+            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Power &amp; Energy for Lunar Surface</h4>
+            <span class="card-badge">NASA PDF</span>
+          </div>
+          <a class="card-banner-wrap" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer" title="Download NASA Technical PDF Report">
+            <img class="card-banner-img" src="assets/power/lunar_power_report.jpg" alt="NASA Power and Energy for the Lunar Surface Briefing Cover" loading="lazy">
+            <span class="card-banner-tag">NASA NTRS // TECHNICAL REPORT</span>
+            <span class="card-banner-badge-rt"><img src="assets/nasa_logo.svg" alt="NASA" style="width:12px; height:12px; vertical-align:middle; margin-right:3px; border-radius:50%;">PDF ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer">NASA Technical Reports Server</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Official NASA technical documentation analyzing fission surface power (FSP), vertical bifacial solar arrays, and regenerative fuel cells for South Pole lunar survival.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer">
+              <span>Download NASA Technical Report (PDF)</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPower', 'badgePower');" title="Zoom to Power Station">
+              <span>🔍 View on Base Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- SECTION 2: PLANT GROWTH LAB -->
+        <article class="sidebar-card card-plant">
+          <div class="card-title-row">
+            <h4 class="card-title">🌱 Plant Growth Lab</h4>
+            <span class="card-badge">HYDROPONICS</span>
+          </div>
+          <div class="card-video-wrap">
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer" title="Watch NASA Space Crop &amp; Plant Production on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/W5OzSeTHouU/hqdefault.jpg" alt="NASA Space Crop &amp; Plant Production Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
+          </div>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Cultivating fresh microgreens, Arabidopsis, and dwarf crops using automated nutrient solution cycles and LED spectrum recipes to sustain long-duration astronaut nutrition.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer">
+              <span>Watch Space Plant &amp; Crop Production on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
+              <span>🔍 View on Base Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- PLANT GROWTH LAB RESOURCE CARD 1: SCIENTISTS GROW PLANTS IN LUNAR SOIL -->
+        <article class="sidebar-card card-plant">
+          <div class="card-title-row">
+            <h4 class="card-title">🌱 Scientists Grow Plants in Lunar Soil</h4>
+            <span class="card-badge">NASA FEATURE</span>
+          </div>
+          <a class="card-banner-wrap" href="https://www.nasa.gov/humans-in-space/scientists-grow-plants-in-lunar-soil/" target="_blank" rel="noopener noreferrer" title="Read on NASA.gov: Scientists Grow Plants in Lunar Soil">
+            <img class="card-banner-img" src="assets/hydroponics/lunar_soil_plants.jpg" alt="NASA Scientists Grow Plants in Lunar Soil" loading="lazy">
+            <span class="card-banner-tag">NASA RESEARCH // LUNAR BIOLOGY</span>
+            <span class="card-banner-badge-rt">READ ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.nasa.gov/humans-in-space/scientists-grow-plants-in-lunar-soil/" target="_blank" rel="noopener noreferrer">NASA.gov</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            For the first time, University of Florida and NASA researchers successfully sprouted and cultivated Arabidopsis plants in real Apollo 11, 12, and 17 lunar regolith.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.nasa.gov/humans-in-space/scientists-grow-plants-in-lunar-soil/" target="_blank" rel="noopener noreferrer">
+              <span>Read Scientists Grow Plants in Lunar Soil (NASA Feature)</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
+              <span>🔍 View Plant Growth Lab on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- PLANT GROWTH LAB RESOURCE CARD 2: GRAVITY ASSIST PODCAST -->
+        <article class="sidebar-card card-plant">
+          <div class="card-title-row">
+            <h4 class="card-title">🎙️ Gravity Assist: Food on the Moon</h4>
+            <span class="card-badge">NASA PODCAST</span>
+          </div>
+          <a class="card-banner-wrap" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer" title="Listen to NASA Gravity Assist Podcast: How to Grow Food on the Moon">
+            <img class="card-banner-img" src="assets/hydroponics/gravity_assist_food_moon.jpg" alt="NASA Gravity Assist Food on the Moon Seedling Sample" loading="lazy">
+            <span class="card-banner-tag">NASA PODCAST // LUNAR CROPS</span>
+            <span class="card-banner-badge-rt">LISTEN ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer">NASA Podcasts</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            NASA Chief Scientist Dr. Jim Green discusses the science of lunar farming, nutrient chemistry, and growing fresh produce for long-duration Artemis missions.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer">
+              <span>Listen to Gravity Assist Podcast (NASA)</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
+              <span>🔍 View Plant Growth Lab on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- PLANT GROWTH LAB RESOURCE CARD 3: NASA FOOD & NUTRITION BRIEF -->
+        <article class="sidebar-card card-plant">
+          <div class="card-title-row">
+            <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> NASA Food &amp; Nutrition Brief</h4>
+            <span class="card-badge">NASA OCHMO</span>
+          </div>
+          <a class="card-banner-wrap" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer" title="Download NASA Food and Nutrition Technical Brief">
+            <img class="card-banner-img" src="assets/hydroponics/Food_Plant.webp" alt="NASA Food and Nutrition Technical Brief" loading="lazy">
+            <span class="card-banner-tag">NASA OCHMO // NUTRITION BRIEF</span>
+            <span class="card-banner-badge-rt"><img src="assets/nasa_logo.svg" alt="NASA" style="width:12px; height:12px; vertical-align:middle; margin-right:3px; border-radius:50%;">PDF ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">NASA OCHMO</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            NASA Office of the Chief Health and Medical Officer technical guidance on spaceflight dietary stability, nutrient shelf-life, and hydroponic bio-regenerative counter-measures.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">
+              <span>Download NASA Food &amp; Nutrition Technical Brief (PDF)</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
+              <span>🔍 View Plant Growth Lab on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- SECTION 3: ISRU PROCESSING FACILITY - CARBOTHERMAL EXTRACTION -->
+        <article class="sidebar-card card-isru">
+          <div class="card-title-row">
+            <h4 class="card-title">💧 ISRU Carbothermal Extraction</h4>
+            <span class="card-badge">OXYGEN // VIDEO</span>
+          </div>
+          <div class="card-video-wrap">
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=e_EaXO-9iVE" target="_blank" rel="noopener noreferrer" title="Watch NASA ISRU Carbothermal Extraction on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/e_EaXO-9iVE/hqdefault.jpg" alt="NASA ISRU Carbothermal Extraction Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
+          </div>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=e_EaXO-9iVE" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            NASA engineers test a solar concentrator carbothermal reactor in a vacuum chamber to extract breathable oxygen directly from simulated lunar regolith.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=e_EaXO-9iVE" target="_blank" rel="noopener noreferrer">
+              <span>Watch ISRU Carbothermal Extraction on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldIsru', 'badgeIsru');" title="Zoom to ISRU Facility">
+              <span>🔍 View ISRU Facility on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- ISRU RESOURCE CARD: LUNAR WATER HARVESTING -->
+        <article class="sidebar-card card-isru">
+          <div class="card-title-row">
+            <h4 class="card-title">💧 Lunar ISRU &amp; Water Harvesting</h4>
+            <span class="card-badge">WATER // VIDEO</span>
+          </div>
+          <div class="card-video-wrap">
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=hr4J6GhoATs" target="_blank" rel="noopener noreferrer" title="Watch NASA Lunar ISRU Technology on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/hr4J6GhoATs/hqdefault.jpg" alt="NASA Lunar ISRU Tech Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
+          </div>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=hr4J6GhoATs" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Autonomous prospecting and thermal sublimation systems designed to harvest water ice trapped in permanently shadowed craters at the lunar South Pole.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=hr4J6GhoATs" target="_blank" rel="noopener noreferrer">
+              <span>Watch NASA Lunar ISRU Technology on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldIsru', 'badgeIsru');" title="Zoom to ISRU Facility">
+              <span>🔍 View ISRU Facility on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- ISRU RESOURCE CARD: LUNAR SURFACE INNOVATION INITIATIVE (LSII) -->
+        <article class="sidebar-card card-isru">
+          <div class="card-title-row">
+            <h4 class="card-title">💧 Lunar Surface Innovation Initiative</h4>
+            <span class="card-badge">NASA STMD</span>
+          </div>
+          <a class="card-banner-wrap" href="https://www.nasa.gov/space-technology-mission-directorate/lunar-surface-innovation-initiative/" target="_blank" rel="noopener noreferrer" title="Explore NASA Lunar Surface Innovation Initiative">
+            <img class="card-banner-img" src="assets/isru/lunar_surface_innovation_rassor.jpg" alt="NASA LSII RASSOR Autonomous Regolith Excavator" loading="lazy">
+            <span class="card-banner-tag">NASA STMD // ISRU ROBOTICS</span>
+            <span class="card-banner-badge-rt">EXPLORE ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.nasa.gov/space-technology-mission-directorate/lunar-surface-innovation-initiative/" target="_blank" rel="noopener noreferrer">NASA STMD</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            NASA's Space Technology Mission Directorate initiative pioneering in-situ resource utilization (ISRU), autonomous excavation rovers, cryogenic water harvesting, and lunar infrastructure.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.nasa.gov/space-technology-mission-directorate/lunar-surface-innovation-initiative/" target="_blank" rel="noopener noreferrer">
+              <span>Explore Lunar Surface Innovation Initiative (NASA STMD)</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldIsru', 'badgeIsru');" title="Zoom to ISRU Facility">
+              <span>🔍 View ISRU Facility on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- SECTION 4: RADIATION SHELTER - SPACE RADIATION SHIELDING -->
+        <article class="sidebar-card card-shelter">
+          <div class="card-title-row">
+            <h4 class="card-title">🛡️ Space Radiation Shielding</h4>
+            <span class="card-badge">DEFENSE // VIDEO</span>
+          </div>
+          <div class="card-video-wrap">
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer" title="Watch NASA Space Radiation Shielding on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/vpNa4u997xA/hqdefault.jpg" alt="NASA Space Radiation Shielding Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
+          </div>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Engineered subterranean habitats with sintered regolith berms and dual-layer water walls designed to shield expedition crews from Solar Particle Events (SPE) and cosmic rays.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer">
+              <span>Watch Space Radiation Shielding on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
+              <span>🔍 View Radiation Shelter on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- RADIATION SHELTER RESOURCE CARD: LUNAR RADIATION DEFENSE -->
+        <article class="sidebar-card card-shelter">
+          <div class="card-title-row">
+            <h4 class="card-title">🛡️ Lunar Radiation Defense</h4>
+            <span class="card-badge">RESEARCH // VIDEO</span>
+          </div>
+          <div class="card-video-wrap">
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer" title="Watch Lunar Radiation Defense on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/mn60n3jdI_8/hqdefault.jpg" alt="Lunar Radiation Defense Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
+          </div>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Analyzing deep space ionizing radiation, galactic cosmic rays, and passive shielding materials essential for long-duration astronaut survival on the Moon.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer">
+              <span>Watch Lunar Radiation Defense on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
+              <span>🔍 View Radiation Shelter on Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- RADIATION SHELTER RESOURCE CARD: NASA SPACE WEATHER -->
+        <article class="sidebar-card card-shelter">
+          <div class="card-title-row">
+            <h4 class="card-title">☀️ NASA Space Weather Research</h4>
+            <span class="card-badge">HELIOPHYSICS</span>
+          </div>
+          <a class="card-banner-wrap" href="https://science.nasa.gov/heliophysics/focus-areas/space-weather/" target="_blank" rel="noopener noreferrer" title="Explore NASA Space Weather Focus Area">
+            <img class="card-banner-img" src="assets/space_weather_solar_flare.jpg" alt="NASA Space Weather Solar Flare and CME Eruption" loading="lazy">
+            <span class="card-banner-tag">NASA SCIENCE // HELIOPHYSICS</span>
+            <span class="card-banner-badge-rt">EXPLORE ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://science.nasa.gov/heliophysics/focus-areas/space-weather/" target="_blank" rel="noopener noreferrer">NASA Heliophysics</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Conditions in space caused by the Sun's activity, solar flares, and coronal mass ejections that affect lunar surface systems, communications, and astronaut safety.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://science.nasa.gov/heliophysics/focus-areas/space-weather/" target="_blank" rel="noopener noreferrer">
+              <span>Explore NASA Space Weather Focus Area</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
+              <span>🔍 View Radiation Shelter on Map</span>
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </aside>
   </div>
 
   <script>
@@ -4996,6 +6198,11 @@
       if (sound && sound.clickSound) sound.clickSound();
       if (currentZoomedBldId || isBaseIntroActive) unzoomBuilding();
       closeTacticalModal('modalCrew');
+      closeNavDropdown();
+      const pBtn = document.getElementById('phaseDashboardToggleBtn');
+      if (pBtn) pBtn.classList.add('active-tab-highlight');
+      const cBtn = document.getElementById('crewIntroToggleBtn');
+      if (cBtn) cBtn.classList.remove('active-tab-highlight');
       showPhaseOverviewWindow();
       if (phaseDashboardModal) phaseDashboardModal.classList.remove('hidden');
       const overlay = document.getElementById('onboardingGuideOverlay');
@@ -5140,6 +6347,11 @@
       if (sound && sound.clickSound) sound.clickSound();
       if (currentZoomedBldId || isBaseIntroActive) unzoomBuilding();
       closePhaseDashboard();
+      closeNavDropdown();
+      const cBtn = document.getElementById('crewIntroToggleBtn');
+      if (cBtn) cBtn.classList.add('active-tab-highlight');
+      const pBtn = document.getElementById('phaseDashboardToggleBtn');
+      if (pBtn) pBtn.classList.remove('active-tab-highlight');
       renderCrewDossierScene(currentCrewDossierIndex || 0);
       openTacticalModal('modalCrew');
       const overlay = document.getElementById('onboardingGuideOverlay');
@@ -5148,6 +6360,8 @@
 
     function closePhaseDashboard() {
       if (sound && sound.clickSound) sound.clickSound();
+      const pBtn = document.getElementById('phaseDashboardToggleBtn');
+      if (pBtn) pBtn.classList.remove('active-tab-highlight');
       if (phaseDashboardModal) phaseDashboardModal.classList.add('hidden');
       if (typeof onboardingStep !== 'undefined' && onboardingStep === 1) {
         advanceOnboardingFromPhases();
@@ -5155,6 +6369,8 @@
     }
 
     function selectPhaseMission(bldId, badgeId) {
+      const pBtn = document.getElementById('phaseDashboardToggleBtn');
+      if (pBtn) pBtn.classList.remove('active-tab-highlight');
       if (phaseDashboardModal) phaseDashboardModal.classList.add('hidden');
       if (typeof onboardingStep !== 'undefined' && onboardingStep > 0) {
         dismissOnboardingGuide();
@@ -6039,6 +7255,10 @@
       if (target) {
         target.classList.add('hidden');
       }
+      if (modalId === 'modalCrew') {
+        const cBtn = document.getElementById('crewIntroToggleBtn');
+        if (cBtn) cBtn.classList.remove('active-tab-highlight');
+      }
       if (modalId === 'modalCrew' && typeof onboardingStep !== 'undefined' && onboardingStep === 2) {
         advanceOnboardingFromCrew();
       }
@@ -6141,6 +7361,12 @@
       const btnUpgrades = document.getElementById('btnBaseUpgrades');
       const colNasa = document.getElementById('dropdownColNasa');
       const colUpgrades = document.getElementById('dropdownColUpgrades');
+
+      // Clear left buttons highlights
+      const pBtn = document.getElementById('phaseDashboardToggleBtn');
+      if (pBtn) pBtn.classList.remove('active-tab-highlight');
+      const cBtn = document.getElementById('crewIntroToggleBtn');
+      if (cBtn) cBtn.classList.remove('active-tab-highlight');
 
       if (!dropdown) return;
 
@@ -6580,6 +7806,68 @@
       input.value = '';
     }
 
+    // =========================================================================
+    // Scene 1: Right Explore & Resource Sidebar Controller
+    // =========================================================================
+    function toggleResourceSidebar(forceState) {
+      if (typeof sound !== 'undefined' && sound && sound.clickSound) {
+        sound.clickSound();
+      }
+      const sidebar = document.getElementById('baseResourceSidebar');
+      const pullTab = document.getElementById('sidebarPullTab');
+      const tabIcon = document.getElementById('sidebarTabIcon');
+      if (!sidebar) return;
+
+      if (typeof forceState === 'boolean') {
+        sidebar.classList.toggle('sidebar-collapsed', !forceState);
+      } else {
+        sidebar.classList.toggle('sidebar-collapsed');
+      }
+
+      const isCollapsed = sidebar.classList.contains('sidebar-collapsed');
+      if (tabIcon) {
+        tabIcon.textContent = isCollapsed ? '◀' : '▶';
+      }
+      if (pullTab) {
+        pullTab.setAttribute('title', isCollapsed ? 'Open Explore Sidebar' : 'Hide Sidebar');
+        pullTab.setAttribute('aria-expanded', !isCollapsed);
+      }
+    }
+
+    function exploreMainPageAction() {
+      if (typeof sound !== 'undefined' && sound && sound.warpSound) {
+        sound.warpSound();
+      }
+      // Collapse sidebar so user has full view of main base
+      toggleResourceSidebar(false);
+
+      // Close open modals and unzoom if zoomed
+      if (typeof closeActiveTacticalModal === 'function') closeActiveTacticalModal();
+      document.querySelectorAll('.tactical-modal').forEach(m => m.classList.add('hidden'));
+      if (typeof closePhaseDashboard === 'function') closePhaseDashboard();
+      if (typeof unzoomBuilding === 'function' && (currentZoomedBldId || isBaseIntroActive)) {
+        unzoomBuilding();
+      }
+
+      // Smooth scroll/focus to central base dome
+      const mainBld = document.getElementById('bldMain');
+      if (mainBld && typeof mainBld.scrollIntoView === 'function') {
+        mainBld.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      }
+
+      // Give visual feedback on top status bar
+      const topBar = document.getElementById('topStatusBar');
+      if (topBar) {
+        topBar.style.transition = 'box-shadow 0.35s ease, border-color 0.35s ease';
+        topBar.style.borderColor = '#00e5ff';
+        topBar.style.boxShadow = '0 0 24px rgba(0, 229, 255, 0.85)';
+        setTimeout(() => {
+          topBar.style.borderColor = '';
+          topBar.style.boxShadow = '';
+        }, 1500);
+      }
+    }
+
     // URL parameter testing helper (for automated CI/CD and verification)
     (function checkTestParams() {
       try {
@@ -6592,6 +7880,8 @@
         else if (testParam === 'phases') openPhaseDashboard();
         else if (testParam === 'phases4') { openPhaseDashboard(); openPhase1MissionsWindow(); }
         else if (testParam === 'crew') openCrewManifestModal();
+        else if (testParam === 'sidebar_hide') toggleResourceSidebar(false);
+        else if (testParam === 'sidebar_show') toggleResourceSidebar(true);
       } catch(e) {}
     })();
   </script>
