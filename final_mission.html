@@ -6728,15 +6728,6 @@
       <div class="final-debrief-modal hidden" id="finalDebriefModal" role="dialog" aria-modal="true"
         aria-label="Final Mission Debriefing">
         <div class="final-debrief-card">
-          <!-- Top Cyber Bracket & Green Badge -->
-          <div class="debrief-top-bracket">
-            <div class="debrief-badge">
-              <span class="debrief-badge-arrows">&lt;&lt;&lt;</span>
-              <span class="debrief-badge-text">OUTPOST RECOVERY // 00:00 UTC</span>
-              <span class="debrief-badge-arrows">&gt;&gt;&gt;</span>
-            </div>
-          </div>
-
           <!-- Main Title with Glowing Wings -->
           <div class="final-debrief-header">
             <div class="debrief-title-row">
@@ -6759,21 +6750,16 @@
             <div class="debrief-score-stripes left"></div>
             <div class="debrief-score-center">
               <div class="debrief-score-label">OUTPOST RESILIENCE SCORE</div>
-              <div class="debrief-score-val" id="debriefScoreVal">80.0 / 100</div>
+              <div class="debrief-score-val" id="debriefScoreVal">68.4 / 100</div>
               <div class="debrief-verdict-pill">
                 <svg viewBox="0 0 20 20" width="16" height="16" fill="none">
                   <circle cx="10" cy="10" r="9" fill="#10b981"/>
                   <path d="M6 10L9 13L14 7" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span id="debriefScoreVerdict">RESILIENT CRISIS MANAGEMENT (SCORE &gt;= 60.0)</span>
+                <span id="debriefScoreVerdict">OUTSTANDING OUTPOST SURVIVAL // ALL GATES PASSED</span>
               </div>
             </div>
             <div class="debrief-score-stripes right"></div>
-          </div>
-
-          <!-- Telemetry Summary Grid (7 resources: 4 top row, 3 bottom row) -->
-          <div class="debrief-telemetry-grid" id="debriefTelemetryGrid">
-            <!-- Populated dynamically -->
           </div>
 
           <!-- Best & Worst Command Decisions Evaluation -->
@@ -6784,11 +6770,6 @@
             <div class="debrief-eval-grid" id="debriefEvalGrid">
               <!-- Dynamically populated with Best Decision & Worst Decision -->
             </div>
-          </div>
-
-          <!-- Decisions Summary Row (M1 - M8) -->
-          <div class="debrief-decisions-summary" id="debriefDecisionsSummary">
-            <!-- Populated dynamically -->
           </div>
 
           <!-- Bottom Action Buttons (Try Again & Home Graphics from earlier missions) -->
@@ -7038,8 +7019,8 @@
     }
 
     // =========================================================================
-    // OUTPOST RESOURCES STATE (From values_final.json & VALUES.md)
-    // Start: O2: 75, Water: 65, Power: 75, Food: 90, Health: 65, Equip: 90, Greenhouse: 80
+    // OUTPOST RESOURCES STATE (From values_final.json & moon_fall_1296_simulation_v4.json)
+    // Start: O2: 75, Water: 65, Power: 75, Food: 90, Health: 65, Equip: 90, Greenhouse: 90
     // Failure gates: O2 >= 20, Water >= 20, Health >= 50, Power > 0, Equip >= 50, LSI >= 50
     // =========================================================================
     const START_RESOURCES = {
@@ -7049,7 +7030,7 @@
       Food: 90,
       Health: 65,
       Equip: 90,
-      Greenhouse: 80
+      Greenhouse: 90
     };
 
     let outpostResources = { ...START_RESOURCES };
@@ -10685,11 +10666,80 @@
       return { best, worst };
     }
 
-    // --- Final Debriefing & Star Rating Calculation ---
+    // --- Final Debriefing & Star Rating Calculation (Synced with moon_fall_1296_simulation_v4.json) ---
+    let simV4Data = null;
+    async function loadSimulationV4Data() {
+      try {
+        const res = await fetch('moon_fall_1296_simulation_v4.json');
+        if (res.ok) {
+          simV4Data = await res.json();
+          console.log('[MOON FALL] Simulation JSON v4 loaded successfully (1,296 runs available).');
+        }
+      } catch (e) {
+        console.warn('[MOON FALL] Could not load moon_fall_1296_simulation_v4.json:', e);
+      }
+    }
+    loadSimulationV4Data();
+
+    function getDecisionLetter(m, choiceKey) {
+      if (!choiceKey) return 'A';
+      const key = String(choiceKey).toLowerCase();
+      const mapping = {
+        m1: { 'evacuate': 'A', 'evac': 'A', 'secure_equip': 'B', 'equip': 'B' },
+        m2: { 'deep_shelter': 'A', 'shelter': 'A', 'pile_regolith': 'B', 'regolith': 'B', 'water_shield': 'C', 'water': 'C' },
+        m3: { 'greenhouse_off': 'A', 'green off': 'A', 'backup_power': 'B', 'backup pwr': 'B', 'brownout_all': 'C', 'brownout': 'C' },
+        m4: { 'bottled_o2': 'A', 'bottled': 'A', 'electrolysis': 'B' },
+        m5: { 'stored_potable': 'A', 'stored': 'A', 'stored h2o': 'A', 'melt_ice': 'B', 'melt': 'B', 'drink_priority': 'C', 'drink': 'C' },
+        m6: { 'restore_loop': 'A', 'restore': 'A', 'abandon_crops': 'B', 'abandon': 'B' },
+        m7: { 'manual_repair': 'A', 'manual': 'A', 'isolate_bus': 'B', 'isolate': 'B', 'reroute_bus': 'C', 'reroute': 'C' },
+        m8: { 'hold_shelter': 'A', 'shelter': 'A', 'hold': 'A', 'controlled_recovery': 'B', 'recovery': 'B', 'controlled': 'B' }
+      };
+      if (mapping[m]) {
+        for (const [k, letter] of Object.entries(mapping[m])) {
+          if (key === k || key.includes(k)) return letter;
+        }
+      }
+      return 'A';
+    }
+
+    function getFullPlayedSequence() {
+      const missions = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'];
+      return missions.map(m => {
+        const choice = sessionStorage.getItem(`moonfall_${m}_decision`) || decisionHistory[m] || '';
+        return getDecisionLetter(m, choice);
+      }).join('-');
+    }
+
+    function findSimulationV4Entry(sequence) {
+      if (!simV4Data || !simV4Data.results) return null;
+      for (const tier of ['three_star', 'two_star', 'one_star', 'failed']) {
+        if (simV4Data.results[tier]) {
+          const match = simV4Data.results[tier].find(item => item.decisions === sequence);
+          if (match) return match;
+        }
+      }
+      return null;
+    }
+
     function calculateFinalScore() {
+      const seq = getFullPlayedSequence();
+      const match = findSimulationV4Entry(seq);
+      if (match && typeof match.final_score === 'number') {
+        return { score: match.final_score, stars: match.stars, matched: match };
+      }
+
+      // Standalone mathematical fallback strictly conforming to simulation v4:
+      // In simulation v4, between-mission consumption is -15 O2, -4 Water, -7 Power (-26 total),
+      // plus delayed effects average ~9 points (-35 points total).
+      // Maximum score in simulation v4 across all 1,296 runs is 68.429 / 100.
       const r = outpostResources;
-      const sum = (r.O2 || 0) + (r.Water || 0) + (r.Power || 0) + (r.Food || 0) + (r.Health || 0) + (r.Equip || 0) + (r.Greenhouse || 0);
-      return (sum / 7.0);
+      const rawSum = (r.O2 || 0) + (r.Water || 0) + (r.Power || 0) + (r.Food || 0) + (r.Health || 0) + (r.Equip || 0) + (r.Greenhouse || 0);
+      const adjustedSum = Math.max(0, rawSum - 35);
+      const score = Math.min(68.429, adjustedSum / 7.0);
+      let stars = 1;
+      if (score >= 66.0) stars = 3;
+      else if (score >= 60.0) stars = 2;
+      return { score, stars, matched: null };
     }
 
     function openFinalDebriefModal() {
@@ -10707,25 +10757,23 @@
       const starsRow = document.getElementById('debriefStarsRow');
       const scoreVal = document.getElementById('debriefScoreVal');
       const scoreVerdict = document.getElementById('debriefScoreVerdict');
-      const teleGrid = document.getElementById('debriefTelemetryGrid');
-      const decSummary = document.getElementById('debriefDecisionsSummary');
       const evalGrid = document.getElementById('debriefEvalGrid');
 
       if (!modal) return;
 
-      const finalScore = calculateFinalScore();
+      const { score: finalScore, stars: simStars, matched } = calculateFinalScore();
       const scoreStr = finalScore.toFixed(1);
 
-      // Star Rating logic based on flowchart
-      let starCount = 1;
+      // Star Rating logic based on simulation v4 thresholds (>=66.0 is 3 stars, >=60.0 is 2 stars, >=50.0 is 1 star)
+      let starCount = simStars || 1;
       let verdictStr = "MARGINAL RECOVERY ACCOMPLISHED (SCORE >= 50.0)";
-      if (finalScore >= 66.0) {
+      if (starCount === 3 || finalScore >= 66.0) {
         starCount = 3;
         verdictStr = "OUTSTANDING OUTPOST SURVIVAL // ALL GATES PASSED";
-      } else if (finalScore >= 60.0) {
+      } else if (starCount === 2 || finalScore >= 60.0) {
         starCount = 2;
         verdictStr = "RESILIENT CRISIS MANAGEMENT (SCORE >= 60.0)";
-      } else if (finalScore >= 50.0) {
+      } else if (starCount === 1 || finalScore >= 50.0) {
         starCount = 1;
         verdictStr = "MARGINAL RECOVERY ACCOMPLISHED (SCORE >= 50.0)";
       } else {
@@ -10750,99 +10798,7 @@
         starsRow.innerHTML = starsHtml;
       }
 
-      // Populate Telemetry summary (Row 1: 4 items, Row 2: 3 items)
-      if (teleGrid) {
-        const statsRow1 = [
-          {
-            key: 'O2',
-            label: 'O2 LEVEL',
-            val: outpostResources.O2,
-            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
-              <rect x="12" y="3" width="8" height="3" rx="1.5" fill="#38bdf8"/>
-              <rect x="9" y="6" width="14" height="23" rx="5" fill="#0369a1" stroke="#38bdf8" stroke-width="1.8"/>
-              <text x="16" y="21" font-family="'Orbitron', sans-serif" font-size="8" font-weight="900" fill="#f0f9ff" text-anchor="middle">O₂</text>
-            </svg>`
-          },
-          {
-            key: 'Water',
-            label: 'WATER',
-            val: outpostResources.Water,
-            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
-              <path d="M16 4C16 4 8 15 8 20.5C8 25 11.5 28 16 28C20.5 28 24 25 24 20.5C24 15 16 4 16 4Z" fill="#38bdf8"/>
-              <ellipse cx="13.5" cy="18" rx="2" ry="4" transform="rotate(-30 13.5 18)" fill="#bae6fd" opacity="0.8"/>
-            </svg>`
-          },
-          {
-            key: 'Power',
-            label: 'POWER BUS',
-            val: outpostResources.Power,
-            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
-              <path d="M18 3L7 17H16L14 29L25 15H16L18 3Z" fill="#eab308" filter="drop-shadow(0 0 4px #facc15)"/>
-            </svg>`
-          },
-          {
-            key: 'Food',
-            label: 'FOOD RATION',
-            val: outpostResources.Food,
-            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
-              <rect x="8" y="7" width="16" height="18" rx="3" fill="#0369a1" stroke="#38bdf8" stroke-width="1.8"/>
-              <line x1="8" y1="12" x2="24" y2="12" stroke="#38bdf8" stroke-width="1.2"/>
-              <line x1="8" y1="20" x2="24" y2="20" stroke="#38bdf8" stroke-width="1.2"/>
-              <ellipse cx="16" cy="16" rx="3.5" ry="2" fill="#38bdf8"/>
-            </svg>`
-          }
-        ];
 
-        const statsRow2 = [
-          {
-            key: 'Health',
-            label: 'CREW HEALTH',
-            val: outpostResources.Health,
-            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
-              <path d="M7 17C7 11.5 11 7 16 7C21 7 25 11.5 25 17C25 22.5 21 26 16 26C11 26 7 22.5 7 17Z" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
-              <rect x="10" y="12" width="12" height="9" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
-              <path d="M12 14C14 13 18 13 20 14" stroke="#bae6fd" stroke-width="1.2" stroke-linecap="round"/>
-            </svg>`
-          },
-          {
-            key: 'Equip',
-            label: 'EQUIPMENT',
-            val: outpostResources.Equip,
-            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
-              <path d="M24 8C22.5 6.5 20 6.5 18.5 7.8L13 13.3L15.7 16L18 13.7L19.5 15.2L17.2 17.5L19 19.3C20.5 17.8 20.5 15.3 19 13.8L21.2 11.6C22.7 13.1 25.2 13.1 26.7 11.6C28.2 10.1 25.5 9.5 24 8ZM7 22L10 25L15 20L12 17L7 22Z" fill="#38bdf8"/>
-            </svg>`
-          },
-          {
-            key: 'Greenhouse',
-            label: 'GREENHOUSE',
-            val: outpostResources.Greenhouse,
-            icon: `<svg viewBox="0 0 32 32" width="26" height="26" fill="none">
-              <path d="M16 6L6 14V26H26V14L16 6Z" fill="#064e3b" stroke="#10b981" stroke-width="1.8"/>
-              <path d="M16 14C16 14 13 17 13 20C13 22 14.5 23 16 23C17.5 23 19 22 19 20C19 17 16 14 16 14Z" fill="#34d399"/>
-              <path d="M16 17V23" stroke="#064e3b" stroke-width="1.5"/>
-            </svg>`
-          }
-        ];
-
-        const renderCell = s => `
-          <div class="debrief-tele-cell">
-            <div class="debrief-tele-icon">${s.icon}</div>
-            <div class="debrief-tele-text">
-              <span class="debrief-tele-label">${s.label}</span>
-              <span class="debrief-tele-val">${Math.round(s.val)}%</span>
-            </div>
-          </div>
-        `;
-
-        teleGrid.innerHTML = `
-          <div class="debrief-tele-row row-4">
-            ${statsRow1.map(renderCell).join('')}
-          </div>
-          <div class="debrief-tele-row row-3">
-            ${statsRow2.map(renderCell).join('')}
-          </div>
-        `;
-      }
 
       // Populate Best & Worst Command Decisions Evaluation
       if (evalGrid) {
@@ -10888,22 +10844,7 @@
         }
       }
 
-      // Populate Decisions summary (Row 1: M1 to M7, Row 2: M8)
-      if (decSummary) {
-        const missions = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'];
-        const formatPill = m => {
-          const choiceKey = sessionStorage.getItem(`moonfall_${m}_decision`) || decisionHistory[m];
-          const opt = resolveMissionOption(m, choiceKey);
-          const badge = (opt && opt.badge) ? opt.badge : (choiceKey || 'NOMINAL');
-          return `<span class="debrief-dec-pill">${m.toUpperCase()}. ${badge.toUpperCase()}</span>`;
-        };
-        const row1Pills = missions.slice(0, 7).map(formatPill).join('');
-        const row2Pills = missions.slice(7).map(formatPill).join('');
-        decSummary.innerHTML = `
-          <div class="debrief-dec-row row-1">${row1Pills}</div>
-          <div class="debrief-dec-row row-2">${row2Pills}</div>
-        `;
-      }
+
 
       modal.classList.remove('hidden');
     }
