@@ -1123,7 +1123,7 @@
       position: absolute;
       right: clamp(8px, 1.1vw, 16px);
       top: clamp(124px, 17.5vh, 138px);
-      width: clamp(172px, 15.2vw, 206px);
+      width: clamp(195px, 17.5vw, 240px);
       background: rgba(4, 14, 32, 0.94);
       border: 1.5px solid var(--pixel-blue-border);
       border-radius: 8px;
@@ -1131,7 +1131,7 @@
       padding: clamp(8px, 1.2vh, 12px) clamp(10px, 1.0vw, 14px);
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
       z-index: 85;
       pointer-events: auto;
       font-family: var(--font-pixel);
@@ -1147,24 +1147,24 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.35);
-      padding-bottom: 4px;
-      margin-bottom: 2px;
+      border-bottom: 1.5px solid rgba(56, 189, 248, 0.45);
+      padding-bottom: 5px;
+      margin-bottom: 3px;
     }
 
     .telemetry-title {
-      font-size: clamp(0.82rem, 1.08vw, 0.98rem);
+      font-size: clamp(0.98rem, 1.25vw, 1.18rem);
       color: #38bdf8;
       letter-spacing: 0.08em;
       font-weight: bold;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
     }
 
     .telemetry-pulse-dot {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       background: #10b981;
       border-radius: 50%;
       box-shadow: 0 0 8px #10b981;
@@ -1192,25 +1192,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: clamp(0.84rem, 1.1vw, 1.02rem);
-      line-height: 1;
+      font-size: clamp(0.98rem, 1.22vw, 1.15rem);
+      line-height: 1.1;
     }
 
     .telemetry-label-grp {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       color: #cbd5e1;
+      font-weight: 600;
     }
 
     .telemetry-svg-icon {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       flex-shrink: 0;
     }
 
     .telemetry-val {
       font-weight: bold;
+      font-size: clamp(1.05rem, 1.3vw, 1.22rem);
       color: #ffffff;
       font-variant-numeric: tabular-nums;
       transition: color 0.4s ease, transform 0.25s ease;
@@ -1231,7 +1233,7 @@
 
     .telemetry-bar-track {
       width: 100%;
-      height: clamp(10px, 1.4vh, 12px);
+      height: clamp(11px, 1.5vh, 14px);
       background: rgba(15, 23, 42, 0.95);
       border: 1.5px solid rgba(56, 189, 248, 0.35);
       border-radius: 5px;
@@ -1280,19 +1282,20 @@
     }
 
     .telemetry-footer-stats {
-      border-top: 1px solid rgba(56, 189, 248, 0.3);
-      padding-top: 4px;
-      margin-top: 2px;
+      border-top: 1.5px solid rgba(56, 189, 248, 0.35);
+      padding-top: 6px;
+      margin-top: 3px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: clamp(0.76rem, 0.98vw, 0.9rem);
+      font-size: clamp(0.92rem, 1.15vw, 1.08rem);
       color: #94a3b8;
     }
 
     .telemetry-lsi-val {
       color: #38bdf8;
       font-weight: bold;
+      font-size: clamp(1.02rem, 1.25vw, 1.18rem);
     }
 
     /* Decision Trade-off Consequence Popup Modal */
@@ -5737,6 +5740,65 @@
       .mission-btn img {
         height: clamp(28px, 5.5vw, 40px);
       }
+      .mission-failure-card {
+        padding: 8px 16px;
+        gap: 7px;
+        max-height: 96vh;
+      }
+      .failure-alarm-badge {
+        padding: 3px 10px;
+        margin-bottom: 3px;
+        font-size: 0.85rem;
+      }
+      .failure-title {
+        font-size: 1.35rem;
+      }
+      .failure-subtitle {
+        font-size: 0.9rem;
+        margin: 2px 0 0 0;
+      }
+      .failure-callout-box {
+        padding: 7px 12px;
+        gap: 5px;
+      }
+      .failure-stat-display {
+        padding-bottom: 5px;
+      }
+      .failure-stat-label {
+        font-size: 1.05rem;
+      }
+      .failure-stat-value {
+        font-size: 1.5rem;
+      }
+      .failure-threshold-badge {
+        font-size: 0.82rem;
+        padding: 3px 8px;
+      }
+      .failure-crit-msg {
+        font-size: 0.92rem;
+      }
+      .failure-flight-rule {
+        font-size: 0.8rem;
+      }
+      .failure-astrobee-box {
+        padding: 5px 10px;
+        gap: 8px;
+      }
+      .failure-astrobee-img {
+        width: 38px;
+      }
+      .failure-astrobee-text {
+        font-size: 0.88rem;
+      }
+      .failure-tele-cell {
+        padding: 4px 6px;
+      }
+      .failure-tele-label {
+        font-size: 0.72rem;
+      }
+      .failure-tele-val {
+        font-size: 0.98rem;
+      }
     }
 
     /* CRITICAL MISSION FAILURE MODAL (Threshold Gate Breach) */
@@ -5760,7 +5822,7 @@
     }
 
     .mission-failure-card {
-      width: clamp(520px, 68vw, 820px);
+      width: clamp(560px, 72vw, 860px);
       max-width: 95vw;
       max-height: 92vh;
       overflow-y: auto;
@@ -5783,13 +5845,13 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 14px;
+      padding: 7px 16px;
       background: rgba(239, 68, 68, 0.2);
       border: 1.5px solid #ef4444;
       border-radius: 20px;
       color: #fca5a5;
       font-family: var(--font-pixel);
-      font-size: clamp(0.85rem, 1.1vw, 1.0rem);
+      font-size: clamp(0.98rem, 1.25vw, 1.15rem);
       letter-spacing: 0.05em;
       margin-bottom: 8px;
       animation: alertPulse 1.2s infinite alternate;
@@ -5797,7 +5859,7 @@
 
     .failure-title {
       font-family: var(--font-pixel);
-      font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+      font-size: clamp(1.85rem, 2.8vw, 2.6rem);
       color: #ffffff;
       margin: 0;
       text-shadow: 0 0 16px rgba(239, 68, 68, 0.8), 2px 2px 0 #000;
@@ -5805,9 +5867,9 @@
     }
 
     .failure-subtitle {
-      font-size: clamp(0.92rem, 1.15vw, 1.05rem);
+      font-size: clamp(1.08rem, 1.38vw, 1.25rem);
       color: #f87171;
-      margin: 4px 0 0 0;
+      margin: 6px 0 0 0;
       font-weight: 600;
       letter-spacing: 0.03em;
     }
@@ -5816,96 +5878,96 @@
       background: rgba(239, 68, 68, 0.12);
       border: 1.5px solid rgba(239, 68, 68, 0.5);
       border-radius: 10px;
-      padding: clamp(12px, 1.6vh, 18px);
+      padding: clamp(14px, 1.8vh, 20px);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .failure-stat-display {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(239, 68, 68, 0.3);
-      padding-bottom: 8px;
+      border-bottom: 1.5px solid rgba(239, 68, 68, 0.35);
+      padding-bottom: 10px;
     }
 
     .failure-stat-label {
       font-family: var(--font-pixel);
-      font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+      font-size: clamp(1.22rem, 1.6vw, 1.5rem);
       color: #fca5a5;
       font-weight: bold;
     }
 
     .failure-stat-value {
       font-family: var(--font-pixel);
-      font-size: clamp(1.4rem, 2.0vw, 1.9rem);
+      font-size: clamp(2.0rem, 3.0vw, 2.8rem);
       color: #ffffff;
       font-weight: bold;
-      text-shadow: 0 0 10px rgba(239, 68, 68, 0.9);
+      text-shadow: 0 0 14px rgba(239, 68, 68, 0.9);
     }
 
     .failure-threshold-badge {
       font-family: var(--font-pixel);
-      font-size: clamp(0.78rem, 0.95vw, 0.9rem);
+      font-size: clamp(0.95rem, 1.2vw, 1.12rem);
       color: #fecaca;
       background: rgba(239, 68, 68, 0.3);
-      border: 1px solid #ef4444;
-      padding: 4px 10px;
-      border-radius: 4px;
+      border: 1.5px solid #ef4444;
+      padding: 6px 12px;
+      border-radius: 6px;
     }
 
     .failure-crit-msg {
-      font-size: clamp(0.95rem, 1.2vw, 1.12rem);
+      font-size: clamp(1.12rem, 1.45vw, 1.32rem);
       color: #ffffff;
       font-weight: 600;
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
     .failure-flight-rule {
-      font-size: clamp(0.82rem, 1.0vw, 0.92rem);
+      font-size: clamp(0.96rem, 1.2vw, 1.1rem);
       color: #fca5a5;
-      line-height: 1.35;
+      line-height: 1.4;
       font-style: italic;
     }
 
     .failure-astrobee-box {
       display: flex;
       align-items: center;
-      gap: clamp(12px, 1.6vw, 18px);
+      gap: clamp(14px, 1.8vw, 20px);
       background: rgba(3, 16, 38, 0.7);
       border: 1px solid rgba(56, 189, 248, 0.3);
       border-radius: 10px;
-      padding: clamp(10px, 1.4vh, 14px) clamp(14px, 1.8vw, 20px);
+      padding: clamp(12px, 1.6vh, 16px) clamp(16px, 2.0vw, 22px);
     }
 
     .failure-astrobee-img {
-      width: clamp(50px, 4.5vw, 68px);
+      width: clamp(56px, 5.0vw, 75px);
       height: auto;
       flex-shrink: 0;
       filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.6));
     }
 
     .failure-astrobee-text {
-      font-size: clamp(0.86rem, 1.05vw, 0.98rem);
+      font-size: clamp(1.05rem, 1.28vw, 1.22rem);
       color: #e0f2fe;
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
     .failure-telemetry-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+      gap: 10px;
     }
 
     .failure-tele-cell {
       background: rgba(3, 14, 32, 0.75);
       border: 1px solid rgba(56, 189, 248, 0.25);
       border-radius: 6px;
-      padding: 8px 10px;
+      padding: 9px 12px;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
     }
 
     .failure-tele-cell.breached {
@@ -5915,14 +5977,14 @@
     }
 
     .failure-tele-label {
-      font-size: 0.75rem;
+      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
       color: #94a3b8;
       font-weight: 600;
     }
 
     .failure-tele-val {
       font-family: var(--font-pixel);
-      font-size: 1.1rem;
+      font-size: clamp(1.22rem, 1.5vw, 1.42rem);
       color: #ffffff;
       font-weight: bold;
     }
