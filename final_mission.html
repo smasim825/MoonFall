@@ -5527,65 +5527,58 @@
       letter-spacing: 0.04em;
     }
 
-    /* Bottom Action Buttons in Cyber Dock */
+    /* Mission Complete Buttons (Try Again & Home pixel graphics from Frame 25 / Frame 26) */
+    .mission-complete-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(12px, 1.8vw, 24px);
+      width: 100%;
+      margin-top: 6px;
+      margin-bottom: 2px;
+      z-index: 10;
+    }
+
+    .mission-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      outline: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .mission-btn img {
+      height: clamp(34px, 4.2vw, 52px);
+      width: auto;
+      object-fit: contain;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.65));
+    }
+
+    .mission-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      filter: brightness(1.15) drop-shadow(0 0 16px rgba(0, 229, 255, 0.75));
+    }
+
+    .mission-btn:active {
+      transform: scale(0.96);
+    }
+
     .debrief-actions-row {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      margin-top: 2px;
-    }
-
-    .debrief-actions-dock {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      padding: 4px 20px;
-      background: rgba(3, 16, 36, 0.95);
-      border: 2px solid #00a8ff;
-      border-radius: 9999px;
-      box-shadow: 0 0 22px rgba(0, 168, 255, 0.4), inset 0 0 12px rgba(0, 50, 100, 0.55);
-      width: fit-content;
-    }
-
-    .debrief-cyber-btn {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      background: linear-gradient(180deg, #071e3d 0%, #031024 100%);
-      border: 1.8px solid #00c2ff;
-      border-radius: 9999px;
-      padding: 7px 22px;
-      color: #ffffff;
-      font-family: 'Orbitron', 'Rajdhani', sans-serif;
-      font-size: clamp(13px, 1.25vw, 15px);
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      box-shadow: 0 0 14px rgba(0, 194, 255, 0.35);
-      outline: none;
-    }
-
-    .debrief-cyber-btn:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.2);
-      box-shadow: 0 0 24px rgba(0, 229, 255, 0.8);
-    }
-
-    .debrief-cyber-btn:active {
-      transform: scale(0.96);
-    }
-
-    .debrief-cyber-btn.btn-try-again:hover {
-      border-color: #ef4444;
-      box-shadow: 0 0 24px rgba(239, 68, 68, 0.65);
-    }
-
-    .debrief-cyber-btn.btn-home:hover {
-      border-color: #00e5ff;
-      box-shadow: 0 0 24px rgba(0, 229, 255, 0.85);
+      margin-top: 4px;
     }
 
     @media (max-width: 768px) {
@@ -5737,18 +5730,8 @@
         font-size: 7.5px;
         padding: 1.5px 5px;
       }
-      .debrief-actions-dock {
-        padding: 2px 12px;
-        gap: 10px;
-      }
-      .debrief-cyber-btn {
-        padding: 3.5px 14px;
-        font-size: 11px;
-        gap: 5px;
-      }
-      .debrief-cyber-btn svg {
-        width: 14px;
-        height: 14px;
+      .mission-btn img {
+        height: clamp(28px, 5.5vw, 40px);
       }
     }
 
@@ -6745,22 +6728,14 @@
             <!-- Populated dynamically -->
           </div>
 
-          <!-- Bottom Action Buttons in Cyber Dock -->
-          <div class="debrief-actions-row">
-            <div class="debrief-actions-dock">
-              <button class="debrief-cyber-btn btn-try-again" onclick="restartMission()" title="Try Again">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" style="flex-shrink:0;">
-                  <path d="M12 4V1L8 5L12 9V6C15.31 6 18 8.69 18 12C18 13.01 17.75 13.97 17.3 14.8L18.8 16.3C19.56 15.05 20 13.58 20 12C20 7.58 16.42 4 12 4ZM12 18C8.69 18 6 15.31 6 12C6 10.99 6.25 10.03 6.7 9.2L5.2 7.7C4.44 8.95 4 10.42 4 12C4 16.42 7.58 20 12 20V23L16 19L12 15V18Z" fill="#ef4444"/>
-                </svg>
-                <span>Try Again</span>
-              </button>
-              <button class="debrief-cyber-btn btn-home" onclick="returnToBase()" title="Home">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="#00e5ff" style="flex-shrink:0;">
-                  <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z"/>
-                </svg>
-                <span>Home</span>
-              </button>
-            </div>
+          <!-- Bottom Action Buttons (Try Again & Home Graphics from earlier missions) -->
+          <div class="mission-complete-buttons debrief-actions-row">
+            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again" aria-label="Try Again">
+              <img src="assets/Frame 25.webp" alt="Try Again">
+            </button>
+            <button class="mission-btn btn-home" onclick="returnToBase()" title="Home" aria-label="Home">
+              <img src="assets/Frame 26.webp" alt="Home">
+            </button>
           </div>
         </div>
       </div>
@@ -6774,9 +6749,9 @@
               <svg viewBox="0 0 24 24" width="20" height="20" fill="#ef4444">
                 <path d="M12 2L1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z" />
               </svg>
-              <span>CRITICAL OUTPOST FAILURE // MISSION TERMINATED</span>
+              <span id="failureAlarmBadgeText">CRITICAL OUTPOST FAILURE // MISSION TERMINATED</span>
             </div>
-            <h1 class="failure-title">OUTPOST INTEGRITY COLLAPSED</h1>
+            <h1 class="failure-title" id="failureMainTitle">OUTPOST INTEGRITY COLLAPSED</h1>
             <p class="failure-subtitle" id="failureGateName">FLIGHT SAFETY THRESHOLD BREACHED</p>
           </div>
 
@@ -6810,20 +6785,12 @@
           <div class="failure-telemetry-grid" id="failureTelemetryGrid"></div>
 
           <!-- Action Buttons -->
-          <div class="failure-actions-row">
-            <button class="failure-action-btn btn-restart-game" onclick="restartMission()">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
-                <path d="M1 4v6h6M23 20v-6h-6" />
-                <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
-              </svg>
-              RESTART MISSION
+          <div class="mission-complete-buttons failure-actions-row">
+            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again" aria-label="Try Again">
+              <img src="assets/Frame 25.webp" alt="Try Again">
             </button>
-            <button class="failure-action-btn btn-return-base" onclick="returnToBase()">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
-              </svg>
-              RETURN TO MAIN BASE
+            <button class="mission-btn btn-home" onclick="returnToBase()" title="Home" aria-label="Home">
+              <img src="assets/Frame 26.webp" alt="Home">
             </button>
           </div>
         </div>
@@ -7000,6 +6967,10 @@
       if (consequenceModal) consequenceModal.classList.add('hidden');
       const failModal = document.getElementById('missionFailureModal');
       if (failModal) failModal.classList.add('hidden');
+      const debriefModal = document.getElementById('finalDebriefModal');
+      if (debriefModal) debriefModal.classList.add('hidden');
+      const uplinkModal = document.getElementById('earthUplinkTransmissionModal');
+      if (uplinkModal) uplinkModal.classList.add('hidden');
       renderCurrentStep();
     }
 
@@ -7065,6 +7036,18 @@
       }
     ];
 
+    // Flowchart Gate Names mapped to missions (from mission_progress_visual_flowchart.html)
+    const FLOWCHART_GATE_NAMES = {
+      'm1': { gateNum: 1, name: 'Evacuation Lost' },
+      'm2': { gateNum: 2, name: 'Bunker Compromised' },
+      'm3': { gateNum: 3, name: 'Blackout Crash' },
+      'm4': { gateNum: 4, name: 'Asphyxiation' },
+      'm5': { gateNum: 5, name: 'Dehydration Fatal' },
+      'm6': { gateNum: 6, name: 'Food Chain Lost' },
+      'm7': { gateNum: 7, name: 'Bus Explosion' },
+      'm8': { gateNum: 8, name: 'Outpost Failure' }
+    };
+
     function checkMissionFailureGates() {
       const r = outpostResources;
       const lsi = ((r.O2 || 0) + (r.Water || 0) + (r.Food || 0)) / 3.0;
@@ -7094,6 +7077,8 @@
       const critMsgEl = document.getElementById('failureCritMsg');
       const flightRuleEl = document.getElementById('failureFlightRule');
       const gridEl = document.getElementById('failureTelemetryGrid');
+      const alarmBadgeTextEl = document.getElementById('failureAlarmBadgeText');
+      const failureMainTitleEl = document.getElementById('failureMainTitle');
 
       if (!modal || !failureData) return;
 
@@ -7107,13 +7092,24 @@
       closeCrisisMiniTask();
 
       const { gate, val } = failureData;
-      if (gateNameEl) gateNameEl.textContent = `${gate.label} CRITICAL BREACH`;
+      const currentM = (pendingMissionKey || currentActiveMissionId || 'm1').toLowerCase();
+      const flowGate = FLOWCHART_GATE_NAMES[currentM] || { gateNum: 1, name: 'Critical Failure' };
+
+      if (alarmBadgeTextEl) {
+        alarmBadgeTextEl.textContent = `FAILURE GATE ${flowGate.gateNum} // ${flowGate.name.toUpperCase()}`;
+      }
+      if (failureMainTitleEl) {
+        failureMainTitleEl.textContent = flowGate.name.toUpperCase();
+      }
+      if (gateNameEl) {
+        gateNameEl.textContent = `FLOWCHART GATE ${flowGate.gateNum}: ${gate.label} BREACHED`;
+      }
       if (statLabelEl) statLabelEl.textContent = gate.label;
       if (statValueEl) statValueEl.textContent = (gate.key === 'LSI') ? `${val.toFixed(1)}%` : `${val}%`;
       if (thresholdBadgeEl) {
         thresholdBadgeEl.textContent = (gate.key === 'Power')
-          ? `SAFETY GATE: > 0% (TOTAL BLACKOUT PREVENTED)`
-          : `SAFETY GATE: ≥ ${gate.min}% MINIMUM`;
+          ? `SAFETY GATE ${flowGate.gateNum}: POWER > 0% (TOTAL BLACKOUT PREVENTED)`
+          : `SAFETY GATE ${flowGate.gateNum}: ≥ ${gate.min}% MINIMUM REQUIRED`;
       }
       if (critMsgEl) critMsgEl.textContent = gate.critMsg(val);
       if (flightRuleEl) flightRuleEl.textContent = gate.flightRule;
@@ -10554,22 +10550,47 @@
     }
 
     // --- Command Decisions Evaluation (Best vs Heaviest Trade-Off) ---
+    function resolveMissionOption(m, choiceKey) {
+      const missionConfig = MISSION_DECISIONS_DATA[m];
+      if (!missionConfig || !missionConfig.options) return null;
+      const opts = missionConfig.options;
+      if (!choiceKey) return opts[Object.keys(opts)[0]];
+
+      const raw = String(choiceKey).trim().toLowerCase();
+      // 1. Direct key match
+      if (opts[raw]) return opts[raw];
+
+      // 2. Direct badge / title / label match
+      for (const [k, opt] of Object.entries(opts)) {
+        if (k.toLowerCase() === raw) return opt;
+        if (opt.badge && opt.badge.toLowerCase() === raw) return opt;
+        if (opt.title && opt.title.toLowerCase() === raw) return opt;
+        if (opt.label && opt.label.toLowerCase() === raw) return opt;
+      }
+
+      // 3. Normalized / alphanumeric match
+      const normRaw = raw.replace(/[^a-z0-9]/g, '');
+      for (const [k, opt] of Object.entries(opts)) {
+        const normKey = k.replace(/[^a-z0-9]/g, '');
+        const normBadge = (opt.badge || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const normTitle = (opt.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (normRaw && (normRaw === normKey || normRaw === normBadge || normRaw === normTitle)) return opt;
+        if (normBadge && (normRaw.includes(normBadge) || normBadge.includes(normRaw))) return opt;
+        if (normKey && (normRaw.includes(normKey) || normKey.includes(normRaw))) return opt;
+      }
+
+      return opts[Object.keys(opts)[0]];
+    }
+
     function getBestAndWorstDecisions() {
       const missions = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'];
       const evaluations = [];
 
       missions.forEach(m => {
-        const choiceKey = sessionStorage.getItem(`moonfall_${m}_decision`) || (decisionHistory[m] ? decisionHistory[m].toLowerCase() : null);
+        const choiceKey = sessionStorage.getItem(`moonfall_${m}_decision`) || decisionHistory[m];
         const missionConfig = MISSION_DECISIONS_DATA[m];
         if (missionConfig && missionConfig.options) {
-          let opt = null;
-          if (choiceKey && missionConfig.options[choiceKey]) {
-            opt = missionConfig.options[choiceKey];
-          } else {
-            const keys = Object.keys(missionConfig.options);
-            opt = missionConfig.options[keys[0]];
-          }
-
+          const opt = resolveMissionOption(m, choiceKey);
           if (opt && opt.deltas) {
             let netDelta = 0;
             for (const [res, val] of Object.entries(opt.deltas)) {
@@ -10594,7 +10615,10 @@
 
       evaluations.sort((a, b) => b.netDelta - a.netDelta);
       const best = evaluations[0];
-      const worst = evaluations[evaluations.length - 1];
+      let worst = evaluations[evaluations.length - 1];
+      if (evaluations.length > 1 && best.missionKey === worst.missionKey) {
+        worst = evaluations[evaluations.length - 2];
+      }
       return { best, worst };
     }
 
@@ -10606,6 +10630,13 @@
     }
 
     function openFinalDebriefModal() {
+      // Flowchart requirement: Any threshold gate breach triggers failure modal
+      const failureReason = checkMissionFailureGates();
+      if (failureReason) {
+        showMissionFailureModal(failureReason);
+        return;
+      }
+
       sound.successChime();
       closeCrisisMiniTask();
 
@@ -10798,15 +10829,10 @@
       if (decSummary) {
         const missions = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'];
         const formatPill = m => {
-          let choice = decisionHistory[m] || sessionStorage.getItem(`moonfall_${m}_decision`) || 'NOMINAL';
-          const cfg = MISSION_DECISIONS_DATA[m];
-          if (cfg && cfg.options) {
-            const optKey = (sessionStorage.getItem(`moonfall_${m}_decision`) || decisionHistory[m] || '').toLowerCase();
-            if (cfg.options[optKey] && cfg.options[optKey].badge) {
-              choice = cfg.options[optKey].badge;
-            }
-          }
-          return `<span class="debrief-dec-pill">${m.toUpperCase()}. ${choice.toUpperCase()}</span>`;
+          const choiceKey = sessionStorage.getItem(`moonfall_${m}_decision`) || decisionHistory[m];
+          const opt = resolveMissionOption(m, choiceKey);
+          const badge = (opt && opt.badge) ? opt.badge : (choiceKey || 'NOMINAL');
+          return `<span class="debrief-dec-pill">${m.toUpperCase()}. ${badge.toUpperCase()}</span>`;
         };
         const row1Pills = missions.slice(0, 7).map(formatPill).join('');
         const row2Pills = missions.slice(7).map(formatPill).join('');
