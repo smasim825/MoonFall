@@ -3698,16 +3698,144 @@
       }
     }
 
-    /* Sidebar Top Header Bar */
+    /* Sidebar Top Navigation Row (Data, Quiz, Aurora Lab, Start Journey) */
+    .sidebar-top-nav {
+      padding: 12px 16px 10px 16px;
+      background: #111222;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .sidebar-nav-tab {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 4px 2px;
+      transition: color 0.15s ease;
+      text-decoration: none;
+    }
+
+    .sidebar-nav-tab:hover,
+    .sidebar-nav-tab.active {
+      color: #ffffff;
+    }
+
+    .sidebar-start-journey-btn {
+      background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+      border: none;
+      border-radius: 9999px;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(168, 85, 247, 0.45);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .sidebar-start-journey-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.7);
+    }
+
+    .sidebar-start-journey-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* Sidebar Top Header Bar (Matching Reference Image: Know More ⚡ | Split View ✕) */
     .sidebar-header {
-      padding: 14px 16px 12px 16px;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(11, 16, 28, 0.95) 100%);
-      border-bottom: 1.5px solid rgba(56, 189, 248, 0.25);
+      padding: 10px 16px;
+      background: #141628;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
       flex-shrink: 0;
+    }
+
+    .sidebar-know-more-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.15s ease;
+    }
+
+    .sidebar-know-more-btn:hover {
+      color: #c084fc;
+    }
+
+    .sidebar-header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-split-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .sidebar-split-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .sidebar-icon-btn {
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: #94a3b8;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1.15rem;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .sidebar-icon-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
     }
 
     .sidebar-explore-btn {
@@ -3732,35 +3860,6 @@
       border-color: #60a5fa;
       box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
       transform: translateY(-1px);
-    }
-
-    .sidebar-header-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .sidebar-icon-btn {
-      background: rgba(30, 41, 59, 0.7);
-      border: 1.5px solid rgba(148, 163, 184, 0.35);
-      border-radius: 6px;
-      color: #94a3b8;
-      font-family: monospace;
-      font-size: 1.05rem;
-      width: 32px;
-      height: 32px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .sidebar-icon-btn:hover {
-      background: rgba(239, 68, 68, 0.25);
-      border-color: #ef4444;
-      color: #ffffff;
-      transform: scale(1.05);
     }
 
     /* Scrollable Cards Feed */
@@ -3790,36 +3889,38 @@
       background: #38bdf8;
     }
 
-    /* Individual Content Card */
+    /* Individual Content Card (Dark Theme UI, Rounded Corners) */
     .sidebar-card {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1.5px solid rgba(56, 189, 248, 0.22);
-      border-radius: 12px;
-      padding: 12px;
+      background: #171828;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      gap: 8px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
       transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .sidebar-card:hover {
-      border-color: rgba(56, 189, 248, 0.55);
+      border-color: rgba(192, 132, 252, 0.45);
       transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 14px rgba(56, 189, 248, 0.15);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8), 0 0 14px rgba(192, 132, 252, 0.15);
     }
 
     .card-title-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: 2px;
     }
 
     .card-title {
-      font-family: 'Jersey 10', 'Pixel Operator', monospace;
-      font-size: 1.25rem;
-      color: #f1f5f9;
-      letter-spacing: 0.04em;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.01em;
       margin: 0;
       display: flex;
       align-items: center;
@@ -3828,8 +3929,8 @@
 
     .card-badge {
       font-family: 'Pixel Operator', monospace;
-      font-size: 0.75rem;
-      padding: 2px 7px;
+      font-size: 0.72rem;
+      padding: 1px 6px;
       border-radius: 4px;
       background: rgba(56, 189, 248, 0.15);
       border: 1px solid rgba(56, 189, 248, 0.4);
@@ -3843,9 +3944,9 @@
       width: 100%;
       padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
       background: #000000;
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.8);
     }
 
@@ -3858,13 +3959,73 @@
       border: none;
     }
 
+    .card-video-thumb-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      overflow: hidden;
+      background: #000000;
+      cursor: pointer;
+    }
+
+    .card-video-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.28s ease, filter 0.28s ease;
+      display: block;
+    }
+
+    .card-video-thumb-link:hover .card-video-thumb-img {
+      transform: scale(1.06);
+      filter: brightness(1.1);
+    }
+
+    .card-video-play-btn {
+      position: absolute;
+      width: 58px;
+      height: 40px;
+      background: #ef4444;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.75), 0 0 12px rgba(239, 68, 68, 0.5);
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      pointer-events: none;
+    }
+
+    .card-video-play-btn::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 8px 0 8px 14px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 3px;
+    }
+
+    .card-video-thumb-link:hover .card-video-play-btn {
+      transform: scale(1.14);
+      background: #dc2626;
+      box-shadow: 0 6px 22px rgba(239, 68, 68, 0.8);
+    }
+
     .card-source-row {
-      font-family: 'Pixel Operator', monospace;
-      font-size: 0.78rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.76rem;
       color: #94a3b8;
       display: flex;
       align-items: center;
       gap: 6px;
+      margin-top: 2px;
     }
 
     .card-source-tag {
@@ -3873,11 +4034,18 @@
     }
 
     .card-desc {
-      font-family: 'Pixel Operator', monospace;
-      font-size: 0.95rem;
-      line-height: 1.4;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.84rem;
+      line-height: 1.45;
       color: #cbd5e1;
-      margin: 0;
+      margin: 2px 0 4px 0;
+    }
+
+    .card-links-col {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-top: 2px;
     }
 
     .card-action-btn {
@@ -3945,8 +4113,8 @@
 
     /* Reference Style Clean Text Links */
     .card-text-link {
-      font-family: 'Pixel Operator', monospace;
-      font-size: 0.95rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.84rem;
       color: #c084fc;
       text-decoration: underline;
       text-underline-offset: 3px;
@@ -3956,6 +4124,7 @@
       transition: color 0.15s ease, text-shadow 0.15s ease;
       cursor: pointer;
       line-height: 1.35;
+      font-weight: 500;
     }
 
     .card-text-link:hover {
@@ -3965,7 +4134,7 @@
 
     .card-text-link::after {
       content: '↗';
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       text-decoration: none;
       color: #e9d5ff;
     }
@@ -3975,7 +4144,7 @@
       text-decoration: underline;
       text-underline-offset: 2px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600;
       transition: color 0.15s ease;
     }
 
@@ -3987,7 +4156,7 @@
       margin-left: auto;
       color: #64748b;
       letter-spacing: 3px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
     }
 
     /* Facility Themed Cards matching the 4 base sections */
@@ -5206,15 +5375,30 @@
         <span class="sidebar-tab-dot"></span>
       </button>
 
-      <!-- Sidebar Top Header -->
+      <!-- Sidebar Top Navigation Tabs (matching reference UI) -->
+      <div class="sidebar-top-nav">
+        <div class="sidebar-nav-links">
+          <button class="sidebar-nav-tab active" type="button" onclick="exploreMainPageAction()">Data</button>
+          <button class="sidebar-nav-tab" type="button" onclick="openPhaseDashboard()">Quiz</button>
+          <button class="sidebar-nav-tab" type="button" onclick="openPhaseDashboard()">Aurora Lab</button>
+        </div>
+        <button class="sidebar-start-journey-btn" type="button" onclick="launchGame()">Start Journey</button>
+      </div>
+
+      <!-- Sidebar Subheader (📖 Know More ⚡ | 🗗 Split View ✕) -->
       <div class="sidebar-header">
-        <button class="sidebar-explore-btn" onclick="exploreMainPageAction()" title="Return to Main Lunar Base View">
-          <span style="font-size: 1.15rem;">🌐</span>
-          <span>EXPLORE MAIN PAGE</span>
+        <button class="sidebar-know-more-btn" type="button" onclick="exploreMainPageAction()" title="Know More about Lunar Base &amp; Space Weather">
+          <span>📖</span>
+          <span>Know More</span>
+          <span style="color: #facc15;">⚡</span>
         </button>
 
         <div class="sidebar-header-controls">
-          <button class="sidebar-icon-btn" onclick="toggleResourceSidebar()" title="Hide Sidebar" aria-label="Hide Sidebar">✕</button>
+          <button class="sidebar-split-btn" type="button" onclick="exploreMainPageAction()" title="Split View Mode">
+            <span>🗗</span>
+            <span>Split View</span>
+          </button>
+          <button class="sidebar-icon-btn" type="button" onclick="toggleResourceSidebar(false)" title="Close Sidebar" aria-label="Close Sidebar">✕</button>
         </div>
       </div>
 
@@ -5225,16 +5409,13 @@
         <article class="sidebar-card card-power">
           <div class="card-title-row">
             <h4 class="card-title">⚡ Power Station</h4>
-            <span class="card-badge">ENERGY &amp; FISSION</span>
+            <span class="card-badge">ENERGY</span>
           </div>
           <div class="card-video-wrap">
-            <iframe class="card-video-iframe"
-              src="https://www.youtube-nocookie.com/embed/TbVIMSVuEFU?rel=0"
-              title="NASA Spacecraft &amp; Lunar Surface Power"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-            </iframe>
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer" title="Watch NASA Spacecraft &amp; Lunar Surface Power on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/TbVIMSVuEFU/hqdefault.jpg" alt="NASA Power Tech Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
           </div>
           <div class="card-source-row">
             <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
@@ -5243,7 +5424,7 @@
           <p class="card-desc">
             Deploying a 40-kilowatt nuclear fission reactor and vertical bifacial solar array masts to deliver uninterrupted baseload electrical power through the 14-day freezing lunar night.
           </p>
-          <div class="card-links-col" style="display: flex; flex-direction: column; gap: 7px; margin-top: 4px;">
+          <div class="card-links-col">
             <a class="card-text-link" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer">
               <span>What Powers a Spacecraft? (NASA Space Place)</span>
             </a>
@@ -5265,25 +5446,22 @@
         <article class="sidebar-card card-plant">
           <div class="card-title-row">
             <h4 class="card-title">🌱 Plant Growth Lab</h4>
-            <span class="card-badge">HYDROPONICS &amp; BIO</span>
+            <span class="card-badge">HYDROPONICS</span>
           </div>
           <div class="card-video-wrap">
-            <iframe class="card-video-iframe"
-              src="https://www.youtube-nocookie.com/embed/s2c36gC964Q?rel=0"
-              title="NASA Space Crop Production"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-            </iframe>
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer" title="Watch NASA Space Crop &amp; Plant Production on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/W5OzSeTHouU/hqdefault.jpg" alt="NASA Space Crop &amp; Plant Production Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
           </div>
           <div class="card-source-row">
-            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=s2c36gC964Q" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
             <span class="card-source-dots">● ● ●</span>
           </div>
           <p class="card-desc">
             Cultivating fresh microgreens, Arabidopsis, and dwarf crops using automated nutrient solution cycles and LED spectrum recipes to sustain long-duration astronaut nutrition.
           </p>
-          <div class="card-links-col" style="display: flex; flex-direction: column; gap: 7px; margin-top: 4px;">
+          <div class="card-links-col">
             <a class="card-text-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">
               <span>NASA Food &amp; Nutrition Technical Brief (PDF)</span>
             </a>
@@ -5293,8 +5471,8 @@
             <a class="card-text-link" href="https://www.nasa.gov/humans-in-space/scientists-grow-plants-in-lunar-soil/" target="_blank" rel="noopener noreferrer">
               <span>Scientists Grow Plants in Lunar Soil (NASA Feature)</span>
             </a>
-            <a class="card-text-link" href="https://www.youtube.com/watch?v=s2c36gC964Q" target="_blank" rel="noopener noreferrer">
-              <span>Watch Space Crop Production on YouTube</span>
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer">
+              <span>Watch Space Plant &amp; Crop Production on YouTube</span>
             </a>
           </div>
           <div style="margin-top: 6px;">
@@ -5308,30 +5486,38 @@
         <article class="sidebar-card card-isru">
           <div class="card-title-row">
             <h4 class="card-title">💧 ISRU Processing Facility</h4>
-            <span class="card-badge">WATER &amp; OXYGEN</span>
+            <span class="card-badge">WATER &amp; O2</span>
           </div>
+          <!-- Video 1: NASA Carbothermal Extraction -->
           <div class="card-video-wrap">
-            <iframe class="card-video-iframe"
-              src="https://www.youtube-nocookie.com/embed/jZ8W7a2X5mE?rel=0"
-              title="NASA TRIDENT Drill & Water Ice Prospecting"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-            </iframe>
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=e_EaXO-9iVE" target="_blank" rel="noopener noreferrer" title="Watch NASA ISRU Carbothermal Extraction on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/e_EaXO-9iVE/hqdefault.jpg" alt="NASA ISRU Carbothermal Extraction Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
+          </div>
+          <!-- Video 2: NASA Lunar ISRU Technology -->
+          <div class="card-video-wrap" style="margin-top: 6px;">
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=hr4J6GhoATs" target="_blank" rel="noopener noreferrer" title="Watch NASA Lunar ISRU Technology on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/hr4J6GhoATs/hqdefault.jpg" alt="NASA Lunar ISRU Tech Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
           </div>
           <div class="card-source-row">
-            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=jZ8W7a2X5mE" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=e_EaXO-9iVE" target="_blank" rel="noopener noreferrer">NASA Video 1</a> • <a class="card-source-link" href="https://www.youtube.com/watch?v=hr4J6GhoATs" target="_blank" rel="noopener noreferrer">NASA Video 2</a></span>
             <span class="card-source-dots">● ● ●</span>
           </div>
           <p class="card-desc">
             Excavating cryogenic volatiles and ice trapped in permanently shadowed craters at the South Pole, utilizing carbothermal reduction to yield potable water, oxygen, and rocket propellant.
           </p>
-          <div class="card-links-col" style="display: flex; flex-direction: column; gap: 7px; margin-top: 4px;">
+          <div class="card-links-col">
             <a class="card-text-link" href="https://www.nasa.gov/directorates/stmd/lunar-surface-innovation-initiative/" target="_blank" rel="noopener noreferrer">
               <span>Learn about Lunar Surface Innovation &amp; ISRU</span>
             </a>
-            <a class="card-text-link" href="https://www.youtube.com/watch?v=jZ8W7a2X5mE" target="_blank" rel="noopener noreferrer">
-              <span>Watch VIPER &amp; TRIDENT Drill on YouTube</span>
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=e_EaXO-9iVE" target="_blank" rel="noopener noreferrer">
+              <span>Watch ISRU Carbothermal Extraction (Video 1)</span>
+            </a>
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=hr4J6GhoATs" target="_blank" rel="noopener noreferrer">
+              <span>Watch Lunar ISRU &amp; Water Harvesting (Video 2)</span>
             </a>
           </div>
           <div style="margin-top: 6px;">
@@ -5345,30 +5531,38 @@
         <article class="sidebar-card card-shelter">
           <div class="card-title-row">
             <h4 class="card-title">🛡️ Radiation Shelter</h4>
-            <span class="card-badge">CREW DEFENSE</span>
+            <span class="card-badge">DEFENSE</span>
           </div>
+          <!-- Video 1: NASA Space Radiation Shielding -->
           <div class="card-video-wrap">
-            <iframe class="card-video-iframe"
-              src="https://www.youtube-nocookie.com/embed/6AKn8j_zIqk?rel=0"
-              title="NASA Deep Space Radiation Protection"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-            </iframe>
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer" title="Watch NASA Space Radiation Shielding on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/vpNa4u997xA/hqdefault.jpg" alt="NASA Space Radiation Shielding Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
+          </div>
+          <!-- Video 2: Lunar Radiation Defense -->
+          <div class="card-video-wrap" style="margin-top: 6px;">
+            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer" title="Watch Lunar Radiation Defense on YouTube">
+              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/mn60n3jdI_8/hqdefault.jpg" alt="Lunar Radiation Defense Video Thumbnail" loading="lazy">
+              <div class="card-video-play-btn"></div>
+            </a>
           </div>
           <div class="card-source-row">
-            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=6AKn8j_zIqk" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer">NASA Video 1</a> • <a class="card-source-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer">NASA Video 2</a></span>
             <span class="card-source-dots">● ● ●</span>
           </div>
           <p class="card-desc">
             Engineered subterranean habitats with 3-meter sintered regolith berms and dual-layer water walls designed to shield expedition crews from Solar Particle Events (SPE) and cosmic rays.
           </p>
-          <div class="card-links-col" style="display: flex; flex-direction: column; gap: 7px; margin-top: 4px;">
+          <div class="card-links-col">
             <a class="card-text-link" href="https://science.nasa.gov/heliophysics/space-weather/" target="_blank" rel="noopener noreferrer">
               <span>Learn about space weather &amp; radiation</span>
             </a>
-            <a class="card-text-link" href="https://www.youtube.com/watch?v=6AKn8j_zIqk" target="_blank" rel="noopener noreferrer">
-              <span>Watch Space Radiation Protection on YouTube</span>
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer">
+              <span>Watch Space Radiation Shielding (Video 1)</span>
+            </a>
+            <a class="card-text-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer">
+              <span>Watch Lunar Radiation Defense (Video 2)</span>
             </a>
           </div>
           <div style="margin-top: 6px;">
