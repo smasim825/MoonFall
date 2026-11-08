@@ -7971,7 +7971,7 @@
         options: {
           'evacuate': {
             title: "Evacuate",
-            image: "assets/image 2.webp",
+            image: "assets/m1_opt_evacuate.webp",
             imgClass: "evacuate-sign-img",
             stat: "Health -1, Equip -12",
             badge: "EVAC",
@@ -7983,7 +7983,7 @@
           },
           'secure_equip': {
             title: "Secure Equip",
-            image: "assets/image 45.webp",
+            image: "assets/m1_opt_secure_equip.webp",
             stat: "Power -4, Health -5, Equip -2",
             badge: "EQUIP",
             label: "OPTION B: SECURE EQUIP",
@@ -7999,7 +7999,7 @@
         options: {
           'deep_shelter': {
             title: "Deep Shelter",
-            image: "assets/image 44.webp",
+            image: "assets/m2_opt_deep_shelter.webp",
             stat: "Power -1, Health -6",
             badge: "SHELTER",
             label: "OPTION A: DEEP SHELTER",
@@ -8010,7 +8010,7 @@
           },
           'pile_regolith': {
             title: "Pile Regolith",
-            image: "assets/image 45.webp",
+            image: "assets/m1_opt_secure_equip.webp",
             stat: "Power -8, Health -1, Equip -8",
             badge: "REGOLITH",
             label: "OPTION B: PILE REGOLITH",
@@ -8021,7 +8021,7 @@
           },
           'water_shield': {
             title: "Water Shield",
-            image: "assets/image 46.webp",
+            image: "assets/m2_opt_water_shield.webp",
             stat: "Water -20, Power -2, Health -3",
             badge: "WATER",
             label: "OPTION C: WATER SHIELD",
@@ -8037,7 +8037,7 @@
         options: {
           'greenhouse_off': {
             title: "Greenhouse Off",
-            image: "assets/image 48.webp",
+            image: "assets/m3_opt_greenhouse_off.webp",
             stat: "Power -10, Greenhouse -20",
             badge: "GREEN OFF",
             label: "OPTION A: GREENHOUSE OFF",
@@ -8048,7 +8048,7 @@
           },
           'backup_power': {
             title: "Backup Power",
-            image: "assets/image 49.webp",
+            image: "assets/m3_opt_backup_power.webp",
             stat: "Power -15, Equip -8",
             badge: "BACKUP PWR",
             label: "OPTION B: BACKUP POWER",
@@ -8059,7 +8059,7 @@
           },
           'brownout_all': {
             title: "Brownout All",
-            image: "assets/image 47.webp",
+            image: "assets/m3_opt_brownout_all.webp",
             stat: "Power -13, Greenhouse -8, Health -2",
             badge: "BROWNOUT",
             label: "OPTION C: BROWNOUT ALL",
@@ -8075,7 +8075,7 @@
         options: {
           'bottled_o2': {
             title: "Bottled O2",
-            image: "assets/image 50.webp",
+            image: "assets/m4_opt_bottled_o2.webp",
             stat: "O2 -3, Equip -8",
             badge: "BOTTLED O2",
             label: "OPTION A: BOTTLED O2",
@@ -8086,7 +8086,7 @@
           },
           'electrolysis': {
             title: "Electrolysis",
-            image: "assets/image 51.webp",
+            image: "assets/m4_opt_electrolysis.webp",
             stat: "O2 +5, Water -1, Power -14",
             badge: "ELECTROLYSIS",
             label: "OPTION B: ELECTROLYSIS",
@@ -8243,11 +8243,12 @@
 
       container.innerHTML = keys.map(k => {
         const opt = config.options[k];
+        const safeImg = encodeURI(opt.image);
         return `
           <div class="decision-choice-card" id="card_${missionKey}_${k}" onclick="selectMissionDecision('${missionKey}', '${k}')">
             <h2 class="decision-card-title">${opt.title}</h2>
             <div class="decision-card-img-container">
-              <img src="${opt.image}" alt="${opt.title}" class="decision-pixel-img ${opt.imgClass || ''}">
+              <img src="${safeImg}" alt="${opt.title}" class="decision-pixel-img ${opt.imgClass || ''}">
             </div>
             <p class="decision-card-stat">${opt.stat}</p>
           </div>
