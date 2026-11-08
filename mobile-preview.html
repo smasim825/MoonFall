@@ -450,6 +450,17 @@
     </div>
 
     <div class="controls">
+      <label style="font-size: 0.85rem; color: #94a3b8;">Page / Scene:</label>
+      <select id="pageSelect" onchange="applyPage()">
+        <option value="/final_mission.html?debrief=1" selected>🏆 Final Mission - Debrief Result</option>
+        <option value="/final_mission.html">🚀 Final Mission - Start / Briefing</option>
+        <option value="/final_mission.html?step=2">⚠️ Final Mission - SPE Warning</option>
+        <option value="/final_mission.html?step=4">⚡ Final Mission - Decision 1: Evacuate vs Secure</option>
+        <option value="/final_mission.html?step=12">🔧 Final Mission - Mini-Task: Hatch Alignment</option>
+        <option value="/final_mission.html?step=5">💧 Final Mission - Mini-Task: Water Purge</option>
+        <option value="/mainbase.html">🏛️ Main Base</option>
+      </select>
+
       <label style="font-size: 0.85rem; color: #94a3b8;">Device:</label>
       <select id="deviceSelect" onchange="applyDevice()">
         <option value="852x393" selected>iPhone 15 Pro / 16 (852 × 393)</option>
@@ -505,7 +516,7 @@
 
         <!-- Webpage Viewport -->
         <div class="screen-body">
-          <iframe class="safari-frame" id="safariFrame" src="/index.html"></iframe>
+          <iframe class="safari-frame" id="safariFrame" src="/final_mission.html?debrief=1"></iframe>
         </div>
 
         <!-- Safari Bottom Bar (URL Box & Action Toolbar) -->
@@ -598,6 +609,45 @@
     function reloadFrame() {
       const frame = document.getElementById('safariFrame');
       frame.src = frame.src.split('?')[0] + '?t=' + Date.now();
+    }
+
+    function applyPage() {
+      const select = document.getElementById('pageSelect');
+      const frame = document.getElementById('safariFrame');
+      const urlText = document.getElementById('urlText');
+      if (select && frame) {
+        frame.src = select.value;
+        if (urlText) {
+          const cleanPath = select.value.replace(/^\//, '');
+          urlText.textContent = 'moonfall-blush.vercel.app/' + cleanPath;
+        }
+      }
+    }
+
+    // Support URL param e.g. mobile-preview.html?page=final_mission.html
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('page')) {
+      const targetPage = params.get('page');
+      const fullPath = targetPage.startsWith('/') ? targetPage : '/' + targetPage;
+      const select = document.getElementById('pageSelect');
+      const frame = document.getElementById('safariFrame');
+      if (frame) frame.src = fullPath;
+      if (select) {
+        let matched = false;
+        for (const opt of select.options) {
+          if (opt.value === fullPath) {
+            opt.selected = true;
+            matched = true;
+            break;
+          }
+        }
+        if (!matched) {
+          const newOpt = new Option(targetPage, fullPath, true, true);
+          select.add(newOpt);
+        }
+      }
+      const urlText = document.getElementById('urlText');
+      if (urlText) urlText.textContent = 'moonfall-blush.vercel.app/' + targetPage;
     }
 
     applyDevice();
