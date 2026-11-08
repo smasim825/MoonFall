@@ -7,6 +7,8 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>MOON FALL — Final Mission: 18 Hours to Keep the Outpost Alive</title>
   <link rel="icon" type="image/png" href="assets/moon.png">
+  <link rel="preload" href="assets/BG.webp" as="image">
+  <link rel="preload" href="assets/scene 3/Frame 6.png" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Pixel+Operator:wght@400;700&display=swap"
@@ -3099,7 +3101,7 @@
       box-shadow: inset 0 1px 0 #ffe082, 0 2px 0 #000000;
     }
 
-    /* M2 Stage 2: Heavy Mechanical Airlock Hatch (Assets: assets/hatch.png) */
+    /* M2 Stage 2: Heavy Mechanical Airlock Hatch (Assets: assets/hatch.webp) */
     .m2-hatch-stage-wrap {
       display: flex;
       flex-direction: column;
@@ -4128,6 +4130,143 @@
       background: #10b981;
       border-color: #10b981;
       color: #000;
+    }
+
+    /* ========================================================
+       M5 SEDIMENT PURGE & WATER FILTRATION 2x2 GRID
+       ======================================================== */
+    .m5-water-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(10px, 1.4vw, 16px);
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .m5-water-card {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.92) 0%, rgba(10, 18, 32, 0.88) 100%);
+      border: 2px solid #1e293b;
+      border-radius: 12px;
+      padding: clamp(10px, 1.2vh, 14px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: clamp(8px, 1.0vh, 12px);
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      box-sizing: border-box;
+      position: relative;
+      user-select: none;
+      -webkit-user-select: none;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+    }
+
+    .m5-water-card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+    }
+
+    .m5-water-card.selected {
+      border-color: #10b981 !important;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.22) 0%, rgba(5, 150, 105, 0.12) 100%) !important;
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.65), inset 0 0 16px rgba(16, 185, 129, 0.2) !important;
+    }
+
+    .m5-water-img-wrap {
+      width: 100%;
+      height: clamp(85px, 11.5vh, 115px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: rgba(2, 6, 23, 0.5);
+      border-radius: 8px;
+      padding: 6px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .m5-water-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7)) brightness(0.85);
+      transition: all 0.25s ease;
+    }
+
+    .m5-water-card:hover .m5-water-img {
+      filter: drop-shadow(0 4px 14px rgba(56, 189, 248, 0.6)) brightness(1);
+      transform: scale(1.03);
+    }
+
+    .m5-water-card.selected .m5-water-img {
+      filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.9)) brightness(1.1);
+    }
+
+    .m5-water-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.85rem, 1.1vw, 1.02rem);
+      font-weight: bold;
+      color: #f0f9ff;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      line-height: 1.25;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .m5-water-card.selected .m5-water-title {
+      color: #34d399;
+      text-shadow: 0 0 8px rgba(52, 211, 153, 0.65);
+    }
+
+    .m5-water-popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.76rem, 1.0vw, 0.92rem);
+      font-weight: 800;
+      color: #ffffff;
+      background: rgba(6, 44, 28, 0.94);
+      border: 2px solid #10b981;
+      border-radius: 6px;
+      padding: 6px 14px;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 22px rgba(16, 185, 129, 0.9), inset 0 0 8px rgba(16, 185, 129, 0.35);
+      animation: m5PopupPop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      white-space: nowrap;
+      text-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    @keyframes m5PopupPop {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.6);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
     }
 
     /* ========================================================
@@ -5531,14 +5670,14 @@
         <span>SOLAR PARTICLE EVENT DETECTED // ETA: 30 MINUTES</span>
       </div>
 
-      <!-- 1. MAIN BACKGROUND: COMMAND MODULE CONSOLE (assets/BG.png) -->
-      <img src="assets/BG.png" alt="MoonFall Command Module Console" class="scene-bg-layer" id="bgConsole">
+      <!-- 1. MAIN BACKGROUND: COMMAND MODULE CONSOLE (assets/BG.webp) -->
+      <img src="assets/BG.webp" alt="MoonFall Command Module Console" class="scene-bg-layer" id="bgConsole">
 
       <!-- Standing Crew Member on Left (Rakesh Sharma / Dr. Chiaki Mukai) -->
       <img src="assets/scene 8/Rakesh_Sharma_Idle.png" alt="Crew Member" class="scene-character-stand hidden"
         id="characterStand">
 
-      <!-- 2. EXTERIOR BACKGROUND: WATER ICE INSPECTION (assets/isru/bg/bg_of_water.png) -->
+      <!-- 2. EXTERIOR BACKGROUND: WATER ICE INSPECTION (assets/isru/bg/bg_of_water.webp) -->
       <div class="exterior-view-container hidden" id="exteriorViewContainer">
         <!-- Picture-in-picture exterior monitor on console -->
         <div class="pip-monitor-frame" id="pipMonitor" onclick="toggleExteriorZoom()"
@@ -5547,14 +5686,14 @@
             <span class="live-rec"><span class="live-dot"></span> LIVE EVA FEED // SHACKLETON RIM</span>
             <span>CAM 04 // 05:30 UTC</span>
           </div>
-          <img src="assets/isru/bg/bg_of_water.png" alt="Exterior Water Ice Inspection">
+          <img src="assets/isru/bg/bg_of_water.webp" alt="Exterior Water Ice Inspection">
           <!-- Suited Astronauts inspecting ice -->
           <div class="exterior-crew-overlay">
             <img src="assets/character_walk/astronaut_walk.webp" alt="Guion Bluford" class="crew-inspector-1"
               title="Guion Bluford inspecting ice core">
             <img src="assets/power/Astronaut_Wave.webp" alt="Sunita Williams" class="crew-inspector-2"
               title="Sunita Williams verifying ice density">
-            <img src="assets/isru/equipments/drill.png" alt="Ice Drill Rig" class="ice-drill-rig">
+            <img src="assets/isru/equipments/drill.webp" alt="Ice Drill Rig" class="ice-drill-rig">
           </div>
         </div>
       </div>
@@ -5983,7 +6122,7 @@
             <!-- What you gain -->
             <div class="consequence-detail-item gain-box">
               <div class="consequence-img-frame">
-                <img src="assets/whatYouGain.png" alt="What You Gained" class="consequence-box-img">
+                <img src="assets/whatYouGain.webp" alt="What You Gained" class="consequence-box-img">
               </div>
               <div class="detail-header-row">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -5999,7 +6138,7 @@
             <!-- What you lose -->
             <div class="consequence-detail-item loss-box">
               <div class="consequence-img-frame">
-                <img src="assets/WhatYouLose.png" alt="What You Lost" class="consequence-box-img">
+                <img src="assets/WhatYouLose.webp" alt="What You Lost" class="consequence-box-img">
               </div>
               <div class="detail-header-row">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -6014,7 +6153,7 @@
             <!-- Flight rule / real world science basis -->
             <div class="consequence-detail-item science-box">
               <div class="consequence-img-frame">
-                <img src="assets/RealWorldBasis.png" alt="Real-World Science Basis" class="consequence-box-img">
+                <img src="assets/RealWorldBasis.webp" alt="Real-World Science Basis" class="consequence-box-img">
               </div>
               <div class="detail-header-row">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -7151,7 +7290,7 @@
         speaker: 'astrobee',
         text: "Hello Rookie ! You are the newly appointed commander of MoonFall Outpost, located on the elevated rim of Shackleton Crater near the lunar south pole.",
         title: "⚡ COMMAND MODULE: BRIEFING",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7161,7 +7300,7 @@
         speaker: 'astrobee',
         text: "You’re responsible for every final decision. The four crew members provide technical knowledge, report problems, and assist with tasks, but they never make the final decision.",
         title: "⚡ COMMAND MODULE: BRIEFING",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7173,7 +7312,7 @@
         speaker: 'astrobee',
         text: "Commander, Our solar observatory has identified a major Solar Particle Event. Estimated arrival: 30 minutes. We must immediately activate the emergency protocol.",
         title: "SOLAR STORM WARNING",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7188,7 +7327,7 @@
         avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
         text: "Commander, radiation levels are expected to increase rapidly. Anyone working outside must return to the protected habitat immediately.",
         title: "CREW ADVICE: RAKESH SHARMA",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7204,7 +7343,7 @@
         charClass: 'char-chiaki',
         text: "Some external power equipment is still operating. If we disconnect everything without preparation, we could lose valuable infrastructure. What is your recommendation?",
         title: "CREW ADVICE: DR. CHIAKI MUKAI",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7216,7 +7355,7 @@
         type: 'decision',
         decisionKey: 'm1',
         title: "⚡ DECISION 1: EVACUATE VS SECURE",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7231,7 +7370,7 @@
         speaker: 'astrobee',
         text: "Commander! Habitat shielding is weak. Reinforce the crew shelter before the incoming solar storm exposes the crew to dangerous radiation.",
         title: "M2: The Shelter Problem",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7245,7 +7384,7 @@
         avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
         text: "Commander, reinforce the deepest habitat section with regolith or water barriers to reduce radiation, while conserving water for drinking and the greenhouse.",
         title: "CREW ADVICE: RAKESH SHARMA",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7259,7 +7398,7 @@
         avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
         text: "Remember that our stored water is essential for drinking and our greenhouse. If we use too much for shielding, we could create another problem.",
         title: "CREW ADVICE: SUNITA WILLIAMS",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7273,7 +7412,7 @@
         avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
         text: "What is your recommendation, Commander?",
         title: "⚡ DECISION 2: CHOOSE SHELTER DEFENSE",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7284,7 +7423,7 @@
         type: 'decision',
         decisionKey: 'm2',
         title: "⚡ DECISION 2: CHOOSE SHELTER DEFENSE",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7295,7 +7434,7 @@
         type: 'minitask',
         taskId: 'm2_lockdown',
         title: "CRISIS PROTOCOL: SHELTER LOCKDOWN",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7310,7 +7449,7 @@
         speaker: 'astrobee',
         text: "Commander! Solar-array inverters are offline, leaving us on emergency batteries. EVA repairs are unsafe, so conserve electricity before power runs out!",
         title: "M3: Blackout",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7325,7 +7464,7 @@
         charClass: 'char-chiaki',
         text: "The main power supply is offline. Our emergency batteries can keep essential systems running, but we cannot operate everything. We need to make a decision quickly.",
         title: "CREW ADVICE: DR. CHIAKI MUKAI",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7339,7 +7478,7 @@
         avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
         text: "The greenhouse depends on electricity for its grow lights and environmental controls. If we reduce its power for too long, our crops could suffer. But crew survival comes first.",
         title: "CREW ADVICE: SUNITA WILLIAMS",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7354,7 +7493,7 @@
         charClass: 'char-chiaki',
         text: "What is your recommendation, Commander?",
         title: "⚡ DECISION 3: EMERGENCY POWER ALLOCATION",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7365,7 +7504,7 @@
         type: 'decision',
         decisionKey: 'm3',
         title: "⚡ DECISION 3: EMERGENCY POWER ALLOCATION",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7376,7 +7515,7 @@
         type: 'minitask',
         taskId: 'm3_pdu',
         title: "CRISIS PROTOCOL: PDU BUS ROUTING",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7391,7 +7530,7 @@
         speaker: 'astrobee',
         text: "Commander! Oxygen reserve is falling. Our current supply won't be enough unless we restore oxygen production or activate an alternative supply. We need to act quickly!",
         title: "M4: Oxygen Countdown",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7406,7 +7545,7 @@
         charClass: 'char-bluford',
         text: "We can use our emergency oxygen cylinders, produce fresh oxygen through water electrolysis, or isolate unused habitat modules to reduce unnecessary oxygen loss. But each option has a cost.",
         title: "CREW ADVICE: GUION BLUFORD",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7421,7 +7560,7 @@
         charClass: 'char-chiaki',
         text: "Remember, Commander. Electrolysis needs electricity. Our emergency power is already limited, so watch the power reserve.",
         title: "CREW ADVICE: DR. CHIAKI MUKAI",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7436,7 +7575,7 @@
         charClass: 'char-bluford',
         text: "What is your recommendation, Commander?",
         title: "⚡ DECISION 4: RESTORE OXYGEN PRODUCTION",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7447,7 +7586,7 @@
         type: 'decision',
         decisionKey: 'm4',
         title: "⚡ DECISION 4: RESTORE OXYGEN PRODUCTION",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7458,7 +7597,7 @@
         type: 'minitask',
         taskId: 'm4_electrolysis',
         title: "CRISIS PROTOCOL: ELECTROLYSIS SEQUENCING",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7469,7 +7608,7 @@
         speaker: 'astrobee',
         text: "Outstanding leadership, Commander! Oxygen levels are stabilizing and life support is secured through M4. Stand by for the next operational window.",
         title: "M4: Oxygen Countdown // Life Support Nominal",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7484,7 +7623,7 @@
         speaker: 'astrobee',
         text: "Commander! Water recycling efficiency has plummeted to 50%! Fine lunar sediment has penetrated the filtration membrane and clogged the recirculation manifold!",
         title: "M5: The Water Trap",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7498,7 +7637,7 @@
         avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
         text: "The primary ceramic filters are choked with abrasive regolith dust. If we draw directly from stored potable reserves, we burn our buffer. Alternatively, we can melt polar crater ice, but heating it takes massive electrical power!",
         title: "CREW ADVICE: RAKESH SHARMA",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7512,7 +7651,7 @@
         avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
         text: "Or we prioritize drinking water for the crew only and cut water to the hydroponics loop. But without water, our fresh crops will begin to wither.",
         title: "CREW ADVICE: SUNITA WILLIAMS",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7526,7 +7665,7 @@
         avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
         text: "What is your recommendation, Commander?",
         title: "⚡ DECISION 5: THE WATER TRAP",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7537,7 +7676,7 @@
         type: 'decision',
         decisionKey: 'm5',
         title: "⚡ DECISION 5: THE WATER TRAP",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7548,7 +7687,7 @@
         type: 'minitask',
         taskId: 'm5_watertrap',
         title: "CRISIS PROTOCOL: WATER RECOVERY SEQUENCING",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7559,7 +7698,7 @@
         speaker: 'astrobee',
         text: "Water filtration restored, Commander! Clean H₂O is circulating through the habitat buffer and sediment purge is complete. Prepare for the afternoon cycle.",
         title: "M5: The Water Trap // Water Recovery Nominal",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7574,7 +7713,7 @@
         speaker: 'astrobee',
         text: "Warning! The greenhouse bioloop is failing. Nutrient solution delivery and crop canopy climate control have dropped below critical thresholds!",
         title: "M6: The Last Harvest",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7588,7 +7727,7 @@
         avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
         text: "Commander! Our hydroponic growth chambers are in severe distress. Without active nutrient circulation and full-spectrum LED lighting, our entire crop will be lost!",
         title: "CREW ADVICE: SUNITA WILLIAMS",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7603,7 +7742,7 @@
         charClass: 'char-chiaki',
         text: "Power demands for the grow lamps and heaters are enormous. If we restore the bioloop, we drain 12 kWh of power and 10% water. If we abandon the crops, we preserve power and reclaim 5% water for the crew.",
         title: "CREW ADVICE: DR. CHIAKI MUKAI",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7617,7 +7756,7 @@
         avatar: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp',
         text: "What is your recommendation, Commander?",
         title: "⚡ DECISION 6: THE LAST HARVEST",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7628,7 +7767,7 @@
         type: 'decision',
         decisionKey: 'm6',
         title: "⚡ DECISION 6: THE LAST HARVEST",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7639,7 +7778,7 @@
         type: 'minitask',
         taskId: 'm6_hydroponics',
         title: "CRISIS PROTOCOL: HYDROPONIC BIOLOOP SEQUENCING",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7650,7 +7789,7 @@
         speaker: 'astrobee',
         text: "Excellent leadership, Commander. The greenhouse bioloop status has been stabilized and habitat environmental telemetry is re-balanced for Mission 6!",
         title: "M6: The Last Harvest // Bioloop Nominal",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7661,7 +7800,7 @@
         speaker: 'astrobee',
         text: "ALERT! High voltage arc fault detected in Module 4 main power distribution bus! Breakers tripped, critical circuits offline!",
         title: "M7: ARC FAULT IN MODULE 4 // POWER BUS FAILURE",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7674,7 +7813,7 @@
         charClass: "char-chiaki",
         text: "If we isolate the bus completely, we safely contain the electrical hazard, but Module 4 systems will lose power until post-storm repairs.",
         title: "M7: The Critical Failure // Power Distribution",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7687,7 +7826,7 @@
         charClass: "char-bluford",
         text: "I can suit up and perform an emergency manual bypass in the access crawlway. It carries personal risk and consumes battery reserves, but saves the hardware.",
         title: "M7: The Critical Failure // Engineering Assessment",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7700,7 +7839,7 @@
         charClass: "char-chiaki",
         text: "Alternatively, we can reroute through the hydroponics grid—though running auxiliary loads may disrupt our crop climate control. What is your call, Commander?",
         title: "M7: The Critical Failure // Commander's Decision",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7711,7 +7850,7 @@
         type: 'decision',
         decisionKey: 'm7',
         title: "DECISION 7: THE CRITICAL FAILURE",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7722,7 +7861,7 @@
         speaker: 'astrobee',
         text: "Module 4 power distribution stabilized! Secondary safety breakers locked and vital habitat bus voltages are steady.",
         title: "M7: Power Bus Nominal // Systems Stabilized",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       },
@@ -7733,7 +7872,7 @@
         speaker: 'astrobee',
         text: "ATTENTION ALL CREW! Lunar orbit satellite telemetry confirms the peak SPE solar particle shockfront has passed Shackleton Crater! Time to impact: 00:00:00.",
         title: "M8: STORM PASSING // FINAL CRITICAL PROTOCOL",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7745,7 +7884,7 @@
         avatar: "assets/scene 8/Rakesh_Sharma_Idle.png",
         text: "Commander, background cosmic radiation is declining, but surface regolith remains hot with secondary neutron emission. We must decide whether to hold shelter.",
         title: "M8: The Final Decision // Radiation Clearance",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7757,7 +7896,7 @@
         avatar: "assets/hydroponics/CharacterPoses/Sunita_Williams_Wave.webp",
         text: "If we hold inside the regolith bunker, our crew stays completely safe while radiation settles. Alternatively, initiating controlled recovery immediately saves key exterior science rigs at a physical toll.",
         title: "M8: The Final Decision // Recovery Strategy",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7769,7 +7908,7 @@
         avatar: "assets/scene 8/Rakesh_Sharma_Idle.png",
         text: "This is our decisive final command. The survival score of Shackleton Outpost depends on how we exit this solar storm. What is your order?",
         title: "M8: The Final Decision // Commander's Final Order",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7780,7 +7919,7 @@
         type: 'decision',
         decisionKey: 'm8',
         title: "DECISION 8: THE FINAL DECISION",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7791,7 +7930,7 @@
         type: 'minitask',
         taskId: 'm8_finale',
         title: "CRISIS PROTOCOL: OUTPOST RECOVERY SEQUENCE",
-        bg: "assets/BG2.png",
+        bg: "assets/BG2.webp",
         alarm: true,
         showExterior: false
       },
@@ -7801,7 +7940,7 @@
         scene: 51,
         type: 'final_debrief',
         title: "MISSION COMPLETE // SHACKLETON OUTPOST SECURED",
-        bg: "assets/BG.png",
+        bg: "assets/BG.webp",
         alarm: false,
         showExterior: false
       }
@@ -8803,7 +8942,7 @@
                   <button class="hatch-step-btn" onclick="rotateM2Hatch(60)" title="Rotate +60°">+60</button>
                   <button class="hatch-step-btn" onclick="rotateM2Hatch(-60)" title="Rotate -60°">-60</button>
                 </div>
-                <!-- Pixel Art Mechanical Airlock Hatch (Assets: assets/hatch.png) -->
+                <!-- Pixel Art Mechanical Airlock Hatch (Assets: assets/hatch.webp) -->
                 <div class="pixel-hatch-assembly ${hatchLocked ? 'locked' : ''}" onclick="rotateM2Hatch(60)" title="Click wheel to rotate +60° and engage bolts">
                   <img src="assets/m2_hatch_wheel_final.png" class="pixel-hatch-wheel" style="transform: rotate(${m2TaskState.hatchAngle}deg);" alt="Airlock Locking Wheel">
                 </div>
@@ -9445,66 +9584,72 @@
       }
 
       body.innerHTML = `
-        <div class="m4-flow-sequence">
-          <!-- Stage 1 -->
-          <div class="manifold-stage-card ${m5TaskState.purgeValve ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Primary Cyclone Sediment Purge</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Flushes abrasive lunar regolith sediment out of the pre-filter trap</div>
-              </div>
+        <div class="m5-water-grid">
+          <!-- Card 1 -->
+          <div class="m5-water-card ${m5TaskState.purgeValve ? 'selected' : ''}" onclick="advanceM5WaterStage('purgeValve')">
+            <div class="m5-water-img-wrap">
+              <img src="assets/m5_cyclone_purge.webp" class="m5-water-img" alt="Primary Cyclone Sediment Purge">
+              ${m5TaskState.purgeValve ? `
+                <div class="m5-water-popup">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="#34d399"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  <span>SEDIMENT FLUSHED</span>
+                </div>
+              ` : ''}
             </div>
-            <button class="stage-btn ${m5TaskState.purgeValve ? 'online' : ''}" onclick="advanceM5WaterStage('purgeValve')">
-              ${m5TaskState.purgeValve ? '✓ SEDIMENT FLUSHED' : 'OPEN PURGE VALVE'}
-            </button>
+            <div class="m5-water-title">Primary Cyclone Sediment Purge</div>
           </div>
 
-          <!-- Stage 2 -->
-          <div class="manifold-stage-card ${m5TaskState.ultrasonicClean ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Ultrasonic Ceramic Core De-clogger (40 kHz)</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">High-frequency acoustic cavitation dislodges sub-micron fines</div>
-              </div>
+          <!-- Card 2 -->
+          <div class="m5-water-card ${m5TaskState.ultrasonicClean ? 'selected' : ''}" onclick="advanceM5WaterStage('ultrasonicClean')">
+            <div class="m5-water-img-wrap">
+              <img src="assets/m5_ultrasonic_clean.webp" class="m5-water-img" alt="Ultrasonic Ceramic Core De-clogger">
+              ${m5TaskState.ultrasonicClean ? `
+                <div class="m5-water-popup">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="#34d399"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  <span>TRANSDUCER ACTIVE</span>
+                </div>
+              ` : ''}
             </div>
-            <button class="stage-btn ${m5TaskState.ultrasonicClean ? 'online' : ''}" onclick="advanceM5WaterStage('ultrasonicClean')">
-              ${m5TaskState.ultrasonicClean ? '✓ TRANSDUCER ACTIVE' : 'ENERGIZE 40 KHZ'}
-            </button>
+            <div class="m5-water-title">Ultrasonic Ceramic Core De-clogger</div>
           </div>
 
-          <!-- Stage 3 -->
-          <div class="manifold-stage-card ${m5TaskState.potableBuffer ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Habitat Potable Buffer Routing</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Directs purified water stream into pressurized crew drinking reservoir</div>
-              </div>
+          <!-- Card 3 -->
+          <div class="m5-water-card ${m5TaskState.potableBuffer ? 'selected' : ''}" onclick="advanceM5WaterStage('potableBuffer')">
+            <div class="m5-water-img-wrap">
+              <img src="assets/m5_potable_buffer.webp" class="m5-water-img" alt="Habitat Potable Buffer Routing">
+              ${m5TaskState.potableBuffer ? `
+                <div class="m5-water-popup">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="#34d399"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  <span>BUFFER ROUTED</span>
+                </div>
+              ` : ''}
             </div>
-            <button class="stage-btn ${m5TaskState.potableBuffer ? 'online' : ''}" onclick="advanceM5WaterStage('potableBuffer')">
-              ${m5TaskState.potableBuffer ? '✓ BUFFER ROUTED' : 'ENGAGE BUFFER LINE'}
-            </button>
+            <div class="m5-water-title">Habitat Potable Buffer Routing</div>
           </div>
 
-          <!-- Stage 4 -->
-          <div class="manifold-stage-card ${m5TaskState.qualityVerify ? 'online' : ''}">
-            <div style="display:flex; align-items:center; gap:14px;">
-              <span style="font-family:var(--font-pixel); font-size:1.15rem; color:#38bdf8; background:rgba(14,165,233,0.18); border:1.5px solid #0284c7; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
-              <div>
-                <div style="font-weight:700; font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:#f0f9ff; letter-spacing:0.02em;">Spectrometry Purity Verification</div>
-                <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#cbd5e1; margin-top:3px; line-height:1.35;">Total Dissolved Solids &lt; 15 ppm, zero toxic lunar heavy metals</div>
-              </div>
+          <!-- Card 4 -->
+          <div class="m5-water-card ${m5TaskState.qualityVerify ? 'selected' : ''}" onclick="advanceM5WaterStage('qualityVerify')">
+            <div class="m5-water-img-wrap">
+              <img src="assets/m5_purity_verify.webp" class="m5-water-img" alt="Spectrometry Water Purity Verification">
+              ${m5TaskState.qualityVerify ? `
+                <div class="m5-water-popup">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="#34d399"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  <span>TDS 11 PPM (NOMINAL)</span>
+                </div>
+              ` : ''}
             </div>
-            <button class="stage-btn ${m5TaskState.qualityVerify ? 'online' : ''}" onclick="advanceM5WaterStage('qualityVerify')">
-              ${m5TaskState.qualityVerify ? '✓ TDS 11 PPM (NOMINAL)' : 'RUN PURITY SCAN'}
-            </button>
+            <div class="m5-water-title">Spectrometry Water Purity Verification</div>
           </div>
         </div>
       `;
 
-      updateMinitaskAstrobee("Commander! Flush the sediment trap and restore potable water filtration for the habitat.");
+      const completedCount = (m5TaskState.purgeValve ? 1 : 0) + (m5TaskState.ultrasonicClean ? 1 : 0) + (m5TaskState.potableBuffer ? 1 : 0) + (m5TaskState.qualityVerify ? 1 : 0);
+      if (completedCount === 4) {
+        updateMinitaskAstrobee("Excellent work! All water filtration and purge stages are active. Confirm water recovery now!");
+      } else {
+        updateMinitaskAstrobee(`Commander! Select all 4 filtration stages (${completedCount}/4 active) to clear regolith silt and restore drinking water.`);
+      }
+
       checkM5Completion();
     }
 
@@ -10583,6 +10728,38 @@
         }, 120);
       }
     });
+  </script>
+
+  <!-- Idle Background Asset Preloader -->
+  <script>
+    (function preloadMissionAssets() {
+      const priorityAssets = [
+        'assets/BG2.webp',
+        'assets/m5_cyclone_purge.webp',
+        'assets/m5_ultrasonic_clean.webp',
+        'assets/m5_potable_buffer.webp',
+        'assets/m5_purity_verify.webp',
+        'assets/whatYouGain.webp',
+        'assets/WhatYouLose.webp',
+        'assets/RealWorldBasis.webp',
+        'assets/hatch.webp',
+        'assets/m2_hatch_frame_final.webp',
+        'assets/m2_hatch_wheel_final.webp',
+        'assets/isru/bg/bg_of_water.webp',
+        'assets/isru/equipments/drill.webp'
+      ];
+      const prefetch = () => {
+        priorityAssets.forEach(src => {
+          const img = new Image();
+          img.src = src;
+        });
+      };
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(prefetch, { timeout: 1200 });
+      } else {
+        setTimeout(prefetch, 500);
+      }
+    })();
   </script>
 
   <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
