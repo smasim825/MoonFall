@@ -100,14 +100,12 @@
       position: absolute;
       bottom: 0;
       left: 1.5%;
-      height: clamp(280px, 62vh, 620px);
+      height: clamp(280px, 57vh, 560px);
       width: auto;
       pointer-events: none;
       z-index: 30;
       display: flex;
-      align-items: flex-start;
-      overflow: hidden;
-      width: clamp(150px, 24vw, 320px);
+      align-items: flex-end;
       animation: char-slide-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -117,11 +115,7 @@
       max-height: 100%;
       max-width: none;
       object-fit: contain;
-      object-position: top center;
-      width: 100%;
-      height: auto;
-      max-height: none;
-      object-fit: cover;
+      object-position: bottom left;
       filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.75));
       image-rendering: pixelated;
     }
