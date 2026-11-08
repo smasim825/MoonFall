@@ -29,6 +29,10 @@
                          params.get('skipIntro') === 'true' ||
                          window.location.hash === '#base' ||
                          sessionStorage.getItem('moonfall_landed') === 'true';
+
+        if (params.get('crew') === 'true' || params.get('crew') === '1') {
+          setTimeout(() => { if (typeof openTacticalModal === 'function') openTacticalModal('modalCrew'); }, 300);
+        }
         if (isReturn) {
           document.documentElement.classList.add('skip-intro-direct');
         }
@@ -3223,7 +3227,6 @@
 
     .crew-avatar-tab img {
       position: absolute;
-      left: 50%;
       height: auto;
       max-width: none;
       max-height: none;
@@ -3233,28 +3236,33 @@
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
     }
 
+    /* 4 Distinct Independent CSS Positioning & Sizing Rules */
     .crew-face-sunita {
-      width: 122% !important;
+      width: 137.2% !important;
+      left: -17.1% !important;
       top: 10% !important;
-      transform: translateX(-50%) !important;
+      transform: none !important;
     }
 
     .crew-face-chiaki {
-      width: 136% !important;
-      top: 8% !important;
-      transform: translateX(-50%) !important;
+      width: 119.2% !important;
+      left: -18.2% !important;
+      top: 10% !important;
+      transform: none !important;
     }
 
     .crew-face-guion {
-      width: 130% !important;
-      top: 6% !important;
-      transform: translateX(-50%) !important;
+      width: 128% !important;
+      left: -14% !important;
+      top: 9% !important;
+      transform: none !important;
     }
 
     .crew-face-rakesh {
-      width: 130% !important;
-      top: 6% !important;
-      transform: translateX(-50%) !important;
+      width: 132% !important;
+      left: -17% !important;
+      top: 9.5% !important;
+      transform: none !important;
     }
 
     /* Center Column: Full-Body Stage Container */
@@ -5425,6 +5433,10 @@
                    params.get('skipIntro') === 'true' ||
                    window.location.hash === '#base' ||
                    sessionStorage.getItem('moonfall_landed') === 'true';
+
+        if (params.get('crew') === 'true' || params.get('crew') === '1') {
+          setTimeout(() => { if (typeof openTacticalModal === 'function') openTacticalModal('modalCrew'); }, 300);
+        }
       } catch (e) { }
 
       if (isReturn) {
