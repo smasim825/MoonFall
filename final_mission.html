@@ -2702,8 +2702,8 @@
       background: rgba(15, 23, 42, 0.85);
       border: 2px dashed #0284c7;
       border-radius: 10px;
-      min-height: clamp(86px, 11.5vh, 106px);
-      padding: clamp(3px, 0.5vh, 6px);
+      min-height: clamp(105px, 14vh, 132px);
+      padding: clamp(4px, 0.6vh, 8px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -2713,6 +2713,7 @@
       transition: all 0.22s ease;
       box-sizing: border-box;
       position: relative;
+      overflow: hidden;
     }
     .m2-drop-target-card.drag-over {
       border: 2.5px dashed #00e5ff !important;
@@ -2731,47 +2732,75 @@
     }
 
     .drop-here-badge {
-      font-family: var(--font-pixel);
-      font-size: clamp(0.76rem, 0.95vw, 0.88rem);
-      padding: 1px 8px;
-      background: rgba(14, 165, 233, 0.3);
-      border: 1.5px solid #38bdf8;
-      border-radius: 4px;
-      color: #38bdf8;
-      letter-spacing: 0.05em;
-      margin-top: 1px;
-      font-weight: 800;
-      text-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+      display: none;
     }
     .drop-target-icon {
-      width: clamp(38px, 4.2vw, 46px);
-      height: clamp(38px, 4.2vw, 46px);
-      border-radius: 8px;
-      background: rgba(30, 41, 59, 0.75);
-      border: 1.5px dashed rgba(56, 189, 248, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1px;
+      display: none;
     }
     .drop-target-title {
-      font-family: var(--font-pixel);
-      font-size: clamp(0.8rem, 1.0vw, 0.92rem);
-      font-weight: bold;
-      color: #f0f9ff;
-      letter-spacing: 0.02em;
+      display: none;
     }
     .drop-target-sub {
-      font-size: clamp(0.66rem, 0.8vw, 0.74rem);
-      color: #94a3b8;
+      display: none;
+    }
+    .drop-target-faint-emoji {
+      font-size: clamp(56px, 7vw, 76px);
+      line-height: 1;
+      opacity: 0.38;
+      user-select: none;
+      pointer-events: none;
+      filter: drop-shadow(0 0 14px rgba(0, 0, 0, 0.95));
+      transition: all 0.25s ease;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .m2-drop-target-card.drag-over .drop-target-faint-emoji {
+      opacity: 0.65;
+      transform: translate(-50%, -50%) scale(1.15);
+    }
+    .glowing-drop-symbol {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-family: var(--font-pixel);
+      font-size: clamp(0.78rem, 0.96vw, 0.90rem);
+      font-weight: 800;
+      color: #ffffff;
+      background: rgba(3, 30, 60, 0.84);
+      border: 1.5px solid #00f0ff;
+      border-radius: 20px;
+      padding: 5px 14px;
+      letter-spacing: 0.08em;
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.8), inset 0 0 8px rgba(0, 240, 255, 0.35);
+      animation: dropGlowPulse 1.8s infinite ease-in-out;
+      pointer-events: none;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    @keyframes dropGlowPulse {
+      0%, 100% {
+        box-shadow: 0 0 12px rgba(0, 240, 255, 0.7), inset 0 0 6px rgba(0, 240, 255, 0.25);
+        border-color: #00f0ff;
+        transform: translateY(0);
+      }
+      50% {
+        box-shadow: 0 0 24px rgba(0, 240, 255, 1), 0 0 12px #ffffff, inset 0 0 12px rgba(0, 240, 255, 0.6);
+        border-color: #ffffff;
+        transform: translateY(-2px);
+      }
     }
     .drop-target-secured-img {
-      width: clamp(54px, 6.8vw, 70px);
-      height: clamp(54px, 6.8vw, 70px);
+      width: clamp(70px, 9vw, 92px);
+      height: clamp(70px, 9vw, 92px);
       object-fit: contain;
       image-rendering: pixelated;
       filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.85));
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
     .drop-secured-pill {
       font-family: var(--font-pixel);
@@ -2798,14 +2827,13 @@
       background: linear-gradient(180deg, rgba(14, 165, 233, 0.16) 0%, rgba(3, 105, 161, 0.12) 100%);
       border: 1.5px solid #0284c7;
       border-radius: 10px;
-      min-height: clamp(94px, 12.5vh, 116px);
-      padding: clamp(3px, 0.5vh, 6px);
+      min-height: clamp(105px, 14vh, 132px);
+      padding: clamp(6px, 1vh, 10px);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 2px;
       cursor: grab;
       user-select: none;
       -webkit-user-select: none;
@@ -2835,28 +2863,30 @@
       box-shadow: none;
     }
     .m2-drag-item-img {
-      width: clamp(58px, 7.0vw, 72px);
-      height: clamp(58px, 7.0vw, 72px);
+      width: clamp(92px, 11.8vw, 122px);
+      height: clamp(92px, 11.8vw, 122px);
       object-fit: contain;
       image-rendering: pixelated;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
-      transition: transform 0.2s ease;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85));
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.85));
+      transition: transform 0.2s ease, filter 0.2s ease;
     }
     .m2-drag-item-card:hover .m2-drag-item-img {
-      transform: scale(1.06);
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 16px rgba(0, 229, 255, 0.7));
     }
     .m2-drag-item-name {
-      font-family: var(--font-pixel);
-      font-size: clamp(0.8rem, 1.0vw, 0.92rem);
-      font-weight: bold;
-      color: #f0f9ff;
-      letter-spacing: 0.02em;
+      display: none;
     }
     .m2-drag-item-sub {
-      font-size: clamp(0.66rem, 0.78vw, 0.74rem);
-      color: #94a3b8;
+      display: none;
     }
     .m2-drag-cue-pill {
+      display: none;
       font-family: var(--font-pixel);
       font-size: clamp(0.7rem, 0.85vw, 0.8rem);
       background: rgba(14, 165, 233, 0.2);
@@ -8043,13 +8073,13 @@
                        ondrop="handleM2SupplyDrop(event, 'water')">
                     ${m2TaskState.supplies.water ? `
                       <img src="assets/m2_supply_water.png" class="drop-target-secured-img" alt="Water Tank">
-                      <span class="drop-target-title">Bracket 1 [H2O Tank]</span>
                       <span class="drop-secured-pill">✓ SECURED IN DOCK</span>
                     ` : `
-                      <div class="drop-target-icon"><svg viewBox="0 0 24 24" width="38" height="38" fill="#38bdf8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
-                      <span class="drop-target-title">Bracket 1 [H2O Tank]</span>
-                      <span class="drop-here-badge">DROP HERE</span>
-                      <span class="drop-target-sub">Water Reservoir Dock</span>
+                      <div class="drop-target-faint-emoji">💧</div>
+                      <div class="glowing-drop-symbol">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                        <span>DROP HERE</span>
+                      </div>
                     `}
                   </div>
 
@@ -8060,13 +8090,13 @@
                        ondrop="handleM2SupplyDrop(event, 'food')">
                     ${m2TaskState.supplies.food ? `
                       <img src="assets/m2_supply_food.png" class="drop-target-secured-img" alt="Food Box">
-                      <span class="drop-target-title">Bracket 2 [Food Box]</span>
                       <span class="drop-secured-pill">✓ SECURED IN DOCK</span>
                     ` : `
-                      <div class="drop-target-icon"><svg viewBox="0 0 24 24" width="38" height="38" fill="#fbbf24"><path d="M18 4H6v2l6 3.5L18 6V4zm0 6l-6 3.5L6 10v10h12V10z"/></svg></div>
-                      <span class="drop-target-title">Bracket 2 [Food Box]</span>
-                      <span class="drop-here-badge">DROP HERE</span>
-                      <span class="drop-target-sub">Field Rations Dock</span>
+                      <div class="drop-target-faint-emoji">🥫</div>
+                      <div class="glowing-drop-symbol">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                        <span>DROP HERE</span>
+                      </div>
                     `}
                   </div>
 
@@ -8077,13 +8107,13 @@
                        ondrop="handleM2SupplyDrop(event, 'med')">
                     ${m2TaskState.supplies.med ? `
                       <img src="assets/m2_supply_med.png" class="drop-target-secured-img" alt="Medical Kit">
-                      <span class="drop-target-title">Bracket 3 [Med Kit]</span>
                       <span class="drop-secured-pill">✓ SECURED IN DOCK</span>
                     ` : `
-                      <div class="drop-target-icon"><svg viewBox="0 0 24 24" width="38" height="38" fill="#f87171"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg></div>
-                      <span class="drop-target-title">Bracket 3 [Med Kit]</span>
-                      <span class="drop-here-badge">DROP HERE</span>
-                      <span class="drop-target-sub">Trauma Med Kit Dock</span>
+                      <div class="drop-target-faint-emoji">💊</div>
+                      <div class="glowing-drop-symbol">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                        <span>DROP HERE</span>
+                      </div>
                     `}
                   </div>
                 </div>
@@ -8106,15 +8136,12 @@
                              ondragend="handleM2SupplyDragEnd(event)"
                              onclick="handleM2SupplyClick('${k}')">
                           <img src="${item.img}" class="m2-drag-item-img" alt="${item.name}">
-                          <span class="m2-drag-item-name">${item.name}</span>
-                          <span class="m2-drag-item-sub">${item.sub}</span>
-                          <span class="m2-drag-cue-pill">DRAG TO DOCK ➔</span>
                         </div>
                       `;
                     } else {
                       return `
                         <div class="m2-drag-item-card stowed-placeholder">
-                          <span style="font-family:var(--font-pixel); font-size:clamp(0.78rem, 1vw, 0.9rem); color:#34d399;">✓ DOCKED IN BRACKET ${item.bracketNum}</span>
+                          <span style="font-family:var(--font-pixel); font-size:clamp(0.78rem, 1vw, 0.9rem); color:#34d399; letter-spacing:0.04em;">✓ DOCKED</span>
                         </div>
                       `;
                     }
