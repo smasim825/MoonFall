@@ -4376,158 +4376,269 @@
     .final-debrief-modal {
       position: fixed;
       inset: 0;
-      background: rgba(2, 6, 23, 0.92);
+      background: rgba(2, 6, 23, 0.94);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 250;
-      padding: 16px;
+      padding: 10px;
     }
     .final-debrief-card {
       background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(3, 16, 38, 0.98) 100%);
       border: 2px solid #00e5ff;
-      border-radius: 14px;
-      box-shadow: 0 0 40px rgba(0, 229, 255, 0.35), 0 20px 50px rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 0 45px rgba(0, 229, 255, 0.4), 0 20px 50px rgba(0, 0, 0, 0.85);
       width: 100%;
-      max-width: 680px;
-      padding: clamp(16px, 2.4vh, 24px) clamp(20px, 3.0vw, 32px);
+      max-width: 860px;
+      padding: clamp(10px, 1.8vh, 18px) clamp(16px, 2.5vw, 28px);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 7px;
       text-align: center;
       box-sizing: border-box;
-      max-height: 94vh;
+      max-height: 96vh;
       overflow-y: auto;
     }
-    .debrief-badge {
-      font-family: var(--font-pixel);
-      font-size: 0.82rem;
-      background: rgba(16, 185, 129, 0.2);
-      border: 1px solid #10b981;
-      color: #34d399;
-      padding: 3px 12px;
-      border-radius: 4px;
-      letter-spacing: 0.05em;
-      display: inline-block;
-    }
-    .debrief-title {
-      font-family: var(--font-pixel);
-      font-size: clamp(1.6rem, 2.4vw, 2.1rem);
-      color: #f0f9ff;
-      margin: 4px 0 0 0;
-      letter-spacing: 0.04em;
-      text-shadow: 0 0 16px rgba(0, 229, 255, 0.6);
-    }
-    .debrief-sub {
-      font-size: clamp(0.82rem, 1.0vw, 0.92rem);
-      color: #94a3b8;
-      margin: 2px 0 0 0;
-    }
-    .debrief-stars-row {
-      font-size: clamp(1.8rem, 2.6vw, 2.3rem);
-      letter-spacing: 6px;
-      color: #fbbf24;
-      text-shadow: 0 0 16px rgba(251, 191, 36, 0.6);
-    }
-    .debrief-score-box {
-      background: rgba(14, 165, 233, 0.12);
-      border: 1.5px solid #0284c7;
-      border-radius: 8px;
-      padding: 10px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .debrief-score-label {
-      font-family: var(--font-pixel);
-      font-size: 0.82rem;
-      color: #7dd3fc;
-      letter-spacing: 0.05em;
-    }
-    .debrief-score-val {
-      font-family: var(--font-pixel);
-      font-size: clamp(2.0rem, 3.0vw, 2.8rem);
-      font-weight: bold;
-      color: #38bdf8;
-      text-shadow: 0 0 20px rgba(56, 189, 248, 0.8);
-    }
-    .debrief-score-sub {
-      font-size: 0.8rem;
-      font-weight: bold;
-      color: #34d399;
-    }
-    .debrief-telemetry-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-    .debrief-tele-cell {
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid #334155;
-      border-radius: 6px;
-      padding: 6px;
+    .final-debrief-header {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 2px;
     }
+    .debrief-badge {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.85rem, 1.1vw, 1.02rem);
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #34d399;
+      padding: 2px 14px;
+      border-radius: 5px;
+      letter-spacing: 0.08em;
+      display: inline-block;
+    }
+    .debrief-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+      color: #f0f9ff;
+      margin: 2px 0 0 0;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 16px rgba(0, 229, 255, 0.65);
+      line-height: 1.1;
+    }
+    .debrief-sub {
+      font-size: clamp(0.92rem, 1.15vw, 1.08rem);
+      color: #cbd5e1;
+      margin: 1px 0 0 0;
+      line-height: 1.25;
+    }
+    .debrief-stars-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      line-height: 1;
+    }
+    .debrief-stars-row svg {
+      width: clamp(34px, 3.8vw, 44px);
+      height: clamp(34px, 3.8vw, 44px);
+      margin: 0 6px;
+    }
+    .debrief-score-box {
+      background: rgba(14, 165, 233, 0.12);
+      border: 1.5px solid #0284c7;
+      border-radius: 8px;
+      padding: 6px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .debrief-score-label {
+      font-family: var(--font-pixel);
+      font-size: clamp(0.92rem, 1.15vw, 1.05rem);
+      color: #7dd3fc;
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+    }
+    .debrief-score-val {
+      font-family: var(--font-pixel);
+      font-size: clamp(2.2rem, 3.2vw, 2.9rem);
+      font-weight: bold;
+      color: #38bdf8;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.85);
+      line-height: 1.05;
+    }
+    .debrief-score-sub {
+      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
+      font-weight: bold;
+      color: #34d399;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+    .debrief-telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+    }
+    .debrief-tele-cell {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px solid #334155;
+      border-radius: 6px;
+      padding: 5px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+    }
     .debrief-tele-label {
-      font-size: 0.72rem;
+      font-size: clamp(0.78rem, 0.95vw, 0.88rem);
+      font-weight: 600;
       color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .debrief-tele-val {
       font-family: var(--font-pixel);
-      font-size: 0.95rem;
+      font-size: clamp(1.12rem, 1.35vw, 1.32rem);
       font-weight: bold;
       color: #38bdf8;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+      line-height: 1.1;
+    }
+    .debrief-evaluation-section {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin: 0;
+      text-align: left;
+    }
+    .debrief-eval-title {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.92rem, 1.15vw, 1.08rem);
+      color: #38bdf8;
+      letter-spacing: 0.06em;
+      text-align: center;
+      margin: 0;
+      line-height: 1.1;
+    }
+    .debrief-eval-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 600px) {
+      .debrief-eval-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .debrief-eval-card {
+      border-radius: 7px;
+      padding: 8px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      box-sizing: border-box;
+    }
+    .debrief-eval-card.best {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1.5px solid #10b981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.22);
+    }
+    .debrief-eval-card.worst {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1.5px solid #f59e0b;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.22);
+    }
+    .debrief-eval-badge {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      line-height: 1.1;
+    }
+    .debrief-eval-badge.best {
+      color: #34d399;
+    }
+    .debrief-eval-badge.worst {
+      color: #fbbf24;
+    }
+    .debrief-eval-mission {
+      font-family: var(--font-pixel, monospace);
+      font-size: clamp(1.0rem, 1.25vw, 1.2rem);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+    .debrief-eval-stat {
+      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
+      font-family: var(--font-pixel, monospace);
+      color: #7dd3fc;
+      background: rgba(15, 23, 42, 0.7);
+      padding: 2px 7px;
+      border-radius: 4px;
+      display: inline-block;
+      width: fit-content;
+      line-height: 1.15;
+    }
+    .debrief-eval-desc {
+      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
+      color: #cbd5e1;
+      line-height: 1.25;
     }
     .debrief-decisions-summary {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       justify-content: center;
+      margin: 0;
     }
     .debrief-dec-pill {
       font-family: var(--font-pixel);
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      border-radius: 4px;
+      font-size: clamp(0.82rem, 1.0vw, 0.95rem);
+      padding: 3px 9px;
+      border-radius: 5px;
       background: rgba(14, 165, 233, 0.2);
       border: 1px solid #38bdf8;
       color: #bae6fd;
+      line-height: 1.1;
     }
     .debrief-actions-row {
       display: flex;
-      gap: 12px;
+      align-items: center;
       justify-content: center;
-      margin-top: 6px;
+      gap: 1.6vw;
+      width: 100%;
+      margin-top: 3px;
     }
-    .debrief-action-btn {
-      font-family: var(--font-pixel);
-      font-size: clamp(0.92rem, 1.2vw, 1.1rem);
-      padding: 10px 22px;
-      border-radius: 8px;
+    .debrief-action-btn-img {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
       cursor: pointer;
-      font-weight: bold;
-      letter-spacing: 0.04em;
-      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      outline: none;
     }
-    .debrief-action-btn.primary {
-      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
-      border: 1.5px solid #34d399;
-      color: #ffffff;
-      box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+    .debrief-action-btn-img img {
+      height: clamp(38px, 4.4vw, 48px);
+      width: auto;
+      object-fit: contain;
+      display: block;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6));
     }
-    .debrief-action-btn.secondary {
-      background: rgba(15, 23, 42, 0.8);
-      border: 1.5px solid #64748b;
-      color: #cbd5e1;
+    .debrief-action-btn-img:hover {
+      transform: translateY(-2px) scale(1.05);
+      filter: brightness(1.15) drop-shadow(0 0 16px rgba(3, 143, 243, 0.75));
     }
-    .debrief-action-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 24px rgba(0, 229, 255, 0.5);
+    .debrief-action-btn-img:active {
+      transform: scale(0.96);
     }
 
     /* CRITICAL MISSION FAILURE MODAL (Threshold Gate Breach) */
@@ -5402,8 +5513,12 @@
           </div>
 
           <div class="debrief-actions-row">
-            <button class="debrief-action-btn primary" onclick="location.reload()">REPLAY CRISIS PROTOCOL</button>
-            <button class="debrief-action-btn secondary" onclick="window.location.href='mainbase.html'">RETURN TO MAIN BASE</button>
+            <button class="debrief-action-btn-img btn-try-again" onclick="restartMission()" title="Try Again" aria-label="Try Again">
+              <img src="assets/Frame 25.png" alt="Try Again">
+            </button>
+            <button class="debrief-action-btn-img btn-home" onclick="returnToBase()" title="Main Base" aria-label="Main Base">
+              <img src="assets/Frame 26.png" alt="Main Base">
+            </button>
           </div>
         </div>
       </div>
@@ -9601,6 +9716,10 @@
     // Initialize on load
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('debrief')) {
+        openFinalDebriefModal();
+        return;
+      }
       if (urlParams.get('instant') === '1') {
         isInstant = true;
       }
