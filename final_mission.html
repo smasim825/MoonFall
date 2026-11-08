@@ -4033,14 +4033,14 @@
     .earth-uplink-card {
       background: linear-gradient(180deg, rgba(10, 22, 45, 0.98) 0%, rgba(2, 10, 28, 0.98) 100%);
       border: 2px solid #00e5ff;
-      border-radius: 14px;
-      box-shadow: 0 0 45px rgba(0, 229, 255, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.1);
-      width: 100%;
-      max-width: 660px;
-      padding: clamp(16px, 2.2vh, 22px) clamp(18px, 2.4vw, 26px);
+      border-radius: 16px;
+      box-shadow: 0 0 55px rgba(0, 229, 255, 0.45), inset 0 0 24px rgba(0, 229, 255, 0.12);
+      width: 92%;
+      max-width: 860px;
+      padding: clamp(20px, 2.8vh, 28px) clamp(24px, 3vw, 36px);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: clamp(14px, 2vh, 18px);
       box-sizing: border-box;
       max-height: 94vh;
       overflow-y: auto;
@@ -4051,125 +4051,130 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
+      gap: 5px;
     }
 
     .uplink-badge {
       font-family: var(--font-pixel, monospace);
-      font-size: 0.78rem;
+      font-size: clamp(0.85rem, 1.0vw, 0.98rem);
       background: rgba(14, 165, 233, 0.2);
-      border: 1px solid #0284c7;
+      border: 1.5px solid #0284c7;
       color: #38bdf8;
-      padding: 3px 12px;
-      border-radius: 4px;
-      letter-spacing: 0.05em;
+      padding: 5px 16px;
+      border-radius: 6px;
+      letter-spacing: 0.06em;
+      font-weight: 700;
     }
 
     .uplink-title {
       font-family: var(--font-pixel, monospace);
-      font-size: clamp(1.4rem, 2.0vw, 1.85rem);
+      font-size: clamp(1.75rem, 2.5vw, 2.35rem);
       color: #ffffff;
       margin: 4px 0 0 0;
       letter-spacing: 0.03em;
-      text-shadow: 0 0 16px rgba(0, 229, 255, 0.6);
+      text-shadow: 0 0 20px rgba(0, 229, 255, 0.7);
     }
 
     .uplink-sub {
-      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+      font-size: clamp(0.92rem, 1.15vw, 1.08rem);
       color: #94a3b8;
       margin: 0;
+      letter-spacing: 0.02em;
     }
 
     .uplink-physics-box {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1.5px solid rgba(56, 189, 248, 0.3);
-      border-radius: 8px;
-      padding: 8px;
+      gap: clamp(8px, 1.2vw, 14px);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      border-radius: 10px;
+      padding: clamp(12px, 1.6vh, 16px);
+      box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.4);
     }
 
     .uplink-stat-col {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 4px;
       text-align: center;
     }
 
     .uplink-stat-label {
-      font-size: 0.68rem;
+      font-size: clamp(0.78rem, 0.95vw, 0.9rem);
       color: #94a3b8;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.04em;
     }
 
     .uplink-stat-val {
       font-family: var(--font-pixel, monospace);
-      font-size: clamp(0.85rem, 1.05vw, 0.95rem);
+      font-size: clamp(1.1rem, 1.4vw, 1.35rem);
       color: #ffffff;
       font-weight: 700;
     }
     .uplink-stat-val.highlight {
       color: #00e5ff;
-      text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
     }
 
     .uplink-transit-display {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
       background: #020617;
-      border: 1.5px solid rgba(0, 229, 255, 0.25);
-      border-radius: 8px;
-      padding: 12px;
+      border: 1.5px solid rgba(0, 229, 255, 0.3);
+      border-radius: 10px;
+      padding: clamp(14px, 2vh, 18px);
     }
 
     .uplink-wave-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 14px;
     }
 
     .uplink-node {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
-      min-width: 75px;
+      gap: 4px;
+      min-width: 90px;
     }
 
     .uplink-node .node-icon {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 28px;
-      height: 28px;
+      width: 36px;
+      height: 36px;
     }
 
     .uplink-node .node-icon svg {
       display: block;
       width: 100%;
       height: 100%;
-      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.7));
     }
 
     .uplink-node .node-label {
       font-family: var(--font-pixel, monospace);
-      font-size: 0.7rem;
+      font-size: clamp(0.82rem, 1.0vw, 0.95rem);
       color: #38bdf8;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
+      font-weight: 700;
     }
 
     .uplink-beam-track {
       flex: 1;
-      height: 6px;
-      background: rgba(30, 41, 59, 0.9);
-      border-radius: 3px;
+      height: 8px;
+      background: rgba(30, 41, 59, 0.95);
+      border-radius: 4px;
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      border: 1px solid rgba(56, 189, 248, 0.35);
     }
 
     .uplink-beam-pulse {
@@ -4179,8 +4184,8 @@
       left: 0;
       width: 35%;
       background: linear-gradient(90deg, transparent, #00e5ff, #ffffff, #00e5ff, transparent);
-      box-shadow: 0 0 10px #00e5ff;
-      border-radius: 3px;
+      box-shadow: 0 0 14px #00e5ff;
+      border-radius: 4px;
       animation: beamTransit 2.6s linear forwards;
     }
 
@@ -4192,25 +4197,26 @@
 
     .uplink-status-line {
       font-family: var(--font-pixel, monospace);
-      font-size: clamp(0.72rem, 0.88vw, 0.82rem);
+      font-size: clamp(0.92rem, 1.15vw, 1.12rem);
       color: #bae6fd;
       text-align: center;
-      min-height: 20px;
+      min-height: 24px;
+      line-height: 1.35;
     }
 
     .uplink-astrobee-box {
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: rgba(14, 165, 233, 0.1);
-      border: 1.5px solid rgba(56, 189, 248, 0.35);
-      border-radius: 8px;
-      padding: 10px 14px;
+      gap: clamp(14px, 1.8vw, 20px);
+      background: rgba(14, 165, 233, 0.12);
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      border-radius: 10px;
+      padding: clamp(12px, 1.8vh, 18px) clamp(16px, 2vw, 22px);
     }
 
     .uplink-astrobee-avatar {
-      width: 52px;
-      height: 52px;
+      width: clamp(56px, 5.0vw, 70px);
+      height: clamp(56px, 5.0vw, 70px);
       flex-shrink: 0;
     }
 
@@ -4218,45 +4224,47 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+      filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.65));
     }
 
     .uplink-astrobee-bubble {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
+      min-width: 0;
     }
 
     .uplink-astrobee-name {
       font-family: var(--font-pixel, monospace);
-      font-size: 0.82rem;
+      font-size: clamp(1.0rem, 1.25vw, 1.2rem);
       font-weight: 700;
       color: #38bdf8;
+      letter-spacing: 0.03em;
     }
 
     .uplink-astrobee-text {
-      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
-      color: #e2e8f0;
-      line-height: 1.35;
+      font-size: clamp(0.94rem, 1.2vw, 1.14rem);
+      color: #f1f5f9;
+      line-height: 1.45;
     }
 
     .uplink-actions-bar {
       display: flex;
       justify-content: center;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .uplink-btn-proceed {
       font-family: var(--font-pixel, monospace);
-      font-size: clamp(0.85rem, 1.1vw, 1.02rem);
+      font-size: clamp(1.05rem, 1.35vw, 1.3rem);
       background: #1e293b;
       border: 2px solid #475569;
       color: #64748b;
-      padding: 10px 22px;
-      border-radius: 8px;
+      padding: clamp(12px, 1.6vh, 16px) clamp(24px, 3vw, 36px);
+      border-radius: 10px;
       cursor: not-allowed;
       transition: all 0.2s ease;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
     }
 
     .uplink-btn-proceed.ready {
@@ -4264,10 +4272,12 @@
       border-color: #00e5ff;
       color: #ffffff;
       cursor: pointer;
-      box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+      box-shadow: 0 0 24px rgba(0, 229, 255, 0.7);
     }
     .uplink-btn-proceed.ready:hover {
       transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(0, 229, 255, 0.9);
+    }
       box-shadow: 0 0 28px rgba(0, 229, 255, 0.9);
       background: linear-gradient(90deg, #0ea5e9, #38bdf8);
     }
