@@ -29,7 +29,7 @@
     timeoutMs: 20000,
     // data-mount="#baseViewport, #gameViewport": live inside the game's 16:9 stage instead of the page corner
     mount: ds.mount || "",
-    avatar: ds.avatar || BASE + "astrobee.png",
+    avatar: ds.avatar || BASE + "astrobee.webp",
     badge: ds.badge || "",
   };
 

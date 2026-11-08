@@ -41,9 +41,9 @@
         role: 'Radiation Shielding & Structural Lead',
         agency: 'ISRO',
         color: '#c084fc',
-        avatar: 'assets/scene 8/Rakesh_Sharma_Idle.png',
+        avatar: 'assets/scene 8/Rakesh_Sharma_Idle.webp',
         poses: {
-          idle: 'assets/scene 8/Rakesh_Sharma_Idle.png'
+          idle: 'assets/scene 8/Rakesh_Sharma_Idle.webp'
         }
       },
       NEIL_ARMSTRONG: {
@@ -52,9 +52,9 @@
         role: 'Historical Operations Specialist',
         agency: 'NASA',
         color: '#38bdf8',
-        avatar: 'assets/scene 8/Neil_Armstrong_Idle.png',
+        avatar: 'assets/scene 8/Neil_Armstrong_Idle.webp',
         poses: {
-          idle: 'assets/scene 8/Neil_Armstrong_Idle.png',
+          idle: 'assets/scene 8/Neil_Armstrong_Idle.webp',
           tranquility: 'assets/power/Neil_Armstrong_Tranquility_Idle.webp'
         }
       },
@@ -64,10 +64,10 @@
         role: 'Free-Flying Autonomous Assistant Robot',
         agency: 'NASA Ames',
         color: '#00e5ff',
-        avatar: 'assets/scene 3/Pragyan_ShivShakti_Neutral.png',
-        badge: 'assets/scene 3/Frame 7.png',
+        avatar: 'assets/scene 3/Pragyan_ShivShakti_Neutral.webp',
+        badge: 'assets/scene 3/Frame 7.webp',
         poses: {
-          neutral: 'assets/scene 3/Pragyan_ShivShakti_Neutral.png'
+          neutral: 'assets/scene 3/Pragyan_ShivShakti_Neutral.webp'
         }
       },
       ASTRONAUT_EXPEDITION: {
@@ -109,8 +109,8 @@
     // UI Frames & Elements
     UI: {
       CAPTION_BLUE: 'assets/power/Caption Text.webp',
-      CAPTION_FRAME6: 'assets/scene 3/Frame 6.png',
-      CAPTION_FRAME7: 'assets/scene 3/Frame 7.png',
+      CAPTION_FRAME6: 'assets/scene 3/Frame 6.webp',
+      CAPTION_FRAME7: 'assets/scene 3/Frame 7.webp',
       DIALOGUE_BOX: 'assets/meal/Dialogue_Box.webp'
     },
 

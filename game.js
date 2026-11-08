@@ -14,8 +14,8 @@
     'assets/scene 4/space_radiation.webp',
     'assets/Earth_protection.webp',
     'assets/crossSec.webp',
-    'assets/scene 8/Rakesh_Sharma_Idle.png',
-    'assets/scene 8/Neil_Armstrong_Idle.png'
+    'assets/scene 8/Rakesh_Sharma_Idle.webp',
+    'assets/scene 8/Neil_Armstrong_Idle.webp'
   ];
   PRELOAD_ASSETS.forEach(src => {
     const img = new Image();

@@ -22,7 +22,7 @@
   <link rel="preload" href="assets/power/Neil_Armstrong_Idle.webp" as="image">
   <link rel="preload" href="assets/power/Astronaut_Present.webp" as="image">
   <link rel="preload" href="assets/power/Pragyan_ShivShakti_Neutral.webp" as="image">
-  <link rel="preload" href="assets/Mission Complete.png" as="image">
+  <link rel="preload" href="assets/Mission Complete.webp" as="image">
 
   <link rel="stylesheet" href="style.css?v=20261105b">
   <link rel="stylesheet" href="missions-shared.css?v=20261105b">
@@ -1183,7 +1183,7 @@
       <!-- Mission Complete Overlay (Final Screen matching 5.1 & User Image 4) -->
       <div class="mission-complete-overlay hidden" id="missionCompleteOverlay">
         <div class="mission-complete-container">
-          <img src="assets/Mission Complete.png" alt="Mission Complete" class="mission-complete-title">
+          <img src="assets/Mission Complete.webp" alt="Mission Complete" class="mission-complete-title">
 
           <!-- Circular Verification Score Box (Circle Box) -->
           <div class="circle-score-wrapper">
@@ -1205,10 +1205,10 @@
           <div class="mission-complete-buttons">
             <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again"
               aria-label="Try Again">
-              <img src="assets/Frame 25.png" alt="Try Again">
+              <img src="assets/Frame 25.webp" alt="Try Again">
             </button>
             <button class="mission-btn btn-home" onclick="returnToBase()" title="Home" aria-label="Home">
-              <img src="assets/Frame 26.png" alt="Home">
+              <img src="assets/Frame 26.webp" alt="Home">
             </button>
           </div>
         </div>
@@ -1223,10 +1223,10 @@
           </div>
           <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next Scene"
             aria-label="Skip to Next Scene">
-            <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
-            <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+            <img src="assets/Caption Text-1.webp" alt="SKIP" class="skip-bg">
+            <img src="assets/Vector 6.webp" alt="" class="skip-icon" aria-hidden="true">
           </button>
-          <img src="assets/Rectangle 3.png" alt="" class="dialogue-bg-img" aria-hidden="true">
+          <img src="assets/Rectangle 3.webp" alt="" class="dialogue-bg-img" aria-hidden="true">
           <div class="dialogue-content" id="dialogueContentChiaki">
             <p class="dialogue-text" id="dialogueTextChiaki"></p>
           </div>
@@ -1236,20 +1236,20 @@
         <div class="dialogue-box scene-2-box hidden" id="dialogueBoxAstroBee" onclick="handleDialogueClick()">
           <!-- Floating Astro Bee Robot (Pragyan_ShivShakti_Neutral.png) -->
           <div class="robot-avatar-container" id="robotAvatar">
-            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.png" alt="Astro Bee" class="robot-avatar-img">
+            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee" class="robot-avatar-img">
           </div>
           <!-- Speaker Badge (Frame 7.png contains "Astro Bee") -->
           <div class="speaker-badge astro-bee-badge" id="astroBeeBadge">
-            <img src="assets/scene 3/Frame 7.png" alt="Astro Bee" class="astro-badge-img">
+            <img src="assets/scene 3/Frame 7.webp" alt="Astro Bee" class="astro-badge-img">
           </div>
           <!-- Skip Button (Caption Text-1.png contains "SKIP", Vector 6.png is ">>") -->
           <button class="skip-btn" onclick="event.stopPropagation(); handleActionBtnClick()" title="Next"
             aria-label="Next">
-            <img src="assets/Caption Text-1.png" alt="SKIP" class="skip-bg">
-            <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
+            <img src="assets/Caption Text-1.webp" alt="SKIP" class="skip-bg">
+            <img src="assets/Vector 6.webp" alt="" class="skip-icon" aria-hidden="true">
           </button>
           <!-- Dialogue Background Frame (Frame 6.png) -->
-          <img src="assets/scene 3/Frame 6.png" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
+          <img src="assets/scene 3/Frame 6.webp" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
           <!-- Warning Dialogue Text in Bright Yellow -->
           <div class="dialogue-content content-scene2" id="dialogueContentAstroBee">
             <p class="dialogue-text text-warning-yellow" id="dialogueTextAstroBee"></p>
@@ -2113,8 +2113,8 @@
   </script>
   <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
   <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev"
-    data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.png"
-    data-badge="assets/scene 3/Frame 7.png" defer></script>
+    data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.webp"
+    data-badge="assets/scene 3/Frame 7.webp" defer></script>
   <script src="astrobee/moonfall.js" defer></script>
 </body>
 
