@@ -217,41 +217,6 @@
       object-fit: contain;
     }
 
-    /* Precision framing for Robotic Lunar Regolith Scoop card - keeps picture unscaled, shows whole picture, removes bottom strip */
-    .card-scoop {
-      top: 8% !important;
-      height: 52% !important;
-      max-height: 520px !important;
-      width: 66% !important;
-      max-width: 1040px !important;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .card-scoop .diagram-card-inner {
-      position: relative;
-      height: 100%;
-      aspect-ratio: 640 / 773;
-      overflow: hidden;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.8);
-    }
-
-    .card-scoop .diagram-card-inner > img {
-      position: absolute;
-      height: 110%;
-      width: auto;
-      max-width: none;
-      max-height: none;
-      top: -9.7%;
-      left: 50%;
-      transform: translateX(-50%);
-      object-fit: contain;
-      image-rendering: pixelated;
-    }
 
     /* Site Selection Interactive Overlay (Scene 7: Click any Location) */
     .site-select-overlay {
@@ -2898,7 +2863,7 @@
         showGuide: true,
         guidePose: GUIDE_POINT_UP,
         cardImg: 'assets/isru/equipments/scoop_hd.webp',
-        cardClass: 'card-wide card-scoop',
+        cardClass: 'card-wide',
         speaker: 'Guion Bluford',
         requiresLabPermission: true,
         text: "Our “Robotic Lunar Regolith Scoop” collects ice-bearing regolith from the drilling area and transfers it into a sealed container for processing."
