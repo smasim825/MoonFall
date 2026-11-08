@@ -3587,6 +3587,401 @@
       background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
       box-shadow: inset 0 2px 0 #bae6fd, inset 0 -2px 0 #0c4a6e, 0 3px 0 #000000;
     }
+
+    /* =========================================================================
+       SCENE 1: COLLAPSIBLE RIGHT EXPLORE & RESOURCE SIDEBAR (EXO-VISIONARIES STYLE)
+       ========================================================================= */
+    .base-resource-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: clamp(320px, 28vw, 420px);
+      max-width: 92vw;
+      background: rgba(11, 16, 28, 0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-left: 2px solid rgba(56, 189, 248, 0.35);
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.88), inset 1px 0 0 rgba(255, 255, 255, 0.08);
+      z-index: 250;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(0);
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.38s ease;
+      user-select: none;
+    }
+
+    .base-resource-sidebar.sidebar-collapsed {
+      transform: translateX(100%);
+      box-shadow: none;
+    }
+
+    /* Floating Pull-Tab Toggle Button pinned to left edge */
+    .sidebar-pull-tab {
+      position: absolute;
+      left: -48px;
+      top: 220px;
+      width: 48px;
+      height: 54px;
+      background: linear-gradient(135deg, #091224 0%, #034875 100%);
+      border: 2px solid #38bdf8;
+      border-right: none;
+      border-radius: 10px 0 0 10px;
+      color: #38bdf8;
+      box-shadow: -8px 4px 20px rgba(0, 0, 0, 0.85), 0 0 14px rgba(56, 189, 248, 0.45);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 4px;
+      transition: all 0.2s ease;
+      z-index: 255;
+    }
+
+    .sidebar-pull-tab:hover {
+      background: linear-gradient(135deg, #1e293b 0%, #0284c7 100%);
+      color: #ffffff;
+      border-color: #7dd3fc;
+      box-shadow: -10px 4px 24px rgba(56, 189, 248, 0.7);
+      transform: translateX(-3px);
+    }
+
+    .sidebar-tab-icon {
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: transform 0.25s ease;
+    }
+
+    .sidebar-tab-label {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #facc15;
+    }
+
+    /* Sidebar Top Header Bar */
+    .sidebar-header {
+      padding: 14px 16px 12px 16px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(11, 16, 28, 0.95) 100%);
+      border-bottom: 1.5px solid rgba(56, 189, 248, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-explore-btn {
+      background: linear-gradient(180deg, #1e3a8a 0%, #0f172a 100%);
+      border: 2px solid #38bdf8;
+      border-radius: 8px;
+      color: #ffffff;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1rem, 1.25vw, 1.22rem);
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 10px rgba(56, 189, 248, 0.25);
+      transition: all 0.18s ease;
+    }
+
+    .sidebar-explore-btn:hover {
+      background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+      border-color: #60a5fa;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .sidebar-header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-icon-btn {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1.5px solid rgba(148, 163, 184, 0.35);
+      border-radius: 6px;
+      color: #94a3b8;
+      font-family: monospace;
+      font-size: 1.05rem;
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .sidebar-icon-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: #ef4444;
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    /* Scrollable Cards Feed */
+    .sidebar-feed {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      user-select: text;
+    }
+
+    /* Custom Scrollbar for Sidebar Feed */
+    .sidebar-feed::-webkit-scrollbar {
+      width: 6px;
+    }
+    .sidebar-feed::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    .sidebar-feed::-webkit-scrollbar-thumb {
+      background: #0284c7;
+      border-radius: 4px;
+    }
+    .sidebar-feed::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
+    }
+
+    /* Individual Content Card */
+    .sidebar-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px solid rgba(56, 189, 248, 0.22);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .sidebar-card:hover {
+      border-color: rgba(56, 189, 248, 0.55);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 14px rgba(56, 189, 248, 0.15);
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: 1.25rem;
+      color: #f1f5f9;
+      letter-spacing: 0.04em;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-badge {
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.75rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    /* 16:9 Responsive Video Container */
+    .card-video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      background: #000000;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.8);
+    }
+
+    .card-video-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .card-source-row {
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-source-tag {
+      color: #fdcb0e;
+      font-weight: bold;
+    }
+
+    .card-desc {
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #cbd5e1;
+      margin: 0;
+    }
+
+    .card-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: rgba(30, 58, 138, 0.35);
+      border: 1.5px solid #2563eb;
+      border-radius: 6px;
+      padding: 7px 12px;
+      color: #38bdf8;
+      text-decoration: none;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.92rem;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .card-action-btn:hover {
+      background: rgba(37, 99, 235, 0.55);
+      border-color: #60a5fa;
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+    .card-action-btn::after {
+      content: '↗';
+      font-size: 1.1rem;
+      color: #93c5fd;
+    }
+
+    .card-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-inspect-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(180deg, #1e3a8a 0%, #0f172a 100%);
+      border: 1.5px solid #38bdf8;
+      border-radius: 6px;
+      padding: 6px 10px;
+      color: #38bdf8;
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .card-inspect-btn:hover {
+      background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+      color: #ffffff;
+      border-color: #60a5fa;
+      transform: translateY(-1px);
+    }
+
+    /* Facility Themed Cards matching the 4 base sections */
+    .sidebar-card.card-power {
+      border-color: rgba(250, 204, 21, 0.35);
+    }
+    .sidebar-card.card-power:hover {
+      border-color: rgba(250, 204, 21, 0.75);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(250, 204, 21, 0.25);
+    }
+    .sidebar-card.card-power .card-badge {
+      background: rgba(250, 204, 21, 0.15);
+      border-color: #facc15;
+      color: #fde047;
+    }
+
+    .sidebar-card.card-plant {
+      border-color: rgba(74, 222, 128, 0.35);
+    }
+    .sidebar-card.card-plant:hover {
+      border-color: rgba(74, 222, 128, 0.75);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(74, 222, 128, 0.25);
+    }
+    .sidebar-card.card-plant .card-badge {
+      background: rgba(74, 222, 128, 0.15);
+      border-color: #4ade80;
+      color: #86efac;
+    }
+
+    .sidebar-card.card-isru {
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+    .sidebar-card.card-isru:hover {
+      border-color: rgba(56, 189, 248, 0.75);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(56, 189, 248, 0.25);
+    }
+    .sidebar-card.card-isru .card-badge {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38bdf8;
+      color: #7dd3fc;
+    }
+
+    .sidebar-card.card-shelter {
+      border-color: rgba(192, 132, 252, 0.35);
+    }
+    .sidebar-card.card-shelter:hover {
+      border-color: rgba(192, 132, 252, 0.75);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(192, 132, 252, 0.25);
+    }
+    .sidebar-card.card-shelter .card-badge {
+      background: rgba(192, 132, 252, 0.15);
+      border-color: #c084fc;
+      color: #d8b4fe;
+    }
+
+    @media (max-width: 600px) {
+      .base-resource-sidebar {
+        width: min(88vw, 340px);
+      }
+      .sidebar-pull-tab {
+        top: 200px;
+        width: 42px;
+        height: 48px;
+        left: -42px;
+      }
+      .sidebar-explore-btn {
+        font-size: 0.95rem;
+        padding: 5px 10px;
+      }
+    }
+
+    @media (max-height: 520px) {
+      .sidebar-pull-tab {
+        top: 180px;
+      }
+    }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
   <link rel="stylesheet" href="responsive.css?v=20261105e">
@@ -4705,6 +5100,160 @@
         </div>
       </div>
     </div>
+
+    <!-- 12. SCENE 1 RIGHT RESOURCE & EXPLORE SIDEBAR (EXO-VISIONARIES STYLE) -->
+    <aside class="base-resource-sidebar" id="baseResourceSidebar" aria-label="Lunar Mission Explore Resources">
+      <!-- Left Edge Floating Pull-Tab Toggle Button -->
+      <button class="sidebar-pull-tab" id="sidebarPullTab" onclick="toggleResourceSidebar()" title="Toggle Explore Sidebar" aria-label="Toggle Explore Sidebar">
+        <span class="sidebar-tab-icon" id="sidebarTabIcon">▶</span>
+        <span class="sidebar-tab-label">EXPLORE</span>
+      </button>
+
+      <!-- Sidebar Top Header -->
+      <div class="sidebar-header">
+        <button class="sidebar-explore-btn" onclick="exploreMainPageAction()" title="Return to Main Lunar Base View">
+          <span style="font-size: 1.15rem;">🌐</span>
+          <span>EXPLORE MAIN PAGE</span>
+        </button>
+
+        <div class="sidebar-header-controls">
+          <button class="sidebar-icon-btn" onclick="toggleResourceSidebar()" title="Hide Sidebar" aria-label="Hide Sidebar">✕</button>
+        </div>
+      </div>
+
+      <!-- Scrollable Resource Cards Feed with YouTube Videos and NASA Resources -->
+      <div class="sidebar-feed" id="sidebarFeed">
+
+        <!-- SECTION 1: POWER STATION -->
+        <article class="sidebar-card card-power">
+          <div class="card-title-row">
+            <h4 class="card-title">⚡ Power Station</h4>
+            <span class="card-badge">ENERGY &amp; FISSION</span>
+          </div>
+          <div class="card-video-wrap">
+            <iframe class="card-video-iframe"
+              src="https://www.youtube-nocookie.com/embed/n3oWkC10o70?rel=0"
+              title="NASA Fission Surface Power System"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-source-row">
+            <span>Source:</span>
+            <span class="card-source-tag">NASA Glenn // Fission Surface Power</span>
+          </div>
+          <p class="card-desc">
+            Deploying a 40-kilowatt nuclear fission reactor and vertical bifacial solar array masts to deliver uninterrupted baseload electrical power through the 14-day freezing lunar night.
+          </p>
+          <div class="card-actions-row">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPower', 'badgePower');" title="Zoom to Power Station">
+              <span>🔍 View on Map</span>
+            </button>
+            <a class="card-action-btn" href="https://www.nasa.gov/directorates/stmd/technology-demonstration-missions-program/fission-surface-power-project/" target="_blank" rel="noopener noreferrer">
+              <span>NASA Power Tech</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- SECTION 2: PLANT GROWTH LAB -->
+        <article class="sidebar-card card-plant">
+          <div class="card-title-row">
+            <h4 class="card-title">🌱 Plant Growth Lab</h4>
+            <span class="card-badge">HYDROPONICS &amp; BIO</span>
+          </div>
+          <div class="card-video-wrap">
+            <iframe class="card-video-iframe"
+              src="https://www.youtube-nocookie.com/embed/s2c36gC964Q?rel=0"
+              title="NASA Space Crop Production"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-source-row">
+            <span>Source:</span>
+            <span class="card-source-tag">NASA Kennedy // Biological Sciences</span>
+          </div>
+          <p class="card-desc">
+            Cultivating fresh microgreens, Arabidopsis, and dwarf crops using automated nutrient solution cycles and LED spectrum recipes to sustain long-duration astronaut nutrition.
+          </p>
+          <div class="card-actions-row">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPlant', 'badgePlant');" title="Zoom to Plant Growth Lab">
+              <span>🔍 View on Map</span>
+            </button>
+            <a class="card-action-btn" href="https://www.nasa.gov/general/growing-plants-in-space/" target="_blank" rel="noopener noreferrer">
+              <span>NASA Plant Biology</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- SECTION 3: ISRU PROCESSING FACILITY -->
+        <article class="sidebar-card card-isru">
+          <div class="card-title-row">
+            <h4 class="card-title">💧 ISRU Processing Facility</h4>
+            <span class="card-badge">WATER &amp; OXYGEN</span>
+          </div>
+          <div class="card-video-wrap">
+            <iframe class="card-video-iframe"
+              src="https://www.youtube-nocookie.com/embed/jZ8W7a2X5mE?rel=0"
+              title="NASA TRIDENT Drill & Water Ice Prospecting"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-source-row">
+            <span>Source:</span>
+            <span class="card-source-tag">NASA Technology // STMD ISRU</span>
+          </div>
+          <p class="card-desc">
+            Excavating cryogenic volatiles and ice trapped in permanently shadowed craters at the South Pole, utilizing carbothermal reduction to yield potable water, oxygen, and rocket propellant.
+          </p>
+          <div class="card-actions-row">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldIsru', 'badgeIsru');" title="Zoom to ISRU Facility">
+              <span>🔍 View on Map</span>
+            </button>
+            <a class="card-action-btn" href="https://www.nasa.gov/isru/" target="_blank" rel="noopener noreferrer">
+              <span>NASA ISRU Details</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- SECTION 4: RADIATION SHELTER -->
+        <article class="sidebar-card card-shelter">
+          <div class="card-title-row">
+            <h4 class="card-title">🛡️ Radiation Shelter</h4>
+            <span class="card-badge">CREW DEFENSE</span>
+          </div>
+          <div class="card-video-wrap">
+            <iframe class="card-video-iframe"
+              src="https://www.youtube-nocookie.com/embed/6AKn8j_zIqk?rel=0"
+              title="NASA Deep Space Radiation Protection"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="card-source-row">
+            <span>Source:</span>
+            <span class="card-source-tag">NASA Science // Space Radiation</span>
+          </div>
+          <p class="card-desc">
+            Engineered subterranean habitats with 3-meter sintered regolith berms and dual-layer water walls designed to shield expedition crews from Solar Particle Events (SPE) and cosmic rays.
+          </p>
+          <div class="card-actions-row">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
+              <span>🔍 View on Map</span>
+            </button>
+            <a class="card-action-btn" href="https://www.nasa.gov/stem-content/deep-space-radiation/" target="_blank" rel="noopener noreferrer">
+              <span>NASA Radiation Shielding</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </aside>
   </div>
 
   <script>
@@ -6498,6 +7047,68 @@
       input.value = '';
     }
 
+    // =========================================================================
+    // Scene 1: Right Explore & Resource Sidebar Controller
+    // =========================================================================
+    function toggleResourceSidebar(forceState) {
+      if (typeof sound !== 'undefined' && sound && sound.clickSound) {
+        sound.clickSound();
+      }
+      const sidebar = document.getElementById('baseResourceSidebar');
+      const pullTab = document.getElementById('sidebarPullTab');
+      const tabIcon = document.getElementById('sidebarTabIcon');
+      if (!sidebar) return;
+
+      if (typeof forceState === 'boolean') {
+        sidebar.classList.toggle('sidebar-collapsed', !forceState);
+      } else {
+        sidebar.classList.toggle('sidebar-collapsed');
+      }
+
+      const isCollapsed = sidebar.classList.contains('sidebar-collapsed');
+      if (tabIcon) {
+        tabIcon.textContent = isCollapsed ? '◀' : '▶';
+      }
+      if (pullTab) {
+        pullTab.setAttribute('title', isCollapsed ? 'Open Explore Sidebar' : 'Hide Sidebar');
+        pullTab.setAttribute('aria-expanded', !isCollapsed);
+      }
+    }
+
+    function exploreMainPageAction() {
+      if (typeof sound !== 'undefined' && sound && sound.warpSound) {
+        sound.warpSound();
+      }
+      // Collapse sidebar so user has full view of main base
+      toggleResourceSidebar(false);
+
+      // Close open modals and unzoom if zoomed
+      if (typeof closeActiveTacticalModal === 'function') closeActiveTacticalModal();
+      document.querySelectorAll('.tactical-modal').forEach(m => m.classList.add('hidden'));
+      if (typeof closePhaseDashboard === 'function') closePhaseDashboard();
+      if (typeof unzoomBuilding === 'function' && (currentZoomedBldId || isBaseIntroActive)) {
+        unzoomBuilding();
+      }
+
+      // Smooth scroll/focus to central base dome
+      const mainBld = document.getElementById('bldMain');
+      if (mainBld && typeof mainBld.scrollIntoView === 'function') {
+        mainBld.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      }
+
+      // Give visual feedback on top status bar
+      const topBar = document.getElementById('topStatusBar');
+      if (topBar) {
+        topBar.style.transition = 'box-shadow 0.35s ease, border-color 0.35s ease';
+        topBar.style.borderColor = '#00e5ff';
+        topBar.style.boxShadow = '0 0 24px rgba(0, 229, 255, 0.85)';
+        setTimeout(() => {
+          topBar.style.borderColor = '';
+          topBar.style.boxShadow = '';
+        }, 1500);
+      }
+    }
+
     // URL parameter testing helper (for automated CI/CD and verification)
     (function checkTestParams() {
       try {
@@ -6508,6 +7119,8 @@
         else if (testParam === 'onboard2') setOnboardingStep(2);
         else if (testParam === 'onboard3') setOnboardingStep(3);
         else if (testParam === 'crew') openCrewManifestModal();
+        else if (testParam === 'sidebar_hide') toggleResourceSidebar(false);
+        else if (testParam === 'sidebar_show') toggleResourceSidebar(true);
       } catch(e) {}
     })();
   </script>
