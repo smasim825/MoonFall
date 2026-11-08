@@ -738,7 +738,7 @@
       image-rendering: pixelated;
     }
 
-    /* Astro Bee Dialogue Box (Scene 11 / Picture 1) */
+    /* Astro Bee Dialogue Box (Scene 11 / Frame 6.png - Exact match to other missions) */
     .dialogue-box.scene-2-box {
       position: relative;
       width: 81.4%;
@@ -748,8 +748,7 @@
       align-items: center;
       box-sizing: border-box;
       padding: 0;
-      margin-left: 7%;
-      margin-right: 1.5%;
+      margin: 0 auto;
     }
 
     .scene-2-box .dialogue-bg-img {
@@ -836,9 +835,27 @@
       height: 100%;
       display: flex;
       align-items: center;
+      overflow: hidden;
       box-sizing: border-box;
-      padding-left: 16%;
-      padding-right: 17%;
+      padding-left: 18.5%;
+      padding-right: 19%;
+    }
+
+    .scene-2-box .dialogue-text {
+      font-family: var(--font-pixel);
+      font-size: clamp(1.2rem, 2.25vw, 2.45rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: #fdcb0e !important;
+      letter-spacing: 0.02em;
+      white-space: normal;
+      word-break: normal;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.9);
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: grayscale;
+      image-rendering: pixelated;
+      margin: 0;
+      width: 100%;
     }
 
     /* =========================================================================
@@ -2501,8 +2518,8 @@
             <img src="assets/Vector 6.png" alt="" class="skip-icon" aria-hidden="true">
           </button>
           <img src="assets/scene 3/Frame 6.png" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
-          <div class="dialogue-content">
-            <p class="dialogue-text" id="dialogueTextAstroBee"></p>
+          <div class="dialogue-content content-scene2" id="dialogueContentAstroBee">
+            <p class="dialogue-text text-warning-yellow" id="dialogueTextAstroBee"></p>
           </div>
         </div>
       </footer>
