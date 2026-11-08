@@ -314,8 +314,8 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   body.force-horizontal .scene4-container {
     left: 24% !important;
     right: 68px !important;
-    top: max(46px, calc(env(safe-area-inset-top) + 38px)) !important;
-    bottom: max(112px, calc(env(safe-area-inset-bottom) + 26vh)) !important;
+    top: max(36px, calc(env(safe-area-inset-top) + 32px)) !important;
+    bottom: max(165px, calc(env(safe-area-inset-bottom) + 34vh)) !important;
   }
 
   body.force-horizontal .missions-wrapper {
