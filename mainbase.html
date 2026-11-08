@@ -4018,6 +4018,68 @@
       box-shadow: 0 6px 22px rgba(239, 68, 68, 0.8);
     }
 
+    /* Banner container for Article / Document / Website resource cards */
+    .card-banner-wrap {
+      position: relative;
+      width: 100%;
+      height: 125px;
+      background: linear-gradient(135deg, #0d1527 0%, #171d36 100%);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .card-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.75;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .card-banner-wrap:hover .card-banner-img {
+      transform: scale(1.05);
+      opacity: 0.95;
+    }
+
+    .card-banner-tag {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 0.04em;
+    }
+
+    .card-banner-badge-rt {
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
+      background: rgba(168, 85, 247, 0.25);
+      border: 1px solid #c084fc;
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #e9d5ff;
+    }
+
+    .card-banner-icon {
+      font-size: 2.8rem;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
+    }
+
     .card-source-row {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-size: 0.76rem;
@@ -5405,11 +5467,11 @@
       <!-- Scrollable Resource Cards Feed with YouTube Videos and NASA Resources -->
       <div class="sidebar-feed" id="sidebarFeed">
 
-        <!-- SECTION 1: POWER STATION -->
+        <!-- SECTION 1: POWER STATION (VIDEO CARD) -->
         <article class="sidebar-card card-power">
           <div class="card-title-row">
             <h4 class="card-title">⚡ Power Station</h4>
-            <span class="card-badge">ENERGY</span>
+            <span class="card-badge">ENERGY &amp; VIDEO</span>
           </div>
           <div class="card-video-wrap">
             <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer" title="Watch NASA Spacecraft &amp; Lunar Surface Power on YouTube">
@@ -5425,14 +5487,68 @@
             Deploying a 40-kilowatt nuclear fission reactor and vertical bifacial solar array masts to deliver uninterrupted baseload electrical power through the 14-day freezing lunar night.
           </p>
           <div class="card-links-col">
-            <a class="card-text-link" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer">
-              <span>What Powers a Spacecraft? (NASA Space Place)</span>
-            </a>
-            <a class="card-text-link" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer">
-              <span>Power &amp; Energy for the Lunar Surface (NASA PDF)</span>
-            </a>
             <a class="card-text-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">
               <span>Watch Power Tech on YouTube</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPower', 'badgePower');" title="Zoom to Power Station">
+              <span>🔍 View on Base Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- POWER STATION RESOURCE CARD 1: NASA SPACE PLACE -->
+        <article class="sidebar-card card-power">
+          <div class="card-title-row">
+            <h4 class="card-title">🚀 What Powers a Spacecraft?</h4>
+            <span class="card-badge">SPACE PLACE</span>
+          </div>
+          <a class="card-banner-wrap" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer" title="Read on NASA Space Place">
+            <img class="card-banner-img" src="assets/power/Power.webp" alt="NASA Spacecraft Power Tech" loading="lazy">
+            <span class="card-banner-tag">NASA SPACE PLACE // ARTICLE</span>
+            <span class="card-banner-badge-rt">EXPLORE ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer">NASA Space Place</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Learn how solar panels, RTG nuclear batteries, and fuel cell generators provide vital electricity to rovers, probes, and lunar stations in deep space.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer">
+              <span>Read on NASA Space Place website</span>
+            </a>
+          </div>
+          <div style="margin-top: 6px;">
+            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldPower', 'badgePower');" title="Zoom to Power Station">
+              <span>🔍 View on Base Map</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- POWER STATION RESOURCE CARD 2: NASA NTRS TECHNICAL REPORT (PDF) -->
+        <article class="sidebar-card card-power">
+          <div class="card-title-row">
+            <h4 class="card-title">📄 Power &amp; Energy for Lunar Surface</h4>
+            <span class="card-badge">NASA PDF</span>
+          </div>
+          <a class="card-banner-wrap" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer" title="Download NASA Technical PDF Report">
+            <img class="card-banner-img" src="assets/power/Frame 1.webp" alt="NASA Lunar Surface Power Report" loading="lazy">
+            <span class="card-banner-tag">NASA NTRS // TECHNICAL REPORT</span>
+            <span class="card-banner-badge-rt">PDF ↗</span>
+          </a>
+          <div class="card-source-row">
+            <span>Source: <a class="card-source-link" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer">NASA Technical Reports Server</a></span>
+            <span class="card-source-dots">● ● ●</span>
+          </div>
+          <p class="card-desc">
+            Official NASA technical documentation analyzing fission surface power (FSP), vertical bifacial solar arrays, and regenerative fuel cells for South Pole lunar survival.
+          </p>
+          <div class="card-links-col">
+            <a class="card-text-link" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer">
+              <span>Download NASA Technical Report (PDF)</span>
             </a>
           </div>
           <div style="margin-top: 6px;">
