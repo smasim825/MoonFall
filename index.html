@@ -5761,7 +5761,7 @@
             <span class="card-badge">SPACE PLACE</span>
           </div>
           <a class="card-banner-wrap" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer" title="Read on NASA Space Place">
-            <img class="card-banner-img" src="assets/power/Power.webp" alt="NASA Spacecraft Power Tech" loading="lazy">
+            <img class="card-banner-img" src="assets/solarPower.webp" alt="NASA Spacecraft Power Tech" loading="lazy">
             <span class="card-banner-tag">NASA SPACE PLACE // ARTICLE</span>
             <span class="card-banner-badge-rt">EXPLORE ↗</span>
           </a>
@@ -5827,7 +5827,7 @@
             <span class="card-badge">FOOD SYSTEMS</span>
           </div>
           <a class="card-banner-wrap" href="https://www.nasa.gov/humans-in-space/space-food-systems/" target="_blank" rel="noopener noreferrer" title="Explore NASA Space Food Systems">
-            <img class="card-banner-img" src="assets/meal/Group 1.webp" alt="Astronaut Daily Meals and Rations" loading="lazy">
+            <img class="card-banner-img" src="assets/astronautsReal.webp" alt="Astronaut Daily Meals and Rations" loading="lazy">
             <span class="card-banner-tag">NASA JSC // FOOD LAB</span>
             <span class="card-banner-badge-rt">EXPLORE ↗</span>
           </a>
@@ -5887,7 +5887,7 @@
             <span class="card-badge">NASA OCHMO</span>
           </div>
           <a class="card-banner-wrap" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer" title="Download NASA Food and Nutrition Technical Brief">
-            <img class="card-banner-img" src="assets/hydroponics/Food_Plant.webp" alt="NASA Food and Nutrition Technical Brief" loading="lazy">
+            <img class="card-banner-img" src="assets/spacefoodsystem.webp" alt="NASA Food and Nutrition Technical Brief" loading="lazy">
             <span class="card-banner-tag">NASA OCHMO // NUTRITION BRIEF</span>
             <span class="card-banner-badge-rt"><img src="assets/nasa_logo.svg" alt="NASA" style="width:12px; height:12px; vertical-align:middle; margin-right:3px; border-radius:50%;">PDF ↗</span>
           </a>
@@ -6180,7 +6180,7 @@
             <span class="card-badge">NASA ARTEMIS</span>
           </div>
           <a class="card-banner-wrap" href="https://www.nasa.gov/missions/artemis/clps/nasas-lunar-drill-technology-passes-tests-on-the-moon/" target="_blank" rel="noopener noreferrer" title="Read NASA's Lunar Drill Technology Passes Tests">
-            <img class="card-banner-img" src="assets/prime.jpeg" alt="NASA Lunar Drill and PRIME-1 Testing on the Moon" loading="lazy">
+            <img class="card-banner-img" src="assets/prime.webp" alt="NASA Lunar Drill and PRIME-1 Testing on the Moon" loading="lazy">
             <span class="card-banner-tag">NASA ARTEMIS // LUNAR DRILL</span>
             <span class="card-banner-badge-rt">EXPLORE ↗</span>
           </a>
@@ -8602,6 +8602,14 @@
         else if (testParam === 'sec_water') { toggleResourceSidebar(true); setTimeout(() => filterSidebarSection('wateroxygen'), 150); }
         else if (testParam === 'sec_water_drill') { toggleResourceSidebar(true); setTimeout(() => { filterSidebarSection('wateroxygen'); const el = document.querySelector('img[src*="prime.jpeg"]'); if(el) el.scrollIntoView({block:'center'}); }, 300); }
         else if (testParam === 'sec_rad') { toggleResourceSidebar(true); setTimeout(() => filterSidebarSection('radiation'), 150); }
+
+        const zoomParam = new URLSearchParams(window.location.search).get('zoom');
+        if (zoomParam) {
+          setTimeout(() => {
+            const badgeId = 'badge' + zoomParam.replace('bld', '');
+            if (typeof zoomBuilding === 'function') zoomBuilding(zoomParam, badgeId);
+          }, 400);
+        }
       } catch(e) {}
     })();
   </script>
