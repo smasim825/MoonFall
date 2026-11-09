@@ -3738,7 +3738,7 @@
       -webkit-backdrop-filter: blur(18px);
       border-left: 2px solid rgba(56, 189, 248, 0.35);
       box-shadow: -10px 0 40px rgba(0, 0, 0, 0.88), inset 1px 0 0 rgba(255, 255, 255, 0.08);
-      z-index: 250;
+      z-index: 9999;
       display: flex;
       flex-direction: column;
       transform: translateX(0);
@@ -6179,6 +6179,11 @@
             <h4 class="card-title">💧 NASA Lunar Drill Passes Tests on Moon</h4>
             <span class="card-badge">NASA ARTEMIS</span>
           </div>
+          <a class="card-banner-wrap" href="https://www.nasa.gov/missions/artemis/clps/nasas-lunar-drill-technology-passes-tests-on-the-moon/" target="_blank" rel="noopener noreferrer" title="Read NASA's Lunar Drill Technology Passes Tests">
+            <img class="card-banner-img" src="assets/prime.jpeg" alt="NASA Lunar Drill and PRIME-1 Testing on the Moon" loading="lazy">
+            <span class="card-banner-tag">NASA ARTEMIS // LUNAR DRILL</span>
+            <span class="card-banner-badge-rt">EXPLORE ↗</span>
+          </a>
           <div class="card-source-row">
             <span>Source: <a class="card-source-link" href="https://www.nasa.gov/missions/artemis/clps/nasas-lunar-drill-technology-passes-tests-on-the-moon/" target="_blank" rel="noopener noreferrer">NASA Artemis CLPS</a></span>
             <span class="card-source-dots">● ● ●</span>
@@ -6527,98 +6532,6 @@
         </article>
 
         <!-- RADIATION: NASA SPACE WEATHER -->
-        <article class="sidebar-card card-shelter">
-          <div class="card-title-row">
-            <h4 class="card-title">☀️ NASA Space Weather Research</h4>
-            <span class="card-badge">HELIOPHYSICS</span>
-          </div>
-          <a class="card-banner-wrap" href="https://science.nasa.gov/heliophysics/focus-areas/space-weather/" target="_blank" rel="noopener noreferrer" title="Explore NASA Space Weather Focus Area">
-            <img class="card-banner-img" src="assets/space_weather_solar_flare.jpg" alt="NASA Space Weather Solar Flare and CME Eruption" loading="lazy">
-            <span class="card-banner-tag">NASA SCIENCE // HELIOPHYSICS</span>
-            <span class="card-banner-badge-rt">EXPLORE ↗</span>
-          </a>
-          <div class="card-source-row">
-            <span>Source: <a class="card-source-link" href="https://science.nasa.gov/heliophysics/focus-areas/space-weather/" target="_blank" rel="noopener noreferrer">NASA Heliophysics</a></span>
-            <span class="card-source-dots">● ● ●</span>
-          </div>
-          <p class="card-desc">
-            Conditions in space caused by the Sun's activity, solar flares, and coronal mass ejections that affect lunar surface systems, communications, and astronaut safety.
-          </p>
-          <div class="card-links-col">
-            <a class="card-text-link" href="https://science.nasa.gov/heliophysics/focus-areas/space-weather/" target="_blank" rel="noopener noreferrer">
-              <span>Explore NASA Space Weather Focus Area</span>
-            </a>
-          </div>
-          <div style="margin-top: 6px;">
-            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
-              <span>🔍 View Radiation Shelter on Map</span>
-            </button>
-          </div>
-        </article>
-
-        <!-- SECTION 4: RADIATION SHELTER - SPACE RADIATION SHIELDING -->
-        <article class="sidebar-card card-shelter">
-          <div class="card-title-row">
-            <h4 class="card-title">🛡️ Space Radiation Shielding</h4>
-            <span class="card-badge">DEFENSE // VIDEO</span>
-          </div>
-          <div class="card-video-wrap">
-            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer" title="Watch NASA Space Radiation Shielding on YouTube">
-              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/vpNa4u997xA/hqdefault.jpg" alt="NASA Space Radiation Shielding Video Thumbnail" loading="lazy">
-              <div class="card-video-play-btn"></div>
-            </a>
-          </div>
-          <div class="card-source-row">
-            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
-            <span class="card-source-dots">● ● ●</span>
-          </div>
-          <p class="card-desc">
-            Engineered subterranean habitats with sintered regolith berms and dual-layer water walls designed to shield expedition crews from Solar Particle Events (SPE) and cosmic rays.
-          </p>
-          <div class="card-links-col">
-            <a class="card-text-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer">
-              <span>Watch Space Radiation Shielding on YouTube</span>
-            </a>
-          </div>
-          <div style="margin-top: 6px;">
-            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
-              <span>🔍 View Radiation Shelter on Map</span>
-            </button>
-          </div>
-        </article>
-
-        <!-- RADIATION SHELTER RESOURCE CARD: LUNAR RADIATION DEFENSE -->
-        <article class="sidebar-card card-shelter">
-          <div class="card-title-row">
-            <h4 class="card-title">🛡️ Lunar Radiation Defense</h4>
-            <span class="card-badge">RESEARCH // VIDEO</span>
-          </div>
-          <div class="card-video-wrap">
-            <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer" title="Watch Lunar Radiation Defense on YouTube">
-              <img class="card-video-thumb-img" src="https://img.youtube.com/vi/mn60n3jdI_8/hqdefault.jpg" alt="Lunar Radiation Defense Video Thumbnail" loading="lazy">
-              <div class="card-video-play-btn"></div>
-            </a>
-          </div>
-          <div class="card-source-row">
-            <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
-            <span class="card-source-dots">● ● ●</span>
-          </div>
-          <p class="card-desc">
-            Analyzing deep space ionizing radiation, galactic cosmic rays, and passive shielding materials essential for long-duration astronaut survival on the Moon.
-          </p>
-          <div class="card-links-col">
-            <a class="card-text-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer">
-              <span>Watch Lunar Radiation Defense on YouTube</span>
-            </a>
-          </div>
-          <div style="margin-top: 6px;">
-            <button class="card-inspect-btn" type="button" onclick="toggleResourceSidebar(false); zoomBuilding('bldShelter', 'badgeShelter');" title="Zoom to Radiation Shelter">
-              <span>🔍 View Radiation Shelter on Map</span>
-            </button>
-          </div>
-        </article>
-
-        <!-- RADIATION SHELTER RESOURCE CARD: NASA SPACE WEATHER -->
         <article class="sidebar-card card-shelter">
           <div class="card-title-row">
             <h4 class="card-title">☀️ NASA Space Weather Research</h4>
@@ -8687,6 +8600,8 @@
         else if (testParam === 'sidebar_show') toggleResourceSidebar(true);
         else if (testParam === 'sec_meal') { toggleResourceSidebar(true); setTimeout(() => filterSidebarSection('dailymeal'), 150); }
         else if (testParam === 'sec_water') { toggleResourceSidebar(true); setTimeout(() => filterSidebarSection('wateroxygen'), 150); }
+        else if (testParam === 'sec_water_drill') { toggleResourceSidebar(true); setTimeout(() => { filterSidebarSection('wateroxygen'); const el = document.querySelector('img[src*="prime.jpeg"]'); if(el) el.scrollIntoView({block:'center'}); }, 300); }
+        else if (testParam === 'sec_rad') { toggleResourceSidebar(true); setTimeout(() => filterSidebarSection('radiation'), 150); }
       } catch(e) {}
     })();
   </script>
