@@ -3727,10 +3727,11 @@
        SCENE 1: COLLAPSIBLE RIGHT EXPLORE & RESOURCE SIDEBAR (EXO-VISIONARIES STYLE)
        ========================================================================= */
     .base-resource-sidebar {
-      position: fixed;
+      position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
+      height: 100%;
       width: clamp(320px, 28vw, 420px);
       max-width: 92vw;
       background: rgba(11, 16, 28, 0.96);
@@ -3738,12 +3739,16 @@
       -webkit-backdrop-filter: blur(18px);
       border-left: 2px solid rgba(56, 189, 248, 0.35);
       box-shadow: -10px 0 40px rgba(0, 0, 0, 0.88), inset 1px 0 0 rgba(255, 255, 255, 0.08);
-      z-index: 9999;
+      z-index: 99999;
       display: flex;
       flex-direction: column;
       transform: translateX(0);
       transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.38s ease;
       user-select: none;
+    }
+
+    body > .base-resource-sidebar {
+      position: fixed;
     }
 
     .base-resource-sidebar.sidebar-collapsed {
@@ -4517,40 +4522,187 @@
       color: #d8b4fe;
     }
 
-    @media (max-width: 600px) {
+    /* Mobile and Small Screen Compact Sidebar Rules (<= 900px or landscape height <= 520px) */
+    @media screen and (max-width: 900px), screen and (max-height: 520px) {
       .base-resource-sidebar {
-        width: min(88vw, 340px);
+        width: clamp(230px, 30vw, 275px) !important;
+        max-width: 35vw !important;
       }
+
+      @media (orientation: portrait) {
+        .base-resource-sidebar {
+          width: min(82vw, 280px) !important;
+          max-width: 82vw !important;
+        }
+      }
+
       .sidebar-pull-tab {
-        top: 50%;
-        transform: translateY(-50%);
-        width: 44px;
-        height: 170px;
-        left: -44px;
-        padding: 8px 3px;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 32px !important;
+        height: 105px !important;
+        left: -32px !important;
+        padding: 6px 2px !important;
+        border-radius: 10px 0 0 10px !important;
+        gap: 3px !important;
       }
       .sidebar-pull-tab:hover {
-        transform: translateY(-50%) translateX(-3px);
+        transform: translateY(-50%) translateX(-2px) !important;
       }
       .sidebar-pull-tab:active {
-        transform: translateY(-50%) translateX(-1px);
+        transform: translateY(-50%) translateX(-1px) !important;
+      }
+      .sidebar-tab-icon {
+        font-size: 0.95rem !important;
       }
       .sidebar-tab-label {
-        font-size: 1rem;
-        letter-spacing: 0.16em;
+        font-size: 0.74rem !important;
+        letter-spacing: 0.12em !important;
       }
-      .sidebar-explore-btn {
-        font-size: 0.95rem;
-        padding: 5px 10px;
+      .sidebar-tab-dot {
+        width: 5px !important;
+        height: 5px !important;
+      }
+
+      .sidebar-top-nav {
+        padding: 5px 8px !important;
+        gap: 4px !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      .sidebar-nav-tab {
+        padding: 3px 6px !important;
+        font-size: 0.65rem !important;
+        white-space: nowrap !important;
+      }
+      .sidebar-start-journey-btn {
+        padding: 3px 7px !important;
+        font-size: 0.65rem !important;
+        white-space: nowrap !important;
+      }
+
+      .sidebar-header {
+        padding: 5px 8px !important;
+        min-height: 32px !important;
+      }
+      .sidebar-know-more-btn {
+        font-size: 0.72rem !important;
+        padding: 2px 6px !important;
+      }
+      .sidebar-split-btn {
+        font-size: 0.68rem !important;
+        padding: 2px 6px !important;
+      }
+      .sidebar-icon-btn {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 0.8rem !important;
+      }
+
+      .sidebar-feed {
+        padding: 6px 8px !important;
+        gap: 6px !important;
+      }
+      .sidebar-section-header {
+        padding: 4px 8px !important;
+        font-size: 0.85rem !important;
+        margin: 6px 0 4px 0 !important;
+      }
+      .section-header-tag {
+        font-size: 0.58rem !important;
+        padding: 1px 4px !important;
+      }
+
+      .sidebar-card {
+        padding: 8px !important;
+        margin-bottom: 6px !important;
+        border-radius: 8px !important;
+      }
+      .card-title {
+        font-size: 0.78rem !important;
+        line-height: 1.2 !important;
+      }
+      .card-badge {
+        font-size: 0.55rem !important;
+        padding: 1px 4px !important;
+      }
+      .card-banner-wrap {
+        max-height: 100px !important;
+        margin-bottom: 4px !important;
+      }
+      .card-banner-img {
+        max-height: 100px !important;
+      }
+      .card-video-wrap {
+        margin-bottom: 4px !important;
+      }
+      .card-video-iframe {
+        height: 110px !important;
+        max-height: 110px !important;
+      }
+      .card-desc {
+        font-size: 0.70rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 4px !important;
+      }
+      .card-source-row {
+        font-size: 0.65rem !important;
+        margin-bottom: 3px !important;
+      }
+      .card-source-link {
+        font-size: 0.65rem !important;
+      }
+      .card-text-link {
+        font-size: 0.68rem !important;
+      }
+      .card-inspect-btn {
+        padding: 3px 6px !important;
+        font-size: 0.68rem !important;
+      }
+      .card-takeaway-box {
+        padding: 5px 7px !important;
+        font-size: 0.68rem !important;
+        margin-bottom: 4px !important;
       }
     }
 
-    @media (max-height: 520px) {
-      .sidebar-pull-tab {
-        top: 50%;
-        transform: translateY(-50%);
-        height: 155px;
-      }
+    /* Specific Force-Horizontal Viewport Adaptations */
+    body.force-horizontal .base-resource-sidebar {
+      position: absolute !important;
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      height: 100% !important;
+      width: clamp(230px, 30vw, 270px) !important;
+      max-width: 34vw !important;
+      z-index: 99999 !important;
+    }
+
+    body.force-horizontal .sidebar-pull-tab {
+      position: absolute !important;
+      left: -32px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 32px !important;
+      height: 105px !important;
+      padding: 6px 2px !important;
+      border-radius: 10px 0 0 10px !important;
+      gap: 3px !important;
+    }
+
+    body.force-horizontal .sidebar-tab-icon {
+      font-size: 0.95rem !important;
+    }
+
+    body.force-horizontal .sidebar-tab-label {
+      font-size: 0.74rem !important;
+      letter-spacing: 0.12em !important;
+    }
+
+    body.force-horizontal .sidebar-tab-dot {
+      width: 5px !important;
+      height: 5px !important;
     }
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
@@ -5294,387 +5446,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- 3. ACTIVE MISSION MODAL -->
-    <div class="tactical-modal hidden" id="modalActiveMission" onclick="closeModalOnBackdrop(event, 'modalActiveMission')">
-      <div class="tactical-modal-card">
-        <div class="modal-card-header">
-          <h3 class="modal-card-title" style="color: #fdcb0e;">🎯 CURRENT ACTIVE MISSION</h3>
-          <button class="modal-close-btn" onclick="closeTacticalModal('modalActiveMission')">[X]</button>
-        </div>
-        <div class="modal-card-body">
-          <div style="font-size: 1.35rem; color: #ffffff; margin-bottom: 6px;">
-            <strong>MISSION 1: POWER AND ENERGY</strong>
-          </div>
-          <div style="color: #94a3b8; margin-bottom: 14px;">
-            Sector: Power Substation Facility | Objective: Inspect power generation, energy storage, and electrical distribution across the lunar base.
-          </div>
-          <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 12px; margin-bottom: 16px;">
-            <div style="color: #00e5ff; font-weight: bold; margin-bottom: 4px;">ACTIVE SUBTASK:</div>
-            <div style="font-size: 1.25rem; color: #fff;">1.1 Power System Verification</div>
-            <div style="font-size: 1rem; color: #94a3b8; margin-top: 2px;">
-              Learn key power components (Solar Mast, FSP Nuclear Reactor, PDU, Battery Bank) and complete the verification quiz with Astro Bee.
-            </div>
-          </div>
-          <div style="display: flex; gap: 10px;">
-            <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.25rem; padding: 6px 20px;" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='1.1_power_mission.html'">
-              LAUNCH MISSION 1.1 ▶
-            </button>
-            <button class="hud-terminal-btn" style="font-size: 1.25rem; padding: 6px 16px;" onclick="closeTacticalModal('modalActiveMission'); zoomBuilding('bldPower', 'badgePower');">
-              ZOOM FACILITY
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. ASK (ASTRO BEE) MODAL -->
-    <div class="tactical-modal hidden" id="modalAsk" onclick="closeModalOnBackdrop(event, 'modalAsk')">
-      <div class="tactical-modal-card">
-        <div class="modal-card-header">
-          <h3 class="modal-card-title" style="color: #c084fc;">🤖 ASTRO BEE KNOWLEDGE BASE</h3>
-          <button class="modal-close-btn" onclick="closeTacticalModal('modalAsk')">[X]</button>
-        </div>
-        <div class="modal-card-body">
-          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px;">
-            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee" style="width: 52px; height: 52px; object-fit: contain;">
-            <div>
-              <div style="font-size: 1.3rem; color: #ffffff;">Astro Bee Flight Assistant Online</div>
-              <div style="font-size: 0.95rem; color: #c084fc;">Ask me anything about lunar physics, power systems, or mission science:</div>
-            </div>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;" onclick="answerPrompt(0)">
-              ❓ How do solar arrays generate power during low sun elevation at the South Pole?
-            </button>
-            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;" onclick="answerPrompt(1)">
-              ❓ Why is water ice permanently trapped in Shackleton Crater?
-            </button>
-            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;" onclick="answerPrompt(2)">
-              ❓ How does 3 meters of lunar regolith protect the crew from radiation?
-            </button>
-          </div>
-          <div id="askAnswerBox" style="margin-top: 12px; padding: 10px 14px; background: rgba(0, 10, 26, 0.9); border: 1px solid #c084fc; border-radius: 6px; display: none;">
-            <div style="color: #fdcb0e; font-weight: bold; margin-bottom: 4px;" id="askAnswerTitle"></div>
-            <div style="color: #e2e8f0; font-size: 1.05rem;" id="askAnswerText"></div>
-          </div>
-
-          <div style="margin-top: 14px; border-top: 1px solid rgba(192, 132, 252, 0.3); padding-top: 10px;">
-            <div style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 6px;">ASK ASTRO BEE DIRECTLY:</div>
-            <div style="display: flex; gap: 8px;">
-              <input type="text" id="astrobeeInputQuery" placeholder="Ask a question about the lunar base..." style="flex: 1; background: rgba(0, 15, 35, 0.8); border: 1px solid #00e5ff; color: #fff; font-family: 'Jersey 10', monospace; font-size: 1.15rem; padding: 6px 10px; border-radius: 4px;" onkeydown="if(event.key==='Enter') submitAstroBeeQuery()">
-              <button class="hud-terminal-btn btn-ask" onclick="submitAstroBeeQuery()">ASK</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. MISSIONS SELECTOR MODAL -->
-    <div class="tactical-modal hidden" id="modalMissions" onclick="closeModalOnBackdrop(event, 'modalMissions')">
-      <div class="tactical-modal-card">
-        <div class="modal-card-header">
-          <h3 class="modal-card-title">🚀 OUTPOST SECTOR MISSIONS</h3>
-          <button class="modal-close-btn" onclick="closeTacticalModal('modalMissions')">[X]</button>
-        </div>
-        <div class="modal-card-body">
-          <div style="display: flex; flex-direction: column; gap: 9px;">
-            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #fdcb0e; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div style="font-size: 1.25rem; color: #fdcb0e;">⚡ Mission 1: Power &amp; Energy</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Solar photovoltaic masts, nuclear baseload, and PDU routing.</div>
-              </div>
-              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='1.1_power_mission.html'">PLAY</button>
-            </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div style="font-size: 1.25rem; color: #00e5ff;">💧 Mission 2: Water Ice &amp; Rover Traverse</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Pilot the lunar rover across Shackleton rim to collect cryo ice crystals.</div>
-              </div>
-              <div style="display: flex; gap: 6px;">
-                <button class="hud-terminal-btn" style="border-color: #00e5ff; color: #00e5ff;" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='isru_mission.html'">PLAY ▶</button>
-                <button class="hud-terminal-btn" onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldIsru', 'badgeIsru');">VIEW</button>
-              </div>
-            </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e676; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div style="font-size: 1.25rem; color: #00e676;">🌱 Mission 3: Plant Growth Lab</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Hydroponic nutrient cycles and fresh astronaut diet.</div>
-              </div>
-              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.1_daily_meal.html'">PLAY</button>
-            </div>
-            <div style="background: rgba(0, 15, 35, 0.9); border: 2px solid #38bdf8; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);">
-              <div>
-                <div style="font-size: 1.25rem; color: #38bdf8; font-weight: bold;">⚡ Final Mission: 18-Hour Crisis Protocol</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Solar Particle Event emergency: Shelter lockdown, PDU power routing, and ISRU oxygen survival.</div>
-              </div>
-              <div style="display: flex; gap: 6px;">
-                <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.15rem; padding: 6px 14px; border-color: #38bdf8; color: #38bdf8; font-weight: bold;" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='final_mission.html'">PLAY ▶</button>
-                <button class="hud-terminal-btn" style="font-size: 1.15rem; padding: 6px 12px;" onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldMain', 'badgeMain');">VIEW</button>
-              </div>
-            </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #c084fc; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div style="font-size: 1.25rem; color: #c084fc;">🛡️ Mission 5: Radiation Shelter</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Solar particle events protection and regolith radiation shielding.</div>
-              </div>
-              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='5.1_Radiation_mission.html'">PLAY</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. INVENTORY MODAL -->
-    <div class="tactical-modal hidden" id="modalInventory" onclick="closeModalOnBackdrop(event, 'modalInventory')">
-      <div class="tactical-modal-card">
-        <div class="modal-card-header">
-          <h3 class="modal-card-title">📦 OUTPOST RESOURCE INVENTORY</h3>
-          <button class="modal-close-btn" onclick="closeTacticalModal('modalInventory')">[X]</button>
-        </div>
-        <div class="modal-card-body">
-          <div class="telemetry-stat-grid">
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">☀️ SOLAR ARRAYS</div>
-              <div class="telemetry-card-val">12 MASTS</div>
-              <div style="font-size: 0.95rem; color: #94a3b8;">10m vertical deployable masts</div>
-            </div>
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">🔋 BATTERY CELLS</div>
-              <div class="telemetry-card-val">4 UNITS</div>
-              <div style="font-size: 0.95rem; color: #94a3b8;">350 kWh capacity each</div>
-            </div>
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">💧 PURIFIED WATER</div>
-              <div class="telemetry-card-val" style="color: #38bdf8;">1,200 L</div>
-              <div style="font-size: 0.95rem; color: #94a3b8;">Stored in insulated cryo-tanks</div>
-            </div>
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">🌱 HYDROPONIC SEEDS</div>
-              <div class="telemetry-card-val" style="color: #4ade80;">200 PACKS</div>
-              <div style="font-size: 0.95rem; color: #94a3b8;">Arabidopsis &amp; dwarf wheat</div>
-            </div>
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">🧱 SINTERED BRICKS</div>
-              <div class="telemetry-card-val" style="color: #fdcb0e;">124 UNITS</div>
-              <div style="font-size: 0.95rem; color: #94a3b8;">Microwave sintered lunar regolith</div>
-            </div>
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">🌬️ LIQUID OXYGEN (LOX)</div>
-              <div class="telemetry-card-val" style="color: #38bdf8;">310 KG</div>
-              <div style="font-size: 0.95rem; color: #94a3b8;">Life support &amp; rocket propellant</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7. RESEARCH & TECH TREE MODAL -->
-    <div class="tactical-modal hidden" id="modalResearch" onclick="closeModalOnBackdrop(event, 'modalResearch')">
-      <div class="tactical-modal-card">
-        <div class="modal-card-header">
-          <h3 class="modal-card-title" style="color: #4ade80;">🔬 LUNAR TECHNOLOGY TREE</h3>
-          <button class="modal-close-btn" onclick="closeTacticalModal('modalResearch')">[X]</button>
-        </div>
-        <div class="modal-card-body">
-          <div style="color: #94a3b8; margin-bottom: 12px;">
-            Scientific upgrades &amp; in-situ engineering milestones:
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 9px;">
-            <div style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #4ade80; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div style="color: #4ade80; font-size: 1.25rem;">✅ Sintered Regolith Radiation Berm (Tier 1)</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Microwave heating transforms lunar dust into structural radiation shields.</div>
-              </div>
-              <span style="color: #4ade80; font-weight: bold;">ACTIVE</span>
-            </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #38bdf8; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div style="color: #38bdf8; font-size: 1.25rem;">⏳ Closed-Loop Hydroponic Water Recycling (Tier 2)</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Recovers 94.2% moisture through plant transpiration condenser loops.</div>
-              </div>
-              <span style="color: #fdcb0e; font-weight: bold;">68% PROG</span>
-            </div>
-            <div style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #94a3b8; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; opacity: 0.8;">
-              <div>
-                <div style="color: #cbd5e1; font-size: 1.25rem;">🔒 Molten Regolith Electrolysis for Oxygen (Tier 3)</div>
-                <div style="font-size: 0.95rem; color: #94a3b8;">Extracts pure O₂ and iron-silicon alloy directly from dry highlands regolith.</div>
-              </div>
-              <span style="color: #94a3b8; font-weight: bold;">REQ 50 kW</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 8. CREW MANIFEST MODAL (MEET THE CREW) -->
-    <div class="tactical-modal hidden" id="modalCrew" onclick="closeModalOnBackdrop(event, 'modalCrew')">
-      <div class="crew-modal-card">
-        <!-- Close button at top right -->
-        <button class="crew-close-btn" onclick="closeTacticalModal('modalCrew')" title="Close Crew Dossier">[X]</button>
-
-        <div class="crew-dossier-container">
-          <!-- 1. Left Column: 4 Astronaut Avatars Rail -->
-          <div class="crew-avatar-rail" role="tablist" aria-label="Crew Members">
-            <button class="crew-avatar-tab active avatar-sunita" id="crewTab0" onclick="selectCrewMember(0)" role="tab"
-              aria-selected="true" title="Sunita Williams">
-              <img src="assets/meal/CharacterPoses/Sunita_Williams_Present2.webp" alt="Sunita Williams"
-                class="crew-face-sunita">
-            </button>
-            <button class="crew-avatar-tab avatar-chiaki" id="crewTab1" onclick="selectCrewMember(1)" role="tab"
-              aria-selected="false" title="Chiaki Mukai">
-              <img src="assets/power/CharacterPoses/Chiaki_Mukai_Idle.webp" alt="Chiaki Mukai" class="crew-face-chiaki">
-            </button>
-            <button class="crew-avatar-tab avatar-guion" id="crewTab2" onclick="selectCrewMember(2)" role="tab"
-              aria-selected="false" title="Guion Bluford">
-              <img src="assets/isru/character/Guion_Bluford_Idle.webp" alt="Guion Bluford" class="crew-face-guion">
-            </button>
-            <button class="crew-avatar-tab avatar-rakesh" id="crewTab3" onclick="selectCrewMember(3)" role="tab"
-              aria-selected="false" title="Rakesh Sharma">
-              <img src="assets/scene 8/Rakesh_Sharma_Idle.webp" alt="Rakesh Sharma" class="crew-face-rakesh">
-            </button>
-          </div>
-
-          <!-- 2. Center Column: Full-Body Standing Sprite Stage -->
-          <div class="crew-sprite-stage">
-            <img src="assets/meal/Sunita_Williams_Full.webp" alt="Sunita Williams" id="crewStageImg" class="crew-stage-img anim-pop">
-          </div>
-
-          <!-- 3. Right Column: Astronaut Info & Next Navigation -->
-          <div class="crew-info-pane">
-            <div class="crew-name-row">
-              <span class="crew-name-label">Name:</span>
-              <span class="crew-name-val" id="crewNameVal">Sunita Williams</span>
-            </div>
-
-            <div class="crew-data-row">
-              <span class="crew-data-label">Age:</span>
-              <span class="crew-data-val" id="crewAgeVal">41 during STS-116</span>
-            </div>
-
-            <div class="crew-data-row">
-              <span class="crew-data-label">Nationality:</span>
-              <span class="crew-data-val" id="crewNatVal">American</span>
-            </div>
-
-            <div class="crew-data-block">
-              <span class="crew-data-label">Contribution:</span>
-              <span class="crew-data-val-desc" id="crewContribVal">NASA astronaut, ISS flight engineer and commander, with extensive experience in long-duration spaceflight and spacewalks.</span>
-            </div>
-
-            <div class="crew-learn-more-row">
-              <a href="https://www.nasa.gov/wp-content/uploads/2025/09/williams-sl.pdf" id="crewLearnMoreLink" onclick="openCrewLearnMore(event)" class="crew-learn-more-link" target="_blank" rel="noopener noreferrer">Click To learn more.</a>
-            </div>
-
-            <!-- Navigation Controls: Scene counter, Prev and Next Buttons -->
-            <div class="crew-nav-footer">
-              <div class="crew-scene-badge">SCENE <span id="crewSceneCounter" class="crew-scene-num">1 / 4</span></div>
-              <button class="crew-nav-btn crew-btn-prev" id="crewPrevBtn" onclick="prevCrewMember()" title="Previous Crew Member">◀ PREV</button>
-              <button class="crew-nav-btn crew-btn-next" id="crewNextBtn" onclick="nextCrewMember()" title="Next Crew Member">NEXT ▶</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 9. COMM LINK MODAL -->
-    <div class="tactical-modal hidden" id="modalComms" onclick="closeModalOnBackdrop(event, 'modalComms')">
-      <div class="tactical-modal-card">
-        <div class="modal-card-header">
-          <h3 class="modal-card-title" style="color: #f472b6;">📡 DEEP SPACE NETWORK COMM LINK</h3>
-          <button class="modal-close-btn" onclick="closeTacticalModal('modalComms')">[X]</button>
-        </div>
-        <div class="modal-card-body">
-          <div style="color: #94a3b8; margin-bottom: 12px;">
-            High-gain direct earth uplink to Deep Space Network (Goldstone, Madrid, Canberra):
-          </div>
-          <div class="telemetry-stat-grid" style="margin-bottom: 12px;">
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">SIGNAL PROPAGATION DELAY</div>
-              <div class="telemetry-card-val" style="color: #f472b6;">1.28 SECONDS</div>
-              <div style="font-size: 0.95rem; color: #94a3b8;">Round-trip light time: 2.56s</div>
-            </div>
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">UPLINK CARRIER LOCK</div>
-              <div class="telemetry-card-val" style="color: #4ade80;">99.8% NOMINAL</div>
-              <div style="font-size: 0.95rem; color: #94a3b8;">Ka-band 32 GHz direct line-of-sight</div>
-            </div>
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">DOWNLINK BANDWIDTH</div>
-              <div class="telemetry-card-val" style="color: #00e5ff;">120 Mbps</div>
-              <div style="font-size: 0.95rem; color: #94a3b8;">Optical laser relay backup ready</div>
-            </div>
-            <div class="telemetry-card">
-              <div class="telemetry-card-title">EARTH ELEVATION ANGLE</div>
-              <div class="telemetry-card-val" style="color: #fdcb0e;">+6.4° ABOVE HORIZON</div>
-              <div style="font-size: 0.95rem; color: #94a3b8;">South pole libration window open</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 10. MISSION LOG MODAL -->
-    <div class="tactical-modal hidden" id="modalLog" onclick="closeModalOnBackdrop(event, 'modalLog')">
-      <div class="tactical-modal-card">
-        <div class="modal-card-header">
-          <h3 class="modal-card-title">📜 BASE MISSION TIMELINE LOG</h3>
-          <button class="modal-close-btn" onclick="closeTacticalModal('modalLog')">[X]</button>
-        </div>
-        <div class="modal-card-body">
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <div style="border-left: 3px solid #00e5ff; padding-left: 10px;">
-              <span style="color: #fdcb0e; font-weight: bold;">[SOL 01]</span>
-              <span> Touchdown confirmed at Shackleton Crater rim. Power umbilical established.</span>
-            </div>
-            <div style="border-left: 3px solid #4ade80; padding-left: 10px;">
-              <span style="color: #fdcb0e; font-weight: bold;">[SOL 04]</span>
-              <span> Vertical Solar Array Mast Alpha deployed at peak crater elevation.</span>
-            </div>
-            <div style="border-left: 3px solid #00e5ff; padding-left: 10px;">
-              <span style="color: #fdcb0e; font-weight: bold;">[SOL 07]</span>
-              <span> Fission Surface Power reactor (Lunar Reactor-1) verified nominal at 40 kW baseload.</span>
-            </div>
-            <div style="border-left: 3px solid #c084fc; padding-left: 10px;">
-              <span style="color: #fdcb0e; font-weight: bold;">[SOL 11]</span>
-              <span> Hydroponic growth test chamber seeded with Arabidopsis space flora.</span>
-            </div>
-            <div style="border-left: 3px solid #38bdf8; padding-left: 10px;">
-              <span style="color: #fdcb0e; font-weight: bold;">[SOL 14]</span>
-              <span> Water ice core extracted from permanently shadowed region (PSR). Purity 98.6%.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 11. NASA RESEARCH & BASE UPGRADES INTEL DOSSIER MODAL -->
-    <div class="tactical-modal hidden" id="modalNasaDetail" onclick="closeModalOnBackdrop(event, 'modalNasaDetail')">
-      <div class="nasa-dossier-card">
-        <div class="nasa-dossier-header">
-          <div class="dossier-header-left">
-            <span class="dossier-icon" id="dossierIcon">🔬</span>
-            <div>
-              <div class="dossier-tag" id="dossierTag">NASA RESEARCH // FUTURE SURFACE INITIATIVE</div>
-              <h3 class="dossier-title" id="dossierTitle">CARBOTHERMAL O2 EXTRACTION</h3>
-            </div>
-          </div>
-          <button class="modal-close-btn" onclick="closeTacticalModal('modalNasaDetail')">[X]</button>
-        </div>
-        <div class="nasa-dossier-body">
-          <div class="dossier-desc" id="dossierDesc"></div>
-          <div class="dossier-sources-box">
-            <div class="sources-heading">🛰️ OFFICIAL NASA SOURCES &amp; DOCUMENTATION:</div>
-            <div class="sources-links" id="dossierSources"></div>
-          </div>
-        </div>
-        <div class="nasa-dossier-footer">
-          <button class="dossier-close-btn" onclick="closeTacticalModal('modalNasaDetail')">✓ ACKNOWLEDGE INTEL</button>
-        </div>
-      </div>
-    </div>
-
     <!-- 12. SCENE 1 RIGHT RESOURCE & EXPLORE SIDEBAR (EXO-VISIONARIES STYLE) -->
     <aside class="base-resource-sidebar sidebar-collapsed" id="baseResourceSidebar" aria-label="Lunar Mission Explore Resources">
 <!-- Left Edge Floating Pull-Tab Toggle Button -->
@@ -7072,7 +6843,387 @@
 
     </div>
     </aside>
-  </div>
+    </div>
+
+    <!-- 3. ACTIVE MISSION MODAL -->
+    <div class="tactical-modal hidden" id="modalActiveMission" onclick="closeModalOnBackdrop(event, 'modalActiveMission')">
+      <div class="tactical-modal-card">
+        <div class="modal-card-header">
+          <h3 class="modal-card-title" style="color: #fdcb0e;">🎯 CURRENT ACTIVE MISSION</h3>
+          <button class="modal-close-btn" onclick="closeTacticalModal('modalActiveMission')">[X]</button>
+        </div>
+        <div class="modal-card-body">
+          <div style="font-size: 1.35rem; color: #ffffff; margin-bottom: 6px;">
+            <strong>MISSION 1: POWER AND ENERGY</strong>
+          </div>
+          <div style="color: #94a3b8; margin-bottom: 14px;">
+            Sector: Power Substation Facility | Objective: Inspect power generation, energy storage, and electrical distribution across the lunar base.
+          </div>
+          <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 12px; margin-bottom: 16px;">
+            <div style="color: #00e5ff; font-weight: bold; margin-bottom: 4px;">ACTIVE SUBTASK:</div>
+            <div style="font-size: 1.25rem; color: #fff;">1.1 Power System Verification</div>
+            <div style="font-size: 1rem; color: #94a3b8; margin-top: 2px;">
+              Learn key power components (Solar Mast, FSP Nuclear Reactor, PDU, Battery Bank) and complete the verification quiz with Astro Bee.
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.25rem; padding: 6px 20px;" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='1.1_power_mission.html'">
+              LAUNCH MISSION 1.1 ▶
+            </button>
+            <button class="hud-terminal-btn" style="font-size: 1.25rem; padding: 6px 16px;" onclick="closeTacticalModal('modalActiveMission'); zoomBuilding('bldPower', 'badgePower');">
+              ZOOM FACILITY
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. ASK (ASTRO BEE) MODAL -->
+    <div class="tactical-modal hidden" id="modalAsk" onclick="closeModalOnBackdrop(event, 'modalAsk')">
+      <div class="tactical-modal-card">
+        <div class="modal-card-header">
+          <h3 class="modal-card-title" style="color: #c084fc;">🤖 ASTRO BEE KNOWLEDGE BASE</h3>
+          <button class="modal-close-btn" onclick="closeTacticalModal('modalAsk')">[X]</button>
+        </div>
+        <div class="modal-card-body">
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px;">
+            <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee" style="width: 52px; height: 52px; object-fit: contain;">
+            <div>
+              <div style="font-size: 1.3rem; color: #ffffff;">Astro Bee Flight Assistant Online</div>
+              <div style="font-size: 0.95rem; color: #c084fc;">Ask me anything about lunar physics, power systems, or mission science:</div>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;" onclick="answerPrompt(0)">
+              ❓ How do solar arrays generate power during low sun elevation at the South Pole?
+            </button>
+            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;" onclick="answerPrompt(1)">
+              ❓ Why is water ice permanently trapped in Shackleton Crater?
+            </button>
+            <button class="hud-terminal-btn" style="text-align: left; justify-content: flex-start;" onclick="answerPrompt(2)">
+              ❓ How does 3 meters of lunar regolith protect the crew from radiation?
+            </button>
+          </div>
+          <div id="askAnswerBox" style="margin-top: 12px; padding: 10px 14px; background: rgba(0, 10, 26, 0.9); border: 1px solid #c084fc; border-radius: 6px; display: none;">
+            <div style="color: #fdcb0e; font-weight: bold; margin-bottom: 4px;" id="askAnswerTitle"></div>
+            <div style="color: #e2e8f0; font-size: 1.05rem;" id="askAnswerText"></div>
+          </div>
+
+          <div style="margin-top: 14px; border-top: 1px solid rgba(192, 132, 252, 0.3); padding-top: 10px;">
+            <div style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 6px;">ASK ASTRO BEE DIRECTLY:</div>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="astrobeeInputQuery" placeholder="Ask a question about the lunar base..." style="flex: 1; background: rgba(0, 15, 35, 0.8); border: 1px solid #00e5ff; color: #fff; font-family: 'Jersey 10', monospace; font-size: 1.15rem; padding: 6px 10px; border-radius: 4px;" onkeydown="if(event.key==='Enter') submitAstroBeeQuery()">
+              <button class="hud-terminal-btn btn-ask" onclick="submitAstroBeeQuery()">ASK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. MISSIONS SELECTOR MODAL -->
+    <div class="tactical-modal hidden" id="modalMissions" onclick="closeModalOnBackdrop(event, 'modalMissions')">
+      <div class="tactical-modal-card">
+        <div class="modal-card-header">
+          <h3 class="modal-card-title">🚀 OUTPOST SECTOR MISSIONS</h3>
+          <button class="modal-close-btn" onclick="closeTacticalModal('modalMissions')">[X]</button>
+        </div>
+        <div class="modal-card-body">
+          <div style="display: flex; flex-direction: column; gap: 9px;">
+            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #fdcb0e; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 1.25rem; color: #fdcb0e;">⚡ Mission 1: Power &amp; Energy</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Solar photovoltaic masts, nuclear baseload, and PDU routing.</div>
+              </div>
+              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='1.1_power_mission.html'">PLAY</button>
+            </div>
+            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e5ff; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 1.25rem; color: #00e5ff;">💧 Mission 2: Water Ice &amp; Rover Traverse</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Pilot the lunar rover across Shackleton rim to collect cryo ice crystals.</div>
+              </div>
+              <div style="display: flex; gap: 6px;">
+                <button class="hud-terminal-btn" style="border-color: #00e5ff; color: #00e5ff;" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='isru_mission.html'">PLAY ▶</button>
+                <button class="hud-terminal-btn" onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldIsru', 'badgeIsru');">VIEW</button>
+              </div>
+            </div>
+            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #00e676; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 1.25rem; color: #00e676;">🌱 Mission 3: Plant Growth Lab</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Hydroponic nutrient cycles and fresh astronaut diet.</div>
+              </div>
+              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='2.1_daily_meal.html'">PLAY</button>
+            </div>
+            <div style="background: rgba(0, 15, 35, 0.9); border: 2px solid #38bdf8; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);">
+              <div>
+                <div style="font-size: 1.25rem; color: #38bdf8; font-weight: bold;">⚡ Final Mission: 18-Hour Crisis Protocol</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Solar Particle Event emergency: Shelter lockdown, PDU power routing, and ISRU oxygen survival.</div>
+              </div>
+              <div style="display: flex; gap: 6px;">
+                <button class="hud-terminal-btn btn-active-mission" style="font-size: 1.15rem; padding: 6px 14px; border-color: #38bdf8; color: #38bdf8; font-weight: bold;" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='final_mission.html'">PLAY ▶</button>
+                <button class="hud-terminal-btn" style="font-size: 1.15rem; padding: 6px 12px;" onclick="closeTacticalModal('modalMissions'); zoomBuilding('bldMain', 'badgeMain');">VIEW</button>
+              </div>
+            </div>
+            <div style="background: rgba(0, 15, 35, 0.85); border: 1.5px solid #c084fc; border-radius: 6px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 1.25rem; color: #c084fc;">🛡️ Mission 5: Radiation Shelter</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Solar particle events protection and regolith radiation shielding.</div>
+              </div>
+              <button class="hud-terminal-btn" onclick="if(window.stopMainBaseBgm)stopMainBaseBgm(); window.location.href='5.1_Radiation_mission.html'">PLAY</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. INVENTORY MODAL -->
+    <div class="tactical-modal hidden" id="modalInventory" onclick="closeModalOnBackdrop(event, 'modalInventory')">
+      <div class="tactical-modal-card">
+        <div class="modal-card-header">
+          <h3 class="modal-card-title">📦 OUTPOST RESOURCE INVENTORY</h3>
+          <button class="modal-close-btn" onclick="closeTacticalModal('modalInventory')">[X]</button>
+        </div>
+        <div class="modal-card-body">
+          <div class="telemetry-stat-grid">
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">☀️ SOLAR ARRAYS</div>
+              <div class="telemetry-card-val">12 MASTS</div>
+              <div style="font-size: 0.95rem; color: #94a3b8;">10m vertical deployable masts</div>
+            </div>
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">🔋 BATTERY CELLS</div>
+              <div class="telemetry-card-val">4 UNITS</div>
+              <div style="font-size: 0.95rem; color: #94a3b8;">350 kWh capacity each</div>
+            </div>
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">💧 PURIFIED WATER</div>
+              <div class="telemetry-card-val" style="color: #38bdf8;">1,200 L</div>
+              <div style="font-size: 0.95rem; color: #94a3b8;">Stored in insulated cryo-tanks</div>
+            </div>
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">🌱 HYDROPONIC SEEDS</div>
+              <div class="telemetry-card-val" style="color: #4ade80;">200 PACKS</div>
+              <div style="font-size: 0.95rem; color: #94a3b8;">Arabidopsis &amp; dwarf wheat</div>
+            </div>
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">🧱 SINTERED BRICKS</div>
+              <div class="telemetry-card-val" style="color: #fdcb0e;">124 UNITS</div>
+              <div style="font-size: 0.95rem; color: #94a3b8;">Microwave sintered lunar regolith</div>
+            </div>
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">🌬️ LIQUID OXYGEN (LOX)</div>
+              <div class="telemetry-card-val" style="color: #38bdf8;">310 KG</div>
+              <div style="font-size: 0.95rem; color: #94a3b8;">Life support &amp; rocket propellant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. RESEARCH & TECH TREE MODAL -->
+    <div class="tactical-modal hidden" id="modalResearch" onclick="closeModalOnBackdrop(event, 'modalResearch')">
+      <div class="tactical-modal-card">
+        <div class="modal-card-header">
+          <h3 class="modal-card-title" style="color: #4ade80;">🔬 LUNAR TECHNOLOGY TREE</h3>
+          <button class="modal-close-btn" onclick="closeTacticalModal('modalResearch')">[X]</button>
+        </div>
+        <div class="modal-card-body">
+          <div style="color: #94a3b8; margin-bottom: 12px;">
+            Scientific upgrades &amp; in-situ engineering milestones:
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 9px;">
+            <div style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #4ade80; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="color: #4ade80; font-size: 1.25rem;">✅ Sintered Regolith Radiation Berm (Tier 1)</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Microwave heating transforms lunar dust into structural radiation shields.</div>
+              </div>
+              <span style="color: #4ade80; font-weight: bold;">ACTIVE</span>
+            </div>
+            <div style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #38bdf8; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="color: #38bdf8; font-size: 1.25rem;">⏳ Closed-Loop Hydroponic Water Recycling (Tier 2)</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Recovers 94.2% moisture through plant transpiration condenser loops.</div>
+              </div>
+              <span style="color: #fdcb0e; font-weight: bold;">68% PROG</span>
+            </div>
+            <div style="background: rgba(0, 15, 35, 0.85); border-left: 3px solid #94a3b8; border-radius: 0 6px 6px 0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; opacity: 0.8;">
+              <div>
+                <div style="color: #cbd5e1; font-size: 1.25rem;">🔒 Molten Regolith Electrolysis for Oxygen (Tier 3)</div>
+                <div style="font-size: 0.95rem; color: #94a3b8;">Extracts pure O₂ and iron-silicon alloy directly from dry highlands regolith.</div>
+              </div>
+              <span style="color: #94a3b8; font-weight: bold;">REQ 50 kW</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. CREW MANIFEST MODAL (MEET THE CREW) -->
+    <div class="tactical-modal hidden" id="modalCrew" onclick="closeModalOnBackdrop(event, 'modalCrew')">
+      <div class="crew-modal-card">
+        <!-- Close button at top right -->
+        <button class="crew-close-btn" onclick="closeTacticalModal('modalCrew')" title="Close Crew Dossier">[X]</button>
+
+        <div class="crew-dossier-container">
+          <!-- 1. Left Column: 4 Astronaut Avatars Rail -->
+          <div class="crew-avatar-rail" role="tablist" aria-label="Crew Members">
+            <button class="crew-avatar-tab active avatar-sunita" id="crewTab0" onclick="selectCrewMember(0)" role="tab"
+              aria-selected="true" title="Sunita Williams">
+              <img src="assets/meal/CharacterPoses/Sunita_Williams_Present2.webp" alt="Sunita Williams"
+                class="crew-face-sunita">
+            </button>
+            <button class="crew-avatar-tab avatar-chiaki" id="crewTab1" onclick="selectCrewMember(1)" role="tab"
+              aria-selected="false" title="Chiaki Mukai">
+              <img src="assets/power/CharacterPoses/Chiaki_Mukai_Idle.webp" alt="Chiaki Mukai" class="crew-face-chiaki">
+            </button>
+            <button class="crew-avatar-tab avatar-guion" id="crewTab2" onclick="selectCrewMember(2)" role="tab"
+              aria-selected="false" title="Guion Bluford">
+              <img src="assets/isru/character/Guion_Bluford_Idle.webp" alt="Guion Bluford" class="crew-face-guion">
+            </button>
+            <button class="crew-avatar-tab avatar-rakesh" id="crewTab3" onclick="selectCrewMember(3)" role="tab"
+              aria-selected="false" title="Rakesh Sharma">
+              <img src="assets/scene 8/Rakesh_Sharma_Idle.webp" alt="Rakesh Sharma" class="crew-face-rakesh">
+            </button>
+          </div>
+
+          <!-- 2. Center Column: Full-Body Standing Sprite Stage -->
+          <div class="crew-sprite-stage">
+            <img src="assets/meal/Sunita_Williams_Full.webp" alt="Sunita Williams" id="crewStageImg" class="crew-stage-img anim-pop">
+          </div>
+
+          <!-- 3. Right Column: Astronaut Info & Next Navigation -->
+          <div class="crew-info-pane">
+            <div class="crew-name-row">
+              <span class="crew-name-label">Name:</span>
+              <span class="crew-name-val" id="crewNameVal">Sunita Williams</span>
+            </div>
+
+            <div class="crew-data-row">
+              <span class="crew-data-label">Age:</span>
+              <span class="crew-data-val" id="crewAgeVal">41 during STS-116</span>
+            </div>
+
+            <div class="crew-data-row">
+              <span class="crew-data-label">Nationality:</span>
+              <span class="crew-data-val" id="crewNatVal">American</span>
+            </div>
+
+            <div class="crew-data-block">
+              <span class="crew-data-label">Contribution:</span>
+              <span class="crew-data-val-desc" id="crewContribVal">NASA astronaut, ISS flight engineer and commander, with extensive experience in long-duration spaceflight and spacewalks.</span>
+            </div>
+
+            <div class="crew-learn-more-row">
+              <a href="https://www.nasa.gov/wp-content/uploads/2025/09/williams-sl.pdf" id="crewLearnMoreLink" onclick="openCrewLearnMore(event)" class="crew-learn-more-link" target="_blank" rel="noopener noreferrer">Click To learn more.</a>
+            </div>
+
+            <!-- Navigation Controls: Scene counter, Prev and Next Buttons -->
+            <div class="crew-nav-footer">
+              <div class="crew-scene-badge">SCENE <span id="crewSceneCounter" class="crew-scene-num">1 / 4</span></div>
+              <button class="crew-nav-btn crew-btn-prev" id="crewPrevBtn" onclick="prevCrewMember()" title="Previous Crew Member">◀ PREV</button>
+              <button class="crew-nav-btn crew-btn-next" id="crewNextBtn" onclick="nextCrewMember()" title="Next Crew Member">NEXT ▶</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. COMM LINK MODAL -->
+    <div class="tactical-modal hidden" id="modalComms" onclick="closeModalOnBackdrop(event, 'modalComms')">
+      <div class="tactical-modal-card">
+        <div class="modal-card-header">
+          <h3 class="modal-card-title" style="color: #f472b6;">📡 DEEP SPACE NETWORK COMM LINK</h3>
+          <button class="modal-close-btn" onclick="closeTacticalModal('modalComms')">[X]</button>
+        </div>
+        <div class="modal-card-body">
+          <div style="color: #94a3b8; margin-bottom: 12px;">
+            High-gain direct earth uplink to Deep Space Network (Goldstone, Madrid, Canberra):
+          </div>
+          <div class="telemetry-stat-grid" style="margin-bottom: 12px;">
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">SIGNAL PROPAGATION DELAY</div>
+              <div class="telemetry-card-val" style="color: #f472b6;">1.28 SECONDS</div>
+              <div style="font-size: 0.95rem; color: #94a3b8;">Round-trip light time: 2.56s</div>
+            </div>
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">UPLINK CARRIER LOCK</div>
+              <div class="telemetry-card-val" style="color: #4ade80;">99.8% NOMINAL</div>
+              <div style="font-size: 0.95rem; color: #94a3b8;">Ka-band 32 GHz direct line-of-sight</div>
+            </div>
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">DOWNLINK BANDWIDTH</div>
+              <div class="telemetry-card-val" style="color: #00e5ff;">120 Mbps</div>
+              <div style="font-size: 0.95rem; color: #94a3b8;">Optical laser relay backup ready</div>
+            </div>
+            <div class="telemetry-card">
+              <div class="telemetry-card-title">EARTH ELEVATION ANGLE</div>
+              <div class="telemetry-card-val" style="color: #fdcb0e;">+6.4° ABOVE HORIZON</div>
+              <div style="font-size: 0.95rem; color: #94a3b8;">South pole libration window open</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. MISSION LOG MODAL -->
+    <div class="tactical-modal hidden" id="modalLog" onclick="closeModalOnBackdrop(event, 'modalLog')">
+      <div class="tactical-modal-card">
+        <div class="modal-card-header">
+          <h3 class="modal-card-title">📜 BASE MISSION TIMELINE LOG</h3>
+          <button class="modal-close-btn" onclick="closeTacticalModal('modalLog')">[X]</button>
+        </div>
+        <div class="modal-card-body">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="border-left: 3px solid #00e5ff; padding-left: 10px;">
+              <span style="color: #fdcb0e; font-weight: bold;">[SOL 01]</span>
+              <span> Touchdown confirmed at Shackleton Crater rim. Power umbilical established.</span>
+            </div>
+            <div style="border-left: 3px solid #4ade80; padding-left: 10px;">
+              <span style="color: #fdcb0e; font-weight: bold;">[SOL 04]</span>
+              <span> Vertical Solar Array Mast Alpha deployed at peak crater elevation.</span>
+            </div>
+            <div style="border-left: 3px solid #00e5ff; padding-left: 10px;">
+              <span style="color: #fdcb0e; font-weight: bold;">[SOL 07]</span>
+              <span> Fission Surface Power reactor (Lunar Reactor-1) verified nominal at 40 kW baseload.</span>
+            </div>
+            <div style="border-left: 3px solid #c084fc; padding-left: 10px;">
+              <span style="color: #fdcb0e; font-weight: bold;">[SOL 11]</span>
+              <span> Hydroponic growth test chamber seeded with Arabidopsis space flora.</span>
+            </div>
+            <div style="border-left: 3px solid #38bdf8; padding-left: 10px;">
+              <span style="color: #fdcb0e; font-weight: bold;">[SOL 14]</span>
+              <span> Water ice core extracted from permanently shadowed region (PSR). Purity 98.6%.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. NASA RESEARCH & BASE UPGRADES INTEL DOSSIER MODAL -->
+    <div class="tactical-modal hidden" id="modalNasaDetail" onclick="closeModalOnBackdrop(event, 'modalNasaDetail')">
+      <div class="nasa-dossier-card">
+        <div class="nasa-dossier-header">
+          <div class="dossier-header-left">
+            <span class="dossier-icon" id="dossierIcon">🔬</span>
+            <div>
+              <div class="dossier-tag" id="dossierTag">NASA RESEARCH // FUTURE SURFACE INITIATIVE</div>
+              <h3 class="dossier-title" id="dossierTitle">CARBOTHERMAL O2 EXTRACTION</h3>
+            </div>
+          </div>
+          <button class="modal-close-btn" onclick="closeTacticalModal('modalNasaDetail')">[X]</button>
+        </div>
+        <div class="nasa-dossier-body">
+          <div class="dossier-desc" id="dossierDesc"></div>
+          <div class="dossier-sources-box">
+            <div class="sources-heading">🛰️ OFFICIAL NASA SOURCES &amp; DOCUMENTATION:</div>
+            <div class="sources-links" id="dossierSources"></div>
+          </div>
+        </div>
+        <div class="nasa-dossier-footer">
+          <button class="dossier-close-btn" onclick="closeTacticalModal('modalNasaDetail')">✓ ACKNOWLEDGE INTEL</button>
+        </div>
+      </div>
+    </div>
+
 
   <script>
     // =========================================================================

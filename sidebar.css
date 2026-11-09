@@ -5,10 +5,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Pixelify+Sans:wght@400..700&display=swap');
 
 .base-resource-sidebar {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
+  height: 100%;
   width: clamp(320px, 28vw, 420px);
   max-width: 92vw;
   background: rgba(11, 16, 28, 0.96);
@@ -16,12 +17,16 @@
   -webkit-backdrop-filter: blur(18px);
   border-left: 2px solid rgba(56, 189, 248, 0.35);
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.88), inset 1px 0 0 rgba(255, 255, 255, 0.08);
-  z-index: 9999;
+  z-index: 99999;
   display: flex;
   flex-direction: column;
   transform: translateX(0);
   transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.38s ease;
   user-select: none;
+}
+
+body > .base-resource-sidebar {
+  position: fixed;
 }
 
 .base-resource-sidebar.sidebar-collapsed {
@@ -782,40 +787,187 @@
   border-radius: 4px;
 }
 
-@media (max-width: 600px) {
+/* Mobile and Small Screen Compact Sidebar Rules (<= 900px or landscape height <= 520px) */
+@media screen and (max-width: 900px), screen and (max-height: 520px) {
   .base-resource-sidebar {
-    width: min(88vw, 340px);
+    width: clamp(230px, 30vw, 275px) !important;
+    max-width: 35vw !important;
   }
+
+  @media (orientation: portrait) {
+    .base-resource-sidebar {
+      width: min(82vw, 280px) !important;
+      max-width: 82vw !important;
+    }
+  }
+
   .sidebar-pull-tab {
-    top: 50%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 170px;
-    left: -44px;
-    padding: 8px 3px;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 32px !important;
+    height: 105px !important;
+    left: -32px !important;
+    padding: 6px 2px !important;
+    border-radius: 10px 0 0 10px !important;
+    gap: 3px !important;
   }
   .sidebar-pull-tab:hover {
-    transform: translateY(-50%) translateX(-3px);
+    transform: translateY(-50%) translateX(-2px) !important;
   }
   .sidebar-pull-tab:active {
-    transform: translateY(-50%) translateX(-1px);
+    transform: translateY(-50%) translateX(-1px) !important;
+  }
+  .sidebar-tab-icon {
+    font-size: 0.95rem !important;
   }
   .sidebar-tab-label {
-    font-size: 1rem;
-    letter-spacing: 0.16em;
+    font-size: 0.74rem !important;
+    letter-spacing: 0.12em !important;
   }
-  .sidebar-explore-btn {
-    font-size: 0.95rem;
-    padding: 5px 10px;
+  .sidebar-tab-dot {
+    width: 5px !important;
+    height: 5px !important;
+  }
+
+  .sidebar-top-nav {
+    padding: 5px 8px !important;
+    gap: 4px !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .sidebar-nav-tab {
+    padding: 3px 6px !important;
+    font-size: 0.65rem !important;
+    white-space: nowrap !important;
+  }
+  .sidebar-start-journey-btn {
+    padding: 3px 7px !important;
+    font-size: 0.65rem !important;
+    white-space: nowrap !important;
+  }
+
+  .sidebar-header {
+    padding: 5px 8px !important;
+    min-height: 32px !important;
+  }
+  .sidebar-know-more-btn {
+    font-size: 0.72rem !important;
+    padding: 2px 6px !important;
+  }
+  .sidebar-split-btn {
+    font-size: 0.68rem !important;
+    padding: 2px 6px !important;
+  }
+  .sidebar-icon-btn {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .sidebar-feed {
+    padding: 6px 8px !important;
+    gap: 6px !important;
+  }
+  .sidebar-section-header {
+    padding: 4px 8px !important;
+    font-size: 0.85rem !important;
+    margin: 6px 0 4px 0 !important;
+  }
+  .section-header-tag {
+    font-size: 0.58rem !important;
+    padding: 1px 4px !important;
+  }
+
+  .sidebar-card {
+    padding: 8px !important;
+    margin-bottom: 6px !important;
+    border-radius: 8px !important;
+  }
+  .card-title {
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+  }
+  .card-badge {
+    font-size: 0.55rem !important;
+    padding: 1px 4px !important;
+  }
+  .card-banner-wrap {
+    max-height: 100px !important;
+    margin-bottom: 4px !important;
+  }
+  .card-banner-img {
+    max-height: 100px !important;
+  }
+  .card-video-wrap {
+    margin-bottom: 4px !important;
+  }
+  .card-video-iframe {
+    height: 110px !important;
+    max-height: 110px !important;
+  }
+  .card-desc {
+    font-size: 0.70rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 4px !important;
+  }
+  .card-source-row {
+    font-size: 0.65rem !important;
+    margin-bottom: 3px !important;
+  }
+  .card-source-link {
+    font-size: 0.65rem !important;
+  }
+  .card-text-link {
+    font-size: 0.68rem !important;
+  }
+  .card-inspect-btn {
+    padding: 3px 6px !important;
+    font-size: 0.68rem !important;
+  }
+  .card-takeaway-box {
+    padding: 5px 7px !important;
+    font-size: 0.68rem !important;
+    margin-bottom: 4px !important;
   }
 }
 
-@media (max-height: 520px) {
-  .sidebar-pull-tab {
-    top: 50%;
-    transform: translateY(-50%);
-    height: 155px;
-  }
+/* Specific Force-Horizontal Viewport Adaptations */
+body.force-horizontal .base-resource-sidebar {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 100% !important;
+  width: clamp(230px, 30vw, 270px) !important;
+  max-width: 34vw !important;
+  z-index: 99999 !important;
+}
+
+body.force-horizontal .sidebar-pull-tab {
+  position: absolute !important;
+  left: -32px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 32px !important;
+  height: 105px !important;
+  padding: 6px 2px !important;
+  border-radius: 10px 0 0 10px !important;
+  gap: 3px !important;
+}
+
+body.force-horizontal .sidebar-tab-icon {
+  font-size: 0.95rem !important;
+}
+
+body.force-horizontal .sidebar-tab-label {
+  font-size: 0.74rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+body.force-horizontal .sidebar-tab-dot {
+  width: 5px !important;
+  height: 5px !important;
 }
 
 /* =========================================================================

@@ -1431,8 +1431,21 @@
     </div>
   `;
 
-  // 2. Initialize and Mount
+  // 2. Helper to find appropriate viewport stage to mount into so it rotates with stage
+  function getSidebarMount() {
+    return document.getElementById('baseViewport') ||
+           document.getElementById('gameViewport') ||
+           document.querySelector('.base-viewport') ||
+           document.querySelector('.game-viewport') ||
+           document.querySelector('.meal-game-viewport') ||
+           document.querySelector('.power-game-viewport') ||
+           document.querySelector('.isru-game-viewport') ||
+           document.body;
+  }
+
+  // 3. Initialize and Mount
   function initSidebar() {
+    const mountPoint = getSidebarMount();
     let sidebar = document.getElementById('baseResourceSidebar');
     if (!sidebar) {
       sidebar = document.createElement('aside');
@@ -1440,7 +1453,9 @@
       sidebar.id = 'baseResourceSidebar';
       sidebar.setAttribute('aria-label', 'Lunar Mission Explore Resources');
       sidebar.innerHTML = SIDEBAR_HTML;
-      document.body.appendChild(sidebar);
+      mountPoint.appendChild(sidebar);
+    } else if (sidebar.parentElement !== mountPoint) {
+      mountPoint.appendChild(sidebar);
     }
 
     // Pre-activate targeted section tab if specified
