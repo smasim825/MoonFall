@@ -157,7 +157,7 @@
     {
       id: 2,
       name: "Astro Bee Emergency Warning",
-      text: "WARNING! <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-1')\">Solar radiation level is rising<span class=\"ref-num\">[1]</span></span>!",
+      text: "WARNING! <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-1')\">Solar radiation level is rising</span>!",
       boxId: "dialogueBoxScene2",
       textId: "dialogueTextScene2",
       redAlarm: true,
@@ -166,7 +166,7 @@
     {
       id: 3,
       name: "Rakesh Sharma Radiation Shelter Alert",
-      text: "A solar storm is approaching! Unlike Earth, the <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-2')\">Moon has no natural protection against radiation<span class=\"ref-num\">[2]</span></span>. Quick, let's get inside the <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-3')\">radiation shelter<span class=\"ref-num\">[3]</span></span>!",
+      text: "A solar storm is approaching! Unlike Earth, the <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-2')\">Moon has no natural protection against radiation</span>. Quick, let's get inside the <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-3')\">radiation shelter</span>!",
       boxId: "dialogueBoxScene3",
       textId: "dialogueTextScene3",
       redAlarm: true,
@@ -175,7 +175,7 @@
     {
       id: 4,
       name: "Space Radiation Telemetry",
-      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-4')\">Space radiation consists of tiny, energetic particles<span class=\"ref-num\">[4]</span></span> that can harm astronauts, even though we can't see them. There are two main types: Solar Particle Events (SPEs) and Galactic Cosmic Rays (GCRs).",
+      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-4')\">Space radiation consists of tiny, energetic particles</span> that can harm astronauts, even though we can't see them. There are two main types: Solar Particle Events (SPEs) and Galactic Cosmic Rays (GCRs).",
       boxId: "dialogueBoxScene4",
       textId: "dialogueTextScene4",
       redAlarm: true,
@@ -184,7 +184,7 @@
     {
       id: 5,
       name: "SPEs Explanation",
-      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-4')\">SPEs come from the Sun<span class=\"ref-num\">[5]</span></span> and can cause sudden radiation spikes during solar storms. That's why we must act quickly when a warning appears.",
+      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-4')\">SPEs come from the Sun</span> and can cause sudden radiation spikes during solar storms. That's why we must act quickly when a warning appears.",
       boxId: "dialogueBoxScene5",
       textId: "dialogueTextScene5",
       redAlarm: true,
@@ -193,7 +193,7 @@
     {
       id: 6,
       name: "GCRs Explanation",
-      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-4')\">GCRs come from beyond our Solar System<span class=\"ref-num\">[6]</span></span>. They're always present and difficult to block, even when the Sun is calm.",
+      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-4')\">GCRs come from beyond our Solar System</span>. They're always present and difficult to block, even when the Sun is calm.",
       boxId: "dialogueBoxScene6",
       textId: "dialogueTextScene6",
       redAlarm: true,
@@ -202,7 +202,7 @@
     {
       id: 7,
       name: "Earth Protection",
-      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-7')\">Earth's magnetic field deflects many charged particles<span class=\"ref-num\">[7]</span></span>, and the atmosphere absorbs and deflects those particles. But the Moon lacks these natural shields, so we must build our own protection.",
+      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-7')\">Earth's magnetic field deflects many charged particles</span>, and the atmosphere absorbs and deflects those particles. But the Moon lacks these natural shields, so we must build our own protection.",
       boxId: "dialogueBoxScene7",
       textId: "dialogueTextScene7",
       redAlarm: true,
@@ -212,7 +212,7 @@
     {
       id: 8,
       name: "Radiation Shelter Briefing",
-      text: "Now that we're safe inside the shelter, let's <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-7')\">protect our shelter from radiation<span class=\"ref-num\">[8]</span></span>! Placing materials between the radiation and the crew reduces exposure.",
+      text: "Now that we're safe inside the shelter, let's <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-7')\">protect our shelter from radiation</span>! Placing materials between the radiation and the crew reduces exposure.",
       boxId: "dialogueBoxScene8",
       textId: "dialogueTextScene8",
       redAlarm: false,
@@ -223,7 +223,7 @@
     {
       id: 9,
       name: "Arrange Supplies",
-      text: "We already have water containers, food, and other supplies. Let’s arrange them around the crew to <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-9')\">strengthen our shield<span class=\"ref-num\">[9]</span></span>!",
+      text: "We already have water containers, food, and other supplies. Let’s arrange them around the crew to <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-9')\">strengthen our shield</span>!",
       boxId: "dialogueBoxScene9",
       textId: "dialogueTextScene9",
       redAlarm: false,
@@ -288,7 +288,7 @@
     {
       id: 14,
       name: "Regolith Shielding Introduction",
-      text: "The Moon is covered in a loose material called lunar regolith, which we can use to provide additional <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-10')\">radiation shielding around and over parts of our habitat<span class=\"ref-num\">[10]</span></span>.",
+      text: "The Moon is covered in a loose material called lunar regolith, which we can use to provide additional <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-10')\">radiation shielding around and over parts of our habitat</span>.",
       boxId: "dialogueBoxScene14",
       textId: "dialogueTextScene14",
       redAlarm: false,
@@ -301,7 +301,7 @@
     {
       id: 15,
       name: "Smart Engineering With Regolith",
-      text: "Using <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-10')\">regolith means we won’t have to transport every kilogram of shielding material from Earth<span class=\"ref-num\">[11]</span></span>. Remember, smart engineering is about the best use of the resources available to us!",
+      text: "Using <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-10')\">regolith means we won’t have to transport every kilogram of shielding material from Earth</span>. Remember, smart engineering is about the best use of the resources available to us!",
       boxId: "dialogueBoxScene15",
       textId: "dialogueTextScene15",
       redAlarm: false,

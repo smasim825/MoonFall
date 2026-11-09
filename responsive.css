@@ -1979,6 +1979,38 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   }
 }
 
+/* Clickable Dialogue Keywords: High-Contrast Deep Blue Styling */
+.dialogue-ref-link {
+  color: #0047cc !important;
+  text-decoration: underline !important;
+  text-decoration-color: #0047cc !important;
+  text-underline-offset: 3px !important;
+  cursor: pointer !important;
+  font-weight: 800 !important;
+  display: inline-block !important;
+  padding: 0 4px !important;
+  border-radius: 4px !important;
+  background: rgba(0, 71, 204, 0.09) !important;
+  border: 1px solid rgba(0, 71, 204, 0.32) !important;
+  transition: all 0.18s ease !important;
+  user-select: text !important;
+}
+
+.dialogue-ref-link:hover {
+  color: #002b80 !important;
+  background: rgba(0, 71, 204, 0.22) !important;
+  border-color: #003db8 !important;
+  text-decoration-color: #002b80 !important;
+  box-shadow: 0 0 8px rgba(0, 71, 204, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+.dialogue-ref-link .ref-num,
+.ref-num {
+  display: none !important;
+}
+
+
 
 
 
