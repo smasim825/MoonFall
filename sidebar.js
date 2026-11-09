@@ -33,7 +33,7 @@
     else if (path.includes('radiat')) targetSection = 'radiation';
   }
 
-  // Sidebar HTML Template
+  // Sidebar HTML Template with full NASA References matching "Copy of mission dialouges.pdf"
   const SIDEBAR_HTML = `
     <!-- Left Edge Floating Pull-Tab Toggle Button -->
     <button class="sidebar-pull-tab" id="sidebarPullTab" onclick="toggleResourceSidebar()" title="Open Explore Sidebar" aria-label="Open Explore Sidebar" aria-expanded="false">
@@ -75,48 +75,19 @@
     <!-- Scrollable Resource Cards Feed with YouTube Videos and NASA Resources -->
     <div class="sidebar-feed" id="sidebarFeed">
 
-      <!-- SECTION 1: POWER -->
+      <!-- =========================================================================
+           SECTION 1: POWER (MISSION 1.1)
+           ========================================================================= -->
       <div class="sidebar-section-header sec-power" id="sec_power">
         <span>⚡ Power Station &amp; Lunar Energy</span>
         <span class="section-header-tag">MISSION 1</span>
       </div>
 
-      <!-- POWER: VIDEO CARD -->
-      <article class="sidebar-card card-power">
-        <div class="card-title-row">
-          <h4 class="card-title">⚡ Power Station</h4>
-          <span class="card-badge">ENERGY &amp; VIDEO</span>
-        </div>
-        <div class="card-video-wrap">
-          <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer" title="Watch NASA Spacecraft &amp; Lunar Surface Power on YouTube">
-            <img class="card-video-thumb-img" src="https://img.youtube.com/vi/TbVIMSVuEFU/hqdefault.jpg" alt="NASA Power Tech Video Thumbnail" loading="lazy">
-            <div class="card-video-play-btn"></div>
-          </a>
-        </div>
-        <div class="card-source-row">
-          <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
-          <span class="card-source-dots">● ● ●</span>
-        </div>
-        <p class="card-desc">
-          Deploying a 40-kilowatt nuclear fission reactor and vertical bifacial solar array masts to deliver uninterrupted baseload electrical power through the 14-day freezing lunar night.
-        </p>
-        <div class="card-links-col">
-          <a class="card-text-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">
-            <span>Watch Power Tech on YouTube</span>
-          </a>
-        </div>
-        <div style="margin-top: 6px;">
-          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPower', 'badgePower')" title="Zoom to Power Station">
-            <span>🔍 View on Base Map</span>
-          </button>
-        </div>
-      </article>
-
-      <!-- POWER: WHAT POWERS A SPACECRAFT -->
-      <article class="sidebar-card card-power">
+      <!-- POWER [1]: WHAT POWERS A SPACECRAFT -->
+      <article class="sidebar-card card-power" id="card-power-1">
         <div class="card-title-row">
           <h4 class="card-title">🚀 What Powers a Spacecraft?</h4>
-          <span class="card-badge">SPACE PLACE</span>
+          <span class="card-badge">NASA SPACE PLACE</span>
         </div>
         <a class="card-banner-wrap" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer" title="Read on NASA Space Place">
           <img class="card-banner-img" src="assets/solarPower.webp" alt="NASA Spacecraft Power Tech" loading="lazy">
@@ -132,7 +103,10 @@
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://spaceplace.nasa.gov/what-powers-a-spacecraft/en/" target="_blank" rel="noopener noreferrer">
-            <span>Read on NASA Space Place website</span>
+            <span>Read What Powers a Spacecraft (NASA Space Place)</span>
+          </a>
+          <a class="card-text-link" href="https://www.nasa.gov/learning-resources/nasas-picture-dictionary-s/" target="_blank" rel="noopener noreferrer">
+            <span>NASA Picture Dictionary: Solar Energy &amp; Sunlight</span>
           </a>
         </div>
         <div style="margin-top: 6px;">
@@ -142,27 +116,22 @@
         </div>
       </article>
 
-      <!-- POWER: NTRS TECHNICAL REPORT (PDF) -->
-      <article class="sidebar-card card-power">
+      <!-- POWER [2]: 3.0 POWER SUBSYSTEMS -->
+      <article class="sidebar-card card-power" id="card-power-2">
         <div class="card-title-row">
-          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Power &amp; Energy for Lunar Surface</h4>
-          <span class="card-badge">NASA PDF</span>
+          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> 3.0 Power Subsystems</h4>
+          <span class="card-badge">NASA SMALLSAT</span>
         </div>
-        <a class="card-banner-wrap" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer" title="Download NASA Technical PDF Report">
-          <img class="card-banner-img" src="assets/power/lunar_power_report.jpg" alt="NASA Power and Energy for the Lunar Surface Briefing Cover" loading="lazy">
-          <span class="card-banner-tag">NASA NTRS // TECHNICAL REPORT</span>
-          <span class="card-banner-badge-rt"><img src="assets/nasa_logo.svg" alt="NASA" style="width:12px; height:12px; vertical-align:middle; margin-right:3px; border-radius:50%;">PDF ↗</span>
-        </a>
         <div class="card-source-row">
-          <span>Source: <a class="card-source-link" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer">NASA Technical Reports Server</a></span>
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/smallsat-institute/sst-soa/power-subsystems/" target="_blank" rel="noopener noreferrer">NASA SmallSat Institute</a></span>
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          Official NASA technical documentation analyzing fission surface power (FSP), vertical bifacial solar arrays, and regenerative fuel cells for South Pole lunar survival.
+          Technical breakdown of photovoltaic solar cells, gallium arsenide (GaAs) multi-junction arrays, and bus voltage regulation for deep-space applications.
         </p>
         <div class="card-links-col">
-          <a class="card-text-link" href="https://ntrs.nasa.gov/api/citations/20220005893/downloads/Power%20and%20Energy%20for%20the%20Lunar%20Surface.pdf" target="_blank" rel="noopener noreferrer">
-            <span>Download NASA Technical Report (PDF)</span>
+          <a class="card-text-link" href="https://www.nasa.gov/smallsat-institute/sst-soa/power-subsystems/" target="_blank" rel="noopener noreferrer">
+            <span>Explore 3.0 Power Subsystems (NASA SOA)</span>
           </a>
         </div>
         <div style="margin-top: 6px;">
@@ -172,17 +141,331 @@
         </div>
       </article>
 
-      <!-- SECTION 2: DAILY MEAL -->
+      <!-- POWER [3]: VERTICAL SOLAR ARRAY TECHNOLOGY (VSAT) -->
+      <article class="sidebar-card card-power" id="card-power-3">
+        <div class="card-title-row">
+          <h4 class="card-title">☀️ Vertical Solar Array Technology (VSAT)</h4>
+          <span class="card-badge">NASA ARTEMIS</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/missions/artemis/clps/nasa-industry-to-mature-vertical-solar-array-technologies-for-lunar-surface/" target="_blank" rel="noopener noreferrer">NASA Artemis CLPS</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          NASA contracts industry to build tall, deployable vertical solar array masts that rise 30+ feet above lunar crater rims to capture continuous grazing sunlight.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.nasa.gov/missions/artemis/clps/nasa-industry-to-mature-vertical-solar-array-technologies-for-lunar-surface/" target="_blank" rel="noopener noreferrer">
+            <span>Read NASA, Industry to Mature Vertical Solar Arrays</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPower', 'badgePower')" title="Zoom to Power Station">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- POWER [4]: SOUTH POLE SHADOWS & SHACKLETON CRATER -->
+      <article class="sidebar-card card-power" id="card-power-4">
+        <div class="card-title-row">
+          <h4 class="card-title">🌑 South Pole Shadows &amp; Shackleton Rim</h4>
+          <span class="card-badge">NASA SCIENCE</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/solar-system/moon/shadows-near-the-moons-south-pole/" target="_blank" rel="noopener noreferrer">NASA Science</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          High-resolution lunar topography showcasing the illuminated peaks of eternal light on Shackleton Crater's rim where solar masts harvest continuous energy.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://science.nasa.gov/solar-system/moon/shadows-near-the-moons-south-pole/" target="_blank" rel="noopener noreferrer">
+            <span>Read Shadows near the Moon's South Pole</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPower', 'badgePower')" title="Zoom to Power Station">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- POWER [5]: INTEGRATED LUNAR POWER & BATTERIES -->
+      <article class="sidebar-card card-power" id="card-power-5">
+        <div class="card-title-row">
+          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Lunar Power Strategy &amp; Batteries</h4>
+          <span class="card-badge">NASA NTRS</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://ntrs.nasa.gov/citations/20220017550" target="_blank" rel="noopener noreferrer">NASA NTRS Citations</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Integrated lunar surface power strategies analyzing lithium-ion battery units and fuel cells to sustain critical life support during darkness and shadowing.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://ntrs.nasa.gov/citations/20220017550" target="_blank" rel="noopener noreferrer">
+            <span>Explore Integrated Lunar Power Strategy (NTRS 20220017550)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPower', 'badgePower')" title="Zoom to Power Station">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- POWER [6] & [7]: LUNAR DAY/NIGHT CYCLE (14 DAYS) -->
+      <article class="sidebar-card card-power" id="card-power-6">
+        <div class="card-title-row">
+          <h4 class="card-title">🌓 Lunar Day/Night Cycle (14 Earth Days)</h4>
+          <span class="card-badge">NASA JSC</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://ares.jsc.nasa.gov/interaction/lmdp/documents/TotheMoon_back.pdf" target="_blank" rel="noopener noreferrer">NASA Johnson Space Center</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Explains the extreme lunar environment: 14 days of blinding sunlight followed by 14 days of freezing night, necessitating resilient power storage.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://ares.jsc.nasa.gov/interaction/lmdp/documents/TotheMoon_back.pdf" target="_blank" rel="noopener noreferrer">
+            <span>Download To the Moon &amp; Back (NASA JSC PDF)</span>
+          </a>
+          <a class="card-text-link" href="https://www.lpi.usra.edu/lunar/strategies/resources/M2M%20ADD_ESDMD-001_NASA-TP-20230002706.pdf" target="_blank" rel="noopener noreferrer">
+            <span>Moon to Mars Architecture Definition Document (M2M ADD)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPower', 'badgePower')" title="Zoom to Power Station">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- POWER [8]: NIGHTFALL POWER CONSERVATION -->
+      <article class="sidebar-card card-power" id="card-power-8">
+        <div class="card-title-row">
+          <h4 class="card-title">🔋 Nightfall Power Conservation</h4>
+          <span class="card-badge">LUNAR TECH</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://ntrs.nasa.gov/citations/20220017550" target="_blank" rel="noopener noreferrer">NASA Technical Reports</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Techniques for load-shedding and conserving limited battery reserves when lunar night falls and solar arrays are cut off from sunlight.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://ntrs.nasa.gov/citations/20220017550" target="_blank" rel="noopener noreferrer">
+            <span>Read Lunar Surface Technology &amp; Conservation</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPower', 'badgePower')" title="Zoom to Power Station">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- POWER [9], [10], [11]: FISSION SURFACE POWER -->
+      <article class="sidebar-card card-power" id="card-power-9">
+        <div class="card-title-row">
+          <h4 class="card-title">⚛️ Fission Surface Power (FSP)</h4>
+          <span class="card-badge">NASA STMD</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/technology/power-propulsion/nasas-fission-surface-power-project-energizes-lunar-exploration/" target="_blank" rel="noopener noreferrer">NASA Space Technology</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          NASA’s Fission Surface Power project develops a 40-kilowatt nuclear fission reactor to provide safe, reliable, continuous baseload power completely independent of sunlight.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.nasa.gov/technology/power-propulsion/nasas-fission-surface-power-project-energizes-lunar-exploration/" target="_blank" rel="noopener noreferrer">
+            <span>NASA’s Fission Surface Power Project Energizes Lunar Exploration</span>
+          </a>
+          <a class="card-text-link" href="https://www.nasa.gov/tdm/fission-surface-power/" target="_blank" rel="noopener noreferrer">
+            <span>Explore Fission Surface Power Technology (NASA TDM)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPower', 'badgePower')" title="Zoom to Power Station">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- POWER [12]: POWER DISTRIBUTION UNIT (PDU) -->
+      <article class="sidebar-card card-power" id="card-power-12">
+        <div class="card-title-row">
+          <h4 class="card-title">🎛️ Power Distribution Unit (PDU)</h4>
+          <span class="card-badge">GRID ROUTING</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/smallsat-institute/sst-soa/power-subsystems/" target="_blank" rel="noopener noreferrer">NASA SmallSat Institute</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          How the central Power Distribution Unit manages smart micro-grid routing, stepping down voltages and delivering power to life support, science labs, and habitats.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.nasa.gov/smallsat-institute/sst-soa/power-subsystems/" target="_blank" rel="noopener noreferrer">
+            <span>Read Electric Power on the Moon &amp; Grid Routing</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPower', 'badgePower')" title="Zoom to Power Station">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- POWER [13] & [15]: POWERING THE MOON USING VSAT (VIDEO) -->
+      <article class="sidebar-card card-power" id="card-power-13">
+        <div class="card-title-row">
+          <h4 class="card-title">⚡ Power Station Tech (VSAT Video)</h4>
+          <span class="card-badge">ENERGY &amp; VIDEO</span>
+        </div>
+        <div class="card-video-wrap">
+          <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer" title="Watch NASA Spacecraft &amp; Lunar Surface Power on YouTube">
+            <img class="card-video-thumb-img" src="https://img.youtube.com/vi/TbVIMSVuEFU/hqdefault.jpg" alt="NASA Power Tech Video Thumbnail" loading="lazy">
+            <div class="card-video-play-btn"></div>
+          </a>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Deploying vertical bifacial solar arrays and nuclear fission reactors to deliver uninterrupted baseload electrical power through the freezing lunar night.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.youtube.com/watch?v=TbVIMSVuEFU" target="_blank" rel="noopener noreferrer">
+            <span>Watch Powering the Moon Using Vertical Solar Arrays</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPower', 'badgePower')" title="Zoom to Power Station">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- POWER [14]: AMES BATTERY STANDARD -->
+      <article class="sidebar-card card-power" id="card-power-14">
+        <div class="card-title-row">
+          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Lithium-ion Battery Safety Standard</h4>
+          <span class="card-badge">AMES STANDARD</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://ntrs.nasa.gov/citations/20090023858" target="_blank" rel="noopener noreferrer">NASA Ames / NTRS</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          NASA Ames Technical Standard and guidelines on lithium-ion battery discharge margins, thermal runaway mitigation, and cell balancing in space environments.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://ntrs.nasa.gov/citations/20090023858" target="_blank" rel="noopener noreferrer">
+            <span>Guidelines on Lithium-ion Battery Use in Space (NTRS)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPower', 'badgePower')" title="Zoom to Power Station">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- =========================================================================
+           SECTION 2: DAILY MEAL & FOOD STORAGE (MISSION 2.1)
+           ========================================================================= -->
       <div class="sidebar-section-header sec-meal" id="sec_dailymeal">
         <span>🍱 Daily Meal &amp; Astronaut Nutrition</span>
         <span class="section-header-tag">MISSION 2.1</span>
       </div>
 
-      <!-- DAILY MEAL: SPACE FOOD SYSTEMS -->
-      <article class="sidebar-card card-meal">
+      <!-- MEAL [1] & [6]: 7.0 HABITABILITY FUNCTIONS -->
+      <article class="sidebar-card card-meal" id="card-meal-1">
         <div class="card-title-row">
-          <h4 class="card-title">🍱 Space Food Systems &amp; Daily Meals</h4>
-          <span class="card-badge">FOOD SYSTEMS</span>
+          <h4 class="card-title">🍱 7.0 Habitability Functions</h4>
+          <span class="card-badge">NASA SOA</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/smallsat-institute/sst-soa/habitability-functions/" target="_blank" rel="noopener noreferrer">NASA SmallSat Institute</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Comprehensive guide to crew living volume, galley food storage systems, nutrition logging, and metabolic energy balances (average ~3,035 kcal/day).
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.nasa.gov/smallsat-institute/sst-soa/habitability-functions/" target="_blank" rel="noopener noreferrer">
+            <span>Explore 7.0 Habitability Functions - NASA</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
+            <span>🔍 View Daily Meal on Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- MEAL [2]: MULTILAYER POUCH PACKAGING -->
+      <article class="sidebar-card card-meal" id="card-meal-2">
+        <div class="card-title-row">
+          <h4 class="card-title">🥡 Multilayer Pouch Packaging</h4>
+          <span class="card-badge">FOOD PACKAGING</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">NASA OCHMO</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Space food packaging engineered with multilayer PET, aluminum foil, and polyethylene (PE) films to create an impermeable barrier blocking moisture and oxygen.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">
+            <span>Download Space Food Packaging Facts (PDF)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
+            <span>🔍 View Daily Meal on Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- MEAL [3]: NITROGEN FLUSHING & ATMOSPHERE -->
+      <article class="sidebar-card card-meal" id="card-meal-3">
+        <div class="card-title-row">
+          <h4 class="card-title">💨 Nitrogen Flushing Preservation</h4>
+          <span class="card-badge">PRESERVATION</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">NASA Food Lab</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Nitrogen gas flushing during sealing drops pouch oxygen levels below 0.5%, preventing lipid oxidation and protecting food nutritional shelf-life for years.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">
+            <span>Read Space Food Preservation Techniques</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
+            <span>🔍 View Daily Meal on Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- MEAL [4]: SPACE FOOD SYSTEMS (THREE TYPES) -->
+      <article class="sidebar-card card-meal" id="card-meal-4">
+        <div class="card-title-row">
+          <h4 class="card-title">🍱 Space Food Systems (Three Types)</h4>
+          <span class="card-badge">NASA JSC</span>
         </div>
         <a class="card-banner-wrap" href="https://www.nasa.gov/humans-in-space/space-food-systems/" target="_blank" rel="noopener noreferrer" title="Explore NASA Space Food Systems">
           <img class="card-banner-img" src="assets/astronautsReal.webp" alt="Astronaut Daily Meals and Rations" loading="lazy">
@@ -194,11 +477,11 @@
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          Planning daily astronaut rations with rehydratable pouches, thermostabilized foods, and macronutrient targets while carefully rationing water volume and electrical heating power.
+          Space foods categorized into three operational forms: Ready-to-Eat (nuts, bars), Rehydratable (soups, curries), and Food Warmerable (thermostabilized pouches).
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://www.nasa.gov/humans-in-space/space-food-systems/" target="_blank" rel="noopener noreferrer">
-            <span>Explore NASA Space Food Systems</span>
+            <span>Explore Space Food Systems &amp; Daily Rations</span>
           </a>
         </div>
         <div style="margin-top: 6px;">
@@ -208,27 +491,22 @@
         </div>
       </article>
 
-      <!-- DAILY MEAL: GRAVITY ASSIST PODCAST -->
-      <article class="sidebar-card card-meal">
+      <!-- MEAL [5]: REHYDRATABLES & WATER DISPENSER -->
+      <article class="sidebar-card card-meal" id="card-meal-5">
         <div class="card-title-row">
-          <h4 class="card-title">🎙️ Gravity Assist: Food on the Moon</h4>
-          <span class="card-badge">NASA PODCAST</span>
+          <h4 class="card-title">💧 Rehydratable Meals &amp; Water Dispenser</h4>
+          <span class="card-badge">CREW SYSTEMS</span>
         </div>
-        <a class="card-banner-wrap" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer" title="Listen to NASA Gravity Assist Podcast: How to Grow Food on the Moon">
-          <img class="card-banner-img" src="assets/hydroponics/gravity_assist_food_moon.jpg" alt="NASA Gravity Assist Food on the Moon Seedling Sample" loading="lazy">
-          <span class="card-banner-tag">NASA PODCAST // LUNAR CROPS</span>
-          <span class="card-banner-badge-rt">LISTEN ↗</span>
-        </a>
         <div class="card-source-row">
-          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer">NASA Podcasts</a></span>
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/humans-in-space/space-food-systems/" target="_blank" rel="noopener noreferrer">NASA Crew Systems</a></span>
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          NASA Chief Scientist Dr. Jim Green discusses the science of lunar farming, nutrient chemistry, and growing fresh produce for long-duration Artemis missions.
+          Connecting lyophilized meal pouches to the potable water dispenser, injecting precise water volumes (50ml–200ml) to rehydrate astronaut food packs.
         </p>
         <div class="card-links-col">
-          <a class="card-text-link" href="https://www.nasa.gov/podcasts/gravity-assist/gravity-assist-how-to-grow-food-on-the-moon/" target="_blank" rel="noopener noreferrer">
-            <span>Listen to Gravity Assist Podcast (NASA)</span>
+          <a class="card-text-link" href="https://www.nasa.gov/humans-in-space/space-food-systems/" target="_blank" rel="noopener noreferrer">
+            <span>NASA Space Food Formulations: Rehydratables</span>
           </a>
         </div>
         <div style="margin-top: 6px;">
@@ -238,10 +516,10 @@
         </div>
       </article>
 
-      <!-- DAILY MEAL: NASA FOOD & NUTRITION BRIEF -->
-      <article class="sidebar-card card-meal">
+      <!-- MEAL [7]: NASA FOOD & NUTRITION BRIEF (OCHMO) -->
+      <article class="sidebar-card card-meal" id="card-meal-7">
         <div class="card-title-row">
-          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> NASA Food &amp; Nutrition Brief</h4>
+          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> NASA Food &amp; Nutrition Technical Brief</h4>
           <span class="card-badge">NASA OCHMO</span>
         </div>
         <a class="card-banner-wrap" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer" title="Download NASA Food and Nutrition Technical Brief">
@@ -254,11 +532,11 @@
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          NASA Office of the Chief Health and Medical Officer technical guidance on spaceflight dietary stability, nutrient shelf-life, and hydroponic bio-regenerative counter-measures.
+          Technical specifications for long-duration spaceflight nutrition: macro-nutrient distribution, vitamin degradation rates, and bio-regenerative counter-measures.
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/food-and-nutrition-technical-brief-ochmo.pdf" target="_blank" rel="noopener noreferrer">
-            <span>Download NASA Food &amp; Nutrition Technical Brief (PDF)</span>
+            <span>Download NASA Food &amp; Nutrition Brief (PDF)</span>
           </a>
         </div>
         <div style="margin-top: 6px;">
@@ -268,45 +546,16 @@
         </div>
       </article>
 
-      <!-- SECTION 3: HYDROPONICS -->
+      <!-- =========================================================================
+           SECTION 3: HYDROPONICS & LUNAR PLANT GROWTH (MISSION 2.2)
+           ========================================================================= -->
       <div class="sidebar-section-header sec-hydro" id="sec_hydroponics">
         <span>🌱 Plant Growth &amp; Hydroponics Lab</span>
         <span class="section-header-tag">MISSION 2.2</span>
       </div>
 
-      <!-- HYDROPONICS: SPACE CROP VIDEO -->
-      <article class="sidebar-card card-plant">
-        <div class="card-title-row">
-          <h4 class="card-title">🌱 Plant Growth &amp; Space Agriculture</h4>
-          <span class="card-badge">HYDROPONICS</span>
-        </div>
-        <div class="card-video-wrap">
-          <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer" title="Watch NASA Space Crop &amp; Plant Production on YouTube">
-            <img class="card-video-thumb-img" src="https://img.youtube.com/vi/W5OzSeTHouU/hqdefault.jpg" alt="NASA Space Crop &amp; Plant Production Video Thumbnail" loading="lazy">
-            <div class="card-video-play-btn"></div>
-          </a>
-        </div>
-        <div class="card-source-row">
-          <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
-          <span class="card-source-dots">● ● ●</span>
-        </div>
-        <p class="card-desc">
-          Cultivating fresh microgreens, Arabidopsis, and dwarf crops using automated nutrient solution cycles and LED spectrum recipes to sustain long-duration astronaut nutrition.
-        </p>
-        <div class="card-links-col">
-          <a class="card-text-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer">
-            <span>Watch Space Plant &amp; Crop Production on YouTube</span>
-          </a>
-        </div>
-        <div style="margin-top: 6px;">
-          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
-            <span>🔍 View on Base Map</span>
-          </button>
-        </div>
-      </article>
-
-      <!-- HYDROPONICS: SCIENTISTS GROW PLANTS IN LUNAR SOIL -->
-      <article class="sidebar-card card-plant">
+      <!-- HYDRO [1]: SCIENTISTS GROW PLANTS IN LUNAR SOIL -->
+      <article class="sidebar-card card-plant" id="card-hydro-1">
         <div class="card-title-row">
           <h4 class="card-title">🌱 Scientists Grow Plants in Lunar Soil</h4>
           <span class="card-badge">NASA FEATURE</span>
@@ -321,7 +570,7 @@
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          For the first time, University of Florida and NASA researchers successfully sprouted and cultivated Arabidopsis plants in real Apollo 11, 12, and 17 lunar regolith.
+          University of Florida and NASA researchers successfully sprouted and cultivated Arabidopsis in real Apollo 11, 12, and 17 lunar regolith samples.
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://www.nasa.gov/humans-in-space/scientists-grow-plants-in-lunar-soil/" target="_blank" rel="noopener noreferrer">
@@ -330,15 +579,93 @@
         </div>
         <div style="margin-top: 6px;">
           <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
-            <span>🔍 View Plant Growth Lab on Map</span>
+            <span>🔍 View on Base Map</span>
           </button>
         </div>
       </article>
 
-      <!-- HYDROPONICS: PLANT HEALTH & SPACE BIOLOGY -->
-      <article class="sidebar-card card-plant">
+      <!-- HYDRO [2]: WHAT IS LUNAR REGOLITH? -->
+      <article class="sidebar-card card-plant" id="card-hydro-2">
         <div class="card-title-row">
-          <h4 class="card-title">🔬 Lunar Plant Health &amp; Diagnostics</h4>
+          <h4 class="card-title">🌑 What Is Lunar Regolith?</h4>
+          <span class="card-badge">NASA SCIENCE</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/moon/what-is-lunar-regolith/" target="_blank" rel="noopener noreferrer">NASA Science</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          The Moon’s surface is covered with a powdery dust layer formed from billions of years of meteorite impacts, solar wind bombardment, and cosmic ray shattering.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://science.nasa.gov/moon/what-is-lunar-regolith/" target="_blank" rel="noopener noreferrer">
+            <span>Explore What Is Lunar Regolith? (NASA Science)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- HYDRO [3] & [4]: REGOLITH HAZARDS & INHALATION -->
+      <article class="sidebar-card card-plant" id="card-hydro-3">
+        <div class="card-title-row">
+          <h4 class="card-title">⚠️ Regolith Hazards &amp; Inhalation Danger</h4>
+          <span class="card-badge">CREW SAFETY</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/solar-system/moon/what-hazards-are-caused-by-lunar-regolith/" target="_blank" rel="noopener noreferrer">NASA Science</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Because there is no wind or water erosion on the Moon, regolith grains remain razor-sharp, abrasive, and dangerous to human lungs and seals if inhaled.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://science.nasa.gov/solar-system/moon/what-hazards-are-caused-by-lunar-regolith/" target="_blank" rel="noopener noreferrer">
+            <span>What Hazards Are Caused by Lunar Regolith?</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- HYDRO [5] & [6]: REGOLITH SIMULANT GUIDE & DUST CHALLENGE -->
+      <article class="sidebar-card card-plant" id="card-hydro-5">
+        <div class="card-title-row">
+          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Lunar Regolith Simulant User's Guide</h4>
+          <span class="card-badge">NASA NTRS</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://ntrs.nasa.gov/citations/20060051772" target="_blank" rel="noopener noreferrer">NASA NTRS</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Chemical properties, mineral compositions (plagioclase, pyroxene, ilmenite), and handling procedures for testing biological growth in regolith simulants.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://ntrs.nasa.gov/citations/20060051772" target="_blank" rel="noopener noreferrer">
+            <span>Download Regolith Simulant User's Guide (NTRS)</span>
+          </a>
+          <a class="card-text-link" href="https://science.nasa.gov/solar-system/moon/the-challenge-of-lunar-dust/" target="_blank" rel="noopener noreferrer">
+            <span>The Challenge of Lunar Dust - NASA Science</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- HYDRO [7] & [8]: DAY 5 GROWTH & REDDISH PIGMENTATION -->
+      <article class="sidebar-card card-plant" id="card-hydro-7">
+        <div class="card-title-row">
+          <h4 class="card-title">🔬 Plant Stress &amp; Reddish Pigmentation</h4>
           <span class="card-badge">SPACE BIOLOGY</span>
         </div>
         <a class="card-banner-wrap" href="https://science.nasa.gov/biological-physical/space-biology/" target="_blank" rel="noopener noreferrer" title="Explore NASA Space Biology Research">
@@ -347,32 +674,90 @@
           <span class="card-banner-badge-rt">EXPLORE ↗</span>
         </a>
         <div class="card-source-row">
-          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/biological-physical/space-biology/" target="_blank" rel="noopener noreferrer">NASA Biological &amp; Physical Sciences</a></span>
+          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/biological-physical/space-biology/" target="_blank" rel="noopener noreferrer">NASA Space Biology</a></span>
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          Investigating microbiological plant health, hydroponic root zone aeration, and automated pathogen diagnostics inside closed lunar greenhouses.
+          Compared to Earth soil, plants grown in lunar soil exhibited smaller sizes, slower development, and reddish-purple pigmentation (anthocyanins) caused by substrate stress.
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://science.nasa.gov/biological-physical/space-biology/" target="_blank" rel="noopener noreferrer">
-            <span>Explore NASA Space Biology Program</span>
+            <span>Explore NASA Biological &amp; Physical Sciences</span>
           </a>
         </div>
         <div style="margin-top: 6px;">
           <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
-            <span>🔍 View Plant Growth Lab on Map</span>
+            <span>🔍 View on Base Map</span>
           </button>
         </div>
       </article>
 
-      <!-- SECTION 4: WATER & OXYGEN -->
+      <!-- HYDRO [9]: NASA OPEN SCIENCE DATA REPOSITORY (OSD-476) -->
+      <article class="sidebar-card card-plant" id="card-hydro-9">
+        <div class="card-title-row">
+          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> NASA OSDR Study OSD-476</h4>
+          <span class="card-badge">GENOMIC DATA</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://osdr.nasa.gov/bio/repo/data/study/OSD-476" target="_blank" rel="noopener noreferrer">NASA Open Science Data Repository</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Genomic microarray and RNA sequencing data measuring differential stress gene expression in Arabidopsis thaliana cultivated in Apollo lunar regolith.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://osdr.nasa.gov/bio/repo/data/study/OSD-476" target="_blank" rel="noopener noreferrer">
+            <span>View Study OSD-476 (NASA OSDR)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- HYDRO [10]: SCIENTISTS GREW PLANTS IN MOON SOIL (VIDEO) -->
+      <article class="sidebar-card card-plant" id="card-hydro-10">
+        <div class="card-title-row">
+          <h4 class="card-title">🌱 Space Crop &amp; Plant Production Video</h4>
+          <span class="card-badge">HYDROPONICS</span>
+        </div>
+        <div class="card-video-wrap">
+          <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer" title="Watch NASA Space Crop &amp; Plant Production on YouTube">
+            <img class="card-video-thumb-img" src="https://img.youtube.com/vi/W5OzSeTHouU/hqdefault.jpg" alt="NASA Space Crop Video Thumbnail" loading="lazy">
+            <div class="card-video-play-btn"></div>
+          </a>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Scientists explain what happened after sprouting plants in lunar soil and how future bio-regenerative life support systems will support Moon base crews.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.youtube.com/watch?v=W5OzSeTHouU" target="_blank" rel="noopener noreferrer">
+            <span>Watch Scientists Grew Plants in Moon Soil (NASA Video)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- =========================================================================
+           SECTION 4: WATER & OXYGEN (MISSIONS 3 & 4)
+           ========================================================================= -->
       <div class="sidebar-section-header sec-water" id="sec_wateroxygen">
         <span>💧 Water &amp; Oxygen In-Situ Extraction</span>
         <span class="section-header-tag">MISSIONS 3 &amp; 4</span>
       </div>
 
-      <!-- NASA's LRO: Lunar Ice Deposits are Widespread -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [1]: LRO POLAR ICE -->
+      <article class="sidebar-card card-isru" id="card-isru-1">
         <div class="card-title-row">
           <h4 class="card-title">💧 Lunar Ice Deposits are Widespread</h4>
           <span class="card-badge">NASA SCIENCE</span>
@@ -401,8 +786,8 @@
         </div>
       </article>
 
-      <!-- Water on the Moon, NASA Goddard (video) -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [2]: WATER ON THE MOON (VIDEO) -->
+      <article class="sidebar-card card-isru" id="card-isru-2">
         <div class="card-title-row">
           <h4 class="card-title">🎥 Water on the Moon</h4>
           <span class="card-badge">NASA GODDARD SVS</span>
@@ -426,8 +811,8 @@
         </div>
       </article>
 
-      <!-- The Moon's South Pole & Permanent Shadows, NASA Goddard SVS -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [3]: PERMANENT SHADOWS -->
+      <article class="sidebar-card card-isru" id="card-isru-3">
         <div class="card-title-row">
           <h4 class="card-title">🎥 South Pole &amp; Permanent Shadows</h4>
           <span class="card-badge">NASA SVS GALLERY</span>
@@ -451,8 +836,8 @@
         </div>
       </article>
 
-      <!-- Is There Water on the Moon? We Asked a NASA Scientist (Episode 27) -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [4]: IS THERE WATER ON THE MOON? -->
+      <article class="sidebar-card card-isru" id="card-isru-4">
         <div class="card-title-row">
           <h4 class="card-title">🎥 Is There Water on the Moon?</h4>
           <span class="card-badge">NASA VIDEO // EP. 27</span>
@@ -462,7 +847,7 @@
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          Planetary scientists explain how lunar ice survived for billions of years inside ultra-cold polar traps and how Artemis astronauts will harvest it for water and breathable air.
+          Planetary scientists explain how lunar ice survived for billions of years inside ultra-cold polar traps and how Artemis astronauts will harvest it.
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://www.nasa.gov/general/is-there-water-on-the-moon-we-asked-a-nasa-scientist-episode-27" target="_blank" rel="noopener noreferrer">
@@ -476,8 +861,8 @@
         </div>
       </article>
 
-      <!-- Apollo to Artemis: Drilling on the Moon, NASA -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [5]: APOLLO TO ARTEMIS DRILLING -->
+      <article class="sidebar-card card-isru" id="card-isru-5">
         <div class="card-title-row">
           <h4 class="card-title">💧 Apollo to Artemis: Drilling on the Moon</h4>
           <span class="card-badge">NASA KSC</span>
@@ -487,7 +872,7 @@
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          Tracing the evolutionary lineage of lunar drilling technology from Apollo astronauts manually hammering core tubes to autonomous rotary percussive drills engineered for Artemis.
+          Tracing lunar drilling technology from Apollo astronauts manually hammering core tubes to autonomous rotary percussive drills engineered for Artemis.
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://www.nasa.gov/centers-and-facilities/kennedy/apollo-to-artemis-drilling-on-the-moon/" target="_blank" rel="noopener noreferrer">
@@ -501,8 +886,8 @@
         </div>
       </article>
 
-      <!-- PRIME-1 Science & Technology (TRIDENT and MSolo), NASA Science -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [6]: PRIME-1 TRIDENT DRILL & MSOLO -->
+      <article class="sidebar-card card-isru" id="card-isru-6">
         <div class="card-title-row">
           <h4 class="card-title">💧 PRIME-1: TRIDENT Drill &amp; MSolo</h4>
           <span class="card-badge">NASA CLPS</span>
@@ -531,8 +916,8 @@
         </div>
       </article>
 
-      <!-- NASA's Lunar Drill Technology Passes Tests on the Moon, NASA -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [7]: LUNAR DRILL PASSES TESTS -->
+      <article class="sidebar-card card-isru" id="card-isru-7">
         <div class="card-title-row">
           <h4 class="card-title">💧 NASA Lunar Drill Passes Tests on Moon</h4>
           <span class="card-badge">NASA ARTEMIS</span>
@@ -561,8 +946,8 @@
         </div>
       </article>
 
-      <!-- PRIME-1 video, NASA -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [8]: PRIME-1 VIDEO -->
+      <article class="sidebar-card card-isru" id="card-isru-8">
         <div class="card-title-row">
           <h4 class="card-title">🎥 PRIME-1 Mission Video</h4>
           <span class="card-badge">NASA VIDEO</span>
@@ -586,8 +971,8 @@
         </div>
       </article>
 
-      <!-- Overview: In-Situ Resource Utilization, NASA -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [9]: OVERVIEW ISRU -->
+      <article class="sidebar-card card-isru" id="card-isru-9">
         <div class="card-title-row">
           <h4 class="card-title">💧 Overview: In-Situ Resource Utilization</h4>
           <span class="card-badge">NASA STMD</span>
@@ -602,7 +987,7 @@
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          NASA's foundational blueprint for living off the land on the Moon: finding, extracting, and refining local lunar resources into water, oxygen, and liquid rocket propellant.
+          NASA's foundational blueprint for living off the land on the Moon: finding, extracting, and refining local lunar resources into water, oxygen, and rocket propellant.
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://www.nasa.gov/overview-in-situ-resource-utilization/" target="_blank" rel="noopener noreferrer">
@@ -616,8 +1001,8 @@
         </div>
       </article>
 
-      <!-- NASA Glenn Excavation Laboratory -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [10]: GLENN EXCAVATION LAB -->
+      <article class="sidebar-card card-isru" id="card-isru-10">
         <div class="card-title-row">
           <h4 class="card-title">💧 Glenn Excavation Laboratory</h4>
           <span class="card-badge">NASA GLENN</span>
@@ -627,7 +1012,7 @@
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          Robotic excavation facility developing drum bucket excavators, pneumatic conveyance, and autonomous rover traction systems operating inside granular lunar regolith simulant testbeds.
+          Robotic excavation facility developing drum bucket excavators, pneumatic conveyance, and autonomous rover traction systems operating inside lunar regolith simulant.
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://www.nasa.gov/?p=38643" target="_blank" rel="noopener noreferrer">
@@ -641,8 +1026,8 @@
         </div>
       </article>
 
-      <!-- Integration of ISRU Into Lunar/Mars Exploration Through Field Analogs (PDF) -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [11]: INTEGRATION OF ISRU FIELD ANALOGS -->
+      <article class="sidebar-card card-isru" id="card-isru-11">
         <div class="card-title-row">
           <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Integration of ISRU Field Analogs</h4>
           <span class="card-badge">NASA PDF</span>
@@ -652,7 +1037,7 @@
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          NASA Technical Report detailing end-to-end field testing of robotic excavation, sealed pressurized reactor subsystems, and carbothermal reduction delivering high-purity water and O₂.
+          NASA Technical Report detailing end-to-end field testing of robotic excavation, sealed pressurized reactor subsystems, and carbothermal reduction delivering water and O₂.
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20100021362.pdf" target="_blank" rel="noopener noreferrer">
@@ -666,8 +1051,8 @@
         </div>
       </article>
 
-      <!-- Low Pressure Frost Formation for Lunar Polar Water Capture -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [12]: LOW PRESSURE FROST FORMATION -->
+      <article class="sidebar-card card-isru" id="card-isru-12">
         <div class="card-title-row">
           <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Low Pressure Frost Formation Study</h4>
           <span class="card-badge">NASA NTRS</span>
@@ -691,8 +1076,8 @@
         </div>
       </article>
 
-      <!-- Microwave Extraction of Water from Lunar Regolith Simulant (PDF) -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [13]: MICROWAVE EXTRACTION OF WATER -->
+      <article class="sidebar-card card-isru" id="card-isru-13">
         <div class="card-title-row">
           <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Microwave Water Extraction Study</h4>
           <span class="card-badge">NASA PDF</span>
@@ -716,8 +1101,8 @@
         </div>
       </article>
 
-      <!-- How Will We Extract Water on the Moon? We Asked a NASA Technologist (Episode 47) -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [14]: HOW WILL WE EXTRACT WATER ON MOON? -->
+      <article class="sidebar-card card-isru" id="card-isru-14">
         <div class="card-title-row">
           <h4 class="card-title">🎥 How Will We Extract Water on Moon?</h4>
           <span class="card-badge">NASA VIDEO // EP. 47</span>
@@ -741,8 +1126,8 @@
         </div>
       </article>
 
-      <!-- Environmental Control and Life Support Systems (ECLSS), NASA -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [15]: ECLSS LIFE SUPPORT -->
+      <article class="sidebar-card card-isru" id="card-isru-15">
         <div class="card-title-row">
           <h4 class="card-title">💧 ECLSS Life Support Systems</h4>
           <span class="card-badge">NASA ECLSS</span>
@@ -771,8 +1156,8 @@
         </div>
       </article>
 
-      <!-- Electrochemical Solutions for Advanced Life Support (ISS OGA electrolysis) -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [16]: ELECTROCHEMICAL SOLUTIONS (OGA) -->
+      <article class="sidebar-card card-isru" id="card-isru-16">
         <div class="card-title-row">
           <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Electrochemical Solutions (OGA)</h4>
           <span class="card-badge">NASA NTRS</span>
@@ -796,8 +1181,8 @@
         </div>
       </article>
 
-      <!-- ISS Environmental Control and Life Support System fact sheet (PDF) -->
-      <article class="sidebar-card card-isru">
+      <!-- ISRU [17]: ISS ECLSS FACT SHEET -->
+      <article class="sidebar-card card-isru" id="card-isru-17">
         <div class="card-title-row">
           <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> ISS ECLSS Fact Sheet</h4>
           <span class="card-badge">NASA PDF</span>
@@ -821,16 +1206,168 @@
         </div>
       </article>
 
-      <!-- SECTION 5: RADIATION -->
+      <!-- =========================================================================
+           SECTION 5: RADIATION SHIELDING & SPACE WEATHER (MISSION 5.1)
+           ========================================================================= -->
       <div class="sidebar-section-header sec-rad" id="sec_radiation">
         <span>🛡️ Radiation Shielding &amp; Space Weather</span>
         <span class="section-header-tag">MISSION 5</span>
       </div>
 
-      <!-- RADIATION: SPACE RADIATION SHIELDING -->
-      <article class="sidebar-card card-shelter">
+      <!-- RAD [1], [5], [8]: DESIGN FOR IONIZING RADIATION PROTECTION -->
+      <article class="sidebar-card card-shelter" id="card-rad-1">
         <div class="card-title-row">
-          <h4 class="card-title">🛡️ Space Radiation Shielding</h4>
+          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Design for Ionizing Radiation Protection</h4>
+          <span class="card-badge">NASA OCHMO</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/ochmo-tb-020-radiation-protection.pdf" target="_blank" rel="noopener noreferrer">NASA OCHMO (TB-020)</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          NASA Office of the Chief Health and Medical Officer technical standards for mitigating acute Solar Particle Event (SPE) exposure and astronaut cumulative dose thresholds.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.nasa.gov/wp-content/uploads/2023/03/ochmo-tb-020-radiation-protection.pdf" target="_blank" rel="noopener noreferrer">
+            <span>Download Ionizing Radiation Protection (OCHMO-TB-020 PDF)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldShelter', 'badgeShelter')" title="Zoom to Radiation Shelter">
+            <span>🔍 View Radiation Shelter on Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- RAD [2]: EFFECTS OF SPACE RADIATION (PODCAST) -->
+      <article class="sidebar-card card-shelter" id="card-rad-2">
+        <div class="card-title-row">
+          <h4 class="card-title">🎙️ Effects of Space Radiation (Podcast)</h4>
+          <span class="card-badge">NASA PODCAST</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/podcasts/small-steps-giant-leaps/episode-90-effects-of-space-radiation/" target="_blank" rel="noopener noreferrer">NASA Small Steps, Giant Leaps</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          NASA experts discuss space radiation risks on the Moon, cell DNA ionization, and how passive shielding protects astronauts outside Earth's protective magnetic field.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.nasa.gov/podcasts/small-steps-giant-leaps/episode-90-effects-of-space-radiation/" target="_blank" rel="noopener noreferrer">
+            <span>Listen to Small Steps, Giant Leaps (Episode 90)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldShelter', 'badgeShelter')" title="Zoom to Radiation Shelter">
+            <span>🔍 View Radiation Shelter on Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- RAD [3] & [6]: GLENN SYMPOSIUM ENERGETIC PARTICLES & GCRs -->
+      <article class="sidebar-card card-shelter" id="card-rad-3">
+        <div class="card-title-row">
+          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Energetic Particles &amp; Cosmic Rays (GCRs)</h4>
+          <span class="card-badge">GLENN SYMPOSIUM</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://ntrs.nasa.gov/api/citations/20210018122/downloads/Glenn%20Symposium%20Panel%20charts_2021%20-%20Jonathan%20Ransom.pdf" target="_blank" rel="noopener noreferrer">NASA Glenn Symposium</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Comprehensive panel presentation analyzing high-energy galactic cosmic ray ions (HZE nuclei), solar particle storms, and biological damage mechanisms.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://ntrs.nasa.gov/api/citations/20210018122/downloads/Glenn%20Symposium%20Panel%20charts_2021%20-%20Jonathan%20Ransom.pdf" target="_blank" rel="noopener noreferrer">
+            <span>Download Glenn Symposium Panel Charts (PDF)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldShelter', 'badgeShelter')" title="Zoom to Radiation Shelter">
+            <span>🔍 View Radiation Shelter on Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- RAD [4]: PROTECTING ASTRONAUTS ON LUNAR SURFACE -->
+      <article class="sidebar-card card-shelter" id="card-rad-4">
+        <div class="card-title-row">
+          <h4 class="card-title">🛡️ Protecting Astronauts from Radiation</h4>
+          <span class="card-badge">NASA TECH</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://www.nasa.gov/technology/protecting-astronauts-from-space-radiation/" target="_blank" rel="noopener noreferrer">NASA Technology</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Engineering storm shelters and long-duration safe havens to protect Artemis expedition crews and electronic equipment during solar particle events.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://www.nasa.gov/technology/protecting-astronauts-from-space-radiation/" target="_blank" rel="noopener noreferrer">
+            <span>Protecting Astronauts from Space Radiation on the Moon</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldShelter', 'badgeShelter')" title="Zoom to Radiation Shelter">
+            <span>🔍 View Radiation Shelter on Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- RAD [7]: EARTH VS MOON NATURAL SHIELDING -->
+      <article class="sidebar-card card-shelter" id="card-rad-7">
+        <div class="card-title-row">
+          <h4 class="card-title">🌍 Earth vs. Moon Natural Shielding</h4>
+          <span class="card-badge">MATERIALS TECH</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://ntrs.nasa.gov/citations/20180002826" target="_blank" rel="noopener noreferrer">NASA NTRS</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Earth’s magnetic field and thick atmosphere deflect charged ions. Because the Moon lacks an intrinsic magnetosphere, engineered habitat shielding is mandatory.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://ntrs.nasa.gov/citations/20180002826" target="_blank" rel="noopener noreferrer">
+            <span>Integration of Advanced Structures &amp; Materials for Lunar Habitat</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldShelter', 'badgeShelter')" title="Zoom to Radiation Shelter">
+            <span>🔍 View Radiation Shelter on Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- RAD [9]: SUPPLIES REARRANGEMENT & WATER SHIELDING -->
+      <article class="sidebar-card card-shelter" id="card-rad-9">
+        <div class="card-title-row">
+          <h4 class="card-title"><img class="card-nasa-icon" src="assets/nasa_logo.svg" alt="NASA Logo"> Supplies Rearrangement &amp; Water Walls</h4>
+          <span class="card-badge">HYDROGEN SHIELD</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://ntrs.nasa.gov/api/citations/20160006051/downloads/20160006051.pdf" target="_blank" rel="noopener noreferrer">NASA Technical Reports</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          Hydrogen-rich materials (water containers, food packs, and polyethylene) are superior radiation absorbers. Arranging them around crew bunks cuts exposure by up to 40%.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://ntrs.nasa.gov/api/citations/20160006051/downloads/20160006051.pdf" target="_blank" rel="noopener noreferrer">
+            <span>Download Polyethylene &amp; Water Shielding Study (NTRS PDF)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldShelter', 'badgeShelter')" title="Zoom to Radiation Shelter">
+            <span>🔍 View Radiation Shelter on Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- RAD [10] & [11]: LUNAR REGOLITH SHIELDING & ISRU -->
+      <article class="sidebar-card card-shelter" id="card-rad-10">
+        <div class="card-title-row">
+          <h4 class="card-title">🛡️ Lunar Regolith Shielding &amp; ISRU</h4>
           <span class="card-badge">DEFENSE // VIDEO</span>
         </div>
         <div class="card-video-wrap">
@@ -844,42 +1381,14 @@
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          Engineered subterranean habitats with sintered regolith berms and dual-layer water walls designed to shield expedition crews from Solar Particle Events (SPE) and cosmic rays.
+          Building sintered regolith berms and burying permanent habitats under 1–3 meters of local lunar soil creates complete passive shielding without hauling heavy mass from Earth.
         </p>
         <div class="card-links-col">
           <a class="card-text-link" href="https://www.youtube.com/watch?v=vpNa4u997xA" target="_blank" rel="noopener noreferrer">
             <span>Watch Space Radiation Shielding on YouTube</span>
           </a>
-        </div>
-        <div style="margin-top: 6px;">
-          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldShelter', 'badgeShelter')" title="Zoom to Radiation Shelter">
-            <span>🔍 View Radiation Shelter on Map</span>
-          </button>
-        </div>
-      </article>
-
-      <!-- RADIATION: LUNAR RADIATION DEFENSE -->
-      <article class="sidebar-card card-shelter">
-        <div class="card-title-row">
-          <h4 class="card-title">🛡️ Lunar Radiation Defense</h4>
-          <span class="card-badge">RESEARCH // VIDEO</span>
-        </div>
-        <div class="card-video-wrap">
-          <a class="card-video-thumb-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer" title="Watch Lunar Radiation Defense on YouTube">
-            <img class="card-video-thumb-img" src="https://img.youtube.com/vi/mn60n3jdI_8/hqdefault.jpg" alt="Lunar Radiation Defense Video Thumbnail" loading="lazy">
-            <div class="card-video-play-btn"></div>
-          </a>
-        </div>
-        <div class="card-source-row">
-          <span>Source: <a class="card-source-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer">NASA Video</a></span>
-          <span class="card-source-dots">● ● ●</span>
-        </div>
-        <p class="card-desc">
-          Analyzing deep space ionizing radiation, galactic cosmic rays, and passive shielding materials essential for long-duration astronaut survival on the Moon.
-        </p>
-        <div class="card-links-col">
-          <a class="card-text-link" href="https://www.youtube.com/watch?v=mn60n3jdI_8" target="_blank" rel="noopener noreferrer">
-            <span>Watch Lunar Radiation Defense on YouTube</span>
+          <a class="card-text-link" href="https://science.nasa.gov/moon/what-is-lunar-regolith/" target="_blank" rel="noopener noreferrer">
+            <span>What Is Lunar Regolith? The Moon’s Surface Explained</span>
           </a>
         </div>
         <div style="margin-top: 6px;">
@@ -890,7 +1399,7 @@
       </article>
 
       <!-- RADIATION: NASA SPACE WEATHER -->
-      <article class="sidebar-card card-shelter">
+      <article class="sidebar-card card-shelter" id="card-rad-weather">
         <div class="card-title-row">
           <h4 class="card-title">☀️ NASA Space Weather Research</h4>
           <span class="card-badge">HELIOPHYSICS</span>
@@ -948,6 +1457,14 @@
       setTimeout(() => {
         window.toggleResourceSidebar(true);
       }, 250);
+    }
+
+    // Support URL param ?highlight_card=card-id to test card opening and glow
+    const highlightCard = new URLSearchParams(window.location.search).get('highlight_card');
+    if (highlightCard) {
+      setTimeout(() => {
+        window.openSidebarCard(highlightCard);
+      }, 350);
     }
   }
 
@@ -1013,6 +1530,65 @@
     if (targetEl) {
       targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  };
+
+  // Open sidebar, switch to the right tab, scroll directly to the card and pulse glow
+  window.openSidebarCard = function (cardId) {
+    if (typeof sound !== 'undefined' && sound && sound.clickSound) {
+      try { sound.clickSound(); } catch (e) {}
+    }
+    const sidebar = document.getElementById('baseResourceSidebar');
+    if (!sidebar) return;
+
+    // Open sidebar if collapsed
+    if (sidebar.classList.contains('sidebar-collapsed')) {
+      window.toggleResourceSidebar(true);
+    }
+
+    // Aliases to guarantee finding the card
+    const ALIASES = {
+      'card-power-7': 'card-power-9',
+      'card-power-10': 'card-power-13',
+      'card-power-11': 'card-power-13',
+      'card-power-15': 'card-power-13',
+      'card-meal-6': 'card-meal-7',
+      'card-hydro-4': 'card-hydro-3',
+      'card-hydro-6': 'card-hydro-5',
+      'card-hydro-8': 'card-hydro-7',
+      'card-rad-5': 'card-rad-4',
+      'card-rad-6': 'card-rad-4',
+      'card-rad-8': 'card-rad-7',
+      'card-rad-11': 'card-rad-10',
+    };
+    const targetId = ALIASES[cardId] || cardId;
+    const cardEl = document.getElementById(targetId) || document.getElementById(cardId);
+    if (!cardEl) return;
+
+    // Detect section category
+    let secKey = 'all';
+    if (targetId.startsWith('card-power')) secKey = 'power';
+    else if (targetId.startsWith('card-meal')) secKey = 'dailymeal';
+    else if (targetId.startsWith('card-hydro')) secKey = 'hydroponics';
+    else if (targetId.startsWith('card-isru')) secKey = 'wateroxygen';
+    else if (targetId.startsWith('card-rad')) secKey = 'radiation';
+
+    const tabBtn = sidebar.querySelector(`.sidebar-nav-tab[onclick*="'${secKey}'"]`);
+    sidebar.querySelectorAll('.sidebar-nav-tab').forEach(b => b.classList.remove('active'));
+    if (tabBtn) tabBtn.classList.add('active');
+
+    // Scroll card into center view
+    setTimeout(() => {
+      cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Trigger vibrant glow animation for ~1.6 seconds
+      cardEl.classList.remove('card-highlight-glow');
+      void cardEl.offsetWidth; // Force CSS reflow
+      cardEl.classList.add('card-highlight-glow');
+
+      setTimeout(() => {
+        cardEl.classList.remove('card-highlight-glow');
+      }, 1650);
+    }, 180);
   };
 
   window.handleMapInspect = function (bldId, badgeId) {

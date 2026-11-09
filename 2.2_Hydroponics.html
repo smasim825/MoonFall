@@ -1703,7 +1703,7 @@
         astronaut: true,
         showCard: true,
         speaker: 'sunita',
-        text: "Scientists have been exploring ways to grow food on the Moon. Today, you'll help us test a special growing system using treated lunar regolith and hydroponic nutrients."
+        text: "Scientists have been exploring ways to grow food on the Moon. Today, you'll help us test a special growing system using <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-1')\">treated lunar regolith<span class=\"ref-num\">[1]</span></span> and <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-2')\">hydroponic nutrients<span class=\"ref-num\">[2]</span></span>."
       },
       // Scene 3 (index 2) - Collect Regolith
       {
@@ -1713,7 +1713,7 @@
         sunitaPose: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Present2.webp',
         astronaut: true,
         speaker: 'sunita',
-        text: "So let's collect some regolith."
+        text: "So let's collect some <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-3')\">regolith<span class=\"ref-num\">[3]</span></span>."
       },
       // Scene 4 (index 3) - Airlock Extreme Danger
       {
@@ -1724,7 +1724,7 @@
         astronaut: false,
         airlockCharacters: true,
         speaker: 'sunita',
-        text: "But first, why is lunar soil marked EXTREME DANGER?"
+        text: "But first, why is lunar soil marked <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-3')\">EXTREME DANGER<span class=\"ref-num\">[4]</span></span>?"
       },
       // Scene 5 (index 4) - Sharp glass particles
       {
@@ -1735,7 +1735,7 @@
         astronaut: false,
         airlockCharacters: true,
         speaker: 'sunita',
-        text: "Its sharp glass particles can damage your lungs if inhaled,"
+        text: "Its <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-5')\">sharp glass particles<span class=\"ref-num\">[5]</span></span> can damage your lungs if inhaled,"
       },
       // Scene 6 (index 5) - Surface Regolith Collection (Visual Scene)
       {
@@ -1757,7 +1757,7 @@
         astronaut: false,
         toxicOverlays: true,
         speaker: 'sunita',
-        text: "while chromium compounds and reactive iron particles may pose health risks. Always use proper protection when handling regolith!"
+        text: "while <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-5')\">chromium compounds and reactive iron particles<span class=\"ref-num\">[6]</span></span> may pose health risks. Always use proper protection when handling regolith!"
       },
       // Scene 8 (index 7) - Hydroponics Lab Seeding
       {
@@ -1800,7 +1800,7 @@
         hudDays: '5 Days Passed',
         hudEarth: true,
         speaker: 'sunita',
-        text: "Good work, Rookie! Compared with Earth-soil plants, lunar-regolith plants were smaller and showed signs of stress."
+        text: "Good work, Rookie! Compared with Earth-soil plants, <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-7')\">lunar-regolith plants were smaller<span class=\"ref-num\">[7]</span></span> and showed signs of stress."
       },
       // Scene 13 (index 12) - Astro Bee Question 1 (Plant Size)
       {
@@ -1825,7 +1825,7 @@
         hudDays: '15 Days Passed',
         hudEarth: true,
         speaker: 'sunita',
-        text: "Look closely! Some leaves are turning reddish. Earth-based experiments also found reddish pigmentation in plants grown in lunar regolith, possibly due to stress."
+        text: "Look closely! Some leaves are turning reddish. Earth-based experiments also found <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-7')\">reddish pigmentation in plants grown in lunar regolith<span class=\"ref-num\">[8]</span></span>, possibly due to stress."
       },
       // Scene 15 (index 14) - Astro Bee Question 2 (Leaf Color)
       {
@@ -1874,7 +1874,7 @@
         astronaut: false,
         hudDays: '23 Days Passed',
         speaker: 'sunita',
-        text: "In a 2022 study, scientists grew Arabidopsis plants in real lunar samples from Apollo missions. After 20 days, the plants were generally smaller and developed more slowly than controls grown in lunar soil simulant."
+        text: "In a 2022 study, scientists grew <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-9')\">Arabidopsis plants in real lunar samples<span class=\"ref-num\">[9]</span></span> from Apollo missions. After 20 days, the plants were generally smaller and developed more slowly than controls grown in lunar soil simulant."
       },
       // Scene 19 (index 18) - Lab Report Gene Activity
       {
@@ -1884,7 +1884,7 @@
         sunitaPose: null,
         astronaut: false,
         speaker: 'sunita',
-        text: "Their gene activity also revealed responses associated with salt, metals, and oxidative stress."
+        text: "Their <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-10')\">gene activity<span class=\"ref-num\">[10]</span></span> also revealed responses associated with salt, metals, and oxidative stress."
       },
       // Scene 20 (index 19) - Astro Bee Question 4 (Growth Rate)
       {
@@ -1963,8 +1963,8 @@
       if (!container) return;
       textEl.style.fontSize = '';
       textEl.style.lineHeight = '';
-      const prevText = textEl.textContent;
-      textEl.textContent = fullStr;
+      const prevHtml = textEl.innerHTML;
+      textEl.innerHTML = fullStr;
       const maxH = container.clientHeight - 4;
       if (maxH > 16) {
         let sizePx = parseFloat(window.getComputedStyle(textEl).fontSize) || 20;
@@ -1978,7 +1978,7 @@
           textEl.style.lineHeight = String(lh);
         }
       }
-      textEl.textContent = prevText;
+      textEl.innerHTML = prevHtml;
     }
 
     window.addEventListener('resize', () => {
@@ -1993,14 +1993,19 @@
       isTypewriterActive = true;
       if (!activeDialogueTextEl) activeDialogueTextEl = dialogueTextSunita;
 
-      activeDialogueTextEl.textContent = "";
+      activeDialogueTextEl.innerHTML = "";
       fitDialogueText(activeDialogueTextEl, text);
       let charIndex = 0;
       typewriterTimer = setInterval(() => {
         if (charIndex < text.length) {
-          activeDialogueTextEl.textContent += text.charAt(charIndex);
+          if (text.charAt(charIndex) === '<') {
+            const closeIdx = text.indexOf('>', charIndex);
+            charIndex = closeIdx !== -1 ? closeIdx + 1 : charIndex + 1;
+          } else {
+            charIndex++;
+          }
+          activeDialogueTextEl.innerHTML = text.slice(0, charIndex);
           if (charIndex % 3 === 0) audio.playTypewriterClick();
-          charIndex++;
         } else {
           clearInterval(typewriterTimer);
           typewriterTimer = null;
@@ -2015,7 +2020,7 @@
         typewriterTimer = null;
       }
       if (activeDialogueTextEl) {
-        activeDialogueTextEl.textContent = fullCurrentText;
+        activeDialogueTextEl.innerHTML = fullCurrentText;
       }
       isTypewriterActive = false;
     }
@@ -2319,7 +2324,7 @@
       dialogueBoxAstroBee.classList.remove('hidden');
       activeDialogueTextEl = dialogueTextAstroBee;
 
-      const completeMsg = "Mission accomplished! Your lunar agriculture research brings us one step closer to sustainable crops on the Moon!";
+      const completeMsg = "Mission accomplished! Your <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-2')\">lunar agriculture research<span class=\"ref-num\">[2]</span></span> brings us one step closer to sustainable crops on the Moon!";
       startTypewriter(completeMsg);
     }
 

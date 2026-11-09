@@ -1473,7 +1473,7 @@
         cardImg: 'assets/power/Objects/solarArray.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "This is our Solar Array! Photovoltaic cells convert sunlight into electrical power."
+        text: "This is our <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-1')\">Solar Array<span class=\"ref-num\">[1]</span></span>! <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-2')\">Photovoltaic cells<span class=\"ref-num\">[2]</span></span> convert sunlight into electrical power."
       },
       // Scene 4: Solar Array img with text change
       {
@@ -1484,7 +1484,7 @@
         cardImg: 'assets/power/Objects/solarArray.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "Tall deployable arrays at the south pole capture continuous sunlight above craters."
+        text: "Tall <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-3')\">deployable arrays<span class=\"ref-num\">[3]</span></span> at the south pole capture continuous sunlight above craters."
       },
       // Scene 5: batteryStorage img
       {
@@ -1495,7 +1495,7 @@
         cardImg: 'assets/power/Objects/BatteryStorageUnit.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "This Battery Unit stores energy for use when solar arrays cannot produce power."
+        text: "This <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-4')\">Battery Unit<span class=\"ref-num\">[4]</span></span> stores energy for use when solar arrays cannot produce power."
       },
       // Scene 6: lunar_daynight-1 img
       {
@@ -1506,7 +1506,7 @@
         cardImg: 'assets/power/Objects/LunarDaynightCycle-1.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "Lunar daylight lasts 14 Earth days, followed by 14 days of night. Storage is vital because..."
+        text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-5')\">Lunar daylight lasts 14 Earth days<span class=\"ref-num\">[5]</span></span>, followed by 14 days of night. Storage is vital because..."
       },
       // Scene 7: lunar_daynight-2 img
       {
@@ -1517,7 +1517,7 @@
         cardImg: 'assets/power/Objects/LunarDaynightCycle-2.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "Panels need sunlight and battery capacity is limited, so we must conserve energy."
+        text: "Panels need sunlight and <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-6')\">battery capacity is limited<span class=\"ref-num\">[6]</span></span>, so we must conserve energy."
       },
       // Scene 8: fission img
       {
@@ -1528,7 +1528,7 @@
         cardImg: 'assets/power/Objects/Fission.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "Nuclear fission systems can generate continuous power even during long lunar darkness."
+        text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-7')\">Nuclear fission systems<span class=\"ref-num\">[7]</span></span> can generate continuous power even during long lunar darkness."
       },
       // Scene 9: nuclearF img
       {
@@ -1539,7 +1539,7 @@
         cardImg: 'assets/power/Objects/NuclearF.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "Fission reactors will power the outpost through darkness, but none operate here yet."
+        text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-8')\">Fission reactors<span class=\"ref-num\">[8]</span></span> will power the outpost through darkness, but none operate here yet."
       },
       // Scene 10: PDU img
       {
@@ -1550,7 +1550,7 @@
         cardImg: 'assets/power/Objects/PDU.webp',
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "This Power Distribution Unit routes electricity to life support and science labs."
+        text: "This <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-9')\">Power Distribution Unit<span class=\"ref-num\">[9]</span></span> routes electricity to life support and science labs."
       },
       // Scene 11: 5th image given by user - Chiaki Mukai waving + Astronaut, concluding text
       {
@@ -1562,7 +1562,7 @@
         cardImg: null,
         speaker: 'Chiaki Mukai',
         btnLabel: 'SKIP',
-        text: "Great job! Next, we verify your knowledge before solar restoration."
+        text: "Great job! Next, we verify your knowledge before <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-10')\">solar restoration<span class=\"ref-num\">[10]</span></span>."
       },
       // Scene 12: Astro Bee comes (user image 1)
       {
@@ -1633,7 +1633,7 @@
         id: 17,
         isMcq: true,
         mcqIndex: 4,
-        question: "Q5. Why is operating continuously at the battery's maximum discharge rating a concern?",
+        question: "Q5. Why is operating continuously at the <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-14')\">battery's maximum discharge rating<span class=\"ref-num\">[14]</span></span> a concern?",
         options: [
           { letter: "A", text: "It leaves little or no discharge margin." },
           { letter: "B", text: "It automatically recharges the battery." },
@@ -1767,7 +1767,7 @@
         mcqAdvanceTimer = null;
       }
       mcqAnswered = false;
-      mcqQuestionTitle.textContent = mcq.question;
+      mcqQuestionTitle.innerHTML = mcq.question;
       mcqOptionsList.innerHTML = '';
 
       mcq.options.forEach((opt, optIdx) => {
@@ -1876,7 +1876,7 @@
       dialogueBoxAstroBee.classList.remove('hidden');
       activeDialogueTextEl = dialogueTextAstroBee;
 
-      const completeMsg = "Mission accomplished! Power station and habitat are safe and fully operational!";
+      const completeMsg = "Mission accomplished! <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-power-15')\">Power station and habitat<span class=\"ref-num\">[15]</span></span> are safe and fully operational!";
       startTypewriter(completeMsg);
     }
 
@@ -1891,8 +1891,8 @@
       if (!container) return;
       textEl.style.fontSize = '';
       textEl.style.lineHeight = '';
-      const prevText = textEl.textContent;
-      textEl.textContent = fullStr;
+      const prevHtml = textEl.innerHTML;
+      textEl.innerHTML = fullStr;
       const maxH = container.clientHeight - 16;
       if (maxH > 16) {
         let sizePx = parseFloat(window.getComputedStyle(textEl).fontSize) || 20;
@@ -1905,7 +1905,7 @@
           textEl.style.lineHeight = String(lh);
         }
       }
-      textEl.textContent = prevText;
+      textEl.innerHTML = prevHtml;
     }
 
     window.addEventListener('resize', () => {
@@ -1919,7 +1919,7 @@
       if (typeTimer) clearTimeout(typeTimer);
       isTyping = true;
       if (activeDialogueTextEl) {
-        activeDialogueTextEl.textContent = '';
+        activeDialogueTextEl.innerHTML = '';
         fitDialogueText(activeDialogueTextEl, str);
       }
       let charIndex = 0;
@@ -1927,9 +1927,14 @@
       function typeChar() {
         if (!isTyping) return;
         if (charIndex < str.length) {
-          if (activeDialogueTextEl) activeDialogueTextEl.textContent += str.charAt(charIndex);
+          if (str.charAt(charIndex) === '<') {
+            const closeIdx = str.indexOf('>', charIndex);
+            charIndex = closeIdx !== -1 ? closeIdx + 1 : charIndex + 1;
+          } else {
+            charIndex++;
+          }
+          if (activeDialogueTextEl) activeDialogueTextEl.innerHTML = str.slice(0, charIndex);
           if (charIndex % 3 === 0) sound.playTypewriter();
-          charIndex++;
           typeTimer = setTimeout(typeChar, 18);
         } else {
           isTyping = false;
@@ -1942,7 +1947,7 @@
       if (!isTyping) return;
       isTyping = false;
       if (typeTimer) clearTimeout(typeTimer);
-      if (activeDialogueTextEl) activeDialogueTextEl.textContent = currentFullText;
+      if (activeDialogueTextEl) activeDialogueTextEl.innerHTML = currentFullText;
     }
 
     function handleDialogueClick() {
@@ -2018,7 +2023,7 @@
         }
         return;
       }
-      if (params.get('state') === 'opened' || params.has('complete')) {
+      if (params.get('state') === 'opened' || params.has('complete') || params.has('scene')) {
         const trans = document.getElementById("entryTransition");
         if (trans) trans.classList.add("dismissed");
         entryTransitionDone = true;
@@ -2102,12 +2107,16 @@
 
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
-      if (new URLSearchParams(window.location.search).has('complete')) {
+      initEntryTransition();
+      const sParam = new URLSearchParams(window.location.search).get('scene');
+      if (sParam !== null) {
+        renderScene(parseInt(sParam, 10));
+        finishTypewriter();
+      } else if (new URLSearchParams(window.location.search).has('complete')) {
         correctAnswersCount = 1;
         showMissionComplete();
       } else {
         renderScene(0);
-        initEntryTransition();
       }
     });
   </script>

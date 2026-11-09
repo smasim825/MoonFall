@@ -157,7 +157,7 @@
     {
       id: 2,
       name: "Astro Bee Emergency Warning",
-      text: "WARNING! Solar radiation level is rising!",
+      text: "WARNING! <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-1')\">Solar radiation level is rising<span class=\"ref-num\">[1]</span></span>!",
       boxId: "dialogueBoxScene2",
       textId: "dialogueTextScene2",
       redAlarm: true,
@@ -166,7 +166,7 @@
     {
       id: 3,
       name: "Rakesh Sharma Radiation Shelter Alert",
-      text: "A solar storm is approaching! Unlike Earth, the Moon has no natural protection against radiation. Quick, let's get inside the radiation shelter!",
+      text: "A solar storm is approaching! Unlike Earth, the <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-2')\">Moon has no natural protection against radiation<span class=\"ref-num\">[2]</span></span>. Quick, let's get inside the <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-3')\">radiation shelter<span class=\"ref-num\">[3]</span></span>!",
       boxId: "dialogueBoxScene3",
       textId: "dialogueTextScene3",
       redAlarm: true,
@@ -175,7 +175,7 @@
     {
       id: 4,
       name: "Space Radiation Telemetry",
-      text: "Space radiation consists of tiny, energetic particles that can harm astronauts, even though we can't see them. There are two main types: Solar Particle Events (SPEs) and Galactic Cosmic Rays (GCRs).",
+      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-4')\">Space radiation consists of tiny, energetic particles<span class=\"ref-num\">[4]</span></span> that can harm astronauts, even though we can't see them. There are two main types: Solar Particle Events (SPEs) and Galactic Cosmic Rays (GCRs).",
       boxId: "dialogueBoxScene4",
       textId: "dialogueTextScene4",
       redAlarm: true,
@@ -184,7 +184,7 @@
     {
       id: 5,
       name: "SPEs Explanation",
-      text: "SPEs come from the Sun and can cause sudden radiation spikes during solar storms. That's why we must act quickly when a warning appears.",
+      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-4')\">SPEs come from the Sun<span class=\"ref-num\">[5]</span></span> and can cause sudden radiation spikes during solar storms. That's why we must act quickly when a warning appears.",
       boxId: "dialogueBoxScene5",
       textId: "dialogueTextScene5",
       redAlarm: true,
@@ -193,7 +193,7 @@
     {
       id: 6,
       name: "GCRs Explanation",
-      text: "GCRs come from beyond our Solar System. They're always present and difficult to block, even when the Sun is calm.",
+      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-4')\">GCRs come from beyond our Solar System<span class=\"ref-num\">[6]</span></span>. They're always present and difficult to block, even when the Sun is calm.",
       boxId: "dialogueBoxScene6",
       textId: "dialogueTextScene6",
       redAlarm: true,
@@ -202,7 +202,7 @@
     {
       id: 7,
       name: "Earth Protection",
-      text: "Earth's magnetic field deflects many charged particles, and the atmosphere absorbs and deflects those particles. But the Moon lacks these natural shields, so we must build our own protection.",
+      text: "<span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-7')\">Earth's magnetic field deflects many charged particles<span class=\"ref-num\">[7]</span></span>, and the atmosphere absorbs and deflects those particles. But the Moon lacks these natural shields, so we must build our own protection.",
       boxId: "dialogueBoxScene7",
       textId: "dialogueTextScene7",
       redAlarm: true,
@@ -212,7 +212,7 @@
     {
       id: 8,
       name: "Radiation Shelter Briefing",
-      text: "Now that we're safe inside the shelter, let's protect our shelter from radiation! Placing materials between the radiation and the crew reduces exposure.",
+      text: "Now that we're safe inside the shelter, let's <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-7')\">protect our shelter from radiation<span class=\"ref-num\">[8]</span></span>! Placing materials between the radiation and the crew reduces exposure.",
       boxId: "dialogueBoxScene8",
       textId: "dialogueTextScene8",
       redAlarm: false,
@@ -223,7 +223,7 @@
     {
       id: 9,
       name: "Arrange Supplies",
-      text: "We already have water containers, food, and other supplies. Let’s arrange them around the crew to strengthen our shield!",
+      text: "We already have water containers, food, and other supplies. Let’s arrange them around the crew to <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-9')\">strengthen our shield<span class=\"ref-num\">[9]</span></span>!",
       boxId: "dialogueBoxScene9",
       textId: "dialogueTextScene9",
       redAlarm: false,
@@ -288,7 +288,7 @@
     {
       id: 14,
       name: "Regolith Shielding Introduction",
-      text: "The Moon is covered in a loose material called lunar regolith, which we can use to provide additional radiation shielding around and over parts of our habitat.",
+      text: "The Moon is covered in a loose material called lunar regolith, which we can use to provide additional <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-10')\">radiation shielding around and over parts of our habitat<span class=\"ref-num\">[10]</span></span>.",
       boxId: "dialogueBoxScene14",
       textId: "dialogueTextScene14",
       redAlarm: false,
@@ -301,7 +301,7 @@
     {
       id: 15,
       name: "Smart Engineering With Regolith",
-      text: "Using regolith means we won’t have to transport every kilogram of shielding material from Earth. Remember, smart engineering is about the best use of the resources available to us!",
+      text: "Using <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-rad-10')\">regolith means we won’t have to transport every kilogram of shielding material from Earth<span class=\"ref-num\">[11]</span></span>. Remember, smart engineering is about the best use of the resources available to us!",
       boxId: "dialogueBoxScene15",
       textId: "dialogueTextScene15",
       redAlarm: false,
@@ -482,17 +482,22 @@
   // Typewriter Effect
   // =========================================================================
   function typewriterEffect(element, fullText) {
-    element.textContent = '';
+    element.innerHTML = '';
     isTyping = true;
     let charIndex = 0;
 
     typewriterTimer = setInterval(() => {
       if (charIndex < fullText.length) {
-        element.textContent += fullText[charIndex];
-        if (fullText[charIndex] !== ' ' && charIndex % 2 === 0) {
+        if (fullText[charIndex] === '<') {
+          const closeIdx = fullText.indexOf('>', charIndex);
+          charIndex = closeIdx !== -1 ? closeIdx + 1 : charIndex + 1;
+        } else {
+          charIndex++;
+        }
+        element.innerHTML = fullText.slice(0, charIndex);
+        if (fullText[charIndex - 1] !== ' ' && charIndex % 2 === 0) {
           sound.playTypewriter();
         }
-        charIndex++;
       } else {
         clearInterval(typewriterTimer);
         isTyping = false;
@@ -506,7 +511,7 @@
     const scene = SCENES[currentSceneIndex];
     if (scene && scene.textId) {
       const el = document.getElementById(scene.textId);
-      if (el) el.textContent = scene.text;
+      if (el) el.innerHTML = scene.text;
     }
     isTyping = false;
   }
@@ -1002,6 +1007,14 @@
     }
 
     // Hash-based deep linking
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('scene')) {
+      const sNum = parseInt(urlParams.get('scene'), 10);
+      if (!isNaN(sNum) && sNum >= 0 && sNum < SCENES.length) {
+        setScene(sNum);
+        return;
+      }
+    }
     const hash = window.location.hash;
     if (hash && hash.startsWith('#scene')) {
       const sNum = parseInt(hash.replace('#scene', ''), 10);
