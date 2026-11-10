@@ -586,22 +586,53 @@
         </div>
       </article>
 
-      <!-- HYDRO [2]: WHAT IS LUNAR REGOLITH? -->
+      <!-- HYDRO [2]: SPACE HYDROPONICS & NUTRIENT DELIVERY -->
       <article class="sidebar-card card-plant" id="card-hydro-2">
         <div class="card-title-row">
-          <h4 class="card-title">🌑 What Is Lunar Regolith?</h4>
+          <h4 class="card-title">💧 Space Hydroponics &amp; Nutrient Delivery</h4>
           <span class="card-badge">NASA SCIENCE</span>
         </div>
         <div class="card-source-row">
-          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/moon/what-is-lunar-regolith/" target="_blank" rel="noopener noreferrer">NASA Science</a></span>
+          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/biological-physical/investigations/xroots/" target="_blank" rel="noopener noreferrer">NASA Science</a></span>
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
-          The Moon’s surface is covered with a powdery dust layer formed from billions of years of meteorite impacts, solar wind bombardment, and cosmic ray shattering.
+          NASA's XROOTS (eXposed Root On-Orbit Test System) and Plant Water Management investigations test soilless hydroponic and aeroponic techniques, delivering precise mineral nutrient solutions directly to roots without soil.
         </p>
         <div class="card-links-col">
-          <a class="card-text-link" href="https://science.nasa.gov/moon/what-is-lunar-regolith/" target="_blank" rel="noopener noreferrer">
-            <span>Explore What Is Lunar Regolith? (NASA Science)</span>
+          <a class="card-text-link" href="https://science.nasa.gov/biological-physical/investigations/xroots/" target="_blank" rel="noopener noreferrer">
+            <span>Explore XROOTS Hydroponic System (NASA Science)</span>
+          </a>
+          <a class="card-text-link" href="https://science.nasa.gov/biological-physical/investigations/pwm/" target="_blank" rel="noopener noreferrer">
+            <span>Plant Water &amp; Nutrient Management (NASA Science)</span>
+          </a>
+        </div>
+        <div style="margin-top: 6px;">
+          <button class="card-inspect-btn" type="button" onclick="handleMapInspect('bldPlant', 'badgePlant')" title="Zoom to Plant Growth Lab">
+            <span>🔍 View on Base Map</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- HYDRO [2B]: EARTH SOIL VS LUNAR REGOLITH -->
+      <article class="sidebar-card card-plant" id="card-hydro-regolith">
+        <div class="card-title-row">
+          <h4 class="card-title">🌑 Earth Soil vs Lunar Regolith: What's the Difference?</h4>
+          <span class="card-badge">NASA SCIENCE</span>
+        </div>
+        <div class="card-source-row">
+          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/biological-physical/earth-soil-vs-lunar-regolith-whats-the-difference/" target="_blank" rel="noopener noreferrer">NASA Science</a></span>
+          <span class="card-source-dots">● ● ●</span>
+        </div>
+        <p class="card-desc">
+          The Moon's surface is covered with fragmented, abrasive regolith formed by meteorite impacts and solar radiation. Unlike Earth's organic-rich soil, lunar regolith lacks organic nutrients, requiring treatment and supplemental nutrition to support plant growth.
+        </p>
+        <div class="card-links-col">
+          <a class="card-text-link" href="https://science.nasa.gov/biological-physical/earth-soil-vs-lunar-regolith-whats-the-difference/" target="_blank" rel="noopener noreferrer">
+            <span>Explore Earth Soil vs Lunar Regolith (NASA Science)</span>
+          </a>
+          <a class="card-text-link" href="https://science.nasa.gov/moon/moon-dust/" target="_blank" rel="noopener noreferrer">
+            <span>Moon Dust Characteristics (NASA Science)</span>
           </a>
         </div>
         <div style="margin-top: 6px;">
@@ -618,14 +649,14 @@
           <span class="card-badge">CREW SAFETY</span>
         </div>
         <div class="card-source-row">
-          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/solar-system/moon/what-hazards-are-caused-by-lunar-regolith/" target="_blank" rel="noopener noreferrer">NASA Science</a></span>
+          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/biological-physical/what-hazards-are-caused-by-lunar-regolith/" target="_blank" rel="noopener noreferrer">NASA Science</a></span>
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
           Because there is no wind or water erosion on the Moon, regolith grains remain razor-sharp, abrasive, and dangerous to human lungs and seals if inhaled.
         </p>
         <div class="card-links-col">
-          <a class="card-text-link" href="https://science.nasa.gov/solar-system/moon/what-hazards-are-caused-by-lunar-regolith/" target="_blank" rel="noopener noreferrer">
+          <a class="card-text-link" href="https://science.nasa.gov/biological-physical/what-hazards-are-caused-by-lunar-regolith/" target="_blank" rel="noopener noreferrer">
             <span>What Hazards Are Caused by Lunar Regolith?</span>
           </a>
         </div>
@@ -653,8 +684,8 @@
           <a class="card-text-link" href="https://ntrs.nasa.gov/citations/20060051772" target="_blank" rel="noopener noreferrer">
             <span>Download Regolith Simulant User's Guide (NTRS)</span>
           </a>
-          <a class="card-text-link" href="https://science.nasa.gov/solar-system/moon/the-challenge-of-lunar-dust/" target="_blank" rel="noopener noreferrer">
-            <span>The Challenge of Lunar Dust - NASA Science</span>
+          <a class="card-text-link" href="https://ntrs.nasa.gov/citations/20220008062" target="_blank" rel="noopener noreferrer">
+            <span>The Challenge of Lunar Dust - NASA NTRS</span>
           </a>
         </div>
         <div style="margin-top: 6px;">
@@ -670,21 +701,21 @@
           <h4 class="card-title">🔬 Plant Stress &amp; Reddish Pigmentation</h4>
           <span class="card-badge">SPACE BIOLOGY</span>
         </div>
-        <a class="card-banner-wrap" href="https://science.nasa.gov/biological-physical/space-biology/" target="_blank" rel="noopener noreferrer" title="Explore NASA Space Biology Research">
+        <a class="card-banner-wrap" href="https://science.nasa.gov/biological-physical/programs/space-biology/" target="_blank" rel="noopener noreferrer" title="Explore NASA Space Biology Research">
           <img class="card-banner-img" src="assets/hydroponics/Astronaut Tending Hydroponic Garden.webp" alt="Astronaut Tending Space Garden" loading="lazy">
           <span class="card-banner-tag">NASA SCIENCE // SPACE BIOLOGY</span>
           <span class="card-banner-badge-rt">EXPLORE ↗</span>
         </a>
         <div class="card-source-row">
-          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/biological-physical/space-biology/" target="_blank" rel="noopener noreferrer">NASA Space Biology</a></span>
+          <span>Source: <a class="card-source-link" href="https://science.nasa.gov/biological-physical/programs/space-biology/" target="_blank" rel="noopener noreferrer">NASA Space Biology</a></span>
           <span class="card-source-dots">● ● ●</span>
         </div>
         <p class="card-desc">
           Compared to Earth soil, plants grown in lunar soil exhibited smaller sizes, slower development, and reddish-purple pigmentation (anthocyanins) caused by substrate stress.
         </p>
         <div class="card-links-col">
-          <a class="card-text-link" href="https://science.nasa.gov/biological-physical/space-biology/" target="_blank" rel="noopener noreferrer">
-            <span>Explore NASA Biological &amp; Physical Sciences</span>
+          <a class="card-text-link" href="https://science.nasa.gov/biological-physical/programs/space-biology/" target="_blank" rel="noopener noreferrer">
+            <span>Explore NASA Space Biology Program</span>
           </a>
         </div>
         <div style="margin-top: 6px;">

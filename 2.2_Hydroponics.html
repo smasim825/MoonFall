@@ -1703,7 +1703,7 @@
         astronaut: true,
         showCard: true,
         speaker: 'sunita',
-        text: "Scientists have been exploring ways to grow food on the Moon. Today, you'll help us test a special growing system using <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-1')\">treated lunar regolith</span> and <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-2')\">hydroponic nutrients</span>."
+        text: "Scientists have been exploring ways to grow food on the Moon. Today, you'll help us test a special growing system using <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-regolith')\">treated lunar regolith</span> and <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-2')\">hydroponic nutrients</span>."
       },
       // Scene 3 (index 2) - Collect Regolith
       {
@@ -1713,7 +1713,7 @@
         sunitaPose: 'assets/hydroponics/CharacterPoses/Sunita_Williams_Present2.webp',
         astronaut: true,
         speaker: 'sunita',
-        text: "So let's collect some <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-3')\">regolith</span>."
+        text: "So let's collect some <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-regolith')\">regolith</span>."
       },
       // Scene 4 (index 3) - Airlock Extreme Danger
       {
@@ -2324,7 +2324,7 @@
       dialogueBoxAstroBee.classList.remove('hidden');
       activeDialogueTextEl = dialogueTextAstroBee;
 
-      const completeMsg = "Mission accomplished! Your <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-2')\">lunar agriculture research</span> brings us one step closer to sustainable crops on the Moon!";
+      const completeMsg = "Mission accomplished! Your <span class=\"dialogue-ref-link\" onclick=\"event.stopPropagation(); window.openSidebarCard('card-hydro-1')\">lunar agriculture research</span> brings us one step closer to sustainable crops on the Moon!";
       startTypewriter(completeMsg);
     }
 
