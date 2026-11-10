@@ -2123,7 +2123,7 @@ screen and (max-height: 520px) {
 
   .diagram-card-container.card-wide,
   .meal-game-viewport .diagram-card-container.card-wide {
-    width: 46% !important;
+    width: 36% !important;
     max-width: 720px !important;
   }
 
