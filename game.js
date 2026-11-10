@@ -1038,10 +1038,8 @@
   // Mobile Orientation & Force Horizontal Handlers
   // =========================================================================
   window.toggleForceHorizontal = function () {
-    document.body.classList.toggle('force-horizontal');
-    document.body.classList.add('dismiss-orient');
-    const banner = document.getElementById('orientationBanner');
-    if (banner) banner.style.display = 'none';
+    // Disabled per user request: manual device rotation only
+    document.body.classList.remove('force-horizontal');
   };
 
   window.dismissOrientationBanner = function () {

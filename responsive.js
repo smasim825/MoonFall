@@ -171,68 +171,20 @@
   const FORCE_HORIZONTAL_STORAGE_KEY = 'moonfall_force_horizontal';
 
   const setForceHorizontal = (enabled) => {
-    syncVisualViewportVars();
-    document.body.classList.toggle('force-horizontal', enabled);
+    // Force-horizontal CSS rotation disabled per user request: rotate phone physically
+    document.body.classList.remove('force-horizontal');
     try {
-      sessionStorage.setItem(FORCE_HORIZONTAL_STORAGE_KEY, enabled ? 'true' : 'false');
+      sessionStorage.removeItem(FORCE_HORIZONTAL_STORAGE_KEY);
     } catch (e) {}
-    setTimeout(syncVisualViewportVars, 60);
-    if (typeof window.checkAndStartIntro === 'function') {
-      window.checkAndStartIntro();
-    }
-    if (enabled) {
-      setTimeout(() => window.showToolbarGuideIfNeeded(), 220);
-    }
   };
 
   window.requestLandscape = async () => {
-    if (document.body.classList.contains('force-horizontal')) {
-      setForceHorizontal(false);
-      const returnToggle = document.querySelector('.quick-rotate-toggle');
-      if (returnToggle) {
-        returnToggle.innerHTML = '↻';
-        returnToggle.setAttribute('aria-label', 'Rotate game view');
-        returnToggle.title = 'Rotate game view';
-      }
-      return;
-    }
-
-    if (typeof screen.orientation?.lock === 'function') {
-      try {
-        const appRoot = document.documentElement;
-        if (!document.fullscreenElement && appRoot.requestFullscreen) {
-          await appRoot.requestFullscreen();
-        }
-        await screen.orientation.lock('landscape');
-        return;
-      } catch {
-        if (document.fullscreenElement && document.exitFullscreen) {
-          await document.exitFullscreen().catch(() => {});
-        }
-      }
-    }
-
-    setForceHorizontal(true);
-    const banner = document.querySelector('.orientation-banner');
-    if (banner) banner.style.display = 'none';
-
-    const toggle = document.querySelector('.quick-rotate-toggle');
-    if (toggle) {
-      toggle.innerHTML = '↶';
-      toggle.setAttribute('aria-label', 'Return to portrait view');
-      toggle.title = 'Return to portrait view';
-    }
+    // Force rotation removed; users rotate device physically
+    setForceHorizontal(false);
   };
 
   window.toggleForceHorizontal = () => {
-    setForceHorizontal(!document.body.classList.contains('force-horizontal'));
-    const toggle = document.querySelector('.quick-rotate-toggle');
-    if (toggle) {
-      const isRotated = document.body.classList.contains('force-horizontal');
-      toggle.innerHTML = isRotated ? '↶' : '↻';
-      toggle.setAttribute('aria-label', isRotated ? 'Return to portrait view' : 'Rotate game view');
-      toggle.title = isRotated ? 'Return to portrait view' : 'Rotate game view';
-    }
+    setForceHorizontal(false);
   };
 
   let toastTimer = null;
@@ -324,20 +276,8 @@
 
   const restoreForceHorizontalIfNeeded = () => {
     try {
-      const params = new URLSearchParams(window.location.search);
-      const shouldForce =
-        params.has('force_horizontal') ||
-        (sessionStorage.getItem(FORCE_HORIZONTAL_STORAGE_KEY) === 'true' &&
-          window.matchMedia('(orientation: portrait)').matches);
-      if (shouldForce) {
-        setForceHorizontal(true);
-        const toggle = document.querySelector('.quick-rotate-toggle');
-        if (toggle) {
-          toggle.innerHTML = '↶';
-          toggle.setAttribute('aria-label', 'Reset view rotation');
-          toggle.title = 'Reset view rotation';
-        }
-      }
+      sessionStorage.removeItem(FORCE_HORIZONTAL_STORAGE_KEY);
+      document.body.classList.remove('force-horizontal');
     } catch (e) {}
   };
 

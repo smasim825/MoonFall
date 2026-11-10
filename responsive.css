@@ -112,28 +112,12 @@ body {
   margin-bottom: 20px;
 }
 
-.orientation-fallback-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #94a3b8;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 0.82rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  touch-action: manipulation;
-}
-
-.orientation-fallback-btn:hover,
-.orientation-fallback-btn:active {
-  background: rgba(0, 229, 255, 0.15);
-  border-color: #00e5ff;
-  color: #ffffff;
-}
-
-.quick-rotate-toggle:active {
-  transform: scale(0.92) !important;
+.orientation-buttons,
+.orientation-actions,
+.orientation-fallback-btn,
+.orientation-btn,
+.quick-rotate-toggle {
+  display: none !important;
 }
 
 /* ==========================================================================
@@ -163,22 +147,12 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
 }
 
 @media screen and (max-width: 1024px) and (orientation: portrait), screen and (max-height: 550px) and (orientation: portrait) {
-  body:not(.force-horizontal) .orientation-banner {
+  .orientation-banner {
     display: flex !important;
   }
 
-  body.force-horizontal:not(:has(#moonJourneyOverlay.active)):not(:has(#introOverlay:not(.fade-out):not([style*="display: none"]))) .quick-rotate-toggle {
-    display: flex !important;
-    position: fixed !important;
-    top: calc(var(--vv-top, 0px) + max(16px, env(safe-area-inset-top))) !important;
-    left: max(12px, env(safe-area-inset-left)) !important;
-    bottom: auto !important;
-    right: auto !important;
-    width: 34px !important;
-    height: 34px !important;
-    min-width: 34px !important;
-    min-height: 34px !important;
-    font-size: 18px !important;
+  .quick-rotate-toggle {
+    display: none !important;
   }
 
   body.force-horizontal #gameViewport,

@@ -4729,20 +4729,10 @@
           <polyline points="44,43 49,47 52,41" stroke="#facc15" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
         </svg>
       </div>
-      <div class="orientation-title">ROTATE YOUR DEVICE</div>
-      <p class="orientation-desc">Please turn your phone to <strong>Landscape mode</strong> for the full widescreen lunar mission experience.</p>
-      <div class="orientation-buttons">
-        <button class="orientation-fallback-btn" type="button" onclick="requestLandscape()">
-          🔒 Screen locked? Tap to force landscape
-        </button>
-      </div>
+      <div class="orientation-title">ROTATE YOUR PHONE</div>
+      <p class="orientation-desc">Please rotate your phone horizontally to <strong>Landscape mode</strong> to explore MoonFall Outpost.</p>
     </div>
   </aside>
-
-  <!-- Quick Floating Rotate Button on Mobile -->
-  <button class="quick-rotate-toggle" id="quickRotateBtn" onclick="requestLandscape()" title="Toggle Horizontal Screen" aria-label="Toggle Horizontal Screen">
-    🔄
-  </button>
 
   <!-- Intro Splash Screen: Pure Black Screen, Moon, MoonFall Title, Falling Stars, COC Loading Bar -->
   <div class="intro-overlay" id="introOverlay" onpointerdown="unlockGlobalAudio(); handleIntroClick();" onclick="unlockGlobalAudio(); handleIntroClick();">
