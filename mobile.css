@@ -495,7 +495,7 @@ screen and (max-height: 550px) {
   .building-plant {
     --glow-color: rgba(70, 255, 90, 0.95);
     left: 25%;
-    top: 65%;
+    top: 63%;
     width: 28.69%;
     z-index: 8;
     /* Upper layer of Main Base */
@@ -513,8 +513,8 @@ screen and (max-height: 550px) {
 
   .building-shelter {
     --glow-color: rgba(190, 80, 255, 1);
-    left: 59%;
-    top: 58%;
+    left: 58%;
+    top: 59%;
     width: 25%;
     z-index: 8;
     /* Upper layer of Main Base */
