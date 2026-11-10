@@ -2107,11 +2107,11 @@ screen and (max-height: 520px) {
   .diagram-card-container:not(.hidden),
   .meal-game-viewport .diagram-card-container:not(.hidden) {
     position: absolute !important;
-    top: clamp(40px, 12%, 60px) !important;
+    top: clamp(3px, 0%, 59px) !important;
     bottom: clamp(84px, 25%, 120px) !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: 42% !important;
+    width: 27% !important;
     height: auto !important;
     z-index: 15 !important;
     display: flex !important;
