@@ -493,18 +493,18 @@ screen and (max-height: 550px) {
   /* 5. Radiation Shelter (Purple Theme) - Front Layer (Upper of Main Base) */
   .badge-shelter {
     --badge-glow: rgba(190, 80, 255, 0.95);
-    left: 66.25%;
-    top: 53.5%;
-    width: 11.63%;
+    left: 71%;
+    top: 57%;
+    width: 11%;
     z-index: 25;
     animation: shelter-bounce 2.2s infinite ease-in-out 1.8s;
   }
 
   .building-shelter {
     --glow-color: rgba(190, 80, 255, 1);
-    left: 71%;
-    top: 57%;
-    width: 11%;
+    left: 62%;
+    top: 65%;
+    width: 25%;
     z-index: 8;
     /* Upper layer of Main Base */
   }
