@@ -1943,6 +1943,19 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
 }
 
 @media screen and (max-width: 900px), screen and (max-height: 520px) {
+  body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .base-resource-sidebar,
+  body:has(#introOverlay:not(.fade-out):not([style*="display:none"])) .base-resource-sidebar,
+  body:has(#moonJourneyOverlay.active) .base-resource-sidebar,
+  #introOverlay:not(.fade-out) ~ #baseViewport .base-resource-sidebar,
+  #introOverlay:not(.fade-out) ~ .base-resource-sidebar,
+  #moonJourneyOverlay.active ~ #baseViewport .base-resource-sidebar,
+  #moonJourneyOverlay.active ~ .base-resource-sidebar {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
   .base-resource-sidebar {
     position: absolute;
     top: 0;

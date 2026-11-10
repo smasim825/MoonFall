@@ -34,6 +34,20 @@ body > .base-resource-sidebar {
   box-shadow: none;
 }
 
+/* Strictly hide sidebar pull-tab & sidebar during loading screen and moon journey intro video */
+body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .base-resource-sidebar,
+body:has(#introOverlay:not(.fade-out):not([style*="display:none"])) .base-resource-sidebar,
+body:has(#moonJourneyOverlay.active) .base-resource-sidebar,
+#introOverlay:not(.fade-out) ~ #baseViewport .base-resource-sidebar,
+#introOverlay:not(.fade-out) ~ .base-resource-sidebar,
+#moonJourneyOverlay.active ~ #baseViewport .base-resource-sidebar,
+#moonJourneyOverlay.active ~ .base-resource-sidebar {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 /* Floating Pull-Tab Toggle Button pinned to left edge - Vertically Centered */
 .sidebar-pull-tab {
   position: absolute;
