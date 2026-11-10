@@ -1770,6 +1770,270 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     max-height: calc(50% - 4px) !important;
   }
 
+  /* Reserve Box Background, Track, and Battery Slots */
+  .reserve-box-bg,
+  .meal-game-viewport .reserve-box-bg {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+  }
+
+  .reserve-track,
+  .meal-game-viewport .reserve-track {
+    position: absolute !important;
+    left: 5% !important;
+    top: 43% !important;
+    width: 90.8% !important;
+    height: 33.5% !important;
+    z-index: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: clamp(2px, 0.35vw, 4px) !important;
+    padding: 0 1.5% !important;
+    box-sizing: border-box !important;
+  }
+
+  .reserve-slot,
+  .meal-game-viewport .reserve-slot {
+    flex: 1 1 0 !important;
+    height: 86% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    min-width: 0 !important;
+  }
+
+  .reserve-slot img,
+  .meal-game-viewport .reserve-slot img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    image-rendering: pixelated !important;
+    transition: opacity 0.25s ease, filter 0.25s ease, transform 0.2s ease !important;
+  }
+
+  .reserve-slot.active img,
+  .meal-game-viewport .reserve-slot.active img {
+    opacity: 1 !important;
+    filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.6)) !important;
+  }
+
+  .power-box .reserve-slot.active img,
+  .meal-game-viewport .power-box .reserve-slot.active img {
+    filter: drop-shadow(0 0 4px rgba(253, 203, 14, 0.6)) !important;
+  }
+
+  .reserve-slot.empty img,
+  .meal-game-viewport .reserve-slot.empty img {
+    opacity: 0.12 !important;
+    filter: grayscale(100%) brightness(0.4) !important;
+  }
+
+  .reserve-slot.preview-deduct img,
+  .meal-game-viewport .reserve-slot.preview-deduct img {
+    opacity: 0.75 !important;
+    filter: drop-shadow(0 0 6px rgba(255, 51, 68, 0.9)) sepia(1) saturate(5) hue-rotate(-50deg) !important;
+  }
+
+  /* Meal Option Card Details & Nutrition Text */
+  .meal-option-card img,
+  .meal-game-viewport .meal-option-card img {
+    max-height: 100% !important;
+    object-fit: contain !important;
+    image-rendering: pixelated !important;
+  }
+
+  .card-icon,
+  .meal-game-viewport .card-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .card-details,
+  .meal-game-viewport .card-details {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+  }
+
+  .card-title,
+  .meal-game-viewport .card-title {
+    font-size: clamp(0.7rem, 1.8vw, 0.95rem) !important;
+    line-height: 1.1 !important;
+  }
+
+  .card-nutrition,
+  .meal-game-viewport .card-nutrition {
+    font-size: clamp(0.55rem, 1.3vw, 0.72rem) !important;
+    line-height: 1.1 !important;
+    opacity: 0.85 !important;
+  }
+
+  /* Diagram & Educational Cards */
+  .diagram-card-container,
+  .meal-game-viewport .diagram-card-container {
+    position: absolute !important;
+    top: clamp(40px, 12%, 60px) !important;
+    bottom: clamp(84px, 25%, 120px) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 42% !important;
+    height: auto !important;
+    z-index: 15 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    pointer-events: none !important;
+  }
+
+  .diagram-card-container.card-wide,
+  .meal-game-viewport .diagram-card-container.card-wide {
+    width: 46% !important;
+    max-width: 720px !important;
+  }
+
+  .diagram-card-container.card-compact,
+  .meal-game-viewport .diagram-card-container.card-compact {
+    width: 26% !important;
+    max-width: 360px !important;
+  }
+
+  .diagram-card-img,
+  .meal-game-viewport .diagram-card-img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    object-fit: contain !important;
+    image-rendering: pixelated !important;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.85)) !important;
+  }
+
+  .card-prep-info,
+  .meal-game-viewport .card-prep-info {
+    margin-top: 4px !important;
+    padding: 2px 12px !important;
+    font-size: clamp(0.75rem, 1.6vw, 1.1rem) !important;
+  }
+
+  /* Scene 11: Daily Intake Popup Modal */
+  .daily-intake-popup,
+  .meal-game-viewport .daily-intake-popup {
+    position: absolute !important;
+    top: 39% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: min(52%, 580px) !important;
+    max-height: 48vh !important;
+    aspect-ratio: 1182 / 589 !important;
+    z-index: 35 !important;
+  }
+
+  .daily-intake-bg,
+  .meal-game-viewport .daily-intake-bg {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+  }
+
+  .daily-intake-text-wrap,
+  .meal-game-viewport .daily-intake-text-wrap {
+    position: absolute !important;
+    top: 17% !important;
+    left: 38% !important;
+    right: 5% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    pointer-events: none !important;
+    z-index: 2 !important;
+  }
+
+  .daily-intake-title,
+  .meal-game-viewport .daily-intake-title {
+    font-size: clamp(1.1rem, 2.4vw, 2.2rem) !important;
+  }
+
+  .daily-intake-sub,
+  .meal-game-viewport .daily-intake-sub {
+    font-size: clamp(0.9rem, 1.9vw, 1.8rem) !important;
+    margin-top: 2px !important;
+  }
+
+  .daily-intake-slot1,
+  .meal-game-viewport .daily-intake-slot1 {
+    position: absolute !important;
+    left: 5.4% !important;
+    top: 64.5% !important;
+    width: 28.9% !important;
+    height: 21.6% !important;
+    z-index: 3 !important;
+    overflow: hidden !important;
+    border-radius: 4px !important;
+  }
+
+  .daily-intake-slot1 img,
+  .meal-game-viewport .daily-intake-slot1 img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill !important;
+  }
+
+  /* MCQ Stage Box for Daily Meal */
+  .mcq-stage-box,
+  .meal-game-viewport .mcq-stage-box {
+    position: absolute !important;
+    top: 14% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 82% !important;
+    min-height: 40% !important;
+    padding: 10px 14px !important;
+    z-index: 25 !important;
+  }
+
+  .mcq-robot-avatar,
+  .meal-game-viewport .mcq-robot-avatar {
+    top: -18px !important;
+    left: -12px !important;
+    width: 48px !important;
+    height: 50px !important;
+  }
+
+  .mcq-robot-avatar img,
+  .meal-game-viewport .mcq-robot-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  .mcq-question-card,
+  .meal-game-viewport .mcq-question-card {
+    padding: 8px 12px !important;
+    font-size: clamp(0.72rem, 1.8vw, 0.95rem) !important;
+  }
+
+  .mcq-option-item,
+  .meal-game-viewport .mcq-option-item {
+    padding: 6px 10px !important;
+    font-size: clamp(0.68rem, 1.6vw, 0.88rem) !important;
+  }
+
   /* Dialogue Dock Footer */
   .meal-game-viewport .dialogue-wrapper {
     bottom: 2px !important;
