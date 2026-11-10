@@ -165,75 +165,16 @@
     } catch (e) {}
     const modal = document.getElementById('toolbarGuideOverlay');
     if (modal) modal.classList.remove('active');
-    setFullscreenDesired(true);
     await window.toggleFullScreen();
   };
 
-  const FULLSCREEN_DESIRED_KEY = 'moonfall_fullscreen_desired';
+  // Clear any legacy fullscreen auto-resumption flags
+  try {
+    localStorage.removeItem('moonfall_fullscreen_desired');
+    sessionStorage.removeItem('moonfall_fullscreen_desired');
+  } catch (e) {}
 
-  const isFullscreenDesired = () => {
-    try {
-      return localStorage.getItem(FULLSCREEN_DESIRED_KEY) === 'true' ||
-        sessionStorage.getItem(FULLSCREEN_DESIRED_KEY) === 'true';
-    } catch (e) {
-      return false;
-    }
-  };
-
-  const setFullscreenDesired = (desired) => {
-    try {
-      const val = desired ? 'true' : 'false';
-      localStorage.setItem(FULLSCREEN_DESIRED_KEY, val);
-      sessionStorage.setItem(FULLSCREEN_DESIRED_KEY, val);
-    } catch (e) {}
-  };
-
-  // Keep preference synchronized when entering fullscreen
-  const syncFullscreenState = () => {
-    if (document.fullscreenElement || document.webkitFullscreenElement) {
-      setFullscreenDesired(true);
-    }
-  };
-  document.addEventListener('fullscreenchange', syncFullscreenState);
-  document.addEventListener('webkitfullscreenchange', syncFullscreenState);
-
-  // Preserve desired state when leaving a page (navigating to another mission)
-  window.addEventListener('beforeunload', () => {
-    if (document.fullscreenElement || document.webkitFullscreenElement) {
-      setFullscreenDesired(true);
-    }
-  });
-
-  const requestFullscreenLandscape = async () => {
-    if (document.fullscreenElement || document.webkitFullscreenElement) return;
-    const el = document.documentElement;
-    try {
-      if (el.requestFullscreen) {
-        await el.requestFullscreen();
-      } else if (el.webkitRequestFullscreen) {
-        el.webkitRequestFullscreen();
-      }
-      if (screen.orientation?.lock) {
-        await screen.orientation.lock('landscape').catch(() => {});
-      }
-      window.scrollTo(0, 1);
-    } catch (e) {}
-  };
-
-  // Attempt immediate fullscreen resumption in case browser allows it
-  if (isFullscreenDesired()) {
-    requestFullscreenLandscape();
-  }
-
-  // Resume fullscreen on first touch/pointer/click gesture anywhere on screen
-  const resumeFullscreenOnFirstGesture = async () => {
-    if (!isFullscreenDesired()) return;
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      await requestFullscreenLandscape();
-    }
-  };
-
-  // Universal AudioContext & SoundEngine unlocker across all missions
+  // Universal AudioContext & SoundEngine unlocker across all missions (sound only, no fullscreen)
   const unlockAudioContextOnGesture = () => {
     try {
       if (window.sound) {
@@ -255,7 +196,6 @@
   };
 
   ['pointerdown', 'touchstart', 'click'].forEach((type) => {
-    window.addEventListener(type, resumeFullscreenOnFirstGesture, { capture: true, passive: true });
     window.addEventListener(type, unlockAudioContextOnGesture, { capture: true, passive: true });
   });
   window.addEventListener('keydown', unlockAudioContextOnGesture, { capture: true, passive: true });
@@ -330,14 +270,12 @@
           fullscreenEntered = true;
         } catch (e) {}
       }
-      setFullscreenDesired(true);
     } else {
       if (document.exitFullscreen) {
         await document.exitFullscreen().catch(() => {});
       } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
       }
-      setFullscreenDesired(false);
     }
 
     // 2. Lock screen orientation to landscape
