@@ -3,14 +3,16 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>MOON FALL — Final Mission: 18 Hours to Keep the Outpost Alive</title>
   <link rel="icon" type="image/webp" href="assets/moon.webp">
   <link rel="preload" href="assets/BG.webp" as="image">
   <link rel="preload" href="assets/scene 3/Frame 6.webp" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Orbitron:wght@500;600;700;800;900&family=Pixel+Operator:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Orbitron:wght@500;600;700;800;900&family=Pixel+Operator:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="missions-shared.css">
@@ -207,37 +209,51 @@
        DECISION HISTORY SIDEBAR (Left wall console: M1 to M8 in 8 vertical rows)
        ========================================================================= */
     .decision-history-sidebar {
-      position: absolute;
-      left: clamp(8px, 1.1vw, 16px);
-      top: clamp(124px, 17.5vh, 138px);
-      width: clamp(142px, 12.8vw, 168px);
-      background: rgba(4, 14, 32, 0.94);
-      border: 1.5px solid var(--pixel-blue-border);
-      border-radius: 8px;
-      box-shadow: 0 0 22px rgba(0, 229, 255, 0.28), inset 0 0 14px rgba(0, 229, 255, 0.08);
-      padding: 8px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+      position: relative;
+      left: auto;
+      top: auto;
+      width: auto;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
       z-index: 220;
       pointer-events: auto;
       font-family: var(--font-pixel);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       user-select: none;
       -webkit-user-select: none;
       box-sizing: border-box;
       transition: all 0.25s ease;
+      flex-shrink: 0;
     }
 
     .decision-sidebar-header {
-      display: flex;
+      background: rgba(0, 10, 30, 0.82);
+      border: 1.5px solid var(--pixel-blue-border);
+      border-radius: 6px;
+      padding: 3px 8px;
+      min-height: 38px;
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.35);
-      padding-bottom: 5px;
-      margin-bottom: 2px;
+      gap: 8px;
+      box-sizing: border-box;
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.28);
       cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: all 0.2s ease;
+      font-family: var(--font-pixel);
+      flex-shrink: 0;
+    }
+
+    .decision-sidebar-header:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.55);
+      transform: translateY(-1px);
     }
 
     .decision-sidebar-title {
@@ -4265,6 +4281,7 @@
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.6);
       }
+
       100% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
@@ -5167,13 +5184,33 @@
       border-radius: 2px;
     }
 
-    .debrief-wings.left span:nth-child(1) { width: 100%; }
-    .debrief-wings.left span:nth-child(2) { width: 75%; align-self: flex-end; }
-    .debrief-wings.left span:nth-child(3) { width: 50%; align-self: flex-end; }
+    .debrief-wings.left span:nth-child(1) {
+      width: 100%;
+    }
 
-    .debrief-wings.right span:nth-child(1) { width: 100%; }
-    .debrief-wings.right span:nth-child(2) { width: 75%; align-self: flex-start; }
-    .debrief-wings.right span:nth-child(3) { width: 50%; align-self: flex-start; }
+    .debrief-wings.left span:nth-child(2) {
+      width: 75%;
+      align-self: flex-end;
+    }
+
+    .debrief-wings.left span:nth-child(3) {
+      width: 50%;
+      align-self: flex-end;
+    }
+
+    .debrief-wings.right span:nth-child(1) {
+      width: 100%;
+    }
+
+    .debrief-wings.right span:nth-child(2) {
+      width: 75%;
+      align-self: flex-start;
+    }
+
+    .debrief-wings.right span:nth-child(3) {
+      width: 50%;
+      align-self: flex-start;
+    }
 
     .debrief-title {
       font-family: 'Orbitron', sans-serif;
@@ -5464,8 +5501,13 @@
       line-height: 1.1;
     }
 
-    .debrief-eval-badge.best { color: #34d399; }
-    .debrief-eval-badge.worst { color: #fbbf24; }
+    .debrief-eval-badge.best {
+      color: #34d399;
+    }
+
+    .debrief-eval-badge.worst {
+      color: #fbbf24;
+    }
 
     .debrief-eval-mission {
       font-family: 'Orbitron', monospace;
@@ -5591,9 +5633,11 @@
       .debrief-eval-grid {
         grid-template-columns: 1fr;
       }
+
       .debrief-tele-row {
         flex-wrap: wrap;
       }
+
       .debrief-tele-row.row-3 .debrief-tele-cell,
       .debrief-tele-cell {
         max-width: none;
@@ -5608,69 +5652,88 @@
         gap: 2.5px;
         max-height: 98vh;
       }
+
       .debrief-top-bracket {
         margin-top: -2px;
         margin-bottom: 0px;
       }
+
       .debrief-badge {
         padding: 1.5px 14px;
         gap: 6px;
       }
+
       .debrief-badge-text {
         font-size: 9.5px;
       }
+
       .debrief-title-row {
         gap: 10px;
       }
+
       .debrief-wings {
         width: 24px;
         gap: 2px;
       }
+
       .debrief-wings span {
         height: 2px;
       }
+
       .debrief-title {
         font-size: 17px;
       }
+
       .debrief-sub {
         font-size: 10.5px;
       }
+
       .debrief-stars-row {
         gap: 8px;
         margin: 0;
       }
+
       .debrief-stars-row svg {
         width: 22px;
         height: 22px;
       }
+
       .debrief-score-box {
         padding: 3px 12px 4px;
         margin: 0;
       }
+
       .debrief-score-label {
         font-size: 9.5px;
       }
+
       .debrief-score-val {
         font-size: 22px;
       }
+
       .debrief-verdict-pill {
         padding: 1.5px 10px;
         gap: 5px;
       }
+
       .debrief-verdict-pill svg {
         width: 12px;
         height: 12px;
       }
+
       .debrief-verdict-pill span {
         font-size: 9px;
       }
+
       .debrief-telemetry-grid {
         gap: 3px;
       }
+
       .debrief-tele-row {
         gap: 5px;
         flex-wrap: nowrap !important;
       }
+
       .debrief-tele-cell {
         padding: 2.5px 6px;
         gap: 6px;
@@ -5679,122 +5742,156 @@
         flex: 1 1 0% !important;
         max-width: none !important;
       }
+
       .debrief-tele-row.row-3 .debrief-tele-cell {
         max-width: 32% !important;
         flex: 1 1 0% !important;
       }
+
       .debrief-tele-icon {
         width: 20px;
         height: 20px;
       }
+
       .debrief-tele-icon svg {
         width: 18px;
         height: 18px;
       }
+
       .debrief-tele-label {
         font-size: 7.5px;
       }
+
       .debrief-tele-val {
         font-size: 13px;
       }
+
       .debrief-eval-title {
         font-size: 9px;
       }
+
       .debrief-eval-grid {
         grid-template-columns: 1fr 1fr !important;
         gap: 5px;
       }
+
       .debrief-eval-card {
         padding: 3px 8px;
         gap: 5px;
       }
+
       .debrief-eval-badge {
         font-size: 8.5px;
       }
+
       .debrief-eval-mission {
         font-size: 11px;
       }
+
       .debrief-eval-stat {
         font-size: 8.5px;
       }
+
       .debrief-eval-desc {
         font-size: 9px;
         line-height: 1.15;
       }
+
       .debrief-eval-emblem svg {
         width: 28px;
         height: 28px;
       }
+
       .debrief-decisions-summary {
         margin: 0;
         gap: 2px;
       }
+
       .debrief-dec-row {
         gap: 3px;
       }
+
       .debrief-dec-pill {
         font-size: 7.5px;
         padding: 1.5px 5px;
       }
+
       .mission-btn img {
         height: clamp(28px, 5.5vw, 40px);
       }
+
       .mission-failure-card {
         padding: 8px 16px;
         gap: 7px;
         max-height: 96vh;
       }
+
       .failure-alarm-badge {
         padding: 3px 10px;
         margin-bottom: 3px;
         font-size: 0.85rem;
       }
+
       .failure-title {
         font-size: 1.35rem;
       }
+
       .failure-subtitle {
         font-size: 0.9rem;
         margin: 2px 0 0 0;
       }
+
       .failure-callout-box {
         padding: 7px 12px;
         gap: 5px;
       }
+
       .failure-stat-display {
         padding-bottom: 5px;
       }
+
       .failure-stat-label {
         font-size: 1.05rem;
       }
+
       .failure-stat-value {
         font-size: 1.5rem;
       }
+
       .failure-threshold-badge {
         font-size: 0.82rem;
         padding: 3px 8px;
       }
+
       .failure-crit-msg {
         font-size: 0.92rem;
       }
+
       .failure-flight-rule {
         font-size: 0.8rem;
       }
+
       .failure-astrobee-box {
         padding: 5px 10px;
         gap: 8px;
       }
+
       .failure-astrobee-img {
         width: 38px;
       }
+
       .failure-astrobee-text {
         font-size: 0.88rem;
       }
+
       .failure-tele-cell {
         padding: 4px 6px;
       }
+
       .failure-tele-label {
         font-size: 0.72rem;
       }
+
       .failure-tele-val {
         font-size: 0.98rem;
       }
@@ -6058,7 +6155,8 @@
       display: none !important;
     }
   </style>
-  <link rel="stylesheet" href="mobile.css?v=20261111_fix7" media="screen and (max-width: 1024px), screen and (max-height: 550px)">
+  <link rel="stylesheet" href="mobile.css?v=20261111_fix7"
+    media="screen and (max-width: 1024px), screen and (max-height: 550px)">
 </head>
 
 <body>
@@ -6074,7 +6172,8 @@
             d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z" />
         </svg></div>
       <div class="orientation-title">ROTATE YOUR PHONE</div>
-      <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to continue.</p>
+      <p class="orientation-desc">MoonFall is built for horizontal screen. Please rotate your phone horizontally to
+        continue.</p>
     </div>
   </aside>
 
@@ -6130,56 +6229,29 @@
         <div class="top-hud-left">
           <div class="hud-title-badge" id="hudTitle">M1: 30-Minute Warning</div>
 
-          <!-- CUSTOM INTERACTIVE MISSION CLOCK (Behind / next to Mission Name) -->
-          <div class="hud-mission-clock" id="hudMissionClock" onclick="openCrisisClockModal()"
-            title="Click to view 18-Hour Crisis Mission Chronometer" role="button" tabindex="0">
-            <div class="clock-icon-wrapper">
-              <svg class="clock-svg-icon" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="#38bdf8" stroke-width="1.8" />
-                <path d="M12 7v5l3 2" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round" />
-                <circle cx="12" cy="12" r="1.5" fill="#38bdf8" />
-              </svg>
-              <div class="clock-radar-sweep"></div>
-            </div>
-            <div class="clock-time-display">
-              <span class="clock-label">TIME</span>
-              <div class="clock-digits-grp">
-                <span class="clock-digits" id="clockDigits">05:30</span><span class="clock-seconds"
-                  id="clockSeconds">:00</span>
-              </div>
-            </div>
-            <span class="clock-mission-chip" id="clockMissionChip">M1</span>
-          </div>
-        </div>
-
-        <div style="display:flex; gap:8px;">
-          <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
-            <svg class="hud-svg-icon" id="soundSvg" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor"
-                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-            </svg>
-            <span id="soundText">SOUND</span>
-          </button>
-          <button class="hud-btn" id="restartBtn" onclick="restartMission()" title="Restart Mission"
-            aria-label="Restart Mission">
-            <svg class="hud-svg-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor"
-                d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
-            </svg>
-            <span>RESTART</span>
-          </button>
-          <button class="hud-btn" onclick="returnToBase()" title="Return to Main Base" aria-label="Return to Main Base">
-            <svg class="hud-home-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </svg>
-            <span>MAIN BASE</span>
-          </button>
-        </div>
-      </header>
-
-      <!-- DECISION HISTORY SIDEBAR (Left wall console: M1 to M8 in 8 vertical rows) -->
+        <!-- DECISION HISTORY SIDEBAR (Left wall console: M1 to M8 in 8 vertical rows) -->
       <aside class="decision-history-sidebar" id="decisionHistorySidebar" aria-label="Commander Decision Tracker">
+        <!-- CUSTOM INTERACTIVE MISSION CLOCK (Behind / next to Mission Name) -->
+        <div class="hud-mission-clock" id="hudMissionClock" onclick="openCrisisClockModal()"
+          title="Click to view 18-Hour Crisis Mission Chronometer" role="button" tabindex="0">
+          <div class="clock-icon-wrapper">
+            <svg class="clock-svg-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" stroke="#38bdf8" stroke-width="1.8" />
+              <path d="M12 7v5l3 2" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <circle cx="12" cy="12" r="1.5" fill="#38bdf8" />
+            </svg>
+            <div class="clock-radar-sweep"></div>
+          </div>
+          <div class="clock-time-display">
+            <span class="clock-label">TIME</span>
+            <div class="clock-digits-grp">
+              <span class="clock-digits" id="clockDigits">05:30</span><span class="clock-seconds"
+                id="clockSeconds">:00</span>
+            </div>
+          </div>
+          <span class="clock-mission-chip" id="clockMissionChip">M1</span>
+        </div>
         <div class="decision-sidebar-header" onclick="openDecisionModal()" title="Click to open Commander Decision Log">
           <div class="decision-sidebar-title">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="#38bdf8">
@@ -6191,7 +6263,7 @@
           <button class="decision-sidebar-log-btn" onclick="openDecisionModal()" title="View Decision Log">LOG</button>
         </div>
 
-        <div class="decision-sidebar-slots" id="historySlots">
+        <!-- <div class="decision-sidebar-slots" id="historySlots">
           <div class="decision-sidebar-row active" id="slotM1" onclick="openDecisionModal()" data-mission="1"
             title="M1: 30-Minute Warning">
             <span class="slot-num">M1</span>
@@ -6232,12 +6304,40 @@
             <span class="slot-num">M8</span>
             <span class="slot-val">—</span>
           </div>
+        </div> -->
+
+        <!-- <div class="decision-sidebar-footer" onclick="openDecisionModal()" title="Click to view Complete Decision Log">
+          <span>TIMELINE LOG ➔</span>
+        </div> -->
+      </aside>
         </div>
 
-        <div class="decision-sidebar-footer" onclick="openDecisionModal()" title="Click to view Complete Decision Log">
-          <span>TIMELINE LOG ➔</span>
+        <div style="display:flex; gap:8px;">
+          <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
+            <svg class="hud-svg-icon" id="soundSvg" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor"
+                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+            </svg>
+            <span id="soundText">SOUND</span>
+          </button>
+          <button class="hud-btn" id="restartBtn" onclick="restartMission()" title="Restart Mission"
+            aria-label="Restart Mission">
+            <svg class="hud-svg-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor"
+                d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+            </svg>
+            <span>RESTART</span>
+          </button>
+          <button class="hud-btn" onclick="returnToBase()" title="Return to Main Base" aria-label="Return to Main Base">
+            <svg class="hud-home-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+            <span>MAIN BASE</span>
+          </button>
         </div>
-      </aside>
+      </header>
+
+      
 
       <!-- OUTPOST RESOURCE TELEMETRY SIDEBAR (Right side wall console) -->
       <aside class="resource-telemetry-sidebar" id="resourceTelemetrySidebar" aria-label="Outpost Resource Telemetry">
@@ -6706,7 +6806,8 @@
             <div class="uplink-astrobee-bubble">
               <div class="uplink-astrobee-name">Astro Bee</div>
               <div class="uplink-astrobee-text" id="uplinkAstrobeeSpeech">
-                "Commander! Outpost status report beaming to Earth (384,400 km @ c = 1.3s delay). Standing by for Earth handshake..."
+                "Commander! Outpost status report beaming to Earth (384,400 km @ c = 1.3s delay). Standing by for Earth
+                handshake..."
               </div>
             </div>
           </div>
@@ -6749,8 +6850,9 @@
               <div class="debrief-score-val" id="debriefScoreVal">68.4 / 100</div>
               <div class="debrief-verdict-pill">
                 <svg viewBox="0 0 20 20" width="16" height="16" fill="none">
-                  <circle cx="10" cy="10" r="9" fill="#10b981"/>
-                  <path d="M6 10L9 13L14 7" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="10" r="9" fill="#10b981" />
+                  <path d="M6 10L9 13L14 7" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
                 </svg>
                 <span id="debriefScoreVerdict">OUTSTANDING OUTPOST SURVIVAL // ALL GATES PASSED</span>
               </div>
@@ -6770,7 +6872,8 @@
 
           <!-- Bottom Action Buttons (Try Again & Home Graphics from earlier missions) -->
           <div class="mission-complete-buttons debrief-actions-row">
-            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again" aria-label="Try Again">
+            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again"
+              aria-label="Try Again">
               <img src="assets/Frame 25.webp" alt="Try Again">
             </button>
             <button class="mission-btn btn-home" onclick="returnToBase()" title="Home" aria-label="Home">
@@ -6826,7 +6929,8 @@
 
           <!-- Action Buttons -->
           <div class="mission-complete-buttons failure-actions-row">
-            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again" aria-label="Try Again">
+            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again"
+              aria-label="Try Again">
               <img src="assets/Frame 25.webp" alt="Try Again">
             </button>
             <button class="mission-btn btn-home" onclick="returnToBase()" title="Home" aria-label="Home">
