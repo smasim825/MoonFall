@@ -1200,11 +1200,14 @@
       position: relative;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      width: 100%;
       flex-direction: row;
       gap: 15px;
     }
 
     .telemetry-row-info {
+      flex: 0 0 88px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1227,6 +1230,8 @@
     }
 
     .telemetry-val {
+      flex: 0 0 38px;
+      text-align: right;
       font-weight: bold;
       font-size: clamp(1.05rem, 1.3vw, 1.22rem);
       color: #ffffff;
@@ -1248,6 +1253,8 @@
     }
 
     .telemetry-bar-track {
+      flex: 1;
+      margin: 0 8px;
       width: 100%;
       height: clamp(11px, 1.5vh, 14px);
       background: rgba(15, 23, 42, 0.95);
