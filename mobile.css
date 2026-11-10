@@ -522,7 +522,8 @@ screen and (max-height: 550px) {
     z-index: 8;
     /* Upper layer of Main Base */
   }
-   /* power mission  */
+
+  /* power mission  */
   .radiation-card-frame {
     position: relative;
     top: -28% !important;
@@ -565,7 +566,8 @@ screen and (max-height: 550px) {
     margin-left: 6.5%;
     margin-right: 1.5%;
   }
-    /* ISRU MISSION */
+
+  /* ISRU MISSION */
   .lab-dashboard-card {
     position: absolute;
     top: 17%;
@@ -581,7 +583,40 @@ screen and (max-height: 550px) {
     gap: 7px;
     pointer-events: auto;
     z-index: 20;
-}
+  }
+
+  /* final mission */
+  .resource-telemetry-sidebar {
+    top: 75px;
+    max-height: calc(100vh - 90px);
+    /* Keeps it from bleeding past the bottom */
+    overflow-y: auto;
+    /* Allows scrolling if screen is extremely short */
+    padding: 6px 10px;
+    gap: 3px;
+    /* Tighter spacing between rows */
+  }
+
+  .telemetry-row {
+    gap: 4px;
+    padding: 2px 0;
+  }
+
+  .telemetry-row-info {
+    flex: 0 0 65px;
+  }
+
+  .telemetry-svg-icon {
+    width: 13px;
+    height: 13px;
+  }
+
+  .resource-telemetry-sidebar,
+  .telemetry-val,
+  .telemetry-footer-stats {
+    font-size: 0.75rem;
+    /* Scales text down slightly to save vertical space */
+  }
 
   /* Top HUD: Pin firmly across the top with burger on far-left and telemetry dead-center */
   .game-top-hud {

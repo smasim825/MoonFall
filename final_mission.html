@@ -2143,8 +2143,8 @@
       z-index: 2;
       width: 100%;
       height: 100%;
-      padding-left: clamp(260px, 23.5vw, 305px);
-      padding-right: clamp(15%, 17.5vw, 19%);
+      padding-left: clamp(137px, 2.5vw, 233px);
+      padding-right: clamp(0%, 2.5vw, 1%);
       padding-top: 10px;
       padding-bottom: 6px;
       display: flex;
@@ -7107,26 +7107,31 @@
     function restartMission() {
       sound.clickSound();
       currentStep = 0;
+      if (typeof typingTimer !== 'undefined' && typingTimer) {
+        clearInterval(typingTimer);
+        typingTimer = null;
+      }
+      isTyping = false;
       clearSessionMissionData();
       try {
         const url = new URL(window.location.href);
         url.search = '';
         window.history.replaceState({}, '', url.pathname);
       } catch (e) { }
+      if (typeof setActiveMissionTime === 'function') {
+        setActiveMissionTime('M1');
+      }
       updateTelemetryUI();
       updateDecisionHistoryUI();
-      if (m1DecisionOverlayEl) {
-        m1DecisionOverlayEl.classList.remove('active');
-        m1DecisionOverlayEl.classList.add('hidden');
+      const decisionOverlay = document.getElementById('m1DecisionOverlay');
+      if (decisionOverlay) {
+        decisionOverlay.classList.remove('active');
+        decisionOverlay.classList.add('hidden');
       }
-      if (cardEvacuateEl) {
-        cardEvacuateEl.classList.remove('selected');
-        cardEvacuateEl.style.opacity = '1';
-      }
-      if (cardSecureEquipEl) {
-        cardSecureEquipEl.classList.remove('selected');
-        cardSecureEquipEl.style.opacity = '1';
-      }
+      document.querySelectorAll('.decision-card').forEach(card => {
+        card.classList.remove('selected');
+        card.style.opacity = '1';
+      });
       const miniTaskModal = document.getElementById('crisisMiniTaskModal');
       if (miniTaskModal) miniTaskModal.classList.add('hidden');
       const consequenceModal = document.getElementById('decisionConsequenceModal');
