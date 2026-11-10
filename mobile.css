@@ -419,7 +419,7 @@ screen and (max-height: 550px) {
     --badge-glow: rgba(255, 220, 0, 0.95);
     left: 26.05%;
     top: 29.11%;
-    width: 11.35%;
+    width: 9%;
     z-index: 25;
     animation: power-bounce 2.2s infinite ease-in-out;
   }
@@ -438,7 +438,7 @@ screen and (max-height: 550px) {
     --badge-glow: rgba(0, 230, 255, 0.95);
     left: 64.76%;
     top: 19.85%;
-    width: 14.62%;
+    width: 12%;
     z-index: 25;
     animation: isru-bounce 2.3s infinite ease-in-out 0.45s;
   }
@@ -474,9 +474,9 @@ screen and (max-height: 550px) {
   /* 4. Plant Growth Lab (Green Theme) - Front Layer (Upper of Main Base) */
   .badge-plant {
     --badge-glow: rgba(70, 255, 90, 0.95);
-    left: 22.95%;
-    top: 58.5%;
-    width: 12.41%;
+    left: 26%;
+    top: 66%;
+    width: 11%;
     z-index: 25;
     animation: plant-bounce 2.4s infinite ease-in-out 1.35s;
   }
@@ -502,9 +502,9 @@ screen and (max-height: 550px) {
 
   .building-shelter {
     --glow-color: rgba(190, 80, 255, 1);
-    left: 56.76%;
-    top: 59.15%;
-    width: 29.90%;
+    left: 71%;
+    top: 57%;
+    width: 11%;
     z-index: 8;
     /* Upper layer of Main Base */
   }
