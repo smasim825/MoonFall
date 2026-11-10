@@ -1,0 +1,2017 @@
+html,
+body {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  display: block !important;
+  position: relative !important;
+}
+
+.orientation-banner {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+  align-items: center;
+  justify-content: center;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  background: #05080e;
+}
+
+.orientation-card {
+  box-sizing: border-box;
+  width: min(100%, 360px);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  padding: 22px 18px;
+}
+
+.orientation-btn {
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+.quick-rotate-toggle {
+  display: none !important;
+  position: fixed !important;
+  bottom: max(14px, env(safe-area-inset-bottom)) !important;
+  left: max(14px, env(safe-area-inset-left)) !important;
+  top: auto !important;
+  right: auto !important;
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  border-radius: 50% !important;
+  background: rgba(4, 18, 36, 0.94) !important;
+  border: 2px solid #00cfff !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 14px rgba(0, 207, 255, 0.5) !important;
+  color: #00e5ff !important;
+  font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
+  font-size: 22px !important;
+  line-height: 1 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+  z-index: 1000010 !important;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+/* Animated Rotate Phone Banner */
+.phone-rotate-anim {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.phone-rotate-svg {
+  animation: phone-landscape-flip 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transform-origin: center center;
+  filter: drop-shadow(0 0 14px rgba(0, 229, 255, 0.5));
+}
+
+@keyframes phone-landscape-flip {
+  0%, 15% {
+    transform: rotate(0deg);
+  }
+  45%, 70% {
+    transform: rotate(90deg);
+  }
+  90%, 100% {
+    transform: rotate(0deg);
+  }
+}
+
+.orientation-title {
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: 1.65rem;
+  color: #00e5ff;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  text-shadow: 0 0 14px rgba(0, 229, 255, 0.6);
+}
+
+.orientation-desc {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: #cbd5e1;
+  margin-bottom: 20px;
+}
+
+.orientation-fallback-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #94a3b8;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.orientation-fallback-btn:hover,
+.orientation-fallback-btn:active {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: #00e5ff;
+  color: #ffffff;
+}
+
+.quick-rotate-toggle:active {
+  transform: scale(0.92) !important;
+}
+
+/* ==========================================================================
+   Mobile Burger Menu & Top HUD Navigation
+   ========================================================================== */
+.mobile-menu-toggle {
+  display: none;
+}
+
+.mobile-nav-menu {
+  display: none;
+}
+
+body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .game-top-hud,
+body:has(#moonJourneyOverlay.active) .game-top-hud {
+  display: none !important;
+}
+
+body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) #baseViewport,
+body:has(#moonJourneyOverlay.active) #baseViewport {
+  display: none !important;
+}
+
+body:has(#introOverlay:not(.fade-out):not([style*="display: none"])) .quick-rotate-toggle,
+body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
+  display: none !important;
+}
+
+@media screen and (max-width: 1024px) and (orientation: portrait), screen and (max-height: 550px) and (orientation: portrait) {
+  body:not(.force-horizontal) .orientation-banner {
+    display: flex !important;
+  }
+
+  body.force-horizontal:not(:has(#moonJourneyOverlay.active)):not(:has(#introOverlay:not(.fade-out):not([style*="display: none"]))) .quick-rotate-toggle {
+    display: flex !important;
+    position: fixed !important;
+    top: calc(var(--vv-top, 0px) + max(16px, env(safe-area-inset-top))) !important;
+    left: max(12px, env(safe-area-inset-left)) !important;
+    bottom: auto !important;
+    right: auto !important;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    font-size: 18px !important;
+  }
+
+  body.force-horizontal #gameViewport,
+  body.force-horizontal #baseViewport,
+  body.force-horizontal #introOverlay,
+  body.force-horizontal #moonJourneyOverlay,
+  body.force-horizontal .moon-journey-overlay,
+  body.force-horizontal.final-mission-page,
+  body.force-horizontal .game-viewport,
+  body.force-horizontal .meal-game-viewport,
+  body.force-horizontal .power-game-viewport,
+  body.force-horizontal .base-viewport {
+    position: fixed !important;
+    inset: auto !important;
+    top: var(--vv-center-y, 50%) !important;
+    left: var(--vv-center-x, 50%) !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: var(--vv-h, 100svh) !important;
+    height: var(--vv-w, 100vw) !important;
+    max-width: none !important;
+    max-height: none !important;
+    transform: translate(-50%, -50%) rotate(90deg) !important;
+    transform-origin: center center !important;
+    overflow: hidden !important;
+  }
+
+  body.force-horizontal.final-mission-page {
+    min-height: 0 !important;
+    overflow-y: auto !important;
+  }
+
+  /* Force-Horizontal Viewport Coordinate Adaptations
+     When phone is in portrait with force-horizontal applied (e.g. Chrome/Safari with top & bottom bars):
+     - The visible width in user's rotated view is var(--vv-h, 100svh)
+     - The visible height in user's rotated view is var(--vv-w, 100vw) */
+  body.force-horizontal .mobile-menu-toggle {
+    top: 8px !important;
+    left: 16px !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    font-size: 19px !important;
+  }
+
+  body.force-horizontal .mobile-nav-menu {
+    top: 54px !important;
+    left: 16px !important;
+  }
+
+  body.force-horizontal .ab-root.ab-in-stage .ab-launch {
+    top: max(20px, calc(env(safe-area-inset-top) + 12px)) !important;
+    right: 16px !important;
+    width: 48px !important;
+    min-height: 48px !important;
+    height: 48px !important;
+    padding: 2px !important;
+    touch-action: manipulation !important;
+    z-index: 1000006 !important;
+  }
+
+  body.force-horizontal .ab-root.ab-in-stage .ab-launch img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  body.force-horizontal .ab-root.ab-in-stage .ab-launch-short {
+    font-size: 12px !important;
+  }
+
+  body.force-horizontal .base-music-toggle {
+    top: calc(max(20px, calc(env(safe-area-inset-top) + 12px)) + 54px) !important;
+    right: 16px !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    font-size: 0.65rem !important;
+    padding: 2px !important;
+    touch-action: manipulation !important;
+  }
+
+  body.force-horizontal .top-status-bar {
+    top: max(16px, calc(env(safe-area-inset-top) + 8px)) !important;
+    max-width: calc(var(--vv-h, 100svh) - 140px) !important;
+    padding: 2px 6px !important;
+    gap: 3px !important;
+  }
+
+  body.force-horizontal .top-status-bar .status-item,
+  body.force-horizontal .top-status-bar .status-label,
+  body.force-horizontal .top-status-bar .status-val {
+    font-size: clamp(0.50rem, 1.25vh, 0.64rem) !important;
+  }
+
+  body.force-horizontal .top-status-bar .status-icon {
+    font-size: 0.75rem !important;
+  }
+
+  body.force-horizontal .top-hud {
+    top: max(20px, calc(env(safe-area-inset-top) + 12px)) !important;
+    left: max(14px, env(safe-area-inset-left)) !important;
+    right: max(76px, calc(68px + env(safe-area-inset-right))) !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
+  }
+
+  body.force-horizontal .top-hud > * {
+    pointer-events: auto !important;
+  }
+
+  body.force-horizontal .hud-title-badge {
+    font-size: clamp(0.72rem, 1.85vh, 0.92rem) !important;
+    padding: 4px 10px !important;
+    min-height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  body.force-horizontal .hud-btn {
+    font-size: clamp(0.70rem, 1.75vh, 0.88rem) !important;
+    padding: 6px 12px !important;
+    min-height: 38px !important;
+    gap: 5px !important;
+    touch-action: manipulation !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: rgba(0, 229, 255, 0.3) !important;
+  }
+
+  body.force-horizontal .dialogue-wrapper {
+    padding: 0 14px !important;
+  }
+
+  body.force-horizontal .scene4-container {
+    left: 24% !important;
+    right: 68px !important;
+    top: max(36px, calc(env(safe-area-inset-top) + 32px)) !important;
+    bottom: max(165px, calc(env(safe-area-inset-bottom) + 34vh)) !important;
+  }
+
+  body.force-horizontal .missions-wrapper {
+    left: 14px !important;
+    top: max(64px, calc(env(safe-area-inset-top) + 52px)) !important;
+  }
+
+  body.force-horizontal .onboarding-guide-container:not(.step-3-power) {
+    top: 44px !important;
+    left: 14px !important;
+    width: min(260px, calc(var(--vv-h, 100svh) - 36px)) !important;
+  }
+
+  body.force-horizontal .onboarding-guide-container.step-3-power .onboarding-directive-card {
+    width: min(225px, 38vh) !important;
+  }
+
+  body.force-horizontal .crew-modal-card {
+    width: min(calc(var(--vv-h, 100svh) - 24px), 920px) !important;
+    max-height: calc(var(--vv-w, 100vw) - 20px) !important;
+  }
+
+  body.force-horizontal .coc-phase-board-wrap {
+    width: min(calc(var(--vv-h, 100svh) - 24px), 850px) !important;
+    max-height: calc(var(--vv-w, 100vw) - 20px) !important;
+  }
+
+  body.force-horizontal .coc-phase-board-wrap.wide-4-cards {
+    width: min(calc(var(--vv-h, 100svh) - 20px), 880px) !important;
+  }
+
+  body.force-horizontal .nasa-dossier-card {
+    width: min(calc(var(--vv-h, 100svh) - 28px), 620px) !important;
+    max-height: calc(var(--vv-w, 100vw) - 16px) !important;
+  }
+
+  body.force-horizontal .nasa-dossier-body {
+    max-height: calc(var(--vv-w, 100vw) - 100px) !important;
+  }
+
+  body.force-horizontal .tactical-modal-card {
+    max-height: calc(var(--vv-w, 100vw) - 16px) !important;
+  }
+}
+
+/* ==========================================================================
+   Mobile / Phone Screen Rules (<= 1024px or mobile height <= 550px)
+   ========================================================================== */
+@media screen and (max-width: 1024px), screen and (max-height: 550px) {
+  /* Top HUD: Pin firmly across the top with burger on far-left and telemetry dead-center */
+  .game-top-hud {
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 0 !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    z-index: 250 !important;
+    pointer-events: none !important;
+  }
+
+  .game-top-hud > * {
+    pointer-events: auto !important;
+  }
+
+  /* Hide Desktop navigation buttons on mobile screen */
+  .hud-group-left,
+  .top-nav-cluster .top-nav-tabs {
+    display: none !important;
+  }
+
+  /* Mobile Burger Toggle Button: ALWAYS IN TOP-LEFT CORNER */
+  .mobile-menu-toggle {
+    display: inline-flex !important;
+    position: absolute !important;
+    top: max(16px, calc(env(safe-area-inset-top) + 8px)) !important;
+    left: max(8px, env(safe-area-inset-left)) !important;
+    margin: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+    border: 2px solid #00cfff !important;
+    border-radius: 8px !important;
+    background: linear-gradient(180deg, #10243b 0%, #06101f 100%) !important;
+    box-shadow: 0 3px 0 #000, 0 0 14px rgba(0, 207, 255, 0.4) !important;
+    color: #00e5ff !important;
+    font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    z-index: 1000005 !important;
+    transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
+  }
+
+  .mobile-menu-toggle:active {
+    transform: translateY(2px) !important;
+  }
+
+  /* Onboarding Tutorial Arrow & Container: Enforce mobile alignment directly in CSS */
+  .onboarding-guide-container:not(.step-3-power) {
+    top: 48px !important;
+    left: 8px !important;
+    right: auto !important;
+    bottom: auto !important;
+    align-items: flex-start !important;
+    width: min(290px, calc(100vw - 20px)) !important;
+  }
+
+  .onboarding-guide-container:not(.step-3-power) .onboarding-arrow-glyph {
+    margin-left: 8px !important;
+  }
+
+  /* Step 3 is positioned dynamically in JS (anchored beside the Power Station badge) */
+  .onboarding-guide-container.step-3-power {
+    align-items: center !important;
+  }
+
+  .onboarding-guide-container.step-3-power .onboarding-directive-card {
+    width: min(260px, 42vw) !important;
+  }
+
+  /* Telemetry Status Bar: CENTERED IN THE MIDDLE OF THE SCREEN */
+  .top-status-bar {
+    display: flex !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: max(8px, env(safe-area-inset-top)) !important;
+    transform: translateX(-50%) !important;
+    width: auto !important;
+    max-width: min(720px, calc(100% - 120px)) !important;
+    align-items: center !important;
+    justify-content: safe center !important;
+    gap: 5px !important;
+    padding: 3px 6px !important;
+    margin: 0 !important;
+    background: rgba(0, 16, 40, 0.94) !important;
+    border: 1.5px solid #0050b3 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 14px rgba(0, 80, 179, 0.5) !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    z-index: 251 !important;
+  }
+
+  .top-status-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .top-status-bar .status-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+    padding: 0 2px !important;
+    font-size: clamp(0.60rem, 1.55vw, 0.72rem) !important;
+    flex-shrink: 0 !important;
+  }
+
+  .top-status-bar .status-icon {
+    font-size: 0.85rem !important;
+  }
+
+  .top-status-bar .status-label {
+    display: inline !important; /* Stays visible: POWER, WATER, BIOMASS, REGOLITH */
+    color: #94a3b8 !important;
+    font-weight: bold !important;
+    font-size: clamp(0.60rem, 1.55vw, 0.72rem) !important;
+  }
+
+  .top-status-bar .status-val {
+    font-size: clamp(0.60rem, 1.55vw, 0.72rem) !important;
+  }
+
+  /* Item 4: Mobile Burger Dropdown Navigation Menu - Reduced Width (Not Length) */
+  .mobile-nav-menu {
+    display: none;
+    position: absolute !important;
+    top: calc(max(8px, env(safe-area-inset-top)) + 42px) !important;
+    left: max(8px, env(safe-area-inset-left)) !important;
+    right: auto !important;
+    width: 172px !important;
+    max-width: calc(100vw - 20px) !important;
+    background: rgba(4, 12, 26, 0.98) !important;
+    border: 2px solid #00cfff !important;
+    border-radius: 10px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 207, 255, 0.35) !important;
+    padding: 6px !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    z-index: 1000006 !important;
+    pointer-events: auto !important;
+    backdrop-filter: blur(12px) !important;
+    animation: menuFadeIn 0.18s ease-out;
+  }
+
+  @keyframes menuFadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .game-top-hud.mobile-menu-open .mobile-nav-menu {
+    display: flex !important;
+  }
+
+  .mobile-nav-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 7px 10px !important;
+    font-family: 'Jersey 10', 'Pixel Operator', monospace !important;
+    font-size: 0.98rem !important;
+    letter-spacing: 0.04em !important;
+    font-weight: bold !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+    transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease !important;
+  }
+
+  .mobile-nav-item:active {
+    transform: scale(0.97) !important;
+  }
+
+  .mobile-btn-phases {
+    background: linear-gradient(180deg, #ffca28 0%, #f59e0b 100%) !important;
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+    box-shadow: inset 0 2px 0 #ffe082, inset 0 -2px 0 #b45309, 0 3px 0 #000 !important;
+  }
+
+  .mobile-btn-crew {
+    background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%) !important;
+    border: 2px solid #000000 !important;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 0 #000 !important;
+    box-shadow: inset 0 2px 0 #7dd3fc, inset 0 -2px 0 #0369a1, 0 3px 0 #000 !important;
+  }
+
+  .mobile-btn-nasa {
+    background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%) !important;
+    border: 2px solid #00e5ff !important;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 0 #000 !important;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  }
+
+  .mobile-btn-upgrades {
+    background: linear-gradient(180deg, #475569 0%, #334155 100%) !important;
+    border: 2px solid #94a3b8 !important;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 0 #000 !important;
+    box-shadow: 0 0 12px rgba(148, 163, 184, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .mobile-btn-fullscreen {
+    background: linear-gradient(180deg, #059669 0%, #047857 100%) !important;
+    border: 2px solid #34d399 !important;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 0 #000 !important;
+    box-shadow: 0 0 12px rgba(52, 211, 153, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  }
+
+  /* Item 1: Astrobee Chatbot & Music Button (Top Right Stack) */
+  .ab-root.ab-in-stage .ab-launch {
+    position: absolute !important;
+    top: max(16px, calc(env(safe-area-inset-top) + 8px)) !important;
+    right: max(8px, env(safe-area-inset-right)) !important;
+    width: 56px !important;
+    min-height: 56px !important;
+    height: 56px !important;
+    padding: 3px 2px !important;
+    border: 2px solid #00e5ff !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4), 0 4px 12px rgba(0, 0, 0, 0.8) !important;
+    gap: 0 !important;
+    touch-action: manipulation !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch-short {
+    font-size: 14px !important;
+    margin-top: 1px !important;
+  }
+
+  .base-music-toggle {
+    position: absolute !important;
+    top: calc(max(16px, calc(env(safe-area-inset-top) + 8px)) + 60px) !important;
+    right: max(8px, env(safe-area-inset-right)) !important;
+    width: 56px !important;
+    min-width: 56px !important;
+    padding: 3px 2px !important;
+    border-radius: 6px !important;
+    font-size: 0.72rem !important;
+    gap: 2px !important;
+    line-height: 1 !important;
+    border-width: 1.5px !important;
+  }
+
+  .base-music-toggle .music-icon {
+    font-size: 11px !important;
+  }
+
+  .base-music-toggle .music-label {
+    font-size: 10px !important;
+  }
+
+  /* Item 3: Mission Sidebar & Play/Close Buttons */
+  .missions-wrapper {
+    position: relative !important;
+    top: max(60px, calc(env(safe-area-inset-top) + 48px)) !important;
+    left: max(8px, env(safe-area-inset-left)) !important;
+    gap: 6px !important;
+    padding-top: 0 !important;
+  }
+
+  .missions-content-box {
+    width: min(200px, 40vw) !important;
+    gap: 5px !important;
+  }
+
+  .mission-header-card {
+    min-height: 34px !important;
+    padding: 3px 7px !important;
+    gap: 6px !important;
+    border-radius: 8px !important;
+    border-width: 2px !important;
+  }
+
+  .mission-header-icon {
+    font-size: 1.15rem !important;
+  }
+
+  .mission-header-title {
+    font-size: 0.95rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .mission-subtasks-box {
+    padding: 4px 6px !important;
+    gap: 4px !important;
+    border-radius: 8px !important;
+    border-width: 2px !important;
+  }
+
+  .subtask-btn {
+    min-height: 32px !important;
+    padding: 3px 6px !important;
+    font-size: 0.9rem !important;
+    border-radius: 6px !important;
+    border-width: 2px !important;
+  }
+
+  .mission-side-actions {
+    gap: 5px !important;
+    padding-top: 0 !important;
+  }
+
+  .mission-btn-play,
+  .mission-btn-close {
+    width: 70px !important;
+    aspect-ratio: 309 / 127 !important;
+  }
+
+  /* Item 5: Mobile Modals
+     - Meet the Crew: 4 crew members SIDE BY SIDE
+     - Phases: compact board, 4 mission cards SIDE BY SIDE in phase 1
+     - NASA Research & Base Upgrades: compact 2-column grid */
+  /* 5.1: Meet The Crew Modal (4 Crew Members Side by Side) */
+  .crew-modal-card {
+    width: min(96vw, 920px) !important;
+    max-height: 94vh !important;
+    border-radius: 10px !important;
+  }
+
+  .crew-modal-header {
+    padding: 6px 14px !important;
+  }
+
+  .crew-modal-title {
+    font-size: 1.1rem !important;
+  }
+
+  .crew-modal-title .modal-close-btn,
+  .crew-modal-header .modal-close-btn {
+    font-size: 1rem !important;
+    padding: 2px 6px !important;
+  }
+
+  .crew-modal-body {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    overflow-y: auto !important;
+  }
+
+  .crew-member-card {
+    padding: 8px 6px !important;
+    border-width: 2px !important;
+    border-radius: 8px !important;
+  }
+
+  .crew-avatar-frame {
+    width: 58px !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .crew-avatar-img {
+    max-height: 52px !important;
+  }
+
+  .crew-name-badge {
+    font-size: 0.92rem !important;
+    margin-bottom: 3px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 100% !important;
+  }
+
+  .crew-role-badge {
+    font-size: 0.72rem !important;
+    padding: 2px 4px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 4px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .crew-speech-bubble {
+    font-size: 0.68rem !important;
+    line-height: 1.18 !important;
+    padding: 4px 6px !important;
+    max-height: 82px !important;
+    overflow-y: auto !important;
+    border-radius: 6px !important;
+  }
+
+  /* 5.2: Mission Phases Board Modal */
+  .coc-phase-board-wrap {
+    width: min(96vw, 760px) !important;
+    max-height: 96vh !important;
+  }
+
+  .coc-phase-board-wrap.wide-4-cards {
+    width: min(98vw, 860px) !important;
+  }
+
+  .coc-board-tabs {
+    padding: 0 6px !important;
+    gap: 4px !important;
+  }
+
+  .coc-tab {
+    padding: 3px 8px !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* Centered Red Close X Button */
+  .coc-board-close-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-bottom: 2px !important;
+    border: 2px solid #000000 !important;
+    border-radius: 6px !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  }
+
+  .coc-board-body {
+    padding: 6px 8px !important;
+    border-radius: 10px !important;
+    border-width: 2.5px !important;
+  }
+
+  /* Ensure inactive tab window stays hidden on mobile */
+  .coc-board-body.hidden-view {
+    display: none !important;
+  }
+
+  .coc-board-body.grid-4-missions:not(.hidden-view) {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 5px !important;
+    padding: 5px !important;
+  }
+
+  .coc-board-body:not(.grid-4-missions):not(.hidden-view) {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  /* Compact 2-Phase and 4-Mission Cards for Mobile Screens */
+  .coc-portrait-card {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: calc(88vh - 40px) !important;
+    padding: 6px 8px !important;
+    border-width: 2.5px !important;
+    border-radius: 8px !important;
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.6), 0 3px 0 rgba(0, 0, 0, 0.7) !important;
+  }
+
+  .coc-card-top-bar {
+    margin-bottom: 2px !important;
+  }
+
+  .coc-top-badges {
+    gap: 4px !important;
+  }
+
+  .coc-square-badge {
+    padding: 2px 5px !important;
+    font-size: 0.65rem !important;
+  }
+
+  .coc-info-btn {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .coc-card-art-stage {
+    height: clamp(60px, 19vh, 100px) !important;
+    margin: 2px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .coc-crew-collage {
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .coc-crew-char {
+    max-height: 90% !important;
+  }
+
+  .coc-ranked-crest {
+    width: clamp(55px, 17vh, 80px) !important;
+    height: clamp(55px, 17vh, 80px) !important;
+  }
+
+  .coc-crest-number {
+    font-size: 0.9rem !important;
+    padding: 0 4px !important;
+  }
+
+  .coc-card-bottom {
+    gap: 3px !important;
+  }
+
+  .coc-card-title {
+    font-size: clamp(0.85rem, 2.2vh, 1.1rem) !important;
+    margin-bottom: 1px !important;
+  }
+
+  .coc-big-cta-btn {
+    padding: 3px 6px !important;
+    border-width: 2px !important;
+    border-radius: 6px !important;
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.6), 0 3px 0 #000 !important;
+  }
+
+  .coc-btn-main-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: clamp(0.72rem, 1.8vh, 0.92rem) !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.15 !important;
+    text-transform: uppercase !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7) !important;
+    -webkit-font-smoothing: antialiased !important;
+  }
+
+  .coc-btn-sub-cost {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: clamp(0.6rem, 1.4vh, 0.74rem) !important;
+    line-height: 1.1 !important;
+    margin-top: 1px !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
+    -webkit-font-smoothing: antialiased !important;
+  }
+
+  .coc-card-footer-strip {
+    padding: 1px 6px !important;
+    font-size: clamp(0.58rem, 1.4vh, 0.7rem) !important;
+  }
+
+  /* 4-missions window on mobile */
+  .grid-4-missions .coc-portrait-card {
+    padding: 4px 5px !important;
+  }
+
+  .grid-4-missions .coc-card-art-stage {
+    height: clamp(55px, 17vh, 90px) !important;
+  }
+
+  .grid-4-missions .coc-card-title {
+    font-size: clamp(0.7rem, 1.7vh, 0.88rem) !important;
+  }
+
+  /* 5.3: NASA Research & Base Upgrades Dropdown Modal */
+  .top-nav-dropdown {
+    position: fixed !important;
+    top: max(46px, calc(env(safe-area-inset-top) + 40px)) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: min(94vw, 560px) !important;
+    max-width: 560px !important;
+    max-height: calc(100vh - 54px) !important;
+    z-index: 1000020 !important;
+  }
+
+  .nav-dropdown-col {
+    max-height: calc(100vh - 64px) !important;
+    overflow-y: auto !important;
+  }
+
+  .nav-col-header {
+    padding: 5px 10px !important;
+    font-size: 0.95rem !important;
+  }
+
+  .nav-col-items {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    padding: 6px !important;
+  }
+
+  .nav-col-item {
+    padding: 5px 8px !important;
+    gap: 6px !important;
+  }
+
+  .item-icon-box {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 1.1rem !important;
+  }
+
+  .item-title {
+    font-size: 0.82rem !important;
+  }
+
+  .item-sub {
+    font-size: 0.7rem !important;
+  }
+
+  /* 5.4: NASA Research & Base Upgrades Intel Dossier Detail Modal */
+  .nasa-dossier-card {
+    width: min(92vw, 620px) !important;
+    max-height: calc(100vh - 20px) !important;
+    border-radius: 8px !important;
+  }
+
+  .nasa-dossier-header {
+    padding: 6px 12px !important;
+    gap: 8px !important;
+  }
+
+  .dossier-header-left {
+    gap: 8px !important;
+  }
+
+  .dossier-icon {
+    font-size: 1.5rem !important;
+  }
+
+  .dossier-tag {
+    font-size: 0.72rem !important;
+  }
+
+  .dossier-title {
+    font-size: 1.12rem !important;
+  }
+
+  .nasa-dossier-body {
+    padding: 8px 12px !important;
+    gap: 8px !important;
+    max-height: calc(100vh - 110px) !important;
+    overflow-y: auto !important;
+  }
+
+  .dossier-desc {
+    font-size: 0.85rem !important;
+    line-height: 1.35 !important;
+    padding: 6px 10px !important;
+  }
+
+  .dossier-sources-box {
+    padding: 6px 10px !important;
+    gap: 4px !important;
+  }
+
+  .sources-heading {
+    font-size: 0.72rem !important;
+  }
+
+  .dossier-source-link {
+    font-size: 0.75rem !important;
+    padding: 4px 8px !important;
+  }
+
+  .nasa-dossier-footer {
+    padding: 6px 12px !important;
+  }
+
+  .dossier-close-btn {
+    padding: 5px 12px !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* Compact bound for tactical modal cards */
+  .tactical-modal-card {
+    max-height: calc(100vh - 20px) !important;
+  }
+}
+
+@media screen and (max-width: 1024px) and (orientation: landscape), screen and (max-height: 550px) and (orientation: landscape) {
+  #gameViewport,
+  #baseViewport,
+  .game-viewport,
+  .meal-game-viewport,
+  .power-game-viewport,
+  .base-viewport,
+  body.force-horizontal #gameViewport,
+  body.force-horizontal #baseViewport,
+  body.force-horizontal #introOverlay,
+  body.force-horizontal #moonJourneyOverlay,
+  body.force-horizontal .moon-journey-overlay,
+  body.force-horizontal.final-mission-page,
+  body.force-horizontal .game-viewport,
+  body.force-horizontal .meal-game-viewport,
+  body.force-horizontal .power-game-viewport,
+  body.force-horizontal .base-viewport {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    width: 100dvw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-width: none !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    transform: none !important;
+  }
+
+  .quick-rotate-toggle {
+    display: none !important;
+  }
+}
+
+/* Compact mobile landscape screens (e.g. Chrome/Safari with address/navigation bars visible, width <= 740px) */
+@media screen and (max-width: 740px) and (orientation: landscape) {
+  .mobile-menu-toggle {
+    top: max(16px, calc(env(safe-area-inset-top) + 8px)) !important;
+    left: max(12px, env(safe-area-inset-left)) !important;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    font-size: 19px !important;
+    touch-action: manipulation !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch {
+    top: max(18px, calc(env(safe-area-inset-top) + 10px)) !important;
+    right: max(12px, env(safe-area-inset-right)) !important;
+    width: 48px !important;
+    min-height: 48px !important;
+    height: 48px !important;
+    padding: 2px !important;
+    touch-action: manipulation !important;
+    z-index: 1000006 !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch-short {
+    font-size: 12px !important;
+  }
+
+  .base-music-toggle {
+    top: calc(max(18px, calc(env(safe-area-inset-top) + 10px)) + 52px) !important;
+    right: max(12px, env(safe-area-inset-right)) !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    font-size: 0.65rem !important;
+    padding: 2px !important;
+    touch-action: manipulation !important;
+  }
+
+  .top-status-bar {
+    top: max(16px, calc(env(safe-area-inset-top) + 8px)) !important;
+    max-width: calc(100% - 126px) !important;
+    padding: 2px 6px !important;
+    gap: 3px !important;
+  }
+
+  .top-status-bar .status-item,
+  .top-status-bar .status-label,
+  .top-status-bar .status-val {
+    font-size: clamp(0.50rem, 1.25vw, 0.64rem) !important;
+  }
+
+  .top-hud {
+    top: max(18px, calc(env(safe-area-inset-top) + 10px)) !important;
+    left: max(12px, env(safe-area-inset-left)) !important;
+    right: max(68px, calc(60px + env(safe-area-inset-right))) !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
+  }
+
+  .top-hud > * {
+    pointer-events: auto !important;
+  }
+
+  .hud-title-badge {
+    font-size: clamp(0.72rem, 1.85vw, 0.92rem) !important;
+    padding: 4px 8px !important;
+    min-height: 36px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .hud-btn {
+    font-size: clamp(0.70rem, 1.75vw, 0.88rem) !important;
+    padding: 6px 10px !important;
+    min-height: 36px !important;
+    gap: 4px !important;
+    touch-action: manipulation !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    -webkit-tap-highlight-color: rgba(0, 229, 255, 0.3) !important;
+  }
+}
+
+@media screen and (min-width: 1025px) and (min-height: 551px) {
+  .orientation-banner,
+  .quick-rotate-toggle,
+  .mobile-menu-toggle,
+  .mobile-nav-menu {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive Intro Splash & Loading Screen (Fixes Moon Size & Mobile Layout)
+   ========================================================================== */
+@media screen and (max-width: 900px), screen and (max-height: 520px) {
+  #introOverlay {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  #introOverlay .intro-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 580px !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    gap: 0 !important;
+  }
+
+  /* Responsive Moon sizing for mobile screens */
+  #introOverlay .intro-moon-wrapper {
+    width: clamp(80px, 17vh, 125px) !important;
+    height: clamp(80px, 17vh, 125px) !important;
+    max-height: 19vh !important;
+    margin: 0 auto 4px auto !important;
+    flex-shrink: 1 !important;
+  }
+
+  #introOverlay .intro-moon-img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  #introOverlay .moon-white-glow {
+    inset: -10% !important;
+    filter: blur(6px) !important;
+  }
+
+  /* Title scaled appropriately for mobile landscape & portrait */
+  #introOverlay .intro-title {
+    font-size: clamp(1.8rem, 6vh, 2.5rem) !important;
+    line-height: 1 !important;
+    margin: 0 0 2px 0 !important;
+    -webkit-text-stroke: 1.5px #ded9cb !important;
+    flex-shrink: 0 !important;
+  }
+
+  #introOverlay .intro-subtitle {
+    font-size: clamp(0.55rem, 1.8vh, 0.72rem) !important;
+    letter-spacing: 0.18em !important;
+    margin: 0 0 10px 0 !important;
+    -webkit-text-stroke: 0.5px #ded9cb !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* COC Loading bar scaled cleanly */
+  #introOverlay .coc-loading-container {
+    width: min(320px, 80vw) !important;
+    margin: 0 auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  #introOverlay .coc-loading-title {
+    font-size: 1.05rem !important;
+    margin-bottom: -7px !important;
+  }
+
+  #introOverlay .coc-bar-frame {
+    height: 18px !important;
+    border-radius: 10px !important;
+    border-width: 2.5px !important;
+    padding: 2px !important;
+  }
+
+  #introOverlay .coc-tip-text {
+    font-size: 0.62rem !important;
+    margin-top: 4px !important;
+    max-width: 85vw !important;
+    line-height: 1.25 !important;
+  }
+
+  #introOverlay .tap-start-container {
+    margin: 0 auto !important;
+  }
+
+  #introOverlay .tap-anywhere-text {
+    font-size: 0.95rem !important;
+    padding: 6px 14px !important;
+  }
+
+  /* Responsive Landing Video Overlay & Stage Base Viewport */
+  #moonJourneyOverlay,
+  .moon-journey-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    width: 100dvw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    z-index: 99990 !important;
+    background: #000000 !important;
+    overflow: hidden !important;
+    flex: none !important;
+  }
+
+  #baseViewport,
+  .base-viewport {
+    position: absolute !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    width: 100dvw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    flex: none !important;
+  }
+
+  #moonJourneyOverlay .moon-journey-video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  #moonJourneyOverlay .moon-journey-unmute-btn {
+    top: max(10px, env(safe-area-inset-top)) !important;
+    right: max(14px, env(safe-area-inset-right)) !important;
+    font-size: 0.85rem !important;
+    padding: 5px 12px !important;
+    z-index: 1000002 !important;
+  }
+
+  #moonJourneyOverlay .moon-journey-skip-btn {
+    bottom: max(14px, env(safe-area-inset-bottom)) !important;
+    right: max(14px, env(safe-area-inset-right)) !important;
+    font-size: 0.95rem !important;
+    padding: 6px 16px !important;
+    z-index: 1000002 !important;
+  }
+}
+
+/* iOS Safari Fullscreen Instructions Toast */
+.ios-fullscreen-toast {
+  display: none;
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 380px);
+  background: rgba(10, 18, 36, 0.96);
+  border: 2px solid #38bdf8;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9), 0 0 24px rgba(56, 189, 248, 0.5);
+  padding: 12px 14px;
+  z-index: 10000020;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  animation: toastPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes toastPop {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.ios-fullscreen-toast .toast-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 4px;
+}
+
+.ios-fullscreen-toast .toast-badge {
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: 1.05rem;
+  color: #38bdf8;
+  letter-spacing: 0.05em;
+}
+
+.ios-fullscreen-toast .toast-close-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.ios-fullscreen-toast .toast-close-btn:hover {
+  color: #ffffff;
+}
+
+.ios-fullscreen-toast .toast-body {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #cbd5e1;
+}
+
+.ios-fullscreen-toast .toast-steps {
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: rgba(2, 132, 199, 0.15);
+  border-radius: 6px;
+  border: 1px solid rgba(2, 132, 199, 0.3);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #e2e8f0;
+}
+
+/* Portrait mobile phone overrides */
+@media screen and (max-width: 600px) and (orientation: portrait) {
+  body:not(.force-horizontal) #introOverlay .intro-moon-wrapper {
+    width: clamp(130px, 34vw, 175px) !important;
+    height: clamp(130px, 34vw, 175px) !important;
+    max-height: 25vh !important;
+    margin: 0 auto 10px auto !important;
+  }
+
+  body:not(.force-horizontal) #introOverlay .intro-title {
+    font-size: clamp(2.3rem, 8.5vw, 3.2rem) !important;
+    margin: 0 0 4px 0 !important;
+  }
+
+  body:not(.force-horizontal) #introOverlay .intro-subtitle {
+    font-size: clamp(0.65rem, 2.5vw, 0.82rem) !important;
+    margin: 0 0 16px 0 !important;
+  }
+
+  body:not(.force-horizontal) #introOverlay .coc-loading-container {
+    width: min(300px, 85vw) !important;
+  }
+
+  body:not(.force-horizontal) #introOverlay .coc-bar-frame {
+    height: 20px !important;
+  }
+}
+
+/* Fullscreen Buttons (Removed per user request) */
+.intro-top-fullscreen-btn,
+.btn-fullscreen,
+.mobile-btn-fullscreen,
+#btnFullscreenToggle,
+#introTopFullscreenBtn {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Universal Top HUD & Mission Complete Safeguards (PC & Mobile)
+   ========================================================================== */
+.top-hud {
+  top: max(20px, calc(env(safe-area-inset-top) + 12px)) !important;
+  right: clamp(96px, 8.5vw, 116px) !important;
+  z-index: 1000 !important;
+  pointer-events: none !important;
+}
+
+.top-hud > * {
+  pointer-events: auto !important;
+}
+
+@media (max-width: 900px), (max-height: 500px) {
+  .top-hud {
+    top: max(18px, calc(env(safe-area-inset-top) + 10px)) !important;
+    right: max(72px, calc(64px + env(safe-area-inset-right))) !important;
+  }
+}
+
+.hud-btn .hud-home-icon,
+.hud-home-icon {
+  width: clamp(15px, 1.3vw, 19px) !important;
+  height: clamp(15px, 1.3vw, 19px) !important;
+  fill: currentColor !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: -1px !important;
+}
+
+/* ==========================================================================
+   Mobile-Only Compact Mission Complete Overlay (<900px width or <540px height)
+   Desktop/Web retains full large original size!
+   ========================================================================== */
+@media (max-width: 900px), (max-height: 540px) {
+  .mission-complete-overlay {
+    position: absolute !important;
+    top: clamp(24px, 4.5vh, 42px) !important;
+    bottom: clamp(96px, 15vh, 126px) !important;
+    left: 50% !important;
+    transform: translate(-50%, 0) !important;
+    width: 88% !important;
+    max-width: 900px !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 50 !important;
+    pointer-events: none !important;
+    box-sizing: border-box !important;
+  }
+
+  .mission-complete-buttons,
+  .mission-btn {
+    pointer-events: auto !important;
+  }
+
+  .mission-complete-container {
+    width: 100% !important;
+    max-height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: clamp(4px, 1vh, 10px) !important;
+  }
+
+  .mission-complete-title {
+    height: clamp(28px, 5.5vh, 48px) !important;
+    width: auto !important;
+    max-width: 78% !important;
+    object-fit: contain !important;
+    image-rendering: pixelated !important;
+  }
+
+  .circle-score-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin: clamp(2px, 0.6vh, 6px) 0 !important;
+  }
+
+  .circle-score-box {
+    position: relative !important;
+    width: clamp(88px, 14vh, 130px) !important;
+    height: clamp(88px, 14vh, 130px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .circle-score-num {
+    font-size: clamp(1.8rem, 3.8vh, 3.2rem) !important;
+    line-height: 1 !important;
+  }
+
+  .circle-score-sub {
+    font-size: clamp(0.75rem, 1.3vh, 1.15rem) !important;
+    margin-top: 2px !important;
+  }
+
+  .mission-complete-buttons {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: clamp(8px, 1.8vw, 22px) !important;
+    width: 88% !important;
+    margin-top: clamp(2px, 0.8vh, 8px) !important;
+  }
+
+  .mission-btn img {
+    height: clamp(28px, 4.8vh, 44px) !important;
+    width: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+  }
+}
+
+/* ==========================================================================
+   Post-Rotation "Hide Browser Toolbar" Instruction Popup (Mobile Landscape)
+   ========================================================================== */
+.toolbar-guide-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999998;
+  background: rgba(3, 8, 18, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.toolbar-guide-overlay.active {
+  display: flex;
+}
+
+@media screen and (max-width: 1024px) and (orientation: portrait), screen and (max-height: 550px) and (orientation: portrait) {
+  body.force-horizontal .toolbar-guide-overlay.active {
+    position: fixed !important;
+    top: var(--vv-center-y, 50%) !important;
+    left: var(--vv-center-x, 50%) !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: var(--vv-h, 100svh) !important;
+    height: var(--vv-w, 100vw) !important;
+    transform: translate(-50%, -50%) rotate(90deg) !important;
+    transform-origin: center center !important;
+  }
+}
+
+.toolbar-guide-card {
+  position: relative;
+  width: min(92%, 500px);
+  max-height: calc(100% - 16px);
+  background: linear-gradient(180deg, rgba(10, 22, 46, 0.98) 0%, rgba(4, 11, 26, 0.98) 100%);
+  border: 2px solid #00e5ff;
+  border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.92), 0 0 28px rgba(0, 229, 255, 0.35), inset 0 0 18px rgba(0, 229, 255, 0.1);
+  padding: clamp(12px, 3vh, 20px) clamp(14px, 3vw, 22px);
+  color: #f8fafc;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(8px, 2vh, 14px);
+  animation: toolbarPopupIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes toolbarPopupIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.toolbar-guide-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.toolbar-guide-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(253, 203, 14, 0.15);
+  border: 1px solid rgba(253, 203, 14, 0.55);
+  color: #fdcb0e;
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: clamp(0.8rem, 2.2vh, 1rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.toolbar-guide-title {
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: clamp(1.25rem, 4.2vh, 1.75rem);
+  color: #00e5ff;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  margin: 0;
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+}
+
+.toolbar-guide-sub {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: clamp(0.75rem, 2.1vh, 0.88rem);
+  color: #cbd5e1;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.toolbar-guide-steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+}
+
+.toolbar-step-box {
+  background: rgba(2, 132, 199, 0.14);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 9px;
+  padding: clamp(7px, 1.8vh, 11px) 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.toolbar-step-label {
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: clamp(0.88rem, 2.4vh, 1.08rem);
+  color: #fdcb0e;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.toolbar-step-desc {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: clamp(0.7rem, 1.95vh, 0.82rem);
+  color: #e2e8f0;
+  line-height: 1.3;
+}
+
+.toolbar-step-desc strong {
+  color: #38bdf8;
+}
+
+.toolbar-guide-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 2px;
+}
+
+.toolbar-btn-primary {
+  flex: 1;
+  max-width: 240px;
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: clamp(1rem, 2.8vh, 1.25rem);
+  letter-spacing: 0.05em;
+  color: #000000;
+  background: linear-gradient(180deg, #ffdf40 0%, #f59e0b 100%);
+  border: 2px solid #fde047;
+  border-radius: 8px;
+  padding: clamp(6px, 1.6vh, 9px) 14px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #78350f, 0 0 16px rgba(250, 204, 21, 0.45);
+  transition: transform 0.12s ease, filter 0.12s ease;
+  touch-action: manipulation;
+}
+
+.toolbar-btn-primary:hover,
+.toolbar-btn-primary:active {
+  filter: brightness(1.08);
+  transform: translateY(1px);
+}
+
+.toolbar-btn-secondary {
+  font-family: 'Jersey 10', 'Pixel Operator', monospace;
+  font-size: clamp(0.92rem, 2.5vh, 1.12rem);
+  letter-spacing: 0.04em;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(148, 163, 184, 0.35);
+  border-radius: 8px;
+  padding: clamp(6px, 1.6vh, 9px) 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+}
+
+.toolbar-btn-secondary:hover,
+.toolbar-btn-secondary:active {
+  color: #ffffff;
+  border-color: #00e5ff;
+  background: rgba(0, 229, 255, 0.15);
+}
+
+/* ==========================================================================
+   Base Resource & Explore Sidebar: Mobile & Force-Horizontal Compact Layout
+   ========================================================================== */
+
+/* Within rotated force-horizontal or small screens, sidebar must be pinned to the right edge and compact */
+@media screen and (max-width: 1024px) and (orientation: portrait), screen and (max-height: 550px) and (orientation: portrait) {
+  body.force-horizontal .base-resource-sidebar {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 100% !important;
+    width: clamp(230px, 30vw, 270px) !important;
+    max-width: 34vw !important;
+    z-index: 99999 !important;
+  }
+
+  body.force-horizontal .sidebar-pull-tab {
+    position: absolute !important;
+    left: -32px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 32px !important;
+    height: 105px !important;
+    padding: 6px 2px !important;
+    border-radius: 10px 0 0 10px !important;
+    gap: 3px !important;
+  }
+
+  body.force-horizontal .sidebar-tab-icon {
+    font-size: 0.95rem !important;
+  }
+
+  body.force-horizontal .sidebar-tab-label {
+    font-size: 0.74rem !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  body.force-horizontal .sidebar-tab-dot {
+    width: 5px !important;
+    height: 5px !important;
+  }
+}
+
+@media screen and (max-width: 900px), screen and (max-height: 520px) {
+  .base-resource-sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: clamp(230px, 30vw, 275px) !important;
+    max-width: 35vw !important;
+  }
+
+  @media (orientation: portrait) {
+    .base-resource-sidebar {
+      width: min(82vw, 280px) !important;
+      max-width: 82vw !important;
+    }
+  }
+
+  .sidebar-pull-tab {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 32px !important;
+    height: 105px !important;
+    left: -32px !important;
+    padding: 6px 2px !important;
+    border-radius: 10px 0 0 10px !important;
+    gap: 3px !important;
+  }
+  .sidebar-pull-tab:hover {
+    transform: translateY(-50%) translateX(-2px) !important;
+  }
+  .sidebar-pull-tab:active {
+    transform: translateY(-50%) translateX(-1px) !important;
+  }
+  .sidebar-tab-icon {
+    font-size: 0.95rem !important;
+  }
+  .sidebar-tab-label {
+    font-size: 0.74rem !important;
+    letter-spacing: 0.12em !important;
+  }
+  .sidebar-tab-dot {
+    width: 5px !important;
+    height: 5px !important;
+  }
+
+  .sidebar-top-nav {
+    padding: 5px 8px !important;
+    gap: 4px !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .sidebar-nav-tab {
+    padding: 3px 6px !important;
+    font-size: 0.65rem !important;
+    white-space: nowrap !important;
+  }
+  .sidebar-start-journey-btn {
+    padding: 3px 7px !important;
+    font-size: 0.65rem !important;
+    white-space: nowrap !important;
+  }
+
+  .sidebar-header {
+    padding: 5px 8px !important;
+    min-height: 32px !important;
+  }
+  .sidebar-know-more-btn {
+    font-size: 0.72rem !important;
+    padding: 2px 6px !important;
+  }
+  .sidebar-split-btn {
+    font-size: 0.68rem !important;
+    padding: 2px 6px !important;
+  }
+  .sidebar-icon-btn {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .sidebar-feed {
+    padding: 6px 8px !important;
+    gap: 6px !important;
+  }
+  .sidebar-section-header {
+    padding: 4px 8px !important;
+    font-size: 0.85rem !important;
+    margin: 6px 0 4px 0 !important;
+  }
+  .section-header-tag {
+    font-size: 0.58rem !important;
+    padding: 1px 4px !important;
+  }
+
+  .sidebar-card {
+    padding: 8px !important;
+    margin-bottom: 6px !important;
+    border-radius: 8px !important;
+  }
+  .card-title {
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+  }
+  .card-badge {
+    font-size: 0.55rem !important;
+    padding: 1px 4px !important;
+  }
+  .card-banner-wrap {
+    max-height: 100px !important;
+    margin-bottom: 4px !important;
+  }
+  .card-banner-img {
+    max-height: 100px !important;
+  }
+  .card-video-wrap {
+    margin-bottom: 4px !important;
+  }
+  .card-video-iframe {
+    height: 110px !important;
+    max-height: 110px !important;
+  }
+  .card-desc {
+    font-size: 0.70rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 4px !important;
+  }
+  .card-source-row {
+    font-size: 0.65rem !important;
+    margin-bottom: 3px !important;
+  }
+  .card-source-link {
+    font-size: 0.65rem !important;
+  }
+  .card-text-link {
+    font-size: 0.68rem !important;
+  }
+  .card-inspect-btn {
+    padding: 3px 6px !important;
+    font-size: 0.68rem !important;
+  }
+  .card-takeaway-box {
+    padding: 5px 7px !important;
+    font-size: 0.68rem !important;
+    margin-bottom: 4px !important;
+  }
+}
+
+/* Clickable Dialogue Keywords: High-Contrast Deep Blue Styling */
+.dialogue-ref-link {
+  color: #0047cc !important;
+  text-decoration: underline !important;
+  text-decoration-color: #0047cc !important;
+  text-underline-offset: 3px !important;
+  cursor: pointer !important;
+  font-weight: 800 !important;
+  display: inline-block !important;
+  padding: 0 4px !important;
+  border-radius: 4px !important;
+  background: rgba(0, 71, 204, 0.09) !important;
+  border: 1px solid rgba(0, 71, 204, 0.32) !important;
+  transition: all 0.18s ease !important;
+  user-select: text !important;
+}
+
+.dialogue-ref-link:hover {
+  color: #002b80 !important;
+  background: rgba(0, 71, 204, 0.22) !important;
+  border-color: #003db8 !important;
+  text-decoration-color: #002b80 !important;
+  box-shadow: 0 0 8px rgba(0, 71, 204, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+.dialogue-ref-link .ref-num,
+.ref-num {
+  display: none !important;
+}
+
+
+
+
+
+
