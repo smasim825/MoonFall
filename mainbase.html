@@ -8686,11 +8686,6 @@
           tourNextBtn.textContent = `PHASES (${total}/${total}) ▶`;
         }
         showTourArrowGuide();
-
-        // Auto-advance to next building in tour after 3.8s
-        tourAutoTimer = setTimeout(() => {
-          stepNextIntroBuilding();
-        }, 3800);
       } else {
         tourNextBtn.textContent = `PHASES ▶`;
         hideTourArrowGuide();
@@ -9547,11 +9542,6 @@
         dismissOnboardingGuide();
         return;
       }
-
-      // Automatically advance to the next step after 3.4 seconds
-      onboardingAutoTimer = setTimeout(() => {
-        onboardingProceedAction();
-      }, 3400);
     }
 
     function onboardingProceedAction() {
