@@ -1786,7 +1786,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   .meal-game-viewport .reserve-track {
     position: absolute !important;
     left: 5% !important;
-    top: 43% !important;
+    top: 53% !important;
     width: 90.8% !important;
     height: 33.5% !important;
     z-index: 2 !important;
