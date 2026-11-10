@@ -188,6 +188,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   body.force-horizontal .moon-journey-overlay,
   body.force-horizontal.final-mission-page,
   body.force-horizontal .game-viewport,
+  body.force-horizontal .isru-game-viewport,
   body.force-horizontal .meal-game-viewport,
   body.force-horizontal .power-game-viewport,
   body.force-horizontal .base-viewport {
@@ -307,8 +308,70 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     -webkit-tap-highlight-color: rgba(0, 229, 255, 0.3) !important;
   }
 
+  /* Character Guides & Astronauts in Force-Horizontal:
+     In rotated 90deg mode, the screen's visual vertical height is the mobile width (~340px-390px).
+     Constrain the character to fit proportionally (max ~56% of stage height) instead of using portrait vh. */
+  body.force-horizontal .character-guide,
+  body.force-horizontal .character-astronaut,
+  body.force-horizontal .character-chiaki,
+  body.force-horizontal .scene-character-stand {
+    height: clamp(140px, 56%, 225px) !important;
+    max-height: 58% !important;
+    bottom: 0 !important;
+    left: 1.5% !important;
+    z-index: 30 !important;
+  }
+
+  body.force-horizontal .character-guide img,
+  body.force-horizontal .character-astronaut img,
+  body.force-horizontal .character-chiaki img,
+  body.force-horizontal .scene-character-stand img {
+    height: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    object-fit: contain !important;
+    object-position: bottom left !important;
+  }
+
+  body.force-horizontal .scene-character-stand.char-chiaki,
+  body.force-horizontal .scene-character-stand.char-bluford {
+    bottom: 0 !important;
+    height: clamp(140px, 56%, 225px) !important;
+  }
+
+  /* Dialogue Box in Force-Horizontal:
+     Push the dialogue box to the right so it never overlaps the character's body */
   body.force-horizontal .dialogue-wrapper {
-    padding: 0 14px !important;
+    bottom: 2.5% !important;
+    padding: 0 10px !important;
+    z-index: 28 !important;
+  }
+
+  body.force-horizontal .dialogue-box.scene-1-box {
+    width: calc(100% - clamp(90px, 22%, 180px)) !important;
+    margin-left: clamp(80px, 20%, 170px) !important;
+    margin-right: 1% !important;
+  }
+
+  body.force-horizontal .dialogue-box.scene-2-box {
+    width: 92% !important;
+    margin: 0 auto !important;
+  }
+
+  body.force-horizontal .dialogue-text {
+    font-size: clamp(0.68rem, 2.1vw, 0.84rem) !important;
+    line-height: 1.35 !important;
+  }
+
+  body.force-horizontal .name-badge-wrapper {
+    transform: scale(0.9) !important;
+    transform-origin: bottom left !important;
+  }
+
+  body.force-horizontal .skip-button {
+    transform: scale(0.85) !important;
+    transform-origin: center right !important;
+    right: 8px !important;
   }
 
   body.force-horizontal .scene4-container {
@@ -1086,6 +1149,7 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
   body.force-horizontal .moon-journey-overlay,
   body.force-horizontal.final-mission-page,
   body.force-horizontal .game-viewport,
+  body.force-horizontal .isru-game-viewport,
   body.force-horizontal .meal-game-viewport,
   body.force-horizontal .power-game-viewport,
   body.force-horizontal .base-viewport {
