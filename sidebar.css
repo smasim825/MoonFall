@@ -735,6 +735,19 @@ body > .base-resource-sidebar {
   color: #d8b4fe;
 }
 
+.card-crisis {
+  border-color: rgba(239, 68, 68, 0.35);
+}
+.sidebar-card.card-crisis:hover {
+  border-color: rgba(239, 68, 68, 0.85);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 16px rgba(239, 68, 68, 0.35);
+}
+.sidebar-card.card-crisis .card-badge {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
 /* Section Category Banners */
 .sidebar-section-header {
   display: flex;
@@ -774,6 +787,11 @@ body > .base-resource-sidebar {
 .sidebar-section-header.sec-rad {
   border-left-color: #c084fc;
   background: linear-gradient(90deg, rgba(192, 132, 252, 0.22) 0%, rgba(15, 23, 42, 0.7) 100%);
+}
+
+.sec-final {
+  border-left-color: #ef4444;
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.22) 0%, rgba(15, 23, 42, 0.7) 100%);
 }
 
 .section-header-tag {
