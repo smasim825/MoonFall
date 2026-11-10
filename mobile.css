@@ -413,6 +413,7 @@ screen and (max-height: 550px) and (orientation: portrait) {
    ========================================================================== */
 @media screen and (max-width: 1024px),
 screen and (max-height: 550px) {
+
   .base-background {
     position: absolute;
     inset: 0;
@@ -424,7 +425,7 @@ screen and (max-height: 550px) {
     background-repeat: no-repeat;
     image-rendering: pixelated;
     z-index: 1;
-}
+  }
   /* 1. Power Station (Yellow Theme) - Back Layer */
   .badge-power {
     --badge-glow: rgba(255, 220, 0, 0.95);
@@ -485,7 +486,7 @@ screen and (max-height: 550px) {
   /* 4. Plant Growth Lab (Green Theme) - Front Layer (Upper of Main Base) */
   .badge-plant {
     --badge-glow: rgba(70, 255, 90, 0.95);
-   left: 26%;
+    left: 26%;
     top: 61%;
     width: 11%;
     z-index: 25;
@@ -516,6 +517,7 @@ screen and (max-height: 550px) {
     left: 58%;
     top: 59%;
     width: 25%;
+
     z-index: 8;
     /* Upper layer of Main Base */
   }
@@ -1752,7 +1754,36 @@ screen and (max-height: 520px) {
    ========================================================================== */
 @media (max-width: 900px),
 (max-height: 540px) {
-  .mission-complete-overlay {
+
+  /* =========================================================================
+     Strict Hidden Guard (Never allow display rules to override .hidden)
+     ========================================================================= */
+  .hidden,
+  *.hidden,
+  .meal-game-viewport .hidden,
+  .meal-game-viewport *.hidden,
+  .meal-game-viewport section.hidden,
+  .meal-game-viewport div.hidden,
+  .meal-game-viewport .scene4-container.hidden,
+  .meal-game-viewport .diagram-card-container.hidden,
+  .meal-game-viewport .card-prep-info.hidden,
+  .meal-game-viewport .daily-intake-popup.hidden,
+  .meal-game-viewport .mcq-stage-box.hidden,
+  .meal-game-viewport .mission-complete-overlay.hidden,
+  .meal-game-viewport .dialogue-box.hidden,
+  .meal-game-viewport .dark-backdrop-overlay.hidden,
+  .scene4-container.hidden,
+  .diagram-card-container.hidden,
+  .daily-intake-popup.hidden,
+  .mcq-stage-box.hidden,
+  .mission-complete-overlay.hidden {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+
+  .mission-complete-overlay:not(.hidden) {
     position: absolute !important;
     top: clamp(24px, 4.5vh, 42px) !important;
     bottom: clamp(96px, 15vh, 126px) !important;
@@ -1871,7 +1902,7 @@ screen and (max-height: 520px) {
   }
 
   /* Scene 4: Meal Options & Reserve HUD - Cleanly spaced between Top HUD and bottom dialogue */
-  .meal-game-viewport .scene4-container {
+  .meal-game-viewport .scene4-container:not(.hidden) {
     top: 42px !important;
     bottom: 84px !important;
     left: clamp(80px, 19vw, 150px) !important;
@@ -2032,8 +2063,8 @@ screen and (max-height: 520px) {
   }
 
   /* Diagram & Educational Cards */
-  .diagram-card-container,
-  .meal-game-viewport .diagram-card-container {
+  .diagram-card-container:not(.hidden),
+  .meal-game-viewport .diagram-card-container:not(.hidden) {
     position: absolute !important;
     top: clamp(40px, 12%, 60px) !important;
     bottom: clamp(84px, 25%, 120px) !important;
@@ -2081,8 +2112,8 @@ screen and (max-height: 520px) {
   }
 
   /* Scene 11: Daily Intake Popup Modal */
-  .daily-intake-popup,
-  .meal-game-viewport .daily-intake-popup {
+  .daily-intake-popup:not(.hidden),
+  .meal-game-viewport .daily-intake-popup:not(.hidden) {
     position: absolute !important;
     top: 39% !important;
     left: 50% !important;
@@ -2148,8 +2179,8 @@ screen and (max-height: 520px) {
   }
 
   /* MCQ Stage Box for Daily Meal */
-  .mcq-stage-box,
-  .meal-game-viewport .mcq-stage-box {
+  .mcq-stage-box:not(.hidden),
+  .meal-game-viewport .mcq-stage-box:not(.hidden) {
     position: absolute !important;
     top: 14% !important;
     left: 50% !important;
