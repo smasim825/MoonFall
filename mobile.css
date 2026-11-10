@@ -427,7 +427,7 @@ screen and (max-height: 550px) {
   .building-power {
     --glow-color: rgba(255, 220, 0, 0.95);
     left: 15%;
-    top: 30%;
+    top: 26%;
     width: 35.67%;
     z-index: 4;
     /* Below Main Base */
@@ -445,8 +445,8 @@ screen and (max-height: 550px) {
 
   .building-isru {
     --glow-color: rgba(0, 230, 255, 0.95);
-    left: 59%;
-    top: 24%;
+    left: 60%;
+    top: 23%;
     width: 23.45%;
     z-index: 4;
     /* Back Layer: Below Main Base */
