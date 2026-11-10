@@ -140,6 +140,7 @@
   }
 
   const sound = new SoundManager();
+  window.sound = sound;
 
   // =========================================================================
   // Scene Definitions

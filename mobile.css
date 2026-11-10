@@ -5,6 +5,8 @@ body {
   min-height: 100%;
   margin: 0;
   padding: 0;
+  touch-action: manipulation !important;
+  -webkit-text-size-adjust: 100% !important;
 }
 
 body {
@@ -1697,6 +1699,110 @@ body:has(#moonJourneyOverlay.active) .quick-rotate-toggle {
     width: auto !important;
     object-fit: contain !important;
     display: block !important;
+  }
+
+  /* =========================================================================
+     MISSION 2.1: DAILY MEAL (Mobile Landscape Optimizations)
+     ========================================================================= */
+  .meal-game-viewport .top-hud {
+    top: 6px !important;
+    left: 8px !important;
+    right: clamp(60px, 7vw, 84px) !important;
+  }
+
+  /* Sunita character on left */
+  .meal-game-viewport .character-sunita {
+    height: clamp(170px, 66vh, 250px) !important;
+    left: 0.5% !important;
+    bottom: 0 !important;
+    z-index: 20 !important;
+  }
+
+  .meal-game-viewport .character-astronaut {
+    height: clamp(150px, 58vh, 220px) !important;
+    right: 3% !important;
+    bottom: 0 !important;
+  }
+
+  /* Scene 4: Meal Options & Reserve HUD - Cleanly spaced between Top HUD and bottom dialogue */
+  .meal-game-viewport .scene4-container {
+    top: 42px !important;
+    bottom: 84px !important;
+    left: clamp(80px, 19vw, 150px) !important;
+    right: clamp(48px, 6vw, 76px) !important;
+    gap: 8px !important;
+    z-index: 18 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    justify-content: space-between !important;
+  }
+
+  .meal-game-viewport .meal-options-list {
+    width: 60% !important;
+    flex: 1 1 0 !important;
+    gap: 5px !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+
+  .meal-game-viewport .meal-option-card {
+    padding: 2px 4px !important;
+    border-radius: 6px !important;
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+  }
+
+  .meal-game-viewport .reserve-hud-stack {
+    width: 38% !important;
+    max-width: 250px !important;
+    gap: 6px !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+
+  .meal-game-viewport .reserve-box {
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.7)) !important;
+    max-height: calc(50% - 4px) !important;
+  }
+
+  /* Dialogue Dock Footer */
+  .meal-game-viewport .dialogue-wrapper {
+    bottom: 2px !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 0 8px !important;
+    z-index: 25 !important;
+  }
+
+  .meal-game-viewport .dialogue-box.scene-1-box {
+    width: calc(100% - clamp(75px, 18vw, 130px)) !important;
+    margin-left: clamp(70px, 17vw, 120px) !important;
+    margin-right: 0 !important;
+    min-height: 48px !important;
+    max-height: 76px !important;
+    height: auto !important;
+    padding: 2px 8px !important;
+  }
+
+  .meal-game-viewport .dialogue-content {
+    font-size: clamp(0.68rem, 1.7vw, 0.82rem) !important;
+    line-height: 1.25 !important;
+  }
+
+  .meal-game-viewport .speaker-badge {
+    top: -18% !important;
+    width: clamp(70px, 16vw, 110px) !important;
+  }
+
+  .meal-game-viewport .skip-btn {
+    top: -18% !important;
+    right: 12px !important;
+    width: clamp(52px, 11vw, 72px) !important;
   }
 }
 

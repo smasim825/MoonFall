@@ -233,9 +233,51 @@
     }
   };
 
+  // Universal AudioContext & SoundEngine unlocker across all missions
+  const unlockAudioContextOnGesture = () => {
+    try {
+      if (window.sound) {
+        if (typeof window.sound.init === 'function') window.sound.init();
+        if (window.sound.ctx && window.sound.ctx.state === 'suspended') {
+          window.sound.ctx.resume().catch(() => {});
+        }
+      }
+      if (window.audio) {
+        if (typeof window.audio.init === 'function') window.audio.init();
+        if (window.audio.ctx && window.audio.ctx.state === 'suspended') {
+          window.audio.ctx.resume().catch(() => {});
+        }
+      }
+      if (typeof window.unlockGlobalAudio === 'function') {
+        window.unlockGlobalAudio();
+      }
+    } catch (e) {}
+  };
+
   ['pointerdown', 'touchstart', 'click'].forEach((type) => {
     window.addEventListener(type, resumeFullscreenOnFirstGesture, { capture: true, passive: true });
+    window.addEventListener(type, unlockAudioContextOnGesture, { capture: true, passive: true });
   });
+  window.addEventListener('keydown', unlockAudioContextOnGesture, { capture: true, passive: true });
+
+  // Prevent accidental zoom in Safari and Chrome (double-tap & pinch zoom)
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach((type) => {
+    document.addEventListener(type, (e) => {
+      e.preventDefault();
+    }, { passive: false });
+  });
+
+  let lastTouchEndTime = 0;
+  document.addEventListener('touchend', (event) => {
+    const now = Date.now();
+    const isInteractive = event.target && event.target.closest && event.target.closest(
+      'button, a, input, select, textarea, [role="button"], .skip-btn, .dialogue-box, .meal-option-card, .hud-btn, .building-node, .pdu-cell, .breaker-switch, .mission-btn, .option-btn, .mcq-option-item'
+    );
+    if (!isInteractive && (now - lastTouchEndTime <= 300)) {
+      event.preventDefault();
+    }
+    lastTouchEndTime = now;
+  }, { passive: false });
 
   const FORCE_HORIZONTAL_STORAGE_KEY = 'moonfall_force_horizontal';
 

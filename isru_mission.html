@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>MoonFall - Mission: ISRU (Water &amp; Oxygen)</title>
   <meta name="description" content="In-Situ Resource Utilization mission: finding water ice at the lunar South Pole.">
 
@@ -2574,7 +2574,7 @@
   <link rel="stylesheet" href="astrobee/astrobee.css">
   <link rel="stylesheet" href="sidebar.css">
   <link rel="stylesheet" href="missions-shared.css">
-  <link rel="stylesheet" href="mobile.css?v=20261110_fix3" media="screen and (max-width: 1024px), screen and (max-height: 550px)">
+  <link rel="stylesheet" href="mobile.css?v=20261110_fix4" media="screen and (max-width: 1024px), screen and (max-height: 550px)">
   <script src="game-assets.js"></script>
   <script src="responsive.js?v=20261110a" defer></script>
 </head>
@@ -3204,6 +3204,7 @@
     }
 
     const sound = new SoundEngine();
+    window.sound = sound;
 
     
     // =========================================================================
