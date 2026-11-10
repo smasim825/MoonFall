@@ -8397,12 +8397,8 @@
     }
 
     function handleIntroClick() {
-      if (isMissionReady) {
+      if (!missionStarted) {
         startMissionWithAudio();
-      } else if (!introDismissed && !missionStarted && currentPct > 20) {
-        currentPct = 100;
-        if (cocFill) cocFill.style.width = '100%';
-        showTapStartScreen();
       }
     }
 
@@ -8440,10 +8436,10 @@
       if (currentPct < 100) {
         requestAnimationFrame(stepLoading);
       } else {
-        // Reached 100% -> Show MISSION READY button screen
+        // Reached 100% -> Automatically launch landing video without requiring manual click!
         setTimeout(() => {
-          showTapStartScreen();
-        }, 200);
+          startMissionWithAudio();
+        }, 350);
       }
     }
 
@@ -8453,6 +8449,7 @@
         const params = new URLSearchParams(window.location.search);
         if (params.get('intro') === 'true') {
           sessionStorage.removeItem('moonfall_landed');
+          sessionStorage.removeItem('moonfall_onboarded');
           return false;
         }
         isReturn = document.documentElement.classList.contains('skip-intro-direct') ||
@@ -8613,6 +8610,15 @@
       { bldId: 'bldMain', badgeId: 'badgeMain' }
     ];
 
+    var tourAutoTimer = null;
+
+    function clearTourAutoTimer() {
+      if (tourAutoTimer) {
+        clearTimeout(tourAutoTimer);
+        tourAutoTimer = null;
+      }
+    }
+
     function showTourArrowGuide() {
       const guide = document.getElementById('tourNextArrowGuide');
       const btn = document.getElementById('tourNextBtn');
@@ -8621,6 +8627,7 @@
     }
 
     function hideTourArrowGuide() {
+      clearTourAutoTimer();
       const guide = document.getElementById('tourNextArrowGuide');
       const btn = document.getElementById('tourNextBtn');
       if (guide) guide.classList.add('hidden');
@@ -8628,6 +8635,7 @@
     }
 
     function updateTourNextButton(bldId) {
+      clearTourAutoTimer();
       const tourNextBtn = document.getElementById('tourNextBtn');
       if (!tourNextBtn) return;
       const idx = introBuildingTourOrder.findIndex(item => item.bldId === bldId);
@@ -8640,6 +8648,11 @@
           tourNextBtn.textContent = `PHASES (${total}/${total}) ▶`;
         }
         showTourArrowGuide();
+
+        // Auto-advance to next building in tour after 3.8s
+        tourAutoTimer = setTimeout(() => {
+          stepNextIntroBuilding();
+        }, 3800);
       } else {
         tourNextBtn.textContent = `PHASES ▶`;
         hideTourArrowGuide();
@@ -8662,6 +8675,7 @@
     }
 
     function stepNextIntroBuilding() {
+      clearTourAutoTimer();
       if (sound && sound.clickSound) sound.clickSound();
       if (introTourIndex < introBuildingTourOrder.length - 1) {
         introTourIndex++;
@@ -9407,7 +9421,17 @@
       }, 250);
     });
 
+    var onboardingAutoTimer = null;
+
+    function clearOnboardingAutoTimer() {
+      if (onboardingAutoTimer) {
+        clearTimeout(onboardingAutoTimer);
+        onboardingAutoTimer = null;
+      }
+    }
+
     function setOnboardingStep(step) {
+      clearOnboardingAutoTimer();
       onboardingStep = step;
       const overlay = document.getElementById('onboardingGuideOverlay');
       const btnPhases = document.getElementById('phaseDashboardToggleBtn');
@@ -9479,10 +9503,17 @@
         if (proceedBtn) proceedBtn.innerHTML = 'FINISH ✓';
       } else {
         dismissOnboardingGuide();
+        return;
       }
+
+      // Automatically advance to the next step after 3.4 seconds
+      onboardingAutoTimer = setTimeout(() => {
+        onboardingProceedAction();
+      }, 3400);
     }
 
     function onboardingProceedAction() {
+      clearOnboardingAutoTimer();
       if (sound && sound.clickSound) sound.clickSound();
       if (onboardingStep === 1) {
         setOnboardingStep(2);
@@ -9496,6 +9527,7 @@
     }
 
     function onboardingActionClick() {
+      clearOnboardingAutoTimer();
       if (sound && sound.clickSound) sound.clickSound();
       if (onboardingStep === 1) {
         openPhaseDashboard();
@@ -9511,18 +9543,21 @@
     }
 
     function advanceOnboardingFromPhases() {
+      clearOnboardingAutoTimer();
       if (onboardingStep === 1) {
         setOnboardingStep(2);
       }
     }
 
     function advanceOnboardingFromCrew() {
+      clearOnboardingAutoTimer();
       if (onboardingStep === 2) {
         setOnboardingStep(3);
       }
     }
 
     function dismissOnboardingGuide() {
+      clearOnboardingAutoTimer();
       onboardingStep = 0;
       const overlay = document.getElementById('onboardingGuideOverlay');
       const btnPhases = document.getElementById('phaseDashboardToggleBtn');
