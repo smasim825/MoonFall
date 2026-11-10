@@ -483,8 +483,8 @@ screen and (max-height: 550px) {
 
   .building-plant {
     --glow-color: rgba(70, 255, 90, 0.95);
-    left: 25%;
-    top: 64%;
+    left: 26%;
+    top: 70%;
     width: 28.69%;
     z-index: 8;
     /* Upper layer of Main Base */
