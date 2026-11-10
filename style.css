@@ -1274,3 +1274,8 @@ body.force-horizontal .game-viewport {
   transform-origin: center center !important;
   overflow: hidden !important;
 }
+/* Hide mobile navigation elements on PC desktop */
+.mobile-menu-toggle,
+.mobile-nav-menu {
+  display: none !important;
+}
