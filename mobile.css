@@ -2223,7 +2223,7 @@ screen and (max-height: 520px) {
   .mcq-stage-box:not(.hidden),
   .meal-game-viewport .mcq-stage-box:not(.hidden) {
     position: absolute !important;
-    top: 14% !important;
+    top: 27% !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: 82% !important;
