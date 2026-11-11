@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta charset="UTF-8">
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -1230,7 +1231,8 @@
     }
 
     .telemetry-val {
-      flex: 0 0 38px;
+      flex: 0 0 auto;
+      min-width: 52px;
       text-align: right;
       font-weight: bold;
       font-size: clamp(1.05rem, 1.3vw, 1.22rem);
@@ -6162,7 +6164,898 @@
     .hidden {
       display: none !important;
     }
-  </style>
+
+    /* =========================================================================
+       MISSION DESCRIPTION DOSSIER & NASA VIDEO INTEL MODAL
+       ========================================================================= */
+    .mission-dossier-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(1, 6, 18, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(8px, 2vh, 20px);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
+    }
+
+    .mission-dossier-backdrop.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .mission-dossier-card {
+      width: min(94vw, 860px);
+      max-height: 94vh;
+      background: linear-gradient(180deg, #07152f 0%, #030a1a 100%);
+      border: 2.5px solid #00f0ff;
+      border-radius: 14px;
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.4), 0 20px 40px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: dossierZoom 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes dossierZoom {
+      0% { transform: scale(0.92); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Modal Header & Folder Tabs */
+    .dossier-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: rgba(0, 240, 255, 0.08);
+      border-bottom: 2px solid rgba(0, 240, 255, 0.25);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .dossier-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dossier-tag-pill {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.78rem;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dossier-tabs-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dossier-tab-btn {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      color: #94a3b8;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.88rem;
+      font-weight: bold;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .dossier-tab-btn.active {
+      background: #00f0ff;
+      border-color: #00f0ff;
+      color: #030a18;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+    }
+
+    .dossier-close-btn {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1.5px solid #ef4444;
+      color: #ffffff;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.85rem;
+      font-weight: bold;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .dossier-close-btn:hover {
+      background: #ef4444;
+      transform: scale(1.04);
+    }
+
+    /* Modal Body Content (Scrollable) */
+    .dossier-body {
+      padding: clamp(12px, 2vh, 20px);
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      color: #e2e8f0;
+      font-family: 'Pixel Operator', monospace;
+      max-height: calc(94vh - 120px);
+    }
+
+    .dossier-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    .dossier-body::-webkit-scrollbar-thumb {
+      background: #00f0ff;
+      border-radius: 3px;
+    }
+
+    /* Main Title Section */
+    .dossier-main-title {
+      font-size: clamp(1.15rem, 1.8vw, 1.6rem);
+      font-weight: bold;
+      color: #fdcb0e;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      border-bottom: 1.5px solid rgba(253, 203, 14, 0.3);
+      padding-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Stat Badges Row */
+    .dossier-stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+    }
+
+    .dossier-stat-chip {
+      background: rgba(0, 25, 55, 0.7);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dossier-stat-label {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .dossier-stat-value {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    /* Content Cards */
+    .dossier-section-card {
+      background: rgba(0, 20, 48, 0.55);
+      border-left: 3.5px solid #00f0ff;
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .dossier-section-card.amber-border {
+      border-left-color: #f59e0b;
+      background: rgba(45, 26, 0, 0.35);
+    }
+
+    .dossier-section-card.purple-border {
+      border-left-color: #a855f7;
+      background: rgba(35, 10, 55, 0.35);
+    }
+
+    .dossier-section-title {
+      font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+      font-weight: bold;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dossier-section-p {
+      font-size: clamp(0.85rem, 1.05vw, 0.98rem);
+      line-height: 1.45;
+      color: #cbd5e1;
+    }
+
+    .dossier-highlight-box {
+      background: rgba(253, 203, 14, 0.1);
+      border: 1.5px dashed #fdcb0e;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+      color: #fef08a;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+    .dossier-ref-link-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .dossier-ref-link-card a {
+      color: #38bdf8;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .dossier-ref-link-card a:hover {
+      text-decoration: underline;
+      color: #00f0ff;
+    }
+
+    /* Video Tab Styling */
+    .dossier-video-container {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000000;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid rgba(0, 240, 255, 0.4);
+      position: relative;
+    }
+
+    .dossier-video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .dossier-video-fallback {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 20, 48, 0.7);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+    }
+
+    .dossier-video-fallback a {
+      background: #ef4444;
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.15s ease;
+    }
+
+    .dossier-video-fallback a:hover {
+      transform: scale(1.04);
+    }
+
+    /* Modal Footer */
+    .dossier-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: rgba(0, 15, 35, 0.85);
+      border-top: 1.5px solid rgba(0, 240, 255, 0.2);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .dossier-footer-note {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .dossier-cta-btn {
+      background: #00f0ff;
+      border: none;
+      color: #030a18;
+      font-family: 'Pixel Operator', monospace;
+      font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+      font-weight: bold;
+      padding: 8px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: filter 0.15s ease, transform 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dossier-cta-btn:hover {
+      filter: brightness(1.15);
+      transform: scale(1.03);
+    }
+
+    /* Small screen adjustments */
+    @media (max-width: 1024px), (max-height: 550px) {
+      .mission-dossier-card {
+        width: 96vw;
+        max-height: 96vh;
+      }
+      .dossier-header {
+        padding: 6px 10px;
+      }
+      .dossier-body {
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .dossier-footer {
+        padding: 6px 10px;
+      }
+      .dossier-main-title {
+        font-size: 1rem;
+      }
+      .dossier-section-title {
+        font-size: 0.88rem;
+      }
+      .dossier-section-p {
+        font-size: 0.78rem;
+        line-height: 1.35;
+      }
+      .dossier-stat-chip {
+        padding: 4px 6px;
+      }
+      .dossier-stat-value {
+        font-size: 0.88rem;
+      }
+      .dossier-highlight-box {
+        font-size: 0.82rem;
+        padding: 6px 8px;
+      }
+    }
+
+
+  /* === MISSION DESCRIPTION & HISTORICAL INTEL DOSSIER MODAL === */
+    .mission-dossier-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(1, 6, 18, 0.94);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: max(18px, calc(env(safe-area-inset-top) + 12px)) clamp(8px, 2vw, 16px) clamp(10px, 2vh, 16px);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
+    }
+
+    .mission-dossier-backdrop.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Pixel-Art COC Inspired Board Wrap - Matches Mainbase Mission Board exactly */
+    .coc-phase-board-wrap.dossier-board-wrap {
+      width: min(94vw, 940px);
+      max-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.95));
+      animation: cocBoardPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes cocBoardPop {
+      0% { transform: scale(0.94); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Top Folder Tabs Bar - Identical to Mainbase */
+    .coc-board-tabs {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 10px;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .coc-tabs-left {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .coc-tab {
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(1.05rem, 1.6vw, 1.55rem);
+      letter-spacing: 0.05em;
+      color: #cbd5e1;
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      border: 3.5px solid #000000;
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      padding: 6px 16px 7px 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.18);
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000;
+      transition: filter 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .coc-tab:hover:not(.active-tab) {
+      filter: brightness(1.2);
+    }
+
+    .coc-tab.active-tab {
+      background: linear-gradient(180deg, #1d4ed8 0%, #172554 100%);
+      color: #ffffff;
+      padding-top: 8px;
+      box-shadow: inset 0 3px 0 #60a5fa;
+      margin-bottom: -3.5px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .coc-board-close-btn {
+      background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+      border: 3px solid #000000;
+      border-radius: 8px;
+      box-shadow: inset 0 2px 0 #fca5a5, inset 0 -2px 0 #7f1d1d, 0 3px 0 #000;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: clamp(30px, 3.8vw, 38px);
+      height: clamp(30px, 3.8vw, 38px);
+      min-width: 30px;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 4px;
+      cursor: pointer;
+      font-family: Arial, -apple-system, sans-serif;
+      font-size: clamp(1rem, 1.4vw, 1.3rem);
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+      transition: transform 0.12s ease, filter 0.12s ease;
+    }
+
+    .coc-board-close-btn:hover {
+      filter: brightness(1.15);
+      transform: scale(1.05);
+    }
+
+    /* Main Board Body */
+    .coc-board-body.dossier-board-body {
+      background: linear-gradient(180deg, #172554 0%, #0b132b 100%);
+      border: 4px solid #000000;
+      border-radius: 14px;
+      box-shadow: inset 0 3px 0 #3b82f6, inset 0 -4px 0 #050814, 0 8px 0 #000000;
+      padding: clamp(12px, 2vh, 18px);
+      display: flex;
+      flex-direction: column;
+      max-height: calc(94vh - 46px);
+      overflow-y: auto;
+      gap: 12px;
+      box-sizing: border-box;
+    }
+
+    .dossier-board-body::-webkit-scrollbar {
+      width: 7px;
+    }
+    .dossier-board-body::-webkit-scrollbar-track {
+      background: #0b132b;
+      border-radius: 4px;
+    }
+    .dossier-board-body::-webkit-scrollbar-thumb {
+      background: #3b82f6;
+      border-radius: 4px;
+      border: 1px solid #000;
+    }
+
+    /* Main Title Section */
+    .dossier-main-title {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: clamp(1.3rem, 2vw, 1.85rem);
+      font-weight: bold;
+      color: #fdcb0e;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      border-bottom: 2px solid rgba(253, 203, 14, 0.35);
+      padding-bottom: 8px;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .dossier-stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 8px;
+    }
+
+    .dossier-stat-chip {
+      background: rgba(15, 23, 42, 0.85);
+      border: 2px solid #000000;
+      border-radius: 6px;
+      padding: 6px 10px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 0 #000;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dossier-stat-label {
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .dossier-stat-value {
+      font-family: 'Jersey 10', 'Pixel Operator', monospace;
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #38bdf8;
+      letter-spacing: 0.04em;
+    }
+
+    .dossier-section-card {
+      background: rgba(10, 18, 38, 0.75);
+      border: 2.5px solid #000000;
+      border-left: 4px solid #38bdf8;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 3px 0 #000;
+    }
+
+    .dossier-section-card.amber-border {
+      border-left-color: #f59e0b;
+    }
+
+    .dossier-section-card.purple-border {
+      border-left-color: #a855f7;
+    }
+
+    .dossier-section-title {
+      font-family: 'Jersey 10', monospace;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #ffffff;
+      letter-spacing: 0.03em;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    }
+
+    .dossier-section-p {
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: #cbd5e1;
+      margin: 0;
+    }
+
+    .dossier-section-p strong {
+      color: #fdcb0e;
+    }
+
+    .dossier-highlight-box {
+      background: linear-gradient(90deg, rgba(239, 68, 68, 0.25) 0%, rgba(245, 158, 11, 0.25) 100%);
+      border: 2px solid #ef4444;
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #fef08a;
+      font-family: 'Jersey 10', monospace;
+      font-size: 1.2rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+    }
+
+    .dossier-ref-link-card {
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      background: rgba(15, 23, 42, 0.65);
+      border: 2px solid #000000;
+      border-radius: 6px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .dossier-ref-link-card a {
+      color: #38bdf8;
+      text-decoration: underline;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      width: fit-content;
+    }
+
+    .dossier-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 6px;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      flex-wrap: wrap;
+    }
+
+    .dossier-action-btn {
+      font-family: 'Jersey 10', monospace;
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+      padding: 8px 20px;
+      border: 3px solid #000000;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
+      box-shadow: 0 3px 0 #000;
+      transition: filter 0.12s ease, transform 0.12s ease;
+    }
+
+    .dossier-action-btn:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+    }
+
+    .dossier-action-btn.btn-primary {
+      background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+      box-shadow: inset 0 2px 0 #93c5fd, inset 0 -2px 0 #1e3a8a, 0 3px 0 #000;
+    }
+
+    .dossier-action-btn.btn-video-tab {
+      background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+      box-shadow: inset 0 2px 0 #fde68a, inset 0 -2px 0 #92400e, 0 3px 0 #000;
+    }
+
+    /* Video Tab Styling */
+    .dossier-video-wrapper {
+      position: relative;
+      width: 100%;
+      background: #000000;
+      border: 3.5px solid #000000;
+      border-radius: 10px;
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.2), 0 5px 15px rgba(0, 0, 0, 0.95);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dossier-video-hud-header {
+      background: #0f172a;
+      border-bottom: 2px solid #000000;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      flex-wrap: wrap;
+    }
+
+    .hud-rec-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #ef4444;
+      animation: hudBlink 1s infinite alternate;
+    }
+
+    @keyframes hudBlink {
+      from { opacity: 0.3; }
+      to { opacity: 1; }
+    }
+
+    .dossier-video-element-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #050814;
+      max-height: clamp(260px, 46vh, 440px);
+    }
+
+    .dossier-video-element-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+
+    .dossier-video-footer {
+      background: #0b132b;
+      border-top: 2px solid #000000;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .dossier-yt-external-btn {
+      background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+      border: 2px solid #000;
+      border-radius: 6px;
+      color: #ffffff;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.82rem;
+      font-weight: bold;
+      padding: 5px 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: inset 0 1px 0 #fca5a5, 0 2px 0 #000;
+      transition: filter 0.12s ease;
+    }
+
+    .dossier-yt-external-btn:hover {
+      filter: brightness(1.15);
+    }
+
+    @media (max-width: 640px) {
+      .coc-tab {
+        padding: 5px 10px;
+        font-size: 0.95rem;
+      }
+      .dossier-stat-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    /* NASA CCMC Link Styles across modal & HUD */
+    .coc-tab.coc-link-tab {
+      background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      font-family: 'Jersey 10', monospace;
+      font-size: clamp(0.95rem, 1.4vw, 1.35rem);
+      text-decoration: none;
+      border: 3.5px solid #000000;
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      padding: 6px 14px 7px 14px;
+      box-shadow: inset 0 2px 0 #7dd3fc;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 0px;
+      transition: filter 0.15s ease, transform 0.12s ease;
+    }
+    .coc-tab.coc-link-tab:hover {
+      filter: brightness(1.2);
+      transform: translateY(-1px);
+      color: #ffffff;
+    }
+
+    .dossier-ccmc-badge {
+      background: linear-gradient(180deg, rgba(14, 116, 144, 0.95) 0%, rgba(21, 94, 117, 0.95) 100%);
+      border: 2px solid #000;
+      border-radius: 6px;
+      color: #e0f2fe;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.82rem;
+      font-weight: bold;
+      padding: 5px 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: inset 0 1px 0 #38bdf8, 0 2px 0 #000;
+      transition: filter 0.15s ease, transform 0.12s ease;
+      white-space: nowrap;
+    }
+    .dossier-ccmc-badge:hover {
+      filter: brightness(1.2);
+      transform: translateY(-1px);
+      color: #ffffff;
+    }
+
+    .dossier-inline-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #38bdf8;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-decoration: underline;
+      padding: 4px 0;
+      transition: color 0.15s ease;
+    }
+    .dossier-inline-link:hover {
+      color: #7dd3fc;
+    }
+
+    a.hud-link-btn {
+      text-decoration: none;
+      color: #38bdf8;
+      background: rgba(14, 116, 144, 0.25);
+      border: 1.5px solid #0284c7;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-family: 'Pixel Operator', monospace;
+      font-size: 0.82rem;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    a.hud-link-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+    
+    /* === END MISSION DOSSIER MODAL === */
+</style>
   <link rel="stylesheet" href="mobile.css?v=20261111_fix7"
     media="screen and (max-width: 1024px), screen and (max-height: 550px)">
   <link rel="stylesheet" href="final_mission_mobile.css?v=20261111_v1"
@@ -6332,7 +7225,19 @@
             </svg>
             <span id="soundText">SOUND</span>
           </button>
-          <button class="hud-btn" id="restartBtn" onclick="restartMission()" title="Restart Mission"
+                              <button class="hud-btn" id="dossierBtn" onclick="openMissionDossierModal()" title="View Mission Description, Historical Reference & Video Intel">
+            <svg class="hud-svg-icon" viewBox="0 0 24 24" fill="#38bdf8" style="width:16px;height:16px;">
+              <path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+            </svg>
+            <span>MISSION DOSSIER</span>
+          </button>
+          <a class="hud-btn hud-link-btn" href="https://ccmc.gsfc.nasa.gov/assessment/topics/SEP/campaign2020/20170910.php" target="_blank" rel="noopener noreferrer" title="NASA Community Coordinated Modeling Center (CCMC) — September 10, 2017 SEP Event Archive">
+            <svg class="hud-svg-icon" viewBox="0 0 24 24" fill="#38bdf8" style="width:14px;height:14px;">
+              <path fill="currentColor" d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+            </svg>
+            <span>NASA CCMC ↗</span>
+          </a>
+<button class="hud-btn" id="restartBtn" onclick="restartMission()" title="Restart Mission"
             aria-label="Restart Mission">
             <svg class="hud-svg-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="currentColor"
@@ -6382,7 +7287,7 @@
           <div class="telemetry-bar-track">
             <div class="telemetry-bar-fill bar-healthy" id="barO2" style="width: 75%;"></div>
           </div>
-          <span class="telemetry-val" id="valO2">75%</span>
+          <span class="telemetry-val" id="valO2" data-points="75">10.1 kg</span>
         </div>
 
         <!-- 2. Water -->
@@ -6398,7 +7303,8 @@
           </div>
           <div class="telemetry-bar-track">
             <div class="telemetry-bar-fill bar-good" id="barWater" style="width: 65%;"></div>
-          </div><span class="telemetry-val" id="valWater">65%</span>
+          </div>
+          <span class="telemetry-val" id="valWater" data-points="65">325 kg</span>
         </div>
 
         <!-- 3. Power -->
@@ -6415,7 +7321,7 @@
           <div class="telemetry-bar-track">
             <div class="telemetry-bar-fill bar-healthy" id="barPower" style="width: 75%;"></div>
           </div>
-          <span class="telemetry-val" id="valPower">75%</span>
+          <span class="telemetry-val" id="valPower" data-points="75">75 kWh</span>
         </div>
 
         <!-- 4. Food -->
@@ -6434,7 +7340,7 @@
           <div class="telemetry-bar-track">
             <div class="telemetry-bar-fill bar-healthy" id="barFood" style="width: 90%;"></div>
           </div>
-          <span class="telemetry-val" id="valFood">90%</span>
+          <span class="telemetry-val" id="valFood" data-points="90">324 kg</span>
         </div>
 
         <!-- 5. Health (Critical gate: 50) -->
@@ -6453,7 +7359,7 @@
           <div class="telemetry-bar-track">
             <div class="telemetry-bar-fill bar-good" id="barHealth" style="width: 65%;"></div>
           </div>
-          <span class="telemetry-val" id="valHealth">65%</span>
+          <span class="telemetry-val" id="valHealth" data-points="65">650 mSv</span>
         </div>
 
         <!-- 6. Equip (Critical gate: 50) -->
@@ -6472,7 +7378,7 @@
           <div class="telemetry-bar-track">
             <div class="telemetry-bar-fill bar-healthy" id="barEquip" style="width: 90%;"></div>
           </div>
-          <span class="telemetry-val" id="valEquip">90%</span>
+          <span class="telemetry-val" id="valEquip" data-points="90">90%</span>
         </div>
 
         <!-- 7. Greenhouse -->
@@ -6489,9 +7395,9 @@
 
           </div>
           <div class="telemetry-bar-track">
-            <div class="telemetry-bar-fill bar-healthy" id="barGreenhouse" style="width: 90%;"></div>
+            <div class="telemetry-bar-fill bar-healthy" id="barGreenhouse" style="width: 80%;"></div>
           </div>
-          <span class="telemetry-val" id="valGreenhouse">90%</span>
+          <span class="telemetry-val" id="valGreenhouse" data-points="80">16.0 m²</span>
         </div>
 
         <!-- Telemetry Footer: LSI Index -->
@@ -6501,6 +7407,229 @@
         </div>
       </aside>
 
+
+      <!-- PRE-MISSION BRIEFING YOUTUBE VIDEO PREVIEW (NASA Goddard Archive) -->
+      <div class="briefing-video-card" id="briefingVideoCard" onclick="openMissionDossierModal()" role="button" tabindex="0" title="Click to watch NASA Solar Flare video in-game">
+        <div class="briefing-video-header">
+          <span class="briefing-live-pill"><span class="briefing-live-dot"></span> PRE-MISSION INTEL</span>
+          <span class="briefing-duration-pill">0:34 ARCHIVE</span>
+        </div>
+        <div class="briefing-thumb-container">
+          <img src="https://img.youtube.com/vi/q-ZQBlWdlAY/hqdefault.jpg" alt="NASA Solar Flare Footage" class="briefing-thumb-img">
+          <div class="briefing-play-overlay">
+            <div class="briefing-play-btn">
+              <svg viewBox="0 0 24 24" width="26" height="26">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="briefing-thumb-badge">▶ WATCH PREVIEW FOOTAGE</div>
+        </div>
+        <div class="briefing-video-meta">
+          <div class="briefing-video-title">NASA Archive // Solar Flare & SPE Event</div>
+          <div class="briefing-video-sub">Goddard Space Flight Center &bull; Click to play</div>
+        </div>
+      </div>
+
+      
+      <!-- MISSION DESCRIPTION & HISTORICAL INTEL DOSSIER MODAL -->
+      <div class="mission-dossier-backdrop hidden" id="missionDossierModal" onclick="if(event.target===this) closeMissionDossierModal()" role="dialog" aria-modal="true" aria-label="Mission Description & Dossier">
+        <div class="coc-phase-board-wrap dossier-board-wrap">
+          <!-- Top Folder Tabs - Exactly sized and styled like Mainbase -->
+          <div class="coc-board-tabs">
+            <div class="coc-tabs-left">
+              <button class="coc-tab active-tab" id="tabDossierBriefing" onclick="switchDossierTab('briefing')" type="button">
+                <span>📖 MISSION BRIEFING</span>
+              </button>
+              <button class="coc-tab" id="tabDossierVideo" onclick="switchDossierTab('video')" type="button">
+                <span>🎬 NASA VIDEO INTEL</span>
+              </button>
+            </div>
+            <div style="display: flex; align-items: flex-end; gap: 8px;">
+              <a href="https://ccmc.gsfc.nasa.gov/assessment/topics/SEP/campaign2020/20170910.php" 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 class="coc-tab coc-link-tab"
+                 title="Open NASA CCMC 2017-09-10 SEP Campaign Archive">
+                <span>🔗 NASA CCMC DATA ↗</span>
+              </a>
+              <button class="coc-board-close-btn" type="button" onclick="closeMissionDossierModal()" title="Start Mission / Close">✕</button>
+            </div>
+          </div>
+
+          <!-- Board Body -->
+          <div class="coc-board-body dossier-board-body">
+            
+            <!-- TAB 1: MISSION BRIEFING -->
+            <div id="dossierTabContentBriefing" style="display: flex; flex-direction: column; gap: 12px; width: 100%; box-sizing: border-box;">
+              <div class="dossier-main-title">
+                <span>⚡ FINAL MISSION: 18-HOUR SOLAR STORM SURVIVAL</span>
+                <a href="https://ccmc.gsfc.nasa.gov/assessment/topics/SEP/campaign2020/20170910.php" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="dossier-ccmc-badge"
+                   title="Scientific Reference: NASA CCMC September 10, 2017 SEP Event">
+                  <span>🔗 NASA CCMC SCIENTIFIC ARCHIVE ↗</span>
+                </a>
+              </div>
+
+              <!-- Fast Stat Chips -->
+              <div class="dossier-stat-row">
+                <div class="dossier-stat-chip">
+                  <span class="dossier-stat-label">EVENT TYPE</span>
+                  <span class="dossier-stat-value">X8.2 SOLAR FLARE</span>
+                </div>
+                <div class="dossier-stat-chip">
+                  <span class="dossier-stat-label">SEP DURATION (&gt;10 MeV)</span>
+                  <span class="dossier-stat-value">98.08 HOURS</span>
+                </div>
+                <div class="dossier-stat-chip">
+                  <span class="dossier-stat-label">HIGH ENERGY (&gt;100 MeV)</span>
+                  <span class="dossier-stat-value">54.25 HOURS</span>
+                </div>
+                <div class="dossier-stat-chip">
+                  <span class="dossier-stat-label">SURVIVAL WINDOW</span>
+                  <span class="dossier-stat-value">18-HOUR CRISIS</span>
+                </div>
+              </div>
+
+              <!-- Historical Reference Section -->
+              <div class="dossier-section-card amber-border">
+                <div class="dossier-section-title">
+                  <span>☀️ Historical Reference: September 10, 2017 — X8.2 Solar Flare</span>
+                </div>
+                <p class="dossier-section-p">
+                  On September 10, 2017, the Sun unleashed an X8.2-class solar flare, triggering a major Solar Energetic Particle (SEP) event. NASA's GOES-13 observations recorded elevated proton activity for approximately <strong>98.08 hours above 10 MeV</strong> and <strong>54.25 hours above 100 MeV</strong>.
+                </p>
+                <p class="dossier-section-p">
+                  This real event demonstrates how prolonged solar particle activity can create serious radiation hazards for astronauts operating beyond Earth's protective magnetic field.
+                </p>
+                <div style="margin-top: 4px;">
+                  <a href="https://ccmc.gsfc.nasa.gov/assessment/topics/SEP/campaign2020/20170910.php" target="_blank" rel="noopener noreferrer" class="dossier-inline-link" title="NASA CCMC September 10, 2017 SEP Event">
+                    <span>🔗 NASA CCMC Campaign Record (ccmc.gsfc.nasa.gov) ↗</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Your Mission Section -->
+              <div class="dossier-section-card">
+                <div class="dossier-section-title">
+                  <span>🛡️ YOUR MISSION</span>
+                </div>
+                <p class="dossier-section-p">
+                  A powerful solar particle event is threatening the Shackleton Rim Outpost near the Moon's South Pole. Five crew members must survive an intense radiation emergency while maintaining shelter protection, oxygen, water, food production, and power systems.
+                </p>
+                <p class="dossier-section-p">
+                  You have <strong>18 hours</strong> to manage the crisis.
+                </p>
+              </div>
+
+              <!-- Why 18 Hours Section -->
+              <div class="dossier-section-card purple-border">
+                <div class="dossier-section-title">
+                  <span>⏱️ WHY 18 HOURS?</span>
+                </div>
+                <p class="dossier-section-p">
+                  The real 2017 event lasted much longer than this simulation. MoonFall condenses the historical radiation profile into an 18-hour critical survival campaign, allowing you to experience the challenges of emergency decision-making without reproducing the entire historical event.
+                </p>
+              </div>
+
+              <!-- Highlight Callout -->
+              <div class="dossier-highlight-box">
+                Your decisions matter. Protect the crew. Preserve essential systems. Survive the storm.
+              </div>
+
+              <!-- Scientific Reference -->
+              <div class="dossier-ref-link-card">
+                <div>
+                  <em>Scientific reference: NASA Community Coordinated Modeling Center (CCMC), September 10, 2017 SEP Event.</em>
+                </div>
+                <div>
+                  <a href="https://ccmc.gsfc.nasa.gov/assessment/topics/SEP/campaign2020/20170910.php" target="_blank" rel="noopener noreferrer">
+                    ccmc.gsfc.nasa.gov &bull; 2017-09-10 SEP Campaign ↗
+                  </a>
+                </div>
+              </div>
+
+              <!-- Bottom Action Bar -->
+              <div class="dossier-bottom-bar">
+                <button type="button" class="dossier-action-btn btn-video-tab" onclick="switchDossierTab('video')">
+                  <span>🎬 WATCH SDO SOLAR FLARE FOOTAGE (41s) ▶</span>
+                </button>
+                <button type="button" class="dossier-action-btn btn-primary" onclick="closeMissionDossierModal()">
+                  <span>START 18-HOUR CRISIS 🚀</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- TAB 2: NASA VIDEO INTEL -->
+            <div id="dossierTabContentVideo" class="hidden" style="display: none; flex-direction: column; gap: 12px; width: 100%; box-sizing: border-box;">
+              <div class="dossier-main-title">
+                <span>🎬 NASA ARCHIVE // SDO SEPTEMBER 2017 SOLAR FLARE FOOTAGE</span>
+                <span style="font-size: 0.85rem; color: #fdcb0e; font-family: 'Pixel Operator', monospace;">ARCHIVE ID: NASA SVS 12706</span>
+              </div>
+
+              <!-- Video Player Box with Direct Playback -->
+              <div class="dossier-video-wrapper">
+                <div class="dossier-video-hud-header">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="hud-rec-dot"></span>
+                    <span style="font-weight: bold; color: #ffffff;">SDO AIA 171 &amp; 304 &Aring; // NASA GODDARD SPACE FLIGHT CENTER</span>
+                  </div>
+                  <div>
+                    <span>SEPTEMBER 10, 2017 &bull; X8.2-CLASS FLARE</span>
+                  </div>
+                </div>
+
+                <div class="dossier-video-element-box">
+                  <video id="briefingDirectVideo"
+                         controls
+                         playsinline
+                         preload="metadata"
+                         poster="assets/final_mission/nasa_sdo_flare_poster.jpg"
+                         style="width: 100%; height: 100%; object-fit: contain;">
+                    <source src="assets/final_mission/nasa_sdo_x8_flare.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                  </video>
+                </div>
+
+                <div class="dossier-video-footer">
+                  <div style="font-family: 'Pixel Operator', monospace; font-size: 0.82rem; color: #94a3b8;">
+                    Direct Satellite Recording &bull; Extreme Ultraviolet Filter
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <a href="https://www.youtube.com/watch?v=q-ZQBlWdlAY" target="_blank" rel="noopener noreferrer" class="dossier-yt-external-btn">
+                      <span>▶ Watch on YouTube</span>
+                      <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dossier-section-card">
+                <div class="dossier-section-title">
+                  <span>🛰️ SATELLITE TELEMETRY CONTEXT</span>
+                </div>
+                <p class="dossier-section-p">
+                  This NASA Solar Dynamics Observatory (SDO) footage shows the eruptive flare and coronal mass ejection (CME) that unleashed the high-energy proton flux simulated in this final mission. Extreme UV wavelengths reveal ionized iron at temperatures exceeding 10 million Kelvin.
+                </p>
+              </div>
+
+              <!-- Bottom Action Bar -->
+              <div class="dossier-bottom-bar">
+                <button type="button" class="dossier-action-btn" style="background: #334155;" onclick="switchDossierTab('briefing')">
+                  <span>◀ BACK TO BRIEFING</span>
+                </button>
+                <button type="button" class="dossier-action-btn btn-primary" onclick="closeMissionDossierModal()">
+                  <span>START 18-HOUR CRISIS 🚀</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- END MISSION DOSSIER MODAL -->
       <!-- BOTTOM DIALOGUE OVERLAY AREA (Matching other missions) -->
       <footer class="dialogue-wrapper" id="dialogueWrapper">
 
@@ -7159,8 +8288,62 @@
       Food: 90,
       Health: 65,
       Equip: 90,
-      Greenhouse: 90
+      Greenhouse: 80
     };
+
+    // Real Starting Values & Unit Scaling from VALUES.md
+    const REAL_START_RESOURCES = {
+      O2: { points: 75, realValue: 10.1, unit: 'kg', capacity: 13.5, label: 'Atmospheric O₂' },
+      Water: { points: 65, realValue: 325, unit: 'kg', capacity: 500, label: 'Potable Water' },
+      Power: { points: 75, realValue: 75, unit: 'kWh', capacity: 100, label: 'Battery Energy' },
+      Food: { points: 90, realValue: 324, unit: 'kg', capacity: 360, label: 'Food Reserves' },
+      Health: { points: 65, realValue: 650, unit: 'mSv', capacity: 1000, label: 'Radiation Margin' },
+      Equip: { points: 90, realValue: 90, unit: '%', capacity: 100, label: 'Equipment Integrity' },
+      Greenhouse: { points: 80, realValue: 16.0, unit: 'm²', capacity: 20.0, label: 'Crop Canopy' }
+    };
+
+    function formatRealValue(key, points) {
+      switch (key) {
+        case 'O2':
+          return (points * 0.135).toFixed(1) + ' kg';
+        case 'Water':
+          return Math.round(points * 5) + ' kg';
+        case 'Power':
+          return Math.round(points) + ' kWh';
+        case 'Food':
+          return Math.round(points * 3.6) + ' kg';
+        case 'Health':
+          return Math.round(points * 10) + ' mSv';
+        case 'Equip':
+          return Math.round(points) + '%';
+        case 'Greenhouse':
+          return (points * 0.2).toFixed(1) + ' m²';
+        default:
+          return Math.round(points).toString();
+      }
+    }
+
+    function formatRealDelta(key, pt) {
+      const sign = pt > 0 ? '+' : '';
+      switch (key) {
+        case 'O2':
+          return sign + (pt * 0.135).toFixed(1) + ' kg';
+        case 'Water':
+          return sign + Math.round(pt * 5) + ' kg';
+        case 'Power':
+          return sign + Math.round(pt) + ' kWh';
+        case 'Food':
+          return sign + (pt * 3.6).toFixed(1) + ' kg';
+        case 'Health':
+          return sign + Math.round(pt * 10) + ' mSv';
+        case 'Equip':
+          return sign + Math.round(pt) + '%';
+        case 'Greenhouse':
+          return sign + (pt * 0.2).toFixed(1) + ' m²';
+        default:
+          return sign + pt;
+      }
+    }
 
     let outpostResources = { ...START_RESOURCES };
 
@@ -7337,11 +8520,12 @@
       }
     }
 
-    function animateTelemetryBarAndNumber(valEl, barEl, trackEl, startVal, targetVal, crit, duration = 950) {
+    function animateTelemetryBarAndNumber(key, valEl, barEl, trackEl, startVal, targetVal, crit, duration = 950) {
       if (!valEl) return;
 
       if (startVal === targetVal) {
-        valEl.textContent = `${targetVal}%`;
+        valEl.textContent = formatRealValue(key, targetVal);
+        valEl.dataset.points = targetVal;
         if (barEl) barEl.style.width = `${targetVal}%`;
         applyBarColor(barEl, targetVal, crit);
         return;
@@ -7365,13 +8549,14 @@
         const elapsed = now - startTime;
         const progress = Math.min(1, elapsed / duration);
         const ease = 1 - Math.pow(1 - progress, 3);
-        const currentNum = Math.round(startVal + (targetVal - startVal) * ease);
-        valEl.textContent = `${currentNum}%`;
+        const currentNum = startVal + (targetVal - startVal) * ease;
+        valEl.textContent = formatRealValue(key, currentNum);
 
         if (progress < 1) {
           requestAnimationFrame(step);
         } else {
-          valEl.textContent = `${targetVal}%`;
+          valEl.textContent = formatRealValue(key, targetVal);
+          valEl.dataset.points = targetVal;
           valEl.classList.remove('reducing', 'increasing');
           if (trackEl) trackEl.classList.remove('reducing', 'increasing');
         }
@@ -7423,11 +8608,14 @@
 
         if (deltas && deltas[b.key]) {
           // Smooth animation of reducing or increasing value & bar shrinking
-          const startVal = parseInt(valEl ? valEl.textContent : targetVal, 10) || targetVal;
-          animateTelemetryBarAndNumber(valEl, barEl, trackEl, startVal, targetVal, b.crit);
+          const startVal = (valEl && valEl.dataset.points !== undefined) ? parseFloat(valEl.dataset.points) : targetVal;
+          animateTelemetryBarAndNumber(b.key, valEl, barEl, trackEl, startVal, targetVal, b.crit);
         } else {
-          // Instant initial render
-          if (valEl) valEl.textContent = `${targetVal}%`;
+          // Instant initial render with real units from VALUES.md
+          if (valEl) {
+            valEl.textContent = formatRealValue(b.key, targetVal);
+            valEl.dataset.points = targetVal;
+          }
           if (barEl) {
             barEl.style.width = `${targetVal}%`;
             applyBarColor(barEl, targetVal, b.crit);
@@ -8558,263 +9746,263 @@
     // =========================================================================
     const MISSION_DECISIONS_DATA = {
       'm1': {
-        title: "⚡ DECISION 1: EVACUATE VS SECURE",
+        title: "⚡ DECISION 1: THE 30-MINUTE WARNING (05:30)",
         options: {
           'evacuate': {
             title: "Evacuate",
             image: "assets/final_mission/m1_opt_evacuate.webp",
             imgClass: "evacuate-sign-img",
-            stat: "Health +10, Equip -15",
+            stat: "Health -10 mSv, Equip -12%",
             badge: "EVAC",
             label: "OPTION A: EVACUATE",
-            deltas: { Health: 10, Equip: -15 },
-            gain: "Crew is safely inside before the storm hits (+10 Health).",
-            cost: "Outside power equipment is left running and sustains damage (-15 Equip).",
+            deltas: { Health: -1, Equip: -12 },
+            gain: "Crew is inside before the storm hits (only a short rover drive, ~10 mSv).",
+            cost: "Outside power gear is left switched on and gets damaged (-12% Equip).",
             real: "Spacecraft are put in safe mode during radiation storms; in the Oct 2003 storms Mars Odyssey and Genesis went into safe mode."
           },
           'secure_equip': {
             title: "Secure Equip",
             image: "assets/final_mission/m1_opt_secure_equip.webp",
-            stat: "Power -5, Health -12, Equip +10",
+            stat: "Power -4 kWh, Health -50 mSv, Equip -2%",
             badge: "EQUIP",
             label: "OPTION B: SECURE EQUIP",
-            deltas: { Power: -5, Health: -12, Equip: 10 },
-            gain: "Outside gear is shut down safely (+10 Equip).",
-            cost: "Crew stays out longer in suits (-12 Health); rover and shutdown use power (-5 Power).",
+            deltas: { Power: -4, Health: -5, Equip: -2 },
+            gain: "Outside gear is shut down safely (only -2% Equip).",
+            cost: "Two crew stay out ~20 min longer in suits (-50 mSv Health); rover and shutdown use 4 kWh.",
             real: "A suit (~0.4 g/cm²) lets through about 2.5x the dose of habitat walls (Townsend 1988: 311 vs 125 rem behind 1 vs 5 g/cm²)."
           }
         }
       },
       'm2': {
-        title: "⚡ DECISION 2: CHOOSE SHELTER DEFENSE",
+        title: "⚡ DECISION 2: THE SHELTER PROBLEM (06:00)",
         options: {
           'deep_shelter': {
             title: "Deep Shelter",
             image: "assets/final_mission/m2_opt_deep_shelter.webp",
-            stat: "Power -3, Health +18, Equip -5",
+            stat: "Power -1 kWh, Health -60 mSv",
             badge: "SHELTER",
             label: "OPTION A: DEEP SHELTER",
-            deltas: { Power: -3, Health: 18, Equip: -5 },
-            gain: "Deep interior module provides substantial radiation shielding (+18 Health).",
-            cost: "Auxiliary shelter fans consume power (-3 Power); air scrubber filters wear (-5 Equip).",
+            deltas: { Power: -1, Health: -6 },
+            gain: "Cheapest option: only the shelter fans (-1 kWh); no outside work, no hardware wear, no water.",
+            cost: "Weakest protection: ~60 mSv radiation dose gets through to crew (-6 Health).",
             real: "Inner module is about 10 g/cm² of shielding; dose-vs-shielding curve from Townsend 1988 (NASA TM-100620)."
           },
           'pile_regolith': {
             title: "Pile Regolith",
             image: "assets/final_mission/m1_opt_secure_equip.webp",
-            stat: "Power -8, Health +12, Equip +5",
+            stat: "Power -8 kWh, Health -10 mSv, Equip -8%",
             badge: "REGOLITH",
             label: "OPTION B: PILE REGOLITH",
-            deltas: { Power: -8, Health: 12, Equip: 5 },
-            gain: "Regolith bulk strengthens outer module shielding (+12 Health, +5 Equip).",
-            cost: "Excavation and loader operations consume battery power (-8 Power).",
+            deltas: { Power: -8, Health: -1, Equip: -8 },
+            gain: "Best protection: only ~15 mSv gets through to crew (-1 Health).",
+            cost: "Rover pushes regolith bags into place (8 kWh); abrasive dust wears seals and filters (-8% Equip).",
             real: "10 cm of regolith (1.5 g/cm³) adds 15 g/cm². Apollo dust clogged, scratched and broke seals (Gaier 2005, NASA TM-2005-213610)."
           },
           'water_shield': {
             title: "Water Shield",
             image: "assets/final_mission/m2_opt_water_shield.webp",
-            stat: "Water -15, Health +20",
+            stat: "Water -100 kg, Power -2 kWh, Health -30 mSv",
             badge: "WATER",
             label: "OPTION C: WATER SHIELD",
-            deltas: { Water: -15, Health: 20 },
-            gain: "Hydrogen-rich water jacket provides maximum biological protection (+20 Health).",
-            cost: "Water is diverted into structural radiation bladders (-15 Water).",
+            deltas: { Water: -20, Power: -2, Health: -3 },
+            gain: "Good protection (~30 mSv dose, -3 Health) with zero hardware wear.",
+            cost: "100 kg of water is pumped into soft bags (2 kWh) and must be re-treated before drinking (-100 kg Water).",
             real: "NASA-STD-3001 Vol 1: storm shelter of 10 g/cm² water-equivalent; 10 cm of water = 100 kg per m²."
           }
         }
       },
       'm3': {
-        title: "⚡ DECISION 3: EMERGENCY POWER ALLOCATION",
+        title: "⚡ DECISION 3: BLACKOUT (08:00)",
         options: {
           'greenhouse_off': {
             title: "Greenhouse Off",
             image: "assets/final_mission/m3_opt_greenhouse_off.webp",
-            stat: "Power +15, Greenhouse -20",
-            badge: "GREEN OFF",
+            stat: "Power -10 kWh, Green -4.0 m²",
+            badge: "GH OFF",
             label: "OPTION A: GREENHOUSE OFF",
-            deltas: { Power: 15, Greenhouse: -20 },
-            gain: "Saves maximum energy for life support and habitat subsystems (+15 Power).",
-            cost: "Crops lose grow lighting and temperature regulation (-20 Greenhouse).",
+            deltas: { Power: -10, Greenhouse: -20 },
+            gain: "Lowest battery use (-10 kWh): only core life support systems run.",
+            cost: "Crops receive zero light or heat (-4.0 m² crop condition).",
             real: "Lettuce needs 16 h of light a day; each lost light hour costs about 1.5 h of growth (NASA BVAD)."
           },
           'backup_power': {
             title: "Backup Power",
             image: "assets/final_mission/m3_opt_backup_power.webp",
-            stat: "Power -10, Green +5, Equip +8",
+            stat: "Power -15 kWh, Equip -8%",
             badge: "BACKUP PWR",
             label: "OPTION B: BACKUP POWER",
-            deltas: { Power: -10, Greenhouse: 5, Equip: 8 },
-            gain: "Maintains environmental controls (+5 Green) and secondary bus integrity (+8 Equip).",
-            cost: "Draws from auxiliary fuel cell reserves (-10 Power).",
+            deltas: { Power: -15, Equip: -8 },
+            gain: "Everything stays on; greenhouse crops are completely protected.",
+            cost: "Uses highest energy (-15 kWh) and drains emergency battery bank too deep (-8% Equip).",
             real: "NASA battery sizing caps discharge at 80%; deeper use shortens battery life (Kleinhenz & Paz 2021)."
           },
           'brownout_all': {
             title: "Brownout All",
             image: "assets/final_mission/m3_opt_brownout_all.webp",
-            stat: "Power -5, Greenhouse -5",
+            stat: "Power -13 kWh, Health -20 mSv, Green -1.6 m²",
             badge: "BROWNOUT",
             label: "OPTION C: BROWNOUT ALL",
-            deltas: { Power: -5, Greenhouse: -5 },
-            gain: "Balanced non-critical system load-shedding (-5 Power).",
-            cost: "Slight biological stress on vegetative growth (-5 Greenhouse).",
-            real: "NASA ECLSS trade studies: dimming lights to 40% saves ~400 W across a module."
+            deltas: { Power: -13, Health: -2, Greenhouse: -8 },
+            gain: "Middle path: crops retain half their light (only -1.6 m² canopy loss).",
+            cost: "Heavy battery draw (-13 kWh); cabin cools to ~18 °C causing poor sleep and fatigue (-20 mSv Health).",
+            real: "NASA's comfort zone is 20-25 °C. On Apollo 13 the powered-down cabin got so cold that sleep was hard."
           }
         }
       },
       'm4': {
-        title: "⚡ DECISION 4: OXYGEN MANAGEMENT",
+        title: "⚡ DECISION 4: OXYGEN COUNTDOWN (11:00)",
         options: {
           'bottled_o2': {
-            title: "Bottled O2",
+            title: "Bottled O₂",
             image: "assets/final_mission/m4_opt_bottled_o2.webp",
-            stat: "Oxygen -10",
-            badge: "BOTTLED O2",
-            label: "OPTION A: BOTTLED O2",
-            deltas: { O2: -10 },
-            gain: "Immediate pure oxygen supply with zero electrical draw or water consumption.",
-            cost: "Emergency high-pressure cylinders depleted (-10 Oxygen).",
+            stat: "O₂ -0.4 kg, Equip -8%",
+            badge: "BOTTLED O₂",
+            label: "OPTION A: BOTTLED O₂",
+            deltas: { O2: -3, Equip: -8 },
+            gain: "No power or water used; atmospheric oxygen almost holds steady (-0.4 kg O₂).",
+            cost: "Emergency oxygen cylinders are exhausted, leaving none for next emergency (-8% Equip).",
             real: "Each kg of O₂ in high-pressure tanks needs about 1.45 kg of tank (NASA BVAD)."
           },
           'electrolysis': {
             title: "Electrolysis",
             image: "assets/final_mission/m4_opt_electrolysis.webp",
-            stat: "O2 +20, Water -15, Power -20",
+            stat: "O₂ +0.7 kg, Water -5 kg, Power -14 kWh",
             badge: "ELECTROLYSIS",
             label: "OPTION B: ELECTROLYSIS",
-            deltas: { O2: 20, Water: -15, Power: -20 },
-            gain: "High-yield electrochemical conversion produces abundant fresh oxygen (+20 O2).",
-            cost: "Consumes significant water feedstock (-15 Water) and power bus capacity (-20 Power).",
-            real: "Splitting 1 kg H₂O yields 0.89 kg O₂ and uses ~4.4 kWh (OGS on ISS, NASA TM-2008-215172)."
+            deltas: { O2: 5, Water: -1, Power: -14 },
+            gain: "Generates ~2.7 kg of fresh O₂, increasing total reserve (+0.7 kg net / +5 pts).",
+            cost: "Water electrolysis draws heavy power (-14 kWh); small water cost (-5 kg Water).",
+            real: "ISS oxygen generator makes up to 9.2 kg O₂/day; 1.13 kg water per kg O₂; 4.7-5.5 kWh per kg O₂ (Colozza 2020)."
           }
         }
       },
       'm5': {
-        title: "⚡ DECISION 5: THE WATER TRAP",
+        title: "⚡ DECISION 5: THE WATER TRAP (13:00)",
         options: {
           'stored_potable': {
             title: "Stored Potable",
             image: "assets/final_mission/m5_opt_stored_potable.webp",
-            stat: "Water -15, Equip +5",
-            badge: "STORED H2O",
+            stat: "Water -50 kg, Equip +3%",
+            badge: "STORED H₂O",
             label: "OPTION A: STORED POTABLE",
-            deltas: { Water: -15, Equip: 5 },
-            gain: "Allows primary recycling membrane to backflush and recover (+5 Equip).",
-            cost: "Depletes clean potable water storage reserves (-15 Water).",
+            deltas: { Water: -10, Equip: 3 },
+            gain: "No power consumed; filter is serviced and cleaned properly while offline (+3% Equip).",
+            cost: "Consumes 50 kg of stored water, equal to 4 days drinking for 5 crew (-50 kg Water).",
             real: "Each astronaut needs at least 2.5 L of water a day for drinking and food (NASA OCHMO-TB-027)."
           },
-          'melt_ice': {
+          'melt_crater_ice': {
             title: "Melt Crater Ice",
-            image: "assets/final_mission/m5_opt_melt_ice.webp",
-            stat: "Water +18, Power -15, Equip -5",
+            image: "assets/final_mission/m5_opt_melt_crater_ice.webp",
+            stat: "Water +50 kg, Power -15 kWh, Equip -5%",
             badge: "MELT ICE",
             label: "OPTION B: MELT CRATER ICE",
-            deltas: { Water: 18, Power: -15, Equip: -5 },
-            gain: "Thermal sublimation of permanently shadowed crater ice adds fresh water (+18 Water).",
-            cost: "Heating elements consume high power (-15 Power); regolith fines foul intake filter (-5 Equip).",
-            real: "Warm ice from about -170 °C, melt it (334 kJ/kg), warm to 20 °C: about 0.19 kWh per kg."
+            deltas: { Water: 10, Power: -15, Equip: -5 },
+            gain: "Only option that adds water (+50 kg net potable water added).",
+            cost: "Thermal melting of cryogenic lunar ice draws heavy power (-15 kWh); sediment strains filter (-5% Equip).",
+            real: "Warming ice from -170 °C, melting (334 kJ/kg), and heating to 20 °C requires ~0.19 kWh/kg."
           },
           'drink_priority': {
             title: "Drink Priority",
             image: "assets/final_mission/m5_opt_drink_priority.webp",
-            stat: "Water -5, Power +3, Green -10",
+            stat: "Water -15 kg, Green -2.0 m²",
             badge: "DRINK PRIORITY",
             label: "OPTION C: DRINK PRIORITY",
-            deltas: { Water: -5, Power: 3, Greenhouse: -10 },
-            gain: "Conserves drinking water (-5 Water); cuts hydroponic pump power (+3 Power).",
-            cost: "Crops are deprived of moisture (-10 Green).",
-            real: "Lettuce uses about 2.1 kg of water per m² per day (NASA BVAD), so 20 m² needs ~42 kg a day."
+            deltas: { Water: -3, Greenhouse: -10 },
+            gain: "Crew drinking water secured at minimal expenditure (-15 kg Water).",
+            cost: "Greenhouse crops receive zero irrigation for the operational cycle (-2.0 m² crop condition).",
+            real: "Lettuce uses about 2.1 kg of water per m² per day (NASA BVAD); 20 m² needs ~42 kg/day."
           }
         }
       },
       'm6': {
-        title: "⚡ DECISION 6: THE LAST HARVEST",
+        title: "⚡ DECISION 6: THE LAST HARVEST (16:00)",
         options: {
           'restore_loop': {
             title: "Restore Loop",
             image: "assets/final_mission/m6_opt_restore_loop.webp",
-            stat: "Water -10, Power -12, Food +10, Green +20",
+            stat: "Water -30 kg, Power -12 kWh, Food +21.6 kg, Green +2.0 m²",
             badge: "RESTORE LOOP",
             label: "OPTION A: RESTORE LOOP",
-            deltas: { Water: -10, Power: -12, Food: 10, Greenhouse: 20 },
-            gain: "Revitalizes greenhouse bio-canopy (+20 Green) and secures food production (+10 Food).",
-            cost: "Hydroponic pumps and grow lights demand water (-10 Water) and electrical power (-12 Power).",
-            real: "Grow lights for 20 m² of lettuce are about 3 kW (LED, ~0.15 kW/m², from NASA BVAD values)."
+            deltas: { Water: -6, Power: -12, Food: 6, Greenhouse: 10 },
+            gain: "Crops recover (+2.0 m² condition) and upcoming harvest is preserved (+21.6 kg fresh food).",
+            cost: "Nutrient pumps and grow lights draw ~12 kWh; loop requires 30 kg water recharging.",
+            real: "Grow lights for 20 m² of lettuce require ~3 kW LED lighting (from NASA BVAD values)."
           },
           'abandon_crops': {
             title: "Abandon Crops",
             image: "assets/final_mission/m6_opt_abandon_crops.webp",
-            stat: "Water +5, Power +12, Green -35",
+            stat: "Power +8 kWh, Food -28.8 kg, Green -7.0 m²",
             badge: "ABANDON CROPS",
             label: "OPTION B: ABANDON CROPS",
-            deltas: { Water: 5, Power: 12, Greenhouse: -35 },
-            gain: "Diverts valuable power (+12 Power) and reclaims irrigation moisture (+5 Water).",
-            cost: "Greenhouse crops perish entirely (-35 Green).",
-            real: "20 m² of lettuce gives about 73 kg of fresh food per 28-day cycle (NASA BVAD yield)."
+            deltas: { Power: 8, Food: -8, Greenhouse: -35 },
+            gain: "Frees greenhouse electrical power for nighttime battery reserves (+8 kWh Power).",
+            cost: "Crop canopy suffers catastrophic die-off (-7.0 m²); harvest is lost (-28.8 kg Food).",
+            real: "20 m² of lettuce yields ~73 kg fresh food per 28-day cycle (NASA BVAD yield)."
           }
         }
       },
       'm7': {
-        title: "DECISION 7: THE CRITICAL FAILURE",
+        title: "⚡ DECISION 7: THE CRITICAL FAILURE (20:00)",
         options: {
-          'manual_repair': {
-            title: "Manual Repair",
-            image: "assets/final_mission/m7_opt_manual_repair.webp",
-            stat: "Power -12, Equip +15, Health -5",
-            badge: "MANUAL REPAIR",
-            label: "OPTION A: MANUAL REPAIR",
-            deltas: { Power: -12, Equip: 15, Health: -5 },
-            gain: "Damaged bus junction replaced and calibrated (+15 Equip).",
-            cost: "EVA power tools draw power (-12 Power); astronaut faces physical stress and radiation (-5 Health).",
-            real: "Sunita Williams and Akihiko Hoshide replaced that ISS power box on two spacewalks in Aug-Sep 2012."
-          },
           'isolate_bus': {
             title: "Isolate Bus",
             image: "assets/final_mission/m7_opt_isolate_bus.webp",
-            stat: "Power -8, Equip -5",
+            stat: "Power -3 kWh, Equip -12%",
             badge: "ISOLATE BUS",
-            label: "OPTION B: ISOLATE BUS",
-            deltas: { Power: -8, Equip: -5 },
-            gain: "Safely confines electrical short circuit to prevent catastrophic cascade.",
-            cost: "Module 4 power bus stays disabled (-5 Equip) with line resistance loss (-8 Power).",
-            real: "In 2012 a failed ISS power box (MBSU-1) cut 2 of 8 power channels; the station ran on ~75% power until repaired."
+            label: "OPTION A: ISOLATE BUS",
+            deltas: { Power: -3, Equip: -12 },
+            gain: "Fastest and safest containment; minimal electrical power lost (-3 kWh Power).",
+            cost: "Module 4 remains de-energized until post-storm overhaul (-12% Equip).",
+            real: "In 2012 an ISS power box (MBSU-1) failed; station ran on 75% power until repaired."
+          },
+          'manual_repair': {
+            title: "Manual Repair",
+            image: "assets/final_mission/m7_opt_manual_repair.webp",
+            stat: "Power -10 kWh, Health -40 mSv, Equip +10%",
+            badge: "MANUAL REPAIR",
+            label: "OPTION B: MANUAL REPAIR",
+            deltas: { Power: -10, Health: -4, Equip: 10 },
+            gain: "Power junction 4 restored to operational specification; hardware condition improves (+10% Equip).",
+            cost: "Diagnostic testing draws 10 kWh; crew exposed to hazardous smoke, heat, and radiation (-40 mSv Health).",
+            real: "Sunita Williams and Akihiko Hoshide replaced the failed ISS MBSU-1 box on spacewalks in 2012."
           },
           'reroute_bus': {
             title: "Reroute Bus",
             image: "assets/final_mission/m7_opt_reroute_bus.webp",
-            stat: "Power -10, Greenhouse -8",
+            stat: "Power -8 kWh, Equip -3%, Green -1.6 m²",
             badge: "REROUTE BUS",
             label: "OPTION C: REROUTE BUS",
-            deltas: { Power: -10, Greenhouse: -8 },
-            gain: "Maintains habitat and telemetry systems without physical module loss.",
-            cost: "Circuit overload wastes transmission power (-10 Power); greenhouse power shed (-8 Green).",
-            real: "Real power systems shed the least important loads first to keep life support running."
+            deltas: { Power: -8, Equip: -3, Greenhouse: -8 },
+            gain: "Module 4 remains operational; minimal structural hardware loss (-3% Equip).",
+            cost: "Parallel junction overloaded with line transmission losses (-8 kWh Power); greenhouse shed (-1.6 m²).",
+            real: "Real spacecraft power buses shed secondary loads first to protect critical life support."
           }
         }
       },
       'm8': {
-        title: "DECISION 8: THE FINAL DECISION",
+        title: "⚡ DECISION 8: THE FINAL DECISION (AFTER THE STORM)",
         options: {
           'hold_shelter': {
             title: "Hold Shelter",
             image: "assets/final_mission/m8_opt_hold_shelter.webp",
-            stat: "Water -2, Power -5, Health +8",
+            stat: "Water -10 kg, Power -6 kWh, Health +30 mSv",
             badge: "HOLD SHELTER",
             label: "OPTION A: HOLD SHELTER",
-            deltas: { Water: -2, Power: -5, Health: 8 },
-            gain: "Crew remains shielded while surface radiation decays, regaining stamina (+8 Health).",
-            cost: "Continued shelter life support expends water (-2 Water) and battery reserves (-5 Power).",
-            real: "NOAA: a solar radiation storm can last from hours to days."
+            deltas: { Water: -2, Power: -6, Health: 3 },
+            gain: "Crew rests inside storm shelter and avoids prolonged trailing proton flux (+30 mSv stamina recovery).",
+            cost: "Extended shelter life support draws battery energy (-6 kWh) and drinking water (-10 kg).",
+            real: "NOAA: solar radiation storms can persist from several hours to multiple days."
           },
           'controlled_recovery': {
             title: "Controlled Recovery",
             image: "assets/final_mission/m8_opt_controlled_recovery.webp",
-            stat: "Water -3, Power -12, Health -10, Equip +10",
+            stat: "Power +15 kWh, Health -50 mSv, Equip +6%",
             badge: "CONTROLLED RECOVERY",
             label: "OPTION B: CONTROLLED RECOVERY",
-            deltas: { Water: -3, Power: -12, Health: -10, Equip: 10 },
-            gain: "Immediate EVA resets solar inverters and repairs habitat infrastructure (+10 Equip).",
-            cost: "High resource consumption (-3 Water, -12 Power) and elevated crew radiation exposure (-10 Health).",
-            real: "NOAA: leaving early means some extra dose before active regolith activation fully decays."
+            deltas: { Power: 15, Health: -5, Equip: 6 },
+            gain: "Crew resets inverters to restore solar array power (+15 kWh) and repairs exterior gear (+6% Equip).",
+            cost: "Crew incurs secondary radiation exposure from active regolith activation (-50 mSv Health).",
+            real: "Leaving shelter early exposes crew to secondary scatter before regolith activation decays."
           }
         }
       }
@@ -8902,10 +10090,11 @@
       if (deltasGrid) {
         deltasGrid.innerHTML = Object.entries(data.deltas).map(([k, v]) => {
           const isGain = v > 0;
+          const realStr = formatRealDelta(k, v);
           return `
             <div class="consequence-delta-pill ${isGain ? 'gain' : 'loss'}">
               <span>${k}:</span>
-              <span>${isGain ? '+' + v : v}</span>
+              <span>${realStr}</span>
             </div>
           `;
         }).join('');
@@ -10897,20 +12086,7 @@
       return { best, worst };
     }
 
-    // --- Final Debriefing & Star Rating Calculation (Synced with moon_fall_1296_simulation_v4.json) ---
-    let simV4Data = null;
-    async function loadSimulationV4Data() {
-      try {
-        const res = await fetch('moon_fall_1296_simulation_v4.json');
-        if (res.ok) {
-          simV4Data = await res.json();
-          console.log('[MOON FALL] Simulation JSON v4 loaded successfully (1,296 runs available).');
-        }
-      } catch (e) {
-        console.warn('[MOON FALL] Could not load moon_fall_1296_simulation_v4.json:', e);
-      }
-    }
-    loadSimulationV4Data();
+    // --- Final Debriefing & Star Rating Calculation (Model A: game_logic.pdf Equation 4) ---
 
     function getDecisionLetter(m, choiceKey) {
       if (!choiceKey) return 'A';
@@ -10941,35 +12117,16 @@
       }).join('-');
     }
 
-    function findSimulationV4Entry(sequence) {
-      if (!simV4Data || !simV4Data.results) return null;
-      for (const tier of ['three_star', 'two_star', 'one_star', 'failed']) {
-        if (simV4Data.results[tier]) {
-          const match = simV4Data.results[tier].find(item => item.decisions === sequence);
-          if (match) return match;
-        }
-      }
-      return null;
-    }
-
+    // Direct Mathematical Scoring from game_logic.pdf (Equation 4: J = 1/7 * sum(s_8,i))
     function calculateFinalScore() {
-      const seq = getFullPlayedSequence();
-      const match = findSimulationV4Entry(seq);
-      if (match && typeof match.final_score === 'number') {
-        return { score: match.final_score, stars: match.stars, matched: match };
-      }
-
-      // Standalone mathematical fallback strictly conforming to simulation v4:
-      // In simulation v4, between-mission consumption is -15 O2, -4 Water, -7 Power (-26 total),
-      // plus delayed effects average ~9 points (-35 points total).
-      // Maximum score in simulation v4 across all 1,296 runs is 68.429 / 100.
       const r = outpostResources;
       const rawSum = (r.O2 || 0) + (r.Water || 0) + (r.Power || 0) + (r.Food || 0) + (r.Health || 0) + (r.Equip || 0) + (r.Greenhouse || 0);
-      const adjustedSum = Math.max(0, rawSum - 35);
-      const score = Math.min(68.429, adjustedSum / 7.0);
+      const score = rawSum / 7.0;
       let stars = 1;
       if (score >= 66.0) stars = 3;
       else if (score >= 60.0) stars = 2;
+      else if (score >= 50.0) stars = 1;
+      else stars = 0;
       return { score, stars, matched: null };
     }
 
@@ -11083,6 +12240,77 @@
     // =========================================================================
     // STEP RENDERER & PROGRESSION
     // =========================================================================
+
+    
+    // =========================================================================
+    // MISSION DESCRIPTION DOSSIER & NASA VIDEO MODAL HANDLERS
+    // =========================================================================
+    // === MISSION DOSSIER & VIDEO CONTROLLER ===
+    window.openMissionDossierModal = function() {
+      if (typeof sound !== 'undefined' && sound && sound.clickSound) sound.clickSound();
+      const modal = document.getElementById('missionDossierModal');
+      if (modal) modal.classList.remove('hidden');
+    };
+
+    window.closeMissionDossierModal = function() {
+      if (typeof sound !== 'undefined' && sound && sound.clickSound) sound.clickSound();
+      const modal = document.getElementById('missionDossierModal');
+      const video = document.getElementById('briefingDirectVideo');
+      if (video) video.pause();
+      if (modal) modal.classList.add('hidden');
+    };
+
+    window.switchDossierTab = function(tabName) {
+      if (typeof sound !== 'undefined' && sound && sound.clickSound) sound.clickSound();
+      const tabBriefing = document.getElementById('tabDossierBriefing');
+      const tabVideo = document.getElementById('tabDossierVideo');
+      const contentBriefing = document.getElementById('dossierTabContentBriefing');
+      const contentVideo = document.getElementById('dossierTabContentVideo');
+      const video = document.getElementById('briefingDirectVideo');
+
+      if (tabName === 'video') {
+        if (tabBriefing) tabBriefing.classList.remove('active-tab');
+        if (tabVideo) tabVideo.classList.add('active-tab');
+        if (contentBriefing) contentBriefing.style.display = 'none';
+        if (contentVideo) {
+          contentVideo.classList.remove('hidden');
+          contentVideo.style.display = 'flex';
+        }
+        if (video) {
+          video.play().catch(() => {});
+        }
+      } else {
+        if (tabBriefing) tabBriefing.classList.add('active-tab');
+        if (tabVideo) tabVideo.classList.remove('active-tab');
+        if (contentBriefing) contentBriefing.style.display = 'flex';
+        if (contentVideo) {
+          contentVideo.classList.add('hidden');
+          contentVideo.style.display = 'none';
+        }
+        if (video) video.pause();
+      }
+    };
+
+    // Auto-open Mission Dossier on first entrance
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        if (typeof openMissionDossierModal === 'function') {
+          openMissionDossierModal('briefing');
+        }
+      }, 350);
+    });
+
+
+    window.closeBriefingVideoModal = function() {
+      if (typeof sound !== 'undefined' && sound && sound.clickSound) sound.clickSound();
+      const modal = document.getElementById('briefingVideoModal');
+      const iframe = document.getElementById('briefingVideoIframe');
+      if (modal && iframe) {
+        iframe.src = ''; // Stops video playback instantly
+        modal.classList.add('hidden');
+      }
+    };
+
     function renderCurrentStep() {
       if (currentStep >= DIALOGUES.length) {
         currentStep = DIALOGUES.length - 1;
@@ -11102,6 +12330,17 @@
       // Update Active Mission Clock & Timeline
       if (item.mission && item.mission !== currentActiveMissionId) {
         setActiveMissionTime(item.mission);
+      }
+
+
+      // Pre-mission video preview card: only show during Scene 0 (briefing)
+      const briefingVideoCardEl = document.getElementById('briefingVideoCard');
+      if (briefingVideoCardEl) {
+        if (item.mission === 'M1' && item.scene === 0) {
+          briefingVideoCardEl.classList.remove('hidden');
+        } else {
+          briefingVideoCardEl.classList.add('hidden');
+        }
       }
 
       // Update Top HUD Title
