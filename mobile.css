@@ -1279,10 +1279,45 @@ screen and (max-height: 550px) {
   /* 4-missions window on mobile */
   .grid-4-missions .coc-portrait-card {
     padding: 4px 5px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
   }
 
   .grid-4-missions .coc-card-art-stage {
-    height: clamp(55px, 17vh, 90px) !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: clamp(70px, 22vh, 120px) !important;
+    margin: 2px 0 !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+  }
+
+  .grid-4-missions .coc-npc-stage {
+    height: 100% !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    position: relative !important;
+  }
+
+  .grid-4-missions .coc-npc-img {
+    height: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    max-width: 92% !important;
+    object-fit: contain !important;
+    object-position: bottom center !important;
+  }
+
+  .grid-4-missions .coc-symbol-medallion {
+    width: clamp(24px, 5vw, 30px) !important;
+    height: clamp(24px, 5vw, 30px) !important;
+    font-size: clamp(0.75rem, 1.8vh, 0.95rem) !important;
+    bottom: 2px !important;
+    right: 2px !important;
   }
 
   .grid-4-missions .coc-card-title {
