@@ -3,9 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>MoonFall - Mission 5: Radiation Protection</title>
-  <meta name="description" content="Lunar base radiation shelter and solar storm emergency mission with Rakesh Sharma and Astro Bee.">
+  <meta name="description"
+    content="Lunar base radiation shelter and solar storm emergency mission with Rakesh Sharma and Astro Bee.">
 
   <!-- Jersey 10 Retro Pixel Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,6 +34,7 @@
       max-height: none !important;
       aspect-ratio: auto !important;
     }
+
     .mission-complete-overlay {
       background: transparent !important;
       backdrop-filter: none !important;
@@ -39,6 +42,7 @@
       box-shadow: none !important;
       pointer-events: none !important;
     }
+
     .mission-complete-buttons,
     .mission-complete-overlay .mission-btn {
       background: transparent !important;
@@ -48,7 +52,8 @@
       pointer-events: auto !important;
     }
   </style>
-  <link rel="stylesheet" href="mobile.css?v=20261111_fix7" media="screen and (max-width: 1024px), screen and (max-height: 550px)">
+  <link rel="stylesheet" href="mobile.css?v=20261111_fix7"
+    media="screen and (max-width: 1024px), screen and (max-height: 550px)">
 </head>
 
 <body>
@@ -57,7 +62,8 @@
     <div class="orientation-card">
       <div class="phone-rotate-icon">📱 ➔ 🔄</div>
       <div class="orientation-title">ROTATE YOUR PHONE</div>
-      <p class="orientation-desc">Please rotate your phone horizontally to <strong>landscape mode</strong> to continue your mission.</p>
+      <p class="orientation-desc">Please rotate your phone horizontally to <strong>landscape mode</strong> to continue
+        your mission.</p>
     </div>
   </aside>
 
@@ -70,16 +76,19 @@
       <!-- Top HUD -->
       <header class="top-hud">
         <div class="hud-title-badge" id="hudMissionTitle">🛡️ MISSION 5: RADIATION SHIELD</div>
-        <div style="display:flex; gap:8px;">
+        <div style="display:flex; gap:8px; position : relative; right:110px;">
           <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
             <svg class="hud-svg-icon" id="soundSvg" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+              <path fill="currentColor"
+                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
             </svg>
             <span id="soundText">SOUND</span>
           </button>
-          <button class="hud-btn" id="restartBtn" onclick="restartMission()" title="Restart Mission" aria-label="Restart Mission">
+          <button class="hud-btn" id="restartBtn" onclick="restartMission()" title="Restart Mission"
+            aria-label="Restart Mission">
             <svg class="hud-svg-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+              <path fill="currentColor"
+                d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
             </svg>
             <span>RESTART</span>
           </button>
@@ -93,7 +102,8 @@
       </header>
 
       <!-- Mission Entry Sci-Fi Transition Overlay -->
-      <div class="mission-entry-transition" id="entryTransition" onclick="dismissEntryTransition()" role="dialog" aria-label="Mission Entry Transition" title="Click anywhere to skip">
+      <div class="mission-entry-transition" id="entryTransition" onclick="dismissEntryTransition()" role="dialog"
+        aria-label="Mission Entry Transition" title="Click anywhere to skip">
         <div class="entry-door entry-door-left">
           <div class="entry-door-panel"></div>
           <div class="entry-door-decal">SECTOR 05 // AIRLOCK L-5</div>
@@ -111,7 +121,9 @@
           </div>
           <h2 class="entry-badge-title">🛡️ MISSION 5: RADIATION SHIELD</h2>
           <div class="entry-badge-sub">SOLAR PARTICLE STORM DEFENSE</div>
-          <div class="entry-scan-bar"><div class="entry-scan-fill"></div></div>
+          <div class="entry-scan-bar">
+            <div class="entry-scan-fill"></div>
+          </div>
           <div class="entry-skip-hint">TAP ANYWHERE TO SKIP ⏭</div>
         </div>
       </div>
@@ -155,7 +167,8 @@
         <div class="mission-complete-container">
           <img src="assets/Mission Complete.webp" alt="Mission Complete" class="mission-complete-title">
           <div class="mission-complete-buttons">
-            <button class="mission-btn btn-try-again" id="btnTryAgain" onclick="restartMission()" title="Try Again" aria-label="Try Again">
+            <button class="mission-btn btn-try-again" id="btnTryAgain" onclick="restartMission()" title="Try Again"
+              aria-label="Try Again">
               <img src="assets/Frame 25.webp" alt="Try Again">
             </button>
             <button class="mission-btn btn-home" id="btnHome" onclick="returnToBase()" title="Home" aria-label="Home">
@@ -166,11 +179,13 @@
       </div>
 
       <!-- SCENE 8: Radiation Shelter Interior Background -->
-      <div class="layer layer-shelter hidden" id="layerShelter" style="background-image: url('assets/scene 8/image 128.webp');">
+      <div class="layer layer-shelter hidden" id="layerShelter"
+        style="background-image: url('assets/scene 8/image 128.webp');">
       </div>
 
       <!-- SCENE 13: Red Layer Overlay over Main Base -->
-      <div class="layer layer-base-red hidden" id="layerBaseRed" style="background-image: url('assets/Red_Layer.webp');" aria-hidden="true"></div>
+      <div class="layer layer-base-red hidden" id="layerBaseRed" style="background-image: url('assets/Red_Layer.webp');"
+        aria-hidden="true"></div>
 
       <!-- SCENE 11: Mini Game Popup Board -->
       <div class="mini-game-overlay hidden" id="miniGameOverlay">
@@ -212,17 +227,20 @@
           <!-- Bottom Inventory Tray (9 draggable items) -->
           <div class="minigame-tray" id="minigameTray">
             <div class="tray-slot" data-slot="0">
-              <div class="draggable-item" draggable="true" data-type="container" data-src="assets/MINI GAME/stufs/Container.webp">
+              <div class="draggable-item" draggable="true" data-type="container"
+                data-src="assets/MINI GAME/stufs/Container.webp">
                 <img src="assets/MINI GAME/stufs/Container.webp" alt="Food Container">
               </div>
             </div>
             <div class="tray-slot" data-slot="1">
-              <div class="draggable-item" draggable="true" data-type="barrel" data-src="assets/MINI GAME/stufs/Barrel.webp">
+              <div class="draggable-item" draggable="true" data-type="barrel"
+                data-src="assets/MINI GAME/stufs/Barrel.webp">
                 <img src="assets/MINI GAME/stufs/Barrel.webp" alt="Water Barrel">
               </div>
             </div>
             <div class="tray-slot" data-slot="2">
-              <div class="draggable-item" draggable="true" data-type="water" data-src="assets/MINI GAME/stufs/Water Icon.webp">
+              <div class="draggable-item" draggable="true" data-type="water"
+                data-src="assets/MINI GAME/stufs/Water Icon.webp">
                 <img src="assets/MINI GAME/stufs/Water Icon.webp" alt="Water Container">
               </div>
             </div>
@@ -233,12 +251,14 @@
               </div>
             </div>
             <div class="tray-slot" data-slot="4">
-              <div class="draggable-item" draggable="true" data-type="barrel" data-src="assets/MINI GAME/stufs/Barrel.webp">
+              <div class="draggable-item" draggable="true" data-type="barrel"
+                data-src="assets/MINI GAME/stufs/Barrel.webp">
                 <img src="assets/MINI GAME/stufs/Barrel.webp" alt="Water Barrel">
               </div>
             </div>
             <div class="tray-slot" data-slot="5">
-              <div class="draggable-item" draggable="true" data-type="water" data-src="assets/MINI GAME/stufs/Water Icon.webp">
+              <div class="draggable-item" draggable="true" data-type="water"
+                data-src="assets/MINI GAME/stufs/Water Icon.webp">
                 <img src="assets/MINI GAME/stufs/Water Icon.webp" alt="Water Container">
               </div>
             </div>
@@ -249,12 +269,14 @@
               </div>
             </div>
             <div class="tray-slot" data-slot="7">
-              <div class="draggable-item" draggable="true" data-type="barrel" data-src="assets/MINI GAME/stufs/Barrel.webp">
+              <div class="draggable-item" draggable="true" data-type="barrel"
+                data-src="assets/MINI GAME/stufs/Barrel.webp">
                 <img src="assets/MINI GAME/stufs/Barrel.webp" alt="Water Barrel">
               </div>
             </div>
             <div class="tray-slot" data-slot="8">
-              <div class="draggable-item" draggable="true" data-type="water" data-src="assets/MINI GAME/stufs/Water Icon.webp">
+              <div class="draggable-item" draggable="true" data-type="water"
+                data-src="assets/MINI GAME/stufs/Water Icon.webp">
                 <img src="assets/MINI GAME/stufs/Water Icon.webp" alt="Water Container">
               </div>
             </div>
@@ -500,7 +522,8 @@
           <img src="assets/Rectangle 3.webp" alt="" class="dialogue-bg-img" aria-hidden="true">
           <div class="dialogue-content">
             <p class="dialogue-text text-scene8" id="dialogueTextScene13">
-              Look outside—there’s a resource all around us that could help protect our permanent habitat. Our crew isn’t the only thing we need to protect.
+              Look outside—there’s a resource all around us that could help protect our permanent habitat. Our crew
+              isn’t the only thing we need to protect.
             </p>
           </div>
         </div>
@@ -517,7 +540,8 @@
           <img src="assets/Rectangle 3.webp" alt="" class="dialogue-bg-img" aria-hidden="true">
           <div class="dialogue-content">
             <p class="dialogue-text text-scene8" id="dialogueTextScene14">
-              The Moon is covered in a loose material called lunar regolith, which we can use to provide additional radiation shielding around and over parts of our habitat.
+              The Moon is covered in a loose material called lunar regolith, which we can use to provide additional
+              radiation shielding around and over parts of our habitat.
             </p>
           </div>
         </div>
@@ -534,7 +558,8 @@
           <img src="assets/Rectangle 3.webp" alt="" class="dialogue-bg-img" aria-hidden="true">
           <div class="dialogue-content">
             <p class="dialogue-text text-scene8 text-scene15" id="dialogueTextScene15">
-              Using regolith means we won’t have to transport every kilogram of shielding material from Earth. Remember, smart engineering is about the best use of the resources available to us!
+              Using regolith means we won’t have to transport every kilogram of shielding material from Earth. Remember,
+              smart engineering is about the best use of the resources available to us!
             </p>
           </div>
         </div>
@@ -547,14 +572,16 @@
           <div class="speaker-badge astro-bee-badge" id="astroBeeBadgeScene16">
             <img src="assets/scene 3/Frame 7.webp" alt="Astro Bee" class="astro-badge-img">
           </div>
-          <button class="skip-btn skip-btn-scene2" id="skipBtnScene16" title="Restart" aria-label="Restart from beginning">
+          <button class="skip-btn skip-btn-scene2" id="skipBtnScene16" title="Restart"
+            aria-label="Restart from beginning">
             <img src="assets/Caption Text-1.webp" alt="SKIP" class="skip-bg">
             <img src="assets/Vector 6.webp" alt="" class="skip-icon" aria-hidden="true">
           </button>
           <img src="assets/scene 3/Frame 6.webp" alt="" class="dialogue-bg-img frame6-img" aria-hidden="true">
           <div class="dialogue-content content-scene2 content-scene16">
             <p class="dialogue-text text-warning-yellow text-scene16" id="dialogueTextScene16">
-              Thank you for your reports!! Your observations will help the humanities to learn more about lunar conditions.
+              Thank you for your reports!! Your observations will help the humanities to learn more about lunar
+              conditions.
             </p>
           </div>
         </div>
@@ -565,7 +592,9 @@
 
   <script src="game.js"></script>
   <!-- Astro Bee AI chat (ChandraPath AI/ML) -->
-  <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev" data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.webp" data-badge="assets/scene 3/Frame 7.webp" defer></script>
+  <script src="astrobee/astrobee.js" data-api="https://astro-bee.mdrafiurrahman123098.workers.dev"
+    data-mount="#baseViewport, #gameViewport" data-avatar="assets/scene 3/Pragyan_ShivShakti_Neutral.webp"
+    data-badge="assets/scene 3/Frame 7.webp" defer></script>
   <script src="astrobee/moonfall.js" defer></script>
   <!-- Modular Explore & Resource Sidebar -->
   <script src="sidebar.js" data-section="radiation" defer></script>
