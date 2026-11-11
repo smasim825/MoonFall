@@ -32,8 +32,10 @@
 
   function baseContext() {
     const zoomed = document.querySelector(".building-layer.is-zoomed");
-    const missionId = zoomed ? BUILDING_MISSION[zoomed.id] || "" : "";
+    let missionId = zoomed ? BUILDING_MISSION[zoomed.id] || "" : "";
     const active = zoomed ? document.querySelector("#missionsWrapper .subtask-btn.active-task .subtask-label") : null;
+    // The Plant building holds two tasks: 2.1 Plan Daily Meal (food) and 2.2 Hydroponics (crop)
+    if (missionId === "food" && active && /hydropon/i.test(active.textContent)) missionId = "crop";
     const ctx = {};
     if (missionId) ctx.missionId = missionId;
     if (missionId && active) ctx.subLevel = active.textContent.trim();
@@ -178,6 +180,79 @@
     AB.debrief({ missionId: "final", log }, { silent: true });
   }
 
+  // ---------- Mission 2.1 Plan Daily Meal, 2.2 Hydroponics, 3 ISRU (story pages with a scene list) ----------
+  // Each page keeps its place in a top-level scene index; read it and map it to the knowledge-base step.
+  /* global SCENES, scenes, currentSceneIndex, currentSceneIdx, currentMcqIndex, selectedMealId, MEAL_DATA */
+
+  // 2.1_daily_meal.html: index into SCENES (12 scenes), then 5 quiz questions (currentMcqIndex 0-4)
+  const FOOD_STEP_BY_INDEX = [
+    "food.storage.1", "food.storage.2", "food.storage.2", "food.choose.1", "food.prepare.1", "food.prepare.1",
+    "food.prepare.2", "food.prepare.2", "food.prepare.2", "food.eat.1", "food.eat.1", "food.quiz.q1",
+  ];
+  function foodContext() {
+    const ctx = { missionId: "food", subLevel: "Plan Daily Meal" };
+    const meal = gameVar(() => selectedMealId);
+    const md = gameVar(() => MEAL_DATA);
+    if (meal && md && md[meal] && md[meal].title) ctx.lastChoice = `Chose ${String(md[meal].title).replace(/\s+/g, " ")}`;
+    if (shown($("missionCompleteOverlay"))) {
+      ctx.step = "food.complete.1";
+      return ctx;
+    }
+    const q = gameVar(() => currentMcqIndex);
+    if (typeof q === "number" && q >= 0) {
+      ctx.step = `food.quiz.q${Math.min(q, 4) + 1}`;
+      return ctx;
+    }
+    const i = gameVar(() => currentSceneIndex);
+    if (typeof i === "number" && FOOD_STEP_BY_INDEX[i]) ctx.step = FOOD_STEP_BY_INDEX[i];
+    return ctx;
+  }
+
+  // 2.2_Hydroponics.html: scene ids 1-21 (id 11 is the Day 0-5 timelapse and has no scene object)
+  const CROP_STEP_BY_ID = {
+    1: "crop.intro.1", 2: "crop.intro.1", 3: "crop.intro.1",
+    4: "crop.safety.1", 5: "crop.safety.1", 6: "crop.safety.1", 7: "crop.safety.1",
+    8: "crop.grow.1", 9: "crop.grow.1", 10: "crop.grow.1",
+    12: "crop.observe.day5", 13: "crop.observe.size", 14: "crop.observe.day15", 15: "crop.observe.color",
+    16: "crop.observe.day23", 17: "crop.observe.stress", 18: "crop.report.study", 19: "crop.report.study",
+    20: "crop.observe.growth", 21: "crop.report.end",
+  };
+  function cropContext() {
+    const ctx = { missionId: "crop", subLevel: "Hydroponics" };
+    if (shown($("missionCompleteOverlay"))) {
+      ctx.step = "crop.report.end";
+      return ctx;
+    }
+    const list = gameVar(() => scenes);
+    const i = gameVar(() => currentSceneIndex);
+    const sc = Array.isArray(list) && typeof i === "number" ? list[i] : null;
+    if (sc && CROP_STEP_BY_ID[sc.id]) ctx.step = CROP_STEP_BY_ID[sc.id];
+    return ctx;
+  }
+
+  // isru_mission.html: scene ids 1-18, plus mini-game overlays
+  const ICE_STEP_BY_ID = {
+    1: "ice.find_ice.1", 2: "ice.find_ice.2", 3: "ice.find_ice.2", 4: "ice.find_ice.3", 5: "ice.find_ice.3",
+    6: "ice.drill.1", 7: "ice.drill.1", 8: "ice.drill.2", 9: "ice.analyze.1", 10: "ice.analyze.1", 11: "ice.analyze.1",
+    12: "ice.extract.1", 13: "ice.extract.1", 14: "ice.extract.2", 15: "ice.oxygen.1", 16: "ice.oxygen.1",
+    17: "ice.oxygen.2", 18: "ice.oxygen.3",
+  };
+  function iceContext() {
+    const ctx = { missionId: "ice", subLevel: "ISRU Water & Oxygen" };
+    if (shown($("missionCompleteOverlay"))) ctx.step = "ice.oxygen.3";
+    else if (shown($("labPromptBackdrop"))) ctx.step = "ice.extract.1";
+    else if (shown($("labSimOverlay"))) ctx.step = "ice.extract.2";
+    else if (shown($("drillSimOverlay"))) ctx.step = "ice.drill.2";
+    else if (shown($("siteSelectOverlay"))) ctx.step = "ice.drill.1";
+    else {
+      const list = gameVar(() => SCENES);
+      const i = gameVar(() => currentSceneIdx);
+      const sc = Array.isArray(list) && typeof i === "number" ? list[i] : null;
+      if (sc && ICE_STEP_BY_ID[sc.id]) ctx.step = ICE_STEP_BY_ID[sc.id];
+    }
+    return ctx;
+  }
+
   let debriefed = false;
   function checkComplete() {
     const done = shown($("missionCompleteOverlay"));
@@ -194,6 +269,7 @@
   function start() {
     let update = null;
     let watch = null;
+    let poll = false; // story pages change their scene index without always changing a class
     if ($("baseViewport")) {
       update = () => send(baseContext());
       watch = $("baseViewport");
@@ -205,6 +281,18 @@
       };
       watch = document.body;
       setInterval(() => { try { update(); } catch (e) { /* keep the game running */ } }, 2000); // bars animate without class changes
+    } else if ($("labSimOverlay") && $("drillSimOverlay")) {
+      update = () => send(iceContext()); // Mission 3 ISRU
+      watch = document.body;
+      poll = true;
+    } else if ($("mcqBox") && $("scene4Container")) {
+      update = () => send(foodContext()); // Mission 2.1 Plan Daily Meal
+      watch = document.body;
+      poll = true;
+    } else if ($("timelapseOverlay") && $("questionWrapper")) {
+      update = () => send(cropContext()); // Mission 2.2 Hydroponics
+      watch = document.body;
+      poll = true;
     } else if ($("powerStage")) {
       update = () => send(powerContext());
       watch = $("powerStage");
@@ -216,6 +304,7 @@
       watch = $("gameViewport");
     }
     if (!update) return;
+    if (poll) setInterval(() => { try { update(); } catch (e) { /* keep the game running */ } }, 1500);
     let queued = false;
     const run = () => {
       queued = false;

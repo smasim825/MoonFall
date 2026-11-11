@@ -37,9 +37,9 @@
   const MISSIONS = {
     _base: "Main Base",
     power: "Mission 1: Power and Energy",
-    food: "Mission 2: Food and Production",
-    crop: "Mission 2: Food and Production",
-    ice: "Mission 3: Water Production",
+    food: "Mission 2.1: Plan Daily Meal",
+    crop: "Mission 2.2: Hydroponics",
+    ice: "Mission 3: ISRU Water & Oxygen",
     solar_storm: "Mission 5: Radiation Protection",
     waste: "Waste",
     final: "Final Mission: 18-Hour Crisis",
