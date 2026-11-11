@@ -164,40 +164,40 @@
   }
 
   /* =========================================================================
-     4. STANDING CREW CHARACTER (Scaled Smaller, zero overlap with left bar)
+     4. STANDING CREW CHARACTER (Your Exact Positioning)
      ========================================================================= */
   .scene-character-stand {
-    height: clamp(125px, 42vh, 180px) !important;
-    left: clamp(118px, 14.8vw, 138px) !important;
-    bottom: 0 !important;
+    height: clamp(125px, 51vh, 194px) !important;
+    left: clamp(78px, 5.8vw, 142px) !important;
+    bottom: -21px !important;
     z-index: 185 !important;
     filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75)) !important;
   }
 
   .scene-character-stand.char-chiaki {
-    height: clamp(140px, 45vh, 195px) !important;
-    left: clamp(118px, 14.8vw, 138px) !important;
-    bottom: -1.5vh !important;
+    height: clamp(125px, 51vh, 194px) !important;
+    left: clamp(78px, 5.8vw, 142px) !important;
+    bottom: -21px !important;
   }
 
   .scene-character-stand.char-bluford {
-    height: clamp(140px, 45vh, 195px) !important;
-    left: clamp(118px, 14.8vw, 138px) !important;
-    bottom: -1vh !important;
+    height: clamp(125px, 51vh, 194px) !important;
+    left: clamp(78px, 5.8vw, 142px) !important;
+    bottom: -21px !important;
   }
 
   /* =========================================================================
-     5. HUMAN SPEAKER NAME BADGE & DIALOGUE BOX
+     5. HUMAN SPEAKER NAME BADGE & DIALOGUE BOX (Your Exact Settings)
      ========================================================================= */
   .human-speaker-badge {
-    height: clamp(22px, 4.8vh, 26px) !important;
-    min-width: 0 !important;
+    height: clamp(30px, 8.8vh, 26px) !important;
+    min-width: 21px !important;
     padding: 0 9px !important;
     border-width: 2px !important;
     border-radius: 5px !important;
-    font-size: clamp(0.72rem, 1.3vw, 0.85rem) !important;
+    font-size: clamp(1.2rem, 1.3vw, 0.85rem) !important;
     bottom: calc(100% - 6px) !important;
-    left: clamp(165px, 21vw, 205px) !important;
+    left: clamp(128px, 16vw, 202px) !important;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45) !important;
     z-index: 190 !important;
   }
@@ -207,14 +207,14 @@
   }
 
   .scene-1-box .dialogue-content {
-    padding-left: clamp(160px, 21vw, 205px) !important;
+    padding-left: clamp(137px, 2.5vw, 233px) !important;
     padding-right: clamp(45px, 6vw, 65px) !important;
     padding-top: 5px !important;
     padding-bottom: 5px !important;
   }
 
   .dialogue-text.text-human {
-    font-size: clamp(0.72rem, 1.25vw, 0.85rem) !important;
+    font-size: clamp(0.8rem, 6.25vw, 0.9rem) !important;
     line-height: 1.2 !important;
   }
 
