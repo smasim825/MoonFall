@@ -9926,17 +9926,11 @@
           <div class="pdu-node-card">
             <div class="bay-title" style="width:100%; text-align:center;">1. Primary Source</div>
             <img src="assets/power/Objects/BatteryStorageUnit.webp" alt="Emergency Battery Bank" class="pdu-object-img ${m3TaskState.batteryConnected ? 'active-glow' : ''}">
-            <div style="font-family:var(--font-pixel); font-size:clamp(0.92rem, 1.15vw, 1.05rem); text-align:center; color:#f0f9ff; font-weight:bold;">
+            <div style="font-family:var(--font-pixel); font-size:clamp(0.82rem, 1.1vw, 0.95rem); text-align:center; color:#f0f9ff; font-weight:bold;">
               Emergency Battery Unit
             </div>
-            <div style="font-size:clamp(0.82rem, 1.0vw, 0.92rem); text-align:center; color:#94a3b8;">
-              100 kWh Life-Support Reserve
-            </div>
-            <div class="pdu-cable-status-tag ${m3TaskState.batteryConnected ? 'online' : ''}">
-              ${m3TaskState.batteryConnected ? '✓ 400V BUS CONNECTED' : 'STANDBY // DISCONNECTED'}
-            </div>
             <button class="pdu-connect-btn ${m3TaskState.batteryConnected ? 'connected' : ''}" onclick="connectM3Battery()">
-              ${m3TaskState.batteryConnected ? '✓ DISCONNECT BATTERY' : '⚡ CONNECT TO PDU ➔'}
+              ${m3TaskState.batteryConnected ? '✓ 400V BUS CONNECTED' : '⚡ CONNECT TO PDU ➔'}
             </button>
           </div>
 
@@ -9945,9 +9939,9 @@
             <div class="bay-title" style="width:100%; text-align:center;">2. Central PDU Hub</div>
             <img src="assets/power/Objects/PDU.webp" alt="Power Distribution Unit" class="pdu-object-img ${isOverload ? 'overload-glow' : (m3TaskState.batteryConnected ? 'active-glow' : '')}">
             
-            <div style="width:100%; display:flex; justify-content:space-between; align-items:center; font-size:clamp(0.86rem, 1.08vw, 0.98rem);">
+            <div style="width:100%; display:flex; justify-content:space-between; align-items:center; font-size:clamp(0.78rem, 1.0vw, 0.88rem);">
               <span style="color:#94a3b8;">Bus Load Draw:</span>
-              <span style="font-family:var(--font-pixel); font-size:clamp(0.95rem, 1.2vw, 1.12rem); color:${isOverload ? '#ef4444' : (currentKw >= 3.0 ? '#34d399' : '#38bdf8')}; font-weight:bold;">
+              <span style="font-family:var(--font-pixel); font-size:clamp(0.88rem, 1.15vw, 1.05rem); color:${isOverload ? '#ef4444' : (currentKw >= 3.0 ? '#34d399' : '#38bdf8')}; font-weight:bold;">
                 ${currentKw.toFixed(1)} / ${maxSafeKw} kW
               </span>
             </div>
@@ -9956,14 +9950,10 @@
               <div class="pdu-load-fill ${isOverload ? 'overload' : ''}" style="width:${fillPct}%;"></div>
             </div>
 
-            <div style="font-size:clamp(0.82rem, 1.0vw, 0.94rem); color:#94a3b8; text-align:center; line-height:1.35;">
-              ${!m3TaskState.batteryConnected ? 'PDU is unpowered. Connect battery to energize bus.' : (isOverload ? '<span style="color:#ef4444; font-weight:bold;">CRITICAL OVERLOAD! Total draw exceeds 3.5 kW safe ceiling.</span>' : (isComplete ? '<span style="color:#34d399; font-weight:bold;">✓ Bus nominal at 3.0 kW. All essential life support routed.</span>' : 'Select essential breakers to route power.'))}
-            </div>
-
             ${isOverload ? `
-              <div class="overload-warning-banner">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:text-bottom; margin-right:4px;"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-                CRITICAL BUS OVERLOAD! Disconnect Decorative Lighting immediately (3.5 kW limit exceeded)!
+              <div class="overload-warning-banner" style="font-size:0.62rem; padding:2px 4px; margin-top:2px;">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:text-bottom; margin-right:3px;"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                CRITICAL BUS OVERLOAD! Disconnect Decorative Lighting!
               </div>
             ` : ''}
           </div>

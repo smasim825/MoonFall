@@ -26,7 +26,7 @@ screen and (max-height: 550px) {
 
   .top-hud-right {
     position: relative !important;
-    left: auto !important;
+    right: auto !important;
     gap: 6px !important;
   }
 
@@ -589,7 +589,7 @@ screen and (max-height: 550px) {
     max-height: 120px !important;
   }
 
-  .m2-life-title {git status
+  .m2-life-title {
     font-size: 0.65rem !important;
   }
 
@@ -598,26 +598,52 @@ screen and (max-height: 550px) {
     font-size: 0.58rem !important;
   }
 
-  /* M3 PDU Grid */
+  /* M3 PDU Grid - Enlarged Clear Images with Same Total Box Size */
   .pdu-grid-wrap {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 6px !important;
+    align-items: stretch !important;
   }
 
   .pdu-node-card {
-    padding: 3px 5px !important;
+    padding: 4px 6px !important;
     border-radius: 6px !important;
+    gap: 3px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
   }
 
   .pdu-object-img {
-    width: 28px !important;
-    height: 28px !important;
+    height: clamp(52px, 15vh, 76px) !important;
+    width: auto !important;
+    max-width: 90% !important;
+    object-fit: contain !important;
+    image-rendering: pixelated !important;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.75)) !important;
+    margin: 2px 0 !important;
   }
 
-  .pdu-connect-btn,
+  .pdu-load-bar-wrap {
+    width: 100% !important;
+    height: 8px !important;
+    margin: 2px 0 !important;
+  }
+
+  .pdu-connect-btn {
+    padding: 3px 6px !important;
+    font-size: clamp(0.58rem, 0.95vw, 0.68rem) !important;
+    border-radius: 4px !important;
+    width: 100% !important;
+    white-space: nowrap !important;
+    height: 24px !important;
+  }
+
   .pdu-breaker-btn {
     padding: 2px 6px !important;
-    font-size: 0.62rem !important;
+    font-size: 0.60rem !important;
     border-radius: 4px !important;
   }
 
