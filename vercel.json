@@ -1,6 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/mainbase", "destination": "/", "permanent": false },
+    { "source": "/mainbase.html", "destination": "/", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/game", "destination": "/1.1_power_mission.html" },
