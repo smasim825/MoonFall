@@ -6,7 +6,8 @@
    other missions or mobile.css.
    ========================================================================= */
 
-@media screen and (max-width: 1024px), screen and (max-height: 550px) {
+@media screen and (max-width: 1024px),
+screen and (max-height: 550px) {
 
   /* =========================================================================
      1. TOP HUD (Sleek 28px height, pinned to top: 6px)
@@ -509,8 +510,8 @@
   }
 
   .m2-drag-item-img {
-    width: 24px !important;
-    height: 24px !important;
+    width: 100px !important;
+    height: 100px !important;
   }
 
   .m2-drag-item-name {
@@ -550,11 +551,11 @@
   }
 
   .m2-life-img-wrap {
-    height: 38px !important;
+    height: 120px !important;
   }
 
   .m2-life-img {
-    max-height: 32px !important;
+    max-height: 120px !important;
   }
 
   .m2-life-title {
