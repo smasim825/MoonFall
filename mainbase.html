@@ -5245,16 +5245,16 @@
     </header>
 
     <!-- PIXEL-ART CLASH-OF-CLANS INSPIRED 2-WINDOW PHASE & MISSION MODAL -->
-    <div class="phase-dashboard-backdrop" id="phaseDashboardModal"
+    <div class="phase-dashboard-backdrop hidden" id="phaseDashboardModal"
       onclick="if(event.target===this) closePhaseDashboard()">
-      <div class="coc-phase-board-wrap wide-4-cards" id="cocBoardWrap">
+      <div class="coc-phase-board-wrap" id="cocBoardWrap">
         <!-- Top Folder Tabs -->
         <div class="coc-board-tabs">
           <div class="coc-tabs-left">
-            <button class="coc-tab" id="tabPhasesBtn" type="button" onclick="showPhaseOverviewWindow()">
+            <button class="coc-tab active-tab" id="tabPhasesBtn" type="button" onclick="showPhaseOverviewWindow()">
               <span>⚔️ MISSION PHASES</span>
             </button>
-            <button class="coc-tab active-tab" id="tabPhase1MissionsBtn" type="button"
+            <button class="coc-tab" id="tabPhase1MissionsBtn" type="button"
               onclick="openPhase1MissionsWindow()">
               <span>🎖️ PHASE 1 MISSIONS</span>
               <span class="coc-tab-count">4</span>
@@ -5384,7 +5384,7 @@
         <!-- ===================================================================
              WINDOW 2: 4 MISSIONS SIDE-BY-SIDE (NPC CHARACTER + SYMBOL CARDS)
              =================================================================== -->
-        <div class="coc-board-body grid-4-missions" id="cocWindow4Missions">
+        <div class="coc-board-body grid-4-missions hidden-view" id="cocWindow4Missions">
 
           <!-- MISSION 1 CARD: POWER & ENERGY (Dr. Chiaki Mukai + ⚡) -->
           <div class="coc-portrait-card coc-m-card-1">
