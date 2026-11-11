@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>MoonFall - Mission: ISRU (Water &amp; Oxygen)</title>
   <meta name="description" content="In-Situ Resource Utilization mission: finding water ice at the lunar South Pole.">
 
@@ -40,7 +41,9 @@
       --font-pixel: 'Jersey 10', monospace;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       background-color: #000000;
@@ -57,7 +60,9 @@
       -webkit-user-select: none;
     }
 
-    .hidden { display: none !important; }
+    .hidden {
+      display: none !important;
+    }
 
     /* Fullscreen Viewport */
     .isru-game-viewport {
@@ -91,8 +96,13 @@
     }
 
     @keyframes bg-fade-in {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
     /* Character (Left Side, in front of dialogue bar) */
@@ -121,8 +131,15 @@
     }
 
     @keyframes char-slide-in {
-      from { opacity: 0; transform: translateX(-24px); }
-      to { opacity: 1; transform: translateX(0); }
+      from {
+        opacity: 0;
+        transform: translateX(-24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     /* Floating diagram / equipment card (reserved for next scenes) */
@@ -157,11 +174,18 @@
     }
 
     @keyframes card-appear-right {
-      from { opacity: 0; transform: translateY(-10px) scale(0.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
-    
+
     /* Wide centered card variant (Scenes 6, 7, 8: Found Submersive Ice, Click Location, Trident Drill) */
     .diagram-card-container.card-wide {
       top: 8%;
@@ -186,7 +210,7 @@
       pointer-events: auto;
     }
 
-    .diagram-card-inner > img {
+    .diagram-card-inner>img {
       height: 100%;
       width: auto;
       max-width: 100%;
@@ -203,7 +227,7 @@
       justify-content: center;
     }
 
-    .diagram-card-container.card-wide .diagram-card-inner > img {
+    .diagram-card-container.card-wide .diagram-card-inner>img {
       height: 100%;
       width: auto;
       max-width: 100%;
@@ -257,8 +281,13 @@
     }
 
     @keyframes pulse-ring {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     .site-select-hint {
@@ -280,8 +309,13 @@
     }
 
     @keyframes hint-glow {
-      from { box-shadow: 0 0 6px rgba(0, 229, 255, 0.4); }
-      to { box-shadow: 0 0 18px rgba(0, 229, 255, 0.95); }
+      from {
+        box-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
+      }
+
+      to {
+        box-shadow: 0 0 18px rgba(0, 229, 255, 0.95);
+      }
     }
 
     /* Target lock reticle on clicked location */
@@ -297,8 +331,15 @@
     }
 
     @keyframes reticle-lock {
-      0% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
-      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      0% {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
     }
 
     .reticle-box {
@@ -315,10 +356,29 @@
       border-style: solid;
     }
 
-    .reticle-corner.tl { top: 0; left: 0; border-width: 3px 0 0 3px; }
-    .reticle-corner.tr { top: 0; right: 0; border-width: 3px 3px 0 0; }
-    .reticle-corner.bl { bottom: 0; left: 0; border-width: 0 0 3px 3px; }
-    .reticle-corner.br { bottom: 0; right: 0; border-width: 0 3px 3px 0; }
+    .reticle-corner.tl {
+      top: 0;
+      left: 0;
+      border-width: 3px 0 0 3px;
+    }
+
+    .reticle-corner.tr {
+      top: 0;
+      right: 0;
+      border-width: 3px 3px 0 0;
+    }
+
+    .reticle-corner.bl {
+      bottom: 0;
+      left: 0;
+      border-width: 0 0 3px 3px;
+    }
+
+    .reticle-corner.br {
+      bottom: 0;
+      right: 0;
+      border-width: 0 3px 3px 0;
+    }
 
     .reticle-cross {
       position: absolute;
@@ -344,7 +404,7 @@
       text-shadow: 0 0 8px rgba(34, 255, 136, 0.7);
     }
 
-        /* =========================================================================
+    /* =========================================================================
        Scene 8: Trident Drill Twist & Rotary Percussive Simulation
        ========================================================================= */
     .drill-sim-overlay {
@@ -373,9 +433,17 @@
     }
 
     @keyframes drill-rig-jitter {
-      0% { transform: translateY(-0.8px) translateX(0); }
-      50% { transform: translateY(0.4px) translateX(-0.5px); }
-      100% { transform: translateY(0.8px) translateX(0.5px); }
+      0% {
+        transform: translateY(-0.8px) translateX(0);
+      }
+
+      50% {
+        transform: translateY(0.4px) translateX(-0.5px);
+      }
+
+      100% {
+        transform: translateY(0.8px) translateX(0.5px);
+      }
     }
 
     /* Twisting Auger Shaft Overlay directly covering the drill shaft in drill.png */
@@ -404,14 +472,12 @@
       width: 340%;
       height: 340%;
       opacity: 0.88;
-      background: repeating-linear-gradient(
-        -32deg,
-        rgba(255, 255, 255, 0.95) 0px,
-        rgba(200, 215, 235, 0.9) 3px,
-        rgba(70, 85, 105, 0.95) 6px,
-        rgba(15, 22, 32, 0.98) 9px,
-        rgba(0, 229, 255, 0.8) 12px
-      );
+      background: repeating-linear-gradient(-32deg,
+          rgba(255, 255, 255, 0.95) 0px,
+          rgba(200, 215, 235, 0.9) 3px,
+          rgba(70, 85, 105, 0.95) 6px,
+          rgba(15, 22, 32, 0.98) 9px,
+          rgba(0, 229, 255, 0.8) 12px);
       mix-blend-mode: overlay;
     }
 
@@ -420,8 +486,13 @@
     }
 
     @keyframes twist-spiral {
-      from { transform: translateY(0); }
-      to { transform: translateY(12px); }
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(12px);
+      }
     }
 
     /* Rapid rotation reflection shimmer */
@@ -439,8 +510,13 @@
     }
 
     @keyframes flute-shimmer {
-      from { transform: translateX(-70%); }
-      to { transform: translateX(70%); }
+      from {
+        transform: translateX(-70%);
+      }
+
+      to {
+        transform: translateX(70%);
+      }
     }
 
     /* Flow of icy cuttings traveling upwards along the flutes to the surface */
@@ -459,8 +535,13 @@
     }
 
     @keyframes cuttings-up {
-      from { transform: translateY(16px); }
-      to { transform: translateY(-16px); }
+      from {
+        transform: translateY(16px);
+      }
+
+      to {
+        transform: translateY(-16px);
+      }
     }
 
     /* Drill Bit Ice Contact Zone at the bottom tip in the ice deposit */
@@ -489,8 +570,16 @@
     }
 
     @keyframes bit-flash {
-      0% { transform: scale(0.85); opacity: 0.7; }
-      100% { transform: scale(1.35); opacity: 1; filter: blur(3px); }
+      0% {
+        transform: scale(0.85);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: scale(1.35);
+        opacity: 1;
+        filter: blur(3px);
+      }
     }
 
     .ice-deposit-glow {
@@ -511,8 +600,15 @@
     }
 
     @keyframes ice-pulse {
-      0% { opacity: 0.6; transform: scale(0.96); }
-      100% { opacity: 1; transform: scale(1.08); }
+      0% {
+        opacity: 0.6;
+        transform: scale(0.96);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1.08);
+      }
     }
 
     /* Particle Canvas for flying ice crystals & dust */
@@ -582,8 +678,13 @@
     }
 
     @keyframes bulb-blink {
-      from { opacity: 0.5; }
-      to { opacity: 1; }
+      from {
+        opacity: 0.5;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
     .drill-hud-rpm {
@@ -685,8 +786,13 @@
     }
 
     @keyframes icon-spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .diagram-card-container img {
@@ -744,9 +850,17 @@
     }
 
     @keyframes robot-hover {
-      0% { transform: translateY(-50%) rotate(0deg); }
-      50% { transform: translateY(calc(-50% - 5px)) rotate(-0.5deg); }
-      100% { transform: translateY(calc(-50% + 4px)) rotate(0.5deg); }
+      0% {
+        transform: translateY(-50%) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(calc(-50% - 5px)) rotate(-0.5deg);
+      }
+
+      100% {
+        transform: translateY(calc(-50% + 4px)) rotate(0.5deg);
+      }
     }
 
     .scene-2-box .astro-bee-badge {
@@ -861,8 +975,15 @@
     }
 
     @keyframes pulse-dot {
-      from { transform: scale(0.85); opacity: 0.7; }
-      to { transform: scale(1.2); opacity: 1; }
+      from {
+        transform: scale(0.85);
+        opacity: 0.7;
+      }
+
+      to {
+        transform: scale(1.2);
+        opacity: 1;
+      }
     }
 
     .lab-steps-row {
@@ -1080,7 +1201,7 @@
       transform: translateY(1px);
     }
 
-    
+
     /* =========================================================================
        Scene 18: Oxygen Ready High-Impact Display & Electrolysis Tank Visuals
        ========================================================================= */
@@ -1105,9 +1226,20 @@
     }
 
     @keyframes oxy-banner-pop {
-      0% { opacity: 0; transform: translateX(-50%) scale(0.7) translateY(-20px); }
-      70% { opacity: 1; transform: translateX(-50%) scale(1.04) translateY(0); }
-      100% { opacity: 1; transform: translateX(-50%) scale(1.0) translateY(0); }
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.7) translateY(-20px);
+      }
+
+      70% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.04) translateY(0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.0) translateY(0);
+      }
     }
 
     .oxygen-badge-pulse {
@@ -1124,8 +1256,13 @@
     }
 
     @keyframes oxy-title-glow {
-      from { text-shadow: 0 0 8px #00e5ff, 0 0 15px #00e5ff; }
-      to { text-shadow: 0 0 16px #00ffff, 0 0 28px #22ff88, 0 0 35px #00e5ff; }
+      from {
+        text-shadow: 0 0 8px #00e5ff, 0 0 15px #00e5ff;
+      }
+
+      to {
+        text-shadow: 0 0 16px #00ffff, 0 0 28px #22ff88, 0 0 35px #00e5ff;
+      }
     }
 
     .oxygen-stats-bar {
@@ -1205,8 +1342,15 @@
     }
 
     @keyframes tank-pulse {
-      0% { opacity: 0.6; transform: scale(0.98); }
-      100% { opacity: 1.0; transform: scale(1.02); }
+      0% {
+        opacity: 0.6;
+        transform: scale(0.98);
+      }
+
+      100% {
+        opacity: 1.0;
+        transform: scale(1.02);
+      }
     }
 
     .electrolysis-canvas {
@@ -1348,7 +1492,9 @@
     }
 
     @keyframes spin-pulse {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .blackout-title {
@@ -1460,9 +1606,18 @@
       transition: transform 0.15s ease, filter 0.15s ease;
     }
 
-    .skip-btn * { pointer-events: none; }
-    .skip-btn:hover { transform: scale(1.04); filter: brightness(1.08); }
-    .skip-btn:active { transform: scale(0.97); }
+    .skip-btn * {
+      pointer-events: none;
+    }
+
+    .skip-btn:hover {
+      transform: scale(1.04);
+      filter: brightness(1.08);
+    }
+
+    .skip-btn:active {
+      transform: scale(0.97);
+    }
 
     .skip-bg {
       position: absolute;
@@ -1530,11 +1685,12 @@
       pointer-events: none;
     }
 
-    .top-hud > * {
+    .top-hud>* {
       pointer-events: auto;
     }
 
-    @media (max-width: 900px), (max-height: 500px) {
+    @media (max-width: 900px),
+    (max-height: 500px) {
       .top-hud {
         top: max(18px, calc(env(safe-area-inset-top) + 10px));
         right: max(72px, calc(64px + env(safe-area-inset-right)));
@@ -1577,7 +1733,10 @@
       gap: 6px;
     }
 
-    .hud-btn:hover { background: #0284c7; color: #ffffff; }
+    .hud-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
 
     /* ======================================================================
        Interactive Map (Scene 2: Submersive Ice) - zoom, pan, labelled markers
@@ -1630,7 +1789,9 @@
       touch-action: none;
     }
 
-    .map-window.dragging { cursor: grabbing; }
+    .map-window.dragging {
+      cursor: grabbing;
+    }
 
     .map-pan {
       position: absolute;
@@ -1709,7 +1870,9 @@
 
     .map-marker:hover .marker-label,
     .map-marker.active .marker-label,
-    .map-window.show-labels .marker-label { opacity: 1; }
+    .map-window.show-labels .marker-label {
+      opacity: 1;
+    }
 
     /* Water probability halo */
     .water-halo {
@@ -1724,7 +1887,9 @@
       display: none;
     }
 
-    .map-window.show-water .water-halo { display: block; }
+    .map-window.show-water .water-halo {
+      display: block;
+    }
 
     .water-halo.prob-high {
       border: 3px solid #00e5ff;
@@ -1743,8 +1908,15 @@
     }
 
     @keyframes halo-pulse {
-      0%, 100% { opacity: 0.55; }
-      50% { opacity: 1; }
+
+      0%,
+      100% {
+        opacity: 0.55;
+      }
+
+      50% {
+        opacity: 1;
+      }
     }
 
     .halo-tag {
@@ -1761,9 +1933,19 @@
       white-space: nowrap;
     }
 
-    .prob-high .halo-tag { background: #00e5ff; }
-    .prob-medium .halo-tag { background: #00e5ff; opacity: 0.85; }
-    .prob-low .halo-tag { background: #00e5ff; opacity: 0.6; }
+    .prob-high .halo-tag {
+      background: #00e5ff;
+    }
+
+    .prob-medium .halo-tag {
+      background: #00e5ff;
+      opacity: 0.85;
+    }
+
+    .prob-low .halo-tag {
+      background: #00e5ff;
+      opacity: 0.6;
+    }
 
     /* Map toolbar (zoom + water toggle) */
     .map-toolbar {
@@ -1791,11 +1973,20 @@
       transition: background 0.15s, color 0.15s;
     }
 
-    .map-tool-btn:hover { background: #0284c7; color: #fff; }
+    .map-tool-btn:hover {
+      background: #0284c7;
+      color: #fff;
+    }
 
-    .map-tool-btn.toggle-on { background: #00798a; color: #fff; border-color: #00e5ff; }
+    .map-tool-btn.toggle-on {
+      background: #00798a;
+      color: #fff;
+      border-color: #00e5ff;
+    }
 
-    .water-toggle { font-size: clamp(0.8rem, 1.2vw, 1.2rem); }
+    .water-toggle {
+      font-size: clamp(0.8rem, 1.2vw, 1.2rem);
+    }
 
     /* Info panel (component name + probability) */
     .map-info {
@@ -1842,7 +2033,11 @@
       min-width: 60px;
     }
 
-    .prob-fill { height: 100%; width: 0; transition: width 0.25s ease; }
+    .prob-fill {
+      height: 100%;
+      width: 0;
+      transition: width 0.25s ease;
+    }
 
     .map-hint {
       position: absolute;
@@ -1876,8 +2071,15 @@
     }
 
     @keyframes scan-appear {
-      from { opacity: 0; transform: scale(0.96); }
-      to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .scan-card {
@@ -1931,8 +2133,13 @@
     }
 
     @keyframes scan-flicker {
-      0% { opacity: 0.6; }
-      100% { opacity: 1; }
+      0% {
+        opacity: 0.6;
+      }
+
+      100% {
+        opacity: 1;
+      }
     }
 
     /* Detection ping on each water-ice site */
@@ -1954,8 +2161,15 @@
     }
 
     @keyframes ping-out {
-      0% { opacity: 1; transform: translate(-50%, -50%) scale(0.2); }
-      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.2);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.5);
+      }
     }
 
     /* After the scan completes, keep a soft pulsing ring on every site */
@@ -1964,8 +2178,17 @@
     }
 
     @keyframes ping-hold {
-      0%, 100% { opacity: 0.25; transform: translate(-50%, -50%) scale(0.75); }
-      50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+
+      0%,
+      100% {
+        opacity: 0.25;
+        transform: translate(-50%, -50%) scale(0.75);
+      }
+
+      50% {
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(1);
+      }
     }
 
     .scan-status {
@@ -2000,7 +2223,9 @@
       z-index: 2;
     }
 
-    .scan-window.dragging { cursor: grabbing; }
+    .scan-window.dragging {
+      cursor: grabbing;
+    }
 
     .scan-pan {
       position: absolute;
@@ -2018,7 +2243,10 @@
       height: 125.25%;
     }
 
-    .scan-toolbar { pointer-events: auto; z-index: 20; }
+    .scan-toolbar {
+      pointer-events: auto;
+      z-index: 20;
+    }
 
     /* Scanner Prompt Backdrop Scrim */
     .scan-prompt-backdrop {
@@ -2160,11 +2388,27 @@
       z-index: 6;
     }
 
-    .scan-tag.show { display: block; animation: scan-appear 0.3s ease; }
-    .scan-tag:hover, .scan-tag.active { background: #00e5ff; color: #00121f; }
+    .scan-tag.show {
+      display: block;
+      animation: scan-appear 0.3s ease;
+    }
 
-    .scan-info { left: 6%; bottom: 6.5%; z-index: 21; max-width: 40%; }
-    .scan-info .prob-bar { min-width: 90px; }
+    .scan-tag:hover,
+    .scan-tag.active {
+      background: #00e5ff;
+      color: #00121f;
+    }
+
+    .scan-info {
+      left: 6%;
+      bottom: 6.5%;
+      z-index: 21;
+      max-width: 40%;
+    }
+
+    .scan-info .prob-bar {
+      min-width: 90px;
+    }
 
     /* Standalone SKIP (no dialogue box in scan scenes) */
     .skip-btn.skip-btn-float {
@@ -2195,7 +2439,9 @@
       transition: opacity 0.3s ease;
     }
 
-    .coming-soon-toast.show { opacity: 1; }
+    .coming-soon-toast.show {
+      opacity: 1;
+    }
 
     /* ==========================================================================
        Mission Entry Transition (Sci-Fi Airlock Reveal)
@@ -2257,13 +2503,11 @@
       top: 0;
       bottom: 0;
       width: 14px;
-      background: repeating-linear-gradient(
-        -45deg,
-        rgba(253, 203, 14, 0.4) 0px,
-        rgba(253, 203, 14, 0.4) 8px,
-        rgba(10, 15, 25, 0.8) 8px,
-        rgba(10, 15, 25, 0.8) 16px
-      );
+      background: repeating-linear-gradient(-45deg,
+          rgba(253, 203, 14, 0.4) 0px,
+          rgba(253, 203, 14, 0.4) 8px,
+          rgba(10, 15, 25, 0.8) 8px,
+          rgba(10, 15, 25, 0.8) 16px);
     }
 
     .entry-door-left .entry-hazard-stripe {
@@ -2282,7 +2526,7 @@
       border-radius: 4px;
       pointer-events: none;
       background: linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px),
-                  linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px);
       background-size: 24px 24px;
     }
 
@@ -2360,8 +2604,15 @@
     }
 
     @keyframes entry-pulse {
-      from { transform: scale(0.8); opacity: 0.6; }
-      to { transform: scale(1.3); opacity: 1; }
+      from {
+        transform: scale(0.8);
+        opacity: 0.6;
+      }
+
+      to {
+        transform: scale(1.3);
+        opacity: 1;
+      }
     }
 
     .entry-badge-title {
@@ -2403,8 +2654,13 @@
     }
 
     @keyframes entry-fill {
-      0% { width: 0%; }
-      100% { width: 100%; }
+      0% {
+        width: 0%;
+      }
+
+      100% {
+        width: 100%;
+      }
     }
 
     .entry-skip-hint {
@@ -2439,6 +2695,7 @@
         opacity: 0;
         transform: translate(-50%, -20px) scale(0.96);
       }
+
       to {
         opacity: 1;
         transform: translate(-50%, 0) scale(1);
@@ -2569,12 +2826,12 @@
     .mission-btn:active {
       transform: scale(0.96);
     }
-
   </style>
   <link rel="stylesheet" href="astrobee/astrobee.css">
   <link rel="stylesheet" href="sidebar.css">
   <link rel="stylesheet" href="missions-shared.css">
-  <link rel="stylesheet" href="mobile.css?v=20261111_fix7" media="screen and (max-width: 1024px), screen and (max-height: 550px)">
+  <link rel="stylesheet" href="mobile.css?v=20261111_fix7"
+    media="screen and (max-width: 1024px), screen and (max-height: 550px)">
   <script src="game-assets.js"></script>
   <script src="responsive.js?v=20261110b" defer></script>
 </head>
@@ -2589,11 +2846,13 @@
     </div>
   </aside>
 
-  <main class="isru-game-viewport game-viewport" id="gameViewport" role="application" aria-label="Mission 3: ISRU Facility">
+  <main class="isru-game-viewport game-viewport" id="gameViewport" role="application"
+    aria-label="Mission 3: ISRU Facility">
     <div class="isru-stage" id="isruStage">
 
       <!-- Mission Entry Sci-Fi Transition Overlay -->
-      <div class="mission-entry-transition" id="entryTransition" onclick="dismissEntryTransition()" role="dialog" aria-label="Mission Entry Transition" title="Click anywhere to enter">
+      <div class="mission-entry-transition" id="entryTransition" onclick="dismissEntryTransition()" role="dialog"
+        aria-label="Mission Entry Transition" title="Click anywhere to enter">
         <div class="entry-door entry-door-left">
           <div class="entry-door-panel"></div>
           <div class="entry-door-decal">SECTOR 03 // AIRLOCK L-3</div>
@@ -2609,17 +2868,25 @@
             <span class="entry-pulse-dot"></span>
             <span>PRESSURIZING AIRLOCK // SYS-NOMINAL</span>
           </div>
-          <h2 class="entry-badge-title"><svg width="18" height="18" viewBox="0 0 16 16" fill="#00e5ff" style="vertical-align:middle;margin-right:6px;"><path d="M8 1.5C8 1.5 3 7.5 3 11a5 5 0 0 0 10 0c0-3.5-5-9.5-5-9.5z"/></svg>MISSION 3: ISRU FACILITY</h2>
+          <h2 class="entry-badge-title"><svg width="18" height="18" viewBox="0 0 16 16" fill="#00e5ff"
+              style="vertical-align:middle;margin-right:6px;">
+              <path d="M8 1.5C8 1.5 3 7.5 3 11a5 5 0 0 0 10 0c0-3.5-5-9.5-5-9.5z" />
+            </svg>MISSION 3: ISRU FACILITY</h2>
           <div class="entry-badge-sub">WATER EXTRACTION &amp; OXYGEN GENERATION</div>
-          <div class="entry-scan-bar"><div class="entry-scan-fill"></div></div>
+          <div class="entry-scan-bar">
+            <div class="entry-scan-fill"></div>
+          </div>
           <div class="entry-skip-hint">TAP ANYWHERE TO ENTER &#10140;</div>
         </div>
       </div>
 
       <!-- Top HUD -->
       <header class="top-hud">
-        <div class="hud-title-badge" id="hudMissionTitle"><svg class="hud-badge-icon" width="14" height="14" viewBox="0 0 16 16" fill="#00e5ff" aria-hidden="true" style="vertical-align:middle;margin-right:5px;"><path d="M8 1.5C8 1.5 3 7.5 3 11a5 5 0 0 0 10 0c0-3.5-5-9.5-5-9.5z"/></svg>MISSION 3: ISRU FACILITY</div>
-        <div style="display:flex; gap:8px;">
+        <div class="hud-title-badge" id="hudMissionTitle"><svg class="hud-badge-icon" width="14" height="14"
+            viewBox="0 0 16 16" fill="#00e5ff" aria-hidden="true" style="vertical-align:middle;margin-right:5px;">
+            <path d="M8 1.5C8 1.5 3 7.5 3 11a5 5 0 0 0 10 0c0-3.5-5-9.5-5-9.5z" />
+          </svg>MISSION 3: ISRU FACILITY</div>
+        <div style="display:flex; gap:8px; position : relative; right:110px;">
           <button class="hud-btn" id="soundBtn" onclick="toggleSound()" title="Toggle Sound">
             <span id="soundText">SOUND</span>
           </button>
@@ -2650,7 +2917,8 @@
           <div class="drill-sim-overlay hidden" id="drillSimOverlay">
             <div class="drill-rig-zone" id="drillRigZone"></div>
 
-            <div class="drill-shaft-zone" id="drillShaftZone" onclick="toggleDrillTwist(event)" title="Click to Twist & Drill">
+            <div class="drill-shaft-zone" id="drillShaftZone" onclick="toggleDrillTwist(event)"
+              title="Click to Twist & Drill">
               <div class="drill-flutes" id="drillFlutes"></div>
               <div class="drill-shimmer"></div>
               <div class="drill-cuttings-stream" id="drillCuttingsStream"></div>
@@ -2684,7 +2952,12 @@
               </div>
 
               <button class="drill-twist-btn" id="drillTwistBtn" onclick="toggleDrillTwist(event)">
-                <span class="twist-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3v6h-6"/><path d="M20.5 16a9 9 0 1 1-2.2-9.4L21 9"/></svg></span>
+                <span class="twist-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <path d="M21 3v6h-6" />
+                    <path d="M20.5 16a9 9 0 1 1-2.2-9.4L21 9" />
+                  </svg></span>
                 <span id="drillTwistBtnLabel">TWIST DRILL (START)</span>
               </button>
             </div>
@@ -2719,15 +2992,25 @@
           <div class="map-toolbar">
             <button class="map-tool-btn" id="mapZoomIn" title="Zoom in" aria-label="Zoom in">+</button>
             <button class="map-tool-btn" id="mapZoomOut" title="Zoom out" aria-label="Zoom out">−</button>
-            <button class="map-tool-btn" id="mapReset" title="Reset view" aria-label="Reset view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
-            <button class="map-tool-btn water-toggle toggle-on" id="waterToggle" title="Show water probability"><svg width="16" height="16" viewBox="0 0 16 16" fill="#00e5ff" aria-hidden="true"><path d="M8 1.5C8 1.5 3 7.5 3 11a5 5 0 0 0 10 0c0-3.5-5-9.5-5-9.5z"/></svg></button>
+            <button class="map-tool-btn" id="mapReset" title="Reset view" aria-label="Reset view"><svg width="14"
+                height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+              </svg></button>
+            <button class="map-tool-btn water-toggle toggle-on" id="waterToggle" title="Show water probability"><svg
+                width="16" height="16" viewBox="0 0 16 16" fill="#00e5ff" aria-hidden="true">
+                <path d="M8 1.5C8 1.5 3 7.5 3 11a5 5 0 0 0 10 0c0-3.5-5-9.5-5-9.5z" />
+              </svg></button>
           </div>
           <div class="map-info" id="mapInfo">
             <div class="map-info-name" id="mapInfoName">Tap a marker</div>
             <div class="map-info-desc" id="mapInfoDesc">Cyan rings show the highest chance of water ice.</div>
             <div class="map-info-prob hidden" id="mapInfoProbRow">
               <span id="mapInfoProbText"></span>
-              <div class="prob-bar"><div class="prob-fill" id="mapInfoProbFill"></div></div>
+              <div class="prob-bar">
+                <div class="prob-fill" id="mapInfoProbFill"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -2749,7 +3032,12 @@
           <div class="map-toolbar scan-toolbar" id="scanToolbar">
             <button class="map-tool-btn" id="scanZoomIn" title="Zoom in" aria-label="Zoom in">+</button>
             <button class="map-tool-btn" id="scanZoomOut" title="Zoom out" aria-label="Zoom out">−</button>
-            <button class="map-tool-btn" id="scanZoomReset" title="Reset view" aria-label="Reset view"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+            <button class="map-tool-btn" id="scanZoomReset" title="Reset view" aria-label="Reset view"><svg width="14"
+                height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+              </svg></button>
           </div>
           <div class="scan-status hidden" id="scanStatus"></div>
           <div class="map-info scan-info hidden" id="scanInfo">
@@ -2757,15 +3045,21 @@
             <div class="map-info-desc" id="scanInfoDesc"></div>
             <div class="map-info-prob hidden" id="scanInfoProbRow">
               <span id="scanInfoProbText"></span>
-              <div class="prob-bar"><div class="prob-fill" id="scanInfoProbFill" style="background:#00e5ff"></div></div>
+              <div class="prob-bar">
+                <div class="prob-fill" id="scanInfoProbFill" style="background:#00e5ff"></div>
+              </div>
             </div>
           </div>
           <div class="scan-prompt-backdrop" id="scanPromptBackdrop"></div>
           <div class="scan-prompt" id="scanPrompt">
             <div class="scan-prompt-title">Let's scan to find ice!</div>
-            <div class="scan-prompt-sub" id="scanPromptSub">Allow the orbital scanner to search the South Pole for water ice?</div>
+            <div class="scan-prompt-sub" id="scanPromptSub">Allow the orbital scanner to search the South Pole for water
+              ice?</div>
             <div class="scan-prompt-btns">
-              <button class="scan-prompt-btn yes" id="scanAllowBtn"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>YES, START SCAN</button>
+              <button class="scan-prompt-btn yes" id="scanAllowBtn"><svg width="12" height="12" viewBox="0 0 24 24"
+                  fill="currentColor" style="vertical-align:middle;margin-right:6px;">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>YES, START SCAN</button>
               <button class="scan-prompt-btn no" id="scanDenyBtn">NOT YET</button>
             </div>
           </div>
@@ -2836,7 +3130,11 @@
           </div>
 
           <button class="lab-extract-btn" id="labExtractBtn" onclick="toggleWaterExtraction(event)">
-            <span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#ff7700" stroke="#ffaa00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c1.5 3 5 5 5 9.5a7 7 0 1 1-14 0c0-3.2 2-5.5 3.5-7 0 2.8 2.5 4 3.5 3.2.5-1.5 1-3.7 2-5.7z"/></svg></span>
+            <span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#ff7700" stroke="#ffaa00"
+                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path
+                  d="M12 2c1.5 3 5 5 5 9.5a7 7 0 1 1-14 0c0-3.2 2-5.5 3.5-7 0 2.8 2.5 4 3.5 3.2.5-1.5 1-3.7 2-5.7z" />
+              </svg></span>
             <span id="labExtractBtnLabel">START WATER EXTRACTION (HEAT REGOLITH)</span>
           </button>
         </div>
@@ -2857,7 +3155,7 @@
             <p class="dialogue-text" id="dialogueText"></p>
           </div>
         </div>
-      
+
         <!-- Astro Bee Dialogue Box (Scene 11 / Picture 1) -->
         <div class="dialogue-box scene-2-box hidden" id="dialogueBoxAstroBee" onclick="handleDialogueClick()">
           <div class="robot-avatar-container">
@@ -2879,13 +3177,27 @@
       </footer>
 
       <!-- Lab Permission Prompt Modal (between Scoop Scene and Lab Scene) -->
-      
+
       <!-- Scene 18: Oxygen Ready High-Impact Display & Tank Reaction -->
       <div class="oxygen-ready-banner hidden" id="oxygenReadyBanner">
         <div class="oxygen-badge-pulse">
-          <span class="oxygen-icon"><svg width="28" height="22" viewBox="0 0 34 22" fill="none" aria-hidden="true" style="vertical-align:middle;"><circle cx="9" cy="11" r="7" fill="#00e5ff" fill-opacity="0.35" stroke="#00ffff" stroke-width="2"/><circle cx="23" cy="11" r="7" fill="#00e5ff" fill-opacity="0.35" stroke="#00ffff" stroke-width="2"/><text x="9" y="15" text-anchor="middle" font-family="'Jersey 10', monospace" font-size="11" font-weight="bold" fill="#ffffff">O</text><text x="23" y="15" text-anchor="middle" font-family="'Jersey 10', monospace" font-size="11" font-weight="bold" fill="#ffffff">O</text></svg></span>
+          <span class="oxygen-icon"><svg width="28" height="22" viewBox="0 0 34 22" fill="none" aria-hidden="true"
+              style="vertical-align:middle;">
+              <circle cx="9" cy="11" r="7" fill="#00e5ff" fill-opacity="0.35" stroke="#00ffff" stroke-width="2" />
+              <circle cx="23" cy="11" r="7" fill="#00e5ff" fill-opacity="0.35" stroke="#00ffff" stroke-width="2" /><text
+                x="9" y="15" text-anchor="middle" font-family="'Jersey 10', monospace" font-size="11" font-weight="bold"
+                fill="#ffffff">O</text><text x="23" y="15" text-anchor="middle" font-family="'Jersey 10', monospace"
+                font-size="11" font-weight="bold" fill="#ffffff">O</text>
+            </svg></span>
           <span class="oxygen-title">OXYGEN IS READY!</span>
-          <span class="oxygen-icon"><svg width="28" height="22" viewBox="0 0 34 22" fill="none" aria-hidden="true" style="vertical-align:middle;"><circle cx="9" cy="11" r="7" fill="#00e5ff" fill-opacity="0.35" stroke="#00ffff" stroke-width="2"/><circle cx="23" cy="11" r="7" fill="#00e5ff" fill-opacity="0.35" stroke="#00ffff" stroke-width="2"/><text x="9" y="15" text-anchor="middle" font-family="'Jersey 10', monospace" font-size="11" font-weight="bold" fill="#ffffff">O</text><text x="23" y="15" text-anchor="middle" font-family="'Jersey 10', monospace" font-size="11" font-weight="bold" fill="#ffffff">O</text></svg></span>
+          <span class="oxygen-icon"><svg width="28" height="22" viewBox="0 0 34 22" fill="none" aria-hidden="true"
+              style="vertical-align:middle;">
+              <circle cx="9" cy="11" r="7" fill="#00e5ff" fill-opacity="0.35" stroke="#00ffff" stroke-width="2" />
+              <circle cx="23" cy="11" r="7" fill="#00e5ff" fill-opacity="0.35" stroke="#00ffff" stroke-width="2" /><text
+                x="9" y="15" text-anchor="middle" font-family="'Jersey 10', monospace" font-size="11" font-weight="bold"
+                fill="#ffffff">O</text><text x="23" y="15" text-anchor="middle" font-family="'Jersey 10', monospace"
+                font-size="11" font-weight="bold" fill="#ffffff">O</text>
+            </svg></span>
         </div>
         <div class="oxygen-stats-bar">
           <div class="oxy-stat">
@@ -2905,7 +3217,8 @@
         </div>
       </div>
 
-      <div class="electrolysis-tank-zone hidden" id="electrolysisTankZone" onclick="triggerOxygenFanfare()" title="Click to inspect Oxygen generation">
+      <div class="electrolysis-tank-zone hidden" id="electrolysisTankZone" onclick="triggerOxygenFanfare()"
+        title="Click to inspect Oxygen generation">
         <div class="tank-glow-aura"></div>
         <canvas class="electrolysis-canvas" id="electrolysisCanvas"></canvas>
       </div>
@@ -2913,7 +3226,11 @@
       <div class="lab-prompt-backdrop hidden" id="labPromptBackdrop">
         <div class="lab-prompt-modal" id="labPromptModal">
           <div class="lab-prompt-header">
-            <span class="lab-prompt-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.5L4.5 19a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V2h-4z"/><path d="M8.5 2h7M7 15h10" stroke-width="1.8"/></svg></span>
+            <span class="lab-prompt-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00e5ff"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M10 2v7.5L4.5 19a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V2h-4z" />
+                <path d="M8.5 2h7M7 15h10" stroke-width="1.8" />
+              </svg></span>
             <span class="lab-prompt-title">LABORATORY TRANSFER AUTHORIZATION</span>
           </div>
           <p class="lab-prompt-body">
@@ -2922,7 +3239,11 @@
           </p>
           <div class="lab-prompt-actions">
             <button class="lab-btn lab-btn-confirm" id="labBtnConfirm" onclick="proceedToLab()">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="margin-right:8px;vertical-align:middle;"><path d="M12 2.5C12 2.5 17 6.5 17 14l3 2v2l-4-1-4 4.5V23l-2-1.5L8 23v-1.5L4 17l-4 1v-2l3-2c0-7.5 5-11.5 5-11.5h4z"/></svg>YES, PROCEED TO LAB
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                style="margin-right:8px;vertical-align:middle;">
+                <path
+                  d="M12 2.5C12 2.5 17 6.5 17 14l3 2v2l-4-1-4 4.5V23l-2-1.5L8 23v-1.5L4 17l-4 1v-2l3-2c0-7.5 5-11.5 5-11.5h4z" />
+              </svg>YES, PROCEED TO LAB
             </button>
             <button class="lab-btn lab-btn-cancel" id="labBtnCancel" onclick="closeLabPrompt()">
               STAY ON SITE
@@ -2941,36 +3262,36 @@
       </div>
 
     </div>
-      <!-- Mission Complete Overlay -->
-      <div class="mission-complete-overlay hidden" id="missionCompleteOverlay">
-        <div class="mission-complete-container">
-          <img src="assets/Mission Complete.webp" alt="Mission Complete" class="mission-complete-title">
+    <!-- Mission Complete Overlay -->
+    <div class="mission-complete-overlay hidden" id="missionCompleteOverlay">
+      <div class="mission-complete-container">
+        <img src="assets/Mission Complete.webp" alt="Mission Complete" class="mission-complete-title">
 
-          <!-- Circular Verification Score Box (Circle Box) -->
-          <div class="circle-score-wrapper">
-            <div class="circle-score-box">
-              <svg class="score-circular-svg" viewBox="0 0 120 120">
-                <circle class="score-circle-bg" cx="60" cy="60" r="50"></circle>
-                <circle class="score-circle-progress" id="scoreCircleProgress" cx="60" cy="60" r="50"></circle>
-              </svg>
-              <div class="circle-score-content">
-                <span class="circle-score-num" id="circleScoreNum">100%</span>
-                <span class="circle-score-sub">SCORE</span>
-              </div>
+        <!-- Circular Verification Score Box (Circle Box) -->
+        <div class="circle-score-wrapper">
+          <div class="circle-score-box">
+            <svg class="score-circular-svg" viewBox="0 0 120 120">
+              <circle class="score-circle-bg" cx="60" cy="60" r="50"></circle>
+              <circle class="score-circle-progress" id="scoreCircleProgress" cx="60" cy="60" r="50"></circle>
+            </svg>
+            <div class="circle-score-content">
+              <span class="circle-score-num" id="circleScoreNum">100%</span>
+              <span class="circle-score-sub">SCORE</span>
             </div>
           </div>
+        </div>
 
-          <!-- Action Buttons: Try Again & Return to Base -->
-          <div class="mission-complete-buttons">
-            <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again" aria-label="Try Again">
-              <img src="assets/Frame 25.webp" alt="Try Again">
-            </button>
-            <button class="mission-btn btn-home" onclick="returnToBase()" title="Home" aria-label="Home">
-              <img src="assets/Frame 26.webp" alt="Home">
-            </button>
-          </div>
+        <!-- Action Buttons: Try Again & Return to Base -->
+        <div class="mission-complete-buttons">
+          <button class="mission-btn btn-try-again" onclick="restartMission()" title="Try Again" aria-label="Try Again">
+            <img src="assets/Frame 25.webp" alt="Try Again">
+          </button>
+          <button class="mission-btn btn-home" onclick="returnToBase()" title="Home" aria-label="Home">
+            <img src="assets/Frame 26.webp" alt="Home">
+          </button>
         </div>
       </div>
+    </div>
   </main>
 
   <script>
@@ -3025,7 +3346,7 @@
             if (this.muted || !this.ctx) return;
             this._blip('square', 220 + Math.random() * 80, 0.035, 0.02);
           }, 85);
-        } catch(e) {}
+        } catch (e) { }
       }
 
       stopDrillSound() {
@@ -3037,12 +3358,12 @@
           if (this.drillOsc) {
             const osc = this.drillOsc;
             setTimeout(() => {
-              try { osc.stop(); osc.disconnect(); } catch(e) {}
+              try { osc.stop(); osc.disconnect(); } catch (e) { }
             }, 140);
             this.drillOsc = null;
             this.drillGain = null;
           }
-        } catch(e) {}
+        } catch (e) { }
       }
 
       playIceExtractChime() {
@@ -3076,7 +3397,7 @@
             if (this.muted || !this.ctx) return;
             this._blip('sine', 160 + Math.random() * 40, 0.02, 0.03);
           }, 120);
-        } catch(e) {}
+        } catch (e) { }
       }
 
       stopHeaterSound() {
@@ -3087,28 +3408,28 @@
           }
           if (this.heaterOsc) {
             const osc = this.heaterOsc;
-            setTimeout(() => { try { osc.stop(); osc.disconnect(); } catch(e) {} }, 160);
+            setTimeout(() => { try { osc.stop(); osc.disconnect(); } catch (e) { } }, 160);
             this.heaterOsc = null;
             this.heaterGain = null;
           }
-        } catch(e) {}
+        } catch (e) { }
       }
 
-      
-    playOxygenFanfare() {
-      if (!this.enabled) return;
-      this._resume();
-      // Triumphant 4-note ascending fanfare: C5 (523Hz), E5 (659Hz), G5 (784Hz), C6 (1046Hz)
-      const notes = [523.25, 659.25, 783.99, 1046.50];
-      notes.forEach((freq, idx) => {
-        setTimeout(() => {
-          this._blip('triangle', freq, 0.28, 0.35);
-          this._blip('sine', freq * 2, 0.22, 0.18);
-        }, idx * 160);
-      });
-    }
 
-    playWaterCompleteChime() {
+      playOxygenFanfare() {
+        if (!this.enabled) return;
+        this._resume();
+        // Triumphant 4-note ascending fanfare: C5 (523Hz), E5 (659Hz), G5 (784Hz), C6 (1046Hz)
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            this._blip('triangle', freq, 0.28, 0.35);
+            this._blip('sine', freq * 2, 0.22, 0.18);
+          }, idx * 160);
+        });
+      }
+
+      playWaterCompleteChime() {
         if (this.muted) return;
         const notes = [659.25, 783.99, 987.77, 1318.51];
         notes.forEach((freq, idx) => {
@@ -3199,14 +3520,14 @@
           gain.connect(this.ctx.destination);
           osc.start();
           osc.stop(this.ctx.currentTime + 1.2);
-        } catch(e) {}
+        } catch (e) { }
       }
     }
 
     const sound = new SoundEngine();
     window.sound = sound;
 
-    
+
     // =========================================================================
     // Mission Entry Transition Logic
     // =========================================================================
@@ -3261,7 +3582,7 @@
       openEntryTransition();
     }
 
-    window.replayEntryTransition = function() {
+    window.replayEntryTransition = function () {
       const trans = document.getElementById("entryTransition");
       if (!trans) return;
       entryTransitionDone = false;
@@ -3627,7 +3948,7 @@
     const dialogueTextAstroBee = document.getElementById('dialogueTextAstroBee');
     const toastEl = document.getElementById('comingSoonToast');
 
-    
+
     // =========================================================================
     // Scene 14: Lunar Water Extraction Lab Simulation & Permission Logic
     // =========================================================================
@@ -3979,8 +4300,8 @@
       }
     }
 
-    
-    
+
+
     // =========================================================================
     // Scene 15-18: Electrolysis Lab Transition & Oxygen Bubble Animation
     // =========================================================================
@@ -4433,7 +4754,7 @@
     // =========================================================================
     // Typewriter Engine
     // =========================================================================
-        let currentActiveTextEl = null;
+    let currentActiveTextEl = null;
 
     function startTypewriter(str, targetEl) {
       const el = targetEl || dialogueText;
@@ -4513,22 +4834,38 @@
     // Coordinates are pixels of Frame_2.png (1504x970); map window = x90-1414, y183-922
     // =========================================================================
     const MAP_COMPONENTS = [
-      { x: 1110, y: 545, name: 'Permanently Shadowed Crater', prob: 95,
-        desc: 'A cold trap: sunlight never reaches the floor, so ice stays frozen for billions of years.' },
-      { x: 290, y: 765, name: 'Shadowed Basin Ice Deposit', prob: 92,
-        desc: 'Large dark basin with a thick ice field, possibly buried under the dust.' },
-      { x: 1120, y: 822, name: 'Crater Floor Ice', prob: 80,
-        desc: 'Small shadowed crater whose floor holds frozen water.' },
-      { x: 588, y: 447, name: 'Surface Ice Patch', prob: 68,
-        desc: 'Exposed frost in a shaded hollow. Good, but smaller than the big deposits.' },
-      { x: 385, y: 438, name: 'Small Ice Patch', prob: 60,
-        desc: 'A thin ice patch at the edge of a shadow. Worth a sample.' },
-      { x: 800, y: 520, name: 'Sunlit Plateau', prob: 8,
-        desc: 'Bright, sun-warmed ground. Ice cannot survive here.' },
-      { x: 910, y: 305, name: 'Prospecting Rover', prob: null,
-        desc: 'Our rover scanning the surface for hydrogen and ice.' },
-      { x: 1230, y: 640, name: 'Traverse Route', prob: null,
-        desc: 'The red path the rover follows to survey the ice sites safely.' }
+      {
+        x: 1110, y: 545, name: 'Permanently Shadowed Crater', prob: 95,
+        desc: 'A cold trap: sunlight never reaches the floor, so ice stays frozen for billions of years.'
+      },
+      {
+        x: 290, y: 765, name: 'Shadowed Basin Ice Deposit', prob: 92,
+        desc: 'Large dark basin with a thick ice field, possibly buried under the dust.'
+      },
+      {
+        x: 1120, y: 822, name: 'Crater Floor Ice', prob: 80,
+        desc: 'Small shadowed crater whose floor holds frozen water.'
+      },
+      {
+        x: 588, y: 447, name: 'Surface Ice Patch', prob: 68,
+        desc: 'Exposed frost in a shaded hollow. Good, but smaller than the big deposits.'
+      },
+      {
+        x: 385, y: 438, name: 'Small Ice Patch', prob: 60,
+        desc: 'A thin ice patch at the edge of a shadow. Worth a sample.'
+      },
+      {
+        x: 800, y: 520, name: 'Sunlit Plateau', prob: 8,
+        desc: 'Bright, sun-warmed ground. Ice cannot survive here.'
+      },
+      {
+        x: 910, y: 305, name: 'Prospecting Rover', prob: null,
+        desc: 'Our rover scanning the surface for hydrogen and ice.'
+      },
+      {
+        x: 1230, y: 640, name: 'Traverse Route', prob: null,
+        desc: 'The red path the rover follows to survey the ice sites safely.'
+      }
     ];
 
     const MAP_W = 1324, MAP_H = 739, MAP_OX = 90, MAP_OY = 183;
@@ -4698,4 +5035,3 @@
 </body>
 
 </html>
-
