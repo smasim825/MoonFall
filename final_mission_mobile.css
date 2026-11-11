@@ -15,9 +15,36 @@ screen and (max-height: 550px) {
   .top-hud {
     top: 6px !important;
     left: 8px !important;
-    right: 8px !important;
+    right: 64px !important; /* Dedicated clearance for Astro Bee button at far right */
     padding: 0 !important;
     height: 30px !important;
+  }
+
+  /* Astro Bee floating launcher (Aligned with Top HUD, Zero Overlap) */
+  .ab-root.ab-in-stage .ab-launch {
+    position: absolute !important;
+    top: 5px !important;
+    right: 8px !important;
+    width: 48px !important;
+    min-height: 32px !important;
+    height: 32px !important;
+    padding: 2px 3px !important;
+    border-radius: 6px !important;
+    border: 1.5px solid #00e5ff !important;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.35) !important;
+    z-index: 200 !important;
+    gap: 0 !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .ab-root.ab-in-stage .ab-launch span,
+  .ab-root.ab-in-stage .ab-launch-short {
+    font-size: 0.58rem !important;
+    line-height: 1 !important;
   }
 
   .top-hud-left {
