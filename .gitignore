@@ -8,3 +8,4 @@ local_backup/
 *game_logic*.pdf
 *GAME_LOGIC*.pdf
 *.bak
+*simulation*.json
