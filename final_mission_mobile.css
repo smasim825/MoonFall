@@ -406,27 +406,37 @@ screen and (max-height: 550px) {
      8. CRISIS MINI-TASK OVERLAY & WORKSPACE CARDS (M2-M8 Protocols)
      ========================================================================= */
   .crisis-minitask-overlay {
-    padding-top: 36px !important;
-    padding-bottom: clamp(55px, 15vh, 75px) !important;
-    padding-left: 6px !important;
-    padding-right: 6px !important;
+    position: absolute !important;
+    top: 34px !important;
+    bottom: clamp(66px, 18vh, 84px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 2px 8px !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 150 !important;
   }
 
   .minitask-card {
-    width: min(96vw, 760px) !important;
+    width: min(94vw, 740px) !important;
     max-width: 96vw !important;
-    max-height: calc(100vh - 95px) !important;
-    padding: 4px 10px !important;
+    max-height: 100% !important;
+    height: auto !important;
+    padding: 4px 8px !important;
     border-radius: 8px !important;
     border-width: 1.5px !important;
     box-shadow: 0 0 20px rgba(0, 229, 255, 0.35) !important;
     overflow-y: auto !important;
+    box-sizing: border-box !important;
   }
 
   .minitask-header {
-    padding-bottom: 3px !important;
-    margin-bottom: 3px !important;
+    padding-bottom: 2px !important;
+    margin-bottom: 2px !important;
     border-bottom-width: 1px !important;
   }
 
@@ -435,38 +445,59 @@ screen and (max-height: 550px) {
     flex-direction: row !important;
     align-items: center !important;
     text-align: left !important;
-    gap: 6px !important;
+    gap: 5px !important;
   }
 
   .minitask-headline {
-    font-size: 0.82rem !important;
+    font-size: 0.75rem !important;
     letter-spacing: 0.03em !important;
   }
 
+  .minitask-subline {
+    font-size: 0.58rem !important;
+  }
+
   .minitask-icon-svg {
-    width: 14px !important;
-    height: 14px !important;
+    width: 13px !important;
+    height: 13px !important;
   }
 
   .minitask-status-badge {
     padding: 2px 6px !important;
-    font-size: 0.62rem !important;
+    font-size: 0.58rem !important;
     border-radius: 4px !important;
   }
 
   .minitask-body {
-    gap: 4px !important;
-    padding: 2px !important;
+    gap: 3px !important;
+    padding: 1px !important;
+  }
+
+  /* Bottom AstroBee Dialogue during Mini-Tasks */
+  .dialogue-box.scene-2-box.has-minitask-btn {
+    height: clamp(46px, 13vh, 58px) !important;
+    min-height: 42px !important;
+  }
+
+  .scene-2-box.has-minitask-btn .dialogue-content {
+    padding-left: clamp(52px, 7vw, 70px) !important;
+    padding-right: clamp(140px, 18vw, 190px) !important;
+  }
+
+  .scene-2-box.has-minitask-btn .dialogue-text {
+    font-size: clamp(0.58rem, 1.0vw, 0.68rem) !important;
+    line-height: 1.2 !important;
   }
 
   /* Bottom AstroBee Minitask Action Confirm Button */
   .minitask-confirm-btn,
+  .scene-2-box.has-minitask-btn .minitask-confirm-btn,
   .minitask-bottom-astrobee .minitask-confirm-btn {
-    padding: 3px 12px !important;
-    font-size: 0.72rem !important;
-    height: 26px !important;
+    padding: 3px 10px !important;
+    font-size: clamp(0.58rem, 0.95vw, 0.68rem) !important;
+    height: 24px !important;
     border-radius: 4px !important;
-    right: 12px !important;
+    right: 10px !important;
   }
 
   /* Specific Interactive Mini-Task Scaling */
@@ -558,7 +589,7 @@ screen and (max-height: 550px) {
     max-height: 120px !important;
   }
 
-  .m2-life-title {
+  .m2-life-title {git status
     font-size: 0.65rem !important;
   }
 
@@ -590,7 +621,233 @@ screen and (max-height: 550px) {
     border-radius: 4px !important;
   }
 
-  /* M4, M5, M6, M7, M8 interactive controls */
+  /* M4 ISRU Electrolysis Manifold Sequencing (Compact Mobile) */
+  .m4-flow-sequence {
+    gap: 3px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .m4-reorder-banner {
+    padding: 2px 6px !important;
+    font-size: 0.58rem !important;
+    border-radius: 4px !important;
+    margin-bottom: 2px !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .manifold-stage-card {
+    padding: 2px 6px !important;
+    min-height: 26px !important;
+    border-radius: 5px !important;
+    border-width: 1px !important;
+    gap: 5px !important;
+    box-sizing: border-box !important;
+  }
+
+  .m4-card-left {
+    gap: 5px !important;
+    align-items: center !important;
+  }
+
+  .m4-drag-grip {
+    font-size: 0.75rem !important;
+    line-height: 1 !important;
+  }
+
+  .m4-slot-num-badge {
+    width: 16px !important;
+    height: 16px !important;
+    font-size: 0.58rem !important;
+    border-radius: 3px !important;
+    border-width: 1px !important;
+  }
+
+  .m4-custom-icon-badge,
+  .m4-emoji-icon-badge {
+    width: 18px !important;
+    height: 18px !important;
+    border-radius: 3px !important;
+    padding: 1px !important;
+  }
+
+  .m4-custom-icon-badge svg {
+    width: 11px !important;
+    height: 11px !important;
+  }
+
+  .m4-info-col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    min-width: 0 !important;
+  }
+
+  .m4-stage-title {
+    font-size: clamp(0.58rem, 1.0vw, 0.65rem) !important;
+    line-height: 1.15 !important;
+    font-weight: bold !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .m4-stage-desc {
+    font-size: clamp(0.50rem, 0.85vw, 0.56rem) !important;
+    line-height: 1.1 !important;
+    color: #cbd5e1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .m4-status-pill {
+    padding: 1px 6px !important;
+    font-size: 0.55rem !important;
+    height: 20px !important;
+    border-radius: 4px !important;
+    border-width: 1px !important;
+    gap: 3px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .m4-status-pill .m4-pill-icon {
+    font-size: 0.6rem !important;
+  }
+
+  /* M5 Sediment Purge & Water Filtration 2x2 Grid */
+  .m5-water-grid {
+    gap: 4px !important;
+    max-width: 100% !important;
+  }
+
+  .m5-water-card {
+    padding: 3px 5px !important;
+    gap: 2px !important;
+    border-radius: 6px !important;
+    border-width: 1.5px !important;
+  }
+
+  .m5-water-img-wrap {
+    height: clamp(36px, 9.5vh, 48px) !important;
+    padding: 2px !important;
+    border-radius: 4px !important;
+  }
+
+  .m5-water-title {
+    font-size: 0.58rem !important;
+  }
+
+  .m5-water-popup {
+    padding: 2px 6px !important;
+    font-size: 0.55rem !important;
+    border-radius: 4px !important;
+  }
+
+  /* M6 Photoperiod Schedule Matrix */
+  .m6-photoperiod-container {
+    gap: 3px !important;
+  }
+
+  .m6-status-banner {
+    padding: 2px 6px !important;
+    gap: 5px !important;
+  }
+
+  .m6-status-title {
+    font-size: 0.62rem !important;
+  }
+
+  .m6-status-subtitle {
+    font-size: 0.52rem !important;
+  }
+
+  .m6-status-pills {
+    gap: 4px !important;
+  }
+
+  .m6-pill {
+    padding: 2px 6px !important;
+    font-size: 0.55rem !important;
+    border-radius: 4px !important;
+  }
+
+  .m6-btn-reset {
+    padding: 2px 6px !important;
+    font-size: 0.55rem !important;
+    border-radius: 4px !important;
+  }
+
+  .m6-schedule-matrix {
+    gap: 2px !important;
+    padding: 3px !important;
+    border-radius: 6px !important;
+  }
+
+  .m6-hour-block {
+    min-height: 22px !important;
+    padding: 2px 1px !important;
+    border-radius: 3px !important;
+    font-size: 0.52rem !important;
+  }
+
+  /* M7 Power Bus Arc Fault Isolation */
+  .stage-btn {
+    padding: 2px 6px !important;
+    font-size: 0.55rem !important;
+    height: 22px !important;
+    border-radius: 3px !important;
+  }
+
+  /* M8 Earth Uplink Report */
+  .m8-uplink-container {
+    gap: 3px !important;
+  }
+
+  .m8-uplink-header-card {
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+  }
+
+  .m8-uplink-main-title {
+    font-size: 0.62rem !important;
+  }
+
+  .m8-uplink-sub-title {
+    font-size: 0.50rem !important;
+  }
+
+  .m8-uplink-progress-pill {
+    padding: 2px 6px !important;
+    font-size: 0.55rem !important;
+  }
+
+  .m8-uplink-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 3px !important;
+  }
+
+  .m8-section-card {
+    padding: 2px 4px !important;
+    gap: 2px !important;
+    border-radius: 4px !important;
+  }
+
+  .m8-section-title {
+    font-size: 0.56rem !important;
+    gap: 3px !important;
+  }
+
+  .m8-option-btn {
+    padding: 2px 4px !important;
+    font-size: 0.52rem !important;
+    gap: 3px !important;
+    border-radius: 3px !important;
+  }
+
+  /* General controls */
   .bay-title {
     font-size: 0.68rem !important;
   }
