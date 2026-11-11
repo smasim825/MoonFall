@@ -1109,7 +1109,7 @@ screen and (max-height: 550px) {
 
   /* 5.2: Mission Phases Board Modal */
   .coc-phase-board-wrap {
-    width: min(96vw, 760px) !important;
+    width: min(96vw, 614px) !important;
     max-height: 96vh !important;
   }
 
