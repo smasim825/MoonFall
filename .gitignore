@@ -3,3 +3,7 @@
 node_modules/
 *.log
 local_backup/
+
+# Game logic documentation (kept local, not uploaded to GitHub)
+*game_logic*.pdf
+*GAME_LOGIC*.pdf
