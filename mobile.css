@@ -1114,7 +1114,7 @@ screen and (max-height: 550px) {
   }
 
   .coc-phase-board-wrap.wide-4-cards {
-    width: min(98vw, 860px) !important;
+    width: min(83vw, 860px) !important;
   }
 
   .coc-board-tabs {
