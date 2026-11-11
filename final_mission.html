@@ -9422,10 +9422,11 @@
                 </div>
                 <div class="m2-drop-zones-row">
                   <!-- Bracket 1: Water Tank -->
-                  <div id="bracketSlotWater" class="m2-drop-target-card ${m2TaskState.supplies.water ? 'stowed' : ''}"
+                  <div id="bracketSlotWater" class="m2-drop-target-card ${m2TaskState.supplies.water ? 'stowed' : ''} ${m2SelectedSupply === 'water' ? 'drag-over' : ''}"
                        ondragover="handleM2SupplyDragOver(event, 'water')"
                        ondragleave="handleM2SupplyDragLeave(event, 'water')"
-                       ondrop="handleM2SupplyDrop(event, 'water')">
+                       ondrop="handleM2SupplyDrop(event, 'water')"
+                       onclick="handleM2SlotClick('water')">
                     ${m2TaskState.supplies.water ? `
                       <img src="assets/m2_supply_water.webp" class="drop-target-secured-img" alt="Water Tank">
                       <span class="drop-secured-pill">✓ SECURED IN DOCK</span>
@@ -9439,10 +9440,11 @@
                   </div>
 
                   <!-- Bracket 2: Food Box -->
-                  <div id="bracketSlotFood" class="m2-drop-target-card ${m2TaskState.supplies.food ? 'stowed' : ''}"
+                  <div id="bracketSlotFood" class="m2-drop-target-card ${m2TaskState.supplies.food ? 'stowed' : ''} ${m2SelectedSupply === 'food' ? 'drag-over' : ''}"
                        ondragover="handleM2SupplyDragOver(event, 'food')"
                        ondragleave="handleM2SupplyDragLeave(event, 'food')"
-                       ondrop="handleM2SupplyDrop(event, 'food')">
+                       ondrop="handleM2SupplyDrop(event, 'food')"
+                       onclick="handleM2SlotClick('food')">
                     ${m2TaskState.supplies.food ? `
                       <img src="assets/m2_supply_food.webp" class="drop-target-secured-img" alt="Food Box">
                       <span class="drop-secured-pill">✓ SECURED IN DOCK</span>
@@ -9456,10 +9458,11 @@
                   </div>
 
                   <!-- Bracket 3: Medical Kit -->
-                  <div id="bracketSlotMed" class="m2-drop-target-card ${m2TaskState.supplies.med ? 'stowed' : ''}"
+                  <div id="bracketSlotMed" class="m2-drop-target-card ${m2TaskState.supplies.med ? 'stowed' : ''} ${m2SelectedSupply === 'med' ? 'drag-over' : ''}"
                        ondragover="handleM2SupplyDragOver(event, 'med')"
                        ondragleave="handleM2SupplyDragLeave(event, 'med')"
-                       ondrop="handleM2SupplyDrop(event, 'med')">
+                       ondrop="handleM2SupplyDrop(event, 'med')"
+                       onclick="handleM2SlotClick('med')">
                     ${m2TaskState.supplies.med ? `
                       <img src="assets/m2_supply_med.webp" class="drop-target-secured-img" alt="Medical Kit">
                       <span class="drop-secured-pill">✓ SECURED IN DOCK</span>
@@ -9486,9 +9489,12 @@
           const isStowed = m2TaskState.supplies[k];
           if (!isStowed) {
             return `
-                        <div class="m2-drag-item-card" id="dragSupply${k.charAt(0).toUpperCase() + k.slice(1)}" draggable="true"
+                        <div class="m2-drag-item-card ${m2SelectedSupply === k ? 'is-dragging' : ''}" id="dragSupply${k.charAt(0).toUpperCase() + k.slice(1)}" draggable="true"
                              ondragstart="handleM2SupplyDragStart(event, '${k}')"
                              ondragend="handleM2SupplyDragEnd(event)"
+                             ontouchstart="handleM2SupplyTouchStart(event, '${k}')"
+                             ontouchmove="handleM2SupplyTouchMove(event)"
+                             ontouchend="handleM2SupplyTouchEnd(event)"
                              onclick="handleM2SupplyClick('${k}')">
                           <img src="${item.img}" class="m2-drag-item-img" alt="${item.name}">
                         </div>
@@ -9512,7 +9518,7 @@
                 </div>
               ` : `
                 <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">
-                  Drag each loose supply above to its designated bracket space. Click indicates target without auto-docking.
+                  Drag &amp; drop or tap each loose supply to secure it into its bulkhead locker.
                 </div>
               `}
             </div>
@@ -9639,9 +9645,13 @@
     }
 
     let m2DraggedSupply = null;
+    let m2SelectedSupply = null;
+    let m2TouchDragItem = null;
+    let m2TouchDragGhost = null;
 
     function handleM2SupplyDragStart(e, itemKey) {
       m2DraggedSupply = itemKey;
+      m2SelectedSupply = itemKey;
       if (e.dataTransfer) {
         e.dataTransfer.setData('text/plain', itemKey);
         e.dataTransfer.effectAllowed = 'move';
@@ -9650,12 +9660,113 @@
       if (el) el.classList.add('is-dragging');
     }
 
-    function handleM2SupplyClick(key) {
-      sound.beepSound();
-      const slot = document.getElementById(key === 'water' ? 'bracketSlotWater' : (key === 'food' ? 'bracketSlotFood' : 'bracketSlotMed'));
-      if (slot) {
+    function handleM2SupplyTouchStart(e, itemKey) {
+      if (m2TaskState.supplies[itemKey]) return;
+      m2DraggedSupply = itemKey;
+      m2TouchDragItem = itemKey;
+      m2SelectedSupply = itemKey;
+
+      const touch = e.touches[0];
+      const targetCard = e.currentTarget;
+      const img = targetCard.querySelector('img');
+
+      if (img) {
+        m2TouchDragGhost = img.cloneNode(true);
+        m2TouchDragGhost.style.position = 'fixed';
+        m2TouchDragGhost.style.zIndex = '99999';
+        m2TouchDragGhost.style.width = '64px';
+        m2TouchDragGhost.style.height = '64px';
+        m2TouchDragGhost.style.pointerEvents = 'none';
+        m2TouchDragGhost.style.opacity = '0.9';
+        m2TouchDragGhost.style.transform = 'translate(-50%, -50%)';
+        m2TouchDragGhost.style.filter = 'drop-shadow(0 0 12px rgba(0, 229, 255, 0.8))';
+        m2TouchDragGhost.style.left = touch.clientX + 'px';
+        m2TouchDragGhost.style.top = touch.clientY + 'px';
+        document.body.appendChild(m2TouchDragGhost);
+      }
+      targetCard.classList.add('is-dragging');
+    }
+
+    function handleM2SupplyTouchMove(e) {
+      if (!m2TouchDragItem) return;
+      if (e.cancelable) e.preventDefault();
+      const touch = e.touches[0];
+      if (m2TouchDragGhost) {
+        m2TouchDragGhost.style.left = touch.clientX + 'px';
+        m2TouchDragGhost.style.top = touch.clientY + 'px';
+      }
+      const el = document.elementFromPoint(touch.clientX, touch.clientY);
+      const slot = el ? el.closest('.m2-drop-target-card') : null;
+      document.querySelectorAll('.m2-drop-target-card').forEach(s => s.classList.remove('drag-over'));
+      if (slot && !slot.classList.contains('stowed')) {
         slot.classList.add('drag-over');
-        setTimeout(() => slot.classList.remove('drag-over'), 650);
+      }
+    }
+
+    function handleM2SupplyTouchEnd(e) {
+      if (!m2TouchDragItem) return;
+      if (m2TouchDragGhost) {
+        m2TouchDragGhost.remove();
+        m2TouchDragGhost = null;
+      }
+      const touch = e.changedTouches[0];
+      const el = document.elementFromPoint(touch.clientX, touch.clientY);
+      const slot = el ? el.closest('.m2-drop-target-card') : null;
+
+      document.querySelectorAll('.m2-drag-item-card').forEach(c => c.classList.remove('is-dragging'));
+      document.querySelectorAll('.m2-drop-target-card').forEach(s => s.classList.remove('drag-over'));
+
+      if (slot) {
+        let targetKey = null;
+        if (slot.id === 'bracketSlotWater') targetKey = 'water';
+        else if (slot.id === 'bracketSlotFood') targetKey = 'food';
+        else if (slot.id === 'bracketSlotMed') targetKey = 'med';
+
+        if (targetKey) {
+          if (m2TouchDragItem === targetKey) {
+            stowM2Supply(targetKey);
+            m2SelectedSupply = null;
+          } else {
+            sound.errorBuzzer();
+            slot.classList.add('slot-mismatch-shake');
+            setTimeout(() => slot.classList.remove('slot-mismatch-shake'), 400);
+          }
+        }
+      }
+      m2TouchDragItem = null;
+      m2DraggedSupply = null;
+    }
+
+    function handleM2SupplyClick(key) {
+      if (m2TaskState.supplies[key]) return;
+      sound.clickSound();
+      if (m2SelectedSupply === key) {
+        // Tapped selected item again -> auto-stow into its designated bracket
+        stowM2Supply(key);
+        m2SelectedSupply = null;
+        return;
+      }
+      m2SelectedSupply = key;
+      renderM2LockdownTask();
+    }
+
+    function handleM2SlotClick(targetKey) {
+      if (m2TaskState.supplies[targetKey]) return;
+      if (m2SelectedSupply) {
+        if (m2SelectedSupply === targetKey) {
+          stowM2Supply(targetKey);
+          m2SelectedSupply = null;
+        } else {
+          sound.errorBuzzer();
+          const slot = document.getElementById(targetKey === 'water' ? 'bracketSlotWater' : (targetKey === 'food' ? 'bracketSlotFood' : 'bracketSlotMed'));
+          if (slot) {
+            slot.classList.add('slot-mismatch-shake');
+            setTimeout(() => slot.classList.remove('slot-mismatch-shake'), 400);
+          }
+        }
+      } else {
+        // Direct tap on empty slot stows its matching item
+        stowM2Supply(targetKey);
       }
     }
 
@@ -9700,6 +9811,7 @@
 
       if (draggedKey === targetKey) {
         stowM2Supply(targetKey);
+        m2SelectedSupply = null;
       } else {
         sound.errorBuzzer();
         if (slot) {
