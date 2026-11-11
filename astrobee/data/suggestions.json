@@ -10,6 +10,11 @@
    "Why is regolith dangerous?",
    "Does chromium in Moon dust irritate skin?"
   ],
+  "final": [
+   "What is the final mission?",
+   "Who am I in the final mission?",
+   "Who is on the crew in the final mission?"
+  ],
   "ice": [
    "What is the ice mission about?",
    "Why is there ice in craters?",
@@ -42,6 +47,24 @@
   "crop.report.1": [
    "What happens after I send the data?",
    "Are my answers the same as the real study?"
+  ],
+  "final.briefing.1": [
+   "What are the underlined words?",
+   "Is the solar storm real?",
+   "What does the NASA video show?"
+  ],
+  "final.m2.3": [
+   "How do I do the shelter lockdown?"
+  ],
+  "final.m3.3": [
+   "How do I do the power routing task?"
+  ],
+  "final.m5.3": [
+   "How do I fix the water filter?",
+   "How does the space station recycle water?"
+  ],
+  "final.m6.3": [
+   "How do I set the light schedule?"
   ],
   "food.crew_meal.1": [
    "What do I do in the food storage room?",
@@ -88,6 +111,55 @@
   ],
   "crop.observe.growth": [
    "How was the growth rate?"
+  ],
+  "final.m1.2": [
+   "Should I evacuate or secure the equipment?",
+   "Why is it dangerous to stay outside in a spacesuit?",
+   "What is safe mode?"
+  ],
+  "final.m2.2": [
+   "Which shelter option is best?",
+   "Why do regolith and water block radiation?",
+   "What does g/cm2 mean?"
+  ],
+  "final.m3.2": [
+   "Greenhouse off, backup power or brownout?",
+   "Why does draining the battery hurt the equipment?",
+   "Why does a brownout make the crew cold?"
+  ],
+  "final.m4.2": [
+   "Bottled O2 or electrolysis?",
+   "Why does electrolysis use so much power?"
+  ],
+  "final.m4.3": [
+   "How do I order the electrolysis cards?",
+   "Where does the hydrogen go?"
+  ],
+  "final.m5.2": [
+   "Which water option should I pick?",
+   "Why does melting ice take so much power?"
+  ],
+  "final.m6.2": [
+   "Should I save the crops or abandon them?",
+   "Why do plants need LED lights in space?"
+  ],
+  "final.m7.2": [
+   "Isolate, repair or reroute?",
+   "Did Sunita Williams really fix a power box?"
+  ],
+  "final.m8.2": [
+   "Hold shelter or controlled recovery?"
+  ],
+  "final.m8.3": [
+   "What should I report to Earth?",
+   "How long does the message take to reach Earth?"
+  ],
+  "final.ending.2": [
+   "Why did my mission fail?",
+   "Does 250 mSv cause radiation sickness?"
+  ],
+  "final.ending.1": [
+   "How can I get a better score?"
   ],
   "food.crew_meal.2": [
    "Which meal should I choose?",
@@ -153,6 +225,23 @@
    "Why is regolith dangerous?",
    "Does chromium in Moon dust irritate skin?"
   ],
+  "final.m1.1": [
+   "Why do we only have 30 minutes?"
+  ],
+  "final.m2.1": [
+   "What does g/cm2 mean?",
+   "How much radiation is too much?"
+  ],
+  "final.m4.1": [
+   "How much oxygen does the crew breathe?"
+  ],
+  "final.m5.1": [
+   "Why did dust clog the water filter?"
+  ],
+  "final.m8.1": [
+   "Is the storm over?",
+   "Is the regolith radioactive after the storm?"
+  ],
   "ice.allocate_water.2": [
    "What is electrolysis?",
    "What is hydrogen used for?",
@@ -167,6 +256,9 @@
   "solar_storm.shelter_safety.1": [
    "Which building is safest in a solar storm?",
    "What do astronauts do when a solar storm warning comes?"
+  ],
+  "final.m7.1": [
+   "What is happening in M7?"
   ]
  }
 }
