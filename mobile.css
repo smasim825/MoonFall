@@ -2870,5 +2870,22 @@ screen and (max-height: 520px) {
 
 .top-hud-right {
   position: relative;
-  left: -69px;
+  left: 5px;
+}
+
+a.hud-link-btn {
+  text-decoration: none;
+  color: #38bdf8;
+  background: rgba(14, 116, 144, 0.25);
+  border: 1.5px solid #0284c7;
+  border-radius: 6px;
+  padding: 14px 0 !important;
+  font-family: 'Pixel Operator', monospace;
+  font-size: 0.82rem;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
 }
