@@ -230,12 +230,12 @@
   }
 
   .consequence-card {
-    /* Centered, proportional card matching the PC aspect ratio */
-    width: clamp(480px, 72vw, 580px) !important;
+    /* Centered, proportional card matching the PC aspect ratio (~1.9:1) */
+    width: clamp(440px, 65vw, 530px) !important;
     max-width: 90vw !important;
     max-height: 96vh !important;
-    padding: 8px 14px !important;
-    gap: 6px !important;
+    padding: 7px 12px !important;
+    gap: 5px !important;
     border-radius: 10px !important;
     border-width: 1.5px !important;
     box-shadow: 0 0 30px rgba(0, 229, 255, 0.4) !important;
@@ -244,48 +244,48 @@
   }
 
   .consequence-header {
-    padding-bottom: 4px !important;
+    padding-bottom: 3px !important;
     margin-bottom: 0 !important;
     border-bottom-width: 1px !important;
   }
 
   .consequence-title {
-    font-size: clamp(0.82rem, 1.4vw, 0.95rem) !important;
+    font-size: clamp(0.8rem, 1.3vw, 0.92rem) !important;
     gap: 6px !important;
     letter-spacing: 0.03em !important;
   }
 
   .consequence-title svg {
-    width: 15px !important;
-    height: 15px !important;
+    width: 14px !important;
+    height: 14px !important;
   }
 
   .consequence-choice-badge {
-    padding: 2px 8px !important;
-    font-size: clamp(0.68rem, 1.1vw, 0.78rem) !important;
+    padding: 2px 7px !important;
+    font-size: clamp(0.65rem, 1.05vw, 0.75rem) !important;
     border-width: 1px !important;
     border-radius: 4px !important;
   }
 
   .consequence-deltas-grid {
-    padding: 3px 8px !important;
+    padding: 3px 7px !important;
     gap: 5px !important;
     border-radius: 6px !important;
     margin: 0 !important;
   }
 
   .consequence-delta-pill {
-    padding: 2px 8px !important;
-    font-size: clamp(0.68rem, 1.1vw, 0.78rem) !important;
+    padding: 2px 7px !important;
+    font-size: clamp(0.65rem, 1.05vw, 0.75rem) !important;
     border-radius: 4px !important;
     gap: 4px !important;
   }
 
-  /* 3 Boxes kept side-by-side with balanced width and height */
+  /* 3 Boxes kept side-by-side with balanced width and height matching PC ratio */
   .consequence-box-section {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8px !important;
+    gap: 7px !important;
     margin: 0 !important;
   }
 
@@ -299,11 +299,11 @@
     align-items: center !important;
   }
 
-  /* Much larger, beautifully proportional pixel art image frame */
+  /* Large, clear pixel art image frame proportional to PC */
   .consequence-img-frame {
     width: 100% !important;
-    height: clamp(56px, 15vh, 76px) !important;
-    padding: 3px !important;
+    height: clamp(60px, 17vh, 78px) !important;
+    padding: 2px !important;
     margin-bottom: 2px !important;
     border-radius: 6px !important;
     display: flex !important;
@@ -313,8 +313,8 @@
   }
 
   .consequence-box-img {
-    max-width: 95% !important;
-    max-height: 95% !important;
+    max-width: 96% !important;
+    max-height: 96% !important;
     object-fit: contain !important;
     image-rendering: pixelated !important;
     filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8)) !important;
@@ -338,7 +338,7 @@
 
   .detail-text {
     font-size: clamp(0.58rem, 0.95vw, 0.65rem) !important;
-    line-height: 1.25 !important;
+    line-height: 1.22 !important;
     text-align: left !important;
   }
 
