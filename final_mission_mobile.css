@@ -2,11 +2,11 @@
    FINAL MISSION DEDICATED RESPONSIVE STYLESHEET
    File: final_mission_mobile.css
    Purpose: Isolated mobile and small-screen styling for final_mission.html.
-   Changes here will NOT affect other missions or mobile.css.
+   All rules here strictly apply to final_mission.html and do NOT affect
+   other missions or mobile.css.
    ========================================================================= */
 
-@media screen and (max-width: 1024px),
-screen and (max-height: 550px) {
+@media screen and (max-width: 1024px), screen and (max-height: 550px) {
 
   /* =========================================================================
      1. TOP HUD (Sleek 28px height, pinned to top: 6px)
@@ -20,6 +20,12 @@ screen and (max-height: 550px) {
   }
 
   .top-hud-left {
+    gap: 6px !important;
+  }
+
+  .top-hud-right {
+    position: relative !important;
+    left: auto !important;
     gap: 6px !important;
   }
 
@@ -161,23 +167,23 @@ screen and (max-height: 550px) {
      4. STANDING CREW CHARACTER (Scaled Smaller, zero overlap with left bar)
      ========================================================================= */
   .scene-character-stand {
-    height: clamp(125px, 51vh, 194px) !important;
-    left: clamp(78px, 5.8vw, 142px) !important;
-    bottom: -21px !important;
+    height: clamp(125px, 42vh, 180px) !important;
+    left: clamp(118px, 14.8vw, 138px) !important;
+    bottom: 0 !important;
     z-index: 185 !important;
     filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75)) !important;
   }
 
   .scene-character-stand.char-chiaki {
-    height: clamp(125px, 51vh, 194px) !important;
-    left: clamp(78px, 5.8vw, 142px) !important;
-    bottom: -21px !important;
+    height: clamp(140px, 45vh, 195px) !important;
+    left: clamp(118px, 14.8vw, 138px) !important;
+    bottom: -1.5vh !important;
   }
 
   .scene-character-stand.char-bluford {
-    height: clamp(125px, 51vh, 194px) !important;
-    left: clamp(78px, 5.8vw, 142px) !important;
-    bottom: -21px !important;
+    height: clamp(140px, 45vh, 195px) !important;
+    left: clamp(118px, 14.8vw, 138px) !important;
+    bottom: -1vh !important;
   }
 
   /* =========================================================================
@@ -191,7 +197,7 @@ screen and (max-height: 550px) {
     border-radius: 5px !important;
     font-size: clamp(0.72rem, 1.3vw, 0.85rem) !important;
     bottom: calc(100% - 6px) !important;
-    left: clamp(170px, 22vw, 210px) !important;
+    left: clamp(165px, 21vw, 205px) !important;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45) !important;
     z-index: 190 !important;
   }
@@ -208,68 +214,493 @@ screen and (max-height: 550px) {
   }
 
   .dialogue-text.text-human {
-    font-size: clamp(0.8rem, 6.25vw, 0.9rem) !important;
+    font-size: clamp(0.72rem, 1.25vw, 0.85rem) !important;
     line-height: 1.2 !important;
   }
 
-  .human-speaker-badge {
-    height: clamp(30px, 8.8vh, 26px) !important;
-    min-width: 21px !important;
-    padding: 0 9px !important;
-    border-width: 2px !important;
-    border-radius: 5px !important;
-    font-size: clamp(1.2rem, 1.3vw, 0.85rem) !important;
-    bottom: calc(100% - 6px) !important;
-    left: clamp(128px, 16vw, 202px) !important;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45) !important;
-    z-index: 190 !important;
+  /* =========================================================================
+     6. DECISION TRADE-OFF CONSEQUENCE POPUP (Zero Scrolling, Fits 100% Onscreen)
+     ========================================================================= */
+  .decision-consequence-modal {
+    padding: 4px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 2500 !important;
   }
 
-  .top-hud-right {
-    position: relative;
-    left: -69px;
-  }
-
-  /* .decision-choice-card {
-    position: relative;
-    background: rgba(3, 20, 48, 0.94);
-    border: 3px solid #0099ff;
-    border-radius: 14px;
-    box-shadow: 0 0 28px rgba(0, 153, 255, 0.5), inset 0 18px rgba(0, 153, 255, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    aspect-ratio: auto !important;
-    height: auto !important;
-    max-height: none !important;
-    width: clamp(200px, 24vw, 300px);
-    padding: clamp(6px, 1vw, 12px);
-    box-sizing: border-box;
-  } */
   .consequence-card {
-    background: linear-gradient(180deg, rgba(10, 24, 52, 0.98) 0%, rgba(4, 10, 24, 0.99) 100%);
-    border: 2px solid #00e5ff;
-    box-shadow: 0 0 45px rgba(0, 229, 255, 0.4), inset 0 0 25px rgba(0, 229, 255, 0.1);
-    border-radius: 14px;
-    width: 88%;
-    max-width: 923px;
-    box-sizing: border-box;
-    padding: clamp(14px, 2.2vh, 22px) clamp(16px, 2.4vw, 28px);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    font-family: var(--font-pixel);
-    color: #ffffff;
-    max-height: 83vh;
-    overflow-y: auto;
+    width: min(96vw, 760px) !important;
+    max-height: 98vh !important;
+    padding: 5px 10px !important;
+    gap: 4px !important;
+    border-radius: 8px !important;
+    border-width: 1.5px !important;
+    box-shadow: 0 0 24px rgba(0, 229, 255, 0.35) !important;
+    overflow-y: auto !important;
+  }
+
+  .consequence-header {
+    padding-bottom: 2px !important;
+    margin-bottom: 0 !important;
+    border-bottom-width: 1px !important;
+  }
+
+  .consequence-title {
+    font-size: 0.82rem !important;
+    gap: 5px !important;
+    letter-spacing: 0.03em !important;
+  }
+
+  .consequence-title svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .consequence-choice-badge {
+    padding: 2px 7px !important;
+    font-size: 0.68rem !important;
+    border-width: 1px !important;
+    border-radius: 4px !important;
+  }
+
+  .consequence-deltas-grid {
+    padding: 2px 6px !important;
+    gap: 4px !important;
+    border-radius: 5px !important;
+    margin: 0 !important;
+  }
+
+  .consequence-delta-pill {
+    padding: 2px 6px !important;
+    font-size: 0.68rem !important;
+    border-radius: 4px !important;
+    gap: 3px !important;
+  }
+
+  .consequence-box-section {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 5px !important;
+    margin: 0 !important;
+  }
+
+  .consequence-detail-item {
+    padding: 3px 5px !important;
+    gap: 2px !important;
+    border-radius: 6px !important;
+    border-width: 1px !important;
+  }
+
+  .consequence-img-frame {
+    height: clamp(34px, 8.5vh, 46px) !important;
+    padding: 2px !important;
+    margin-bottom: 2px !important;
+    border-radius: 5px !important;
+  }
+
+  .consequence-box-img {
+    max-width: 90% !important;
+    max-height: 90% !important;
+  }
+
+  .detail-header-row {
+    gap: 3px !important;
+    margin: 1px 0 !important;
+  }
+
+  .detail-header-row svg {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  .detail-heading {
+    font-size: 0.6rem !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .detail-text {
+    font-size: 0.58rem !important;
+    line-height: 1.2 !important;
+    text-align: left !important;
+  }
+
+  .consequence-btn-bar {
+    padding-top: 2px !important;
+    margin-top: 0 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+  }
+
+  .btn-proceed-consequence {
+    padding: 3px 12px !important;
+    font-size: 0.72rem !important;
+    height: 25px !important;
+    border-radius: 4px !important;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4) !important;
+  }
+
+  /* =========================================================================
+     7. DECISION CHOICE CARDS (M1-M8 Overlays scaled for mobile)
+     ========================================================================= */
+  .m1-decision-overlay {
+    padding-top: 40px !important;
+    padding-bottom: clamp(60px, 16vh, 80px) !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  .decision-cards-row {
+    gap: clamp(6px, 1.5vw, 14px) !important;
+    width: 96% !important;
+    max-width: 760px !important;
+  }
+
+  .decision-choice-card {
+    padding: 4px 6px !important;
+    border-radius: 8px !important;
+    border-width: 2px !important;
+    width: clamp(140px, 24vw, 220px) !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+  }
+
+  .decision-card-title {
+    font-size: clamp(0.72rem, 1.25vw, 0.85rem) !important;
+    margin-bottom: 2px !important;
+  }
+
+  .decision-card-img-container {
+    height: clamp(50px, 14vh, 75px) !important;
+    padding: 2px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .decision-card-stat {
+    font-size: clamp(0.58rem, 1.0vw, 0.68rem) !important;
+    padding: 2px 4px !important;
+    margin-top: 2px !important;
+    border-radius: 4px !important;
+  }
+
+  /* =========================================================================
+     8. CRISIS MINI-TASK OVERLAY & WORKSPACE CARDS (M2-M8 Protocols)
+     ========================================================================= */
+  .crisis-minitask-overlay {
+    padding-top: 36px !important;
+    padding-bottom: clamp(55px, 15vh, 75px) !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    box-sizing: border-box !important;
+  }
+
+  .minitask-card {
+    width: min(96vw, 760px) !important;
+    max-width: 96vw !important;
+    max-height: calc(100vh - 95px) !important;
+    padding: 4px 10px !important;
+    border-radius: 8px !important;
+    border-width: 1.5px !important;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.35) !important;
+    overflow-y: auto !important;
+  }
+
+  .minitask-header {
+    padding-bottom: 3px !important;
+    margin-bottom: 3px !important;
+    border-bottom-width: 1px !important;
   }
 
   .minitask-title-wrap {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    gap: 6px;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    text-align: left !important;
+    gap: 6px !important;
+  }
+
+  .minitask-headline {
+    font-size: 0.82rem !important;
+    letter-spacing: 0.03em !important;
+  }
+
+  .minitask-icon-svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .minitask-status-badge {
+    padding: 2px 6px !important;
+    font-size: 0.62rem !important;
+    border-radius: 4px !important;
+  }
+
+  .minitask-body {
+    gap: 4px !important;
+    padding: 2px !important;
+  }
+
+  /* Bottom AstroBee Minitask Action Confirm Button */
+  .minitask-confirm-btn,
+  .minitask-bottom-astrobee .minitask-confirm-btn {
+    padding: 3px 12px !important;
+    font-size: 0.72rem !important;
+    height: 26px !important;
+    border-radius: 4px !important;
+    right: 12px !important;
+  }
+
+  /* Specific Interactive Mini-Task Scaling */
+
+  /* M2 Lockdown drag-drop and hatch */
+  .m2-stage-tracker {
+    margin-bottom: 4px !important;
+    gap: 4px !important;
+  }
+
+  .stage-step-pill {
+    padding: 2px 6px !important;
+    font-size: 0.62rem !important;
+    border-radius: 4px !important;
+  }
+
+  .m2-dragdrop-workspace {
+    gap: 4px !important;
+  }
+
+  .m2-row-heading {
+    font-size: 0.65rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .m2-drop-zones-row,
+  .m2-items-dock-row {
+    gap: 6px !important;
+  }
+
+  .m2-drop-target-card {
+    min-height: 48px !important;
+    padding: 3px 6px !important;
+    border-radius: 6px !important;
+  }
+
+  .m2-drag-item-card {
+    padding: 3px 6px !important;
+    border-radius: 6px !important;
+    font-size: 0.65rem !important;
+  }
+
+  .m2-drag-item-img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .m2-drag-item-name {
+    font-size: 0.62rem !important;
+  }
+
+  .pixel-hatch-assembly {
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  .scifi-hatch-svg {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  .hatch-step-btn {
+    padding: 3px 8px !important;
+    font-size: 0.68rem !important;
+    border-radius: 4px !important;
+  }
+
+  .hatch-controls-row {
+    gap: 8px !important;
+    margin-top: 4px !important;
+  }
+
+  /* M2 Life Support Subsystem grid */
+  .m2-life-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  .m2-life-card {
+    padding: 3px 5px !important;
+    border-radius: 6px !important;
+  }
+
+  .m2-life-img-wrap {
+    height: 38px !important;
+  }
+
+  .m2-life-img {
+    max-height: 32px !important;
+  }
+
+  .m2-life-title {
+    font-size: 0.65rem !important;
+  }
+
+  .m2-life-status-btn {
+    padding: 2px 6px !important;
+    font-size: 0.58rem !important;
+  }
+
+  /* M3 PDU Grid */
+  .pdu-grid-wrap {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  .pdu-node-card {
+    padding: 3px 5px !important;
+    border-radius: 6px !important;
+  }
+
+  .pdu-object-img {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .pdu-connect-btn,
+  .pdu-breaker-btn {
+    padding: 2px 6px !important;
+    font-size: 0.62rem !important;
+    border-radius: 4px !important;
+  }
+
+  /* M4, M5, M6, M7, M8 interactive controls */
+  .bay-title {
+    font-size: 0.68rem !important;
+  }
+
+  .switch-row {
+    padding: 2px 6px !important;
+    font-size: 0.62rem !important;
+  }
+
+  .m2-proceed-btn {
+    padding: 4px 12px !important;
+    font-size: 0.72rem !important;
+    height: 26px !important;
+  }
+
+  /* =========================================================================
+     9. FAILURE & FINAL DEBRIEF MODALS
+     ========================================================================= */
+  .mission-failure-modal,
+  .final-debrief-modal,
+  .earth-uplink-modal {
+    padding: 4px !important;
+    z-index: 2500 !important;
+  }
+
+  .mission-failure-card,
+  .final-debrief-card,
+  .earth-uplink-card {
+    width: min(96vw, 760px) !important;
+    max-height: 98vh !important;
+    padding: 5px 12px !important;
+    gap: 5px !important;
+    border-radius: 8px !important;
+    overflow-y: auto !important;
+  }
+
+  .failure-header,
+  .final-debrief-header,
+  .earth-uplink-header {
+    margin-bottom: 2px !important;
+    padding-bottom: 2px !important;
+  }
+
+  .failure-title,
+  .debrief-title,
+  .uplink-title {
+    font-size: clamp(0.9rem, 1.8vw, 1.15rem) !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  .failure-alarm-badge,
+  .debrief-wings,
+  .uplink-badge {
+    font-size: 0.65rem !important;
+  }
+
+  .failure-callout-box {
+    padding: 3px 6px !important;
+    gap: 2px !important;
+  }
+
+  .failure-stat-display {
+    font-size: 0.68rem !important;
+  }
+
+  .failure-crit-msg,
+  .failure-flight-rule {
+    font-size: 0.58rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .failure-astrobee-box {
+    padding: 3px 6px !important;
+    gap: 6px !important;
+  }
+
+  .failure-astrobee-img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .failure-astrobee-text {
+    font-size: 0.58rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .failure-telemetry-grid {
+    gap: 3px !important;
+  }
+
+  .failure-tele-cell {
+    padding: 2px 4px !important;
+    font-size: 0.58rem !important;
+  }
+
+  .debrief-score-val {
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem) !important;
+  }
+
+  .debrief-verdict-pill {
+    padding: 2px 6px !important;
+    font-size: 0.62rem !important;
+  }
+
+  .debrief-eval-grid {
+    gap: 4px !important;
+  }
+
+  .debrief-eval-card {
+    padding: 3px 6px !important;
+    gap: 3px !important;
+  }
+
+  .debrief-eval-heading {
+    font-size: 0.65rem !important;
+  }
+
+  .debrief-eval-desc {
+    font-size: 0.58rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .mission-complete-buttons {
+    margin-top: 3px !important;
+    gap: 8px !important;
+  }
+
+  .mission-btn img {
+    height: clamp(24px, 5.5vh, 30px) !important;
   }
 
 }

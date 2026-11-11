@@ -2865,3 +2865,8 @@ screen and (max-height: 520px) {
 .ref-num {
   display: none !important;
 }
+
+.top-hud-right {
+  position: relative;
+  left: -69px;
+}
