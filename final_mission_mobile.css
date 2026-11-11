@@ -5,7 +5,8 @@
    Changes here will NOT affect other missions or mobile.css.
    ========================================================================= */
 
-@media screen and (max-width: 1024px), screen and (max-height: 550px) {
+@media screen and (max-width: 1024px),
+screen and (max-height: 550px) {
 
   /* =========================================================================
      1. TOP HUD (Sleek 28px height, pinned to top: 6px)
@@ -160,23 +161,23 @@
      4. STANDING CREW CHARACTER (Scaled Smaller, zero overlap with left bar)
      ========================================================================= */
   .scene-character-stand {
-    height: clamp(125px, 42vh, 180px) !important;
-    left: clamp(118px, 14.8vw, 138px) !important;
-    bottom: 0 !important;
+    height: clamp(125px, 51vh, 194px) !important;
+    left: clamp(78px, 5.8vw, 142px) !important;
+    bottom: -21px !important;
     z-index: 185 !important;
     filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75)) !important;
   }
 
   .scene-character-stand.char-chiaki {
-    height: clamp(140px, 45vh, 195px) !important;
-    left: clamp(118px, 14.8vw, 138px) !important;
-    bottom: -1.5vh !important;
+    height: clamp(125px, 51vh, 194px) !important;
+    left: clamp(78px, 5.8vw, 142px) !important;
+    bottom: -21px !important;
   }
 
   .scene-character-stand.char-bluford {
-    height: clamp(140px, 45vh, 195px) !important;
-    left: clamp(118px, 14.8vw, 138px) !important;
-    bottom: -1vh !important;
+    height: clamp(125px, 51vh, 194px) !important;
+    left: clamp(78px, 5.8vw, 142px) !important;
+    bottom: -21px !important;
   }
 
   /* =========================================================================
@@ -207,8 +208,68 @@
   }
 
   .dialogue-text.text-human {
-    font-size: clamp(0.72rem, 1.25vw, 0.85rem) !important;
+    font-size: clamp(0.8rem, 6.25vw, 0.9rem) !important;
     line-height: 1.2 !important;
+  }
+
+  .human-speaker-badge {
+    height: clamp(30px, 8.8vh, 26px) !important;
+    min-width: 21px !important;
+    padding: 0 9px !important;
+    border-width: 2px !important;
+    border-radius: 5px !important;
+    font-size: clamp(1.2rem, 1.3vw, 0.85rem) !important;
+    bottom: calc(100% - 6px) !important;
+    left: clamp(128px, 16vw, 202px) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45) !important;
+    z-index: 190 !important;
+  }
+
+  .top-hud-right {
+    position: relative;
+    left: -69px;
+  }
+
+  /* .decision-choice-card {
+    position: relative;
+    background: rgba(3, 20, 48, 0.94);
+    border: 3px solid #0099ff;
+    border-radius: 14px;
+    box-shadow: 0 0 28px rgba(0, 153, 255, 0.5), inset 0 18px rgba(0, 153, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    aspect-ratio: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    width: clamp(200px, 24vw, 300px);
+    padding: clamp(6px, 1vw, 12px);
+    box-sizing: border-box;
+  } */
+  .consequence-card {
+    background: linear-gradient(180deg, rgba(10, 24, 52, 0.98) 0%, rgba(4, 10, 24, 0.99) 100%);
+    border: 2px solid #00e5ff;
+    box-shadow: 0 0 45px rgba(0, 229, 255, 0.4), inset 0 0 25px rgba(0, 229, 255, 0.1);
+    border-radius: 14px;
+    width: 88%;
+    max-width: 923px;
+    box-sizing: border-box;
+    padding: clamp(14px, 2.2vh, 22px) clamp(16px, 2.4vw, 28px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: var(--font-pixel);
+    color: #ffffff;
+    max-height: 83vh;
+    overflow-y: auto;
+  }
+
+  .minitask-title-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
   }
 
 }
