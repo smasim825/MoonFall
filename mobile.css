@@ -967,7 +967,7 @@ screen and (max-height: 550px) {
   /* 5.1: Meet The Crew Modal (Tactical Dossier Scene Layout for Mobile) */
   .crew-modal-card,
   body.force-horizontal .crew-modal-card {
-    width: min(calc(100% - 20px), 880px) !important;
+    width: min(calc(70% - 20px), 880px) !important;
     max-height: min(calc(100% - 16px), 365px) !important;
     padding: 8px 12px !important;
     border-radius: 12px !important;
