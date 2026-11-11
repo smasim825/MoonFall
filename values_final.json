@@ -1,0 +1,289 @@
+{
+  "title": "MoonFall Final Mission - Canonical Values & Simulation Model",
+  "document_reference": "MoonFall: Final Mission Game Logic (Team ChandraPath, NASA Space Apps Challenge 2026)",
+  "version": "1.1",
+  "start_resources": {
+    "O2": 75,
+    "Water": 65,
+    "Power": 75,
+    "Food": 90,
+    "Health": 65,
+    "Equip": 90,
+    "Greenhouse": 80
+  },
+  "physical_units": {
+    "O2": "0.135 kg O2 per point (NASA BVAD, 0.895 kg/person/day)",
+    "Water": "5.0 kg per point (NASA BVAD, 2.5 kg/person/day)",
+    "Power": "1.0 kWh per point (100 kWh battery)",
+    "Food": "3.6 kg per point (30 days food for 5 crew)",
+    "Health": "10 mSv radiation or equivalent harm (NASA-STD-3001)",
+    "Equip": "1% hardware condition",
+    "Greenhouse": "1% crop condition"
+  },
+  "failure_gates": {
+    "O2_min": 20,
+    "Water_min": 20,
+    "LSI_min": 50.0,
+    "Health_min": 50,
+    "Power_min": 1,
+    "Equip_min": 50
+  },
+  "star_thresholds": {
+    "3_stars": 66.0,
+    "2_stars": 60.0,
+    "1_star": 50.0,
+    "fail": 50.0
+  },
+  "missions": [
+    {
+      "id": "M1",
+      "title": "The 30-Minute Warning",
+      "time": "05:30",
+      "options": {
+        "A Evacuate": {
+          "deltas": {
+            "Health": -1,
+            "Equip": -12
+          },
+          "gain": "Crew is inside before the storm (short rover drive, ~10 mSv).",
+          "cost": "Outside power gear is left switched on and gets damaged (-12)."
+        },
+        "B Secure Equip": {
+          "deltas": {
+            "Power": -4,
+            "Health": -5,
+            "Equip": -2
+          },
+          "gain": "Outside gear is shut down safely (only -2).",
+          "cost": "Crew stays out ~20 min longer in suits (-5 = ~50 mSv); rover and shutdown use 4 kWh."
+        }
+      }
+    },
+    {
+      "id": "M2",
+      "title": "The Shelter Problem",
+      "time": "06:00",
+      "options": {
+        "A Deep Shelter": {
+          "deltas": {
+            "Power": -1,
+            "Health": -6
+          },
+          "gain": "Cheapest option: shelter fans (-1); no outside work, no hardware wear.",
+          "cost": "Weakest protection: ~60 mSv gets through (-6)."
+        },
+        "B Pile Regolith": {
+          "deltas": {
+            "Power": -8,
+            "Health": -1,
+            "Equip": -8
+          },
+          "gain": "Best protection: only ~15 mSv gets through (-1).",
+          "cost": "Rover pushes regolith into place (8 kWh); abrasive dust wears seals (-8)."
+        },
+        "C Water Shield": {
+          "deltas": {
+            "Water": -20,
+            "Power": -2,
+            "Health": -3
+          },
+          "gain": "Good protection (~30 mSv, -3) with no hardware wear.",
+          "cost": "100 kg water pumped into bladders (-20 water, -2 power)."
+        }
+      }
+    },
+    {
+      "id": "M3",
+      "title": "Blackout",
+      "time": "08:00",
+      "options": {
+        "A Greenhouse Off": {
+          "deltas": {
+            "Power": -10,
+            "Greenhouse": -20
+          },
+          "gain": "Lowest battery use (-10): only life support runs.",
+          "cost": "Crops get no light or heat (-20)."
+        },
+        "B Backup Power": {
+          "deltas": {
+            "Power": -15,
+            "Equip": -8
+          },
+          "gain": "Everything stays on; crops are not hurt.",
+          "cost": "Deep battery discharge shortens hardware life (-15 power, -8 equip)."
+        },
+        "C Brownout All": {
+          "deltas": {
+            "Power": -13,
+            "Health": -2,
+            "Greenhouse": -8
+          },
+          "gain": "Middle path: crops keep half their light (only -8).",
+          "cost": "Cabin cools to ~18 deg C; crew sleeps poorly (-2 health, -13 power)."
+        }
+      }
+    },
+    {
+      "id": "M4",
+      "title": "Oxygen Countdown",
+      "time": "11:00",
+      "options": {
+        "A Bottled O2": {
+          "deltas": {
+            "O2": -3,
+            "Equip": -8
+          },
+          "gain": "Fastest and safest immediate cabin air.",
+          "cost": "Uses emergency reserve O2 (-3) and hardware wear (-8)."
+        },
+        "B Electrolysis": {
+          "deltas": {
+            "O2": 5,
+            "Water": -1,
+            "Power": -14
+          },
+          "gain": "Electrolysis generates 2.7 kg new O2 (+5).",
+          "cost": "High electrical power draw (-14 kWh) and water consumption (-1)."
+        }
+      }
+    },
+    {
+      "id": "M5",
+      "title": "The Water Trap",
+      "time": "13:00",
+      "options": {
+        "A Stored Potable": {
+          "deltas": {
+            "Water": -10,
+            "Equip": 3
+          },
+          "gain": "No power used; primary filters rest and recover (+3).",
+          "cost": "Draws 50 kg of potable reserves (-10 water)."
+        },
+        "B Melt Crater Ice": {
+          "deltas": {
+            "Water": 10,
+            "Power": -15,
+            "Equip": -5
+          },
+          "gain": "Melt ~80 kg crater ice (+10 water).",
+          "cost": "Thermal heating takes 15 kWh (-15 power) and sediment wear (-5 equip)."
+        },
+        "C Drink Priority": {
+          "deltas": {
+            "Water": -3,
+            "Greenhouse": -10
+          },
+          "gain": "Crew hydration safeguarded at minimal draw (-3 water).",
+          "cost": "Greenhouse irrigation suspended for the day (-10 crop condition)."
+        }
+      }
+    },
+    {
+      "id": "M6",
+      "title": "The Last Harvest",
+      "time": "16:00",
+      "options": {
+        "A Restore Loop": {
+          "deltas": {
+            "Water": -6,
+            "Power": -12,
+            "Food": 6,
+            "Greenhouse": 10
+          },
+          "gain": "Crops recover (+10) and next harvest secured (+6 food).",
+          "cost": "Pumps and grow lights consume 12 kWh (-12) and 30 kg water (-6)."
+        },
+        "B Abandon Crops": {
+          "deltas": {
+            "Power": 8,
+            "Food": -8,
+            "Greenhouse": -35
+          },
+          "gain": "Power shed from greenhouse returned to base reserves (+8).",
+          "cost": "Crop failure (-35 greenhouse, -8 food harvest lost)."
+        }
+      }
+    },
+    {
+      "id": "M7",
+      "title": "The Critical Failure",
+      "time": "20:00",
+      "options": {
+        "A Isolate Bus": {
+          "deltas": {
+            "Power": -3,
+            "Equip": -12
+          },
+          "gain": "Fast isolation limits power drain (-3).",
+          "cost": "Module 4 offline until full replacement (-12 equip)."
+        },
+        "B Manual Repair": {
+          "deltas": {
+            "Power": -10,
+            "Health": -4,
+            "Equip": 10
+          },
+          "gain": "Junction rebuilt and restored to full integrity (+10 equip).",
+          "cost": "High stress repairs consume 10 kWh (-10) and hazardous work (-4 health)."
+        },
+        "C Reroute Bus": {
+          "deltas": {
+            "Power": -8,
+            "Equip": -3,
+            "Greenhouse": -8
+          },
+          "gain": "Module remains powered with minimal hardware wear (-3).",
+          "cost": "Sub-optimal resistance heats lines (-8 power) and greenhouse cut (-8)."
+        }
+      }
+    },
+    {
+      "id": "M8",
+      "title": "The Final Decision",
+      "time": "after the storm",
+      "options": {
+        "A Hold Shelter": {
+          "deltas": {
+            "Water": -2,
+            "Power": -6,
+            "Health": 3
+          },
+          "gain": "Crew rests protected from tail radiation (+3 health).",
+          "cost": "Extended life support consumption (-2 water, -6 battery power)."
+        },
+        "B Controlled Recovery": {
+          "deltas": {
+            "Power": 15,
+            "Health": -5,
+            "Equip": 6
+          },
+          "gain": "Inverters reactivated; solar generation restored (+15 power, +6 equip).",
+          "cost": "Residual particle exposure during outside EVA (-5 health)."
+        }
+      }
+    }
+  ],
+  "simulation_summary": {
+    "total_paths": 1296,
+    "three_stars": {
+      "count": 135,
+      "percentage": 10.4
+    },
+    "two_stars": {
+      "count": 643,
+      "percentage": 49.6
+    },
+    "one_star": {
+      "count": 250,
+      "percentage": 19.3
+    },
+    "failed": {
+      "count": 268,
+      "percentage": 20.7
+    },
+    "optimal_path": "B-B-B-B-A-A-B-B",
+    "optimal_score": 68.857
+  }
+}
