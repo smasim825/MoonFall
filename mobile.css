@@ -905,14 +905,15 @@ screen and (max-height: 550px) {
   /* Item 3: Mission Sidebar & Play/Close Buttons */
   .missions-wrapper {
     position: relative !important;
-    top: max(60px, calc(env(safe-area-inset-top) + 48px)) !important;
-    left: max(8px, env(safe-area-inset-left)) !important;
+    /* width: 60%; */
+    top: max(22px, calc(env(safe-area-inset-top) + 32px)) !important;
+    left: max(-8px, env(safe-area-inset-left)) !important;
     gap: 6px !important;
     padding-top: 0 !important;
   }
 
   .missions-content-box {
-    width: min(200px, 40vw) !important;
+    width: min(132px, 30vw) !important;
     gap: 5px !important;
   }
 
@@ -929,7 +930,7 @@ screen and (max-height: 550px) {
   }
 
   .mission-header-title {
-    font-size: 0.95rem !important;
+    font-size: 0.75rem !important;
     line-height: 1.1 !important;
   }
 
@@ -943,7 +944,7 @@ screen and (max-height: 550px) {
   .subtask-btn {
     min-height: 32px !important;
     padding: 3px 6px !important;
-    font-size: 0.9rem !important;
+    font-size: 0.75rem !important;
     border-radius: 6px !important;
     border-width: 2px !important;
   }
