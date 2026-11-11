@@ -219,124 +219,142 @@
   }
 
   /* =========================================================================
-     6. DECISION TRADE-OFF CONSEQUENCE POPUP (Zero Scrolling, Fits 100% Onscreen)
+     6. DECISION TRADE-OFF CONSEQUENCE POPUP (PC Proportions & Clear Big Images)
      ========================================================================= */
   .decision-consequence-modal {
-    padding: 4px !important;
+    padding: 6px !important;
+    display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     z-index: 2500 !important;
   }
 
   .consequence-card {
-    width: min(96vw, 760px) !important;
-    max-height: 98vh !important;
-    padding: 5px 10px !important;
-    gap: 4px !important;
-    border-radius: 8px !important;
+    /* Centered, proportional card matching the PC aspect ratio */
+    width: clamp(480px, 72vw, 580px) !important;
+    max-width: 90vw !important;
+    max-height: 96vh !important;
+    padding: 8px 14px !important;
+    gap: 6px !important;
+    border-radius: 10px !important;
     border-width: 1.5px !important;
-    box-shadow: 0 0 24px rgba(0, 229, 255, 0.35) !important;
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.4) !important;
     overflow-y: auto !important;
+    box-sizing: border-box !important;
   }
 
   .consequence-header {
-    padding-bottom: 2px !important;
+    padding-bottom: 4px !important;
     margin-bottom: 0 !important;
     border-bottom-width: 1px !important;
   }
 
   .consequence-title {
-    font-size: 0.82rem !important;
-    gap: 5px !important;
+    font-size: clamp(0.82rem, 1.4vw, 0.95rem) !important;
+    gap: 6px !important;
     letter-spacing: 0.03em !important;
   }
 
   .consequence-title svg {
-    width: 14px !important;
-    height: 14px !important;
+    width: 15px !important;
+    height: 15px !important;
   }
 
   .consequence-choice-badge {
-    padding: 2px 7px !important;
-    font-size: 0.68rem !important;
+    padding: 2px 8px !important;
+    font-size: clamp(0.68rem, 1.1vw, 0.78rem) !important;
     border-width: 1px !important;
     border-radius: 4px !important;
   }
 
   .consequence-deltas-grid {
-    padding: 2px 6px !important;
-    gap: 4px !important;
-    border-radius: 5px !important;
+    padding: 3px 8px !important;
+    gap: 5px !important;
+    border-radius: 6px !important;
     margin: 0 !important;
   }
 
   .consequence-delta-pill {
-    padding: 2px 6px !important;
-    font-size: 0.68rem !important;
+    padding: 2px 8px !important;
+    font-size: clamp(0.68rem, 1.1vw, 0.78rem) !important;
     border-radius: 4px !important;
-    gap: 3px !important;
+    gap: 4px !important;
   }
 
+  /* 3 Boxes kept side-by-side with balanced width and height */
   .consequence-box-section {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 5px !important;
+    gap: 8px !important;
     margin: 0 !important;
   }
 
   .consequence-detail-item {
-    padding: 3px 5px !important;
-    gap: 2px !important;
-    border-radius: 6px !important;
+    padding: 5px 6px !important;
+    gap: 3px !important;
+    border-radius: 8px !important;
     border-width: 1px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
   }
 
+  /* Much larger, beautifully proportional pixel art image frame */
   .consequence-img-frame {
-    height: clamp(34px, 8.5vh, 46px) !important;
-    padding: 2px !important;
+    width: 100% !important;
+    height: clamp(56px, 15vh, 76px) !important;
+    padding: 3px !important;
     margin-bottom: 2px !important;
-    border-radius: 5px !important;
+    border-radius: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: radial-gradient(circle at center, rgba(30, 41, 59, 0.5) 0%, rgba(2, 6, 23, 0.8) 100%) !important;
   }
 
   .consequence-box-img {
-    max-width: 90% !important;
-    max-height: 90% !important;
+    max-width: 95% !important;
+    max-height: 95% !important;
+    object-fit: contain !important;
+    image-rendering: pixelated !important;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8)) !important;
   }
 
   .detail-header-row {
-    gap: 3px !important;
+    gap: 4px !important;
     margin: 1px 0 !important;
   }
 
   .detail-header-row svg {
-    width: 10px !important;
-    height: 10px !important;
+    width: 11px !important;
+    height: 11px !important;
   }
 
   .detail-heading {
-    font-size: 0.6rem !important;
-    letter-spacing: 0.02em !important;
+    font-size: clamp(0.62rem, 1.0vw, 0.7rem) !important;
+    letter-spacing: 0.03em !important;
+    font-weight: bold !important;
   }
 
   .detail-text {
-    font-size: 0.58rem !important;
-    line-height: 1.2 !important;
+    font-size: clamp(0.58rem, 0.95vw, 0.65rem) !important;
+    line-height: 1.25 !important;
     text-align: left !important;
   }
 
   .consequence-btn-bar {
-    padding-top: 2px !important;
+    padding-top: 3px !important;
     margin-top: 0 !important;
     display: flex !important;
     justify-content: flex-end !important;
   }
 
   .btn-proceed-consequence {
-    padding: 3px 12px !important;
-    font-size: 0.72rem !important;
-    height: 25px !important;
-    border-radius: 4px !important;
-    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4) !important;
+    padding: 4px 14px !important;
+    font-size: clamp(0.72rem, 1.15vw, 0.82rem) !important;
+    height: 27px !important;
+    border-radius: 5px !important;
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.45) !important;
   }
 
   /* =========================================================================
