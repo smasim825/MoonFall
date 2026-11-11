@@ -27,7 +27,7 @@
     bldPlant: "food",
     bldIsru: "ice",
     bldShelter: "solar_storm",
-    bldMain: "",
+    bldMain: "final", // Main Base dome opens the Final Mission: 18-Hour Crisis Protocol
   };
 
   function baseContext() {
@@ -78,6 +78,106 @@
     return ctx;
   }
 
+  // ---------- Final Mission (final_mission.html): 18-hour solar storm crisis ----------
+  // Reads the page's own top-level state (classic-script globals: DIALOGUES, currentStep, outpostResources,
+  // activeMiniTaskId) and sessionStorage choices. Any rename falls back to DOM checks and never throws.
+  const FINAL_TASK_STEP = { m2_lockdown: 3, m3_pdu: 3, m4_electrolysis: 3, m5_watertrap: 3, m6_hydroponics: 3, m8_finale: 3 };
+  const BAR_KEYS = ["O2", "Water", "Power", "Food", "Health", "Equip", "Greenhouse"];
+  /* global DIALOGUES, currentStep, outpostResources, activeMiniTaskId, decisionHistory */
+  const gameVar = (read) => { try { return read(); } catch (e) { return undefined; } };
+
+  function finalChoices() {
+    const out = {};
+    let hist = null;
+    try { hist = JSON.parse(sessionStorage.getItem("moonfall_decision_history") || "null"); } catch (e) { /* none */ }
+    const live = gameVar(() => decisionHistory);
+    for (let i = 1; i <= 8; i++) {
+      const k = "m" + i;
+      let v = null;
+      try { v = sessionStorage.getItem(`moonfall_${k}_decision`); } catch (e) { /* storage blocked */ }
+      v = v || (live && live[k]) || (hist && hist[k]);
+      if (v) out[k] = String(v);
+    }
+    return out;
+  }
+
+  function finalBars() {
+    const r = gameVar(() => outpostResources);
+    if (!r || typeof r !== "object") return null;
+    const b = {};
+    for (const k of BAR_KEYS) {
+      if (typeof r[k] !== "number") return null;
+      b[k] = r[k];
+    }
+    return b;
+  }
+
+  function finalContext() {
+    const ctx = { missionId: "final" };
+    const f = { choices: finalChoices() };
+    const bars = finalBars();
+    if (bars) f.bars = bars;
+    const dl = gameVar(() => DIALOGUES);
+    const n = gameVar(() => currentStep);
+    const d = Array.isArray(dl) && typeof n === "number" ? dl[n] : null;
+    const m = d && /^M[1-8]$/.test(d.mission) ? "m" + d.mission.slice(1) : null;
+    if (m) f.m = m;
+    if (d && d.title) ctx.subLevel = String(d.title).slice(0, 80);
+    const task = gameVar(() => activeMiniTaskId);
+
+    if (shown($("missionFailureModal"))) {
+      f.stage = "failed";
+      ctx.step = "final.ending.2";
+    } else if (shown($("finalDebriefModal"))) {
+      f.stage = "debrief";
+      ctx.step = "final.ending.1";
+    } else if (!d || (d.mission === "M1" && d.scene === 0)) {
+      // Start of the mission: the Mission Dossier opens on load and the first two lines are the briefing
+      f.stage = "briefing";
+      ctx.step = "final.briefing.1";
+    } else if (shown($("crisisMiniTaskOverlay")) || shown($("earthUplinkTransmissionModal"))) {
+      f.stage = "minitask";
+      if (typeof task === "string") f.task = task;
+      const tm = typeof task === "string" ? task.slice(0, 2) : m;
+      if (tm && FINAL_TASK_STEP[task]) ctx.step = `final.${tm}.${FINAL_TASK_STEP[task]}`;
+      else if (shown($("earthUplinkTransmissionModal"))) ctx.step = "final.m8.3";
+    } else if (shown($("decisionConsequenceModal"))) {
+      f.stage = "consequence";
+      if (m) ctx.step = `final.${m}.2`;
+    } else if (d && d.type === "decision") {
+      f.stage = "decision";
+      ctx.step = `final.${m}.2`;
+    } else if (d && d.type === "minitask") {
+      f.stage = "minitask";
+      ctx.step = `final.${m}.3`;
+    } else if (d && d.type === "final_debrief") {
+      f.stage = "debrief";
+      ctx.step = "final.ending.1";
+    } else if (m) {
+      f.stage = f.choices[m] ? "summary" : "advice";
+      ctx.step = `final.${m}.1`;
+    }
+    ctx.final = f;
+    return ctx;
+  }
+
+  let finalDebriefSent = "";
+  function finalCheckEnd() {
+    const failed = shown($("missionFailureModal"));
+    const done = shown($("finalDebriefModal"));
+    if (!failed && !done) {
+      if (gameVar(() => currentStep) === 0) finalDebriefSent = ""; // RESTART starts a new run
+      return;
+    }
+    const log = { choices: finalChoices() };
+    const bars = finalBars();
+    if (bars) log.bars = bars;
+    const key = (failed ? "fail:" : "done:") + JSON.stringify(log);
+    if (key === finalDebriefSent) return;
+    finalDebriefSent = key;
+    AB.debrief({ missionId: "final", log }, { silent: true });
+  }
+
   let debriefed = false;
   function checkComplete() {
     const done = shown($("missionCompleteOverlay"));
@@ -97,6 +197,14 @@
     if ($("baseViewport")) {
       update = () => send(baseContext());
       watch = $("baseViewport");
+    } else if ($("crisisMiniTaskOverlay") && $("dialogueBoxAstroBee")) {
+      // Final Mission first: its page also contains a #powerStage element
+      update = () => {
+        send(finalContext());
+        finalCheckEnd();
+      };
+      watch = document.body;
+      setInterval(() => { try { update(); } catch (e) { /* keep the game running */ } }, 2000); // bars animate without class changes
     } else if ($("powerStage")) {
       update = () => send(powerContext());
       watch = $("powerStage");

@@ -42,6 +42,7 @@
     ice: "Mission 3: Water Production",
     solar_storm: "Mission 5: Radiation Protection",
     waste: "Waste",
+    final: "Final Mission: 18-Hour Crisis",
   };
 
   const T = {
@@ -51,6 +52,7 @@
       placeholder: "Ask me anything about your mission…",
       send: "Send",
       hello: (m) => `Hi, Junior Astronaut! I'm Astro Bee. Ask me anything about ${m}, the Moon, or what to do next.`,
+      helloFinal: "Commander, Astro Bee here! Ask me about the storm, what each option costs, your bars and safety gates, or any crisis task. The decisions are yours.",
       offline: "Offline answer",
       offlineNone: "I can't reach Mission Control right now and I don't have a saved answer for that. Try again in a moment!",
       error: "Hmm, my antenna glitched. Please try again.",
@@ -71,6 +73,7 @@
       placeholder: "তোমার মিশন নিয়ে যেকোনো প্রশ্ন করো…",
       send: "পাঠাও",
       hello: (m) => `হ্যালো, জুনিয়র অ্যাস্ট্রোনট! আমি অ্যাস্ট্রো বি। ${m}, চাঁদ বা এরপর কী করবে, যেকোনো প্রশ্ন করো।`,
+      helloFinal: "কমান্ডার, আমি অ্যাস্ট্রো বি! সৌরঝড়, প্রতিটি অপশনের লাভ-ক্ষতি, তোমার বার আর নিরাপত্তা সীমা, বা যেকোনো ক্রাইসিস টাস্ক নিয়ে প্রশ্ন করো। সিদ্ধান্ত তোমার।",
       offline: "অফলাইন উত্তর",
       offlineNone: "এখন মিশন কন্ট্রোলের সাথে যোগাযোগ হচ্ছে না, আর এই প্রশ্নের সংরক্ষিত উত্তরও নেই। একটু পরে আবার চেষ্টা করো!",
       error: "আমার অ্যান্টেনায় একটু সমস্যা হলো। আবার চেষ্টা করো।",
@@ -370,7 +373,13 @@
       text = data.debrief;
       opts.citations = data.citations;
     } catch (e) {
-      text = state.lang === "bn" ? "মিশন সম্পন্ন! দারুণ কাজ, জুনিয়র অ্যাস্ট্রোনট!" : "Mission complete! Great work, Junior Astronaut!";
+      if (p.missionId === "final") {
+        text = state.lang === "bn"
+          ? "মিশন শেষ, কমান্ডার। কী হয়েছে বা অন্য পথে কীভাবে চেষ্টা করবে, আমাকে জিজ্ঞেস করো।"
+          : "Mission over, Commander. Ask me what happened, or how a different path could change your bars.";
+      } else {
+        text = state.lang === "bn" ? "মিশন সম্পন্ন! দারুণ কাজ, জুনিয়র অ্যাস্ট্রোনট!" : "Mission complete! Great work, Junior Astronaut!";
+      }
     }
     thinking(false);
     await addMsg("bot", text, opts);
@@ -408,7 +417,8 @@
   function greet() {
     if (state.greeted) return;
     state.greeted = true;
-    addMsg("bot", T[state.lang].hello(MISSIONS[state.ctx.missionId] || "the outpost"), { instant: true });
+    const t = T[state.lang];
+    addMsg("bot", state.ctx.missionId === "final" ? t.helloFinal : t.hello(MISSIONS[state.ctx.missionId] || "the outpost"), { instant: true });
   }
 
   function open() {
@@ -497,6 +507,13 @@
     if (host) root.classList.add("ab-in-stage");
     (host || document.body).appendChild(root);
     ensureData();
+    // MoonFall game pages need moonfall.js to tell Astro Bee where the player is. Some pages (the Final Mission)
+    // only carry this script's tag, so load the adapter from the same folder when it is missing.
+    if (host && !document.querySelector('script[src*="moonfall.js"]')) {
+      const s = document.createElement("script");
+      s.src = BASE + "moonfall.js";
+      document.body.appendChild(s);
+    }
   }
   if (document.body) mount();
   else document.addEventListener("DOMContentLoaded", mount);
