@@ -4944,8 +4944,16 @@
   <link rel="stylesheet" href="astrobee/astrobee.css?v=20261103c">
   <link rel="stylesheet" href="mobile.css?v=20261112_fit"
     media="screen and (max-width: 1024px), screen and (max-height: 550px)">
+  <link rel="stylesheet" href="app-install.css?v=20261112">
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MoonFall">
+  <link rel="apple-touch-icon" href="assets/icon.png">
   <script src="game-assets.js"></script>
   <script src="responsive.js?v=20261110b" defer></script>
+  <script src="app-install.js?v=20261112" defer></script>
 </head>
 
 <body>
@@ -5042,6 +5050,22 @@
         style="vertical-align:middle; flex-shrink:0;">
         <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
       </svg> <span class="music-label">MUSIC</span>
+    </button>
+
+    <!-- Bottom Left Corner: App Install Launcher Button -->
+    <button class="app-install-launcher-btn" id="appInstallLauncherBtn" type="button"
+      onclick="event.stopPropagation(); openAppInstallModal();" title="Install MoonFall App on PC, Mac, Android, iOS">
+      <div class="app-install-icon-box">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+      </div>
+      <div class="app-install-text-col">
+        <span class="app-install-label-sub">APP / OFFLINE</span>
+        <span class="app-install-label-main">INSTALL APP</span>
+      </div>
     </button>
 
     <!-- Interactive Onboarding Guidance Overlay (Arrow & Directives) -->
@@ -8511,6 +8535,221 @@
       <div class="nasa-dossier-footer">
         <button class="dossier-close-btn" onclick="closeTacticalModal('modalNasaDetail')">✓ ACKNOWLEDGE INTEL</button>
       </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       12. APP INSTALL & OFFLINE PLAY MODAL (PC, MAC, ANDROID, iOS)
+       ===================================================================== -->
+  <div class="app-install-backdrop hidden" id="modalAppInstall" onclick="if(event.target===this) closeAppInstallModal()">
+    <div class="app-install-modal-card">
+      <!-- Header -->
+      <div class="app-modal-header">
+        <div class="app-modal-title-wrap">
+          <div class="app-modal-icon-badge">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <div>
+            <div class="app-modal-title">Install MoonFall</div>
+            <div class="app-modal-subtitle">PROGRESSIVE WEB APP · LANDSCAPE SIMULATION</div>
+          </div>
+        </div>
+        <button class="app-modal-close-btn" type="button" onclick="closeAppInstallModal()" title="Close">✕</button>
+      </div>
+
+      <!-- Platform Navigation Tabs -->
+      <div class="app-platform-tabs" style="padding: 12px 20px 0 20px;">
+        <button class="app-tab-btn active" id="appTabBtn_pc" type="button" onclick="switchAppInstallTab('pc')">
+          <span>💻</span> <span>PC &amp; Mac</span>
+        </button>
+        <button class="app-tab-btn" id="appTabBtn_android" type="button" onclick="switchAppInstallTab('android')">
+          <span>📱</span> <span>Android</span>
+        </button>
+        <button class="app-tab-btn" id="appTabBtn_ios" type="button" onclick="switchAppInstallTab('ios')">
+          <span>🍏</span> <span>iPhone / iPad</span>
+        </button>
+      </div>
+
+      <!-- Content Body -->
+      <div class="app-modal-body">
+        
+        <!-- ================= TAB 1: PC & MAC ================= -->
+        <div id="appTabContent_pc">
+          <div class="app-tip-banner">
+            <span>💡</span>
+            <div><strong>Fullscreen tip:</strong> If your browser is in fullscreen mode, press <strong>F11</strong> or <strong>Esc</strong> to reveal the browser address bar and menu.</div>
+          </div>
+
+          <div class="app-method-divider">
+            <span>METHOD 1: ADDRESS BAR (QUICKEST)</span>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">1</div>
+            <div class="app-step-content">
+              In <strong>Chrome</strong>, <strong>Edge</strong>, or <strong>Brave</strong>, look at the right side of the address bar for the <span class="app-inline-badge"><span>📥</span> Install App</span> icon (next to the bookmark star).
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">2</div>
+            <div class="app-step-content">
+              Click the icon and select <strong>Install</strong> to add <strong>MoonFall</strong> directly to your desktop and Start Menu.
+            </div>
+          </div>
+
+          <div class="app-method-divider">
+            <span>METHOD 2: BROWSER MENU (3 DOTS)</span>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">1</div>
+            <div class="app-step-content">
+              Click the <strong>three dots menu</strong> <span class="app-inline-badge">⋮ Menu</span> in the top-right corner of your browser.
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">2</div>
+            <div class="app-step-content">
+              In <strong>Chrome / Brave</strong>: Click <strong>Save and share</strong> (or <em>More tools</em>) &rarr; select <strong>Install MoonFall...</strong> (or <em>Save page as app</em>).<br>
+              In <strong>Microsoft Edge</strong>: Click <strong>Apps</strong> &rarr; <strong>Install MoonFall</strong>.
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">3</div>
+            <div class="app-step-content">
+              Click <strong>Install</strong>. A dedicated, distraction-free app window launches with 60FPS fullscreen performance!
+            </div>
+          </div>
+
+          <div class="app-method-divider">
+            <span>METHOD 3: STANDALONE DESKTOP EXECUTABLE (ELECTRON)</span>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">⚡</div>
+            <div class="app-step-content">
+              Prefer a standalone native PC executable? Open terminal in the MoonFall repository and run <code style="background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; color: #38bdf8;">npm start</code> to launch or build portable installers with <code style="background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; color: #38bdf8;">npm run dist:win</code> (Windows .exe) or <code style="background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; color: #38bdf8;">npm run dist:mac</code> (macOS .dmg)!
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= TAB 2: ANDROID ================= -->
+        <div id="appTabContent_android" style="display: none;">
+          <div class="app-step-card">
+            <div class="app-step-num">1</div>
+            <div class="app-step-content">
+              <strong>Exit Fullscreen:</strong> Swipe down from the top edge of your phone screen to reveal the browser toolbar.
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">2</div>
+            <div class="app-step-content">
+              Tap the <strong>three vertical dots</strong> <span class="app-inline-badge">⋮ Menu</span> in the top-right corner of Chrome or Edge.
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">3</div>
+            <div class="app-step-content">
+              Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>.<br>
+              <em style="color: #94a3b8; font-size: 0.78rem;">In Samsung Internet: Tap the bottom menu (three lines ☰) &rarr; <strong>Add page to</strong> &rarr; <strong>Home screen</strong>.</em>
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">4</div>
+            <div class="app-step-content">
+              Tap <strong>Install</strong> on the confirmation popup. The game icon is now pinned to your phone's Home Screen!
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">5</div>
+            <div class="app-step-content">
+              Open <strong>MoonFall</strong> from your Home Screen to launch in <strong>locked landscape mode without any browser URL bars!</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= TAB 3: iPHONE / iPAD ================= -->
+        <div id="appTabContent_ios" style="display: none;">
+          <div class="app-step-card">
+            <div class="app-step-num">1</div>
+            <div class="app-step-content">
+              <strong>Reveal toolbar:</strong> If Safari's bottom toolbar is hidden, tap the bottom or top of your screen to make the navigation bar appear.
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">2</div>
+            <div class="app-step-content">
+              Tap the Safari <strong>Share button</strong> <span class="app-inline-badge">⎋ Share</span> (the square with an arrow pointing upward) at the bottom of your iPhone screen (or top-right on iPad).
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">3</div>
+            <div class="app-step-content">
+              In the Share Sheet, scroll down past your contacts and tap <span class="app-inline-badge">⊞ Add to Home Screen</span>.
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">4</div>
+            <div class="app-step-content">
+              Tap <strong>Add</strong> in the top-right corner of the confirmation screen.
+            </div>
+          </div>
+
+          <div class="app-step-card">
+            <div class="app-step-num">5</div>
+            <div class="app-step-content">
+              Launch the game directly from your iPhone or iPad Home Screen. It opens in <strong>true fullscreen horizontal view without Safari's top URL bar or bottom navigation bar!</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Benefits Row (Common across all tabs) -->
+        <div class="app-feature-row">
+          <div class="app-feature-card">
+            <div class="app-feature-header">
+              <span>⚡</span> <span>Zero UI Clutter</span>
+            </div>
+            <div class="app-feature-sub">Full-bleed horizontal game viewport with zero browser navigation bars.</div>
+          </div>
+
+          <div class="app-feature-card">
+            <div class="app-feature-header">
+              <span>🛡️</span> <span>Visuals Cached</span>
+            </div>
+            <div class="app-feature-sub">3D geometries, character art, and space textures stored offline.</div>
+          </div>
+
+          <div class="app-feature-card">
+            <div class="app-feature-header">
+              <span>🚀</span> <span>Instant Launch</span>
+            </div>
+            <div class="app-feature-sub">Immediate access directly from your desktop or phone home screen.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="app-modal-footer">
+        <button class="app-got-it-btn" type="button" onclick="closeAppInstallModal()">
+          <span>✔</span> <span>Got It</span>
+        </button>
+      </div>
+
     </div>
   </div>
 

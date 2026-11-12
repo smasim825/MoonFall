@@ -1,0 +1,19 @@
+{
+  "name": "MoonFall: Lunar Outpost Survival Simulator",
+  "short_name": "MoonFall",
+  "description": "Interactive STEM Outpost Management Game for Students",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#040814",
+  "theme_color": "#040814",
+  "icons": [
+    {
+      "src": "assets/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
