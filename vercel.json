@@ -1,7 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": null,
-  "installCommand": null,
   "cleanUrls": true,
   "redirects": [
     { "source": "/mainbase", "destination": "/", "permanent": false },
