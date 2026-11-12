@@ -226,6 +226,84 @@
   flex-shrink: 0;
 }
 
+/* Primary Direct Action Banner & 1-Click Install Button */
+.app-primary-cta-banner {
+  background: linear-gradient(180deg, rgba(14, 116, 224, 0.22) 0%, rgba(6, 40, 85, 0.35) 100%);
+  border: 1.5px solid #00e5ff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 4px 18px rgba(0, 229, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.app-cta-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.app-cta-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-cta-sub {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.app-direct-install-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #00e5ff 0%, #0284c7 100%);
+  border: 1.5px solid #ffffff;
+  color: #040814;
+  font-size: 0.84rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(0, 229, 255, 0.45);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+}
+
+.app-direct-install-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 24px rgba(0, 229, 255, 0.7);
+  filter: brightness(1.1);
+}
+
+.app-direct-install-btn:active {
+  transform: translateY(1px);
+}
+
+.app-direct-install-btn.glow-pulse {
+  animation: pwaBtnGlow 1.8s infinite alternate ease-in-out;
+}
+
+@keyframes pwaBtnGlow {
+  from {
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+  }
+  to {
+    box-shadow: 0 0 26px rgba(0, 229, 255, 0.9), 0 0 40px rgba(56, 189, 248, 0.5);
+  }
+}
+
 .app-tab-btn {
   flex: 1;
   padding: 8px 12px;
@@ -474,3 +552,4 @@
     gap: 6px;
   }
 }
+
