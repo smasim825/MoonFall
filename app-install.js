@@ -7,7 +7,7 @@ let deferredInstallPrompt = null;
 // Register Service Worker for PWA compliance and offline capabilities
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js?v=20261112b')
+    navigator.serviceWorker.register('sw.js?v=20261112_clean')
       .then((reg) => {
         console.log('[PWA] Service Worker registered with scope:', reg.scope);
       })
