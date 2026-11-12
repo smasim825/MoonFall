@@ -1,0 +1,476 @@
+/* =============================================================================
+   MOONFALL: APP INSTALL & OFFLINE PLAY MODAL (PC, MAC, ANDROID, iOS)
+   ============================================================================= */
+
+/* Launcher Button in Bottom Left Corner */
+.app-install-launcher-btn {
+  position: fixed;
+  bottom: max(14px, env(safe-area-inset-bottom));
+  left: max(14px, env(safe-area-inset-left));
+  z-index: 998;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: linear-gradient(180deg, rgba(13, 34, 68, 0.94) 0%, rgba(4, 16, 36, 0.98) 100%);
+  border: 1.5px solid #00e5ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 229, 255, 0.25);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.app-install-launcher-btn:hover {
+  transform: translateY(-2px);
+  border-color: #ffea00;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.95), 0 0 18px rgba(255, 234, 0, 0.45);
+  background: linear-gradient(180deg, rgba(20, 50, 95, 0.96) 0%, rgba(8, 28, 60, 0.98) 100%);
+}
+
+.app-install-launcher-btn:active {
+  transform: translateY(1px);
+}
+
+.app-install-icon-box {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(0, 229, 255, 0.16);
+  border: 1px solid rgba(0, 229, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00e5ff;
+  flex-shrink: 0;
+  transition: color 0.16s ease;
+}
+
+.app-install-launcher-btn:hover .app-install-icon-box {
+  color: #ffea00;
+  border-color: rgba(255, 234, 0, 0.5);
+  background: rgba(255, 234, 0, 0.18);
+}
+
+.app-install-text-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.app-install-label-sub {
+  font-size: 0.58rem;
+  color: #38bdf8;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.app-install-label-main {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  margin-top: 1px;
+}
+
+/* Modal Backdrop */
+.app-install-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000030;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 1;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
+}
+
+.app-install-backdrop.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Modal Main Window Card */
+.app-install-modal-card {
+  width: min(94vw, 740px);
+  max-height: min(92vh, 640px);
+  background: #090e1a;
+  border: 1.5px solid rgba(56, 189, 248, 0.28);
+  border-radius: 18px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(56, 189, 248, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+  color: #e2e8f0;
+  animation: appModalIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes appModalIn {
+  from {
+    transform: scale(0.95) translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.app-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 14px 20px;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.45);
+  background: rgba(15, 23, 42, 0.45);
+  flex-shrink: 0;
+}
+
+.app-modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-modal-icon-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1.5px solid rgba(20, 184, 166, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2dd4bf;
+  flex-shrink: 0;
+}
+
+.app-modal-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.app-modal-subtitle {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #5eead4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.app-modal-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
+  font-size: 1.15rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+.app-modal-close-btn:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+  transform: scale(1.05);
+}
+
+/* Scrollable Content Body */
+.app-modal-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: #38bdf8 rgba(15, 23, 42, 0.5);
+}
+
+.app-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.app-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.35);
+  border-radius: 3px;
+}
+
+/* Tabs Switcher */
+.app-platform-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.app-tab-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 22px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1.5px solid rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.18s ease;
+}
+
+.app-tab-btn:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  color: #e2e8f0;
+}
+
+.app-tab-btn.active {
+  border-color: #38bdf8;
+  color: #ffffff;
+  background: rgba(56, 189, 248, 0.14);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.25);
+}
+
+/* Tip Alert Banner */
+.app-tip-banner {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.35);
+  border-radius: 10px;
+  padding: 9px 12px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #fef08a;
+  line-height: 1.4;
+}
+
+.app-tip-banner strong {
+  color: #fde047;
+}
+
+/* Section Divider */
+.app-method-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 14px 0 10px 0;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #64748b;
+  position: relative;
+}
+
+.app-method-divider::before,
+.app-method-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(51, 65, 85, 0.55);
+}
+
+.app-method-divider span {
+  padding: 0 10px;
+}
+
+/* Step Cards */
+.app-step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(51, 65, 85, 0.45);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+
+.app-step-num {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid #34d399;
+  color: #34d399;
+  font-size: 0.74rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.app-step-content {
+  flex: 1;
+}
+
+.app-step-content strong {
+  color: #ffffff;
+}
+
+/* Inline UI Badges */
+.app-inline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  background: rgba(15, 118, 110, 0.3);
+  border: 1px solid rgba(45, 212, 191, 0.45);
+  border-radius: 5px;
+  color: #2dd4bf;
+  font-size: 0.76rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+/* Bottom 3 Feature Benefit Badges */
+.app-feature-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.app-feature-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(56, 189, 248, 0.16);
+  border-radius: 10px;
+  padding: 9px 10px;
+}
+
+.app-feature-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+
+.app-feature-sub {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  line-height: 1.35;
+}
+
+/* Modal Footer */
+.app-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 12px 20px;
+  border-top: 1px solid rgba(51, 65, 85, 0.45);
+  background: rgba(15, 23, 42, 0.5);
+  flex-shrink: 0;
+}
+
+.app-got-it-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 18px;
+  border-radius: 20px;
+  background: rgba(30, 41, 59, 0.85);
+  border: 1.5px solid rgba(148, 163, 184, 0.35);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.app-got-it-btn:hover {
+  background: #38bdf8;
+  border-color: #38bdf8;
+  color: #040814;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+}
+
+/* Responsive Overrides */
+@media screen and (max-width: 768px), screen and (max-height: 520px) {
+  .app-install-launcher-btn {
+    bottom: 8px;
+    left: 8px;
+    padding: 4px 8px;
+    gap: 6px;
+  }
+
+  .app-install-icon-box {
+    width: 22px;
+    height: 22px;
+  }
+
+  .app-install-label-sub {
+    font-size: 0.52rem;
+  }
+
+  .app-install-label-main {
+    font-size: 0.7rem;
+  }
+
+  .app-install-modal-card {
+    max-height: 94vh;
+    border-radius: 12px;
+  }
+
+  .app-modal-header {
+    padding: 10px 14px;
+  }
+
+  .app-modal-body {
+    padding: 10px 14px;
+  }
+
+  .app-tab-btn {
+    padding: 6px 8px;
+    font-size: 0.76rem;
+  }
+
+  .app-step-card {
+    padding: 8px 10px;
+    font-size: 0.76rem;
+    gap: 8px;
+  }
+
+  .app-step-num {
+    width: 20px;
+    height: 20px;
+    font-size: 0.68rem;
+  }
+
+  .app-feature-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
