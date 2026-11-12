@@ -205,8 +205,6 @@ The complete 18-hour crisis decision network mapping all 8 missions, continuous 
 - **NASA CCMC / DONKI**: Real-world Coronal Mass Ejection (CME) and Solar Particle Event (SPE) modeling.
 - **NASA OSDR (Open Science Data Repository)**: Space radiation biodosimetry and crew physiological limits (NASA-STD-3001).
 
-For a detailed analysis of our scientific mapping and rubric alignment, please see **[JUDGING_CRITERIA.md](JUDGING_CRITERIA.md)**.
-
 ---
 
 ## 🚀 Play Online
