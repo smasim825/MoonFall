@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MoonFall — 3 2 1 Failed Mission Result UI (Video Capture)</title>
+  <title>MoonFall — 3 Star, 2 Star, 1 Star & Failed Mission Result UI</title>
   <link rel="icon" type="image/webp" href="assets/moon.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,10 +17,10 @@
       --font-hud: 'Orbitron', -apple-system, sans-serif;
       --font-tech: 'Share Tech Mono', monospace;
       --font-body: 'Rajdhani', sans-serif;
-      --red-alert: #ef4444;
-      --red-glow: rgba(239, 68, 68, 0.8);
-      --red-subtle: rgba(239, 68, 68, 0.15);
-      --cyan-tech: #00e5ff;
+      --cyan-border: #00e5ff;
+      --gold-star: #fbbf24;
+      --green-pass: #10b981;
+      --red-fail: #ef4444;
     }
 
     * {
@@ -42,7 +42,7 @@
       position: relative;
     }
 
-    /* Ambient Space Background with Twinkle */
+    /* Ambient Space Background */
     .space-bg {
       position: absolute;
       inset: 0;
@@ -50,11 +50,10 @@
         radial-gradient(ellipse at 50% 20%, #101c38 0%, #030816 65%, #000000 100%);
       background-blend-mode: screen;
       z-index: 1;
-      opacity: 0.85;
-      transition: filter 0.4s ease;
+      opacity: 0.88;
     }
 
-    /* Red Alert Ambient Flashing */
+    /* Ambient Strobe Overlay (for Failed Result) */
     .alarm-strobe-overlay {
       position: absolute;
       inset: 0;
@@ -81,6 +80,182 @@
       }
     }
 
+    /* Scanlines for Sci-Fi Monitor Feel */
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.28) 50%);
+      background-size: 100% 4px;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.55;
+    }
+
+    /* =========================================================================
+       TOP VIDEO CONTROL TOOLBAR (Hideable for 100% Clean Recording)
+       ========================================================================= */
+    .video-toolbar {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(10, 18, 36, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(0, 229, 255, 0.35);
+      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.7), 0 0 18px rgba(0, 229, 255, 0.25);
+      padding: 8px 18px;
+      border-radius: 36px;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .video-toolbar.clean-mode {
+      opacity: 0;
+      transform: translate(-50%, -90px);
+      pointer-events: none;
+    }
+
+    .toolbar-label {
+      font-family: var(--font-hud);
+      font-size: 0.78rem;
+      color: #00e5ff;
+      letter-spacing: 0.1em;
+      margin-right: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 800;
+    }
+
+    .nav-tab-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 7px 15px;
+      border-radius: 20px;
+      font-family: var(--font-hud);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab-btn:hover {
+      background: rgba(0, 229, 255, 0.22);
+      border-color: #00e5ff;
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .nav-tab-btn.active {
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      border-color: #00e5ff;
+      box-shadow: 0 0 16px rgba(0, 229, 255, 0.6);
+      color: #ffffff;
+    }
+
+    .nav-tab-btn.star-3.active {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border-color: #fbbf24;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.7);
+    }
+
+    .nav-tab-btn.star-fail.active {
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      border-color: #f87171;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.7);
+    }
+
+    .toolbar-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 0 4px;
+    }
+
+    .tool-icon-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #a5f3fc;
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-family: var(--font-hud);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .tool-icon-btn:hover {
+      background: rgba(0, 229, 255, 0.2);
+      border-color: #00e5ff;
+    }
+
+    /* Small Floating Unhide Pill for Clean Mode */
+    .unhide-hint {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      z-index: 101;
+      font-family: var(--font-tech);
+      font-size: 0.68rem;
+      color: rgba(255, 255, 255, 0.45);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 5px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+
+    .unhide-hint:hover {
+      opacity: 1;
+      color: #00e5ff;
+      border-color: #00e5ff;
+    }
+
+    /* =========================================================================
+       MODAL CONTAINERS (Debrief Card & Failure Card)
+       ========================================================================= */
+    .stage-container {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(60px, 8vh, 76px) clamp(10px, 2vw, 24px) clamp(16px, 2vh, 24px);
+      background: rgba(2, 6, 20, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      box-sizing: border-box;
+    }
+
+    /* Animation transition between screens */
+    .result-card {
+      display: none !important;
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .result-card.active {
+      display: flex !important;
+      opacity: 1;
+      transform: scale(1);
+    }
+
     /* Screen Shake Animation on Failure */
     .shake-effect {
       animation: screenGlitchShake 0.65s cubic-bezier(.36, .07, .19, .97) both;
@@ -93,280 +268,290 @@
       40%, 60% { transform: translate3d(6px, -3px, 0); }
     }
 
-    /* Scanline Overlay for Sci-Fi Monitor Aesthetic */
-    .scanlines {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
-      background-size: 100% 4px;
-      z-index: 3;
-      pointer-events: none;
-      opacity: 0.6;
-    }
-
     /* =========================================================================
-       TOP VIDEO CONTROL TOOLBAR (Hideable for 100% Clean Recording)
+       1 / 2 / 3 STAR DEBRIEFING CARD (Matches MoonFall Final Architecture)
        ========================================================================= */
-    .video-toolbar {
-      position: absolute;
-      top: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
+    .final-debrief-card {
+      width: clamp(560px, 72vw, 860px);
+      max-width: 95vw;
+      max-height: 94vh;
+      overflow-y: auto;
+      background: #041228;
+      border: 3px solid #00a8ff;
+      border-radius: 16px;
+      box-shadow: 0 0 50px rgba(0, 168, 255, 0.5), inset 0 0 25px rgba(0, 168, 255, 0.2);
+      padding: clamp(16px, 2.5vh, 28px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(10px, 1.8vh, 16px);
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .debrief-header {
+      text-align: center;
+    }
+
+    .debrief-title-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: rgba(10, 18, 36, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(0, 229, 255, 0.3);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 229, 255, 0.2);
-      padding: 8px 18px;
-      border-radius: 30px;
-      transition: opacity 0.25s ease, transform 0.25s ease;
+      justify-content: center;
+      gap: 16px;
     }
 
-    .video-toolbar.clean-mode {
-      opacity: 0;
-      transform: translate(-50%, -80px);
-      pointer-events: none;
-    }
-
-    .toolbar-title {
-      font-family: var(--font-hud);
-      font-size: 0.8rem;
-      color: #00e5ff;
-      letter-spacing: 0.1em;
-      margin-right: 6px;
+    .debrief-wings {
       display: flex;
-      align-items: center;
-      gap: 6px;
+      flex-direction: column;
+      gap: 3px;
+      width: 40px;
     }
 
-    .toolbar-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+    .debrief-wings span {
+      display: block;
+      height: 3px;
+      background: #00e5ff;
+      box-shadow: 0 0 8px #00e5ff;
+    }
+
+    .debrief-wings.left span:nth-child(1) { width: 100%; }
+    .debrief-wings.left span:nth-child(2) { width: 75%; margin-left: auto; }
+    .debrief-wings.left span:nth-child(3) { width: 45%; margin-left: auto; }
+
+    .debrief-wings.right span:nth-child(1) { width: 100%; }
+    .debrief-wings.right span:nth-child(2) { width: 75%; margin-right: auto; }
+    .debrief-wings.right span:nth-child(3) { width: 45%; margin-right: auto; }
+
+    .debrief-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(2.0rem, 3.2vw, 2.8rem);
       color: #ffffff;
-      padding: 6px 14px;
-      border-radius: 18px;
-      font-family: var(--font-hud);
-      font-size: 0.76rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
+      margin: 0;
+      text-shadow: 0 0 16px rgba(0, 229, 255, 0.9), 2px 2px 0 #000;
+      letter-spacing: 0.04em;
+    }
+
+    .debrief-sub {
+      font-size: clamp(1.05rem, 1.35vw, 1.22rem);
+      color: #7dd3fc;
+      margin: 4px 0 0 0;
+      font-weight: 600;
+    }
+
+    /* Star Rating Row */
+    .debrief-stars-row {
+      display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
+      gap: 16px;
+      margin: 2px 0;
     }
 
-    .toolbar-btn:hover {
-      background: rgba(0, 229, 255, 0.2);
-      border-color: #00e5ff;
-      box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
-      transform: translateY(-1px);
+    .star-svg {
+      width: clamp(42px, 5.2vw, 54px);
+      height: clamp(42px, 5.2vw, 54px);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .toolbar-btn.primary {
-      background: linear-gradient(135deg, #ef4444, #b91c1c);
-      border-color: #f87171;
-      box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
+    .star-svg.filled {
+      fill: #fbbf24;
+      filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.95));
+      animation: starPop 0.5s ease-out;
     }
 
-    .toolbar-btn.primary:hover {
-      background: linear-gradient(135deg, #f87171, #dc2626);
-      box-shadow: 0 0 24px rgba(239, 68, 68, 0.7);
+    .star-svg.empty {
+      fill: rgba(30, 41, 59, 0.7);
+      stroke: #475569;
+      stroke-width: 1.6;
     }
 
-    .scenario-select {
-      background: #091325;
-      border: 1px solid rgba(0, 229, 255, 0.4);
-      color: #a5f3fc;
-      padding: 5px 10px;
+    @keyframes starPop {
+      0% { transform: scale(0.5) rotate(-20deg); }
+      70% { transform: scale(1.25) rotate(10deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    /* Score Box */
+    .debrief-score-box {
+      background: rgba(3, 19, 44, 0.9);
+      border: 1.5px solid #00a8ff;
       border-radius: 12px;
-      font-family: var(--font-hud);
-      font-size: 0.72rem;
-      outline: none;
-      cursor: pointer;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: inset 0 0 16px rgba(0, 168, 255, 0.2);
     }
 
-    /* Small Floating Unhide Pill for Clean Mode */
-    .unhide-hint {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      z-index: 101;
-      font-family: var(--font-tech);
-      font-size: 0.65rem;
-      color: rgba(255, 255, 255, 0.4);
-      background: rgba(0, 0, 0, 0.4);
-      padding: 4px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      cursor: pointer;
-      opacity: 0.3;
-      transition: opacity 0.2s;
+    .debrief-score-stripes {
+      width: 44px;
+      height: 48px;
+      background: repeating-linear-gradient(-45deg, rgba(0, 168, 255, 0.25) 0 4px, transparent 4px 10px);
     }
 
-    .unhide-hint:hover {
-      opacity: 1;
-      color: #00e5ff;
-      border-color: #00e5ff;
-    }
-
-    /* =========================================================================
-       3 - 2 - 1 COUNTDOWN HERO OVERLAY
-       ========================================================================= */
-    .countdown-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 50;
+    .debrief-score-center {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      background: rgba(2, 6, 18, 0.8);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.25s ease;
+      gap: 3px;
     }
 
-    .countdown-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .countdown-hud-ring {
-      position: relative;
-      width: clamp(240px, 35vw, 360px);
-      height: clamp(240px, 35vw, 360px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ring-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      animation: rotateRing 8s linear infinite;
-    }
-
-    @keyframes rotateRing {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .countdown-number {
+    .debrief-score-label {
       font-family: var(--font-hud);
-      font-size: clamp(6.5rem, 14vw, 11rem);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 0.12em;
+    }
+
+    .debrief-score-val {
+      font-family: var(--font-hud);
+      font-size: clamp(2.0rem, 3.2vw, 2.7rem);
       font-weight: 900;
-      color: #ffffff;
-      text-shadow: 0 0 40px #00e5ff, 0 0 80px rgba(0, 229, 255, 0.6);
-      transform: scale(0.5);
-      opacity: 0;
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease, color 0.2s ease;
+      color: #38bdf8;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.95);
+      line-height: 1.1;
     }
 
-    .countdown-number.pop {
-      transform: scale(1.15);
-      opacity: 1;
+    .debrief-verdict-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 9999px;
+      padding: 4px 16px;
+      margin-top: 3px;
     }
 
-    .countdown-number.red-alert {
-      color: #ff334b;
-      text-shadow: 0 0 50px #ef4444, 0 0 100px rgba(239, 68, 68, 0.9);
+    .debrief-verdict-pill.tier-3 {
+      background: rgba(6, 44, 26, 0.95);
+      border: 1.5px solid #10b981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+      color: #34d399;
     }
 
-    .countdown-status-text {
-      margin-top: 18px;
-      font-family: var(--font-tech);
-      font-size: clamp(1rem, 1.8vw, 1.35rem);
-      letter-spacing: 0.25em;
-      color: #a5f3fc;
-      text-transform: uppercase;
-      text-shadow: 0 0 14px rgba(0, 229, 255, 0.7);
+    .debrief-verdict-pill.tier-2 {
+      background: rgba(4, 32, 60, 0.95);
+      border: 1.5px solid #00b4d8;
+      box-shadow: 0 0 12px rgba(0, 180, 216, 0.4);
+      color: #7dd3fc;
     }
 
-    .countdown-subtext {
-      margin-top: 6px;
-      font-family: var(--font-body);
-      font-size: 0.95rem;
+    .debrief-verdict-pill.tier-1 {
+      background: rgba(50, 30, 4, 0.95);
+      border: 1.5px solid #f59e0b;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+      color: #fde68a;
+    }
+
+    .debrief-verdict-pill span {
+      font-family: var(--font-hud);
+      font-size: 0.78rem;
+      font-weight: 700;
       letter-spacing: 0.05em;
-      color: rgba(255, 255, 255, 0.7);
     }
 
-    /* Shockwave pulse circle */
-    .shockwave {
-      position: absolute;
-      border: 3px solid rgba(0, 229, 255, 0.8);
-      border-radius: 50%;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
+    /* Telemetry Grid for Stars */
+    .debrief-telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
     }
 
-    .shockwave.animate {
-      animation: shockwaveExpand 0.75s ease-out forwards;
+    .debrief-tele-cell {
+      background: rgba(5, 23, 47, 0.85);
+      border: 1.5px solid #00a8ff;
+      border-radius: 8px;
+      padding: 6px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
-    @keyframes shockwaveExpand {
-      0% {
-        transform: scale(0.6);
-        opacity: 0.9;
-        border-color: rgba(0, 229, 255, 0.9);
-      }
-      100% {
-        transform: scale(1.6);
-        opacity: 0;
-        border-color: rgba(239, 68, 68, 0);
-      }
+    .debrief-tele-label {
+      font-family: var(--font-tech);
+      font-size: 0.72rem;
+      color: #7dd3fc;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .debrief-tele-val {
+      font-family: var(--font-hud);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    /* Decision Evaluation Grid */
+    .debrief-eval-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .debrief-eval-card {
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .debrief-eval-card.best {
+      background: linear-gradient(135deg, rgba(4, 38, 24, 0.9) 0%, rgba(2, 22, 16, 0.9) 100%);
+      border: 1.5px solid #10b981;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+    }
+
+    .debrief-eval-card.worst {
+      background: linear-gradient(135deg, rgba(48, 26, 4, 0.9) 0%, rgba(28, 14, 2, 0.9) 100%);
+      border: 1.5px solid #f59e0b;
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
+    }
+
+    .debrief-eval-badge {
+      font-family: var(--font-hud);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .debrief-eval-badge.best { color: #34d399; }
+    .debrief-eval-badge.worst { color: #fbbf24; }
+
+    .debrief-eval-mission {
+      font-family: var(--font-hud);
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .debrief-eval-desc {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.25;
     }
 
     /* =========================================================================
-       FAILED MISSION RESULT UI MODAL (Matches MoonFall Final Architecture)
+       FAILED RESULT CARD (Matches MoonFall Failure Architecture)
        ========================================================================= */
-    .mission-failure-modal {
-      position: absolute;
-      inset: 0;
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: clamp(14px, 2vh, 24px);
-      box-sizing: border-box;
-      opacity: 0;
-      pointer-events: none;
-      transform: scale(0.94);
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .mission-failure-modal.visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: scale(1);
-    }
-
     .mission-failure-card {
-      width: clamp(560px, 72vw, 880px);
+      width: clamp(560px, 72vw, 860px);
       max-width: 95vw;
       max-height: 94vh;
       overflow-y: auto;
       background: #0d1527;
-      border: 3.5px solid var(--red-alert);
+      border: 3.5px solid var(--red-fail);
       border-radius: 16px;
       box-shadow: 0 0 60px rgba(239, 68, 68, 0.7), inset 0 0 30px rgba(239, 68, 68, 0.25);
-      padding: clamp(20px, 3.2vh, 32px);
+      padding: clamp(16px, 2.8vh, 28px);
       display: flex;
       flex-direction: column;
-      gap: clamp(14px, 2vh, 20px);
+      gap: clamp(10px, 1.8vh, 16px);
       box-sizing: border-box;
       position: relative;
     }
 
-    /* Diagonal Hazard Border Accent at Top of Card */
     .hazard-stripe {
       height: 6px;
       width: 100%;
@@ -389,7 +574,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 20px;
+      padding: 7px 18px;
       background: rgba(239, 68, 68, 0.22);
       border: 1.5px solid #ef4444;
       border-radius: 24px;
@@ -397,48 +582,40 @@
       font-family: var(--font-pixel);
       font-size: clamp(1.05rem, 1.35vw, 1.25rem);
       letter-spacing: 0.08em;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       animation: alertPulseBadge 1.2s infinite alternate;
     }
 
     @keyframes alertPulseBadge {
-      0% {
-        box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
-        background: rgba(239, 68, 68, 0.18);
-      }
-      100% {
-        box-shadow: 0 0 24px rgba(239, 68, 68, 0.8);
-        background: rgba(239, 68, 68, 0.35);
-      }
+      0% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+      100% { box-shadow: 0 0 24px rgba(239, 68, 68, 0.8); }
     }
 
     .failure-title {
       font-family: var(--font-pixel);
       font-size: clamp(2.1rem, 3.2vw, 2.9rem);
       color: #ffffff;
-      margin: 4px 0 0 0;
+      margin: 2px 0 0 0;
       text-shadow: 0 0 20px rgba(239, 68, 68, 0.85), 2px 2px 0 #000;
       letter-spacing: 0.05em;
     }
 
     .failure-subtitle {
-      font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+      font-size: clamp(1.05rem, 1.35vw, 1.25rem);
       color: #f87171;
-      margin: 4px 0 0 0;
+      margin: 2px 0 0 0;
       font-weight: 700;
       letter-spacing: 0.04em;
-      font-family: var(--font-body);
     }
 
-    /* Red Callout Box */
     .failure-callout-box {
       background: rgba(239, 68, 68, 0.12);
       border: 1.5px solid rgba(239, 68, 68, 0.55);
       border-radius: 12px;
-      padding: clamp(14px, 2vh, 20px);
+      padding: clamp(12px, 1.8vh, 18px);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .failure-stat-display {
@@ -446,20 +623,19 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1.5px solid rgba(239, 68, 68, 0.35);
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
 
     .failure-stat-label {
       font-family: var(--font-pixel);
-      font-size: clamp(1.25rem, 1.7vw, 1.6rem);
+      font-size: clamp(1.2rem, 1.6vw, 1.5rem);
       color: #fca5a5;
       font-weight: bold;
-      letter-spacing: 0.04em;
     }
 
     .failure-stat-value {
       font-family: var(--font-pixel);
-      font-size: clamp(2.2rem, 3.2vw, 3.0rem);
+      font-size: clamp(2.1rem, 3.0vw, 2.8rem);
       color: #ffffff;
       font-weight: bold;
       text-shadow: 0 0 18px rgba(239, 68, 68, 0.95);
@@ -467,99 +643,87 @@
 
     .failure-threshold-badge {
       font-family: var(--font-pixel);
-      font-size: clamp(1.0rem, 1.25vw, 1.2rem);
+      font-size: clamp(0.95rem, 1.2vw, 1.15rem);
       color: #fecaca;
       background: rgba(239, 68, 68, 0.32);
       border: 1.5px solid #ef4444;
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 8px;
-      box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
     }
 
     .failure-crit-msg {
-      font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+      font-size: clamp(1.08rem, 1.4vw, 1.28rem);
       color: #ffffff;
       font-weight: 600;
-      line-height: 1.45;
+      line-height: 1.4;
     }
 
     .failure-flight-rule {
-      font-size: clamp(1.0rem, 1.25vw, 1.15rem);
+      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
       color: #fca5a5;
-      line-height: 1.45;
+      line-height: 1.4;
       font-style: italic;
       border-left: 3px solid #ef4444;
       padding-left: 10px;
     }
 
-    /* AstroBee Emergency Broadcast */
     .failure-astrobee-box {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       background: rgba(15, 23, 42, 0.85);
       border: 1px solid rgba(239, 68, 68, 0.4);
       border-radius: 12px;
-      padding: 12px 18px;
+      padding: 10px 16px;
     }
 
     .failure-astrobee-img {
-      width: clamp(52px, 7vw, 68px);
-      height: clamp(52px, 7vw, 68px);
+      width: clamp(48px, 6vw, 62px);
+      height: clamp(48px, 6vw, 62px);
       object-fit: contain;
       flex-shrink: 0;
       filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.6));
     }
 
     .failure-astrobee-text {
-      font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+      font-size: clamp(1.0rem, 1.25vw, 1.15rem);
       color: #e2e8f0;
-      line-height: 1.45;
+      line-height: 1.4;
     }
 
     .failure-astrobee-text strong {
       color: #ef4444;
       font-family: var(--font-hud);
-      font-size: 0.95rem;
-      letter-spacing: 0.05em;
+      font-size: 0.9rem;
     }
 
-    /* Telemetry Snapshot at Failure */
     .failure-telemetry-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    @media (max-width: 700px) {
-      .failure-telemetry-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      gap: 8px;
     }
 
     .failure-tele-cell {
       background: rgba(15, 23, 42, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
-      padding: 8px 12px;
+      padding: 6px 10px;
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      transition: all 0.3s ease;
+      gap: 2px;
     }
 
     .failure-tele-cell.breached {
       background: rgba(239, 68, 68, 0.16);
       border-color: #ef4444;
-      box-shadow: 0 0 14px rgba(239, 68, 68, 0.35);
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
     }
 
     .failure-tele-label {
       font-family: var(--font-tech);
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
     }
 
     .failure-tele-cell.breached .failure-tele-label {
@@ -568,7 +732,7 @@
 
     .failure-tele-val {
       font-family: var(--font-hud);
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #ffffff;
     }
@@ -578,12 +742,12 @@
       text-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
     }
 
-    /* Bottom Action Buttons */
-    .failure-actions-row {
+    /* Action Buttons (Try Again & Home pixel graphics) */
+    .mission-actions-row {
       display: flex;
       justify-content: center;
       gap: 20px;
-      margin-top: 6px;
+      margin-top: 4px;
     }
 
     .mission-btn {
@@ -596,7 +760,7 @@
 
     .mission-btn:hover {
       transform: scale(1.06);
-      filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.6));
+      filter: drop-shadow(0 0 14px rgba(0, 229, 255, 0.7));
     }
 
     .mission-btn:active {
@@ -604,98 +768,160 @@
     }
 
     .mission-btn img {
-      height: clamp(44px, 6vh, 54px);
+      height: clamp(40px, 5.2vh, 50px);
       width: auto;
       display: block;
     }
 
-    /* Watermark / Attribution */
     .video-watermark {
       position: absolute;
-      bottom: 12px;
-      right: 18px;
+      bottom: 10px;
+      right: 16px;
       z-index: 10;
       font-family: var(--font-tech);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: rgba(255, 255, 255, 0.35);
-      letter-spacing: 0.08em;
       pointer-events: none;
+      letter-spacing: 0.08em;
     }
   </style>
 </head>
 
 <body>
-  <!-- Ambient Background & Starfield -->
-  <div class="space-bg" id="spaceBg"></div>
+  <!-- Ambient Space Background & Scanlines -->
+  <div class="space-bg"></div>
   <div class="scanlines"></div>
   <div class="alarm-strobe-overlay" id="strobeOverlay"></div>
 
   <!-- Small Clean-mode Hint (Always visible when toolbar hidden) -->
-  <div class="unhide-hint" id="unhideHint" onclick="toggleCleanMode()">
-    PRESS 'C' OR CLICK FOR CONTROLS
+  <div class="unhide-hint" onclick="toggleCleanMode()">
+    PRESS 'C' OR CLICK FOR TOOLBAR
   </div>
 
-  <!-- Video Control Toolbar -->
+  <!-- TOP VIDEO CONTROL TOOLBAR -->
   <div class="video-toolbar" id="videoToolbar">
-    <div class="toolbar-title">
+    <div class="toolbar-label">
       <svg viewBox="0 0 24 24" width="16" height="16" fill="#00e5ff">
         <circle cx="12" cy="12" r="10" stroke="#00e5ff" stroke-width="2" fill="none"/>
         <circle cx="12" cy="12" r="4" fill="#00e5ff"/>
       </svg>
-      VIDEO TOOL
+      VIDEO RECORDER
     </div>
 
-    <!-- Start 3 2 1 Countdown Button -->
-    <button class="toolbar-btn primary" onclick="startCountdownSequence()" title="Hotkey: Spacebar">
-      ▶ START 3-2-1 FAILING
+    <!-- 4 TIER BUTTONS -->
+    <button class="nav-tab-btn star-3 active" id="btnTier3" onclick="showResult('3star')" title="Hotkey: 3">
+      ⭐⭐⭐ 3 STARS
+    </button>
+    <button class="nav-tab-btn" id="btnTier2" onclick="showResult('2star')" title="Hotkey: 2">
+      ⭐⭐✩ 2 STARS
+    </button>
+    <button class="nav-tab-btn" id="btnTier1" onclick="showResult('1star')" title="Hotkey: 1">
+      ⭐✩✩ 1 STAR
+    </button>
+    <button class="nav-tab-btn star-fail" id="btnTierFail" onclick="showResult('failed')" title="Hotkey: 0 or F">
+      ❌ FAILED
     </button>
 
-    <!-- Reset / Idle Button -->
-    <button class="toolbar-btn" onclick="resetToStandby()" title="Hotkey: R">
-      ↺ RESET
+    <div class="toolbar-divider"></div>
+
+    <!-- Auto Sequence Player -->
+    <button class="tool-icon-btn" id="btnAutoPlay" onclick="toggleAutoSequence()" title="Plays 3★ → 2★ → 1★ → Failed smoothly">
+      ▶ AUTO-CYCLE (VIDEO)
     </button>
 
-    <!-- Scenario Switcher -->
-    <select class="scenario-select" id="scenarioSelect" onchange="switchScenario(this.value)">
-      <option value="water">1. Water & Life Support Breach (0%)</option>
-      <option value="power">2. Power Bus Inverter Arc (12%)</option>
-      <option value="radiation">3. Solar Storm Proton Flux (640 mSv)</option>
-    </select>
+    <!-- Clean Recording Mode -->
+    <button class="tool-icon-btn" onclick="toggleCleanMode()" title="Hotkey: C (Hide controls for clean recording)">
+      👁 CLEAN MODE
+    </button>
 
     <!-- Sound Toggle -->
-    <button class="toolbar-btn" id="audioToggleBtn" onclick="toggleAudio()">
+    <button class="tool-icon-btn" id="btnSound" onclick="toggleSound()">
       🔊 SOUND: ON
     </button>
 
-    <!-- Clean Recording Mode Button -->
-    <button class="toolbar-btn" onclick="toggleCleanMode()" title="Hotkey: C">
-      👁 CLEAN VIDEO MODE
-    </button>
-
     <!-- Fullscreen Toggle -->
-    <button class="toolbar-btn" onclick="toggleFullscreen()" title="Hotkey: F">
+    <button class="tool-icon-btn" onclick="toggleFullscreen()" title="Hotkey: F">
       ⛶ FULLSCREEN
     </button>
   </div>
 
-  <!-- 3 - 2 - 1 COUNTDOWN HERO OVERLAY -->
-  <div class="countdown-overlay" id="countdownOverlay">
-    <div class="countdown-hud-ring">
-      <div class="shockwave" id="shockwaveRing"></div>
-      <svg class="ring-svg" viewBox="0 0 200 200">
-        <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(0, 229, 255, 0.15)" stroke-width="4"/>
-        <circle cx="100" cy="100" r="90" fill="none" stroke="#00e5ff" stroke-width="4" stroke-dasharray="140 400" stroke-linecap="round"/>
-        <circle cx="100" cy="100" r="75" fill="none" stroke="rgba(239, 68, 68, 0.3)" stroke-width="2" stroke-dasharray="8 8"/>
-      </svg>
-      <div class="countdown-number" id="countdownNum">3</div>
-    </div>
-    <div class="countdown-status-text" id="countdownStatus">CRITICAL SYSTEM THRESHOLD</div>
-    <div class="countdown-subtext" id="countdownSub">RECORDING SEQUENCE READY // SPACE APPS SIMULATOR</div>
-  </div>
+  <!-- MAIN STAGE -->
+  <div class="stage-container">
 
-  <!-- FAILED MISSION RESULT UI MODAL -->
-  <div class="mission-failure-modal" id="missionFailureModal" role="dialog" aria-modal="true">
-    <div class="mission-failure-card" id="failureCard">
+    <!-- =====================================================================
+         1 / 2 / 3 STAR DEBRIEFING CARD
+         ===================================================================== -->
+    <div class="final-debrief-card result-card active" id="debriefCard">
+      <!-- Header with Glowing Wings -->
+      <div class="debrief-header">
+        <div class="debrief-title-row">
+          <div class="debrief-wings left">
+            <span></span><span></span><span></span>
+          </div>
+          <h1 class="debrief-title" id="debriefTitle">MISSION ACCOMPLISHED</h1>
+          <div class="debrief-wings right">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <p class="debrief-sub" id="debriefSub">Shackleton Outpost successfully survived the Solar Particle Event.</p>
+      </div>
+
+      <!-- Star Rating Row -->
+      <div class="debrief-stars-row" id="debriefStarsRow">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Score Box with Diagonal Hazard Stripes -->
+      <div class="debrief-score-box">
+        <div class="debrief-score-stripes"></div>
+        <div class="debrief-score-center">
+          <div class="debrief-score-label">OUTPOST RESILIENCE SCORE</div>
+          <div class="debrief-score-val" id="debriefScoreVal">68.8 / 100</div>
+          <div class="debrief-verdict-pill tier-3" id="debriefVerdictPill">
+            <svg viewBox="0 0 20 20" width="16" height="16" fill="none">
+              <circle cx="10" cy="10" r="9" fill="#10b981" />
+              <path d="M6 10L9 13L14 7" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span id="debriefScoreVerdict">OUTSTANDING OUTPOST SURVIVAL // ALL GATES PASSED</span>
+          </div>
+        </div>
+        <div class="debrief-score-stripes" style="transform: scaleX(-1);"></div>
+      </div>
+
+      <!-- Telemetry Snapshot at Mission End -->
+      <div class="debrief-telemetry-grid" id="debriefTeleGrid">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Command Decisions Evaluation -->
+      <div class="debrief-eval-grid" id="debriefEvalGrid">
+        <div class="debrief-eval-card best" id="evalCardBest">
+          <div class="debrief-eval-badge best">★ BEST COMMAND DECISION</div>
+          <div class="debrief-eval-mission" id="evalBestTitle">M1: Water Conservation Matrix</div>
+          <div class="debrief-eval-desc" id="evalBestDesc">Optimal water-ice extraction prevented early dehydration collapse. (+8.5 pts)</div>
+        </div>
+        <div class="debrief-eval-card worst" id="evalCardWorst">
+          <div class="debrief-eval-badge worst">⚠ WORST COMMAND DECISION</div>
+          <div class="debrief-eval-mission" id="evalWorstTitle">M5: Regolith Shielding Balance</div>
+          <div class="debrief-eval-desc" id="evalWorstDesc">Delayed secondary regolith layering caused minor radiation leakage. (-1.2 pts)</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mission-actions-row">
+        <button class="mission-btn" onclick="nextTier()" title="Next Result Screen">
+          <img src="assets/Frame 25.webp" alt="Try Again">
+        </button>
+        <button class="mission-btn" onclick="showResult('3star')" title="Restart to 3 Stars">
+          <img src="assets/Frame 26.webp" alt="Home">
+        </button>
+      </div>
+    </div>
+
+    <!-- =====================================================================
+         FAILED MISSION RESULT CARD
+         ===================================================================== -->
+    <div class="mission-failure-card result-card" id="failureCard">
       <div class="hazard-stripe"></div>
 
       <!-- Header -->
@@ -704,24 +930,24 @@
           <svg viewBox="0 0 24 24" width="22" height="22" fill="#ef4444">
             <path d="M12 2L1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z" />
           </svg>
-          <span id="failureAlarmBadgeText">CRITICAL OUTPOST FAILURE // MISSION TERMINATED</span>
+          <span>CRITICAL OUTPOST FAILURE // MISSION TERMINATED</span>
         </div>
-        <h1 class="failure-title" id="failureMainTitle">OUTPOST INTEGRITY COLLAPSED</h1>
-        <p class="failure-subtitle" id="failureGateName">FLIGHT SAFETY THRESHOLD BREACHED</p>
+        <h1 class="failure-title">OUTPOST INTEGRITY COLLAPSED</h1>
+        <p class="failure-subtitle">FLOWCHART GATE 1: FLIGHT SAFETY THRESHOLD BREACHED</p>
       </div>
 
       <!-- Red Callout Box -->
       <div class="failure-callout-box">
         <div class="failure-stat-display">
-          <span class="failure-stat-label" id="failureStatLabel">WATER LEVEL</span>
-          <span class="failure-stat-value" id="failureStatValue">0%</span>
-          <span class="failure-threshold-badge" id="failureThresholdBadge">GATE: ≥ 20% MINIMUM</span>
+          <span class="failure-stat-label">WATER RESERVE LEVEL</span>
+          <span class="failure-stat-value">0%</span>
+          <span class="failure-threshold-badge">SAFETY GATE: ≥ 20% MINIMUM</span>
         </div>
-        <div class="failure-crit-msg" id="failureCritMsg">
-          Water reserve depleted below safety gate (20%). Human metabolic minimum breached.
+        <div class="failure-crit-msg">
+          Water reserve depleted to 0%. Human metabolic survival minimum breached.
         </div>
-        <div class="failure-flight-rule" id="failureFlightRule">
-          NASA Flight Rule Life-02: Water reserve must remain ≥ 20%. 5-crew metabolic hydration minimum (2.5 L/day/person) cannot be sustained.
+        <div class="failure-flight-rule">
+          NASA Flight Rule Life-02: Water reserve must remain ≥ 20%. 5-crew metabolic hydration minimum (2.5 L/day/person) cannot be sustained in Shackleton Outpost.
         </div>
       </div>
 
@@ -730,32 +956,54 @@
         <img src="assets/scene 3/Pragyan_ShivShakti_Neutral.webp" alt="Astro Bee" class="failure-astrobee-img">
         <div class="failure-astrobee-text">
           <strong>AstroBee Emergency Broadcast:</strong><br>
-          <span id="failureAstrobeeSpeech">
-            "Commander! Critical telemetry indicators have breached survival thresholds. Mission control has initiated automated outpost evacuation protocols. The mission is terminated."
-          </span>
+          "Commander! Water recycling membrane ruptured and reserves reached zero. Electrolysis and hydration life-support protocols have failed. Evacuation to Orion required!"
         </div>
       </div>
 
       <!-- Telemetry Snapshot at Failure -->
-      <div class="failure-telemetry-grid" id="failureTelemetryGrid">
-        <!-- Dynamically injected telemetry cells -->
+      <div class="failure-telemetry-grid">
+        <div class="failure-tele-cell breached">
+          <span class="failure-tele-label">Water Level</span>
+          <span class="failure-tele-val">0%</span>
+        </div>
+        <div class="failure-tele-cell">
+          <span class="failure-tele-label">Oxygen Reserve</span>
+          <span class="failure-tele-val">22%</span>
+        </div>
+        <div class="failure-tele-cell">
+          <span class="failure-tele-label">Power Bus</span>
+          <span class="failure-tele-val">48 kW</span>
+        </div>
+        <div class="failure-tele-cell">
+          <span class="failure-tele-label">Radiation Dose</span>
+          <span class="failure-tele-val">185 mSv</span>
+        </div>
+        <div class="failure-tele-cell">
+          <span class="failure-tele-label">Hab Temp</span>
+          <span class="failure-tele-val">+19.4°C</span>
+        </div>
+        <div class="failure-tele-cell breached">
+          <span class="failure-tele-label">Crew Status</span>
+          <span class="failure-tele-val">CRITICAL</span>
+        </div>
       </div>
 
       <!-- Action Buttons -->
-      <div class="failure-actions-row">
-        <button class="mission-btn btn-try-again" onclick="startCountdownSequence()" title="Replay 3-2-1 Countdown & Fail">
+      <div class="mission-actions-row">
+        <button class="mission-btn" onclick="showResult('3star')" title="Try Again">
           <img src="assets/Frame 25.webp" alt="Try Again">
         </button>
-        <button class="mission-btn btn-home" onclick="resetToStandby()" title="Standby Mode">
+        <button class="mission-btn" onclick="showResult('1star')" title="Back to 1 Star">
           <img src="assets/Frame 26.webp" alt="Home">
         </button>
       </div>
     </div>
+
   </div>
 
-  <!-- Bottom Corner Watermark -->
+  <!-- Bottom Watermark -->
   <div class="video-watermark">
-    MOONFALL // NASA SPACE APPS CHALLENGE // MISSION RESULT UI
+    MOONFALL // NASA SPACE APPS CHALLENGE // MISSION RESULTS SHOWCASE
   </div>
 
   <script>
@@ -794,231 +1042,216 @@
           osc.stop(this.ctx.currentTime + duration);
         } catch (e) { }
       }
-      countdownPip(count) {
-        if (count === 1) {
-          // Intense urgent higher pitch tone on 1
-          this.playTone(880, 'sine', 0.2, 0.22);
-          setTimeout(() => this.playTone(1100, 'square', 0.15, 0.18), 70);
-        } else if (count === 2) {
-          this.playTone(660, 'sine', 0.18, 0.18);
-        } else {
-          this.playTone(550, 'sine', 0.18, 0.16);
-        }
-      }
-      failureAlarm() {
+      playSuccess(stars) {
         if (this.muted) return;
         this.init();
-        // Dramatic sci-fi alarm klaxon + down-glitch drop
-        this.playTone(440, 'sawtooth', 0.45, 0.25);
-        setTimeout(() => this.playTone(330, 'sawtooth', 0.5, 0.25), 180);
-        setTimeout(() => this.playTone(220, 'sawtooth', 0.7, 0.3), 360);
+        if (stars === 3) {
+          this.playTone(523.25, 'sine', 0.2, 0.18); // C5
+          setTimeout(() => this.playTone(659.25, 'sine', 0.22, 0.2), 110); // E5
+          setTimeout(() => this.playTone(783.99, 'sine', 0.35, 0.22), 220); // G5
+          setTimeout(() => this.playTone(1046.50, 'sine', 0.5, 0.25), 330); // C6
+        } else if (stars === 2) {
+          this.playTone(523.25, 'sine', 0.18, 0.16);
+          setTimeout(() => this.playTone(659.25, 'sine', 0.25, 0.18), 120);
+          setTimeout(() => this.playTone(783.99, 'sine', 0.4, 0.2), 240);
+        } else {
+          this.playTone(440.0, 'sine', 0.2, 0.16);
+          setTimeout(() => this.playTone(523.25, 'sine', 0.35, 0.18), 140);
+        }
+      }
+      playAlarm() {
+        if (this.muted) return;
+        this.init();
+        this.playTone(440, 'sawtooth', 0.4, 0.25);
+        setTimeout(() => this.playTone(330, 'sawtooth', 0.45, 0.25), 160);
+        setTimeout(() => this.playTone(220, 'sawtooth', 0.6, 0.3), 320);
       }
     }
 
     const sound = new SoundEngine();
 
     // =========================================================================
-    // FAILURE SCENARIOS DATABASE
+    // STAR TIERS DATA
     // =========================================================================
-    const SCENARIOS = {
-      water: {
-        badgeText: "FAILURE GATE 1 // THE WATER TRAP // MISSION TERMINATED",
-        title: "OUTPOST INTEGRITY COLLAPSED",
-        gateSubtitle: "FLOWCHART GATE 1: WATER SAFETY THRESHOLD BREACHED",
-        statLabel: "WATER RESERVE LEVEL",
-        statVal: "0%",
-        thresholdBadge: "SAFETY GATE: ≥ 20% MINIMUM",
-        critMsg: "Water reserve depleted to 0%. Human metabolic survival minimum breached.",
-        flightRule: "NASA Flight Rule Life-02: Water reserve must remain ≥ 20%. 5-crew metabolic hydration minimum (2.5 L/day/person) cannot be sustained in Shackleton Outpost.",
-        astrobee: "Commander! Water recycling membrane ruptured and reserves reached zero. Electrolysis and hydration life-support protocols have failed. Evacuation to Orion required!",
+    const TIERS = {
+      '3star': {
+        title: "MISSION ACCOMPLISHED",
+        sub: "Shackleton Outpost successfully survived the Solar Particle Event with pristine margins.",
+        stars: 3,
+        score: "68.8 / 100",
+        verdictClass: "tier-3",
+        verdictText: "OUTSTANDING OUTPOST SURVIVAL // ALL GATES PASSED",
+        bestTitle: "M1: Water Conservation Matrix",
+        bestDesc: "Optimal water-ice extraction balance prevented early dehydration collapse. (+8.5 pts)",
+        worstTitle: "M5: Regolith Shielding Balance",
+        worstDesc: "Delayed secondary regolith layering caused minor radiation leakage. (-1.2 pts)",
         telemetry: [
-          { label: "Water Level", val: "0%", breached: true },
-          { label: "Oxygen Reserve", val: "22%", breached: false },
-          { label: "Power Bus", val: "48 kW", breached: false },
-          { label: "Radiation Dose", val: "185 mSv", breached: false },
-          { label: "Hab Temp", val: "+19.4°C", breached: false },
-          { label: "Crew Status", val: "CRITICAL", breached: true }
+          { label: "Water Level", val: "58%" },
+          { label: "Oxygen Reserve", val: "72%" },
+          { label: "Power Bus", val: "48 kW" },
+          { label: "Radiation Dose", val: "92 mSv" },
+          { label: "Hab Temp", val: "+21.2°C" },
+          { label: "Crew Status", val: "OPTIMAL" }
         ]
       },
-      power: {
-        badgeText: "FAILURE GATE 7 // ARC FAULT IN MODULE 4 // GRID BLACKOUT",
-        title: "POWER GRID COLLAPSE",
-        gateSubtitle: "FLOWCHART GATE 7: MINIMUM KILOPOWER BUS VOLTAGE BREACHED",
-        statLabel: "PRIMARY POWER BUS",
-        statVal: "12%",
-        thresholdBadge: "SAFETY GATE: ≥ 30% MINIMUM",
-        critMsg: "Main electrical bus inverters suffered cascade arc fault. Batteries under 45 minutes.",
-        flightRule: "NASA Flight Rule Pwr-04: Outpost survival requires ≥ 30% power (6.0 kW minimum) to prevent thermal freezing of Shackleton habitat infrastructure.",
-        astrobee: "Warning! Inverters have tripped across all four outpost modules. Habitat thermal cooling and heaters are offline. Total system freeze will occur in 40 minutes!",
+      '2star': {
+        title: "MISSION ACCOMPLISHED",
+        sub: "Shackleton Outpost weathered the crisis with resilient resource management.",
+        stars: 2,
+        score: "61.5 / 100",
+        verdictClass: "tier-2",
+        verdictText: "RESILIENT CRISIS MANAGEMENT // ALL SAFETY GATES INTACT",
+        bestTitle: "M3: Kilopower Baseload Balancing",
+        bestDesc: "Fast auxiliary load-shedding maintained thermal habitat heaters. (+6.0 pts)",
+        worstTitle: "M7: Inverter Redundancy Switch",
+        worstDesc: "Slow bus transfer dropped battery reserves below nominal. (-4.5 pts)",
         telemetry: [
-          { label: "Power Bus", val: "12%", breached: true },
-          { label: "Water Level", val: "64%", breached: false },
-          { label: "Oxygen Reserve", val: "31%", breached: false },
-          { label: "Hab Temp", val: "-48.2°C", breached: true },
-          { label: "Radiation Dose", val: "140 mSv", breached: false },
-          { label: "Substation Status", val: "FAULT", breached: true }
+          { label: "Water Level", val: "38%" },
+          { label: "Oxygen Reserve", val: "52%" },
+          { label: "Power Bus", val: "34 kW" },
+          { label: "Radiation Dose", val: "165 mSv" },
+          { label: "Hab Temp", val: "+16.8°C" },
+          { label: "Crew Status", val: "NOMINAL" }
         ]
       },
-      radiation: {
-        badgeText: "FAILURE GATE 3 // SOLAR PARTICLE EVENT // DOSE BREACH",
-        title: "LETHAL RADIATION EXPOSURE",
-        gateSubtitle: "FLOWCHART GATE 3: NASA-STD-3001 RADIATION THRESHOLD BREACHED",
-        statLabel: "CREW RADIATION DOSE",
-        statVal: "640 mSv",
-        thresholdBadge: "SAFETY GATE: ≤ 250 mSv MAX",
-        critMsg: "Solar Particle Event peak proton flux exceeded regolith shelter shielding capacity.",
-        flightRule: "NASA-STD-3001 Design Limit OCHMO-TB-020: Single SPE storm exposure must not exceed 250 mSv. Cumulative dose of 640 mSv induces acute radiation syndrome.",
-        astrobee: "Emergency! Secondary regolith shield walls collapsed during the coronal mass ejection. Radiation counters have pegged red. Commander, abort to orbit immediately!",
+      '1star': {
+        title: "MARGINAL SURVIVAL",
+        sub: "Critical survival threshold met. Outpost requires immediate Earth resupply.",
+        stars: 1,
+        score: "52.3 / 100",
+        verdictClass: "tier-1",
+        verdictText: "MARGINAL RECOVERY ACCOMPLISHED // THRESHOLDS BARELY MET",
+        bestTitle: "M2: Hydroponic Rationing Loop",
+        bestDesc: "Aggressive bioloop cuts preserved minimal human caloric supply. (+4.0 pts)",
+        worstTitle: "M6: Solar Flare Storm Shelter Delay",
+        worstDesc: "Delayed crew ingress to water-shielded bunks spiked dose to 235 mSv. (-9.0 pts)",
         telemetry: [
-          { label: "Radiation Dose", val: "640 mSv", breached: true },
-          { label: "Shield Thickness", val: "15 cm", breached: true },
-          { label: "Water Level", val: "78%", breached: false },
-          { label: "Power Bus", val: "62 kW", breached: false },
-          { label: "Oxygen Reserve", val: "88%", breached: false },
-          { label: "Crew Health", val: "EVACUATE", breached: true }
+          { label: "Water Level", val: "22%" },
+          { label: "Oxygen Reserve", val: "24%" },
+          { label: "Power Bus", val: "28 kW" },
+          { label: "Radiation Dose", val: "235 mSv" },
+          { label: "Hab Temp", val: "+11.4°C" },
+          { label: "Crew Status", val: "STABLE" }
         ]
       }
     };
 
-    let currentScenarioKey = 'water';
-    let isCountdownRunning = false;
+    let currentTier = '3star';
+    let autoPlayTimer = null;
+    const tierCycle = ['3star', '2star', '1star', 'failed'];
 
-    // Apply scenario data to UI
-    function renderScenario(key) {
-      currentScenarioKey = key;
-      const data = SCENARIOS[key];
-      if (!data) return;
-
-      document.getElementById('failureAlarmBadgeText').textContent = data.badgeText;
-      document.getElementById('failureMainTitle').textContent = data.title;
-      document.getElementById('failureGateName').textContent = data.gateSubtitle;
-      document.getElementById('failureStatLabel').textContent = data.statLabel;
-      document.getElementById('failureStatValue').textContent = data.statVal;
-      document.getElementById('failureThresholdBadge').textContent = data.thresholdBadge;
-      document.getElementById('failureCritMsg').textContent = data.critMsg;
-      document.getElementById('failureFlightRule').textContent = data.flightRule;
-      document.getElementById('failureAstrobeeSpeech').textContent = `"${data.astrobee}"`;
-
-      // Render Telemetry
-      const grid = document.getElementById('failureTelemetryGrid');
-      grid.innerHTML = data.telemetry.map(t => `
-        <div class="failure-tele-cell ${t.breached ? 'breached' : ''}">
-          <span class="failure-tele-label">${t.label}</span>
-          <span class="failure-tele-val">${t.val}</span>
-        </div>
-      `).join('');
+    // Render Star SVGs
+    function renderStars(count) {
+      let html = '';
+      for (let i = 1; i <= 3; i++) {
+        if (i <= count) {
+          html += `
+            <svg class="star-svg filled" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          `;
+        } else {
+          html += `
+            <svg class="star-svg empty" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          `;
+        }
+      }
+      return html;
     }
 
-    function switchScenario(key) {
-      renderScenario(key);
-      const modal = document.getElementById('missionFailureModal');
-      if (modal.classList.contains('visible')) {
-        // re-trigger failure display
-        showFailureModal();
+    // Switch between 3star, 2star, 1star, and failed
+    function showResult(tierKey) {
+      currentTier = tierKey;
+
+      // Update toolbar buttons
+      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+      if (tierKey === '3star') document.getElementById('btnTier3').classList.add('active');
+      else if (tierKey === '2star') document.getElementById('btnTier2').classList.add('active');
+      else if (tierKey === '1star') document.getElementById('btnTier1').classList.add('active');
+      else if (tierKey === 'failed') document.getElementById('btnTierFail').classList.add('active');
+
+      const debriefCard = document.getElementById('debriefCard');
+      const failureCard = document.getElementById('failureCard');
+
+      if (tierKey === 'failed') {
+        // Show Failed Result
+        debriefCard.classList.remove('active');
+        failureCard.classList.add('active');
+        document.body.classList.add('alarm-active');
+
+        // Trigger glitch shake
+        failureCard.classList.remove('shake-effect');
+        void failureCard.offsetWidth;
+        failureCard.classList.add('shake-effect');
+
+        sound.playAlarm();
+      } else {
+        // Show 1, 2, or 3 Star Result
+        document.body.classList.remove('alarm-active');
+        failureCard.classList.remove('active');
+        debriefCard.classList.add('active');
+
+        const data = TIERS[tierKey];
+        document.getElementById('debriefTitle').textContent = data.title;
+        document.getElementById('debriefSub').textContent = data.sub;
+        document.getElementById('debriefStarsRow').innerHTML = renderStars(data.stars);
+        document.getElementById('debriefScoreVal').textContent = data.score;
+
+        const pill = document.getElementById('debriefVerdictPill');
+        pill.className = `debrief-verdict-pill ${data.verdictClass}`;
+        document.getElementById('debriefScoreVerdict').textContent = data.verdictText;
+
+        document.getElementById('evalBestTitle').textContent = data.bestTitle;
+        document.getElementById('evalBestDesc').textContent = data.bestDesc;
+        document.getElementById('evalWorstTitle').textContent = data.worstTitle;
+        document.getElementById('evalWorstDesc').textContent = data.worstDesc;
+
+        // Render Telemetry
+        document.getElementById('debriefTeleGrid').innerHTML = data.telemetry.map(t => `
+          <div class="debrief-tele-cell">
+            <span class="debrief-tele-label">${t.label}</span>
+            <span class="debrief-tele-val">${t.val}</span>
+          </div>
+        `).join('');
+
+        sound.playSuccess(data.stars);
       }
     }
 
-    // =========================================================================
-    // 3 - 2 - 1 COUNTDOWN ENGINE
-    // =========================================================================
-    function startCountdownSequence() {
-      if (isCountdownRunning) return;
-      isCountdownRunning = true;
-
-      // Hide modal and alarms if already active
-      const modal = document.getElementById('missionFailureModal');
-      modal.classList.remove('visible');
-      document.body.classList.remove('alarm-active');
-
-      const overlay = document.getElementById('countdownOverlay');
-      const numEl = document.getElementById('countdownNum');
-      const statusEl = document.getElementById('countdownStatus');
-      const shockwave = document.getElementById('shockwaveRing');
-
-      overlay.classList.add('active');
-
-      const steps = [
-        {
-          num: 3,
-          text: "CRITICAL SYSTEM THRESHOLD",
-          colorClass: "",
-          delay: 0
-        },
-        {
-          num: 2,
-          text: "TELEMETRY COLLAPSING...",
-          colorClass: "",
-          delay: 1000
-        },
-        {
-          num: 1,
-          text: "OUTPOST BREACH IMMINENT!",
-          colorClass: "red-alert",
-          delay: 2000
-        }
-      ];
-
-      steps.forEach(step => {
-        setTimeout(() => {
-          numEl.classList.remove('pop', 'red-alert');
-          void numEl.offsetWidth; // trigger reflow
-
-          numEl.textContent = step.num;
-          statusEl.textContent = step.text;
-          if (step.colorClass) numEl.classList.add(step.colorClass);
-          numEl.classList.add('pop');
-
-          // Trigger shockwave pulse
-          shockwave.classList.remove('animate');
-          void shockwave.offsetWidth;
-          shockwave.classList.add('animate');
-
-          sound.countdownPip(step.num);
-        }, step.delay);
-      });
-
-      // At 3000ms: Mission Failure Boom!
-      setTimeout(() => {
-        overlay.classList.remove('active');
-        showFailureModal();
-        isCountdownRunning = false;
-      }, 3000);
+    function nextTier() {
+      const curIdx = tierCycle.indexOf(currentTier);
+      const nextIdx = (curIdx + 1) % tierCycle.length;
+      showResult(tierCycle[nextIdx]);
     }
 
-    function showFailureModal() {
-      const modal = document.getElementById('missionFailureModal');
-      const card = document.getElementById('failureCard');
-
-      modal.classList.add('visible');
-      document.body.classList.add('alarm-active');
-
-      // Glitch shake
-      card.classList.remove('shake-effect');
-      void card.offsetWidth;
-      card.classList.add('shake-effect');
-
-      sound.failureAlarm();
+    // Auto Cycle for continuous screen recording
+    function toggleAutoSequence() {
+      const btn = document.getElementById('btnAutoPlay');
+      if (autoPlayTimer) {
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+        btn.textContent = '▶ AUTO-CYCLE (VIDEO)';
+        btn.style.color = '#a5f3fc';
+      } else {
+        btn.textContent = '⏹ STOP CYCLE';
+        btn.style.color = '#fbbf24';
+        nextTier();
+        autoPlayTimer = setInterval(nextTier, 4500); // changes every 4.5 seconds for video capture
+      }
     }
 
-    function resetToStandby() {
-      isCountdownRunning = false;
-      const modal = document.getElementById('missionFailureModal');
-      const overlay = document.getElementById('countdownOverlay');
-      modal.classList.remove('visible');
-      overlay.classList.remove('active');
-      document.body.classList.remove('alarm-active');
-    }
-
-    // Clean mode toggler (hides top bar for pure recording)
+    // Clean mode toggler (hides top bar for 100% spotless video capture)
     function toggleCleanMode() {
       const bar = document.getElementById('videoToolbar');
       bar.classList.toggle('clean-mode');
     }
 
-    // Audio Mute Toggle
-    function toggleAudio() {
+    // Audio Toggle
+    function toggleSound() {
       sound.muted = !sound.muted;
-      const btn = document.getElementById('audioToggleBtn');
+      const btn = document.getElementById('btnSound');
       btn.textContent = sound.muted ? '🔇 SOUND: OFF' : '🔊 SOUND: ON';
     }
 
@@ -1035,63 +1268,29 @@
       }
     }
 
-    // Keyboard Shortcuts for Easy Video Recording
+    // Keyboard Shortcuts for Instant Video Recording
     window.addEventListener('keydown', (e) => {
-      // Spacebar: Start 3-2-1 sequence
-      if (e.code === 'Space') {
-        e.preventDefault();
-        startCountdownSequence();
-      }
-      // R: Reset to standby
-      else if (e.key === 'r' || e.key === 'R') {
-        resetToStandby();
-      }
-      // C: Toggle clean video mode (hide/show toolbar)
-      else if (e.key === 'c' || e.key === 'C') {
+      if (e.key === '3') showResult('3star');
+      else if (e.key === '2') showResult('2star');
+      else if (e.key === '1') showResult('1star');
+      else if (e.key === '0' || e.key === 'f' || e.key === 'F') {
+        if (e.key === 'f' && e.ctrlKey) return; // avoid browser find
+        showResult('failed');
+      } else if (e.key === 'c' || e.key === 'C') {
         toggleCleanMode();
-      }
-      // F: Toggle fullscreen
-      else if (e.key === 'f' || e.key === 'F') {
-        toggleFullscreen();
-      }
-      // 1, 2, 3: Switch scenarios instantly
-      else if (e.key === '1') {
-        document.getElementById('scenarioSelect').value = 'water';
-        switchScenario('water');
-      } else if (e.key === '2') {
-        document.getElementById('scenarioSelect').value = 'power';
-        switchScenario('power');
-      } else if (e.key === '3') {
-        document.getElementById('scenarioSelect').value = 'radiation';
-        switchScenario('radiation');
+      } else if (e.code === 'Space') {
+        e.preventDefault();
+        nextTier();
       }
     });
 
-    // Initialize Default Scenario
+    // Handle URL parameters (e.g. ?tier=3star, ?tier=failed, ?clean=1)
     const urlParams = new URLSearchParams(window.location.search);
-    const initialScenario = urlParams.get('scenario') || 'water';
-    document.getElementById('scenarioSelect').value = initialScenario;
-    renderScenario(initialScenario);
-
+    const initialTier = urlParams.get('tier') || urlParams.get('stars') || '3star';
     if (urlParams.get('clean') === '1') {
       toggleCleanMode();
     }
-
-    if (urlParams.get('test_count')) {
-      const c = parseInt(urlParams.get('test_count'), 10) || 3;
-      const overlay = document.getElementById('countdownOverlay');
-      const numEl = document.getElementById('countdownNum');
-      const statusEl = document.getElementById('countdownStatus');
-      overlay.classList.add('active');
-      numEl.textContent = c;
-      if (c === 1) numEl.classList.add('red-alert');
-      numEl.classList.add('pop');
-      statusEl.textContent = c === 1 ? "OUTPOST BREACH IMMINENT!" : (c === 2 ? "TELEMETRY COLLAPSING..." : "CRITICAL SYSTEM THRESHOLD");
-    } else if (urlParams.get('countdown') === '1') {
-      setTimeout(startCountdownSequence, 300);
-    } else if (urlParams.get('fail') === '1' || urlParams.get('show') === '1') {
-      showFailureModal();
-    }
+    showResult(initialTier);
   </script>
 </body>
 
