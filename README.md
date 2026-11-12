@@ -1,17 +1,41 @@
-# 🌕 MoonFall: Lunar Outpost Survival Simulator
-### NASA International Space Apps Challenge 2025
+# MoonFall: Lunar Outpost Survival Simulator
 
-[![Live Demo](https://img.shields.io/badge/Demo-Play%20Online-00c853?style=for-the-badge&logo=google-chrome&logoColor=white)](https://moonfall-blush.vercel.app/)
-[![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20PWA%20%7C%20PC%20%7C%20Mobile-00b0ff?style=for-the-badge)](https://moonfall-blush.vercel.app/)
-[![NASA Open Data](https://img.shields.io/badge/NASA%20Data-CCMC%20%7C%20OSDR%20%7C%20LSII-ff6d00?style=for-the-badge)](JUDGING_CRITERIA.md)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+[![demo live](https://img.shields.io/badge/demo-live-success?style=flat&logo=google-chrome&logoColor=white)](https://moonfall-blush.vercel.app/)
+[![NASA Space Apps 2025](https://img.shields.io/badge/NASA%20Space%20Apps-2025%20Challenger-0077da?style=flat&logo=nasa&logoColor=white)](JUDGING_CRITERIA.md)
+[![License MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat)](LICENSE)
 
----
+### Tech Tags
 
-## 📖 Project Overview
-**MoonFall** is an interactive, browser-based lunar outpost survival simulator developed for the **NASA International Space Apps Challenge**. 
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)]()
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)]()
+[![JavaScript ES6+](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat&logo=javascript&logoColor=black)]()
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)]()
+[![PWA Ready](https://img.shields.io/badge/PWA-Installable-5A0FC8?style=flat&logo=pwa&logoColor=white)]()
+[![Web Audio API](https://img.shields.io/badge/Web_Audio-Interactive%20SFX-FF8800?style=flat)]()
+[![AstroBee Copilot](https://img.shields.io/badge/AstroBee-AI%20Copilot-00e5ff?style=flat)]()
+[![NASA BVAD](https://img.shields.io/badge/NASA-BVAD_Rev2-0B3D91?style=flat&logo=nasa&logoColor=white)](game_logic.pdf)
+[![NASA STD-3001](https://img.shields.io/badge/NASA-STD--3001-0B3D91?style=flat&logo=nasa&logoColor=white)](game_logic.pdf)
+[![NASA CCMC](https://img.shields.io/badge/NASA-CCMC_DONKI-0B3D91?style=flat&logo=nasa&logoColor=white)](JUDGING_CRITERIA.md)
+[![NASA LSII](https://img.shields.io/badge/NASA-LSII_ISRU-0B3D91?style=flat&logo=nasa&logoColor=white)](JUDGING_CRITERIA.md)
+[![Vercel Deploy](https://img.shields.io/badge/Vercel-Deploy-black?style=flat&logo=vercel&logoColor=white)](https://moonfall-blush.vercel.app/)
 
-Situated on the rim of the Moon's South Pole **Shackleton Crater**, players assume the role of Artemis Base Commander. When an unexpected 18-hour lunar eclipse cuts off primary solar arrays and communications with Earth, players must apply real thermodynamic and life-support flight rules to balance power, oxygen, water extraction, and radiation shielding to keep the 5-person crew alive.
+```
+html5 · css3 · javascript · tailwindcss · pwa · web-audio · vercel · nasa-bvad · nasa-std-3001 · ccmc-api · lsii · space-weather · lunar-outpost · artemis · astrobee · stem-education · nasa-space-apps-challenge
+```
+
+> **NASA International Space Apps Challenge 2025** — Lunar Outpost Survival Simulator (Team ChandraPath)
+
+An interactive lunar outpost survival simulation platform that challenges players to command an Artemis base camp at Shackleton Crater during an 18-hour solar particle crisis through thermodynamic modeling, real-time NASA flight rules, interactive subsystem engineering, and gamified STEM learning.
+
+### Live Demo
+
+**[https://moonfall-blush.vercel.app/](https://moonfall-blush.vercel.app/)**
+
+> **Note:** This experience is optimized for laptop, desktop, and mobile PWA browsers in landscape orientation.
+
+### Problem Statement
+
+Surviving long-duration lunar surface exploration requires solving complex, interdependent life-support challenges — yet the physical trade-offs behind oxygen consumption, closed-loop water recovery, solar power blackouts, and solar particle events remain abstract and difficult for learners and cadets to grasp. We built **MoonFall**, an interactive flight simulator that turns complex aerospace engineering and thermodynamic models into an engaging, story-driven lunar mission powered by real NASA data and flight rules.
 
 ---
 
