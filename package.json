@@ -11,8 +11,7 @@
     "dist": "electron-builder",
     "dist:win": "electron-builder --win",
     "dist:mac": "electron-builder --mac",
-    "dist:linux": "electron-builder --linux",
-    "build": "echo 'Static web build ready'"
+    "dist:linux": "electron-builder --linux"
   },
   "build": {
     "appId": "com.chandrapath.moonfall",
