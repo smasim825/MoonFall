@@ -1,7 +1,7 @@
 # MoonFall: Lunar Outpost Survival Simulator
 
 [![demo live](https://img.shields.io/badge/demo-live-success?style=flat&logo=google-chrome&logoColor=white)](https://moonfall-blush.vercel.app/)
-[![NASA Space Apps 2025](https://img.shields.io/badge/NASA%20Space%20Apps-2025%20Challenger-0077da?style=flat&logo=nasa&logoColor=white)](JUDGING_CRITERIA.md)
+[![NASA Space Apps 2026](https://img.shields.io/badge/NASA%20Space%20Apps-2026%20Challenger-0077da?style=flat&logo=nasa&logoColor=white)](JUDGING_CRITERIA.md)
 [![License MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat)](LICENSE)
 
 ### Tech Tags
@@ -23,7 +23,7 @@
 html5 · css3 · javascript · tailwindcss · pwa · web-audio · vercel · nasa-bvad · nasa-std-3001 · ccmc-api · lsii · space-weather · lunar-outpost · artemis · astrobee · stem-education · nasa-space-apps-challenge
 ```
 
-> **NASA International Space Apps Challenge 2025** — Lunar Outpost Survival Simulator (Team ChandraPath)
+> **NASA International Space Apps Challenge 2026** — Lunar Outpost Survival Simulator (Team ChandraPath)
 
 An interactive lunar outpost survival simulation platform that challenges players to command an Artemis base camp at Shackleton Crater during an 18-hour solar particle crisis through thermodynamic modeling, real-time NASA flight rules, interactive subsystem engineering, and gamified STEM learning.
 
@@ -166,12 +166,18 @@ A primary pedagogical feature of the flight logic is that **greedy short-term ch
 ### 6. Scientific Documentation & Simulation Proofs
 MoonFall's state space and game logic are fully documented and proven through formal aerospace white papers, NASA baseline data mappings, and exhaustive Monte Carlo branch simulations.
 
+> [!TIP]
+> **Independent Reproducibility Verification**: Any judge or evaluator can independently simulate and verify all 1,296 combinatorial flight paths in under 0.2 seconds by running our zero-dependency verification engine:
+> ```bash
+> python3 verify_simulation.py
+> ```
+
 > [!NOTE]
-> Detailed white papers and datasets are available in the repository:
+> Detailed white papers and datasets are committed in the repository:
 > - 📄 **[game_logic.pdf](game_logic.pdf)** — *Full 7-page NASA mathematical derivation, Townsend radiation models & flight balance proofs*
 > - 📋 **[GAME_LOGIC_EXECUTIVE_SUMMARY.pdf](GAME_LOGIC_EXECUTIVE_SUMMARY.pdf)** — *Executive proof & 1,296-branch code verification*
 > - 📊 **[VALUES.md](VALUES.md)** — *Canonical state delta values, real physical units & optimal path specifications*
-> - 🗺️ **[1.html](1.html)** — *Interactive 3-row S-curve decision tree flowchart*
+> - 🐍 **[verify_simulation.py](verify_simulation.py)** — *Standalone Monte Carlo verification engine*
 
 | 📊 1,296-Branch Value & Survival Table | 📐 Mission Physics & Energy Equations |
 |:---:|:---:|
