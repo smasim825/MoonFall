@@ -10,6 +10,8 @@ out/
 *.log
 local_backup/
 
-# Backups and temporary files
+# Backups, PDFs and temporary files
 *.bak
 *simulation*.json
+*Miftu*.pdf
+*miftu*.pdf

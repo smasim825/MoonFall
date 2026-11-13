@@ -177,6 +177,7 @@ MoonFall's state space and game logic are fully documented and proven through fo
 > - 📄 **[game_logic.pdf](game_logic.pdf)** — *Full 7-page NASA mathematical derivation, Townsend radiation models & flight balance proofs*
 > - 📋 **[GAME_LOGIC_EXECUTIVE_SUMMARY.pdf](GAME_LOGIC_EXECUTIVE_SUMMARY.pdf)** — *Executive proof & 1,296-branch code verification*
 > - 📊 **[VALUES.md](VALUES.md)** — *Canonical state delta values, real physical units & optimal path specifications*
+> - 🤖 **[AI Usages & Declaration](AI_USAGE_AND_DECLARATION.md)** — *Full disclosure of in-game AI (AstroBee RAG), APIs, and development tools*
 > - 🐍 **[verify_simulation.py](verify_simulation.py)** — *Standalone Monte Carlo verification engine*
 
 | 📊 1,296-Branch Value & Survival Table | 📐 Mission Physics & Energy Equations |
