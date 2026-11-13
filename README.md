@@ -1,5 +1,21 @@
 # MoonFall: Lunar Outpost Survival Simulator
 
+### 🚀 NASA International Space Apps Challenge 2026
+- **Team Name:** **Chandrapath**
+- **Project Name:** **MoonFall**
+
+#### 👥 Team Members & Roles
+| Member | Role |
+| :--- | :--- |
+| **Kazi Miftahul Hoque** | Team Leader & Project Coordinator |
+| **Sayed Mohammed Asim** | Lead Developer & Game Systems Engineer |
+| **Israt Anjum Taspia** | UI/UX Designer & Frontend Developer |
+| **Miftahul Jannat Tanha** | Research & Content Developer |
+| **Mohammad Rafiur Rahman** | AI & Machine Learning Engineer |
+| **Mohammed Asaduzzaman Asad** | Quality Assurance Engineer and Storytelling |
+
+---
+
 [![demo live](https://img.shields.io/badge/demo-live-success?style=flat&logo=google-chrome&logoColor=white)](https://moonfall-blush.vercel.app/)
 [![NASA Space Apps 2026](https://img.shields.io/badge/NASA%20Space%20Apps-2026%20Challenger-0077da?style=flat&logo=nasa&logoColor=white)](JUDGING_CRITERIA.md)
 [![License MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat)](LICENSE)
