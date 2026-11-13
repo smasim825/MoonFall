@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoonFall — Final Mission: 18-Hour Crisis Flowchart (M1 to M8)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/webp" href="assets/moon.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --canvas-bg: #f8fafc;
+      --dot-color: #cbd5e1;
+      --node-border: #0099ff;
+      --node-fill: #ffffff;
+      --node-text: #0f172a;
+      --filled-card: #e0f7ff;
+      --filled-border: #0099ff;
+      --group-bg: rgba(224, 247, 255, 0.45);
+      --group-border: rgba(0, 153, 255, 0.35);
+      --fail-border: #ef4444;
+      --fail-bg: #fef2f2;
+      --fail-text: #991b1b;
+      --star-border: #f59e0b;
+      --star-bg: #fefbeb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--canvas-bg);
+      background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: auto;
+      overflow-y: auto;
+      user-select: none;
+    }
+
+    /* Fixed Left Sidebar */
+    .left-sidebar {
+      position: fixed;
+      top: 16px;
+      bottom: 16px;
+      left: 16px;
+      width: 250px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      box-shadow: 0 12px 36px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(0, 153, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      padding: 16px 14px;
+      gap: 12px;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .left-sidebar.hidden-sidebar {
+      transform: translateX(-280px);
+    }
+
+    /* Floating show tab when sidebar is hidden */
+    .sidebar-reopen-tab {
+      position: fixed;
+      left: 0;
+      top: 45%;
+      transform: translateY(-50%);
+      z-index: 99;
+      background: #0284c7;
+      color: #ffffff;
+      padding: 12px 10px 12px 6px;
+      border-radius: 0 10px 10px 0;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.4);
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-reopen-tab:hover {
+      background: #0369a1;
+      padding-left: 10px;
+    }
+
+    .sidebar-reopen-tab.visible-tab {
+      display: flex;
+    }
+
+    /* Canvas layout with left sidebar offset */
+    #viewport {
+      margin-left: 300px;
+      transform-origin: 0 0;
+      transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s ease;
+    }
+
+    #viewport.full-width {
+      margin-left: 30px;
+    }
+
+    .canvas-wrapper {
+      min-width: 2450px;
+      min-height: 1650px;
+      position: relative;
+      padding: 40px 60px 80px 40px;
+    }
+
+    /* Node Styles matching user diagram with generous padding */
+    .flow-node {
+      position: absolute;
+      background: var(--node-fill);
+      border: 2px solid var(--node-border);
+      border-radius: 14px;
+      color: var(--node-text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(0, 153, 255, 0.08);
+      transition: all 0.2s ease;
+      z-index: 10;
+      padding: 14px 16px;
+      box-sizing: border-box;
+    }
+
+    .flow-node:hover {
+      box-shadow: 0 8px 24px rgba(0, 153, 255, 0.25);
+      transform: translateY(-2px);
+      border-color: #0077cc;
+    }
+
+    .filled-card {
+      background: var(--filled-card) !important;
+      border: 2.5px solid var(--filled-border) !important;
+    }
+
+    .group-container {
+      position: absolute;
+      background: var(--group-bg);
+      border: 1.5px dashed var(--group-border);
+      border-radius: 24px;
+      z-index: 5;
+    }
+
+    .fail-card {
+      background: var(--fail-bg) !important;
+      border: 2px solid var(--fail-border) !important;
+      color: var(--fail-text) !important;
+      padding: 8px 12px !important;
+    }
+
+    .gate-card {
+      background: #ffffff !important;
+      border: 2px solid #f59e0b !important;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.12) !important;
+      padding: 10px 12px !important;
+    }
+
+    .star-card {
+      background: var(--star-bg) !important;
+      border: 2.5px solid var(--star-border) !important;
+    }
+
+    .stage-label {
+      position: absolute;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0284c7;
+      text-align: center;
+      white-space: nowrap;
+      z-index: 15;
+    }
+
+    .row-marker {
+      position: absolute;
+      left: 40px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #0369a1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: #e0f2fe;
+      border: 1px solid #bae6fd;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      z-index: 20;
+    }
+
+    .time-badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 700;
+      margin-bottom: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .heart-icon {
+      color: #00e5ff;
+      margin-left: 4px;
+      display: inline-block;
+      font-size: 13px;
+    }
+
+    /* Tour target indicator pulse */
+    .tour-focus {
+      outline: 4px solid #00e5ff !important;
+      box-shadow: 0 0 30px rgba(0, 229, 255, 0.8) !important;
+      transform: scale(1.06) !important;
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Top Floating Controls Bar -->
+  <div id="topBar" class="fixed top-4 left-6 right-6 z-50 flex items-center justify-between bg-white/90 backdrop-blur-md px-6 py-3 rounded-2xl shadow-sm border border-slate-200">
+    <div class="flex items-center gap-3">
+      <span class="w-3 h-3 rounded-full bg-[#0099ff] animate-pulse"></span>
+      <span class="font-bold text-sm text-slate-800">Moon Fall: 3-Row S-Curve Mission Flowchart</span>
+      <span class="text-xs text-slate-500 font-mono bg-slate-100 px-2.5 py-0.5 rounded">Enhanced Padding</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="zoom(0.1)" class="px-3 py-1.5 text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition">Zoom +</button>
+      <button onclick="zoom(-0.1)" class="px-3 py-1.5 text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition">Zoom -</button>
+      <button onclick="resetZoom()" class="px-3 py-1.5 text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition">100%</button>
+      <button onclick="toggleGrid()" class="px-3 py-1.5 text-xs font-semibold bg-blue-50 text-[#0099ff] hover:bg-blue-100 rounded-lg transition">Toggle Grid</button>
+    </div>
+  </div>
+
+  <!-- VIEWPORT & SCROLL CANVAS -->
+  <div id="viewport">
+    <div class="canvas-wrapper">
+
+      <!-- ROW HEADERS -->
+      <div class="row-marker" style="top: 15px;">ROW 1: MISSIONS 1 - 3 (LEFT ➔ RIGHT)</div>
+      <div class="row-marker" style="top: 495px;">ROW 2: MISSIONS 4 - 6 (RIGHT ➔ LEFT)</div>
+      <div class="row-marker" style="top: 995px;">ROW 3: MISSIONS 7 - 8 & FINALE (LEFT ➔ RIGHT)</div>
+
+      <!-- ================= SVG CONNECTING WIRES ================= -->
+      <svg id="svgCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 8;">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0099ff" />
+          </marker>
+          <marker id="arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ef4444" />
+          </marker>
+        </defs>
+
+        <!-- ================= ROW 1: LEFT TO RIGHT (Y1 = 200) ================= -->
+        <!-- START (225) -> M1 Event (270) -->
+        <path d="M 225 200 L 270 200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M1 Event (405) -> Opt A (465, 128) & Opt B (465, 273) -->
+        <path d="M 405 200 C 435 200, 435 128, 465 128" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 405 200 C 435 200, 435 273, 465 273" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M1 Options (660) -> Gate 1 (710) -->
+        <path d="M 660 128 C 685 128, 685 200, 710 200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 660 273 C 685 273, 685 200, 710 200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 705 200 L 710 200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Gate 1 (785, 276) -> Fail 1 (785, 360) -->
+        <path d="M 785 276 L 785 360" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-red)" />
+        <!-- Gate 1 (860) -> M2 Event (915) -->
+        <path d="M 860 200 L 915 200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M2 Event (1050) -> Opt A (1110, 78), B (1110, 200), C (1110, 322) -->
+        <path d="M 1050 200 C 1080 200, 1080 78, 1110 78" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 1050 200 L 1110 200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 1050 200 C 1080 200, 1080 322, 1110 322" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M2 Options (1305) -> Gate 2 (1355) -->
+        <path d="M 1305 78 C 1330 78, 1330 200, 1355 200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1305 200 L 1355 200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1305 322 C 1330 322, 1330 200, 1355 200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1350 200 L 1355 200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Gate 2 -> Fail 2 & M3 -->
+        <path d="M 1430 276 L 1430 360" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-red)" />
+        <path d="M 1505 200 L 1560 200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M3 Event (1695) -> Opt A (1755, 78), B (1755, 200), C (1755, 322) -->
+        <path d="M 1695 200 C 1725 200, 1725 78, 1755 78" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 1695 200 L 1755 200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 1695 200 C 1725 200, 1725 322, 1755 322" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M3 Options (1950) -> Gate 3 (2000) -->
+        <path d="M 1950 78 C 1975 78, 1975 200, 2000 200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1950 200 L 2000 200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1950 322 C 1975 322, 1975 200, 2000 200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1995 200 L 2000 200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Gate 3 -> Fail 3 -->
+        <path d="M 2075 276 L 2075 360" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-red)" />
+
+        <!-- ================= U-TURN 1: ROW 1 (RIGHT) ➔ ROW 2 (RIGHT) ================= -->
+        <!-- From Gate 3 right (2150, 200) curving down to M4 Event right (2150, 700) -->
+        <path d="M 2150 200 C 2330 200, 2330 700, 2150 700" fill="none" stroke="#0099ff" stroke-width="3" marker-end="url(#arrow)" />
+
+        <!-- ================= ROW 2: RIGHT TO LEFT (Y2 = 700) ================= -->
+        <!-- M4 Event (2015) -> Opt A (1955, 628) & Opt B (1955, 773) -->
+        <path d="M 2015 700 C 1985 700, 1985 628, 1955 628" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 2015 700 C 1985 700, 1985 773, 1955 773" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M4 Options left (1760) -> Gate 4 right (1705) -->
+        <path d="M 1760 628 C 1735 628, 1735 700, 1705 700" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1760 773 C 1735 773, 1735 700, 1705 700" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1710 700 L 1705 700" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Gate 4 -> Fail 4 & M5 Event -->
+        <path d="M 1630 776 L 1630 860" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-red)" />
+        <path d="M 1555 700 L 1500 700" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M5 Event (1365) -> Opt A (1305, 578), B (1305, 700), C (1305, 822) -->
+        <path d="M 1365 700 C 1335 700, 1335 578, 1305 578" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 1365 700 L 1305 700" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 1365 700 C 1335 700, 1335 822, 1305 822" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M5 Options left (1110) -> Gate 5 right (1055) -->
+        <path d="M 1110 578 C 1085 578, 1085 700, 1055 700" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1110 700 L 1055 700" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1110 822 C 1085 822, 1085 700, 1055 700" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1060 700 L 1055 700" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Gate 5 -> Fail 5 & M6 Event -->
+        <path d="M 980 776 L 980 860" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-red)" />
+        <path d="M 905 700 L 850 700" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M6 Event (715) -> Opt A (655, 628) & Opt B (655, 773) -->
+        <path d="M 715 700 C 685 700, 685 628, 655 628" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 715 700 C 685 700, 685 773, 655 773" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M6 Options left (460) -> Gate 6 right (405) -->
+        <path d="M 460 628 C 435 628, 435 700, 405 700" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 460 773 C 435 773, 435 700, 405 700" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 410 700 L 405 700" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Gate 6 -> Fail 6 -->
+        <path d="M 330 776 L 330 860" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-red)" />
+
+        <!-- ================= U-TURN 2: ROW 2 (LEFT) ➔ ROW 3 (LEFT) ================= -->
+        <!-- From Gate 6 left (255, 700) curving down to M7 Event left (255, 1200) -->
+        <path d="M 255 700 C 75 700, 75 1200, 255 1200" fill="none" stroke="#0099ff" stroke-width="3" marker-end="url(#arrow)" />
+
+        <!-- ================= ROW 3: LEFT TO RIGHT (Y3 = 1200) ================= -->
+        <!-- M7 Event (390) -> Opt A (450, 1078), B (450, 1200), C (450, 1322) -->
+        <path d="M 390 1200 C 420 1200, 420 1078, 450 1078" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 390 1200 L 450 1200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 390 1200 C 420 1200, 420 1322, 450 1322" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M7 Options (645) -> Gate 7 (700) -->
+        <path d="M 645 1078 C 670 1078, 670 1200, 700 1200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 645 1200 L 700 1200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 645 1322 C 670 1322, 670 1200, 700 1200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 695 1200 L 700 1200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Gate 7 -> Fail 7 & M8 Event -->
+        <path d="M 775 1276 L 775 1360" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-red)" />
+        <path d="M 850 1200 L 905 1200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M8 Event (1040) -> Opt A (1100, 1128) & Opt B (1100, 1273) -->
+        <path d="M 1040 1200 C 1070 1200, 1070 1128, 1100 1128" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 1040 1200 C 1070 1200, 1070 1273, 1100 1273" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- M8 Options (1310) -> Final Score (1355) -->
+        <path d="M 1310 1123 C 1330 1123, 1330 1200, 1355 1200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1310 1273 C 1330 1273, 1330 1200, 1355 1200" fill="none" stroke="#0099ff" stroke-width="2" />
+        <path d="M 1350 1200 L 1355 1200" fill="none" stroke="#0099ff" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Final Score (1570) -> 4 Star Tiers (1640) -->
+        <path d="M 1570 1200 C 1605 1200, 1605 1047, 1640 1047" fill="none" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#arrow)" />
+        <path d="M 1570 1200 C 1605 1200, 1605 1147, 1640 1147" fill="none" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 1570 1200 C 1605 1200, 1605 1247, 1640 1247" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+        <path d="M 1570 1200 C 1605 1200, 1605 1347, 1640 1347" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-red)" />
+      </svg>
+
+      <!-- ================= TRANSLUCENT CONTAINER BACKDROPS ================= -->
+      <!-- Row 1 -->
+      <div class="group-container" style="left: 445px; top: 60px; width: 235px; height: 280px;"></div>
+      <div class="group-container" style="left: 1090px; top: 15px; width: 235px; height: 375px;"></div>
+      <div class="group-container" style="left: 1735px; top: 15px; width: 235px; height: 375px;"></div>
+
+      <!-- Row 2 -->
+      <div class="group-container" style="left: 1740px; top: 560px; width: 235px; height: 280px;"></div>
+      <div class="group-container" style="left: 1090px; top: 515px; width: 235px; height: 375px;"></div>
+      <div class="group-container" style="left: 440px; top: 560px; width: 235px; height: 280px;"></div>
+
+      <!-- Row 3 -->
+      <div class="group-container" style="left: 430px; top: 1015px; width: 235px; height: 375px;"></div>
+      <div class="group-container" style="left: 1070px; top: 1055px; width: 260px; height: 290px;"></div>
+
+      <!-- =================================================================== -->
+      <!-- ==================== ROW 1: MISSIONS 1 - 3 ======================== -->
+      <!-- =================================================================== -->
+
+      <!-- START: SHACKLETON RIM OUTPOST -->
+      <div class="stage-label" style="left: 45px; top: 90px; font-size: 15px; color: #0f172a; font-weight: 800;">
+        START: 05:00 UTC
+      </div>
+      <div class="flow-node filled-card" id="node-start" style="left: 45px; top: 120px; width: 180px; min-height: 160px; padding: 12px 12px;">
+        <span class="font-black text-[12px] text-slate-900 tracking-wide uppercase">ARTEMIS BASE CAMP</span>
+        <span class="text-[10px] text-sky-800 font-bold mt-0.5 pb-1 border-b border-sky-200">Shackleton Rim (89.9°S)</span>
+        <div class="text-[10px] text-slate-700 mt-1.5 font-mono grid grid-cols-2 gap-x-2 gap-y-1 text-left px-0.5">
+          <span>O₂: <strong class="text-slate-900">75</strong> <em class="text-[8.5px] text-slate-500 font-sans">10.1kg</em></span>
+          <span>Water: <strong class="text-slate-900">65</strong> <em class="text-[8.5px] text-slate-500 font-sans">325kg</em></span>
+          <span>Power: <strong class="text-slate-900">75</strong> <em class="text-[8.5px] text-slate-500 font-sans">75kWh</em></span>
+          <span>Food: <strong class="text-slate-900">90</strong> <em class="text-[8.5px] text-slate-500 font-sans">324kg</em></span>
+          <span>Health: <strong class="text-slate-900">65</strong> <em class="text-[8.5px] text-slate-500 font-sans">650mSv</em></span>
+          <span>Equip: <strong class="text-slate-900">90</strong> <em class="text-[8.5px] text-slate-500 font-sans">90%</em></span>
+        </div>
+        <div class="text-[9.5px] text-emerald-700 font-mono mt-2 pt-1 border-t border-sky-200/80 font-bold">
+          🌱 Greenhouse: 80 <em class="text-[8.5px] text-slate-500 font-sans font-normal">(16 m²)</em>
+        </div>
+      </div>
+
+      <!-- M1 Event -->
+      <div class="stage-label" style="left: 270px; top: 95px; width: 135px;">
+        <span class="time-badge">05:30 UTC</span><br>
+        <span class="text-[11px] text-slate-700 font-bold uppercase tracking-wider">MISSION 1</span>
+      </div>
+      <div class="flow-node" id="node-m1" style="left: 270px; top: 152px; width: 135px; height: 96px; padding: 12px 14px;">
+        <span class="font-bold text-[12px] text-slate-800 leading-snug">30-Minute Warning</span>
+        <span class="text-[10.5px] text-slate-500 mt-1.5 leading-snug">SPE solar storm alert. Crew recall vs gear.</span>
+      </div>
+
+      <!-- M1 Options -->
+      <div class="flow-node" style="left: 465px; top: 85px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option A: Evacuate</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Health -10 mSv, Equip -12%<br><span class="text-[9.5px] text-slate-500 font-normal">Crew inside early; gear left on</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 465px; top: 230px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option B: Secure Equip <span class="heart-icon">🩵</span></span>
+        <div class="text-[11px] font-semibold text-emerald-600 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power -4 kWh, Health -50 mSv, Equip -2%<br><span class="text-[9.5px] text-slate-500 font-normal">Outside gear safely shutdown</span>
+        </div>
+      </div>
+
+      <!-- Gate 1 -->
+      <div class="flow-node gate-card" style="left: 710px; top: 124px; width: 150px; height: 152px;">
+        <span class="font-bold text-[11.5px] text-amber-800 flex items-center justify-center gap-1 mb-2 pb-1 border-b border-amber-200">
+          <span>⚠️</span> FAILURE GATE 1
+        </span>
+        <div class="text-[10px] text-slate-600 text-left font-mono space-y-1 leading-snug pl-1 whitespace-nowrap">
+          <div>• O₂ ≥ 20%</div>
+          <div>• Water ≥ 20%</div>
+          <div>• LSI ≥ 50%</div>
+          <div>• Health ≥ 500 mSv</div>
+          <div>• Power > 0%</div>
+          <div>• Equip ≥ 50%</div>
+        </div>
+      </div>
+      <div class="flow-node fail-card" style="left: 710px; top: 360px; width: 150px; height: 62px;">
+        <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-700">CRITICAL FAILURE</span>
+        <span class="text-[11px] font-bold text-rose-900 mt-0.5 leading-tight">Evacuation Lost</span>
+      </div>
+
+      <!-- M2 Event -->
+      <div class="stage-label" style="left: 915px; top: 95px; width: 135px;">
+        <span class="time-badge">06:00 UTC</span><br>
+        <span class="text-[11px] text-slate-700 font-bold uppercase tracking-wider">MISSION 2</span>
+      </div>
+      <div class="flow-node" id="node-m2" style="left: 915px; top: 152px; width: 135px; height: 96px; padding: 12px 14px;">
+        <span class="font-bold text-[12px] text-slate-800 leading-snug">The Shelter Problem</span>
+        <span class="text-[10.5px] text-slate-500 mt-1.5 leading-snug">Emergency radiation barrier decision</span>
+      </div>
+
+      <!-- M2 Options -->
+      <div class="flow-node" style="left: 1110px; top: 35px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option A: Deep Shelter</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power -1 kWh, Health -60 mSv<br><span class="text-[9.5px] text-slate-500 font-normal">Fans only; ~60 mSv dose gets in</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 1110px; top: 157px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option B: Pile Regolith <span class="heart-icon">🩵</span></span>
+        <div class="text-[11px] font-semibold text-emerald-600 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power -8 kWh, Health -10 mSv, Equip -8%<br><span class="text-[9.5px] text-slate-500 font-normal">Best shield (~15 mSv); dust wear</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 1110px; top: 279px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800">Option C: Water Shield</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Water -100 kg, Power -2 kWh, Health -30 mSv<br><span class="text-[9.5px] text-slate-500 font-normal">Torso barrier; water retreated</span>
+        </div>
+      </div>
+
+      <!-- Gate 2 -->
+      <div class="flow-node gate-card" style="left: 1355px; top: 124px; width: 150px; height: 152px;">
+        <span class="font-bold text-[11.5px] text-amber-800 flex items-center justify-center gap-1 mb-2 pb-1 border-b border-amber-200">
+          <span>⚠️</span> FAILURE GATE 2
+        </span>
+        <div class="text-[10px] text-slate-600 text-left font-mono space-y-1 leading-snug pl-1 whitespace-nowrap">
+          <div>• O₂ ≥ 20%</div>
+          <div>• Water ≥ 20%</div>
+          <div>• LSI ≥ 50%</div>
+          <div>• Health ≥ 500 mSv</div>
+          <div>• Power > 0%</div>
+          <div>• Equip ≥ 50%</div>
+        </div>
+      </div>
+      <div class="flow-node fail-card" style="left: 1355px; top: 360px; width: 150px; height: 62px;">
+        <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-700">CRITICAL FAILURE</span>
+        <span class="text-[11px] font-bold text-rose-900 mt-0.5 leading-tight">Bunker Compromised</span>
+      </div>
+
+      <!-- M3 Event -->
+      <div class="stage-label" style="left: 1560px; top: 95px; width: 135px;">
+        <span class="time-badge">08:00 UTC</span><br>
+        <span class="text-[11px] text-slate-700 font-bold uppercase tracking-wider">MISSION 3</span>
+      </div>
+      <div class="flow-node" id="node-m3" style="left: 1560px; top: 152px; width: 135px; height: 96px; padding: 12px 14px;">
+        <span class="font-bold text-[12px] text-slate-800 leading-snug">Blackout</span>
+        <span class="text-[10.5px] text-slate-500 mt-1.5 leading-snug">Solar array offline. Battery triage.</span>
+      </div>
+
+      <!-- M3 Options -->
+      <div class="flow-node" style="left: 1755px; top: 35px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option A: Greenhouse Off</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power -10 kWh, Greenhouse -20<br><span class="text-[9.5px] text-slate-500 font-normal">Lowest battery draw; crops dark</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 1755px; top: 157px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option B: Backup Power <span class="heart-icon">🩵</span></span>
+        <div class="text-[11px] font-semibold text-emerald-600 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power -15 kWh, Equip -8%<br><span class="text-[9.5px] text-slate-500 font-normal">Crops safe; battery deep discharge</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 1755px; top: 279px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800">Option C: Brownout All</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power -13 kWh, Health -20 mSv, Green -8<br><span class="text-[9.5px] text-slate-500 font-normal">Cabin cools to 18°C; fatigue</span>
+        </div>
+      </div>
+
+      <!-- Gate 3 -->
+      <div class="flow-node gate-card" style="left: 2000px; top: 124px; width: 150px; height: 152px;">
+        <span class="font-bold text-[11.5px] text-amber-800 flex items-center justify-center gap-1 mb-2 pb-1 border-b border-amber-200">
+          <span>⚠️</span> FAILURE GATE 3
+        </span>
+        <div class="text-[10px] text-slate-600 text-left font-mono space-y-1 leading-snug pl-1 whitespace-nowrap">
+          <div>• O₂ ≥ 20%</div>
+          <div>• Water ≥ 20%</div>
+          <div>• LSI ≥ 50%</div>
+          <div>• Health ≥ 500 mSv</div>
+          <div>• Power > 0%</div>
+          <div>• Equip ≥ 50%</div>
+        </div>
+      </div>
+      <div class="flow-node fail-card" style="left: 2000px; top: 360px; width: 150px; height: 62px;">
+        <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-700">CRITICAL FAILURE</span>
+        <span class="text-[11px] font-bold text-rose-900 mt-0.5 leading-tight">Blackout Crash</span>
+      </div>
+
+
+      <!-- =================================================================== -->
+      <!-- ==================== ROW 2: MISSIONS 4 - 6 ======================== -->
+      <!-- =================================================================== -->
+
+      <!-- M4 Event -->
+      <div class="stage-label" style="left: 2015px; top: 595px; width: 135px;">
+        <span class="time-badge">11:00 UTC</span><br>
+        <span class="text-[11px] text-slate-700 font-bold uppercase tracking-wider">MISSION 4</span>
+      </div>
+      <div class="flow-node" id="node-m4" style="left: 2015px; top: 652px; width: 135px; height: 96px; padding: 12px 14px;">
+        <span class="font-bold text-[12px] text-slate-800 leading-snug">Oxygen Countdown</span>
+        <span class="text-[10.5px] text-slate-500 mt-1.5 leading-snug">O₂ reserve depleting. Bottled vs ISRU.</span>
+      </div>
+
+      <!-- M4 Options -->
+      <div class="flow-node" style="left: 1760px; top: 585px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800">Option A: Bottled O₂</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ O₂ -3 (-0.4 kg), Equip -8%<br><span class="text-[9.5px] text-slate-500 font-normal">Emergency cylinders exhausted</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 1760px; top: 730px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option B: Electrolysis <span class="heart-icon">🩵</span></span>
+        <div class="text-[11px] font-semibold text-emerald-600 mt-1.5 tracking-wide leading-snug">
+          ⚡ O₂ +5 (+0.7 kg), Water -1, Power -14 kWh<br><span class="text-[9.5px] text-slate-500 font-normal">Splits water into ~2.7 kg O₂</span>
+        </div>
+      </div>
+
+      <!-- Gate 4 -->
+      <div class="flow-node gate-card" style="left: 1555px; top: 624px; width: 150px; height: 152px;">
+        <span class="font-bold text-[11.5px] text-amber-800 flex items-center justify-center gap-1 mb-2 pb-1 border-b border-amber-200">
+          <span>⚠️</span> FAILURE GATE 4
+        </span>
+        <div class="text-[10px] text-slate-600 text-left font-mono space-y-1 leading-snug pl-1 whitespace-nowrap">
+          <div>• O₂ ≥ 20%</div>
+          <div>• Water ≥ 20%</div>
+          <div>• LSI ≥ 50%</div>
+          <div>• Health ≥ 500 mSv</div>
+          <div>• Power > 0%</div>
+          <div>• Equip ≥ 50%</div>
+        </div>
+      </div>
+      <div class="flow-node fail-card" style="left: 1555px; top: 860px; width: 150px; height: 62px;">
+        <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-700">CRITICAL FAILURE</span>
+        <span class="text-[11px] font-bold text-rose-900 mt-0.5 leading-tight">Asphyxiation</span>
+      </div>
+
+      <!-- M5 Event -->
+      <div class="stage-label" style="left: 1365px; top: 595px; width: 135px;">
+        <span class="time-badge">13:00 UTC</span><br>
+        <span class="text-[11px] text-slate-700 font-bold uppercase tracking-wider">MISSION 5</span>
+      </div>
+      <div class="flow-node" id="node-m5" style="left: 1365px; top: 652px; width: 135px; height: 96px; padding: 12px 14px;">
+        <span class="font-bold text-[12px] text-slate-800 leading-snug">The Water Trap</span>
+        <span class="text-[10.5px] text-slate-500 mt-1.5 leading-snug">Sediment clogs water recycler filter</span>
+      </div>
+
+      <!-- M5 Options -->
+      <div class="flow-node" style="left: 1110px; top: 535px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option A: Stored Potable <span class="heart-icon">🩵</span></span>
+        <div class="text-[11px] font-semibold text-emerald-600 mt-1.5 tracking-wide leading-snug">
+          ⚡ Water -10 (-50 kg), Equip +3%<br><span class="text-[9.5px] text-slate-500 font-normal">Filters rest & recover; 50 kg used</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 1110px; top: 657px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option B: Melt Crater Ice</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Water +10 (+50 kg), Power -15 kWh, Equip -5%<br><span class="text-[9.5px] text-slate-500 font-normal">Melt ~80 kg ice; heavy power/wear</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 1110px; top: 779px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800">Option C: Drink Priority</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Water -3, Greenhouse -10<br><span class="text-[9.5px] text-slate-500 font-normal">Crew hydration safe; crops starved</span>
+        </div>
+      </div>
+
+      <!-- Gate 5 -->
+      <div class="flow-node gate-card" style="left: 905px; top: 624px; width: 150px; height: 152px;">
+        <span class="font-bold text-[11.5px] text-amber-800 flex items-center justify-center gap-1 mb-2 pb-1 border-b border-amber-200">
+          <span>⚠️</span> FAILURE GATE 5
+        </span>
+        <div class="text-[10px] text-slate-600 text-left font-mono space-y-1 leading-snug pl-1 whitespace-nowrap">
+          <div>• O₂ ≥ 20%</div>
+          <div>• Water ≥ 20%</div>
+          <div>• LSI ≥ 50%</div>
+          <div>• Health ≥ 500 mSv</div>
+          <div>• Power > 0%</div>
+          <div>• Equip ≥ 50%</div>
+        </div>
+      </div>
+      <div class="flow-node fail-card" style="left: 905px; top: 860px; width: 150px; height: 62px;">
+        <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-700">CRITICAL FAILURE</span>
+        <span class="text-[11px] font-bold text-rose-900 mt-0.5 leading-tight">Dehydration Fatal</span>
+      </div>
+
+      <!-- M6 Event -->
+      <div class="stage-label" style="left: 715px; top: 595px; width: 135px;">
+        <span class="time-badge">16:00 UTC</span><br>
+        <span class="text-[11px] text-slate-700 font-bold uppercase tracking-wider">MISSION 6</span>
+      </div>
+      <div class="flow-node" id="node-m6" style="left: 715px; top: 652px; width: 135px; height: 96px; padding: 12px 14px;">
+        <span class="font-bold text-[12px] text-slate-800 leading-snug">The Last Harvest</span>
+        <span class="text-[10.5px] text-slate-500 mt-1.5 leading-snug">Greenhouse bioloop falters</span>
+      </div>
+
+      <!-- M6 Options -->
+      <div class="flow-node" style="left: 460px; top: 585px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option A: Restore Loop <span class="heart-icon">🩵</span></span>
+        <div class="text-[11px] font-semibold text-emerald-600 mt-1.5 tracking-wide leading-snug">
+          ⚡ Water -6, Power -12 kWh, Food +6, Green +10<br><span class="text-[9.5px] text-slate-500 font-normal">Crops recover; next harvest saved</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 460px; top: 730px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800">Option B: Abandon Crops</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power +8 kWh, Food -8, Green -35<br><span class="text-[9.5px] text-slate-500 font-normal">Frees night power; crops die</span>
+        </div>
+      </div>
+
+      <!-- Gate 6 -->
+      <div class="flow-node gate-card" style="left: 255px; top: 624px; width: 150px; height: 152px;">
+        <span class="font-bold text-[11.5px] text-amber-800 flex items-center justify-center gap-1 mb-2 pb-1 border-b border-amber-200">
+          <span>⚠️</span> FAILURE GATE 6
+        </span>
+        <div class="text-[10px] text-slate-600 text-left font-mono space-y-1 leading-snug pl-1 whitespace-nowrap">
+          <div>• O₂ ≥ 20%</div>
+          <div>• Water ≥ 20%</div>
+          <div>• LSI ≥ 50%</div>
+          <div>• Health ≥ 500 mSv</div>
+          <div>• Power > 0%</div>
+          <div>• Equip ≥ 50%</div>
+        </div>
+      </div>
+      <div class="flow-node fail-card" style="left: 255px; top: 860px; width: 150px; height: 62px;">
+        <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-700">CRITICAL FAILURE</span>
+        <span class="text-[11px] font-bold text-rose-900 mt-0.5 leading-tight">Food Chain Lost</span>
+      </div>
+
+
+      <!-- =================================================================== -->
+      <!-- ==================== ROW 3: MISSIONS 7 - 8 ======================== -->
+      <!-- =================================================================== -->
+
+      <!-- M7 Event -->
+      <div class="stage-label" style="left: 255px; top: 1095px; width: 135px;">
+        <span class="time-badge">20:00 UTC</span><br>
+        <span class="text-[11px] text-slate-700 font-bold uppercase tracking-wider">MISSION 7</span>
+      </div>
+      <div class="flow-node" id="node-m7" style="left: 255px; top: 1152px; width: 135px; height: 96px; padding: 12px 14px;">
+        <span class="font-bold text-[12px] text-slate-800 leading-snug">The Critical Failure</span>
+        <span class="text-[10.5px] text-slate-500 mt-1.5 leading-snug">Arc fault ruptures Module 4 bus</span>
+      </div>
+
+      <!-- M7 Options -->
+      <div class="flow-node" style="left: 450px; top: 1035px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option A: Isolate Bus</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power -3 kWh, Equip -12%<br><span class="text-[9.5px] text-slate-500 font-normal">Fast containment; Module 4 offline</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 450px; top: 1157px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800 flex items-center justify-center gap-1">Option B: Manual Repair <span class="heart-icon">🩵</span></span>
+        <div class="text-[11px] font-semibold text-emerald-600 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power -10 kWh, Health -40 mSv, Equip +10%<br><span class="text-[9.5px] text-slate-500 font-normal">Junction fixed (+10); smoke/radiation</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 450px; top: 1279px; width: 195px; min-height: 86px; padding: 14px 16px;">
+        <span class="font-bold text-[12.5px] text-slate-800">Option C: Reroute Bus</span>
+        <div class="text-[11px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power -8 kWh, Equip -3%, Green -8<br><span class="text-[9.5px] text-slate-500 font-normal">Overloads lines; greenhouse cut</span>
+        </div>
+      </div>
+
+      <!-- Gate 7 -->
+      <div class="flow-node gate-card" style="left: 700px; top: 1124px; width: 150px; height: 152px;">
+        <span class="font-bold text-[11.5px] text-amber-800 flex items-center justify-center gap-1 mb-2 pb-1 border-b border-amber-200">
+          <span>⚠️</span> FAILURE GATE 7
+        </span>
+        <div class="text-[10px] text-slate-600 text-left font-mono space-y-1 leading-snug pl-1 whitespace-nowrap">
+          <div>• O₂ ≥ 20%</div>
+          <div>• Water ≥ 20%</div>
+          <div>• LSI ≥ 50%</div>
+          <div>• Health ≥ 500 mSv</div>
+          <div>• Power > 0%</div>
+          <div>• Equip ≥ 50%</div>
+        </div>
+      </div>
+      <div class="flow-node fail-card" style="left: 700px; top: 1360px; width: 150px; height: 62px;">
+        <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-700">CRITICAL FAILURE</span>
+        <span class="text-[11px] font-bold text-rose-900 mt-0.5 leading-tight">Bus Explosion</span>
+      </div>
+
+      <!-- M8 Event -->
+      <div class="stage-label" style="left: 905px; top: 1095px; width: 135px;">
+        <span class="time-badge">00:00 UTC</span><br>
+        <span class="text-[11px] text-slate-700 font-bold uppercase tracking-wider">MISSION 8 (FINALE)</span>
+      </div>
+      <div class="flow-node" id="node-m8" style="left: 905px; top: 1152px; width: 135px; height: 96px; padding: 12px 14px;">
+        <span class="font-bold text-[12px] text-slate-800 leading-snug">The Final Decision</span>
+        <span class="text-[10.5px] text-slate-500 mt-1.5 leading-snug">Storm passes Shackleton Outpost</span>
+      </div>
+
+      <!-- M8 Options -->
+      <div class="flow-node" style="left: 1090px; top: 1075px; width: 220px; min-height: 96px; padding: 12px 14px; justify-content: center;">
+        <span class="font-bold text-[12px] text-slate-800 flex items-center justify-center gap-1">Option A: Hold Shelter</span>
+        <div class="text-[10.5px] font-semibold text-rose-500 mt-1.5 tracking-wide leading-snug">
+          ⚡ Water -2 (-10 kg), Power -6 kWh,<br>Health +30 mSv<br><span class="text-[9.5px] text-slate-500 font-normal">Crew rests safe from tail radiation</span>
+        </div>
+      </div>
+      <div class="flow-node" style="left: 1090px; top: 1225px; width: 220px; min-height: 96px; padding: 12px 14px; justify-content: center;">
+        <span class="font-bold text-[12px] text-slate-800 flex items-center justify-center gap-1">Option B: Controlled Recovery <span class="heart-icon">🩵</span></span>
+        <div class="text-[10.5px] font-semibold text-emerald-600 mt-1.5 tracking-wide leading-snug">
+          ⚡ Power +15 kWh, Health -50 mSv,<br>Equip +6%<br><span class="text-[9.5px] text-slate-500 font-normal">Inverters reset early; solar returns</span>
+        </div>
+      </div>
+
+      <!-- FINAL SCORE -->
+      <div class="flow-node filled-card" id="node-score" style="left: 1355px; top: 1115px; width: 215px; min-height: 170px; padding: 16px 14px; justify-content: flex-start;">
+        <span class="font-extrabold text-[12px] text-sky-950 uppercase tracking-wide">FINAL RESILIENCE SCORE</span>
+        <span class="text-[10px] text-sky-800 font-semibold mt-1">Average of 7 Key Stats</span>
+        <div class="text-[9.5px] text-slate-700 font-mono my-2 bg-sky-50 px-2.5 py-1.5 rounded border border-sky-200/80 text-center leading-relaxed w-full">
+          J = (O₂ + H₂O + PWR +<br>FOOD + HLTH + EQP +<br>GREEN) / 7
+        </div>
+        <span class="text-[9px] text-slate-500 font-mono mt-auto pt-1 border-t border-sky-100 w-full text-center">Equation 4: Direct Flight Model</span>
+      </div>
+
+      <!-- STAR RATINGS -->
+      <div class="flow-node star-card" id="node-3star" style="left: 1640px; top: 1005px; width: 270px; min-height: 85px; padding: 12px 18px; justify-content: center;">
+        <div class="text-xs font-bold text-amber-900">⭐⭐⭐ 3 STARS (Accomplished)</div>
+        <div class="text-[11px] font-bold text-amber-800 mt-1">Score ≥ 66.0 (10.4% of paths)</div>
+        <div class="text-[10px] text-amber-700 font-mono mt-1 whitespace-nowrap">Best: 68.9 (B-B-B-B-A-A-B-B)</div>
+      </div>
+      <div class="flow-node" id="node-2star" style="left: 1640px; top: 1105px; width: 270px; min-height: 85px; border-color: #0284c7; background: #f0f9ff; padding: 12px 18px; justify-content: center;">
+        <div class="text-xs font-bold text-sky-900">⭐⭐ 2 STARS (Resilient)</div>
+        <div class="text-[11px] font-bold text-sky-800 mt-1">Score ≥ 60.0 (49.6% of paths)</div>
+        <div class="text-[10px] text-sky-600 font-mono mt-1 whitespace-nowrap">e.g. 62.7 (A-C-C-A-A-A-A-A)</div>
+      </div>
+      <div class="flow-node" id="node-1star" style="left: 1640px; top: 1205px; width: 270px; min-height: 85px; border-color: #64748b; background: #f8fafc; padding: 12px 18px; justify-content: center;">
+        <div class="text-xs font-bold text-slate-800">⭐ 1 STAR (Marginal)</div>
+        <div class="text-[11px] font-bold text-slate-700 mt-1">Score ≥ 50.0 (19.3% of paths)</div>
+        <div class="text-[10px] text-slate-500 font-mono mt-1 whitespace-nowrap">e.g. 58.6 (B-B-A-B-A-B-A-A)</div>
+      </div>
+      <div class="flow-node fail-card" id="node-fail" style="left: 1640px; top: 1305px; width: 270px; min-height: 85px; padding: 12px 18px; justify-content: center;">
+        <div class="text-xs font-extrabold text-rose-800 flex items-center justify-center gap-1">
+          <span>❌</span> CRITICAL COLLAPSE
+        </div>
+        <div class="text-[11px] font-bold text-rose-700 mt-1">Score &lt; 50.0 OR Gate Breached (20.7%)</div>
+        <div class="text-[10px] text-rose-600 font-mono mt-1">Health breaches gate in most failures</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentZoom = 1;
+    let showGrid = true;
+    const viewport = document.getElementById('viewport');
+    const leftSidebar = document.getElementById('leftSidebar');
+    const reopenTab = document.getElementById('reopenSidebarTab');
+
+    function zoom(delta) {
+      currentZoom = Math.min(Math.max(currentZoom + delta, 0.35), 2.0);
+      viewport.style.transform = `scale(${currentZoom})`;
+    }
+
+    function resetZoom() {
+      currentZoom = 1;
+      viewport.style.transform = `scale(1)`;
+    }
+
+    function toggleGrid() {
+      showGrid = !showGrid;
+      document.body.style.backgroundImage = showGrid 
+        ? 'radial-gradient(var(--dot-color) 1.5px, transparent 1.5px)' 
+        : 'none';
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function toggleSidebar() {
+      const isHidden = leftSidebar.classList.toggle('hidden-sidebar');
+      viewport.classList.toggle('full-width', isHidden);
+      reopenTab.classList.toggle('visible-tab', isHidden);
+    }
+
+    // Auto-scroll on load if requested
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('clean') === '1' || urlParams.get('sidebar') === '0') {
+      leftSidebar.classList.add('hidden-sidebar');
+      viewport.classList.add('full-width');
+      reopenTab.classList.add('visible-tab');
+    }
+    if (urlParams.get('row') === '3') {
+      window.scrollTo(1150, 1100);
+      document.documentElement.scrollLeft = 1150;
+      document.documentElement.scrollTop = 1100;
+    }
+
+    function scrollToCoords(x, y) {
+      window.scrollTo({
+        left: x,
+        top: y,
+        behavior: 'smooth'
+      });
+    }
+
+    // Hotkeys
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'h' || e.key === 'H') {
+        toggleSidebar();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        toggleFlowTour();
+      }
+    });
+
+    // =========================================================================
+    // 🎥 AUTOMATIC FLOW RECORDER CAM (Follows S-Curve Flow)
+    // =========================================================================
+    let isTourRunning = false;
+    let tourStep = 0;
+    let tourSpeedMultiplier = 1.0;
+    let tourTimeoutId = null;
+
+    const TOUR_WAYPOINTS = [
+      { x: 0, y: 50, duration: 2400, label: "START // Artemis Base Camp", focusId: "node-start" },
+      { x: 200, y: 60, duration: 2200, label: "M1 // 30-Minute Warning", focusId: "node-m1" },
+      { x: 800, y: 60, duration: 2500, label: "M2 // The Shelter Problem", focusId: "node-m2" },
+      { x: 1450, y: 60, duration: 2500, label: "M3 // Blackout (Solar Array Offline)", focusId: "node-m3" },
+      { x: 1750, y: 550, duration: 2400, label: "M4 // Oxygen Countdown (ISRU Split)", focusId: "node-m4" },
+      { x: 1100, y: 550, duration: 2500, label: "M5 // The Water Trap (Crater Ice)", focusId: "node-m5" },
+      { x: 450, y: 550, duration: 2500, label: "M6 // The Last Harvest (Bioloop)", focusId: "node-m6" },
+      { x: 100, y: 1050, duration: 2500, label: "M7 // The Critical Failure (Module Bus)", focusId: "node-m7" },
+      { x: 750, y: 1050, duration: 2400, label: "M8 // The Final Decision (Hold / Reset)", focusId: "node-m8" },
+      { x: 1200, y: 1050, duration: 2400, label: "FINAL SCORE // 7 Stat Average", focusId: "node-score" },
+      { x: 1550, y: 1050, duration: 3400, label: "STAR RESULTS // 3★, 2★, 1★ & Fail", focusId: "node-3star" }
+    ];
+
+    function setTourSpeed(mult) {
+      tourSpeedMultiplier = mult;
+      ['spdSlow', 'spdNorm', 'spdFast'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+          btn.className = "px-2 py-0.5 rounded bg-white text-slate-700 border border-slate-200 hover:bg-slate-100";
+        }
+      });
+      const activeId = mult < 0.8 ? 'spdSlow' : (mult > 1.2 ? 'spdFast' : 'spdNorm');
+      const activeBtn = document.getElementById(activeId);
+      if (activeBtn) {
+        activeBtn.className = "px-2 py-0.5 rounded bg-sky-600 text-white font-bold border border-sky-600";
+      }
+    }
+
+    function toggleFlowTour() {
+      if (isTourRunning) {
+        stopFlowTour();
+      } else {
+        startFlowTour();
+      }
+    }
+
+    function startFlowTour() {
+      isTourRunning = true;
+      tourStep = 0;
+      document.getElementById('tourBtnIcon').textContent = "⏹";
+      document.getElementById('tourBtnLabel').textContent = "Stop Tour";
+      document.getElementById('tourStatusBadge').textContent = "RECORDING";
+      document.getElementById('tourStatusBadge').className = "text-[9px] font-mono font-bold bg-rose-500 text-white px-1.5 py-0.5 rounded animate-pulse";
+      runNextTourStep();
+    }
+
+    function stopFlowTour() {
+      isTourRunning = false;
+      if (tourTimeoutId) clearTimeout(tourTimeoutId);
+      document.getElementById('tourBtnIcon').textContent = "▶";
+      document.getElementById('tourBtnLabel').textContent = "Start Flow Tour";
+      document.getElementById('tourStatusBadge').textContent = "IDLE";
+      document.getElementById('tourStatusBadge').className = "text-[9px] font-mono font-bold bg-white text-slate-600 px-1.5 py-0.5 rounded border border-slate-200";
+      // Clear any focused node
+      document.querySelectorAll('.tour-focus').forEach(el => el.classList.remove('tour-focus'));
+    }
+
+    function runNextTourStep() {
+      if (!isTourRunning) return;
+      if (tourStep >= TOUR_WAYPOINTS.length) {
+        stopFlowTour();
+        return;
+      }
+
+      const wp = TOUR_WAYPOINTS[tourStep];
+      // Highlight focused element if any
+      document.querySelectorAll('.tour-focus').forEach(el => el.classList.remove('tour-focus'));
+      if (wp.focusId) {
+        const node = document.getElementById(wp.focusId);
+        if (node) node.classList.add('tour-focus');
+      }
+
+      scrollToCoords(wp.x, wp.y);
+
+      const delay = Math.round(wp.duration / tourSpeedMultiplier);
+      tourStep++;
+      tourTimeoutId = setTimeout(runNextTourStep, delay);
+    }
+
+    // =========================================================================
+    // Interactive Drag to Pan
+    // =========================================================================
+    let isPanning = false;
+    let startX = 0, startY = 0;
+    let scrollLeft = 0, scrollTop = 0;
+
+    window.addEventListener('mousedown', (e) => {
+      if (e.target.closest('#leftSidebar') || e.target.closest('#reopenSidebarTab') || e.target.closest('.flow-node')) return;
+      isPanning = true;
+      document.body.style.cursor = 'grabbing';
+      startX = e.pageX - document.documentElement.scrollLeft;
+      startY = e.pageY - document.documentElement.scrollTop;
+      scrollLeft = document.documentElement.scrollLeft;
+      scrollTop = document.documentElement.scrollTop;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isPanning) return;
+      e.preventDefault();
+      const x = e.pageX - document.documentElement.scrollLeft;
+      const y = e.pageY - document.documentElement.scrollTop;
+      const walkX = (x - startX);
+      const walkY = (y - startY);
+      window.scrollTo(scrollLeft - walkX, scrollTop - walkY);
+    });
+
+    window.addEventListener('mouseup', () => {
+      isPanning = false;
+      document.body.style.cursor = 'default';
+    });
+  </script>
+</body>
+</html>

@@ -12294,6 +12294,7 @@
     // Auto-open Mission Dossier on first entrance
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
+        if (new URLSearchParams(window.location.search).get('nodossier') === '1') return;
         if (typeof openMissionDossierModal === 'function') {
           openMissionDossierModal('briefing');
         }
@@ -12694,6 +12695,9 @@
       }
       if (urlParams.get('openClock') === '1') {
         openCrisisClockModal();
+      }
+      if (urlParams.get('nodossier') === '1' || urlParams.get('hud') === '1') {
+        setTimeout(closeMissionDossierModal, 50);
       }
       if (urlParams.get('star') === '3') {
         outpostResources = { O2: 80, Water: 48, Power: 27, Food: 96, Health: 50, Equip: 91, Greenhouse: 90 };

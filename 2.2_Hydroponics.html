@@ -2349,6 +2349,13 @@
     let entryTransitionDone = false;
 
     function initEntryTransition() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('skipIntro') === 'true' || urlParams.has('scene')) {
+        const trans = document.getElementById("entryTransition");
+        if (trans) trans.classList.add("dismissed");
+        entryTransitionDone = true;
+        return;
+      }
       const trans = document.getElementById("entryTransition");
       if (!trans) return;
       entryTransitionDone = false;

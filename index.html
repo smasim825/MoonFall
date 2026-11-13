@@ -22,6 +22,9 @@
     (function () {
       try {
         const params = new URLSearchParams(window.location.search);
+        if (params.get('ready') === '1') {
+          showTapStartScreen(true);
+        }
         if (params.get('intro') === 'true') {
           sessionStorage.removeItem('moonfall_landed');
           return;
@@ -9394,13 +9397,22 @@
     let missionStarted = false;
     let isMissionReady = false;
 
-    function showTapStartScreen() {
+    function showTapStartScreen(instant = false) {
       if (introDismissed || missionStarted || isMissionReady) return;
       isMissionReady = true;
 
       // In place of the loading bar, show the white glowing TAP TO START button!
       const cocLoadingContainer = document.getElementById('cocLoadingContainer');
       const tapStartContainer = document.getElementById('tapStartContainer');
+
+      if (instant) {
+        if (cocLoadingContainer) cocLoadingContainer.style.display = 'none';
+        if (tapStartContainer) {
+          tapStartContainer.classList.remove('hidden');
+          tapStartContainer.classList.add('active');
+        }
+        return;
+      }
 
       if (cocLoadingContainer) {
         cocLoadingContainer.style.transition = 'opacity 0.3s ease';
@@ -9507,6 +9519,9 @@
       let isReturn = false;
       try {
         const params = new URLSearchParams(window.location.search);
+        if (params.get('ready') === '1') {
+          showTapStartScreen(true);
+        }
         if (params.get('intro') === 'true') {
           sessionStorage.removeItem('moonfall_landed');
           sessionStorage.removeItem('moonfall_onboarded');

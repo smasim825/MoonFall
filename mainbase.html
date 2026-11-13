@@ -10917,6 +10917,18 @@
         else if (testParam === 'sec_water') { toggleResourceSidebar(true); setTimeout(() => filterSidebarSection('wateroxygen'), 150); }
         else if (testParam === 'sec_water_drill') { toggleResourceSidebar(true); setTimeout(() => { filterSidebarSection('wateroxygen'); const el = document.querySelector('img[src*="prime.jpeg"]'); if (el) el.scrollIntoView({ block: 'center' }); }, 300); }
         else if (testParam === 'sec_rad') { toggleResourceSidebar(true); setTimeout(() => filterSidebarSection('radiation'), 150); }
+        else if (testParam === 'astrobee') {
+          const tryOpenAb = () => {
+            if (window.AstroBee && typeof window.AstroBee.open === 'function') {
+              window.AstroBee.open();
+            } else {
+              const btn = document.querySelector('.ab-launch, #abLaunchBtn, button[title*="Astro"]');
+              if (btn) btn.click();
+              else setTimeout(tryOpenAb, 100);
+            }
+          };
+          setTimeout(tryOpenAb, 200);
+        }
 
         const zoomParam = new URLSearchParams(window.location.search).get('zoom');
         if (zoomParam) {
